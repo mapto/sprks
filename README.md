@@ -1,2 +1,2 @@
-sprks
-=====
+Security Policy Risk Simulator (sprks)
+======================================
