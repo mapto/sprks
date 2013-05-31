@@ -8,7 +8,7 @@ urls = (
 
 class index:
 
-    def func(x):
+    def func(self, x):
         return x + 1
 
     def GET(self):
