@@ -1,0 +1,211 @@
+<!Doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Password policy</title>
+<!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<header>
+</header>
+
+<section>
+
+
+<form name="input" method="post" action="http://localhost:8080/add">
+<p>
+<label class="qn id"><b>ID:</b></label> 
+	<input type="text" name="id" id = "pswdid" placeholder="ID">
+</p>
+<p>
+<label class="qn plen"><b>Password length:</b></label>         
+			<br/><br/>
+		  <input type = "radio"
+                 name = "plen"
+                 id = "len0"
+                 value = "0"
+                 checked = "checked" />
+          <label for = "len0">none</label>
+			<br/>
+          <input type = "radio"
+                 name = "plen"
+                 id = "len6"
+                 value = "6" />
+          <label for = "len6">minimum 6 charachters</label>
+			<br/>
+           <input type = "radio"
+                 name = "plen"
+                 id = "len8"
+                 value = "8" />
+          <label for = "len8">minimum 8 charachters</label>
+			<br/>
+			 <input type = "radio"
+                 name = "plen"
+                 id = "len10"
+                 value = "10" />
+          <label for = "len10">minimum 10 charachters</label>
+			<br/>
+			 <input type = "radio"
+                 name = "plen"
+                 id = "len12"
+                 value = "12" />
+          <label for = "len12">minimum 12 charachters</label>
+			<br/>
+</p>
+<p>
+<label class="qn psets"><b>Sets of charachters used in password:</b></label>         
+			<br/><br/>
+		  <input type = "radio"
+                 name = "psets"
+                 id = "sets1"
+                 value = "1"
+                 checked = "checked" />
+          <label for = "sets1">any</label>
+			<br/>
+          <input type = "radio"
+                 name = "psets"
+                 id = "sets2"
+                 value = "2" />
+          <label for = "sets2">at least 2</label>
+			<br/>
+          <input type = "radio"
+                 name = "psets"
+                 id = "sets3"
+                 value = "3" />
+          <label for = "sets2">at least 3</label>
+			<br/>
+			  <input type = "radio"
+                 name = "psets"
+                 id = "sets4"
+                 value = "4" />
+          <label for = "sets4">at least 4</label>
+			<br/>
+</p>
+<p>
+             <input type = "checkbox"
+					name = "pdic"
+					id = "dic"
+					value = "1" />
+             <label for = "pdic"><b>Use dictionary check</b></label>
+</p>
+<p>
+		<label class="qn psim"><b>Similarity check:</b></label>         
+			<br/><br/>
+		  <input type = "radio"
+                 name = "psim"
+                 id = "sim1"
+                 value = "none"
+                 checked = "checked" />
+          <label for = "sim1">none</label>
+			<br/>
+          <input type = "radio"
+                 name = "psim"
+                 id = "sim2"
+                 value = "min" />
+          <label for = "sim2">minimum check (1 password back check, no similarity check) </label>
+			<br/>
+          <input type = "radio"
+                 name = "psim"
+                 id = "sim3"
+                 value = "strict" />
+          <label for = "sim3">strict check (2 passwords back check, l-distance = 2) </label>
+			<br/>
+			  <input type = "radio"
+                 name = "psim"
+                 id = "sim4"
+                 value = "4" />
+          <label for = "sim4">extreme check (4 passwords back check, l-distance = 5)</label>
+			<br/><br/>
+		* l-distance: how many letters are needed to be changet to obtain the same password
+</p>
+<p>
+<label class="qn prenew"><b>Password renewal period:</b></label>         
+			<br/><br/>
+		  <input type = "radio"
+                 name = "prenew"
+                 id = "renew1"
+                 value = "never"
+                 checked = "checked" />
+          <label for = "renew1">never renew the password</label>
+			<br/>
+          <input type = "radio"
+                 name = "prenew"
+                 id = "renew2"
+                 value = "annual" />
+          <label for = "renew2">annual renewal</label>
+			<br/>
+          <input type = "radio"
+                 name = "prenew"
+                 id = "renew3"
+                 value = "quarterly" />
+          <label for = "renew3">renew quarterly</label>
+			<br/>
+			  <input type = "radio"
+                 name = "prenew"
+                 id = "renew4"
+                 value = "monthly" />
+          <label for = "renew4">renew monthly</label>
+			<br/>
+</p>
+<p>           
+             <input type = "checkbox"
+					name = "pattempts"
+					id = "attempts"
+					value = "1" />
+             <label for = "pattempts"><b>Count password entering attempts</b></label>
+</p>
+<p>
+<label class="qn precovery"><b>Password recovery method:</b></label>         
+			<br/><br/>
+		  <input type = "radio"
+                 name = "precovery"
+                 id = "recovery1"
+                 value = "auto"
+                 checked = "checked" />
+          <label for = "recovery1">automated password recovery</label>
+			<br/>
+          <input type = "radio"
+                 name = "precovery"
+                 id = "recovery2"
+                 value = "manned" />
+          <label for = "recovery2">manual password recovery</label>
+			<br/>
+          
+</p>
+
+<input id="confirm" name="pconfirm" type="submit" value="Confirm" onclick="submitForm()">
+</form>
+</section>
+
+<aside>
+</aside>
+
+<footer> <div id="myDiv"> </div></footer>
+
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+$(document).ready(function(){ 
+	var json={};
+	
+	
+	
+	
+	/*
+	function submitForm()
+	{
+		var xmlhttp;
+		xmlhttp=new XMLHttpRequest();
+		
+		xmlhttp.open("POST","http://localhost:8080/add",true);
+		xmlhttp.send();
+	}
+	*/
+});
+</script>
+</body>
+
+</html>
