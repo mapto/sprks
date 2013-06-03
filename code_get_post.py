@@ -43,7 +43,7 @@ class add:
         pattempts = form.__getattr__("pattempts")
         precovery = form.__getattr__("precovery")
 
-        result='id='+id+' '+'plen='+plen+' '+'psets='+psets+' etc.'
+        result='id='+id+' '+'plen='+plen+' '+'psets='+psets+' '+'pdic='+pdic+' etc.'
         return result
 
 if __name__ == "__main__":
