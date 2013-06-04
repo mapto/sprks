@@ -12,4 +12,4 @@ class TestNumbers(unittest.TestCase):
 class TestPolicy(unittest.TestCase):
     def test_plen_prob(self):
         policy_test = policy_plen(8)
-        self.assertEqual(policy_test.get_risk_prob(8), .75)
+        self.assertEqual(policy_test.get_risk_prob(), .75)
