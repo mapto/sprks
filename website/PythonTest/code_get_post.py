@@ -28,7 +28,7 @@ class index:
         plen = '8'
         psets = '3'
         pdict = '0'
-        phist = '2'
+        phist = '1'
         prenew = '1'
         pattempts = '0'
         pautorecover = '1'
