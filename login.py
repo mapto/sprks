@@ -12,10 +12,11 @@ class login:
             form.Radio('radio', ['Radio', 'R']), )
         f = login()
         return f.render()
+
     def POST(self):
         i = web.input()
         db = web.database(dbn='mysql', user='root', pw='12345', db='sprks')
-        id = db.insert('sprks', plen=3, psets=3, pdict=1, psim='test', prenew='monthly', attempt=2, precovery='manned')
+        id = db.insert('pw_policy', plen=3, psets=3, pdict=1, psim='test', prenew='monthly', pattempts=2, precovery='manned')
         if id > 0:
             return 'OK'
 
