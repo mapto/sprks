@@ -1,4 +1,4 @@
-$def with (id, plen, psets, pdict, psim, prenew, pattempts, precovery) 
+$def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover) 
 <!Doctype html>
 <html lang="en">
 <head>
@@ -26,7 +26,7 @@ $def with (id, plen, psets, pdict, psim, prenew, pattempts, precovery)
 		<input type="text" name="id" id = "pswdid" placeholder="ID">
 </p>
 <p>
-<label class="qn plen"><b>Password length:</b></label>         
+<label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>         
 			<br/><br/>
 	
 		  <input type = "radio"
@@ -62,7 +62,7 @@ $def with (id, plen, psets, pdict, psim, prenew, pattempts, precovery)
 			<br/>
 </p>
 <p>
-<label class="qn psets"><b>Sets of charachters used in password:</b></label>         
+<label class="qn psets"><b>Number of symbol sets that must be used in password:</b></label>         
 			<br/><br/>
 		  <input type = "radio"
                  name = "psets"
@@ -96,64 +96,64 @@ $def with (id, plen, psets, pdict, psim, prenew, pattempts, precovery)
 					name = "pdict"
 					id = "dic"
 					value = "1" />
-             <label for = "pdic"><b>Use dictionary check</b></label>
+             <label for = "pdic"><b>Passwords are checked whether they match a dictionary</b></label>
 </p>
 <p>
-		<label class="qn psim"><b>Similarity check:</b></label>         
+		<label class="qn phist"><b>History check of password:</b></label>         
 			<br/><br/>
 		  <input type = "radio"
-                 name = "psim"
-                 id = "sim1"
-                 value = "none"
+                 name = "phist"
+                 id = "hist1"
+                 value = "0"
                  checked = "checked" />
-          <label for = "sim1">none</label>
+          <label for = "hist1">none</label>
 			<br/>
           <input type = "radio"
-                 name = "psim"
-                 id = "sim2"
-                 value = "simple" />
-          <label for = "sim2">simple check (1 password back check, no similarity check) </label>
+                 name = "phist"
+                 id = "hist2"
+                 value = "1" />
+          <label for = "hist2">minimum check (1 past password, exact match) </label>
 			<br/>
           <input type = "radio"
-                 name = "psim"
-                 id = "sim3"
-                 value = "strict" />
-          <label for = "sim3">strict check (2 passwords back check, l-distance = 2) </label>
+                 name = "phist"
+                 id = "hist3"
+                 value = "2" />
+          <label for = "hist3">strict check (2 past passwords, string distance of 2) </label>
 			<br/>
 			  <input type = "radio"
-                 name = "psim"
-                 id = "sim4"
-                 value = "extreme" />
-          <label for = "sim4">extreme check (4 passwords back check, l-distance = 5)</label>
+                 name = "phist"
+                 id = "hist4"
+                 value = "3" />
+          <label for = "hist4">extreme check (4 past passwords, string distance of 5)</label>
 			<br/><br/>
-		* l-distance: how many letters are needed to be changet to obtain the same password
+		* string distance: how many letters are needed to be changet to obtain the same password
 </p>
 <p>
-<label class="qn prenew"><b>Password renewal period:</b></label>         
+<label class="qn prenew"><b>When the system asks user to renew passwords:</b></label>         
 			<br/><br/>
 		  <input type = "radio"
                  name = "prenew"
                  id = "renew1"
-                 value = "never"
+                 value = "0"
                  checked = "checked" />
           <label for = "renew1">never renew the password</label>
 			<br/>
           <input type = "radio"
                  name = "prenew"
                  id = "renew2"
-                 value = "annual" />
+                 value = "1" />
           <label for = "renew2">annual renewal</label>
 			<br/>
           <input type = "radio"
                  name = "prenew"
                  id = "renew3"
-                 value = "quarterly" />
+                 value = "2" />
           <label for = "renew3">renew quarterly</label>
 			<br/>
 			  <input type = "radio"
                  name = "prenew"
                  id = "renew4"
-                 value = "monthly" />
+                 value = "3" />
           <label for = "renew4">renew monthly</label>
 			<br/>
 </p>
@@ -162,26 +162,18 @@ $def with (id, plen, psets, pdict, psim, prenew, pattempts, precovery)
 					name = "pattempts"
 					id = "attempts"
 					value = "1" />
-             <label for = "pattempts"><b>Count password entering attempts</b></label>
+             <label for = "pattempts"><b>Limit wrong password attempts</b></label>
 </p>
 <p>
-<label class="qn precovery"><b>Password recovery method:</b></label>         
-			<br/><br/>
-		  <input type = "radio"
-                 name = "precovery"
-                 id = "recovery1"
-                 value = "auto"
-                 checked = "checked" />
-          <label for = "recovery1">automated password recovery</label>
-			<br/>
-          <input type = "radio"
-                 name = "precovery"
-                 id = "recovery2"
-                 value = "manned" />
-          <label for = "recovery2">manual password recovery</label>
-			<br/>
-          
+<p>
+			<input type='hidden' value='0' name='pautorecover'> <!-- method for posting unchecked checkboxes-->
+            <input type = "checkbox"
+					name = "pautorecover"
+					id = "autorecover"
+					value = "1" />
+            <label for = "autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label>
 </p>
+
 
 <input id="confirm" name="pconfirm" type="submit" value="Confirm">
 </form>
@@ -239,9 +231,45 @@ jQuery(document).ready(function(){
 		jQuery("#dic").prop('checked', true);
 	}
 	
-	/*preset pswd similarity check NOT IMPLEMENTED*/
+	/*preset pswd history check
+	none: 0
+	simple: 1
+	strict: 2
+	extreme: 3
+	*/
+	if ($:phist==jQuery("#hist1").val()){
+		console.log("found phist none");
+		jQuery("#hist1").prop('checked', true);
+	}else if ($:phist==jQuery("#hist2").val()){
+		console.log("found phist simple");
+		jQuery("#hist2").prop('checked', true);
+	}else if ($:phist==jQuery("#hist3").val()){
+		console.log("found phist strict");
+		jQuery("#hist3").prop('checked', true);
+	}else if ($:phist==jQuery("#hist4").val()){
+		console.log("found phist extreme");
+		jQuery("#hist4").prop('checked', true);
+	}
 	
-	/*preset pswd renewal period check NOT IMPLEMENTED*/
+	/*preset pswd renewal period check
+	never: 0
+	annual: 1
+	quarterly: 2
+	monthly: 3
+	*/
+	if ($:prenew==jQuery("#renew1").val()){
+		console.log("found renew never");
+		jQuery("#renew1").prop('checked', true);
+	}else if ($:prenew==jQuery("#renew2").val()){
+		console.log("found renew annually");
+		jQuery("#renew2").prop('checked', true);
+	}else if ($:prenew==jQuery("#renew3").val()){
+		console.log("found renew quarterly");
+		jQuery("#renew3").prop('checked', true);
+	}else if ($:prenew==jQuery("#renew4").val()){
+		console.log("found renew monthly");
+		jQuery("#renew4").prop('checked', true);
+	}
 	
 	/*preset pswd attempts number check (yes/no)*/
 	if ($:pattempts==jQuery("#attempts").val()){
@@ -249,11 +277,11 @@ jQuery(document).ready(function(){
 		jQuery("#attempts").prop('checked', true);
 	}
 	
-	/*preset pswd recovery option NOT IMPLEMENTED*/
-	
-	
-	
-	
+	/*preset pswd recovery option*/
+	if ($:pautorecover==jQuery("#autorecover").val()){
+		console.log("found pautorecover");
+		jQuery("#autorecover").prop('checked', true);
+	}	
 });
 </script>
 
