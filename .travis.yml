@@ -4,6 +4,6 @@ python:
 install:
   - pip install -r test/requirements.txt --use-mirrors
 script:
-  - nosetests test/
+  - py.test test/
 notifications:
   email: false
