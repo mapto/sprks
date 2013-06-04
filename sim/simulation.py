@@ -27,9 +27,4 @@ class simulation:
     def calc_prod_cost(self):
         return self.dict['plen'].get_prod_cost() + self.dict['psets'].get_prod_cost()
 
-policy = simulation()
-policy.set_policy('plen', 8)
-policy.set_policy('psets', 3)
-print policy.calc_risk_prob()
-print policy.calc_prod_cost()
 
