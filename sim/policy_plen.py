@@ -4,15 +4,19 @@ __author__ = 'Horace'
 
 class policy_plen(policy_interface.policy_interface):
     def __init__(self):
-        self.__init__(3)
+        self.__init__(6) # default value for constructor with parameter
 
     def __init__(self, value):
+        """Sets the minimum password length
+
+        Parameter -- the minimum password length. 0 means disabled, i.e. allowing empty passwords
+        Default value is 6
+        """
         if value in [0, 6, 8, 10, 12]:
             self.param = value
         else:
             raise Exception('Wrong parameter type')
     def get_risk_prob(self):
-
         return {
             0: 1,
             6: .9,
