@@ -17,5 +17,7 @@ CREATE TABLE pw_policy (id VARCHAR(20), plen INT, psets INT, pdict BOOL, phist I
 INSERT INTO pw_policy VALUES('test', 8,3,False,2,1,False,True)
 /*****/
 
+run: http://localhost:8080/ in browser to test sys
+
 
 
