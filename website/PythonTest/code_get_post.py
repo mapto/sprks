@@ -39,29 +39,13 @@ class add:
     def POST(self):
         form = web.input()
 
-        id = form.__getattr__("id")
-        plen = form.__getattr__("plen")
-        psets = form.__getattr__("psets")
-        pdict = form.__getattr__("pdict")
-        psim = form.__getattr__("phist")
-        prenew = form.__getattr__("prenew")
-        pattempts = form.__getattr__("pattempts")
-        precovery = form.__getattr__("pautorecover")
+        result = db.insert('pw_policy', id = form.id, plen = form.plen,
+                           psets = form.pdict, pdict = form.pdict,
+                           phist = form.phist, prenew = form.prenew,
+                           pattempts = form.pattempts, pautorecover = form.pautorecover)
 
-        """n = db.insert('pw_policy', title=form.item)
-        raise web.seeother('/')
-        INSERT to DB needs to be implemented
-        """
-
-
-        result='id='+id+' '+'plen='+plen+' '+'psets='+psets+' '+'pdict='+pdict+' etc.'
-        return result
-
-
-
-
-
-
+        return render.index(form.id, form.plen, form.psets, form.pdict, form.phist,
+                            form.prenew, form.pattempts, form.pautorecover)
 if __name__ == "__main__":
     app = web.application(urls, globals())
     app.run()
