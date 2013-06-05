@@ -1,10 +1,12 @@
 import web
 import login
+import register
 import dummy_index
 
 urls = (
     '/', dummy_index.index,
-         '/login', login.login
+         '/login', login.login,
+        '/register', register.register
 )
 
 if __name__ == "__main__":
