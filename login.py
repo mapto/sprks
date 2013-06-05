@@ -1,6 +1,7 @@
 __author__ = 'zcabh_000'
 from web import form
 import web
+import hashlib
 render = web.template.render('C:/Users/zcabh_000/PycharmProjects/sprks/templates/')
 
 
@@ -17,11 +18,14 @@ class login:
 
     def POST(self):
         i = web.input()
+        usrname = i.username
+        password = hashlib.sha224(i.password).hexdigest()
         db = web.database(dbn='mysql', user='root', pw='12345', db='sprks')
-        id = db.insert('pw_policy', plen=i.plen, psets=i.psets, pdict=i.pdict, psim=i.psim, prenew=i.prenew,
-                       pattempts=i.pattempts, precovery=i.precovery)
-        if id > 0:
-            return render.test()
+        id_tmp = db.select('users', where="username=$usrname&&password=$password", vars=locals())
+        if len(id_tmp) > 0:
+            return render.secured_page(usrname)
+        else:
+            return render.login()
 
 
 
