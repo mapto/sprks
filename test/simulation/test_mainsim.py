@@ -6,21 +6,24 @@ from sim.simulation import *
 
 class TestMaxSec:
 
+    def setup_method(self, method):
+        self.policy = simulation()
+        self.policy.set_policy('plen', 12)
+        self.policy.set_policy('psets', 4)
+        self.policy.set_policy('pdict', 1)
+        self.policy.set_policy('phist', 1)
+        self.policy.set_policy('prenew', 3)
+        self.policy.set_policy('pattempts', 1)
+        self.policy.set_policy('pautorecover', 0)
+
     def test_calc_risk_prob(self):
-        policy = simulation()
-        policy.set_policy('plen', 8)
-        policy.set_policy('psets', 3)
-        assert policy.calc_risk_prob() == 0.375
+        assert self.policy.calc_risk_prob() == 0.375
 
     def test_calc_risk_impact(self):
-        policy = simulation()
-        assert policy.calc_risk_impact() == 1
+        assert self.policy.calc_risk_impact() == 1
 
     def test_calc_prod_cost(self):
-        policy = simulation()
-        policy.set_policy('plen', 8)
-        policy.set_policy('psets', 3)
-        assert policy.calc_prod_cost() == 7
+        assert self.policy.calc_prod_cost() == 7
 
 
 class TestMinSec:

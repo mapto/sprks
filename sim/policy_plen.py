@@ -15,7 +15,8 @@ class policy_plen(policy_interface.policy_interface):
         if value in [0, 6, 8, 10, 12]:
             self.param = value
         else:
-            raise Exception('Wrong parameter type')
+            raise Exception('Invalid policy parameter.')
+
     def get_risk_prob(self):
         return {
             0: 1,
