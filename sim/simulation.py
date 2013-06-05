@@ -24,8 +24,7 @@ class simulation:
         if not hasattr(self, 'dict'):
             # lazy initialization of policies dictionary
             self.dict = {}
-        constructor = self.load_policy(policy_name)
-        self.dict[policy_name] = constructor(policy_value)
+        self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
         return 0
 
     def load_policy(self, policy_name):
@@ -40,7 +39,8 @@ class simulation:
         else:
             # lazy class loading
             policy_module = __import__('sim.' + policy_id)
-            return getattr(policy_module, policy_id)
+            # weird hack... no idea why we need getattr twice...
+            return getattr(getattr(policy_module, policy_id), policy_id)
 
     def calc_risk_prob(self):
         return self.dict['plen'].get_risk_prob() * self.dict['psets'].get_risk_prob()

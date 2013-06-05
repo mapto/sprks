@@ -8,14 +8,14 @@ class policy_pautorecover(policy_interface.policy_interface):
         self.__init__(3)
 
     def __init__(self, value):
-        if type(value) == bool:
+        if value in [0, 1]:
             self.param = value
         else:
             raise Exception('Wrong parameter type')
 
     def get_risk_prob(self):
 
-        if self.param:
+        if self.param == 1:
             return .6
         else:
             return .2
@@ -25,7 +25,7 @@ class policy_pautorecover(policy_interface.policy_interface):
 
     def get_prod_cost(self):
 
-        if self.param:
+        if self.param == 1:
             return 1
         else:
             return 10
