@@ -18,8 +18,6 @@ class simulation:
 
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
-        # TODO parse policy parameters and dynamically create policy items
-        # TODO import all classes from all sim moduless
 
         if not hasattr(self, 'dict'):
             # lazy initialization of policies dictionary
@@ -43,10 +41,19 @@ class simulation:
             return getattr(getattr(policy_module, policy_id), policy_id)
 
     def calc_risk_prob(self):
-        return self.dict['plen'].get_risk_prob() * self.dict['psets'].get_risk_prob()
+        risk = 1
+        for policy in self.dict:
+            risk *= self.dict[policy].get_risk_prob()
+        return round(risk, 4)
 
     def calc_risk_impact(self):
-        return 1
+        impact = 1
+        for policy in self.dict:
+            impact *= self.dict[policy].get_risk_impact()
+        return round(impact, 4)
 
     def calc_prod_cost(self):
-        return self.dict['plen'].get_prod_cost() + self.dict['psets'].get_prod_cost()
+        cost = 0
+        for policy in self.dict:
+            cost += self.dict[policy].get_prod_cost()
+        return round(cost, 0)
