@@ -17,23 +17,12 @@ class index:
         return x + 1
 
     def GET(self):
-        """pw_Policy=db.select('pw_policy')
-        proper DB search needs to be implemented
-        """
-        results = db.query("SELECT * FROM pw_policy WHERE id LIKE 'test'")
-        finalresult=json.dumps(results[0])
-        """json translation to vars is needed"""
+        id_tmp='test'
+        result_get = db.select('pw_policy', where="id=$id_tmp", vars=locals())[0]
 
-        id = 'test'
-        plen = '8'
-        psets = '3'
-        pdict = '0'
-        phist = '1'
-        prenew = '1'
-        pattempts = '0'
-        pautorecover = '1'
-
-        return render.index(id, plen, psets, pdict, phist, prenew, pattempts, pautorecover)
+        return render.index(result_get.id, result_get.plen, result_get.psets,
+                            result_get.pdict, result_get.phist, result_get.prenew,
+                            result_get.pattempts, result_get.pautorecover)
 
 class add:
     def POST(self):
