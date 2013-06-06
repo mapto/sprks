@@ -1,4 +1,4 @@
-$def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover) 
+$def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound) 
 <!Doctype html>
 <html lang="en">
 <head>
@@ -21,8 +21,8 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover)
  
  /* override template bootstrap css */	  
 body {
-	padding-top: 80px;
-	padding-bottom: 80px;
+	padding-top: 60px;
+	padding-bottom: 100px;
 }
 
 .navbar-inner {
@@ -44,6 +44,21 @@ body {
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
 }
 
+.span12{
+	background-color: #F2F2F2;
+	padding: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+label {
+  display: inline;
+  margin-bottom: 5px;
+}
+
 </style>
 </head>
 <body>
@@ -51,11 +66,9 @@ body {
 <div class="navbar  navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-          header 
-		 <br/> header
-		 header 
-		 <br/> header
-		 header 
+		<h4>
+          Timeline 
+		</h4>
 		
 		
 		  
@@ -67,7 +80,7 @@ body {
 <section>
 <div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span9">
+			<div class="span12">
 			
 			
 
@@ -82,8 +95,7 @@ body {
 </p>
 <p>
 <label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>         
-			<br/><br/>
-	
+			<br/>
 		  <input type = "radio"
                  name = "plen"
                  id = "len0"
@@ -114,11 +126,11 @@ body {
                  id = "len12"
                  value = "12" />
           <label for = "len12">minimum 12 charachters</label>
-			<br/>
+			<br/><br/>
 </p>
 <p>
 <label class="qn psets"><b>Number of symbol sets that must be used in password:</b></label>         
-			<br/><br/>
+			<br/>
 		  <input type = "radio"
                  name = "psets"
                  id = "sets1"
@@ -143,7 +155,7 @@ body {
                  id = "sets4"
                  value = "4" />
           <label for = "sets4">at least 4</label>
-			<br/>
+			<br/><br/>
 </p>
 <p>
 			<input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
@@ -151,11 +163,11 @@ body {
 					name = "pdict"
 					id = "dic"
 					value = "1" />
-             <label for = "pdic"><b>Passwords are checked whether they match a dictionary</b></label>
+             <label for = "pdic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
 </p>
 <p>
 		<label class="qn phist"><b>History check of password:</b></label>         
-			<br/><br/>
+			<br/>
 		  <input type = "radio"
                  name = "phist"
                  id = "hist1"
@@ -181,11 +193,11 @@ body {
                  value = "3" />
           <label for = "hist4">extreme check (4 past passwords, string distance of 5)</label>
 			<br/><br/>
-		* string distance: how many letters are needed to be changed to obtain the same password
+		* string distance: how many letters are needed to be changed to obtain the same password<br/><br/>
 </p>
 <p>
 <label class="qn prenew"><b>When the system asks user to renew passwords:</b></label>         
-			<br/><br/>
+			<br/>
 		  <input type = "radio"
                  name = "prenew"
                  id = "renew1"
@@ -210,14 +222,14 @@ body {
                  id = "renew4"
                  value = "3" />
           <label for = "renew4">renew monthly</label>
-			<br/>
+			<br/><br/>
 </p>
 <p>          <input type='hidden' value='0' name='pattempts'> <!-- method for posting unchecked checkboxes--> 
              <input type = "checkbox"
 					name = "pattempts"
 					id = "attempts"
 					value = "1" />
-             <label for = "pattempts"><b>Limit wrong password attempts</b></label>
+             <label for = "pattempts"><b>Limit wrong password attempts</b></label><br/><br/>
 </p>
 <p>
 <p>
@@ -226,7 +238,7 @@ body {
 					name = "pautorecover"
 					id = "autorecover"
 					value = "1" />
-            <label for = "autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label>
+            <label for = "autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
 </p>
 
 
@@ -246,16 +258,12 @@ body {
 <div class="navbar navbar-fixed-bottom">
       <div class="navbar-inner">
         <div class="container-fluid">
-         footer 
-		 <br/> footer
-		 footer 
-		 <br/> footer
-		 footer 
-		 <br/> footer
-		 footer 
-		
-		  
-        </div>
+         <h4>
+		 risk probability   
+		 <br/> risk impact 
+		 <br/> productivity cost
+		 </h4>
+		</div>
       </div>
     </div>
 
@@ -265,7 +273,10 @@ body {
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script>
 /*wait until document is loaded*/
-jQuery(document).ready(function(){      
+jQuery(document).ready(function(){  
+	if($:notfound==1){
+		alert('ID not found, fields are reset to default')
+	}
 	/*ID is preset inside HTML code*/
 		console.log("found id $:id");
 		
@@ -300,12 +311,14 @@ jQuery(document).ready(function(){
 	}else if ($:psets==jQuery("#sets4").val()){
 		console.log("found sets 4");
 		jQuery("#sets4").prop('checked', true);
-	}
+	}else console.log('FOUND error psets=0')
 	
 	/*preset pswd dictionary value*/
 	if ($:pdict==jQuery("#dic").val()){
 		console.log("found use dict");
 		jQuery("#dic").prop('checked', true);
+	}else{
+		console.log('pdict:no')
 	}
 	
 	/*preset pswd history check
@@ -358,7 +371,9 @@ jQuery(document).ready(function(){
 	if ($:pautorecover==jQuery("#autorecover").val()){
 		console.log("found pautorecover");
 		jQuery("#autorecover").prop('checked', true);
-	}	
+	}else{
+		console.log('pautorecover:no')
+	}
 });
 </script>
 
