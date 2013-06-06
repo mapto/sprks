@@ -27,7 +27,7 @@ class index:
 class add:
     def POST(self):
         form = web.input()
-        
+
         result = db.insert('pw_policy', id=form.id, plen=form.plen,
                            psets=form.pdict, pdict=form.pdict,
                            phist=form.phist, prenew=form.prenew,
