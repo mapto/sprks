@@ -15,7 +15,8 @@ class index:
          presumes that database is already connected
         '''
 #       use this if table needs to be created
-        db.query('CREATE TABLE pw_policy(id INT, plen INT, psets INT, pdict BOOL, phist INT, prenew INT, pattempts BOOL, pautorecover BOOL);')
+        db.query('CREATE TABLE pw_policy(id INT NOT NULL PRIMARY KEY, plen INT, psets INT, pdict BOOL, phist INT, prenew INT, pattempts BOOL, pautorecover BOOL);')
+
 #       use this if table needs to be filled with values
         db.query("INSERT INTO pw_policy VALUES (1, 8, 3, 0, 1, 1, 0, 1);")
         db.query("INSERT INTO pw_policy VALUES (2, 8, 3, 0, 1, 1, 0, 1);")
@@ -31,7 +32,7 @@ class index:
 #       when using sqlite instead of mysql
 #       db = web.database(dbn='sqlite', db='sprks')
 
-#        self.populate(db) # use this line if database table needs to be created and populated
+        self.populate(db) # use this line if database table needs to be created and populated
 
         #use this variable to request any ID number
         id_tmp = 1

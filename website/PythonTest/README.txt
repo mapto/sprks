@@ -6,6 +6,7 @@ prenew: {0, 1, 2, 3} // when the system asks users to renew passwords: never, an
 pattempts: {1, 0} // is there a limit on wrong password attempts
 pautorecover: {1, 0} // are forgotten passwords restored automatically(1), or is there human support(0)
 
+id is made a PRIMARY key in the table
 
 ****run: create sprks DB, run "code_get_post.py" in any IDE, run "http://localhost:8080/" in browser (if needed uncomment lines creating and populating the table),
 **result: after checking if ID exists, all corresponding values for ID=1 will be preloaded by reading from DB through server
