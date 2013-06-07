@@ -32,7 +32,7 @@ class index:
 #       when using sqlite instead of mysql
 #       db = web.database(dbn='sqlite', db='sprks')
 
-        self.populate(db) # use this line if database table needs to be created and populated
+#        self.populate(db) # use this line if database table needs to be created and populated
 
         #use this variable to request any ID number
         id_tmp = 1
