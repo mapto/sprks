@@ -17,7 +17,7 @@ class index:
 
     def GET(self):
         # make sure that the following line stays as per your local installation
-        db = web.database(dbn='mysql', user='root', pw='12345', db='sprks')
+        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
 #       when using sqlite instead of mysql
 #        db = web.database(dbn='sqlite', db='sprks')
 

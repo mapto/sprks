@@ -1,24 +1,24 @@
 import web
-import register
+import pages.register
 import dummy_index
 import session
-import secured_page
-import secured_page2
-import login
-import pwrecovery
-import pwrequest
-import code_get_post
+import pages.secured_page
+import pages.secured_page2
+import pages.login
+import pages.pwrecovery
+import pages.pwrequest
+import pages.code_get_post
 
 urls = (
     '/', dummy_index.index,
-         '/login', login.login,
-        '/register', register.register,
-        '/secured_page', secured_page.secured_page,
-        '/secured_page2', secured_page2.secured_page,
-        '/pwrecovery/(.*)', pwrecovery.pwrecovery,
-        '/pwrecovery', pwrecovery.pwrecovery,
-        '/pwrequest', pwrequest.pwrequest,
-        '/pwpolicy', code_get_post.index
+         '/login', pages.login.login,
+        '/register', pages.register.register,
+        '/secured_page', pages.secured_page.secured_page,
+        '/secured_page2', pages.secured_page2.secured_page,
+        '/pwrecovery/(.*)', pages.pwrecovery.pwrecovery,
+        '/pwrecovery', pages.pwrecovery.pwrecovery,
+        '/pwrequest', pages.pwrequest.pwrequest,
+        '/pwpolicy', pages.code_get_post.index
 )
 
 if __name__ == "__main__":
