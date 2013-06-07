@@ -5,13 +5,18 @@ import session
 import secured_page
 import secured_page2
 import login
+import pwrecovery
+import pwrequest
 
 urls = (
     '/', dummy_index.index,
          '/login', login.login,
         '/register', register.register,
         '/secured_page', secured_page.secured_page,
-        '/secured_page2', secured_page2.secured_page
+        '/secured_page2', secured_page2.secured_page,
+        '/pwrecovery/(.*)', pwrecovery.pwrecovery,
+        '/pwrecovery', pwrecovery.pwrecovery,
+        '/pwrequest', pwrequest.pwrequest
 )
 
 if __name__ == "__main__":

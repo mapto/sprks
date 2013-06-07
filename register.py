@@ -1,7 +1,7 @@
 __author__ = 'zcabh_000'
 import web
 import hashlib
-import session
+
 
 render = web.template.render('C:/Users/zcabh_000/PycharmProjects/sprks/templates/')
 

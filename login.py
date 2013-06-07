@@ -1,5 +1,5 @@
 __author__ = 'zcabh_000'
-from web import form
+
 import web
 import hashlib
 import session
@@ -9,13 +9,6 @@ render = web.template.render('C:/Users/zcabh_000/PycharmProjects/sprks/templates
 
 class login:
     def GET(self):
-        #login = form.Form(
-         #   form.Textbox('username'),
-          #  form.Password('password'),
-           # form.Button('Login'),
-            #form.Radio('radio', ['Radio', 'R']), )
-       # f = login()
-        #return f.render()
         session.mysession.session.loggedin=False
         session.mysession.session.user='Anonimous'
         return render.login()
