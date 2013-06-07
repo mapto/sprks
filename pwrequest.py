@@ -13,7 +13,7 @@ class pwrequest:
 
     def POST(self):
         username = web.input().Username
-        db = web.database(dbn='mysql', user='root', pw='12345', db='sprks')
+        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
         id_tmp = db.select('users', where="username=$username", vars=locals())
         if len(id_tmp) > 0:
             emailaddr = id_tmp[0].email

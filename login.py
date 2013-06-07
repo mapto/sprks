@@ -17,12 +17,13 @@ class login:
         i = web.input()
         usrname = i.username
         password = hashlib.sha224(i.password).hexdigest()
-        db = web.database(dbn='mysql', user='root', pw='12345', db='sprks')
+        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
         id_tmp = db.select('users', where="username=$usrname&&password=$password", vars=locals())
         if len(id_tmp) > 0:
             session.mysession.session.loggedin=True
             session.mysession.session.user=usrname
-            raise web.seeother('/secured_page')
+            session.mysession.session.id=id_tmp[0].Id
+            raise web.seeother('/pwpolicy')
         else:
             return render.login()
 

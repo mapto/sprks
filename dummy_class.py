@@ -7,6 +7,7 @@ import secured_page2
 import login
 import pwrecovery
 import pwrequest
+import code_get_post
 
 urls = (
     '/', dummy_index.index,
@@ -16,13 +17,14 @@ urls = (
         '/secured_page2', secured_page2.secured_page,
         '/pwrecovery/(.*)', pwrecovery.pwrecovery,
         '/pwrecovery', pwrecovery.pwrecovery,
-        '/pwrequest', pwrequest.pwrequest
+        '/pwrequest', pwrequest.pwrequest,
+        '/pwpolicy', code_get_post.index
 )
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
     if web.config.get('_session') is None:
-        session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False})
+        session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0})
         web.config._session = session
     else:
         session.mysession.session = web.config._session
