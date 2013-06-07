@@ -12,7 +12,7 @@
  /* override template bootstrap css */	  
 body {
 	padding-top: 60px;
-	padding-bottom: 100px;
+	padding-bottom: 60px;
 }
 
 .navbar-inner {
@@ -37,7 +37,10 @@ body {
 .span12{
 	background-color: #F2F2F2;
 	padding: 15px;
+	padding-left: 100px; /*if cavas is used*/
+	padding-right: 100px;
 }
+
 
 label {
   display: block;
@@ -49,3 +52,21 @@ label {
   margin-bottom: 5px;
 }
 
+.timeline{
+	min-width: 150px;
+	min-height:80px;
+	background-color: #C10000;
+	background-image: -moz-linear-gradient(top, #C10000, #750000);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#C10000), to(#750000));
+	background-image: -webkit-linear-gradient(top, #C10000, #750000);
+	background-image: -o-linear-gradient(top, #C10000, #750000);
+	background-image: linear-gradient(to bottom, #C10000, #750000);
+	background-repeat: repeat-x;
+	border: 1px solid #d4d4d4;
+	float: right;
+	
+	margin-right: 20px;
+	margin-top:20px;
+	padding: 5px;
+	text-align:right;
+}
