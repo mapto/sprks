@@ -2,7 +2,7 @@ __author__ = 'zcabh_000'
 import session
 import web
 
-render = web.template.render('C:/Users/zcabh_000/PycharmProjects/sprks/templates/')
+render = web.template.render('templates/')
 
 
 class secured_page:

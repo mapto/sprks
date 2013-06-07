@@ -4,7 +4,7 @@ import web
 import hashlib
 import os
 
-render = web.template.render('C:/Users/zcabh_000/PycharmProjects/sprks/templates/')
+render = web.template.render('templates/')
 
 
 class pwrequest:

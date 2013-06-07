@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+    <title></title>
+    <link href="http://berjon.com/blog/2009/07/force-svg.html" rel="force-svg">
+    <script type="application/javascript">(function ()
+{
+  function ForceSVGInHTML()
+  {
+    window.removeEventListener("load", ForceSVGInHTML, true);
+    var svgs = document.getElementsByTagName("svg");
+    for (var i = 0; i < svgs.length; i++) {
+      var svg = svgs[i];
+      var div = document.createElement("div");
+      div.appendChild(svg.cloneNode(true));
+      var dom = (new DOMParser()).parseFromString(div.innerHTML, "application/xml");
+      svg.parentNode.replaceChild(document.importNode(dom.documentElement, true), svg);
+    }
+  }
+  window.addEventListener("load", ForceSVGInHTML, true);
+})();</script>
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" height="200" width="400">
+      <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+      <g>
+        <title>Layer 1</title>
+        <rect id="svg_7" height="29.999998" width="127.00001" y="454" x="197.000005"
+
+          stroke-linecap="null" stroke-linejoin="null" stroke-width="5" stroke="#000000"
+
+          fill="#FF0000"></rect>
+        <text transform="matrix(0.868059, 0, 0, 0.804942, 25.0391, 94.0701)" xml:space="preserve"
+
+          text-anchor="middle" font-family="serif" font-size="24" id="svg_6" y="471.273016"
+
+          x="271.414144" stroke-linecap="null" stroke-linejoin="null" stroke-width="0"
+
+          stroke="#000000" fill="#000000">Added value</text>
+        <ellipse ry="45.499998" rx="44.000001" id="svg_13" cy="462.500005" cx="35.000001"
+
+          stroke-linecap="null" stroke-linejoin="null" stroke-width="5" stroke="#000000"
+
+          fill="#FF0000"></ellipse>
+        <text transform="matrix(0.906667, 0, 0, 1, 0.0021875, 0)" xml:space="preserve"
+
+          text-anchor="middle" font-family="serif" font-size="24" id="svg_14" y="467"
+
+          x="41.411765" stroke-linecap="null" stroke-linejoin="null" stroke-width="0"
+
+          stroke="#000000" fill="#000000">MENU</text>
+        <path d="m88.431297,322.477997l-32.866398,99.381989l-15.056198,-4.828979l-13.987602,1.160004l-9.9422,5.113983l-12.942039,5.14801l-3.63686,6.546997l-3,-122l14,-2l14,-1l15,0l16,1l11,2l7,2l15,8l-0.568703,-0.522003z"
+
+          id="svg_3"></path>
+        <path d="m88.431297,321.477997l-32.866398,99.381989l-15.056198,-4.828979l-13.987602,1.160004l-9.9422,5.113983l-12.942039,5.14801l-3.63686,6.546997l-3,-122l14,-2l14,-1l15,0l16,1l11,2l7,2l15,8l-0.568703,-0.522003z"
+
+          id="svg_4"></path>
+        <path transform="rotate(-0.976539, 121, 384)" id="svg_16" d="m56.01667,421.563843l9.35759,8.121948l8.317863,9.137146l6.238403,11.167633l106.05278,-49.746765l-14.556274,-34.518158l-18.715195,-16.243835l-20.794662,-16.243835l-18.715187,-9.137177l-17.675468,-6.091461l-9.357597,2.030518l-30.152252,101.523987z"
+
+          stroke-linecap="null" stroke-linejoin="null" stroke-width="5" stroke="#000000"
+
+          fill="#FF0000"></path>
+        <path transform="rotate(-0.654781, 41, 368.5)" id="svg_15" d="m87,319l-34,99l-15,-5l-14,1l-10,5l-13,5l-3,7l-3,-122l14,-2l14,-1l15,0l16,1l11,2l7,2l15,8z"
+
+          stroke-linecap="null" stroke-linejoin="null" stroke-width="5" stroke="#000000"
+
+          fill="#FF0000"></path>
+        <path transform="rotate(5.30511, 140.5, 441)" id="svg_17" d="m82.200699,455.630005l0,11.92099l-2.045601,9.752991l-2.045601,9.754028l118.644501,0l4.091003,-10.838013l0,-16.255005l2.046005,-18.423004l-2.046005,-11.92099l-5.113998,-13.003998l-4.091003,-11.92099l-9.205002,-9.754028l-100.234299,60.688019l0,0z"
+
+          stroke-linecap="null" stroke-linejoin="null" stroke-width="5" stroke="#000000"
+
+          fill="#FF0000"></path>
+        <text transform="rotate(-19.686, 139.394, 448.141) matrix(0.797831, -1.72911e-08, 1.78583e-08, 1.08809, 14.4614, -7.25018)"
+
+          xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24"
+
+          id="svg_18" y="425.861141" x="156.066696" stroke-linecap="null" stroke-linejoin="null"
+
+          stroke-width="0" stroke="#000000" fill="#000000">risc probability</text>
+        <text transform="rotate(-79.1862, 33.8638, 358.239) matrix(0.887086, -4.64652e-09, 2.45059e-09, 0.948563, 1.2101, 24.2315)"
+
+          xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24"
+
+          id="svg_19" y="360.271139" x="35.745429" stroke-linecap="null" stroke-linejoin="null"
+
+          stroke-width="0" stroke="#000000" fill="#000000">risk impact</text>
+        <text transform="rotate(-44.5581, 109.173, 388.533) matrix(0.627128, -7.08716e-09, 3.39792e-08, 0.755217, 39.8653, 93.5129)"
+
+          xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24"
+
+          id="svg_20" y="398.564762" x="109.075684" stroke-linecap="null" stroke-linejoin="null"
+
+          stroke-width="0" stroke="#000000" fill="#000000">productivity cost</text>
+        <ellipse fill="#FF0000" stroke="#000000" stroke-width="5" stroke-linejoin="null"
+
+          stroke-linecap="null" cx="22.5" cy="176.5" id="svg_8" rx="47" ry="44"></ellipse>
+        <path d="m0.24325,9.96201l-0.24325,132.03799l8,-7l12,-4l12,0l8,2l7,2l64,-111l-30,-14l-21,-3l-19,-2l-19,0l-23.5,6.5l1.74325,-1.53799z"
+
+          id="svg_9"></path>
+        <path d="m0.24325,9.96201l-0.24325,132.03799l8,-7l12,-4l12,0l8,2l7,2l64,-111l-30,-14l-21,-3l-19,-2l-19,0l-23.5,6.5l1.74325,-1.53799z"
+
+          id="svg_22"></path>
+        <path d="m0.24325,9.96201l-0.24325,132.03799l8,-7l12,-4l12,0l8,2l7,2l64,-111l-30,-14l-21,-3l-19,-2l-19,0l-23.5,6.5l1.74325,-1.53799z"
+
+          id="svg_23"></path>
+        <path d="m0.24325,9.96201l-0.24325,132.03799l8,-7l12,-4l12,0l8,2l7,2l64,-111l-30,-14l-21,-3l-19,-2l-19,0l-23.5,6.5l1.74325,-1.53799z"
+
+          id="svg_24"></path>
+        <path fill="#FF0000" stroke="#000000" stroke-width="5" stroke-linejoin="null"
+
+          stroke-linecap="null" d="m-2.5,9.5l1.5,130.5l8,-7l12,-4l12,0l8,2l7,2l64,-111l-30,-14l-21,-3l-19,-2l-19,0l-23.5,6.5z"
+
+          id="svg_10" transform="rotate(1.59114, 53.75, 71.5)"></path>
+        <path fill="#FF0000" stroke="#000000" stroke-width="5" stroke-linejoin="null"
+
+          stroke-linecap="null" d="m47.50209,139.445114l8.736691,3.495529l7.194908,6.991058l6.16708,7.989792l5.139221,9.987228l120.257935,-51.933609l-5.139221,-23.96936l-12.334152,-16.978302l-17.473373,-19.974472l-13.362,-8.988499l-13.361984,-9.987228l-22.612617,-10.985971l-63.212486,114.353834z"
+
+          id="svg_11" transform="rotate(3.40645, 121.25, 96.5)"></path>
+        <rect fill="#ff0000" stroke="#000000" stroke-width="5" stroke-linejoin="null"
+
+          stroke-linecap="null" x="192.5" y="165.5" width="112.999998" height="32"
+
+          id="svg_25"></rect>
+        <path fill="#FF0000" stroke="#000000" stroke-width="5" stroke-linejoin="null"
+
+          stroke-linecap="null" d="m71.5,167.5l2.5,11.5l-2,11l-6,12l-4,7l135,-3l6,-18l2,-16l-1,-15l-2,-14l-3,-14l-7,-9l-120.5,47.5z"
+
+          id="svg_12"></path>
+        <text fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null"
+
+          stroke-linecap="null" x="-233.730374" y="20.499991" id="svg_21" font-size="24"
+
+          font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.896717, 0, 0, 0.847324, 243.208, 165.999)">MENU</text>
+        <text fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null"
+
+          stroke-linecap="null" x="319.578823" y="238.142012" id="svg_26" font-size="24"
+
+          font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.829069, 0, 0, 0.775373, -11.3491, 2.21468)">Added
+          value</text> </g>
+    </svg>
+  </body>
+</html>
