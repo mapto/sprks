@@ -4,7 +4,7 @@ import web
 import hashlib
 import session
 
-render = web.template.render('C:/Users/zcabh_000/PycharmProjects/sprks/templates/')
+render = web.template.render('templates/')
 
 
 class login:
