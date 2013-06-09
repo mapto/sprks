@@ -3,7 +3,7 @@ import string
 import json
 import session
 
-render = web.template.render('templates/')
+render = web.template.render('./website/PythonTest/templates/')
 
 
 class index:
