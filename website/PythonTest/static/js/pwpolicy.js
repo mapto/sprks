@@ -1,5 +1,8 @@
 /*wait until document is loaded*/
 jQuery(document).ready(function(){
+	var d = new Date();
+	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+	document.getElementById(curr_date).innerHTML = strDate;
 	if($:notfound==1){
 		alert('ID not found, fields are reset to default')
 	}

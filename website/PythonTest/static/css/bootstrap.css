@@ -37,8 +37,8 @@ body {
 .span12{
 	background-color: #F2F2F2;
 	padding: 15px;
-	padding-left: 100px; /*if cavas is used*/
-	padding-right: 100px;
+	padding-left: 150px; /*if cavas is used*/
+	padding-right: 160px;
 }
 
 
@@ -50,23 +50,87 @@ label {
 label {
   display: inline;
   margin-bottom: 5px;
+  
 }
 
 .timeline{
-	min-width: 150px;
-	min-height:80px;
-	background-color: #C10000;
-	background-image: -moz-linear-gradient(top, #C10000, #750000);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#C10000), to(#750000));
-	background-image: -webkit-linear-gradient(top, #C10000, #750000);
-	background-image: -o-linear-gradient(top, #C10000, #750000);
-	background-image: linear-gradient(to bottom, #C10000, #750000);
-	background-repeat: repeat-x;
-	border: 1px solid #d4d4d4;
 	float: right;
-	
-	margin-right: 20px;
-	margin-top:20px;
-	padding: 5px;
 	text-align:right;
+	margin-right: 72px;
+	
+}
+
+.time_controls {
+  list-style: none;
+  text-align: center;
+  float:right;
+  margin-right:20px;
+  margin-top:19px;
+  border: solid 1px #b0b0b0;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.time_controls li {
+  position: relative;
+  display: inline-block;
+  margin-right: -4px;
+}
+
+.time_controls a {
+  display: block;
+  background-color: #f9f9f9;
+  color: #a7a7a7;
+  margin: 7px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.time_controls a:hover{
+  text-decoration: none;
+  color: #555;
+  background-color: #f1f1f1;
+}
+
+.icon-play{
+	background-image:url("");
+	background-repeat:no-repeat;
+	background-size: 100%;
+}
+.icon-pause{
+	background-image:url("");
+	background-repeat:no-repeat;
+}
+.icon-2play{
+	background-image:url("");
+	background-repeat:no-repeat;
+}
+
+
+
+.risk-menu li {
+  position: relative;
+  display: block;
+  margin-right: -4px;
+  
+  background-color: #f9f9f9;
+  color: #a7a7a7;
+  margin: 7px;
+  width: 120px;
+  height: 30px;
+  position: relative;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 10%;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.risk-menu :hover{
+  text-decoration: none;
+  color: #555;
+  background-color: #f1f1f1;
 }
