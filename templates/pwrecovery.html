@@ -4,9 +4,27 @@ $def with(username)
 <head>
     <title></title>
     <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script>
+        function validateForm()
+        {
+            x = document.forms["recoveryForm"]
+            if(x["Password"].value==""||x["Password"]==null)
+            {
+                alert("Please enter password")
+                return false
+            }
+            if(x["Password"].value!=x["RPassword"].value)
+            {
+                alert("Password fields are different")
+                return false
+            }
+            return true
+        }
+
+    </script>
 </head>
 <body>
-<form action="/pwrecovery" method="POST">
+<form name="recoveryForm" action="/pwrecovery" method="POST" onsubmit="return validateForm()">
     New Password: <input type="password" name="Password">
     Re Password: <input type="password" name="RPassword">
     <input type="hidden" name="user" value="$username">

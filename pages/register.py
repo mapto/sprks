@@ -8,13 +8,13 @@ render = web.template.render('templates/')
 
 class register:
     def GET(self):
-        return render.register()
+        return render.register("")
     def POST(self):
         """
         Stores user details into 'users' table. Password is encrypted using sha224 algorithm
 
         """
-        db = web.database(dbn='mysql', user='root', pw='12345', db='sprks')
+        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
         i = web.input()
         usrname = i.username
         tmp = db.select('users', where="username=$usrname", vars=locals())

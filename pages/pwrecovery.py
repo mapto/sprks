@@ -26,7 +26,8 @@ class pwrecovery:
             res = db.update('users', where="username=$username", password=hashlib.sha224(password).hexdigest(), vars=locals())
             if res > 0:
                 res = db.update('pwrecovery', where="username=$username", isrecovered=1, vars=locals())
-                return 'Update successful'
+                #return 'Update successful'
+                raise web.seeother('/login')
             else:
                 return 'Update failed'
         else:

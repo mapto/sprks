@@ -3,11 +3,21 @@
 <head>
     <title>Login</title>
     <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script> function validateForm(){
+        var x = document.forms["loginForm"]
+        if(x["username"].value==""||x["username".value==null]||x["password"].value==null||x["password"].value=="")
+        {
+            alert("All fields must be filled")
+            return false
+        }
+        return true
+    }
+    </script>
 </head>
 <body>
 <div class="navbar"></div>
 <div class="container-fluid">
-<form method="post" action="login">
+<form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
 <div class="row-fluid">
     <div class="span7 offset5">
 Username: <input type="text" name="username" />
