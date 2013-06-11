@@ -18,8 +18,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 		  <div class="timeline"> Timeline: </div>
 		</h4>	 
 		</div>
-      </div>
-	  
+      </div>	  
     </div>
 <nav class="time_controls">
 		<ul>
@@ -40,21 +39,33 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 			
 			
 
+</header>
+
+<section>
+<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+			
+			
+
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
-<p>
+    <h1>Set your password policy</h1>
+    <br/><br/>
+    <p>
 <label class="qn id"><b>ID:</b></label> 
 	
 	$if id:
-		<input type="text" value=$:id name="id" id = "pswdid" placeholder="ID">
+		<input type="text" value=$:id name="idpolicy" id = "pswdid" placeholder="ID">
 	$else:
-		<input type="text" name="id" id = "pswdid" placeholder="ID">
+		<input type="text" name="idpolicy" id = "pswdid" placeholder="ID">
 </p>
 <p>
-<label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>         
+<label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>
 			<br/>
 		  <input type = "radio"
                  name = "plen"
                  id = "len0"
+                 class="target"
                  value = "0"
                  checked = "checked" />
           <label for = "len0">none</label>
@@ -62,24 +73,28 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
           <input type = "radio"
                  name = "plen"
                  id = "len6"
+                 class="target"
                  value = "6" />
           <label for = "len6">minimum 6 charachters</label>
 			<br/>
            <input type = "radio"
                  name = "plen"
                  id = "len8"
+                 class="target"
                  value = "8" />
           <label for = "len8">minimum 8 charachters</label>
 			<br/>
 			 <input type = "radio"
                  name = "plen"
                  id = "len10"
+                 class="target"
                  value = "10" />
           <label for = "len10">minimum 10 charachters</label>
 			<br/>
 			 <input type = "radio"
                  name = "plen"
                  id = "len12"
+                 class="target"
                  value = "12" />
           <label for = "len12">minimum 12 charachters</label>
 			<br/><br/>
@@ -90,6 +105,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 		  <input type = "radio"
                  name = "psets"
                  id = "sets1"
+                 class="target"
                  value = "1"
                  checked = "checked" />
           <label for = "sets1">any</label>
@@ -97,18 +113,21 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
           <input type = "radio"
                  name = "psets"
                  id = "sets2"
+                 class="target"
                  value = "2" />
           <label for = "sets2">at least 2</label>
 			<br/>
           <input type = "radio"
                  name = "psets"
                  id = "sets3"
+                 class="target"
                  value = "3" />
           <label for = "sets2">at least 3</label>
 			<br/>
 			  <input type = "radio"
                  name = "psets"
                  id = "sets4"
+                 class="target"
                  value = "4" />
           <label for = "sets4">at least 4</label>
 			<br/><br/>
@@ -118,6 +137,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
             <input type = "checkbox"
 					name = "pdict"
 					id = "dic"
+                 class="target"
 					value = "1" />
              <label for = "pdic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
 </p>
@@ -127,6 +147,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 		  <input type = "radio"
                  name = "phist"
                  id = "hist1"
+                 class="target"
                  value = "0"
                  checked = "checked" />
           <label for = "hist1">none</label>
@@ -134,18 +155,21 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
           <input type = "radio"
                  name = "phist"
                  id = "hist2"
+                 class="target"
                  value = "1" />
           <label for = "hist2">minimum check (1 past password, exact match) </label>
 			<br/>
           <input type = "radio"
                  name = "phist"
                  id = "hist3"
+                 class="target"
                  value = "2" />
           <label for = "hist3">strict check (2 past passwords, string distance of 2) </label>
 			<br/>
 			  <input type = "radio"
                  name = "phist"
                  id = "hist4"
+                 class="target"
                  value = "3" />
           <label for = "hist4">extreme check (4 past passwords, string distance of 5)</label>
 			<br/><br/>
@@ -157,6 +181,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 		  <input type = "radio"
                  name = "prenew"
                  id = "renew1"
+                 class="target"
                  value = "0"
                  checked = "checked" />
           <label for = "renew1">never renew the password</label>
@@ -164,18 +189,21 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
           <input type = "radio"
                  name = "prenew"
                  id = "renew2"
+                 class="target"
                  value = "1" />
           <label for = "renew2">annual renewal</label>
 			<br/>
           <input type = "radio"
                  name = "prenew"
                  id = "renew3"
+                 class="target"
                  value = "2" />
           <label for = "renew3">renew quarterly</label>
 			<br/>
 			  <input type = "radio"
                  name = "prenew"
                  id = "renew4"
+                 class="target"
                  value = "3" />
           <label for = "renew4">renew monthly</label>
 			<br/><br/>
@@ -184,6 +212,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
              <input type = "checkbox"
 					name = "pattempts"
 					id = "attempts"
+                 class="target"
 					value = "1" />
              <label for = "pattempts"><b>Limit wrong password attempts</b></label><br/><br/>
 </p>
@@ -193,12 +222,14 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
             <input type = "checkbox"
 					name = "pautorecover"
 					id = "autorecover"
+                 class="target"
 					value = "1" />
             <label for = "autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
 </p>
 
 
 <input id="confirm" name="pconfirm" type="submit" value="Confirm">
+    <br/><br/><br/><br/><br/><br/><br/>
 </form>
 	
 </div> <!--class="container-fluid"-->
@@ -212,9 +243,9 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 <footer> 
 <nav class="risk-menu">
 		<ul> 
-			<li>risk probability</li>
-			<li>risk impact</li>
-			<li>productivity cost</li>
+			<li>risk probability<br/><span id="prob">XX</span>&#37;</li>
+			<li>risk impact<br/>&#36;<span id="impact">XXX</span> million</li>
+			<li>productivity cost<br/>&#36;<span id="cost">XXX</span> million</li>
 		</ul>
 	  </nav>
 <div class="navbar navbar-fixed-bottom">
@@ -228,12 +259,10 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 		</div>
       </div>
     </div>
-
 </footer>
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
 <script>
 /*wait until document is loaded*/
 jQuery(document).ready(function(){
@@ -345,8 +374,40 @@ jQuery(document).ready(function(){
 		console.log('pautorecover:no')
 	}
 });
-</script>
+
+/* handle AJAX (realtime) submission */
+send_callback = function() { // need different event handling, to capture any change
+    var request = jQuery.ajax({
+        url: "/pwpolicy",
+        type: "POST",
+        async : false,
+        data : JSON.stringify($$("form").serializeArray()),
+        contentType : "application/json; charset=utf-8",
+        dataType : "json",
+        success : function(score) {
+            console.log("success: " + JSON.stringify(score));
+            $$(score).each(function(i) {
+                $$("#" + score[i].name).text(score[i].value)
+            })
+
+
+        },
+        error: function(response) {
+            alert("fail: " + response.responseText);
+        }
+        });
+    return false;
+}
+
+jQuery(document).ready(function() {
+    send_callback();
+
+    jQuery('.target').change(send_callback);
+});
+
+</script> <!-- relative path to external files -->
 
 </body>
 
 </html>
+
