@@ -18,7 +18,7 @@ urls = (
         '/pwrecovery/(.*)', pages.pwrecovery.pwrecovery,
         '/pwrecovery', pages.pwrecovery.pwrecovery,
         '/pwrequest', pages.pwrequest.pwrequest,
-        '/pwpolicy', pages.code_get_post.index # this URL is also being used in templates/index.html for AJAX services
+        '/pwpolicy', pages.code_get_post.index
 )
 
 if __name__ == "__main__":

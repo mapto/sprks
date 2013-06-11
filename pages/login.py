@@ -3,16 +3,11 @@ __author__ = 'zcabh_000'
 import web
 import hashlib
 import session
-from settings import settings
+
+render = web.template.render('templates/')
 
 
 class login:
-    '''Views (as in MVC pattern) commonly need a reference to the model (db) and also templates
-       These are declared as class attributes
-    '''
-    render = settings().render
-    db = settings().db
-
     def GET(self):
         session.mysession.session.loggedin=False
         session.mysession.session.user='Anonimous'
@@ -22,6 +17,7 @@ class login:
         i = web.input()
         usrname = i.username
         password = hashlib.sha224(i.password).hexdigest()
+        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
         id_tmp = db.select('users', where="username=$usrname&&password=$password", vars=locals())
         if len(id_tmp) > 0:
             session.mysession.session.loggedin=True
