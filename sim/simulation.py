@@ -28,7 +28,8 @@ class simulation:
 #        self.dict['plen'] = policy_plen(8)
 #        self.dict['psets'] = policy_psets(3)
 
-        runtime_class = "policy_" + policy_name
+        runtime_class = "policy_" + str(policy_name)
+#        print runtime_class + "[" + policy_name + "] = " + str(policy_value)
         constructor = globals()[runtime_class]
         if not hasattr(self, 'dict'): self.dict = {} # lasy initialization of policies dictionary
         self.dict[policy_name] = constructor(policy_value)
@@ -36,12 +37,18 @@ class simulation:
         return 0
 
     def calc_risk_prob(self):
-        return self.dict['plen'].get_risk_prob() * self.dict['psets'].get_risk_prob()
+        result = 1
+        for value in self.dict.values():
+            result = result * value.get_risk_prob()
+        return result
 
     def calc_risk_impact(self):
         return 1
 
     def calc_prod_cost(self):
-        return self.dict['plen'].get_prod_cost() + self.dict['psets'].get_prod_cost()
+        result = 0
+        for value in self.dict.values():
+            result = result + value.get_prod_cost()
+        return result
 
 

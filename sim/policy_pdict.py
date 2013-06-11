@@ -4,11 +4,13 @@ __author__ = 'Horace'
 
 class policy_pdict(policy_interface.policy_interface):
     def __init__(self):
-        self.__init__(3)
+        self.__init__(True)
 
     def __init__(self, value):
         if type(value) == bool:
             self.param = value
+        elif type(value) == int:
+            self.param = (value != 0)
         else:
             raise Exception('Wrong parameter type')
 
