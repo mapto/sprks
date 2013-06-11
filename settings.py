@@ -1,4 +1,4 @@
-__author__ = 'mruskov' # change the value of this line to make it match your user
+__author__ = 'mysql' # change the value of this line to make it match your user
 
 import web
 
