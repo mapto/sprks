@@ -97,17 +97,16 @@ label {
 }
 
 .icon-play{
-	background-image:url("");
-	background-repeat:no-repeat;
-	background-size: 100%;
+	/*iconset specified in bootstrap-min above*/
+	background-position:-326px -80px;
 }
 .icon-pause{
-	background-image:url("");
-	background-repeat:no-repeat;
+	/*iconset specified in bootstrap-min above*/
+	background-position:-357px -80px;
 }
-.icon-2play{
-	background-image:url("");
-	background-repeat:no-repeat;
+.icon-forward{
+	/*iconset specified in bootstrap-min above*/
+	background-position:-418px -80px;
 }
 
 
