@@ -15,28 +15,47 @@
     </script>
 </head>
 <body>
-<div class="navbar"></div>
+<header>
+<div class="navbar  navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		</div>
+      </div>
+</div>
+</header>
+<div class="loginbox"><!-- start of main body-->
+
 <div class="container-fluid">
 <form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
 <div class="row-fluid">
-    <div class="span7 offset5">
+    <div class="span7 ">
 Username: <input type="text" name="username" />
         </div>
 </div>
     <div class="row-fluid">
-        <div class="span7 offset5">
+        <div class="span7 ">
 Password: <input type="password" name="password"/>
             </div>
     </div>
     <div class="row-fluid">
-        <div class="span1 offset5">
-<input type="submit" value="Login">
+        <div class="span1 ">
+<input class="login_btn" type="submit" value="Login">
             </div>
-        <div class="span2" style="margin-left: -1em"><a href="/pwrequest">Forgotten password?/Change password</a></div>
-        <div class="span2" style="margin-left: 0em"><a href="/register">REGISTER</a></div>
+        <div class="span2 offset2" ><a href="/pwrequest">Forgotten password?/ Change password</a></div>
+        <div class="span2 offset2" ><a href="/register">REGISTER</a></div>
 </div>
 </form>
     </div>
+	
+</div><!-- end of main body-->
+<footer>
+<div class="navbar  navbar-fixed-bottom">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		</div>
+      </div>
+</div>
+</footer>	
 </body>
 </div>
 </html>

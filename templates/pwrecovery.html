@@ -24,11 +24,32 @@ $def with(username)
     </script>
 </head>
 <body>
+<header>
+<div class="navbar  navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		</div>
+      </div>
+</div>
+</header>
+<div class="loginbox"><!-- start of main body-->
+
+
 <form name="recoveryForm" action="/pwrecovery" method="POST" onsubmit="return validateForm()">
-    New Password: <input type="password" name="Password">
-    Re Password: <input type="password" name="RPassword">
+    <div>New Password: <input type="password" name="Password"></div>
+    <div>Re Password: <input type="password" name="RPassword"></div>
     <input type="hidden" name="user" value="$username">
-    <input type="submit" value="Reset">
+    <input class="login_btn" type="submit" value="Reset">
 </form>
+
+</div><!-- end of main body-->
+<footer>
+<div class="navbar  navbar-fixed-bottom">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		</div>
+      </div>
+</div>
+</footer>
 </body>
 </html>
