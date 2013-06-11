@@ -1,17 +1,19 @@
 __author__ = 'zcabh_000'
 import web
 import hashlib
-
-render = web.template.render('templates/')
+from settings import settings
 
 
 class pwrecovery:
+    profile = settings()
+    render = profile.render
+    db = profile.db
+
     def GET(self, rid):
-        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
-        res = db.select('pwrecovery', where="rid=$rid&&isrecovered=0", vars=locals())
+        res = self.db.select('pwrecovery', where="rid=$rid&&isrecovered=0", vars=locals())
         if len(res) > 0:
             username = res[0].username
-            return render.pwrecovery(username)
+            return self.render.pwrecovery(username)
         else:
             return "Unknown request"
 
@@ -22,10 +24,9 @@ class pwrecovery:
             i = web.input()
             password = web.websafe(i.Password)
             username = web.websafe(i.user)
-            db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
-            res = db.update('users', where="username=$username", password=hashlib.sha224(password).hexdigest(), vars=locals())
+            res = self.db.update('users', where="username=$username", password=hashlib.sha224(password).hexdigest(), vars=locals())
             if res > 0:
-                res = db.update('pwrecovery', where="username=$username", isrecovered=1, vars=locals())
+                res = self.db.update('pwrecovery', where="username=$username", isrecovered=1, vars=locals())
                 #return 'Update successful'
                 raise web.seeother('/login')
             else:

@@ -1,24 +1,25 @@
 __author__ = 'zcabh_000'
 import web
 import hashlib
-
-
-render = web.template.render('templates/')
+from settings import settings
 
 
 class register:
+    profile = settings()
+    render = profile.render
+    db = profile.db
+
     def GET(self):
-        return render.register("")
+        return self.render.register()
     def POST(self):
         """
         Stores user details into 'users' table. Password is encrypted using sha224 algorithm
 
         """
-        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
         i = web.input()
         usrname = i.username
-        tmp = db.select('users', where="username=$usrname", vars=locals())
+        tmp = self.db.select('users', where="username=$usrname", vars=locals())
         if len(tmp) > 0:
-            return render.register("User already exists")
-        id = db.insert('users', username=i.username, email=i.email, password=hashlib.sha224(i.password).hexdigest())
+            return self.render.register("User already exists")
+        id = self.db.insert('users', username=i.username, email=i.email, password=hashlib.sha224(i.password).hexdigest())
         raise web.seeother('/login')

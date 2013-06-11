@@ -35,7 +35,7 @@ class index:
 #        self.populate(db) # use this line if database table needs to be created and populated
 
         #use this variable to request any ID number
-        id_tmp = 9
+        id_tmp = 1
         check = db.select('pw_policy', where="id=$id_tmp", vars=locals())
 
         if check:

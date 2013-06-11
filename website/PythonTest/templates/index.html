@@ -15,21 +15,22 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
       <div class="navbar-inner">
         <div class="container-fluid">
 		<h4>
-		  <div class="timeline">| Timeline: </div>
+		  <div class="timeline"> Timeline: </div>
 		</h4>	 
 		</div>
       </div>
-	  <nav>
-		<ul class="time_controls">
+	  
+    </div>
+<nav class="time_controls">
+		<ul>
 			<h4>
 				<div id="curr_date"></div>
 			</h4>	  
-			<li><a href="#" class="icon-play">play</a></li> 
-			<li><a href="#" class="icon-pause">pause</a></li> 
-			<li><a href="#" class="icon-2play">2play</a></li> 
+			<li><a href="#" class="icon-play"></a></li> 
+			<li><a href="#" class="icon-pause"></a></li> 
+			<li><a href="#" class="icon-forward"></a></li> 
 		</ul>
-	  </nav>
-    </div>
+</nav>
 </header>
 
 <section>
@@ -209,15 +210,15 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 </aside>
 
 <footer> 
-
-<div class="navbar navbar-fixed-bottom">
-	  <nav>
-		<ul class="risk-menu"> 
+<nav class="risk-menu">
+		<ul> 
 			<li>risk probability</li>
 			<li>risk impact</li>
 			<li>productivity cost</li>
 		</ul>
 	  </nav>
+<div class="navbar navbar-fixed-bottom">
+	  
 
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -236,6 +237,8 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 <script>
 /*wait until document is loaded*/
 jQuery(document).ready(function(){
+	
+	
 	var d = new Date();
 	var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()+", "+ d.getHours()+":"+d.getMinutes();
 	

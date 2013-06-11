@@ -11,6 +11,8 @@ class policy_pattempts(policy_interface.policy_interface):
     def __init__(self, value):
         if value in [0, 1]:
             self.param = value
+        elif type(value) == int:
+            self.param = (value != 0)
         else:
             raise Exception('Wrong parameter type')
 

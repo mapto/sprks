@@ -17,9 +17,30 @@
     </script>
 </head>
 <body>
+<header>
+<div class="navbar  navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		</div>
+      </div>
+</div>
+</header>
+<div class="loginbox"><!-- start of main body-->
+
+
 <form name="requestForm" action="/pwrequest" method="POST" onsubmit="return validateForm()">
-    Username: <input type="text" name="Username">
-    <input type="submit" value="Request">
+    <div>Username: <input type="text" name="Username"></div>
+    <input class="login_btn" type="submit" value="Request">
 </form>
+
+</div><!-- end of main body-->
+<footer>
+<div class="navbar  navbar-fixed-bottom">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		</div>
+      </div>
+</div>
+</footer>
 </body>
 </html>

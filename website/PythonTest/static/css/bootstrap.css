@@ -37,7 +37,7 @@ body {
 .span12{
 	background-color: #F2F2F2;
 	padding: 15px;
-	padding-left: 150px; /*if cavas is used*/
+	padding-left: 200px; /*if menu is used*/
 	padding-right: 160px;
 }
 
@@ -57,19 +57,24 @@ label {
 	float: right;
 	text-align:right;
 	margin-right: 72px;
-	
 }
 
 .time_controls {
+	width:auto;
+	position:fixed;
+	right:0;
+	top:60px;
+	z-index:1030;
+	
   list-style: none;
   text-align: center;
-  float:right;
   margin-right:20px;
-  margin-top:19px;
   border: solid 1px #b0b0b0;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
-
+.time_controls ul{
+  padding-right: 26px;
+}
 .time_controls li {
   position: relative;
   display: inline-block;
@@ -97,21 +102,28 @@ label {
 }
 
 .icon-play{
-	background-image:url("");
-	background-repeat:no-repeat;
-	background-size: 100%;
+	/*iconset specified in bootstrap-min above*/
+	background-position:-326px -80px;
 }
 .icon-pause{
-	background-image:url("");
-	background-repeat:no-repeat;
+	/*iconset specified in bootstrap-min above*/
+	background-position:-357px -80px;
 }
-.icon-2play{
-	background-image:url("");
-	background-repeat:no-repeat;
+.icon-forward{
+	/*iconset specified in bootstrap-min above*/
+	background-position:-418px -80px;
 }
 
-
-
+.risk-menu{
+	width:150px;
+	position:fixed;
+	right:0;
+	left:0;
+	bottom:52px;
+	z-index:1030;
+	margin-bottom:0;
+	margin-left:-10px;
+}
 .risk-menu li {
   position: relative;
   display: block;
@@ -134,3 +146,4 @@ label {
   color: #555;
   background-color: #f1f1f1;
 }
+
