@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Login</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script> function validateForm(){
+        var x = document.forms["loginForm"]
+        if(x["username"].value==""||x["username".value==null]||x["password"].value==null||x["password"].value=="")
+        {
+            alert("All fields must be filled")
+            return false
+        }
+        return true
+    }
+    </script>
 </head>
 <body>
-<form method="post" action="login">
-<p>Username: <input type="text" name="username" />
-<br>
+<div class="navbar"></div>
+<div class="container-fluid">
+<form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
+<div class="row-fluid">
+    <div class="span7 offset5">
+Username: <input type="text" name="username" />
+        </div>
+</div>
+    <div class="row-fluid">
+        <div class="span7 offset5">
 Password: <input type="password" name="password"/>
-<br>
+            </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span1 offset5">
 <input type="submit" value="Login">
+            </div>
+        <div class="span2" style="margin-left: -1em"><a href="/pwrequest">Forgotten password?/Change password</a></div>
+        <div class="span2" style="margin-left: 0em"><a href="/register">REGISTER</a></div>
+</div>
 </form>
+    </div>
 </body>
+</div>
 </html>

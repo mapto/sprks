@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script>
+        function validateForm()
+        {
+            x = document.forms['requestForm']['Username'].value
+            if(x==null||x=="")
+            {
+                alert("Please enter username")
+                return false
+            }
+            return true
+        }
+    </script>
+</head>
+<body>
+<form name="requestForm" action="/pwrequest" method="POST" onsubmit="return validateForm()">
+    Username: <input type="text" name="Username">
+    <input type="submit" value="Request">
+</form>
+</body>
+</html>

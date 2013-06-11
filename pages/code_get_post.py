@@ -1,13 +1,10 @@
 import web
 import string
 import json
+import session
 
-render = web.template.render('templates/')
+render = web.template.render('./website/PythonTest/templates/')
 
-urls = (
-    '/', 'index',
-    '/add', 'add'
-)
 
 class index:
     def populate(self, db):
@@ -27,29 +24,32 @@ class index:
         return x + 1
 
     def GET(self):
-        # make sure that the following line stays as per your local installation
-        db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
-#       when using sqlite instead of mysql
-#       db = web.database(dbn='sqlite', db='sprks')
+        if session.mysession.session.loggedin:
+            # make sure that the following line stays as per your local installation
+            db = web.database(dbn='mysql', user='root', pw='1234', db='sprks')
+    #       when using sqlite instead of mysql
+    #       db = web.database(dbn='sqlite', db='sprks')
 
-#        self.populate(db) # use this line if database table needs to be created and populated
+    #        self.populate(db) # use this line if database table needs to be created and populated
 
-        #use this variable to request any ID number
-        id_tmp = 9
-        check = db.select('pw_policy', where="id=$id_tmp", vars=locals())
+            #use this variable to request any ID number
+            id_tmp = 1
+            check = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())
 
-        if check:
-            notfound=0
-            result_get = db.select('pw_policy', where="id=$id_tmp", vars=locals())[0]
-            return render.index(result_get.id, result_get.plen, result_get.psets,
-                            result_get.pdict, result_get.phist, result_get.prenew,
-                            result_get.pattempts, result_get.pautorecover, notfound)
+            if check:
+                notfound=0
+                result_get = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())[0]
+                return render.index(result_get.idpolicy, result_get.plen, result_get.psets,
+                                result_get.pdict, result_get.phist, result_get.prenew,
+                                result_get.pattempts, result_get.pautorecover, notfound)
+            else:
+                notfound=1
+                result_get = db.select('pw_policy', where="idpolicy=1", vars=locals())[0]
+                return render.index(result_get.idpolicy, result_get.plen, result_get.psets,
+                                result_get.pdict, result_get.phist, result_get.prenew,
+                                result_get.pattempts, result_get.pautorecover, notfound)
         else:
-            notfound=1
-            result_get = db.select('pw_policy', where="id=1", vars=locals())[0]
-            return render.index(result_get.id, result_get.plen, result_get.psets,
-                            result_get.pdict, result_get.phist, result_get.prenew,
-                            result_get.pattempts, result_get.pautorecover, notfound)
+            raise web.seeother('/login')
 
 
 class add:
