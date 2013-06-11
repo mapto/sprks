@@ -27,8 +27,9 @@ class index:
         render = settings().render
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
-            id_tmp = 1
-            check = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())
+    #        id_tmp = 33
+    #        check = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())
+            check = db.select('pw_policy',  vars=locals())
 
             if check:
                 notfound=0
