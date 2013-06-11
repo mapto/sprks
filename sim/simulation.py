@@ -1,5 +1,10 @@
 from policy_plen import policy_plen
 from policy_psets import policy_psets
+from policy_pdict import policy_pdict
+from policy_phist import policy_phist
+from policy_prenew import policy_prenew
+from policy_pattempts import policy_pattempts
+from policy_pautorecover import policy_pautorecover
 
 __author__ = 'Horace'
 
