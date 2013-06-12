@@ -17,7 +17,7 @@ urls = ('/', controllers.login.login,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
         '/pwrecovery', controllers.pwrecovery.pwrecovery,
         '/pwrequest', controllers.pwrequest.pwrequest,
-        '/pwpolicy', controllers.code_get_post.index # this URL is also being used in views/index.html for AJAX services
+        '/pwpolicy', controllers.code_get_post.pwpolicy_form # this URL is also being used in views/index.html for AJAX services
 )
 
 if __name__ == "__main__":
