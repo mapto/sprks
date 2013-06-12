@@ -1,7 +1,7 @@
 __author__ = 'zcabh_000'
 import web
 import hashlib
-from settings import settings
+from settings_prelogin import settings
 import session
 
 

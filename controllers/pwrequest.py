@@ -3,7 +3,7 @@ import random
 import web
 import hashlib
 import os
-from settings import settings
+from settings_prelogin import settings
 
 
 class pwrequest:
