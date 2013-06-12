@@ -1,0 +1,237 @@
+<!--$def with (userid, lowest risk prob*risk impact, lowest productivity cost) -->
+<!Doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Scores</title>
+<!--[if IE]>
+    <script src=""></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"> <!-- relative path to external files -->
+</head>
+<body>
+<header>
+<div class="navbar  navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		<h4>
+		  <div class="timeline"> Timeline: </div>
+		</h4>	 
+		</div>
+      </div>	  
+    </div>
+<nav class="time_controls">
+		<ul>
+			<h4>
+				<div id="curr_date"></div>
+			</h4>	  
+			<li><a href="#" class="icon-play"></a></li>
+			<li><a href="#" class="icon-pause"></a></li>
+			<li><a href="#" class="icon-forward"></a></li>
+		</ul>
+</nav>
+</header>
+
+<section>
+<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+			
+			
+
+</header>
+
+<section>
+<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="loginbox">
+	Your best score:
+lowest risk:
+lowest productivity cost:	
+				</div>
+<!--
+	$if id:
+		
+	$else:
+-->
+	
+</div> <!--class="container-fluid"-->
+		</div> <!--class="row-fluid"-->
+			</div> <!-- class="span"-->
+</section>
+
+<aside>
+</aside>
+
+<footer> 
+<nav class="risk-menu">
+		<ul> 
+			<li>risk probability<br/><span id="prob">XX</span>&#37;</li>
+			<li>risk impact<br/>&#36;<span id="impact">XXX</span> million</li>
+			<li>productivity cost<br/>&#36;<span id="cost">XXX</span> million</li>
+		</ul>
+	  </nav>
+<div class="navbar navbar-fixed-bottom">
+	  
+
+      <div class="navbar-inner">
+        <div class="container-fluid">
+		<h4>
+		Status bar: added value, notificns, etc.
+         </h4>
+		</div>
+      </div>
+    </div>
+</footer>
+
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+/*wait until document is loaded*/
+jQuery(document).ready(function(){
+	
+	
+	var d = new Date();
+	var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()+", "+ d.getHours()+":"+d.getMinutes();
+	
+	document.getElementById('curr_date').innerHTML = strDate;
+
+	if($:notfound==1){
+		alert('ID not found, fields are reset to default')
+	}
+	/*ID is preset inside HTML code*/
+		console.log("found id $:id");
+
+	/*preset password (pswd) length value*/
+	if ($:plen==jQuery("#len0").val()){
+		console.log("found plen 0");
+		jQuery("#len0").prop('checked', true);
+	}else if ($:plen==jQuery("#len6").val()){
+		console.log("found plen 6");
+		jQuery("#len6").prop('checked', true);
+	}else if ($:plen==jQuery("#len8").val()){
+		console.log("found plen 8");
+		jQuery("#len8").prop('checked', true);
+	}else if ($:plen==jQuery("#len10").val()){
+		console.log("found plen 10");
+		jQuery("#len10").prop('checked', true);
+	}else if ($:plen==jQuery("#len12").val()){
+		console.log("found plen 12");
+		jQuery("#len12").prop('checked', true);
+	}
+
+	/*preset pswd sets value*/
+	if ($:psets==jQuery("#sets1").val()){
+		console.log("found sets any");
+		jQuery("#sets1").prop('checked', true);
+	}else if ($:psets==jQuery("#sets2").val()){
+		console.log("found sets 2");
+		jQuery("#sets2").prop('checked', true);
+	}else if ($:psets==jQuery("#sets3").val()){
+		console.log("found sets 3");
+		jQuery("#sets3").prop('checked', true);
+	}else if ($:psets==jQuery("#sets4").val()){
+		console.log("found sets 4");
+		jQuery("#sets4").prop('checked', true);
+	}else console.log('FOUND error psets=0')
+
+	/*preset pswd dictionary value*/
+	if ($:pdict==jQuery("#dic").val()){
+		console.log("found use dict");
+		jQuery("#dic").prop('checked', true);
+	}else{
+		console.log('pdict:no')
+	}
+
+	/*preset pswd history check
+	none: 0
+	simple: 1
+	strict: 2
+	extreme: 3
+	*/
+	if ($:phist==jQuery("#hist1").val()){
+		console.log("found phist none");
+		jQuery("#hist1").prop('checked', true);
+	}else if ($:phist==jQuery("#hist2").val()){
+		console.log("found phist simple");
+		jQuery("#hist2").prop('checked', true);
+	}else if ($:phist==jQuery("#hist3").val()){
+		console.log("found phist strict");
+		jQuery("#hist3").prop('checked', true);
+	}else if ($:phist==jQuery("#hist4").val()){
+		console.log("found phist extreme");
+		jQuery("#hist4").prop('checked', true);
+	}
+
+	/*preset pswd renewal period check
+	never: 0
+	annual: 1
+	quarterly: 2
+	monthly: 3
+	*/
+	if ($:prenew==jQuery("#renew1").val()){
+		console.log("found renew never");
+		jQuery("#renew1").prop('checked', true);
+	}else if ($:prenew==jQuery("#renew2").val()){
+		console.log("found renew annually");
+		jQuery("#renew2").prop('checked', true);
+	}else if ($:prenew==jQuery("#renew3").val()){
+		console.log("found renew quarterly");
+		jQuery("#renew3").prop('checked', true);
+	}else if ($:prenew==jQuery("#renew4").val()){
+		console.log("found renew monthly");
+		jQuery("#renew4").prop('checked', true);
+	}
+
+	/*preset pswd attempts number check (yes/no)*/
+	if ($:pattempts==jQuery("#attempts").val()){
+		console.log("found use count pswd attempts");
+		jQuery("#attempts").prop('checked', true);
+	}
+
+	/*preset pswd recovery option*/
+	if ($:pautorecover==jQuery("#autorecover").val()){
+		console.log("found pautorecover");
+		jQuery("#autorecover").prop('checked', true);
+	}else{
+		console.log('pautorecover:no')
+	}
+});
+
+/* handle AJAX (realtime) submission */
+send_callback = function() { // need different event handling, to capture any change
+    var request = jQuery.ajax({
+        url: "/pwpolicy",
+        type: "POST",
+        async : false,
+        data : JSON.stringify($$("form").serializeArray()),
+        contentType : "application/json; charset=utf-8",
+        dataType : "json",
+        success : function(score) {
+            console.log("success: " + JSON.stringify(score));
+            $$(score).each(function(i) {
+                $$("#" + score[i].name).text(score[i].value)
+            })
+
+
+        },
+        error: function(response) {
+            alert("fail: " + response.responseText);
+        }
+        });
+    return false;
+}
+
+jQuery(document).ready(function() {
+    send_callback();
+
+    jQuery('.target').change(send_callback);
+});
+
+</script> <!-- relative path to external files -->
+
+</body>
+
+</html>
+

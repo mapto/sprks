@@ -39,7 +39,10 @@ body {
 	background-color: #F2F2F2;
 	padding: 15px;
 	padding-left: 200px; /*if menu is used*/
-	padding-right: 160px;
+	padding-right: 200px;
+}
+.main_body_container{
+	max-width: 100%; /*central block for main info, use with loginbox class*/
 }
 
 
@@ -178,4 +181,7 @@ label {
 .loginbox a:hover{
  color: #555;
  text-decoration:none;
+}
+
+.scorebox{
 }
