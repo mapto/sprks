@@ -1,10 +1,9 @@
 __author__ = 'Horace'
 
-import unittest
-from sim.simulation import *
+import sim
 
 
-class TestPLen(unittest.TestCase):
+class TestPLen:
     def test_plen_prob(self):
-        policy_test = policy_plen(8)
-        self.assertEqual(policy_test.get_risk_prob(), .75)
+        policy_test = sim.policy_plen.policy_plen(8)
+        assert policy_test.get_risk_prob() == .75

@@ -1,7 +1,7 @@
 import web
-import pages.register
-import dummy_index
 import session
+
+import pages.register
 import pages.secured_page
 import pages.secured_page2
 import pages.login
@@ -9,9 +9,8 @@ import pages.pwrecovery
 import pages.pwrequest
 import pages.code_get_post
 
-urls = (
-    '/', dummy_index.index,
-         '/login', pages.login.login,
+urls = ('/', pages.login.login,
+        '/login', pages.login.login,
         '/register', pages.register.register,
         '/secured_page', pages.secured_page.secured_page,
         '/secured_page2', pages.secured_page2.secured_page,

@@ -4,7 +4,7 @@ __author__ = 'Horace'
 
 class policy_pdict(policy_interface.policy_interface):
     def __init__(self):
-        self.__init__(True)
+        self.__init__(3)
 
     def __init__(self, value):
         if type(value) == bool:

@@ -9,7 +9,7 @@ class policy_pattempts(policy_interface.policy_interface):
         self.__init__(3)
 
     def __init__(self, value):
-        if type(value) == bool:
+        if value in [0, 1]:
             self.param = value
         elif type(value) == int:
             self.param = (value != 0)
@@ -18,7 +18,7 @@ class policy_pattempts(policy_interface.policy_interface):
 
     def get_risk_prob(self):
 
-        if self.param:
+        if self.param == 1:
             return .3
         else:
             return .8
@@ -28,7 +28,7 @@ class policy_pattempts(policy_interface.policy_interface):
 
     def get_prod_cost(self):
 
-        if self.param:
+        if self.param == 1:
             return 10
         else:
             return 1
