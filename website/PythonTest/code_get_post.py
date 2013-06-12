@@ -2,7 +2,7 @@ import web
 import string
 import json
 
-render = web.template.render('templates/')
+render = web.template.render('views/')
 
 urls = (
     '/', 'index',
