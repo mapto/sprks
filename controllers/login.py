@@ -7,7 +7,7 @@ from settings import settings
 
 
 class login:
-    '''Views (as in MVC pattern) commonly need a reference to the model (db) and also templates
+    '''Views (as in MVC pattern) commonly need a reference to the model (db) and also views
        These are declared as class attributes
     '''
     render = settings().render
