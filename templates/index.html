@@ -52,6 +52,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
     <h1>Set your password policy</h1>
     <br/><br/>
     <p>
+        <input type="hidden" name="date" class="target">
 <label class="qn id"><b>ID:</b></label> 
 	
 	$if id:
@@ -379,6 +380,9 @@ jQuery(document).ready(function(){
 
 /* handle AJAX (realtime) submission */
 send_callback = function() { // need different event handling, to capture any change
+    var d = new Date();
+	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate() +" "+ d.getHours()+":"+d.getMinutes();
+    document.forms["input"]["date"].value = strDate
     var request = jQuery.ajax({
         url: "/pwpolicy",
         type: "POST",
@@ -391,6 +395,7 @@ send_callback = function() { // need different event handling, to capture any ch
             $$(score).each(function(i) {
                 $$("#" + score[i].name).text(score[i].value)
             })
+
 
 
         },
