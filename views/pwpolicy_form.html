@@ -15,12 +15,13 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
     <h1>Set your password policy</h1>
     <br/><br/>
     <p>
+        <input type="hidden" name="date" class="target">
 <label class="qn id"><b>ID:</b></label> 
 	
 	$if id:
-		<input type="text" value=$:id name="idpolicy" id = "pswdid" placeholder="ID">
+		<input type="text" value=$:id name="userid" id = "pswdid" placeholder="ID">
 	$else:
-		<input type="text" name="idpolicy" id = "pswdid" placeholder="ID">
+		<input type="text" name="userid" id = "pswdid" placeholder="ID">
 </p>
 <p>
 <label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>
@@ -311,6 +312,9 @@ jQuery(document).ready(function(){
 
 /* handle AJAX (realtime) submission */
 send_callback = function() { // need different event handling, to capture any change
+    var d = new Date();
+	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate() +" "+ d.getHours()+":"+d.getMinutes();
+    document.forms["input"]["date"].value = strDate
     var request = jQuery.ajax({
         url: "/pwpolicy",
         type: "POST",
