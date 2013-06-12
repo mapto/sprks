@@ -41,7 +41,7 @@ body {
 	padding-left: 200px; /*if menu is used*/
 	padding-right: 200px;
 }
-.main_body_container{
+.loginbox.main_body_container{
 	max-width: 100%; /*central block for main info, use with loginbox class*/
 }
 
