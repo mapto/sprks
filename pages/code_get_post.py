@@ -27,19 +27,20 @@ class index:
         render = settings().render
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
-            id_tmp = 33
-            check = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())
+            id_user = session.mysession.session.id
+            check = db.select('pw_policy', where="userid=$id_user", order="date DESC", vars=locals())
 
-            if check:
+            if check > 0:
                 notfound=0
-                result_get = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())[0]
-                return render.index(result_get.idpolicy, result_get.plen, result_get.psets,
+              #  result_get = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())[0]
+                result_get = check[0]
+                return render.index(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound)
             else:
                 notfound=1
-                result_get = db.select('pw_policy', where="idpolicy=1", vars=locals())[0]
-                return render.index(result_get.idpolicy, result_get.plen, result_get.psets,
+                result_get = db.select('pw_policy', where="userid=8", vars=locals())[0]
+                return render.index(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound)
         else:
@@ -51,17 +52,31 @@ class index:
 		# TODO do we need to check session here?
         web.header('Content-Type', 'application/json')
         sim = simulation()
-
-        data = json.loads(web.data())
+        i = web.input()
+        #data = json.loads(web.data())
 #        print "data is " + json.dumps(data)
 
-        for policy in data:
+        #for policy in data:
             # currently separate query for each attribute. In production needs to collect them
-            if policy["name"] != "idpolicy":
-                result = db.query("UPDATE `pw_policy` SET `" + policy["name"] + "` =  '" + policy["value"] + "' WHERE  `pw_policy`.`idpolicy` =1;")
-                sim.set_policy(policy["name"], int(policy["value"]))
-
-
+           # if policy["name"] != "idpolicy":
+                #result = db.query("UPDATE `pw_policy` SET `" + policy["name"] + "` =  '" + policy["value"] + "' WHERE  `pw_policy`.`idpolicy` =1;")
+        usrid = i.userid
+        plen = i.plen
+        psets = i.psets
+        pdict = i.pdict
+        phist = i.phist
+        prenew = i.prenew
+        pattempts = i.pattempts
+        pautorecover = i.pautorecover
+        result = db.update('pw_policy', where='userid = $usrid', plen=plen, psets=psets, pdict=pdict, phist=phist,
+                           prenew=prenew, pattempts=pattempts, pautorecover=pautorecover, vars=locals())
+        sim.set_policy("plen", int(plen))
+        sim.set_policy("psets", int(psets))
+        sim.set_policy("pdict", int(pdict))
+        sim.set_policy("phist", int(phist))
+        sim.set_policy("prenew", int(prenew))
+        sim.set_policy("pattempts", int(pattempts))
+        sim.set_policy("pautocover", int(pautorecover))
 #        return json.dumps(data)
         return json.dumps([{"name": "prob", "value": math.ceil(sim.calc_risk_prob()*10000)/100},
                            {"name": "impact", "value": math.ceil(sim.calc_risk_impact()*100)/100},
