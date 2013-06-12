@@ -7,7 +7,6 @@ import math
 from settings import settings
 
 
-
 class pwpolicy_form:
     def populate(self):
         ''' presumes that database is already connected
