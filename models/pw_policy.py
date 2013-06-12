@@ -1,19 +1,10 @@
 __author__ = 'Horace'
 
 from settings import settings
+from libraries import db_helper
 
 
 class pw_policy_model:
 
-    def update(self, i):
-        db = settings().db
-        usrid = i.userid
-        plen = i.plen
-        psets = i.psets
-        pdict = i.pdict
-        phist = i.phist
-        prenew = i.prenew
-        pattempts = i.pattempts
-        pautorecover = i.pautorecover
-        result = db.update('pw_policy', where='userid = $usrid', plen=plen, psets=psets, pdict=pdict, phist=phist,
-                           prenew=prenew, pattempts=pattempts, pautorecover=pautorecover, vars=locals())
+    def update(self, where, values):
+        return settings().db.query(db_helper.update_helper.stringify('pw_policy', where, values), vars=locals())

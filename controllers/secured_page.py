@@ -1,4 +1,3 @@
-__author__ = 'zcabh_000'
 import session
 import web
 from settings import settings
