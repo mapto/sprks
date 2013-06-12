@@ -2,6 +2,18 @@ __author__ = 'Horace'
 
 
 class simulation:
+
+    def __init__(self, policies = {}):
+        if not hasattr(self, 'dict'):
+        # lazy initialization of policies dictionary
+            self.dict = {}
+        self.set_multi_policy(policies)
+
+    def set_multi_policy(self, policies):
+
+        for k, v in policies.iteritems():
+            self.set_policy(k, v)
+
     def set_policy(self, policy_name, policy_value):
         """
         Sets a parameter to the user policy.
@@ -19,11 +31,7 @@ class simulation:
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
 
-        if not hasattr(self, 'dict'):
-            # lazy initialization of policies dictionary
-            self.dict = {}
         self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
-        return 0
 
     def load_policy(self, policy_name):
         """
@@ -44,13 +52,13 @@ class simulation:
         risk = 1
         for policy in self.dict:
             risk *= self.dict[policy].get_risk_prob()
-        return round(risk, 4)
+        return round(risk, 2)
 
     def calc_risk_impact(self):
         impact = 1
         for policy in self.dict:
             impact *= self.dict[policy].get_risk_impact()
-        return round(impact, 4)
+        return round(impact, 2)
 
     def calc_prod_cost(self):
         cost = 0

@@ -6,12 +6,13 @@ __author__ = 'Horace'
 class policy_pattempts(policy_interface.policy_interface):
     # whether or not there's a limit to number of attempts before user is locked out
     def __init__(self):
-        self.__init__(3)
+        self.__init__(0)
 
     def __init__(self, value):
+
+        value = int(value)
+
         if value in [0, 1]:
-            self.param = value
-        elif type(value) == int:
             self.param = (value != 0)
         else:
             raise Exception('Wrong parameter type')

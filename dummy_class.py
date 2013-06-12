@@ -8,6 +8,7 @@ import controllers.login
 import controllers.pwrecovery
 import controllers.pwrequest
 import controllers.code_get_post
+import controllers.score
 
 urls = ('/', controllers.login.login,
         '/login', controllers.login.login,
@@ -17,7 +18,8 @@ urls = ('/', controllers.login.login,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
         '/pwrecovery', controllers.pwrecovery.pwrecovery,
         '/pwrequest', controllers.pwrequest.pwrequest,
-        '/pwpolicy', controllers.code_get_post.index # this URL is also being used in views/index.html for AJAX services
+        '/score', controllers.score.score,
+        '/pwpolicy', controllers.code_get_post.pwpolicy_form # this URL is also being used in views/index.html for AJAX services
 )
 
 if __name__ == "__main__":

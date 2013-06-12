@@ -42,7 +42,7 @@ class index:
                 db.insert('pw_policy', plen=8, psets=2, pdict=0,
                           phist=1, prenew=1, pattempts=0,
                           pautorecover=1, userid=id_user, date=strftime("%Y/%m/%d %H:%M:%S"))
-                return render.index(result_get.userid, result_get.plen, result_get.psets,
+                return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound)
         else:
@@ -91,5 +91,5 @@ class add:
             print 'id'+id_tmp+' does not exist'
 
         notfound=0
-        return render.index(form.id, form.plen, form.psets, form.pdict, form.phist,
+        return render.pwpolicy_form(form.id, form.plen, form.psets, form.pdict, form.phist,
                             form.prenew, form.pattempts, form.pautorecover, notfound)
