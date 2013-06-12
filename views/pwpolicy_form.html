@@ -103,7 +103,7 @@ $var cssfiles: static/css/bootstrap.css
 					id = "dic"
                  class="target"
 					value = "1" />
-             <label for = "pdic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
+             <label for = "pdict"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
 </p>
 <p>
 		<label class="qn phist"><b>History check of password:</b></label>         
@@ -206,7 +206,7 @@ jQuery(document).ready(function(){
 	var d = new Date();
 	var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()+", "+ d.getHours()+":"+d.getMinutes();
 	
-	document.getElementById('curr_date').innerHTML = strDate;
+	//document.getElementById('curr_date').innerHTML = strDate;
 
 	if($:notfound==1){
 		alert('ID not found, fields are reset to default')
