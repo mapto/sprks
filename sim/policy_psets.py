@@ -16,6 +16,9 @@ class policy_psets(policy_interface.policy_interface):
         Parameter -- the sets required.
         Default value is 3.
         """
+
+        value = int(value)
+
         if value in [1, 2, 3, 4]:
             self.param = value
         else:

@@ -12,6 +12,9 @@ class policy_plen(policy_interface.policy_interface):
         Parameter -- the minimum password length. 0 means disabled, i.e. allowing empty passwords
         Default value is 6
         """
+
+        value = int(value)
+
         if value in [0, 6, 8, 10, 12]:
             self.param = value
         else:

@@ -1,11 +1,10 @@
 import web
-import string
 import json
 import session
 from sim.simulation import simulation
 import math
 from settings import settings
-
+from models.pw_policy import pw_policy_model
 
 
 class index:
@@ -28,8 +27,9 @@ class index:
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
             id_user = session.mysession.session.id
-            check = db.select('pw_policy', where="userid=$id_user", vars=locals())
-            if len(check) > 0:
+            check = db.select('pw_policy', where="userid=$id_user", order="date DESC", vars=locals())
+
+            if check > 0:
                 notfound=0
               #  result_get = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())[0]
                 result_get = check[0]
@@ -46,14 +46,14 @@ class index:
             raise web.seeother('/login')
 
     def POST(self):
-        db = settings().db
+
         render = settings().render
 		# TODO do we need to check session here?
         web.header('Content-Type', 'application/json')
         usrid = session.mysession.session.id
-        sim = simulation()
+        sim = simulation(web.data())
         data = json.loads(web.data())
-#        print "data is " + json.dumps(data)
+        # TODO restructure JSON object
         for policy in data:
             # currently separate query for each attribute. In production needs to collect them
             if policy["name"] != "userid":
@@ -61,9 +61,9 @@ class index:
                 if policy["name"] != "date":
                     sim.set_policy(policy["name"], int(policy["value"]))
 #        return json.dumps(data)
-        return json.dumps([{"name": "prob", "value": math.ceil(sim.calc_risk_prob()*10000)/100},
-                           {"name": "impact", "value": math.ceil(sim.calc_risk_impact()*100)/100},
-                           {"name": "cost", "value": math.ceil(sim.calc_prod_cost()*100)/100}])
+        return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()*100},
+                           {"name": "impact", "value": sim.calc_risk_impact()},
+                           {"name": "cost", "value": sim.calc_prod_cost()}])
 
 
 class add:

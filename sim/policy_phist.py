@@ -7,6 +7,9 @@ class policy_phist(policy_interface.policy_interface):
         self.__init__(3)
 
     def __init__(self, value):
+
+        value = int(value)
+
         if value in [0, 1, 2, 3]:
             self.param = value
         else:
