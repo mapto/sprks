@@ -8,7 +8,7 @@ from settings import settings
 
 
 
-class index:
+class pwpolicy_form :
     def populate(self):
         ''' presumes that database is already connected
             OBSOLETE
