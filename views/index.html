@@ -8,6 +8,9 @@ $def with (content)
     <script src=""></script>
 <![endif]-->
 <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"> <!-- relative path to external files -->
+ $if content.cssfiles:
+        $for f in content.cssfiles.split():
+            <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
 <header>
