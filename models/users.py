@@ -1,23 +1,17 @@
 __author__ = 'Horace'
 
-import hashlib
+import web
+from libraries.utils import hash_utils
 from environment import db
 
 
 class users_model:
 
-    @staticmethod
-    def hash_password(password):
-        """
-        Hashes password for database.
-        """
-        return hashlib.sha224(password).hexdigest()
-
     def authenticate(self, username, password):
         """
         Returns ID of user if successfully authenticated, 0 otherwise.
         """
-        password = self.hash_password(password)
+        password = hash_utils.hash_password(password)
         auth = db.select('users', where="username=$username&&password=$password", vars=locals())
         if len(auth) == 1:
             return auth[0].Id
@@ -38,9 +32,22 @@ class users_model:
         if len(self.select_users(username)) > 0:
             return 0
         else:
-            db.insert('users', username=username, email=email, password=self.hash_password(password))
+            db.insert('users', username=username, email=email, password=hash_utils.hash_password(password))
             user_lookup = self.select_users(username)
             if len(user_lookup) == 1:
                 return user_lookup[0].Id
             else:
                 return -1
+
+    def request_password(self, username, rand):
+        """
+        Creates password recovery entry in pwrecovery table.
+        Returns recipient email address if user found, else empty string
+        """
+        user_list = users_model.select_users(username)
+        if len(user_list) == 1:
+            db.insert('pwrecovery', username=username, date=web.SQLLiteral('NOW()'), rid=rand, isrecovered=0)
+            # TODO detect database error?
+            return user_list[0].email
+        else:
+            return ''

@@ -47,7 +47,7 @@ class pwpolicy_form:
             raise web.seeother('/login')
 
     def POST(self):
-        #render = settings().render
+
 		# TODO do we need to check session here?
         web.header('Content-Type', 'application/json')
         usrid = session.mysession.session.id
@@ -72,8 +72,7 @@ class pwpolicy_form:
 class add:
     def POST(self):
         # make sure that the following line stays as per your local installation
-        #db = settings().db
-        #render = settings().render
+
 
         form = web.input()
         id_tmp = form.id
