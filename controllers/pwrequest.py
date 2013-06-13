@@ -3,7 +3,7 @@ __author__ = "Dan"
 import web
 from libraries.utils import hash_utils
 from models.users import users_model
-from environment import render_private as render
+from environment import render_public as render
 
 
 class pwrequest:
