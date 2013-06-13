@@ -16,8 +16,7 @@ class simulation:
         for k, v in policies.iteritems():
             self.set_policy(k, v)
 
-    #def set_policy(self, policy_name, policy_value):
-    def set_policy(self, data):
+    def set_policy(self, policy_name, policy_value):
         """
         Sets a parameter to the user policy.
 
@@ -30,11 +29,11 @@ class simulation:
         pattempts: {True, False}
         pautorecover: {True, False}
         """
-        converted_data = eval(data)
+
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
-        for k, value in converted_data.iteritems():
-            self.dict[k] = self.load_policy(k)(value)
+
+        self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
 
     def load_policy(self, policy_name):
         """

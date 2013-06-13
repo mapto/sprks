@@ -1,34 +1,29 @@
 __author__ = 'Dan'
+
 import web
-import hashlib
 from environment import render_public as render
-from environment import db
+from models.users import users_model
+
 
 class pwrecovery:
-    def GET(self, rid):
-        res = db.select('pwrecovery', where="rid=$rid&&isrecovered=0", vars=locals())
-        if len(res) > 0:
-            username = res[0].username
-            return render.pwrecovery(username)
+    def GET(self, rand):
+        username = users_model.pwrecovery_status(rand)
+        if username == '':
+            return "Invalid password recovery request"
         else:
-            return "Unknown request"
+            return render.pwrecovery(username)
 
     def POST(self):
-        referer = web.ctx.env.get('HTTP_REFERER', 'http://google.com')
-       # return web.ctx.host
-        if referer.find(web.ctx.host+'/pwrecovery') >= 0:
-            i = web.input()
-            password = web.websafe(i.Password)
-            username = web.websafe(i.user)
-            res = db.update('users', where="username=$username", password=hashlib.sha224(password).hexdigest(), vars=locals())
-            if res > 0:
-                res = db.update('pwrecovery', where="username=$username", isrecovered=1, vars=locals())
-                #return 'Update successful'
-                raise web.seeother('/login')
+        if web.ctx.env.get('HTTP_REFERER', '').find(web.ctx.host + '/pwrecovery') != -1:
+            # greps [host]/pwrecovery within referer URI
+            post_data = web.input()
+            username = web.websafe(post_data.user)
+            if users_model.update_password(username, web.websafe(post_data.Password)):
+                if users_model.update_pwrecovery_status(username):
+                    raise web.seeother('/login')
+                else:
+                    return 'Database error.'
             else:
-                return 'Update failed'
+                return 'Database error - password not updated.'
         else:
             raise web.seeother('/login')
-
-
-
