@@ -15,7 +15,7 @@ class register:
         Stores user details into 'users' table.
         """
         post_data = web.input()
-        reg_id = users_model.register(post_data.username, post_data.password, post_data.email)
+        reg_id = users_model().register(post_data.username, post_data.password, post_data.email)
 
         if reg_id == 0:
             return render.register("User already exists")
