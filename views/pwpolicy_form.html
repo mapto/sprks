@@ -311,6 +311,8 @@ jQuery(document).ready(function(){
 	}
 });
 
+
+
 /* handle AJAX (realtime) submission */
 send_callback = function() { // need different event handling, to capture any change
     var d = new Date();
@@ -332,14 +334,14 @@ send_callback = function() { // need different event handling, to capture any ch
 
         },
         error: function(response) {
-            alert("fail: " + response.responseText);
+            console.log("fail: " + response.responseText);
         }
         });
     return false;
 }
 
 jQuery(document).ready(function() {
-    send_callback();
+
 
     jQuery('.target').change(send_callback);
 });
