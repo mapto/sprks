@@ -1,3 +1,5 @@
+__author__ = "Dan"
+
 import web
 from libraries.utils import hash_utils
 from models.users import users_model
