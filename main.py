@@ -3,6 +3,7 @@ import session
 
 import controllers.register
 import controllers.login
+import controllers.intro
 import controllers.pwrecovery
 import controllers.pwrequest
 import controllers.code_get_post
@@ -14,6 +15,7 @@ urls = ('/', controllers.login.login,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
         '/pwrecovery', controllers.pwrecovery.pwrecovery,
         '/pwrequest', controllers.pwrequest.pwrequest,
+        '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/pwpolicy', controllers.code_get_post.pwpolicy_form # this URL is also being used in views/index.html for AJAX services
 )

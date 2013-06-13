@@ -9,19 +9,6 @@ from environment import db
 from models.pw_policy import pw_policy_model
 
 class pwpolicy_form:
-    def populate(self):
-        ''' presumes that database is already connected
-            OBSOLETE
-        '''
-#       use this if table needs to be created
-        self.db.query('CREATE TABLE pw_policy(id INT NOT NULL PRIMARY KEY, plen INT, psets INT, pdict BOOL, phist INT, prenew INT, pattempts BOOL, pautorecover BOOL);')
-
-#       use this if table needs to be filled with values
-        self.db.query("INSERT INTO pw_policy VALUES (1, 8, 3, 0, 1, 1, 0, 1);")
-        self.db.query("INSERT INTO pw_policy VALUES (2, 8, 3, 0, 1, 1, 0, 1);")
-        self.db.query("INSERT INTO pw_policy VALUES (3, 8, 3, 0, 1, 1, 0, 1);")
-        self.db.query("INSERT INTO pw_policy VALUES (4, 5, 3, 0, 1, 1, 0, 1);")
-
     def GET(self):
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
@@ -36,10 +23,10 @@ class pwpolicy_form:
                                 result_get.pattempts, result_get.pautorecover, notfound)
             else:
                 notfound=1
-                result_get = db.select('pw_policy', where="userid=8", vars=locals())[0]
                 db.insert('pw_policy', plen=8, psets=2, pdict=0,
                           phist=1, prenew=1, pattempts=0,
                           pautorecover=1, userid=id_user, date=strftime("%Y/%m/%d %H:%M:%S"))
+                result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
                 return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound)
@@ -47,8 +34,6 @@ class pwpolicy_form:
             raise web.seeother('/login')
 
     def POST(self):
-
-		# TODO do we need to check session here?
         web.header('Content-Type', 'application/json')
         usrid = session.mysession.session.id
         sim = simulation()
