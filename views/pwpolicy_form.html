@@ -310,9 +310,7 @@ jQuery(document).ready(function(){
 		console.log('pautorecover:no')
 	}
 });
-jQuery(document).ready(function() {
-    $var = 'test';
-});
+
 
 
 /* handle AJAX (realtime) submission */
@@ -343,7 +341,7 @@ send_callback = function() { // need different event handling, to capture any ch
 }
 
 jQuery(document).ready(function() {
-    send_callback();
+
 
     jQuery('.target').change(send_callback);
 });
