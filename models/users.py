@@ -1,12 +1,10 @@
 __author__ = 'Horace'
 
 import hashlib
-import settings
+from environment import db
 
 
 class users_model:
-
-    db = settings().db
 
     @staticmethod
     def hash_password(self, password):
@@ -20,7 +18,7 @@ class users_model:
         Returns ID of user if successfully authenticated, 0 otherwise.
         """
         password = self.hash_password(password)
-        auth = self.db.select('users', where="username=$username&&password=$password", vars=locals())
+        auth = db.select('users', where="username=$username&&password=$password", vars=locals())
         if len(auth) == 1:
             return auth[0].Id
         else:
@@ -30,7 +28,7 @@ class users_model:
         """
         Returns list of all users with such username.
         """
-        return self.db.select('users', where="username=$username", vars=locals())
+        return db.select('users', where="username=$username", vars=locals())
 
     def register(self, username, password, email):
         """
@@ -40,7 +38,7 @@ class users_model:
         if len(self.select_users(username)) > 0:
             return 0
         else:
-            self.db.insert('users', username=username, email=email, password=self.hash_password(password))
+            db.insert('users', username=username, email=email, password=self.hash_password(password))
             user_lookup = self.select_users(username)
             if len(user_lookup) == 1:
                 return user_lookup[0].Id
