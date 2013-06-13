@@ -15,5 +15,8 @@ class hash_utils:
 
     @staticmethod
     def random_hex(salt):
+        """
+        Generates random string using parameter as salt, sha224 hashing, random integer, and returns hexdigest.
+        """
         random.seed()
-        rand = hashlib.sha224(salt+str(random.randint(1, 100000))).hexdigest()
+        return hashlib.sha224(salt+str(random.randint(1, 100000))).hexdigest()

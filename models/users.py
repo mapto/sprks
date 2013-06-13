@@ -39,9 +39,20 @@ class users_model:
             else:
                 return -1
 
+    def update_password(self, username, password):
+        """
+        Updates password according to specified username and new password.
+        Returns true if updated for one user, false otherwise.
+        """
+        if db.update('users', where="username=$username", password=hash_utils.hash_password(password), vars=locals())\
+                == 1:
+            return True
+        else:
+            return False
+
     def request_password(self, username, rand):
         """
-        Creates password recovery entry in pwrecovery table.
+        Creates password recovery ticket in pwrecovery table.
         Returns recipient email address if user found, else empty string
         """
         user_list = users_model.select_users(username)
@@ -51,3 +62,24 @@ class users_model:
             return user_list[0].email
         else:
             return ''
+
+    def pwrecovery_status(self, rand):
+        """
+        Return username of user if password request ticket is valid. Empty string otherwise.
+        """
+        user_list = db.select('pwrecovery', where="rid=$rand&&isrecovered=0", vars=locals())
+        # TODO inner join with 'users' table?
+        if len(user_list) == 1:
+            return user_list[0].username
+        else:
+            return ''
+
+    def update_pwrecovery_status(self, username, success=1):
+        """
+        Updates password recovery ticket, assuming successful recovery.
+        Returns true if one row affected, else false.
+        """
+        if db.update('pwrecovery', where="username=$username", isrecovered=success, vars=locals()) == 1:
+            return True
+        else:
+            return False
