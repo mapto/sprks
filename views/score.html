@@ -1,4 +1,4 @@
-$def with (userid, lowest_risk, lowest_prod_cost)
+$def with (userid, lowest_risk, lowest_prod_cost, prob, impact, cost)
 <!Doctype html>
 <html lang="en">
 <head>
@@ -12,6 +12,7 @@ $def with (userid, lowest_risk, lowest_prod_cost)
 <body>
 $var title: Scores
 $var cssfiles: static/css/bootstrap.css
+
 
 			<h1>Scores</h1>
 			
@@ -95,14 +96,17 @@ $var cssfiles: static/css/bootstrap.css
 			<div class="span3">v</div>
 			</h5>
 			</div>
-			
-
-
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+jQuery(document).ready(function() {
+        jQuery("#prob").text($:prob);
+        jQuery("#impact").text($:impact);
+        jQuery("#cost").text($:cost);
+});
 
-
+</script>
 </body>
 
 </html>
