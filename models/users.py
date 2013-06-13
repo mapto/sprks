@@ -55,7 +55,7 @@ class users_model:
         Creates password recovery ticket in pwrecovery table.
         Returns recipient email address if user found, else empty string
         """
-        user_list = users_model.select_users(username)
+        user_list = self.select_users(username)
         if len(user_list) == 1:
             db.insert('pwrecovery', username=username, date=web.SQLLiteral('NOW()'), rid=rand, isrecovered=0)
             # TODO detect database error?

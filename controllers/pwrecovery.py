@@ -7,7 +7,7 @@ from models.users import users_model
 
 class pwrecovery:
     def GET(self, rand):
-        username = users_model.pwrecovery_status(rand)
+        username = users_model().pwrecovery_status(rand)
         if username == '':
             return "Invalid password recovery request"
         else:
@@ -18,8 +18,8 @@ class pwrecovery:
             # greps [host]/pwrecovery within referer URI
             post_data = web.input()
             username = web.websafe(post_data.user)
-            if users_model.update_password(username, web.websafe(post_data.Password)):
-                if users_model.update_pwrecovery_status(username):
+            if users_model().update_password(username, web.websafe(post_data.Password)):
+                if users_model().update_pwrecovery_status(username):
                     raise web.seeother('/login')
                 else:
                     return 'Database error.'

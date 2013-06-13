@@ -14,7 +14,7 @@ class pwrequest:
     def POST(self):
         username = web.input().Username
         rand = hash_utils.random_hex(username)
-        user_email = users_model.request_password(username, rand)
+        user_email = users_model().request_password(username, rand)
         if user_email == '':
             return "User was not found!"
         else:
