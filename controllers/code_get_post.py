@@ -4,8 +4,8 @@ import json
 import session
 from sim.simulation import simulation
 import math
-from settings import settings
-
+from environment import render_private as render
+from environment import db
 
 
 class pwpolicy_form:
@@ -23,8 +23,6 @@ class pwpolicy_form:
         self.db.query("INSERT INTO pw_policy VALUES (4, 5, 3, 0, 1, 1, 0, 1);")
 
     def GET(self):
-        db = settings().db
-        render = settings().render
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
             id_user = session.mysession.session.id

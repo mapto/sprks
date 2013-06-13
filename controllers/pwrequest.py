@@ -27,7 +27,7 @@ class pwrequest:
             web.config.smtp_password = 'sprks123456789'
             web.config.smtp_starttls = True
             tmp = self.db.insert('pwrecovery', username=username, date=web.SQLLiteral('NOW()'), rid=rid, isrecovered=0)
-            web.sendmail('support', emailaddr, 'Password recovery', 'http://localhost:8080/pwrecovery/'+rid)
+            web.sendmail('support', emailaddr, 'Password recovery', 'pwrecovery/'+rid)
             return "Email is sent"
         else:
             return "User is not found!"
