@@ -16,11 +16,39 @@ $if content.cssfiles:
 <div class="navbar  navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
+             <div id="login_drop" class="text-right">Login</div>
 		</div>
-      </div>	  
+      </div>
     </div>
 
 </header>
+<div id="login" class="loginbox">
+
+    <div class="container-fluid">
+        <form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
+            <div class="row-fluid">
+                <div class="span7 ">
+                    Username: <input type="text" name="username" />
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span7 ">
+                    Password: <input type="password" name="password"/>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span1 ">
+                    <input class="login_btn" type="submit" value="Login">
+                </div>
+                <div class="span2 offset2" ><a href="/pwrequest">Forgotten password?/ Change password</a></div>
+                <div class="span2 offset2" ><a href="/register">REGISTER</a></div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
 $:content
 <footer> 
 

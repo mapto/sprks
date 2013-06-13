@@ -154,6 +154,22 @@ label {
   background-color: #f1f1f1;
 }
 
+#login_drop{
+  font-weight:bold;
+  font-size:14px;
+  color: #e6e1cb;
+}
+#login_drop:hover{
+  color: #fff;
+}
+
+#login{
+  position:fixed;
+  right:0;
+  display:none;
+  z-index:2000;
+}
+
 .loginbox{
   display: block;
   background-color: #f9f9f9;
