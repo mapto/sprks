@@ -30,10 +30,10 @@ class simulation:
         pattempts: {True, False}
         pautorecover: {True, False}
         """
-        converted_data = eval(data)
+        #converted_data = eval(data)
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
-        for k, value in converted_data.iteritems():
+        for k, value in data.iteritems():
             self.dict[k] = self.load_policy(k)(value)
 
     def load_policy(self, policy_name):
