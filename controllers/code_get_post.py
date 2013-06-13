@@ -62,11 +62,12 @@ class pwpolicy_form:
                 if policy["name"] != "date":
                     sim.set_policy(policy["name"], int(policy["value"]))"""
         pw_policy_model().update("{'userid':"+str(usrid)+"}", data["data"])
+        sim.set_policy(data["data"])
         db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
 #        return json.dumps(data)
-        return json.dumps([{"name": "prob", "value": math.ceil(sim.calc_risk_prob()*10000)/100},
-                           {"name": "impact", "value": math.ceil(sim.calc_risk_impact()*100)/100},
-                           {"name": "cost", "value": math.ceil(sim.calc_prod_cost()*100)/100}])
+        return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
+                           {"name": "impact", "value": sim.calc_risk_impact()},
+                           {"name": "cost", "value": sim.calc_prod_cost()}])
 
 
 class add:
