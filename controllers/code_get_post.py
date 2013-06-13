@@ -61,7 +61,7 @@ class pwpolicy_form:
                 result = db.query("UPDATE `pw_policy` SET `" + policy["name"] + "` =  '" + policy["value"] + "' WHERE  `pw_policy`.`userid` ="+"$usrid;", vars=locals())
                 if policy["name"] != "date":
                     sim.set_policy(policy["name"], int(policy["value"]))"""
-        pw_policy_model().update("{'userid':"+str(usrid)+"}", data["data"])
+        pw_policy_model().update({'userid':str(usrid)}, eval(data["data"]))
         sim.set_policy(data["data"])
         db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
 #        return json.dumps(data)
