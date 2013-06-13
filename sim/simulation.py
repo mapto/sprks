@@ -10,7 +10,9 @@ class simulation:
         self.set_multi_policy(policies)
 
     def set_multi_policy(self, policies):
-
+        """
+        Accept policy as dict.
+        """
         for k, v in policies.iteritems():
             self.set_policy(k, v)
 

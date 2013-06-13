@@ -1,10 +1,10 @@
 __author__ = 'Horace'
 
-from settings_prelogin import settings
 from libraries import db_helper
+from environment import db
 
 
 class pw_policy_model:
 
     def update(self, where, values):
-        return settings().db.query(db_helper.update_helper.stringify('pw_policy', where, values), vars=locals())
+        return db.query(db_helper.update_helper.stringify('pw_policy', where, values), vars=locals())
