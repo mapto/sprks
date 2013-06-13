@@ -2,9 +2,8 @@ import web
 import session
 
 import controllers.register
-import controllers.secured_page
-import controllers.secured_page2
 import controllers.login
+import controllers.intro
 import controllers.pwrecovery
 import controllers.pwrequest
 import controllers.code_get_post
@@ -13,11 +12,10 @@ import controllers.score
 urls = ('/', controllers.login.login,
         '/login', controllers.login.login,
         '/register', controllers.register.register,
-        '/secured_page', controllers.secured_page.secured_page,
-        '/secured_page2', controllers.secured_page2.secured_page,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
         '/pwrecovery', controllers.pwrecovery.pwrecovery,
         '/pwrequest', controllers.pwrequest.pwrequest,
+        '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/pwpolicy', controllers.code_get_post.pwpolicy_form # this URL is also being used in views/index.html for AJAX services
 )
