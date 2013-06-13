@@ -136,11 +136,11 @@ label {
   background-color: #f9f9f9;
   color: #a7a7a7;
   margin: 7px;
-  width: 120px;
-  height: 30px;
+  width: 150px;
+  height: 90px;
   position: relative;
   text-align: center;
-  line-height: 40px;
+  line-height: 90px;
   border-radius: 10%;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
