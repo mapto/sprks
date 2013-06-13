@@ -4,11 +4,13 @@ $def with (content)
 <head>
 <meta charset="utf-8"/>
 
-<title>Sprks</title>
+<title>$content.title</title>
 <!--[if IE]>
     <script src=""></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"> <!-- relative path to external files -->
+$if content.cssfiles:
+        $for f in content.cssfiles.split():
+            <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
 </head>
 <body>
 <header>
@@ -65,10 +67,12 @@ $def with (content)
 			</section>
 <footer> 
 <nav class="risk-menu">
-		<ul> 
+		<ul>
+
 			<li>risk probability<br/><span id="prob">XX</span>&#37;</li>
 			<li>risk impact<br/>&#36;<span id="impact">XXX</span> million</li>
 			<li>productivity cost<br/>&#36;<span id="cost">XXX</span> million</li>
+
 		</ul>
 	  </nav>
 <div class="navbar navbar-fixed-bottom">
@@ -86,5 +90,6 @@ $def with (content)
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 </body>
 </html>

@@ -1,6 +1,6 @@
 import session
 import web
-from settings import settings
+from settings_prelogin import settings
 
 
 class secured_page:
