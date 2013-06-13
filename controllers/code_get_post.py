@@ -6,6 +6,7 @@ from sim.simulation import simulation
 import math
 from environment import render_private as render
 from environment import db
+from models.pw_policy import pw_policy_model
 
 class pwpolicy_form:
     def populate(self):
@@ -46,20 +47,22 @@ class pwpolicy_form:
             raise web.seeother('/login')
 
     def POST(self):
-        db = settings().db
-        render = settings().render
+        #render = settings().render
 		# TODO do we need to check session here?
         web.header('Content-Type', 'application/json')
         usrid = session.mysession.session.id
         sim = simulation()
         data = json.loads(web.data())
-#        print "data is " + json.dumps(data)
-        for policy in data:
+#       print "data is " + json.dumps(data)
+       # print str(data["data"])
+        """for policy in data:
             # currently separate query for each attribute. In production needs to collect them
             if policy["name"] != "userid":
                 result = db.query("UPDATE `pw_policy` SET `" + policy["name"] + "` =  '" + policy["value"] + "' WHERE  `pw_policy`.`userid` ="+"$usrid;", vars=locals())
                 if policy["name"] != "date":
-                    sim.set_policy(policy["name"], int(policy["value"]))
+                    sim.set_policy(policy["name"], int(policy["value"]))"""
+        pw_policy_model().update("{'userid':"+str(usrid)+"}", data["data"])
+        db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
 #        return json.dumps(data)
         return json.dumps([{"name": "prob", "value": math.ceil(sim.calc_risk_prob()*10000)/100},
                            {"name": "impact", "value": math.ceil(sim.calc_risk_impact()*100)/100},
@@ -69,8 +72,8 @@ class pwpolicy_form:
 class add:
     def POST(self):
         # make sure that the following line stays as per your local installation
-        db = settings().db
-        render = settings().render
+        #db = settings().db
+        #render = settings().render
 
         form = web.input()
         id_tmp = form.id
