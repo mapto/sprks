@@ -2,8 +2,6 @@ import web
 import session
 
 import controllers.register
-import controllers.secured_page
-import controllers.secured_page2
 import controllers.login
 import controllers.pwrecovery
 import controllers.pwrequest
@@ -13,8 +11,6 @@ import controllers.score
 urls = ('/', controllers.login.login,
         '/login', controllers.login.login,
         '/register', controllers.register.register,
-        '/secured_page', controllers.secured_page.secured_page,
-        '/secured_page2', controllers.secured_page2.secured_page,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
         '/pwrecovery', controllers.pwrecovery.pwrecovery,
         '/pwrequest', controllers.pwrequest.pwrequest,

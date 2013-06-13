@@ -3,7 +3,6 @@ __author__ = "Dan"
 import web
 import session
 from environment import render_public as render
-from environment import db
 from models.users import users_model
 
 
