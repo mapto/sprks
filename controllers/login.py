@@ -15,7 +15,7 @@ class login:
         return render.login()
 
     def POST(self):
-        request = web.data()
+        request = web.input()
         auth_id = users_model().authenticate(request.username, request.password)
         if auth_id > 0:
             session.mysession.session.loggedin=True

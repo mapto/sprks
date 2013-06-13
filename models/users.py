@@ -7,7 +7,7 @@ from environment import db
 class users_model:
 
     @staticmethod
-    def hash_password(self, password):
+    def hash_password(password):
         """
         Hashes password for database.
         """
