@@ -13,9 +13,8 @@ class simulation:
         """
         Accept policy as dict.
         """
-        #for k, v in policies.iteritems():
-         #   self.set_policy(k, v)
-        self.set_policy(policies)
+        for k, v in policies.iteritems():
+            self.set_policy(k, v)
 
     def set_policy(self, policy_name, policy_value):
         """
