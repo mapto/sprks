@@ -1,4 +1,5 @@
 __author__ = 'Horace'
+import json
 
 
 class update_helper:
@@ -19,9 +20,11 @@ class string_helper:
         """
         Converts dictionary key/value pairs to list{"key='value'", "key2='value'", ...}
         """
+        diction = eval(dict)
         list = []
-        for key in sorted(dict.iterkeys()):
-            list.append(key + "='" + dict[key] + "'")
+        #for key in sorted(dict.iterkeys()):
+        for key, value in diction.iteritems():
+            list.append(key + "='" + str(value) + "'")
 
         return list
 
