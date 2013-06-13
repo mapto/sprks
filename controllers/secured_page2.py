@@ -1,12 +1,11 @@
 __author__ = 'zcabh_000'
 import session
 import web
-from settings_prelogin import settings
+from environment import render_private as render
 
 
 class secured_page:
     def GET(self):
-        render = settings().render
         if session.mysession.session.loggedin:
             return render.secured_page2(session.mysession.session.user)
         else:

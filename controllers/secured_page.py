@@ -1,11 +1,9 @@
 import session
 import web
-from settings_prelogin import settings
-
+from environment import render_private as render
 
 class secured_page:
     def GET(self):
-        render = settings().render
         if session.mysession.session.loggedin:
             return render.secured_page(session.mysession.session.user)
         else:

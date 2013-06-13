@@ -1,9 +1,8 @@
 __author__ = 'zhanelya'
 
 import web
-from settings import settings
+from environment import render_private as render
 
 class score:
     def GET(self):
-        render = settings().render
         return render.score(8,2,3)
