@@ -20,7 +20,7 @@ class pwpolicy_form:
                 result_get = check[0]
                 return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
-                                result_get.pattempts, result_get.pautorecover, notfound, result_get.date)
+                                result_get.pattempts, result_get.pautorecover, notfound, str(result_get.date))
             else:
                 notfound=1
                 dt = datetime.now()
@@ -29,6 +29,7 @@ class pwpolicy_form:
                           phist=1, prenew=1, pattempts=0,
                           pautorecover=1, userid=id_user, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
                 result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
+                print result_get.date
                 return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound, result_get.date)
@@ -66,9 +67,12 @@ class add:
         web.header('Content-Type', 'application/json')
         usrid = session.mysession.session.id
         data = json.loads(web.data())
+        dat = eval(data["data"])
         date = data["date"]
-        dt = datetime.strptime(date, "%Y/%m/%d %H:%M:%S")
+        dt = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         dtt = dt + timedelta(days=7)
-        db.insert('pw_policy', plen=data["data"]["plen"], psets=data["data"]["psets"], pdict=data["data"]["pdict"],
-                          phist=data["data"]["phist"], prenew=data["data"]["prenew"], pattempts=data["data"]["pattempts"],
-                          pautorecover=data["data"]["pautorecover"], userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
+
+        """db.insert('pw_policy', plen=dat["plen"], psets=dat["psets"], pdict=dat["pdict"],
+                          phist=dat["phist"], prenew=dat["prenew"], pattempts=dat["pattempts"],
+                          pautorecover=dat["pautorecover"], userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))"""
+        return json.dumps([{"value":dtt.strftime("%Y/%m/%d %H:%M:%S")}])

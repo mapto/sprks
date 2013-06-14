@@ -16,7 +16,7 @@ $var cssfiles: static/css/bootstrap.css
     <h1>Set your password policy</h1>
     <br/><br/>
     <p>
-        <input type="hidden" name="date" value=$:date>
+        <input type="hidden" name="date" value="$date">
 <label class="qn id"><b>ID:</b></label>
 	
 	$if id:
@@ -334,6 +334,9 @@ send = function() { // need different event handling, to capture any change
         contentType : "application/json; charset=utf-8",
         dataType : "json",
         success : function(score) {
+            $$(score).each(function(i) {
+                document.forms["input"]["date"].value=score[i].value;
+            })
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
