@@ -7,6 +7,7 @@ class TestNoPolicy:
     """
     Tests the calculated values if no policy details are loaded.
     """
+
     def setup_method(self, method):
         self.no_policy = simulation()
 
@@ -25,12 +26,13 @@ class TestPolicyConstructor:
     Tests whether calling the __init__(self, policies) constructor has same effect as calling __init__(self) and loading
      policies explicitly.
     """
-    def setup_method(self, method):
-        dict = {'plen': 12, 'psets': 4, 'pdict': 1, 'phist': 3, 'prenew': 3, 'pattempts': 1, 'pautorecover': 0}
-        self.multi_policy = simulation()
-        self.multi_policy.set_multi_policy(dict)
 
-        self.impl_policy = simulation(dict)
+    def setup_method(self, method):
+        policy_set = {'plen': 12, 'psets': 4, 'pdict': 1, 'phist': 3, 'prenew': 3, 'pattempts': 1, 'pautorecover': 0}
+        self.multi_policy = simulation()
+        self.multi_policy.set_multi_policy(policy_set)
+
+        self.impl_policy = simulation(policy_set)
 
     def test_calc_risk_prob(self):
         assert self.impl_policy.calc_risk_prob() == self.multi_policy.calc_risk_prob()
@@ -46,11 +48,12 @@ class TestSetPolicy:
     """
     Tests whether loading multiple policies in dict is same as loading each policy separately.
     """
+
     def setup_method(self, method):
 
-        dict = {'plen': 12, 'psets': 4, 'pdict': 1, 'phist': 3, 'prenew': 3, 'pattempts': 1, 'pautorecover': 0}
+        policy_set = {'plen': 12, 'psets': 4, 'pdict': 1, 'phist': 3, 'prenew': 3, 'pattempts': 1, 'pautorecover': 0}
         self.multi_policy = simulation()
-        self.multi_policy.set_multi_policy(dict)
+        self.multi_policy.set_multi_policy(policy_set)
 
         self.policy = simulation()
         self.policy.set_policy('plen', 12)

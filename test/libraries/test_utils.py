@@ -13,6 +13,9 @@ class TestHashUtils:
         self.random_str = hash_utils.random_hex(str(random.randint(1, 10000000)))
 
     def test_hash_password(self):
+        """
+        Tests hashing correctness for empty password.
+        """
         assert hash_utils.hash_password('') == 'd14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f'
 
     def test_random_hex_len(self):

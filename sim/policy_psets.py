@@ -2,12 +2,15 @@ import policy_interface
 
 __author__ = 'Horace'
 
+
 class policy_psets(policy_interface.policy_interface):
+
     def __init__(self):
         self.__init__(3) # default value for constructor with parameter
 
     def __init__(self, value):
-        """Specifies the number of symbol sets required for passwords.
+        """
+        Specifies the number of symbol sets required for passwords.
         1 means only lowercase required
         2 means require both uppercase and lowercase
         3 require also numbers
@@ -23,6 +26,7 @@ class policy_psets(policy_interface.policy_interface):
             self.param = value
         else:
             raise Exception('Wrong parameter type')
+
     def get_risk_prob(self):
 
         return {
