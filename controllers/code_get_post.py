@@ -63,23 +63,12 @@ class pwpolicy_form:
 class add:
     def POST(self):
         # make sure that the following line stays as per your local installation
-
-
-        form = web.input()
-        id_tmp = form.id
-        check = db.select('pw_policy', where="id=$id_tmp", vars=locals())
-        if check:
-            result = db.update('pw_policy', where='id = $form.id', plen=form.plen, psets=form.psets,
-                                   pdict=form.pdict, phist=form.phist, prenew=form.prenew,
-                                   pattempts=form.pattempts, pautorecover=form.pautorecover, vars=locals())
-            print 'found id'+id_tmp
-        else:
-            result = db.insert('pw_policy', id=form.id, plen=form.plen,
-                                   psets=form.psets, pdict=form.pdict,
-                                   phist=form.phist, prenew=form.prenew,
-                                   pattempts=form.pattempts, pautorecover=form.pautorecover)
-            print 'id'+id_tmp+' does not exist'
-
-        notfound=0
-        return render.pwpolicy_form(form.id, form.plen, form.psets, form.pdict, form.phist,
-                            form.prenew, form.pattempts, form.pautorecover, notfound)
+        web.header('Content-Type', 'application/json')
+        usrid = session.mysession.session.id
+        data = json.loads(web.data())
+        date = data["date"]
+        dt = datetime.strptime(date, "%Y/%m/%d %H:%M:%S")
+        dtt = dt + timedelta(days=7)
+        db.insert('pw_policy', plen=data["data"]["plen"], psets=data["data"]["psets"], pdict=data["data"]["pdict"],
+                          phist=data["data"]["phist"], prenew=data["data"]["prenew"], pattempts=data["data"]["pattempts"],
+                          pautorecover=data["data"]["pautorecover"], userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))

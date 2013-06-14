@@ -316,7 +316,7 @@ send_callback = function() { // need different event handling, to capture any ch
     var obj1 = {};
     var day = d.getDate()-1;
 	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + (d.getDate()-day) +" "+ d.getHours()+":"+d.getMinutes();
-    obj.date=strDate;
+    //obj.date=strDate;
     obj.userid=document.forms["input"]["userid"].value;
     obj1.plen=$$('input[name="plen"]:checked').val();
     obj1.psets=$$('input[name="psets"]:checked').val();
@@ -351,7 +351,7 @@ send_callback = function() { // need different event handling, to capture any ch
 
 jQuery(document).ready(function() {
 
-    send_callback();
+    //send_callback();
     jQuery('.target').change(send_callback);
 });
 
