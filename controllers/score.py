@@ -24,6 +24,25 @@ class score:
                     c_rank = closest.rank
         return c, c_when, c_rank
 
+    def FIND_BEST(self, your_score):
+        score_type = your_score.score_type
+
+        best = db.select('scores', where="score_type=$score_type and rank=1", vars=locals())[0]
+
+        b = best.score_value
+        b_when = best.date
+        return b, b_when
+
+    def FIND_AVG(self, your_score):
+        score_type = your_score.score_type
+
+       # average = db.select('scores', where="score_type=$score_type", vars=locals())
+        average = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type ="+"$score_type;", vars=locals())
+
+        avg = average[0].avg
+        return avg
+
+
     def GET(self):
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
@@ -38,12 +57,19 @@ class score:
 
                 c_risk, c_risk_when, c_risk_rank = self.CHECK_CLOSEST_COMPETITOR(your_risk)
                 c_pc, c_pc_when, c_pc_rank = self.CHECK_CLOSEST_COMPETITOR(your_pc)
-
+                b_risk, b_risk_when = self.FIND_BEST(your_risk)
+                b_pc, b_pc_when = self.FIND_BEST(your_pc)
+                avg_risk = self.FIND_AVG(your_risk)
+                avg_pc = self.FIND_AVG(your_pc)
 
                 return render.score(your_risk.score_value, your_risk.date, your_risk.rank,
                                     your_pc.score_value, your_pc.date, your_pc.rank,
                                     c_risk, c_risk_when, c_risk_rank,
-                                    c_pc, c_pc_when, c_pc_rank)
+                                    c_pc, c_pc_when, c_pc_rank,
+                                    b_risk, b_risk_when,
+                                    b_pc, b_pc_when,
+                                    avg_risk,
+                                    avg_pc)
 
 
             else:
