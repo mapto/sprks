@@ -73,6 +73,7 @@ label {
   list-style: none;
   text-align: center;
   margin-right:20px;
+  margin-top:15px;
   border: solid 1px #b0b0b0;
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
@@ -163,6 +164,7 @@ label {
 }
 .link:hover{
   color: #fff;
+  cursor: pointer;
 }
 .link a{
   color: #e6e1cb;
@@ -221,4 +223,29 @@ label {
  color: #555;
  text-decoration:none;
 }
+.menu{
+  position:fixed;
+  left:180px;
+  bottom:72px;
+  width:50px;
+}
+.menu a{
+  position: relative;
+  display: block;
+  margin:10px;
+  width:60px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 30px;
+  font-size: 16px;
 
+
+  background-color: #f9f9f9;
+  color: #555;
+  font-weight: bold;
+  text-align: center;
+
+
+
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
