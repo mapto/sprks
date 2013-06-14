@@ -19,7 +19,7 @@ class TestHashUtils:
         """
         Test that the length of result of random_hex is always 56.
         """
-        assert len(self.random_str) == 55
+        assert len(self.random_str) == 56
 
     def test_random_hex_chars(self):
         """
