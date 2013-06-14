@@ -13,14 +13,14 @@ class pwpolicy_form:
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
             id_user = session.mysession.session.id
-            check = db.select('pw_policy', where="userid=$id_user", vars=locals())
+            check = db.select('pw_policy', where="userid=$id_user", order="date DESC", vars=locals())
             if len(check) > 0:
                 notfound=0
               #  result_get = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())[0]
                 result_get = check[0]
                 return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
-                                result_get.pattempts, result_get.pautorecover, notfound)
+                                result_get.pattempts, result_get.pautorecover, notfound, result_get.date)
             else:
                 notfound=1
                 dt = datetime.now()
@@ -31,7 +31,7 @@ class pwpolicy_form:
                 result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
                 return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
-                                result_get.pattempts, result_get.pautorecover, notfound)
+                                result_get.pattempts, result_get.pautorecover, notfound, result_get.date)
         else:
             raise web.seeother('/login')
 
