@@ -6,6 +6,7 @@ from models.users import users_model
 
 
 class pwrecovery:
+
     def GET(self, rand):
         username = users_model().pwrecovery_status(rand)
         if username == '':

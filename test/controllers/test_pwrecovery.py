@@ -1,0 +1,33 @@
+__author__ = 'Horace'
+
+from mock import patch, MagicMock
+from controllers.pwrecovery import *
+
+
+class TestPasswordRecovery:
+    mock_users_model = MagicMock()
+    mock_render_public = MagicMock()
+
+    @patch('models.users.users_model.pwrecovery_status', mock_users_model.pwrecovery_status)
+    def test_invalid_recovery_ticket(self):
+        """
+        Tests GET request to pwrecovery.py with empty string as ticket.
+        """
+        self.mock_users_model.pwrecovery_status.return_value = ''
+
+        assert pwrecovery().GET('') == "Invalid password recovery request"
+
+    @patch('models.users.users_model.pwrecovery_status', mock_users_model.pwrecovery_status)
+    @patch('environment.render_public.pwrecovery', mock_render_public.pwrecovery)
+    def test_valid_recovery_ticket(self):
+        """
+        Tests GET request to pwrecovery.py with valid ticket.
+        """
+
+        def mock_render(arg):
+            return 'render.pwrecovery ' + arg
+
+        self.mock_users_model.pwrecovery_status.return_value = 'dummy_username1'
+        self.mock_render_public.pwrecovery.side_effect = mock_render
+
+        assert pwrecovery().GET('') == "render.pwrecovery dummy_username1"
