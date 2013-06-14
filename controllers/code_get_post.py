@@ -1,5 +1,4 @@
 import web
-from time import strftime
 import json
 import session
 from sim.simulation import simulation
@@ -41,20 +40,23 @@ class pwpolicy_form:
         usrid = session.mysession.session.id
         sim = simulation()
         data = json.loads(web.data())
-#       print "data is " + json.dumps(data)
-       # print str(data["data"])
-        """for policy in data:
-            # currently separate query for each attribute. In production needs to collect them
-            if policy["name"] != "userid":
-                result = db.query("UPDATE `pw_policy` SET `" + policy["name"] + "` =  '" + policy["value"] + "' WHERE  `pw_policy`.`userid` ="+"$usrid;", vars=locals())
-                if policy["name"] != "date":
-                    sim.set_policy(policy["name"], int(policy["value"]))"""
-        pw_policy_model().update({'userid':str(usrid)}, eval(data["data"]))
-        tmp = eval(data["data"])
-        for k, value in tmp.iteritems():
+        dat = eval(data["data"])
+        if "pdict" in dat:
+            dict1=1
+        else:
+            dat["pdict"]=0
+        if "pautorecover" in dat:
+            pautorecover1=1
+        else:
+            dat["pautorecover"]=0
+        if "pattempts" in dat:
+            pattempts1=1
+        else:
+            dat["pattempts"]=0
+        pw_policy_model().update({'userid':str(usrid)}, dat)
+        for k, value in dat.iteritems():
             print k, value
             sim.set_policy(k, value)
-        #db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
 #        return json.dumps(data)
         return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
                            {"name": "impact", "value": sim.calc_risk_impact()},
@@ -71,8 +73,19 @@ class add:
         date = data["date"]
         dt = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         dtt = dt + timedelta(days=7)
-
-        """db.insert('pw_policy', plen=dat["plen"], psets=dat["psets"], pdict=dat["pdict"],
-                          phist=dat["phist"], prenew=dat["prenew"], pattempts=dat["pattempts"],
-                          pautorecover=dat["pautorecover"], userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))"""
+        if "pdict" in dat:
+            dict1=1
+        else:
+            dict1=0
+        if "pautorecover" in dat:
+            pautorecover1=1
+        else:
+            pautorecover1=0
+        if "pattempts" in dat:
+            pattempts1=1
+        else:
+            pattempts1=0
+        db.insert('pw_policy', plen=dat["plen"], psets=dat["psets"], pdict=dict1,
+                          phist=dat["phist"], prenew=dat["prenew"], pattempts=pattempts1,
+                          pautorecover=pautorecover1, userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
         return json.dumps([{"value":dtt.strftime("%Y/%m/%d %H:%M:%S")}])
