@@ -319,11 +319,11 @@ send_callback = function() { // need different event handling, to capture any ch
     obj.userid=document.forms["input"]["userid"].value;
     obj1.plen=$$('input[name="plen"]:checked').val();
     obj1.psets=$$('input[name="psets"]:checked').val();
-    obj1.pdict=$$('input[name="pdict"]').val();
+    obj1.pdict=$$('input[name="pdict"]:checked').val();
     obj1.phist=$$('input[name="phist"]:checked').val();
     obj1.prenew=$$('input[name="prenew"]:checked').val();
-    obj1.pattempts=$$('input[name="pattempts"]').val();
-    obj1.pautorecover=$$('input[name="pautorecover"]').val();
+    obj1.pattempts=$$('input[name="pattempts"]:checked').val();
+    obj1.pautorecover=$$('input[name="pautorecover"]:checked').val();
     obj.data=JSON.stringify(obj1);
     console.log(obj);
     var request = jQuery.ajax({

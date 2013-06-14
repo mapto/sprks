@@ -49,6 +49,7 @@ class pwpolicy_form:
         pw_policy_model().update({'userid':str(usrid)}, eval(data["data"]))
         tmp = eval(data["data"])
         for k, value in tmp.iteritems():
+            print k, value
             sim.set_policy(k, value)
         db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
 #        return json.dumps(data)
