@@ -1,13 +1,13 @@
-""" Now separated settings from environment.
-    Environment takes care of the system objects that need to be used by many modules
+"""
+Now separated settings from environment.
+Environment takes care of the system objects that need to be used by many modules
 """
 
 __author__ = 'mruskov'
 
 import web
-import settings
 
-# now assuming that views directory is fixed
+# Now assuming that views directory is fixed.
 # It is invisible to the code which renderer is used
 # the only difference is in the import line, e.g. use it as follows:
 #
@@ -17,9 +17,16 @@ import settings
 render_private = web.template.render('views/', base='index')
 render_public = web.template.render('views/', base='index_prelogin')
 
-# now assuming that only MySQL is used
-db = web.database(dbn='mysql',
-                  user=settings.dbuser,
-                  pw=settings.dbpw,
-                  db=settings.dbname)
-
+try:
+    settings = __import__('settings')
+    # Assuming that only MySQL is used
+    db = web.database(dbn='mysql',
+        user=getattr(settings,'dbuser'),
+        pw=getattr(settings,'dbpw'),
+        db=getattr(settings,'dbname'))
+except ImportError, AttributeError:
+    # Default DB credentials
+    db = web.database(dbn='mysql',
+        user='root',
+        pw='1234',
+        db='sprks')
