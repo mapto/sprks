@@ -1,4 +1,4 @@
-$def with (y_risk, y_risk_when, y_risk_rank, y_pc, y_pc_when, y_pc_rank)
+$def with (y_risk, y_risk_when, y_risk_rank,y_pc, y_pc_when, y_pc_rank, c_risk, c_risk_when, c_risk_rank,c_pc, c_pc_when, c_pc_rank)
 <!Doctype html>
 <html lang="en">
 <head>
@@ -50,18 +50,18 @@ $var cssfiles: static/css/bootstrap.css
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
-			<div class="span3">v</div>
-			<div class="span3">v</div>
-			<div class="span2">v</div>
+			<div id="c_risk" class="span3">v</div>
+			<div id="c_risk_when"class="span3">v</div>
+			<div id="c_risk_rank"class="span2">v</div>
 			</h5>
 			</div>
 			
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest productivity cost:</div>
-			<div class="span3">v</div>
-			<div class="span3">v</div>
-			<div class="span2">v</div>
+			<div id="c_pc" class="span3">v</div>
+			<div id="c_pc_when" class="span3">v</div>
+			<div id="c_pc_rank" class="span2">v</div>
 			</h5>
 			</div>
 			
@@ -71,6 +71,7 @@ $var cssfiles: static/css/bootstrap.css
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
 			<div class="span3">v</div>
+            <div class="span3">v</div>
 			</h5>
 			</div>
 			
@@ -78,6 +79,7 @@ $var cssfiles: static/css/bootstrap.css
 			<h5>
 			<div class="span4 text-left">lowest productivity cost:</div>
 			<div class="span3">v</div>
+            <div class="span3">v</div>
 			</h5>
 			</div>
 			
@@ -109,6 +111,26 @@ jQuery(document).ready(function() {
         jQuery("#y_pc").text($:y_pc);
         jQuery("#y_pc_when").text($:y_pc_when+' strange output instead of date');
         jQuery("#y_pc_rank").text($:y_pc_rank);
+
+        if($:y_risk==$:c_risk){
+            jQuery("#c_risk").text('no competitor');
+            jQuery("#c_risk_when").text('no competitor');
+            jQuery("#c_risk_rank").text('no competitor');
+        }else{
+            jQuery("#c_risk").text($:c_risk);
+            jQuery("#c_risk_when").text(($:c_risk_when+' strange output instead of date'));
+            jQuery("#c_risk_rank").text($:c_risk_rank);
+        }
+
+        if($:y_risk==$:c_risk){
+         jQuery("#c_pc").text('no competitor');
+            jQuery("#c_pc_when").text('no competitor');
+            jQuery("#c_pc_rank").text('no competitor');
+        }else{
+            jQuery("#c_pc").text($:c_pc);
+            jQuery("#c_pc_when").text($:c_pc_when+' strange output instead of date');
+            jQuery("#c_pc_rank").text($:c_pc_rank);
+        }
 
 
 
