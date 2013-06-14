@@ -1,4 +1,4 @@
-$def with (userid, lowest_risk, lowest_prod_cost, prob, impact, cost)
+$def with (y_risk, y_risk_when, y_risk_rank, y_pc, y_pc_when, y_pc_rank)
 <!Doctype html>
 <html lang="en">
 <head>
@@ -30,18 +30,18 @@ $var cssfiles: static/css/bootstrap.css
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
-			<div class="span3">v</div>
-			<div class="span3">v</div>
-			<div class="span2">v</div>
+			<div id="y_risk" class="span3">v</div>
+			<div id="y_risk_when" class="span3">v</div>
+			<div id="y_risk_rank"class="span2">v</div>
 			</h5>
 			</div>
 			
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest productivity cost:</div>
-			<div class="span3">v</div>
-			<div class="span3">v</div>
-			<div class="span2">v</div>
+			<div id="y_pc" class="span3">v</div>
+			<div id="y_pc_when" class="span3">v</div>
+			<div id="y_pc_rank" class="span2">v</div>
 			</h5>
 			</div>
 			
@@ -99,11 +99,21 @@ $var cssfiles: static/css/bootstrap.css
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 <script>
 jQuery(document).ready(function() {
-        jQuery("#prob").text($:prob);
-        jQuery("#impact").text($:impact);
-        jQuery("#cost").text($:cost);
+        jQuery("#y_risk").text($:y_risk);
+        jQuery("#y_risk_when").text(($:y_risk_when+' strange output instead of date'));
+        jQuery("#y_risk_rank").text($:y_risk_rank);
+
+        jQuery("#y_pc").text($:y_pc);
+        jQuery("#y_pc_when").text($:y_pc_when+' strange output instead of date');
+        jQuery("#y_pc_rank").text($:y_pc_rank);
+
+
+
+
+
 });
 
 </script>

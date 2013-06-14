@@ -103,7 +103,7 @@ label {
 .time_controls a:hover{
   text-decoration: none;
   color: #555;
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 
 .icon-play{
@@ -217,7 +217,7 @@ label {
 }
 .login_btn:hover{
   color: #555;
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 .loginbox a:hover{
  color: #555;
@@ -237,15 +237,16 @@ label {
   height: 30px;
   border-radius: 50%;
   line-height: 30px;
-  font-size: 16px;
-
+  font-size: 15px;
 
   background-color: #f9f9f9;
   color: #555;
   font-weight: bold;
   text-align: center;
-
-
-
   box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+.menu a:hover{
+  text-decoration:none;
+  background-color: #fff;
+  color:#000;
 }
