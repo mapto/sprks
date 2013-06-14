@@ -93,5 +93,24 @@ $if content.cssfiles:
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        if (jQuery("#prob").text()=='' || jQuery("#impact").text()=='' || jQuery("#cost").text()==''){
+            jQuery(".risk-menu").css("display", "none");
+        }else{
+            jQuery(".risk-menu").css("display", "block");
+        }
+
+        jQuery(document).click( function(){
+            if (jQuery("#prob").text()=='' || jQuery("#impact").text()=='' || jQuery("#cost").text()==''){
+                jQuery(".risk-menu").css("display", "none");
+            }else{
+                jQuery(".risk-menu").css("display", "block");
+        }
+
+        });
+
+    });
+</script>
 </body>
 </html>

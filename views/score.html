@@ -30,9 +30,9 @@ $var cssfiles: static/css/bootstrap.css
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
-			<div id="y_risk" class="span3">v</div>
-			<div id="y_risk_when" class="span3">v</div>
-			<div id="y_risk_rank"class="span2">v</div>
+			<div id="y_risk" class="ids span3">v</div>
+			<div id="y_risk_when" class="ids span3">v</div>
+			<div id="y_risk_rank"class="ids span2">v</div>
 			</h5>
 			</div>
 			
@@ -103,6 +103,11 @@ $var cssfiles: static/css/bootstrap.css
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 <script>
+
+    //jQuery(".ids").each( function(){   //attempt to remove duplicate functions and to fill any python vars by id name
+    //    jQuery("#"+this.id).text('hi');
+    //});
+
 jQuery(document).ready(function() {
         jQuery("#y_risk").text($:y_risk);
         jQuery("#y_risk_when").text(($:y_risk_when+' strange output instead of date'));
@@ -154,6 +159,11 @@ jQuery(document).ready(function() {
 
 
 });
+
+
+
+
+
 
 </script>
 </body>

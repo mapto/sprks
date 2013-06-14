@@ -44,6 +44,7 @@ class score:
 
 
     def GET(self):
+        #check if is logged in
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
             id_user = session.mysession.session.id
@@ -51,6 +52,7 @@ class score:
             your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
             your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())
 
+            #if user scores found -> display score page
             if len(your_risk) > 0 and len(your_pc) > 0:
                 your_risk = your_risk[0]
                 your_pc = your_pc[0]
@@ -73,6 +75,8 @@ class score:
 
 
             else:
+                #if user scores not found -> assume that no term has been finished yet
                 return 'You have not finished any term yet'
         else:
+            #if user not logged in -> redirect to login page
             raise web.seeother('/login')
