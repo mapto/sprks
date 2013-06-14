@@ -53,9 +53,8 @@ class pwpolicy_form:
             pattempts1=1
         else:
             dat["pattempts"]=0
-        pw_policy_model().update({'userid':str(usrid)}, dat)
+        pw_policy_model().update({'userid':str(usrid), 'date':data["date"]}, dat)
         for k, value in dat.iteritems():
-            print k, value
             sim.set_policy(k, value)
 #        return json.dumps(data)
         return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
