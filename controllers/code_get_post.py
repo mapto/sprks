@@ -3,7 +3,7 @@ from time import strftime
 import json
 import session
 from sim.simulation import simulation
-import math
+from datetime import time, timedelta, datetime, date
 from environment import render_private as render
 from environment import db
 from models.pw_policy import pw_policy_model
@@ -23,9 +23,11 @@ class pwpolicy_form:
                                 result_get.pattempts, result_get.pautorecover, notfound)
             else:
                 notfound=1
+                dt = datetime.now()
+                dtt = dt - timedelta(days=dt.weekday())
                 db.insert('pw_policy', plen=8, psets=2, pdict=0,
                           phist=1, prenew=1, pattempts=0,
-                          pautorecover=1, userid=id_user, date=strftime("%Y/%m/%d %H:%M:%S"))
+                          pautorecover=1, userid=id_user, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
                 result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
                 return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
@@ -51,7 +53,7 @@ class pwpolicy_form:
         for k, value in tmp.iteritems():
             print k, value
             sim.set_policy(k, value)
-        db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
+        #db.update('pw_policy', where="userid=$usrid", date=data["date"], vars=locals())
 #        return json.dumps(data)
         return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
                            {"name": "impact", "value": sim.calc_risk_impact()},
