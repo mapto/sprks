@@ -1,11 +1,11 @@
 __author__ = 'Horace'
 
 class policy_interface:
-    param = Exception('Parameter not set')
     def __init__(self, value):
+        self.param = Exception('Parameter not set')
         raise NotImplementedError('Unknown policy')
-    def __init__(self):
-        raise Exception('Missing parameter')
+    def value(self):
+        return self.param
     def get_risk_prob(self, x):
         """Probability multiplier for network intrusion risk assuming worst case (easiest to attack) for other variables
         """

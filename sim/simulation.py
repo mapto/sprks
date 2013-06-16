@@ -1,13 +1,17 @@
 __author__ = 'Horace'
 
+from estimator_sklearn_tree import estimator_sklearn_tree
+from estimator_simple import estimator_simple
+
 
 class simulation:
-
-    def __init__(self, policies = {}):
+    def __init__(self, policies={}):
         if not hasattr(self, 'dict'):
         # lazy initialization of policies dictionary
             self.dict = {}
         self.set_multi_policy(policies)
+        self.estimator = estimator_sklearn_tree()
+#        self.estimator = estimator_simple()
 
     def set_multi_policy(self, policies):
         """
@@ -23,11 +27,11 @@ class simulation:
         Possible parameters are (for meanings check specific policy classes):
         plen: {0, 6, 8, 10, 12}
         psets: {1, 2, 3, 4}
-        pdict: {True, False}
+        pdict: {1, 0}
         phist: {0, 1, 2, 3}
         prenew: {0, 1, 2, 3}
-        pattempts: {True, False}
-        pautorecover: {True, False}
+        pattempts: {1, 0}
+        pautorecover: {1, 0}
         """
 
         # Risk probability and impact are multiplied together
@@ -45,25 +49,31 @@ class simulation:
         if policy_id in globals():
             return globals()[policy_id]
         else:
+            """ The following code composes e.g. the following:
+
+                    import sim.policy_plen
+                    return_value = policy_len.policy_len()
+
+                First one is module name (file), second one is class name
+                Not only these two names coincide,
+                but also class is attribute of module and constructor method (?policy_id?) is a attribute of class
+            """
             # lazy class loading
             policy_module = __import__('sim.' + policy_id)
             # weird hack... no idea why we need getattr twice...
             return getattr(getattr(policy_module, policy_id), policy_id)
 
     def calc_risk_prob(self):
-        risk = 1
-        for policy in self.dict:
-            risk *= self.dict[policy].get_risk_prob()
+        risk = self.estimator.get_risk_prob(self.dict)
+        # Extreme precision is not needed outside of simulation
         return round(risk, 2)
 
     def calc_risk_impact(self):
-        impact = 1
-        for policy in self.dict:
-            impact *= self.dict[policy].get_risk_impact()
+        impact = self.estimator.get_risk_impact(self.dict)
+        # Extreme precision is not needed outside of simulation
         return round(impact, 2)
 
     def calc_prod_cost(self):
-        cost = 0
-        for policy in self.dict:
-            cost += self.dict[policy].get_prod_cost()
+        cost = self.estimator.get_prod_cost(self.dict)
+        # Extreme precision is not needed outside of simulation
         return round(cost, 0)

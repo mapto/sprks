@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+
+import sys
+import os
+
+# change current directory to the project path
+# so local modules can be found even if not previously in system path
+abspath = os.path.dirname(__file__)
+sys.path.append(abspath)
+os.chdir(abspath)
+
 import web
 import session
 
@@ -21,11 +32,14 @@ urls = ('/', controllers.login.login,
         '/forward', controllers.code_get_post.add
 )
 
+app = web.application(urls, globals(), autoreload=False)
+if web.config.get('_session') is None:
+    session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0})
+    web.config._session = session
+else:
+    session.mysession.session = web.config._session
+
 if __name__ == "__main__":
-    app = web.application(urls, globals())
-    if web.config.get('_session') is None:
-        session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0})
-        web.config._session = session
-    else:
-        session.mysession.session = web.config._session
-    app.run()
+    app.run() # when run as standalone application run own server
+else:
+    application = app.wsgifunc() # when called from Apache, use WSGI
