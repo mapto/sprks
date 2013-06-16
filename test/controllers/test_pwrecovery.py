@@ -1,10 +1,12 @@
 __author__ = 'Horace'
 
+import web
+import pytest
 from mock import patch, MagicMock
 from controllers.pwrecovery import *
 
 
-class TestPasswordRecovery:
+class TestGetRequest:
     mock_users_model = MagicMock()
     mock_render_public = MagicMock()
 
@@ -31,3 +33,24 @@ class TestPasswordRecovery:
         self.mock_render_public.pwrecovery.side_effect = mock_render
 
         assert pwrecovery().GET('') == "render.pwrecovery dummy_username1"
+
+
+class TestPostRequest:
+
+    mock_web_ctx = MagicMock()
+
+    # TODO patches cause errors
+
+    # @patch('web.ctx.env.get', mock_web_ctx.env.get)
+    # @patch.object(web.ctx, 'host', mock_web_ctx.host)
+    def test_bad_post_referer(self):
+        """
+        Tests for rejection of user request if http referer doesn't match /pwrecovery.
+        """
+
+        self.mock_web_ctx.env_get.return_value = 'BAD_REFERER'
+        self.mock_web_ctx.host.return_value = 'CURRENT_HOST'
+
+        # pwrecovery().POST()
+
+        # pytest.raises(Exception)
