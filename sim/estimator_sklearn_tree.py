@@ -3,7 +3,7 @@ __author__ = 'mruskov'
 from estimator_interface import estimator_interface
 from numpy import genfromtxt
 from sklearn import tree
-import pydot # if you don't have pydot installed comment out this line and the exportFDF() method
+# import pydot # if you don't have pydot installed comment out this line and the exportFDF() method
 import StringIO
 
 
