@@ -6,8 +6,8 @@ from environment import render_private as render
 from environment import db
 
 class score:
-    def CHECK_CLOSEST_COMPETITOR(self, your_score):
-        c = your_score.score_value
+    def CHECK_CLOSEST_COMPETITOR(self, userid, your_score):
+        """c = your_score.score_value
         c_when = your_score.date
         c_rank = your_score.rank
 
@@ -21,17 +21,59 @@ class score:
                     #update closest values if a closest competitor for this score type is found
                     c = closest.score_value
                     c_when = closest.date
-                    c_rank = closest.rank
-        return c, c_when, c_rank
+                    c_rank = closest.rank"""
 
-    def FIND_BEST(self, your_score):
-        score_type = your_score.score_type
+        #return c, c_when, c_rank
+
+    def FIND_BEST_USER(self, usrid, your_score):
+        """score_type = your_score.score_type
 
         best = db.select('scores', where="score_type=$score_type and rank=1", vars=locals())[0]
 
         b = best.score_value
-        b_when = best.date
-        return b, b_when
+        b_when = best.date"""
+
+        self.rank_risk = 1
+        self.rank_cost = 1
+        self.date_risk = ""
+        self.date_cost = ""
+        self.risk_value = 0.0
+        self.cost_value = 0.0
+        for row in your_score:
+            if row.score_type == 1:
+                if row.userid == usrid:
+                    self.date_risk = row.date_time
+                    self.risk_value = row.score_value
+                    break
+                else:
+                    self.rank_risk += 1
+        for row in your_score:
+            if row.score_type == 2:
+                if row.userid == usrid:
+                    self.date_cost = row.date_time
+                    self.cost_value = row.score_value
+                    break
+                else:
+                    self.rank_cost += 1
+        #return b, b_when
+        return self.risk_value, self.rank_risk, self.date_risk, self.cost_value, self.rank_cost, self.date_cost
+
+    def FIND_BEST(self, scores):
+        self.date_risk = ""
+        self.value_risk = 0.0
+        self.date_cost = ""
+        self.value_cost = 0.0
+        for row in scores:
+            if row.score_type == 1:
+                self.date_risk = row.date_time
+                self.value_risk = row.score_value
+                break
+        for row in scores:
+            if row.score_type == 2:
+                self.date_cost = row.date_time
+                self.value_cost = row.score_value
+                break
+        return self.value_risk, self.date_risk, self.value_cost, self.date_cost
 
     def FIND_AVG(self, your_score):
         score_type = your_score.score_type
@@ -42,12 +84,13 @@ class score:
         avg = average[0].avg
         return avg
 
-
     def GET(self):
         #check if is logged in
         if session.mysession.session.loggedin:
             #use this variable to request any ID number
             id_user = session.mysession.session.id
+
+            all_scores = db.select('scores', order="score_value ASC")
 
             your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
             your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())

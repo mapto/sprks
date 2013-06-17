@@ -67,6 +67,7 @@ class add:
         # make sure that the following line stays as per your local installation
         web.header('Content-Type', 'application/json')
         usrid = session.mysession.session.id
+        sim = simulation()
         data = json.loads(web.data())
         dat = eval(data["data"])
         date = data["date"]
@@ -75,16 +76,20 @@ class add:
         if "pdict" in dat:
             dict1=1
         else:
-            dict1=0
+            dat["dict"]=0
         if "pautorecover" in dat:
-            pautorecover1=1
+            dat["pautorecover"]=1
         else:
-            pautorecover1=0
+            dat["pautorecover"]=0
         if "pattempts" in dat:
             pattempts1=1
         else:
-            pattempts1=0
-        db.insert('pw_policy', plen=dat["plen"], psets=dat["psets"], pdict=dict1,
-                          phist=dat["phist"], prenew=dat["prenew"], pattempts=pattempts1,
-                          pautorecover=pautorecover1, userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
+            dat["pattempts"]=0
+        for k, value in dat.iteritems():
+            sim.set_policy(k, value)
+        db.insert('scores', userid=usrid, score_type=1, score_value = sim.calc_risk_prob(), date_time=dtt.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
+        db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(), date_time=dtt.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
+        db.insert('pw_policy', plen=dat["plen"], psets=dat["psets"], pdict=dat["dict"],
+                          phist=dat["phist"], prenew=dat["prenew"], pattempts=dat["pattempts"],
+                          pautorecover=dat["pautorecover"], userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
         return json.dumps([{"value":dtt.strftime("%Y/%m/%d %H:%M:%S")}])
