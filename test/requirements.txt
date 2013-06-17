@@ -1,3 +1,4 @@
 web.py
 MySQL-python
-DBUtils
+matplotlib
+scikit-learn

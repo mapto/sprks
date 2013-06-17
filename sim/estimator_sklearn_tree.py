@@ -3,7 +3,7 @@ __author__ = 'mruskov'
 from estimator_interface import estimator_interface
 from numpy import genfromtxt
 from sklearn import tree
-import pydot # if you don't have pydot installed comment out this line and the exportFDF() method
+# import pydot # if you don't have pydot installed comment out this line and the exportFDF() method
 import StringIO
 
 
@@ -19,7 +19,9 @@ class estimator_sklearn_tree(estimator_interface):
         self.risk_impact_model = tree.DecisionTreeRegressor().fit(train_data, train_value[:,1])
         self.prod_cost_model = tree.DecisionTreeRegressor().fit(train_data, train_value[:,2])
         # print clf.predict(test_data)
-        self.exportPDF()
+
+# use this only if you want to explore what the machine learning algorithm learned
+#        self.exportPDF()
 
     def policy2datapoint(self, policy):
         """ Policy is a dictionary,
@@ -45,24 +47,25 @@ class estimator_sklearn_tree(estimator_interface):
         datapoint = self.policy2datapoint(policy)
         return self.prod_cost_model.predict(datapoint)[0]
 
-    def exportPDF(self):
-        """ Use this to export a visual representation of the learned model
-            requires graphviz (http://www.graphviz.org) and pydot to be installed
-        """
-        dot_data = StringIO.StringIO()
+#    def exportPDF(self):
+#        """ Use this to export a visual representation of the learned model
+#            requires graphviz (http://www.graphviz.org) and pydot to be installed
+#        """
+#        dot_data = StringIO.StringIO()
+#
+#        tree.export_graphviz(self.risk_prob_model, out_file=dot_data)
+#        graph = pydot.graph_from_dot_data(dot_data.getvalue())
+#        graph.write_pdf("static/data/tree-" + self.name + "-risk-prob.pdf")
+#        """
+#        tree.export_graphviz(self.risk_impact_model, out_file=dot_data)
+#        graph = pydot.graph_from_dot_data(dot_data.getvalue())
+#        graph.write_pdf("static/data/tree-" + self.name + "-risk-impact.pdf")
+#
+#        tree.export_graphviz(self.prod_cost_model, out_file=dot_data)
+#        graph = pydot.graph_from_dot_data(dot_data.getvalue())
+#        graph.write_pdf("static/data/tree-" + self.name + "-prod-cost.pdf")
+#        """
 
-        tree.export_graphviz(self.risk_prob_model, out_file=dot_data)
-        graph = pydot.graph_from_dot_data(dot_data.getvalue())
-        graph.write_pdf("static/data/tree-" + self.name + "-risk-prob.pdf")
-        """
-        tree.export_graphviz(self.risk_impact_model, out_file=dot_data)
-        graph = pydot.graph_from_dot_data(dot_data.getvalue())
-        graph.write_pdf("static/data/tree-" + self.name + "-risk-impact.pdf")
-
-        tree.export_graphviz(self.prod_cost_model, out_file=dot_data)
-        graph = pydot.graph_from_dot_data(dot_data.getvalue())
-        graph.write_pdf("static/data/tree-" + self.name + "-prod-cost.pdf")
-        """
     def predict(self, datapoints):
         return [self.risk_prob_model.predict(datapoints),
                 self.risk_impact_model.predict(datapoints),
