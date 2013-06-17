@@ -1,7 +1,4 @@
 web.py
 MySQL-python
-numpy
-scipy
 matplotlib
 scikit-learn
-pydot
