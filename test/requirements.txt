@@ -1,6 +1,6 @@
 web.py
 MySQL-python
-numpy==1.7.1
+numpy
 scipy
 matplotlib
 scikit-learn
