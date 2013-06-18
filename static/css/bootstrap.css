@@ -57,10 +57,13 @@ label {
   
 }
 
+#curr_date{
+ font-size:14px;
+}
 .time_controls {
 	width:auto;
 	position:fixed;
-	right:0;
+	right:1px;
 	top:60px;
 	z-index:1030;
 	
@@ -132,10 +135,9 @@ label {
   text-align: left;
   font-weight: bold;
 
-  width:auto;
+  width:210px;
   height: auto;
-  min-width: 180px;
-  max-width: 200px;
+
   max-height:150px;
 
   line-height: 50px;
@@ -224,19 +226,19 @@ label {
 }
 .menu{
   position:fixed;
-  left:180px;
-  bottom:72px;
-  width:50px;
+  left:11px;
+  top:64px;
+  width:210px;
 }
 .menu a{
   position: relative;
   display: block;
   margin:10px;
-  width:60px;
-  height: 30px;
-  border-radius: 50%;
-  line-height: 30px;
-  font-size: 15px;
+  width:210px;
+  height: 40px;
+  border-radius: 3%;
+  line-height: 40px;
+  font-size: 20px;
 
   background-color: #f9f9f9;
   color: #555;
