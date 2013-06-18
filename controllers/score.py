@@ -5,9 +5,10 @@ import session
 from environment import render_private as render
 from environment import db
 import itertools
+import math
 
 class score:
-    def CHECK_CLOSEST_COMPETITOR(self, usrid, your_score):
+    def CHECK_CLOSEST_COMPETITOR(self,length, usrid, your_score):
         print "entered check closest"
         """c = your_score.score_value
         c_when = your_score.date
@@ -26,18 +27,18 @@ class score:
                     c_rank = closest.rank"""
         value_risk = 0.0
         value_cost = 0.0
-        prev_value_risk = 0.0
-        prev_value_cost = 0.0
+        prev_value_risk = 9999
+        prev_value_cost = 9999
         next_value_risk = 0.0
         next_value_cost = 0.0
         prev_risk_rank = 0
         next_risk_rank = 0
         prev_cost_rank = 0
         next_cost_rank = 0
-        next_value_risk_date = ""
-        prev_value_risk_date = ""
-        prev_value_cost_date = ""
-        next_value_cost_date = ""
+        next_value_risk_date = "N/A"
+        prev_value_risk_date = "N/A"
+        prev_value_cost_date = "N/A"
+        next_value_cost_date = "N/A"
         checked = False
         scores_1, scores_2 = itertools.tee(your_score)
         for row in scores_1:
@@ -77,7 +78,11 @@ class score:
                         break
         print value_risk, prev_value_risk, next_value_risk
         print value_cost, prev_value_cost, next_value_cost
-        if (float(value_risk)-float(prev_value_risk)) < (float(next_value_risk)-float(value_risk)):
+        if next_risk_rank+1 == length:
+            next_risk_rank = 0
+        if next_cost_rank+1 == length:
+            next_cost_rank = 0
+        if math.fabs(float(value_risk)-float(prev_value_risk)) <= math.fabs(float(next_value_risk)-float(value_risk)):
             closest_score_risk = prev_value_risk
             closest_ranking_risk = prev_risk_rank
             closest_date_risk = prev_value_risk_date
@@ -86,7 +91,7 @@ class score:
             closest_ranking_risk = next_risk_rank
             closest_date_risk = next_value_risk_date
       #  , ,  = , ,   else , ,
-        if (float(value_cost)-float(prev_value_cost)) < (float(next_value_cost)-float(value_cost)):
+        if math.fabs(float(value_cost)-float(prev_value_cost)) <= math.fabs(float(next_value_cost)-float(value_cost)):
             closest_score_cost = prev_value_cost
             closest_ranking_cost = prev_cost_rank
             closest_date_cost = prev_value_cost_date
@@ -95,9 +100,10 @@ class score:
             closest_ranking_cost = next_cost_rank
             closest_date_cost = next_value_cost_date
         #, ,  = , ,   else , ,
+
         return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
-    def FIND_BEST_USER(self, usrid, your_score):
+    def FIND_BEST_USER(self,length, usrid, your_score):
         print "entered find best user"
         """score_type = your_score.score_type
 
@@ -162,7 +168,7 @@ class score:
         average_cost = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =2;")[0]
 
         #avg = average[0].avg
-        return average_risk, average_cost
+        return average_risk.avg, average_cost.avg
 
     def GET(self):
         #check if is logged in
@@ -171,6 +177,7 @@ class score:
             id_user = session.mysession.session.id
 
             all_scores = db.select('scores', order="score_value ASC")
+            length = len(all_scores)
             scores_1, scores_2, scores_3, scores_4 = itertools.tee(all_scores, 4)
             #your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
             #your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())
@@ -181,8 +188,8 @@ class score:
             if len(all_scores) > 0:
                 #your_risk = your_risk[0]
                 #your_pc = your_pc[0]
-                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(id_user, scores_1)
-                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(id_user, scores_2)
+                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(length, id_user, scores_1)
+                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(length, id_user, scores_2)
                # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
                 b_risk, b_risk_when,  b_pc, b_pc_when = self.FIND_BEST(scores_3)
               # ,  = self.FIND_BEST(your_pc)
