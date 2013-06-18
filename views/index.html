@@ -17,9 +17,8 @@ $if content.cssfiles:
 <div class="navbar  navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-		<h4>
-		  <div class="timeline"> Timeline: </div>
-		</h4>	 
+         <div class="link logout" class="text-right" id="logout"><a href="\login">Logout</a></div>
+         <div class = "logout" >note: not sure if session needs to be stored somehow on logout</div>
 		</div>
       </div>	  
     </div>
@@ -109,6 +108,30 @@ $if content.cssfiles:
         }
 
         });
+
+
+         send = function() {
+            var obj = {};
+            var request = jQuery.ajax({
+            url: "/forward",
+            type: "POST",
+            async : false,
+            data : JSON.stringify(obj),
+            contentType : "application/json; charset=utf-8",
+            dataType : "json",
+            success : function(score) {
+                console.log("success")
+            },
+            error: function(response) {
+                console.log("fail: " + response.responseText);
+            }
+            });
+        return false;
+}
+//function for sending request on play btn press
+
+        $$('#play').click(send);
+
 
     });
 </script>
