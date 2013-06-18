@@ -57,6 +57,9 @@ label {
   
 }
 
+#curr_date{
+ font-size:14px;
+}
 .time_controls {
 	width:auto;
 	position:fixed;

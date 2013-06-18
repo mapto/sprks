@@ -24,7 +24,7 @@ $if content.cssfiles:
 <nav class="time_controls">
 		<ul>
 			<h4>
-				<div id="curr_date"></div>
+				<div id="curr_date">YYYY-MM-DD 00:00:00</div>
 			</h4>	  
 			<li><a href="#" class="icon-play" id="play"></a></li> 
 			<li><a href="#" class="icon-pause"></a></li> 
@@ -110,6 +110,7 @@ $if content.cssfiles:
 
 
          send = function() {
+            $$("#curr_date").text('to be defined by server');
             var obj = {};
             var request = jQuery.ajax({
             url: "/forward",
@@ -118,8 +119,9 @@ $if content.cssfiles:
             data : JSON.stringify(obj),
             contentType : "application/json; charset=utf-8",
             dataType : "json",
-            success : function(score) {
-                console.log("success")
+            success : function(curr_date) {
+                console.log("success: " + JSON.stringify(curr_date));
+                $$("#curr_date").text(curr_date.value)
             },
             error: function(response) {
                 console.log("fail: " + response.responseText);
@@ -128,7 +130,6 @@ $if content.cssfiles:
         return false;
 }
 //function for sending request on play btn press
-
         $$('#play').click(send);
 
 
