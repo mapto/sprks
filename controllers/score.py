@@ -128,10 +128,11 @@ class score:
         score_type = your_score.score_type
 
        # average = db.select('scores', where="score_type=$score_type", vars=locals())
-        average = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type ="+"$score_type;", vars=locals())
+        average_risk = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =1;")[0]
+        average_cost = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =2;")[0]
 
-        avg = average[0].avg
-        return avg
+        #avg = average[0].avg
+        return average_risk, average_cost
 
     def GET(self):
         #check if is logged in
@@ -141,23 +142,26 @@ class score:
 
             all_scores = db.select('scores', order="score_value ASC")
 
-            your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
-            your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())
+            #your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
+            #your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())
 
             #if user scores found -> display score page
-            if len(your_risk) > 0 and len(your_pc) > 0:
-                your_risk = your_risk[0]
-                your_pc = your_pc[0]
 
-                c_risk, c_risk_when, c_risk_rank = self.CHECK_CLOSEST_COMPETITOR(your_risk)
-                c_pc, c_pc_when, c_pc_rank = self.CHECK_CLOSEST_COMPETITOR(your_pc)
-                b_risk, b_risk_when = self.FIND_BEST(your_risk)
-                b_pc, b_pc_when = self.FIND_BEST(your_pc)
-                avg_risk = self.FIND_AVG(your_risk)
-                avg_pc = self.FIND_AVG(your_pc)
+            #if len(your_risk) > 0 and len(your_pc) > 0:
+            if len(all_scores) > 0:
+                #your_risk = your_risk[0]
+                #your_pc = your_pc[0]
 
-                return render.score(your_risk.score_value, your_risk.date, your_risk.rank,
-                                    your_pc.score_value, your_pc.date, your_pc.rank,
+                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(id_user, all_scores)
+               # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
+                b_risk, b_risk_when,  b_pc, b_pc_when = self.FIND_BEST(all_scores)
+              # ,  = self.FIND_BEST(your_pc)
+                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(id_user, all_scores)
+                avg_risk, avg_pc = self.FIND_AVG(all_scores)
+                #avg_pc = self.FIND_AVG(your_pc)
+
+                return render.score(b_u_risk, b_u_risk_date, b_u_risk_rank,
+                                    b_u_cost, b_u_cost_date, b_u_cost_rank,
                                     c_risk, c_risk_when, c_risk_rank,
                                     c_pc, c_pc_when, c_pc_rank,
                                     b_risk, b_risk_when,
