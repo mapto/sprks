@@ -30,18 +30,18 @@ $var cssfiles: ../static/css/bootstrap.css
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
-			<div id="y_risk" class="ids span3">v</div>
-			<div id="y_risk_when" class="ids span3">v</div>
-			<div id="y_risk_rank"class="ids span2">v</div>
+			<div id="y_risk" class="ids span3">$y_risk</div>
+			<div id="y_risk_when" class="ids span3">$y_risk_when</div>
+			<div id="y_risk_rank"class="ids span2">$y_risk_rank</div>
 			</h5>
 			</div>
 			
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest productivity cost:</div>
-			<div id="y_pc" class="span3">v</div>
-			<div id="y_pc_when" class="span3">v</div>
-			<div id="y_pc_rank" class="span2">v</div>
+			<div id="y_pc" class="span3">$y_pc</div>
+			<div id="y_pc_when" class="span3">$y_pc_when</div>
+			<div id="y_pc_rank" class="span2">$y_pc_rank</div>
 			</h5>
 			</div>
 			
@@ -109,6 +109,7 @@ $var cssfiles: ../static/css/bootstrap.css
     //});
 
 jQuery(document).ready(function() {
+        document.getElementsByName("y_risk").value = $:y_risk;
         jQuery("#y_risk").text($:y_risk);
         jQuery("#y_risk_when").text(($:y_risk_when+' strange output instead of date'));
         jQuery("#y_risk_rank").text($:y_risk_rank);

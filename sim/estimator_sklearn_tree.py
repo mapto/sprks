@@ -53,18 +53,18 @@ class estimator_sklearn_tree(estimator_interface):
         """
         dot_data = StringIO.StringIO()
 
-        tree.export_graphviz(self.risk_prob_model, out_file=dot_data)
+        """tree.export_graphviz(self.risk_prob_model, out_file=dot_data)
         graph = pydot.graph_from_dot_data(dot_data.getvalue())
-        #graph.write_pdf("static/data/tree-" + self.name + "-risk-prob.pdf")
+        graph.write_pdf("static/data/tree-" + self.name + "-risk-prob.pdf")
         """
-        tree.export_graphviz(self.risk_impact_model, out_file=dot_data)
-        graph = pydot.graph_from_dot_data(dot_data.getvalue())
-        graph.write_pdf("static/data/tree-" + self.name + "-risk-impact.pdf")
+        #tree.export_graphviz(self.risk_impact_model, out_file=dot_data)
+       # graph = pydot.graph_from_dot_data(dot_data.getvalue())
+        #graph.write_pdf("static/data/tree-" + self.name + "-risk-impact.pdf")
 
         tree.export_graphviz(self.prod_cost_model, out_file=dot_data)
         graph = pydot.graph_from_dot_data(dot_data.getvalue())
         graph.write_pdf("static/data/tree-" + self.name + "-prod-cost.pdf")
-        """
+
 
     def predict(self, datapoints):
         return [self.risk_prob_model.predict(datapoints),

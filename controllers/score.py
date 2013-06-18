@@ -4,7 +4,7 @@ import web
 import session
 from environment import render_private as render
 from environment import db
-import math
+import itertools
 
 class score:
     def CHECK_CLOSEST_COMPETITOR(self, usrid, your_score):
@@ -38,7 +38,8 @@ class score:
         prev_value_cost_date = ""
         next_value_cost_date = ""
         checked = False
-        for row in your_score:
+        scores_1, scores_2 = itertools.tee(your_score)
+        for row in scores_1:
             if row.score_type == 1:
                 if row.userid == usrid:
                     next_risk_rank += 1
@@ -56,7 +57,7 @@ class score:
                         next_value_risk_date = row.date_time
                         break
         checked = False
-        for row in your_score:
+        for row in scores_2:
             if row.score_type == 2:
                 if row.userid == usrid:
                     next_cost_rank += 1
@@ -84,7 +85,7 @@ class score:
             closest_ranking_risk = next_risk_rank
             closest_date_risk = next_value_risk_date
       #  , ,  = , ,   else , ,
-        if (value_cost-prev_value_cost) < (next_value_cost-value_cost):
+        if (float(value_cost)-float(prev_value_cost)) < (float(next_value_cost)-float(value_cost)):
             closest_score_cost = prev_value_cost
             closest_ranking_cost = prev_cost_rank
             closest_date_cost = prev_value_cost_date
@@ -109,7 +110,8 @@ class score:
         date_cost = "N/A"
         risk_value = 0.0
         cost_value = 0.0
-        for row in your_score:
+        scores_1, scores_2 = itertools.tee(your_score)
+        for row in scores_1:
             if row.score_type == 1:
                 if row.userid == usrid:
                     rank_risk += 1
@@ -118,7 +120,7 @@ class score:
                     break
                 else:
                     rank_risk += 1
-        for row in your_score:
+        for row in scores_2:
             if row.score_type == 2:
                 if row.userid == usrid:
                     rank_cost += 1
@@ -135,12 +137,13 @@ class score:
         value_risk = 0.0
         date_cost = "N/A"
         value_cost = 0.0
-        for row in scores:
+        scores_1, scores_2 = itertools.tee(scores)
+        for row in scores_1:
             if row.score_type == 1:
                 date_risk = row.date_time
                 value_risk = row.score_value
                 break
-        for row in scores:
+        for row in scores_2:
             if row.score_type == 2:
                 date_cost = row.date_time
                 value_cost = row.score_value
@@ -164,7 +167,7 @@ class score:
             id_user = session.mysession.session.id
 
             all_scores = db.select('scores', order="score_value ASC")
-
+            scores_1, scores_2, scores_3, scores_4 = itertools.tee(all_scores, 4)
             #your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
             #your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())
 
@@ -174,14 +177,14 @@ class score:
             if len(all_scores) > 0:
                 #your_risk = your_risk[0]
                 #your_pc = your_pc[0]
-
-                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(id_user, all_scores)
+                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(id_user, scores_1)
+                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(id_user, scores_2)
                # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
-                b_risk, b_risk_when,  b_pc, b_pc_when = self.FIND_BEST(all_scores)
+                b_risk, b_risk_when,  b_pc, b_pc_when = self.FIND_BEST(scores_3)
               # ,  = self.FIND_BEST(your_pc)
-                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(id_user, all_scores)
-                avg_risk, avg_pc = self.FIND_AVG(all_scores)
+                avg_risk, avg_pc = self.FIND_AVG(scores_4)
                 #avg_pc = self.FIND_AVG(your_pc)
+                print b_u_risk_rank
 
                 return render.score(b_u_risk, b_u_risk_date, b_u_risk_rank,
                                     b_u_cost, b_u_cost_date, b_u_cost_rank,
