@@ -87,8 +87,8 @@ class add:
             dat["pattempts"]=0
         for k, value in dat.iteritems():
             sim.set_policy(k, value)
-        db.insert('scores', userid=usrid, score_type=1, score_value = sim.calc_risk_prob(), date_time=dtt.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
-        db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(), date_time=dtt.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
+        db.insert('scores', userid=usrid, score_type=1, score_value = sim.calc_risk_prob(), date=dtt.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
+        db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(), date=dtt.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
         db.insert('pw_policy', plen=dat["plen"], psets=dat["psets"], pdict=dat["pdict"],
                           phist=dat["phist"], prenew=dat["prenew"], pattempts=dat["pattempts"],
                           pautorecover=dat["pautorecover"], userid=usrid, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
