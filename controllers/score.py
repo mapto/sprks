@@ -6,7 +6,7 @@ from environment import render_private as render
 from environment import db
 
 class score:
-    def CHECK_CLOSEST_COMPETITOR(self, userid, your_score):
+    def CHECK_CLOSEST_COMPETITOR(self, usrid, your_score):
         """c = your_score.score_value
         c_when = your_score.date
         c_rank = your_score.rank
@@ -22,8 +22,55 @@ class score:
                     c = closest.score_value
                     c_when = closest.date
                     c_rank = closest.rank"""
-
-        #return c, c_when, c_rank
+        value_risk = 0.0
+        value_cost = 0.0
+        prev_value_risk = 0.0
+        prev_value_cost = 0.0
+        next_value_risk = 0.0
+        next_value_cost = 0.0
+        prev_risk_rank = 0
+        next_risk_rank = 0
+        prev_cost_rank = 0
+        next_cost_rank = 0
+        checked = False
+        for row in your_score:
+            if row.score_type == 1:
+                if row.userid == usrid:
+                    next_risk_rank += 1
+                    if not checked:
+                        value_risk = row.score_value
+                        checked = True
+                else:
+                    next_risk_rank += 1
+                    if not checked:
+                        prev_risk_rank += 1
+                        prev_value_risk = row.score_value
+                        prev_value_risk_date = row.date_time
+                    else:
+                        next_value_risk = row.score_value
+                        next_value_risk_date = row.date_time
+                        break
+        checked = False
+        for row in your_score:
+            if row.score_type == 2:
+                if row.userid == usrid:
+                    next_cost_rank += 1
+                    if not checked:
+                        value_cost = row.score_value
+                        checked = True
+                else:
+                    next_cost_rank += 1
+                    if not checked:
+                        prev_cost_rank += 1
+                        prev_value_cost = row.score_value
+                        prev_value_cost_date = row.date_time
+                    else:
+                        next_value_cost = row.score_value
+                        next_value_cost_date = row.date_time
+                        break
+        closest_score_risk, closest_ranking_risk, closest_date_risk = prev_value_risk, prev_risk_rank, prev_value_risk_date if abs(value_risk-prev_value_risk) < abs(next_value_risk-value_risk) else next_value_risk, next_risk_rank, next_value_risk_date
+        closest_score_cost, closest_ranking_cost, closest_date_cost = prev_value_cost, prev_cost_rank, prev_value_cost_date if abs(value_cost-prev_value_cost) < abs(next_value_cost-value_cost) else next_value_cost, next_cost_rank, next_value_cost_date
+        return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
     def FIND_BEST_USER(self, usrid, your_score):
         """score_type = your_score.score_type
@@ -33,47 +80,49 @@ class score:
         b = best.score_value
         b_when = best.date"""
 
-        self.rank_risk = 1
-        self.rank_cost = 1
-        self.date_risk = ""
-        self.date_cost = ""
-        self.risk_value = 0.0
-        self.cost_value = 0.0
+        rank_risk = 0
+        rank_cost = 0
+        date_risk = "N/A"
+        date_cost = "N/A"
+        risk_value = 0.0
+        cost_value = 0.0
         for row in your_score:
             if row.score_type == 1:
                 if row.userid == usrid:
-                    self.date_risk = row.date_time
-                    self.risk_value = row.score_value
+                    rank_risk += 1
+                    date_risk = row.date_time
+                    risk_value = row.score_value
                     break
                 else:
-                    self.rank_risk += 1
+                    rank_risk += 1
         for row in your_score:
             if row.score_type == 2:
                 if row.userid == usrid:
-                    self.date_cost = row.date_time
-                    self.cost_value = row.score_value
+                    rank_cost += 1
+                    date_cost = row.date_time
+                    cost_value = row.score_value
                     break
                 else:
-                    self.rank_cost += 1
+                    rank_cost += 1
         #return b, b_when
-        return self.risk_value, self.rank_risk, self.date_risk, self.cost_value, self.rank_cost, self.date_cost
+        return risk_value, rank_risk, date_risk, cost_value, rank_cost, date_cost
 
     def FIND_BEST(self, scores):
-        self.date_risk = ""
-        self.value_risk = 0.0
-        self.date_cost = ""
-        self.value_cost = 0.0
+        date_risk = "N/A"
+        value_risk = 0.0
+        date_cost = "N/A"
+        value_cost = 0.0
         for row in scores:
             if row.score_type == 1:
-                self.date_risk = row.date_time
-                self.value_risk = row.score_value
+                date_risk = row.date_time
+                value_risk = row.score_value
                 break
         for row in scores:
             if row.score_type == 2:
-                self.date_cost = row.date_time
-                self.value_cost = row.score_value
+                date_cost = row.date_time
+                value_cost = row.score_value
                 break
-        return self.value_risk, self.date_risk, self.value_cost, self.date_cost
+        return value_risk, date_risk, value_cost, date_cost
 
     def FIND_AVG(self, your_score):
         score_type = your_score.score_type
