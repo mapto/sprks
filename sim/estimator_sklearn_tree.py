@@ -55,7 +55,7 @@ class estimator_sklearn_tree(estimator_interface):
 
         tree.export_graphviz(self.risk_prob_model, out_file=dot_data)
         graph = pydot.graph_from_dot_data(dot_data.getvalue())
-        graph.write_pdf("static/data/tree-" + self.name + "-risk-prob.pdf")
+        #graph.write_pdf("static/data/tree-" + self.name + "-risk-prob.pdf")
         """
         tree.export_graphviz(self.risk_impact_model, out_file=dot_data)
         graph = pydot.graph_from_dot_data(dot_data.getvalue())

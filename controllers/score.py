@@ -4,6 +4,7 @@ import web
 import session
 from environment import render_private as render
 from environment import db
+import math
 
 class score:
     def CHECK_CLOSEST_COMPETITOR(self, usrid, your_score):
@@ -32,6 +33,10 @@ class score:
         next_risk_rank = 0
         prev_cost_rank = 0
         next_cost_rank = 0
+        next_value_risk_date = ""
+        prev_value_risk_date = ""
+        prev_value_cost_date = ""
+        next_value_cost_date = ""
         checked = False
         for row in your_score:
             if row.score_type == 1:
@@ -68,8 +73,26 @@ class score:
                         next_value_cost = row.score_value
                         next_value_cost_date = row.date_time
                         break
-        closest_score_risk, closest_ranking_risk, closest_date_risk = prev_value_risk, prev_risk_rank, prev_value_risk_date if abs(value_risk-prev_value_risk) < abs(next_value_risk-value_risk) else next_value_risk, next_risk_rank, next_value_risk_date
-        closest_score_cost, closest_ranking_cost, closest_date_cost = prev_value_cost, prev_cost_rank, prev_value_cost_date if abs(value_cost-prev_value_cost) < abs(next_value_cost-value_cost) else next_value_cost, next_cost_rank, next_value_cost_date
+        print value_risk, prev_value_risk, next_value_risk
+        print value_cost, prev_value_cost, next_value_cost
+        if (float(value_risk)-float(prev_value_risk)) < (float(next_value_risk)-float(value_risk)):
+            closest_score_risk = prev_value_risk
+            closest_ranking_risk = prev_risk_rank
+            closest_date_risk = prev_value_risk_date
+        else:
+            closest_score_risk = next_value_risk
+            closest_ranking_risk = next_risk_rank
+            closest_date_risk = next_value_risk_date
+      #  , ,  = , ,   else , ,
+        if (value_cost-prev_value_cost) < (next_value_cost-value_cost):
+            closest_score_cost = prev_value_cost
+            closest_ranking_cost = prev_cost_rank
+            closest_date_cost = prev_value_cost_date
+        else:
+            closest_score_cost = next_value_cost
+            closest_ranking_cost = next_cost_rank
+            closest_date_cost = next_value_cost_date
+        #, ,  = , ,   else , ,
         return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
     def FIND_BEST_USER(self, usrid, your_score):
@@ -125,7 +148,7 @@ class score:
         return value_risk, date_risk, value_cost, date_cost
 
     def FIND_AVG(self, your_score):
-        score_type = your_score.score_type
+#        score_type = your_score.score_type
 
        # average = db.select('scores', where="score_type=$score_type", vars=locals())
         average_risk = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =1;")[0]
