@@ -50,18 +50,18 @@ $var cssfiles: static/css/bootstrap.css
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
-			<div id="c_risk" class="span3">v</div>
-			<div id="c_risk_when"class="span3">v</div>
-			<div id="c_risk_rank"class="span2">v</div>
+			<div id="c_risk" class="span3">$c_risk</div>
+			<div id="c_risk_when"class="span3">$c_risk_when</div>
+			<div id="c_risk_rank"class="span2">$c_risk_rank</div>
 			</h5>
 			</div>
 			
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest productivity cost:</div>
-			<div id="c_pc" class="span3">v</div>
-			<div id="c_pc_when" class="span3">v</div>
-			<div id="c_pc_rank" class="span2">v</div>
+			<div id="c_pc" class="span3">$c_pc</div>
+			<div id="c_pc_when" class="span3">$c_pc_when</div>
+			<div id="c_pc_rank" class="span2">$c_pc_rank</div>
 			</h5>
 			</div>
 			
@@ -70,7 +70,7 @@ $var cssfiles: static/css/bootstrap.css
 			<div class="span11 text-center">
 			<h5>
 			<div class="span4 text-left">lowest risk:</div>
-			<div id="b_risk" class="span3">v</div>
+			<div id="b_risk" class="span3">$b_risk</div>
             <div id="b_risk_when" class="span3">v</div>
 			</h5>
 			</div>
@@ -109,56 +109,27 @@ $var cssfiles: static/css/bootstrap.css
     //});
 
 jQuery(document).ready(function() {
-        document.getElementsByName("y_risk").value = $:y_risk;
-        jQuery("#y_risk").text($:y_risk);
-        jQuery("#y_risk_when").text(($:y_risk_when+' strange output instead of date'));
-        jQuery("#y_risk_rank").text($:y_risk_rank);
-
-        jQuery("#y_pc").text($:y_pc);
-        jQuery("#y_pc_when").text($:y_pc_when+' strange output instead of date');
-        jQuery("#y_pc_rank").text($:y_pc_rank);
-
         if($:y_risk==$:c_risk){
             jQuery("#c_risk").text('no competitor');
             jQuery("#c_risk_when").text('no competitor');
             jQuery("#c_risk_rank").text('no competitor');
-        }else{
-            jQuery("#c_risk").text($:c_risk);
-            jQuery("#c_risk_when").text(($:c_risk_when+' strange output instead of date'));
-            jQuery("#c_risk_rank").text($:c_risk_rank);
         }
 
-        if($:y_risk==$:c_risk){
+        if($:y_pc==$:c_pc){
             jQuery("#c_pc").text('no competitor');
             jQuery("#c_pc_when").text('no competitor');
             jQuery("#c_pc_rank").text('no competitor');
-        }else{
-            jQuery("#c_pc").text($:c_pc);
-            jQuery("#c_pc_when").text($:c_pc_when+' strange output instead of date');
-            jQuery("#c_pc_rank").text($:c_pc_rank);
         }
 
         if($:y_risk==$:b_risk){
             jQuery("#b_risk").text('you are the best');
             jQuery("#b_risk_when").text('you are the best');
-        }else{
-            jQuery("#b_risk").text($:b_risk);
-            jQuery("#b_risk_when").text(($:b_risk_when+' strange output instead of date'));
         }
 
         if($:y_risk==$:b_pc){
             jQuery("#b_pc").text('you are the best');
             jQuery("#b_pc_when").text('you are the best');
-        }else{
-            jQuery("#b_pc").text($:b_pc);
-            jQuery("#b_pc_when").text(($:b_pc_when+' strange output instead of date'));
         }
-
-        jQuery("#avg_risk").text($:avg_risk);
-        jQuery("#avg_pc").text($:avg_pc);
-
-
-
 });
 
 
