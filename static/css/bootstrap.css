@@ -57,12 +57,6 @@ label {
   
 }
 
-.timeline{
-	float: right;
-	text-align:right;
-	margin-right: 72px;
-}
-
 .time_controls {
 	width:auto;
 	position:fixed;
@@ -155,6 +149,7 @@ label {
 
 }
 .link{
+  margin-top:10px;
   text-align: left;
   font-weight:bold;
   font-size:14px;
@@ -172,6 +167,10 @@ label {
 .link a:hover{
   text-decoration:none;
   color: #fff;
+}
+
+.link.logout{
+  float:right;
 }
 
 #login_drop{
