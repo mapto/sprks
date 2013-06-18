@@ -92,7 +92,7 @@ class TestMaxSec:
         self.policy.set_policy('pautorecover', 0)
 
     def test_calc_risk_prob(self):
-        assert self.policy.calc_risk_prob() == 0.1
+        assert self.policy.calc_risk_prob() == 0.8
 
     def test_calc_risk_impact(self):
         assert self.policy.calc_risk_impact() == 1
@@ -116,7 +116,7 @@ class TestMinSec:
         self.policy.set_policy('pautorecover', 1)
 
     def test_calc_risk_prob(self):
-        assert self.policy.calc_risk_prob() == 0.5
+        assert self.policy.calc_risk_prob() == 1
 
     def test_calc_risk_impact(self):
         assert self.policy.calc_risk_impact() == 1

@@ -51,10 +51,10 @@ class score:
                     if not checked:
                         prev_risk_rank += 1
                         prev_value_risk = row.score_value
-                        prev_value_risk_date = row.date_time
+                        prev_value_risk_date = row.date
                     else:
                         next_value_risk = row.score_value
-                        next_value_risk_date = row.date_time
+                        next_value_risk_date = row.date
                         break
         checked = False
         for row in scores_2:
@@ -69,10 +69,10 @@ class score:
                     if not checked:
                         prev_cost_rank += 1
                         prev_value_cost = row.score_value
-                        prev_value_cost_date = row.date_time
+                        prev_value_cost_date = row.date
                     else:
                         next_value_cost = row.score_value
-                        next_value_cost_date = row.date_time
+                        next_value_cost_date = row.date
                         break
         print value_risk, prev_value_risk, next_value_risk
         print value_cost, prev_value_cost, next_value_cost
@@ -115,7 +115,7 @@ class score:
             if row.score_type == 1:
                 if row.userid == usrid:
                     rank_risk += 1
-                    date_risk = row.date_time
+                    date_risk = row.date
                     risk_value = row.score_value
                     break
                 else:
@@ -124,7 +124,7 @@ class score:
             if row.score_type == 2:
                 if row.userid == usrid:
                     rank_cost += 1
-                    date_cost = row.date_time
+                    date_cost = row.date
                     cost_value = row.score_value
                     break
                 else:
@@ -140,12 +140,12 @@ class score:
         scores_1, scores_2 = itertools.tee(scores)
         for row in scores_1:
             if row.score_type == 1:
-                date_risk = row.date_time
+                date_risk = row.date
                 value_risk = row.score_value
                 break
         for row in scores_2:
             if row.score_type == 2:
-                date_cost = row.date_time
+                date_cost = row.date
                 value_cost = row.score_value
                 break
         return value_risk, date_risk, value_cost, date_cost
