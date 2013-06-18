@@ -204,7 +204,7 @@ class score:
                                     b_risk, b_risk_when,
                                     b_pc, b_pc_when,
                                     avg_risk,
-                                    avg_pc)
+                                    avg_pc, session.mysession.session.date)
 
 
             else:

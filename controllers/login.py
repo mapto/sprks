@@ -1,3 +1,4 @@
+
 __author__ = "Dan"
 
 import web
@@ -14,6 +15,7 @@ class login:
     def GET(self):
         session.mysession.session.loggedin = False
         session.mysession.session.user = 'Anonymous'
+        session.mysession.session.date = ""
         return render.login()
 
     def POST(self):
