@@ -8,6 +8,7 @@ import itertools
 
 class score:
     def CHECK_CLOSEST_COMPETITOR(self, usrid, your_score):
+        print "entered check closest"
         """c = your_score.score_value
         c_when = your_score.date
         c_rank = your_score.rank
@@ -97,6 +98,7 @@ class score:
         return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
     def FIND_BEST_USER(self, usrid, your_score):
+        print "entered find best user"
         """score_type = your_score.score_type
 
         best = db.select('scores', where="score_type=$score_type and rank=1", vars=locals())[0]
@@ -130,6 +132,8 @@ class score:
                 else:
                     rank_cost += 1
         #return b, b_when
+        print risk_value, rank_risk, date_risk
+        print cost_value, rank_cost, date_cost
         return risk_value, rank_risk, date_risk, cost_value, rank_cost, date_cost
 
     def FIND_BEST(self, scores):
