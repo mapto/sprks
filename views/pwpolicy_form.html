@@ -313,7 +313,9 @@ jQuery(document).ready(function(){
 
 
 /* handle AJAX (realtime) submission */
+/*
 send = function() { // need different event handling, to capture any change
+
     var obj = {};
     var obj1 = {};
 	var strDate = document.forms["input"]["date"].value;
@@ -347,6 +349,7 @@ send = function() { // need different event handling, to capture any change
     return false;
 }
 //sends data when users press play button
+*/
 send_callback = function() { // need different event handling, to capture any change
     var d = new Date();
     var obj = {};
@@ -390,7 +393,7 @@ jQuery(document).ready(function() {
 
     //send_callback();
     jQuery('.target').change(send_callback);
-    $$('#play').click(send)
+    //$$('#play').click(send)
 });
 
 </script> <!-- relative path to external files -->
