@@ -83,7 +83,7 @@ $if content.cssfiles:
 
         </div>
         <div class="container-fluid">
-		<h4>
+		<h4 style="margin-left:220px;">
 		Status bar: added value, notificns, etc.
          </h4>
 		</div>
@@ -125,15 +125,15 @@ $if content.cssfiles:
             //highlight active button(scores/story/policy)
             if('$content.title'=='Scores'){
                 jQuery(".score a").css("background-color", "#C10000");
-                jQuery(".score a").css("color", "#000");
+                jQuery(".score a").css("color", "#fff");
                 jQuery(".score a").css("cursor", "default");
             }else if('$content.title'=='Introduction'){
                 jQuery(".story a").css("background-color", "#C10000");
-                jQuery(".story a").css("color", "#000");
+                jQuery(".story a").css("color", "#fff");
                 jQuery(".story a").css("cursor", "default");
             }else{      //default value for policy as we have a multiple of them
                 jQuery(".policy a").css("background-color", "#C10000");
-                jQuery(".policy a").css("color", "#000");
+                jQuery(".policy a").css("color", "#fff");
                 jQuery(".policy a").css("cursor", "default");
             }
 
