@@ -17,7 +17,7 @@ $if content.cssfiles:
 <div class="navbar  navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-        <div class="link logout" class="text-right" id="logout"> <a href="/login"> Logout </a></div>  <div class="link logout" class="text-right" id="logout">$content.username </div>
+        <div class="link logout" class="text-right" id="logout"> <a href="/login"> Logout </a></div>  <div class="link logout usrname" class="text-right" id="logout">$content.username </div>
 		</div>
       </div>	  
     </div>
@@ -121,7 +121,7 @@ $if content.cssfiles:
             dataType : "json",
             success : function(curr_date) {
                 console.log("success: " + JSON.stringify(curr_date));
-                $$("#curr_date").text(curr_date.value)
+                $$("#curr_date").text(curr_date[0].value)
             },
             error: function(response) {
                 console.log("fail: " + response.responseText);

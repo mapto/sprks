@@ -164,6 +164,10 @@ label {
   color: #fff;
   cursor: pointer;
 }
+.link.usrname:hover{
+  color: #e6e1cb;
+  cursor:default;
+}
 .link a{
   color: #e6e1cb;
 }
