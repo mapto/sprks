@@ -76,9 +76,11 @@ $if content.cssfiles:
 <div class="navbar navbar-fixed-bottom">
       <div class="navbar-inner">
         <div  class="menu">
+
+            <div class="story"><a href="/intro">Story </a></div>
+            <div class="policy"><a href="/pwpolicy">Policy</a></div>
             <div class="score"><a href="/score">Scores</a></div>
-            <div><a href="/intro">Story </a></div>
-            <div><a href="/pwpolicy">Policy</a></div>
+
         </div>
         <div class="container-fluid">
 		<h4>
@@ -109,9 +111,31 @@ $if content.cssfiles:
         });
 
 
-        jQuery('#play').click( function(){
-            jQuery(".score").css("display", "block");
-        });
+
+            //check if start date(6 jan 2014 09:00) != current date:
+            if(Date.parse('$content.date') != Date.parse("2014-01-06 09:00:00")) {
+                console.log('$content.date'+' not equal to start date');
+                jQuery(".score").css("display", "block");
+            }else{
+                console.log('$content.date'+' equal to start date');
+                jQuery(".score").css("display", "none");
+            }
+            //
+
+            //highlight active button(scores/story/policy)
+            if('$content.title'=='Scores'){
+                jQuery(".score a").css("background-color", "#C10000");
+                jQuery(".score a").css("color", "#000");
+                jQuery(".score a").css("cursor", "default");
+            }else if('$content.title'=='Introduction'){
+                jQuery(".story a").css("background-color", "#C10000");
+                jQuery(".story a").css("color", "#000");
+                jQuery(".story a").css("cursor", "default");
+            }else{
+                jQuery(".policy a").css("background-color", "#C10000");
+                jQuery(".policy a").css("color", "#000");
+                jQuery(".policy a").css("cursor", "default");
+            }
 
 
 
