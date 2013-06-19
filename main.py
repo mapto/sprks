@@ -27,11 +27,15 @@ urls = ('/', controllers.login.login,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
         '/pwrecovery', controllers.pwrecovery.pwrecovery,
         '/pwrequest', controllers.pwrequest.pwrequest,
+        '/password', controllers.pwrequest.pwrequest, # default password is request
+        '/password/request', controllers.pwrequest.pwrequest,
+        '/password/recovery', controllers.pwrecovery.pwrecovery, # restful URLs
+        '/password/recovery/(.*)', controllers.pwrecovery.pwrecovery, # restful URLs
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
-        '/policy', controllers.pwpolicy.pwpolicy,
-        '/policy/password', controllers.pwpolicy.pwpolicy,
+        '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
+        '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward
 )
 
