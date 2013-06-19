@@ -17,8 +17,9 @@ import controllers.login
 import controllers.intro
 import controllers.pwrecovery
 import controllers.pwrequest
-import controllers.code_get_post
+import controllers.pwpolicy
 import controllers.score
+import controllers.timeline
 
 urls = ('/', controllers.login.login,
         '/login', controllers.login.login,
@@ -28,8 +29,8 @@ urls = ('/', controllers.login.login,
         '/pwrequest', controllers.pwrequest.pwrequest,
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
-        '/pwpolicy', controllers.code_get_post.pwpolicy_form, # this URL is also being used in views/index.html for AJAX services
-        '/forward', controllers.code_get_post.add
+        '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
+        '/forward', controllers.timeline.forward
 )
 
 app = web.application(urls, globals(), autoreload=False)

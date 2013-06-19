@@ -16,15 +16,16 @@ $var date: $date
 $var username: $username
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
     <h1>Set your password policy</h1>
-    <br/><br/>
+    <br/>
     <p>
         <input type="hidden" name="date" value="$date">
-<label class="qn id"><b>ID:</b></label>
-	
+<!--
+       <label class="qn id"><b>ID:</b></label>
+-->
 	$if id:
-		<input type="text" value=$:id name="userid" id = "pswdid" placeholder="ID">
+		<input type="hidden" value=$:id name="userid" id = "pswdid" placeholder="ID">
 	$else:
-		<input type="text" name="userid" id = "pswdid" placeholder="ID">
+		<input type="hidden" name="userid" id = "pswdid" placeholder="ID">
 </p>
 <p>
 <label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>
