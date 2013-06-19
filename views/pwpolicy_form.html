@@ -1,4 +1,4 @@
-$def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
+$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
 <!Doctype html>
 <html lang="en">
 <head>
@@ -13,6 +13,7 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 $var title: Password policy
 $var cssfiles: static/css/bootstrap.css
 $var date: $date
+$var username: $username
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
     <h1>Set your password policy</h1>
     <br/><br/>

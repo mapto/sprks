@@ -197,7 +197,8 @@ class score:
                 #avg_pc = self.FIND_AVG(your_pc)
                 print b_u_risk_rank
 
-                return render.score(b_u_risk, b_u_risk_date, b_u_risk_rank,
+                return render.score(session.mysession.session.user,
+                                    b_u_risk, b_u_risk_date, b_u_risk_rank,
                                     b_u_cost, b_u_cost_date, b_u_cost_rank,
                                     c_risk, c_risk_when, c_risk_rank,
                                     c_pc, c_pc_when, c_pc_rank,

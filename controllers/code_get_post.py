@@ -18,7 +18,7 @@ class pwpolicy_form:
               #  result_get = db.select('pw_policy', where="idpolicy=$id_tmp", vars=locals())[0]
                 result_get = check[0]
                 session.mysession.session.date = result_get.date
-                return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
+                return render.pwpolicy_form(session.mysession.session.user,result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound, str(result_get.date))
             else:
@@ -30,7 +30,7 @@ class pwpolicy_form:
                           pautorecover=1, userid=id_user, date=dtt.strftime("%Y/%m/%d %H:%M:%S"))
                 result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
                 session.mysession.session.date = result_get.date
-                return render.pwpolicy_form(result_get.userid, result_get.plen, result_get.psets,
+                return render.pwpolicy_form(session.mysession.session.user, result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound, result_get.date)
         else:
