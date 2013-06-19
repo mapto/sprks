@@ -76,7 +76,7 @@ $if content.cssfiles:
 <div class="navbar navbar-fixed-bottom">
       <div class="navbar-inner">
         <div  class="menu">
-            <div><a href="/score">Scores</a></div>
+            <div class="score"><a href="/score">Scores</a></div>
             <div><a href="/intro">Story </a></div>
             <div><a href="/pwpolicy">Policy</a></div>
         </div>
@@ -107,6 +107,12 @@ $if content.cssfiles:
         }
 
         });
+
+
+        jQuery('#play').click( function(){
+            jQuery(".score").css("display", "block");
+        });
+
 
 
          send = function() {
