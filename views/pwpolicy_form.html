@@ -1,4 +1,4 @@
-$def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
+$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
 <!Doctype html>
 <html lang="en">
 <head>
@@ -13,17 +13,19 @@ $def with (id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfo
 $var title: Password policy
 $var cssfiles: static/css/bootstrap.css
 $var date: $date
+$var username: $username
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
     <h1>Set your password policy</h1>
-    <br/><br/>
+    <br/>
     <p>
         <input type="hidden" name="date" value="$date">
-<label class="qn id"><b>ID:</b></label>
-	
+<!--
+       <label class="qn id"><b>ID:</b></label>
+-->
 	$if id:
-		<input type="text" value=$:id name="userid" id = "pswdid" placeholder="ID">
+		<input type="hidden" value=$:id name="userid" id = "pswdid" placeholder="ID">
 	$else:
-		<input type="text" name="userid" id = "pswdid" placeholder="ID">
+		<input type="hidden" name="userid" id = "pswdid" placeholder="ID">
 </p>
 <p>
 <label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>
@@ -182,6 +184,47 @@ $var date: $date
 					value = "1" />
              <label for = "attempts"><b>Limit wrong password attempts</b></label><br/><br/>
 </p>
+
+
+
+<!--
+<p>
+<label class="qn pattempts"><b>Number of wrong password attempts:</b></label>
+			<br/>
+		  <input type = "radio"
+                 name = "pattempts"
+                 id = "attempts1"
+                 class="target"
+                 value = "0"
+                 checked = "checked" />
+          <label for = "attempts1">option1</label>
+			<br/>
+          <input type = "radio"
+                 name = "pattempts"
+                 id = "attempts2"
+                 class="target"
+                 value = "1" />
+          <label for = "attempts2">option2</label>
+			<br/>
+          <input type = "radio"
+                 name = "pattempts"
+                 id = "attempts3"
+                 class="target"
+                 value = "2" />
+          <label for = "attempts3">option3</label>
+			<br/>
+			  <input type = "radio"
+                 name = "pattempts"
+                 id = "attempts4"
+                 class="target"
+                 value = "3" />
+          <label for = "attempts4">option4</label>
+			<br/><br/>
+</p>
+-->
+
+
+
 <p>
 <p>
 			<input type='hidden' value='0' name='pautorecover'> <!-- method for posting unchecked checkboxes-->
@@ -208,7 +251,9 @@ jQuery(document).ready(function(){
 	//document.getElementById('curr_date').innerHTML = strDate;
 
 	if($:notfound==1){
-		alert('ID not found, fields are reset to default')
+        # If code executed, then we have a new user
+        # Greet them accordingly
+		alert('This is your first visit. You can see the policy as it has been left by your predecessor.')
 	}
 	/*ID is preset inside HTML code*/
 		console.log("found id $:id");
@@ -312,7 +357,9 @@ jQuery(document).ready(function(){
 
 
 /* handle AJAX (realtime) submission */
+/*
 send = function() { // need different event handling, to capture any change
+
     var obj = {};
     var obj1 = {};
 	var strDate = document.forms["input"]["date"].value;
@@ -346,6 +393,7 @@ send = function() { // need different event handling, to capture any change
     return false;
 }
 //sends data when users press play button
+*/
 send_callback = function() { // need different event handling, to capture any change
     var d = new Date();
     var obj = {};
@@ -389,7 +437,7 @@ jQuery(document).ready(function() {
 
     //send_callback();
     jQuery('.target').change(send_callback);
-    $$('#play').click(send)
+    //$$('#play').click(send)
 });
 
 </script> <!-- relative path to external files -->

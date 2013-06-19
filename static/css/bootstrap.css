@@ -117,6 +117,7 @@ label {
 }
 
 .risk-menu{
+    display:none;
 	width:150px;
 	position:fixed;
 	right:0;
@@ -151,6 +152,7 @@ label {
 
 }
 .link{
+  margin-right:5px;
   margin-top:10px;
   text-align: left;
   font-weight:bold;
@@ -162,6 +164,10 @@ label {
 .link:hover{
   color: #fff;
   cursor: pointer;
+}
+.link.usrname:hover{
+  color: #e6e1cb;
+  cursor:default;
 }
 .link a{
   color: #e6e1cb;
@@ -251,3 +257,13 @@ label {
   background-color: #fff;
   color:#000;
 }
+
+.score{
+    display:none;
+}
+
+.incident_box{
+
+}
+
+

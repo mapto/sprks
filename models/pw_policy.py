@@ -11,3 +11,6 @@ class pw_policy_model:
         Generates query string using db_helper.update_helper.stringify, and runs db.query.
         """
         return db.query(db_helper.update_helper.stringify('pw_policy', where, values), vars=locals())
+
+    def latest_policy(self):
+        pass

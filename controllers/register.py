@@ -23,6 +23,6 @@ class register:
             session.mysession.session.loggedin = True
             session.mysession.session.user = post_data.username
             session.mysession.session.id = reg_id
-            raise web.seeother('/pwpolicy')
+            raise web.seeother('/intro')
         else:
             return render.register("Database error")
