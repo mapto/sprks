@@ -30,6 +30,8 @@ urls = ('/', controllers.login.login,
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
+        '/policy', controllers.pwpolicy.pwpolicy,
+        '/policy/password', controllers.pwpolicy.pwpolicy,
         '/forward', controllers.timeline.forward
 )
 

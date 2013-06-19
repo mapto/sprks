@@ -44,4 +44,7 @@ class forward:
 
         db.insert('scores', userid=usrid, score_type=1, score_value = sim.calc_risk_prob(), date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
         db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(), date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
+        db.insert('pw_policy', userid=usrid, date=new_date.strftime("%Y/%m/%d %H:%M:%S"),
+                  plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
+                  prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
         return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
