@@ -41,10 +41,40 @@ body {
 	padding-left: 200px; /*if menu is used*/
 	padding-right: 200px;
 }
+.span12.intro_container{
+    display: block;
+    background-color: #f9f9f9;
+    color: #847f7f;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    width:auto;
+    text-align:left;
+    margin:0 auto;
+    padding: 30px;
+    padding-left: 50px;
+}
+.main_btn a{
+  position: absolute;
+  display: block;
+  margin:10px;
+  width:210px;
+  height: 40px;
+  border-radius: 3%;
+  line-height: 40px;
+  font-size: 20px;
+  background-color: #92000a;
+  color: #f2ddc6;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+.main_btn a:hover{
+    text-decoration:none;
+  background-color: #C10000;
+  color:#fff;
+}
 .loginbox.main_body_container{
 	max-width: 100%; /*central block for main info, use with loginbox class*/
 }
-
 
 label {
   display: block;
@@ -179,24 +209,6 @@ label {
 
 .logout{
   float:right;
-}
-
-#login_drop{
-  font-weight:bold;
-  font-size:14px;
-  color: #e6e1cb;
-  max-width:100px;
-  float:right;
-}
-#login_drop:hover{
-  color: #fff;
-}
-
-#login{
-  position:fixed;
-  right:0;
-  display:none;
-  z-index:2000;
 }
 
 .loginbox{
