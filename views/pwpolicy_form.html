@@ -244,7 +244,11 @@ $var username: $username
 /*wait until document is loaded*/
 jQuery(document).ready(function(){
 	
-	
+
+    //send_callback();
+    jQuery('.target').change(send_callback);
+    //$$('#play').click(send)
+
 	var d = new Date();
 	var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()+", "+ d.getHours()+":"+d.getMinutes();
 	
@@ -432,13 +436,6 @@ send_callback = function() { // need different event handling, to capture any ch
         });
     return false;
 }
-
-jQuery(document).ready(function() {
-
-    //send_callback();
-    jQuery('.target').change(send_callback);
-    //$$('#play').click(send)
-});
 
 </script> <!-- relative path to external files -->
 
