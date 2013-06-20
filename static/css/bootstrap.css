@@ -265,5 +265,69 @@ label {
 .incident_box{
 
 }
+.rank{
+    position:relative;
+    height:320px;
+}
+.ranking{
+    position:absolute;
+    bottom:0;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    float:left;
+    width:33.1%;
 
+}
+#second{
+    left:0;
+    background-color: #c0c0c0;
+    background-image: -moz-linear-gradient(top, #c0c0c0, #505050);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c0c0c0), to(#505050));
+    background-image: -webkit-linear-gradient(top, #c0c0c0, #505050);
+    background-image: -o-linear-gradient(top, #c0c0c0, #505050);
+    background-image: linear-gradient(to bottom, #c0c0c0, #505050);
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    height:200px;
+}
+#first{
+    left:33.35%;
+    background-color:#ffcc00;
+    background-image: -moz-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffcc00), to(#b8860b));
+    background-image: -webkit-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: -o-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: linear-gradient(to bottom, #ffcc00, #b8860b);
+    background-repeat: repeat-x;
+    border: 1px solid #ffba00;
+    height:300px;
+}
+#third{
+    right:0;
+    background-color:#cc7722;
+    background-image: -moz-linear-gradient(top, #cc7722, #8e5702);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#cc7722), to(#8e5702));
+    background-image: -webkit-linear-gradient(top, #cc7722, #8e5702);
+    background-image: -o-linear-gradient(top, #cc7722, #8e5702);
+    background-image: linear-gradient(to bottom, #cc7722, #8e5702);
+    background-repeat: repeat-x;
+    border: 1px solid #d28955;
+    height:100px;
+}
+.rnk{
+    position:absolute;
+    left:45%;
+    right:45%;
+    top:45%;
+    bottom:45%;
+    color: #faf0e6;
+    text-shadow: 2px 2px 5px #4c3c18;
+    font-size: 30px;
+    font-weight: bold;
+}
+.scr{
+    color: #000;
+    text-shadow: 1px -1px 1px #847e72;
+    font-size: 18px;
+    font-weight: bold;
+}
 

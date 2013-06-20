@@ -14,7 +14,28 @@ $var title: Scores
 $var cssfiles: static/css/bootstrap.css
 $var date: $date
 $var username: $username
+
 			<h1>Scores</h1>
+
+
+
+<div class="span11 text-center">
+
+            <div class="span4 scr" id="s2"></div>
+            <div class="span4 scr" id="s1"></div>
+            <div class="span4 scr" id="s3"></div>
+</div>
+<div class="span11 text-center rank">
+            <div class="ranking" id="second">
+                <div class="rnk" id="r2"></div>
+            </div>
+            <div class="ranking" id="first">
+                <div class="rnk">1</div>
+            </div>
+            <div class="ranking" id="third">
+                <div class="rnk" id="r3"></div>
+            </div>
+</div>
 
 			<div class="span11 text-center">
 			<h5>
@@ -101,7 +122,7 @@ $var username: $username
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
+<script src=""></script>
 <script>
 
     //jQuery(".ids").each( function(){   //attempt to remove duplicate functions and to fill any python vars by id name
@@ -109,6 +130,37 @@ $var username: $username
     //});
 
 jQuery(document).ready(function() {
+     if($:y_risk==$:b_risk){
+        jQuery("#s1").text('$username '+'$:y_risk');
+        jQuery("#s2").text('contender '+'$:c_risk');
+        jQuery("#r2").text('$:c_risk_rank');
+
+     }else if($:y_risk<$:b_risk){
+        if($:y_risk<$:c_risk){
+             jQuery("#s1").text('best '+'$b_risk');
+             jQuery("#s2").text('$username '+'$:y_risk');
+             jQuery("#r2").text('$:y_risk_rank');
+             jQuery("#s3").text('contender '+'$:c_risk');
+             jQuery("#r3").text('$:c_risk_rank');
+        }else if($:y_risk>$:c_risk){
+             jQuery("#s1").text('best '+'$b_risk');
+             jQuery("#s3").text('$username '+'$:y_risk');
+             jQuery("#r3").text('$:y_risk_rank');
+             jQuery("#s2").text('contender '+'$:c_risk');
+             jQuery("#r2").text('$:c_risk_rank');
+        }else if($:y_risk==$:c_risk){
+             jQuery("#s2").text('$username '+'$:y_risk');
+             jQuery("#s3").text('no contender');
+        }
+     }
+
+
+
+
+
+
+
+    /*
         if($:y_risk==$:c_risk){
             jQuery("#c_risk").text('no competitor');
             jQuery("#c_risk_when").text('no competitor');
@@ -130,6 +182,9 @@ jQuery(document).ready(function() {
             jQuery("#b_pc").text('you are the best');
             jQuery("#b_pc_when").text('you are the best');
         }
+
+
+    */
 });
 
 
