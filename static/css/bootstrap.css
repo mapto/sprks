@@ -265,12 +265,12 @@ label {
 .incident_box{
 
 }
-
+/*SCORES*/
 #accordion  {
   margin: 20px 0 0;
 }
   #accordion H2 {
-    background: #6B7B95;
+    background: #750000;
     color: white;
     cursor: pointer;
     font: 18px Helvetica, Arial, sans-serif;
@@ -292,7 +292,7 @@ label {
 
 .rank{
     position:relative;
-    height:350px;
+    height:300px;
     bottom:10px;
 }
 .ranking{
@@ -312,7 +312,7 @@ label {
     background-image: linear-gradient(to bottom, #c0c0c0, #505050);
     background-repeat: repeat-x;
     border: 1px solid #d4d4d4;
-    height:200px;
+    height:150px;
 }
 #first{
     left:33.35%;
@@ -324,7 +324,7 @@ label {
     background-image: linear-gradient(to bottom, #ffcc00, #b8860b);
     background-repeat: repeat-x;
     border: 1px solid #ffba00;
-    height:300px;
+    height:200px;
 }
 #third{
     right:0;
@@ -341,7 +341,7 @@ label {
 .scr{
     position:absolute;
     width:100%;
-    margin-top:-1.5em;
+    margin-top:-2.1em;
     color: #000;
     text-shadow: 1px -1px 1px #847e72;
     font-size: 18px;
@@ -364,6 +364,12 @@ label {
     color: #000;
     text-shadow: 1px -1px 1px #847e72;
     font-size: 16px;
+    font-weight: bold;
+}
+.avg{
+    color: #000;
+    text-shadow: 1px -1px #847e72;
+    font-size: 18px;
     font-weight: bold;
 }
 
