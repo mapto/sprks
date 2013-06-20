@@ -15,176 +15,148 @@ $var cssfiles: static/css/bootstrap.css
 $var date: $date
 $var username: $username
 
-			<h1>Scores</h1>
+<h1>Scores</h1>
 
+<div id="accordion">
 
+  <h2>Risk</h2>
 
-<div class="span11 text-center">
-
-            <div class="span4 scr" id="s2"></div>
-            <div class="span4 scr" id="s1"></div>
-            <div class="span4 scr" id="s3"></div>
-</div>
-<div class="span11 text-center rank">
+  <div class="content">
+    <div class="span11 text-center rank">
             <div class="ranking" id="second">
+                <div class="scr" id="s2"></div>
                 <div class="rnk" id="r2"></div>
+                <div class="when" id="w2"></div>
             </div>
             <div class="ranking" id="first">
-                <div class="rnk">1</div>
+                <div class="scr" id="s1"></div>
+                <div class="rnk" id="r1">1</div>
+                <div class="when" id="w1"></div>
             </div>
             <div class="ranking" id="third">
+                <div class="scr" id="s3"></div>
                 <div class="rnk" id="r3"></div>
+                <div class="when" id="w3"></div>
             </div>
+    </div>
+  </div>
+
+  <h2>Productivity cost</h2>
+
+  <div class="content">
+    <div class="span11 text-center rank">
+            <div class="ranking" id="second">
+                <div class="scr" id="pc_s2"></div>
+                <div class="rnk" id="pc_r2"></div>
+                <div class="when" id="pc_w2"></div>
+            </div>
+            <div class="ranking" id="first">
+                <div class="scr" id="pc_s1"></div>
+                <div class="rnk" id="pc_r1">1</div>
+                <div class="when" id="pc_w1"></div>
+            </div>
+            <div class="ranking" id="third">
+                <div class="scr" id="pc_s3"></div>
+                <div class="rnk" id="pc_r3"></div>
+                <div class="when" id="pc_w3"></div>
+            </div>
+    </div>
+  </div>
+  <h2>Average</h2>
+
+  <div class="content">
+      <h5>
+            <div class="span11 text-left">
+
+			    <div class="span7">risk</div>
+                <div id="avg_risk" class="span4">$avg_risk</div>
+
+           	</div>
+
+			<div class="span11 text-left">
+
+			    <div class="span7">productivity cost</div>
+                <div id="avg_pc" class="span4">$avg_pc</div>
+
+			</div>
+          </h5>
+  </div>
 </div>
 
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4"></div>
-			<div class="span3">score:</div>
-			<div class="span3">when achieved:</div>
-			<div class="span2">ranking:</div>
-			</h5>
-			</div>
-			
-			<div class="span11"><h3>Your best score:</h3></div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">lowest risk:</div>
-			<div id="y_risk" class="ids span3">$y_risk</div>
-			<div id="y_risk_when" class="ids span3">$y_risk_when</div>
-			<div id="y_risk_rank"class="ids span2">$y_risk_rank</div>
-			</h5>
-			</div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">lowest productivity cost:</div>
-			<div id="y_pc" class="span3">$y_pc</div>
-			<div id="y_pc_when" class="span3">$y_pc_when</div>
-			<div id="y_pc_rank" class="span2">$y_pc_rank</div>
-			</h5>
-			</div>
-			
-			<div class="span11"><h3>Closets competitor:</h3></div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">lowest risk:</div>
-			<div id="c_risk" class="span3">$c_risk</div>
-			<div id="c_risk_when"class="span3">$c_risk_when</div>
-			<div id="c_risk_rank"class="span2">$c_risk_rank</div>
-			</h5>
-			</div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">lowest productivity cost:</div>
-			<div id="c_pc" class="span3">$c_pc</div>
-			<div id="c_pc_when" class="span3">$c_pc_when</div>
-			<div id="c_pc_rank" class="span2">$c_pc_rank</div>
-			</h5>
-			</div>
-			
-			<div class="span11"><h3>Overall best score:</h3></div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">lowest risk:</div>
-			<div id="b_risk" class="span3">$b_risk</div>
-            <div id="b_risk_when" class="span3">$b_risk_when</div>
-			</h5>
-			</div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">lowest productivity cost:</div>
-			<div id="b_pc" class="span3">$b_pc</div>
-            <div id="b_pc_when" class="span3">$b_pc_when</div>
-			</h5>
-			</div>
-			
-			<div class="span11"><h3>Overall average score:</h3></div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">average risk:</div>
-			<div id="avg_risk" class="span3">$avg_risk</div>
-			</h5>
-			</div>
-			
-			<div class="span11 text-center">
-			<h5>
-			<div class="span4 text-left">average productivity cost:</div>
-			<div id="avg_pc" class="span3">$avg_pc</div>
-			</h5>
-			</div>
+
+
+
 
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src=""></script>
+<script src="/static/js/mootools-core-1.4.5-full-compat.js"></script>
+<script src="/static/js/mootools-more-1.4.0.1.js"></script>
 <script>
 
-    //jQuery(".ids").each( function(){   //attempt to remove duplicate functions and to fill any python vars by id name
-    //    jQuery("#"+this.id).text('hi');
-    //});
-
 jQuery(document).ready(function() {
+
+     new Fx.Accordion($('accordion'), '#accordion h2', '#accordion .content');
+
+
      if($:y_risk==$:b_risk){
-        jQuery("#s1").text('$username '+'$:y_risk');
-        jQuery("#s2").text('contender '+'$:c_risk');
+        jQuery("#s1").text('$username, '+'$:y_risk');
+        jQuery("#w1").text('$y_risk_when');
+
+        jQuery("#s2").text('contender, '+'$:c_risk');
         jQuery("#r2").text('$:c_risk_rank');
+        jQuery("#w2").text('$c_risk_when');
 
      }else if($:y_risk<$:b_risk){
+        jQuery("#s1").text('best, '+'$b_risk');
+        jQuery("#w1").text('$b_risk_when');
         if($:y_risk<$:c_risk){
-             jQuery("#s1").text('best '+'$b_risk');
-             jQuery("#s2").text('$username '+'$:y_risk');
+             jQuery("#s2").text('$username, '+'$:y_risk');
              jQuery("#r2").text('$:y_risk_rank');
-             jQuery("#s3").text('contender '+'$:c_risk');
+             jQuery("#w2").text('$y_risk_when');
+
+             jQuery("#s3").text('contender, '+'$:c_risk');
              jQuery("#r3").text('$:c_risk_rank');
+             jQuery("#w3").text('$c_risk_when');
         }else if($:y_risk>$:c_risk){
-             jQuery("#s1").text('best '+'$b_risk');
-             jQuery("#s3").text('$username '+'$:y_risk');
+             jQuery("#s3").text('$username, '+'$:y_risk');
              jQuery("#r3").text('$:y_risk_rank');
-             jQuery("#s2").text('contender '+'$:c_risk');
+             jQuery("#w3").text('$y_risk_when');
+
+             jQuery("#s2").text('contender, '+'$:c_risk');
              jQuery("#r2").text('$:c_risk_rank');
-        }else if($:y_risk==$:c_risk){
-             jQuery("#s2").text('$username '+'$:y_risk');
-             jQuery("#s3").text('no contender');
+             jQuery("#w2").text('$c_risk_when');
         }
      }
 
+    if($:y_pc==$:b_pc){
+        jQuery("#pc_s1").text('$username, '+'$:y_pc');
+        jQuery("#pc_w1").text('$y_pc_when');
 
+        jQuery("#pc_s2").text('contender, '+'$:c_pc');
+        jQuery("#pc_r2").text('$:c_pc_rank');
+        jQuery("#pc_w2").text('$c_pc_when');
 
+     }else if($:y_pc<$:b_pc){
+        jQuery("#pc_s1").text('best, '+'$b_pc');
+        jQuery("#pc_w1").text('$b_pc_when');
+        if($:y_pc<$:c_pc){
+             jQuery("#pc_s2").text('$username, '+'$:y_pc');
+             jQuery("#pc_r2").text('$:y_pc_rank');
+             jQuery("#pc_w2").text('$y_pc_when');
 
+             jQuery("#pc_s3").text('contender, '+'$:c_pc');
+             jQuery("#pc_r3").text('$:c_pc_rank');
+             jQuery("#pc_w3").text('$c_pc_when');
+        }else if($:y_pc>$:c_pc){
+             jQuery("#pc_s3").text('$username, '+'$:y_pc');
+             jQuery("#pc_r3").text('$:y_pc_rank');
+             jQuery("#pc_w3").text('$y_pc_when');
 
-
-
-    /*
-        if($:y_risk==$:c_risk){
-            jQuery("#c_risk").text('no competitor');
-            jQuery("#c_risk_when").text('no competitor');
-            jQuery("#c_risk_rank").text('no competitor');
+             jQuery("#pc_s2").text('contender, '+'$:c_pc');
+             jQuery("#pc_r2").text('$:c_pc_rank');
+             jQuery("#pc_w2").text('$c_pc_when');
         }
-
-        if($:y_pc==$:c_pc){
-            jQuery("#c_pc").text('no competitor');
-            jQuery("#c_pc_when").text('no competitor');
-            jQuery("#c_pc_rank").text('no competitor');
-        }
-
-        if($:y_risk==$:b_risk){
-            jQuery("#b_risk").text('you are the best');
-            jQuery("#b_risk_when").text('you are the best');
-        }
-
-        if($:y_pc==$:b_pc){
-            jQuery("#b_pc").text('you are the best');
-            jQuery("#b_pc_when").text('you are the best');
-        }
-
-
-    */
+     }
 });
 
 

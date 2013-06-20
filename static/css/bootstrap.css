@@ -265,9 +265,35 @@ label {
 .incident_box{
 
 }
+
+#accordion  {
+  margin: 20px 0 0;
+}
+  #accordion H2 {
+    background: #6B7B95;
+    color: white;
+    cursor: pointer;
+    font: 18px Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0 0 4px 0;
+    padding: 5px 7px 2px;
+  }
+  #accordion .content {
+    padding-left:15px;
+    font-weight: bold;
+    background-color: #F4F5F5;
+  }
+  #accordion .content p {
+    margin: 0.5em 0;
+    padding: 0 6px 8px 6px;
+  }
+
+
 .rank{
     position:relative;
-    height:320px;
+    height:350px;
+    bottom:10px;
 }
 .ranking{
     position:absolute;
@@ -275,7 +301,6 @@ label {
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
     float:left;
     width:33.1%;
-
 }
 #second{
     left:0;
@@ -313,10 +338,18 @@ label {
     border: 1px solid #d28955;
     height:100px;
 }
+.scr{
+    position:absolute;
+    width:100%;
+    margin-top:-1.5em;
+    color: #000;
+    text-shadow: 1px -1px 1px #847e72;
+    font-size: 18px;
+    font-weight: bold;
+}
 .rnk{
     position:absolute;
-    left:45%;
-    right:45%;
+    width:100%;
     top:45%;
     bottom:45%;
     color: #faf0e6;
@@ -324,10 +357,14 @@ label {
     font-size: 30px;
     font-weight: bold;
 }
-.scr{
+.when{
+    width:100%;
+    position:absolute;
+    bottom:20px;
     color: #000;
     text-shadow: 1px -1px 1px #847e72;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
 }
+
 
