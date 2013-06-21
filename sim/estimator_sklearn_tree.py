@@ -21,8 +21,8 @@ class estimator_sklearn_tree(estimator_interface):
         print "train value"
         print train_value
         # test_data = genfromtxt('static/data/pw-test-data.csv', delimiter=',')
-        #self.risk_prob_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 0])
-        #self.risk_impact_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 1])
+        self.risk_prob_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 0])
+        self.risk_impact_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 1])
         self.prod_cost_model = tree.DecisionTreeRegressor().fit(train_data_conv_cost, train_value[:, 2])
         #self.model = tree.DecisionTreeRegressor().fit(train_data, train_value)
         # print clf.predict(test_data)
