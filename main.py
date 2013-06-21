@@ -12,6 +12,7 @@ os.chdir(abspath)
 import web
 import session
 
+import controllers.home
 import controllers.register
 import controllers.login
 import controllers.intro
@@ -21,7 +22,8 @@ import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
 
-urls = ('/', controllers.login.login,
+urls = ('/', controllers.pwpolicy.pwpolicy,
+        '/home', controllers.home.home,
         '/login', controllers.login.login,
         '/register', controllers.register.register,
         '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,

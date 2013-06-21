@@ -10,7 +10,7 @@ class intro:
         if session.mysession.session.loggedin:
             return render.intro(session.mysession.session.user)
         else:
-            raise web.seeother('/login')
+            raise web.seeother('/home')
 
     def POST(self):
         raise web.seeother('/pwpolicy')

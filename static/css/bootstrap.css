@@ -41,10 +41,40 @@ body {
 	padding-left: 200px; /*if menu is used*/
 	padding-right: 200px;
 }
+.span12.intro_container{
+    display: block;
+    background-color: #f9f9f9;
+    color: #847f7f;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    width:auto;
+    text-align:left;
+    margin:0 auto;
+    padding: 30px;
+    padding-left: 50px;
+}
+.main_btn a{
+  position: absolute;
+  display: block;
+  margin:10px;
+  width:210px;
+  height: 40px;
+  border-radius: 3%;
+  line-height: 40px;
+  font-size: 20px;
+  background-color: #92000a;
+  color: #f2ddc6;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+.main_btn a:hover{
+    text-decoration:none;
+  background-color: #C10000;
+  color:#fff;
+}
 .loginbox.main_body_container{
 	max-width: 100%; /*central block for main info, use with loginbox class*/
 }
-
 
 label {
   display: block;
@@ -181,24 +211,6 @@ label {
   float:right;
 }
 
-#login_drop{
-  font-weight:bold;
-  font-size:14px;
-  color: #e6e1cb;
-  max-width:100px;
-  float:right;
-}
-#login_drop:hover{
-  color: #fff;
-}
-
-#login{
-  position:fixed;
-  right:0;
-  display:none;
-  z-index:2000;
-}
-
 .loginbox{
   display: block;
   background-color: #f9f9f9;
@@ -264,6 +276,113 @@ label {
 
 .incident_box{
 
+}
+/*SCORES*/
+#accordion  {
+  margin: 20px 0 0;
+}
+  #accordion H2 {
+    background: #750000;
+    color: white;
+    cursor: pointer;
+    font: 18px Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0 0 4px 0;
+    padding: 5px 7px 2px;
+  }
+  #accordion .content {
+    padding-left:15px;
+    font-weight: bold;
+    background-color: #F4F5F5;
+  }
+  #accordion .content p {
+    margin: 0.5em 0;
+    padding: 0 6px 8px 6px;
+  }
+
+
+.rank{
+    position:relative;
+    height:300px;
+    bottom:10px;
+}
+.ranking{
+    position:absolute;
+    bottom:0;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    float:left;
+    width:33.1%;
+}
+#second{
+    left:0;
+    background-color: #c0c0c0;
+    background-image: -moz-linear-gradient(top, #c0c0c0, #505050);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c0c0c0), to(#505050));
+    background-image: -webkit-linear-gradient(top, #c0c0c0, #505050);
+    background-image: -o-linear-gradient(top, #c0c0c0, #505050);
+    background-image: linear-gradient(to bottom, #c0c0c0, #505050);
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    height:150px;
+}
+#first{
+    left:33.35%;
+    background-color:#ffcc00;
+    background-image: -moz-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffcc00), to(#b8860b));
+    background-image: -webkit-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: -o-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: linear-gradient(to bottom, #ffcc00, #b8860b);
+    background-repeat: repeat-x;
+    border: 1px solid #ffba00;
+    height:200px;
+}
+#third{
+    right:0;
+    background-color:#cc7722;
+    background-image: -moz-linear-gradient(top, #cc7722, #8e5702);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#cc7722), to(#8e5702));
+    background-image: -webkit-linear-gradient(top, #cc7722, #8e5702);
+    background-image: -o-linear-gradient(top, #cc7722, #8e5702);
+    background-image: linear-gradient(to bottom, #cc7722, #8e5702);
+    background-repeat: repeat-x;
+    border: 1px solid #d28955;
+    height:100px;
+}
+.scr{
+    position:absolute;
+    width:100%;
+    margin-top:-2.1em;
+    color: #000;
+    text-shadow: 1px -1px 1px #847e72;
+    font-size: 18px;
+    font-weight: bold;
+}
+.rnk{
+    position:absolute;
+    width:100%;
+    top:45%;
+    bottom:45%;
+    color: #faf0e6;
+    text-shadow: 2px 2px 5px #4c3c18;
+    font-size: 30px;
+    font-weight: bold;
+}
+.when{
+    width:100%;
+    position:absolute;
+    bottom:20px;
+    color: #000;
+    text-shadow: 1px -1px 1px #847e72;
+    font-size: 16px;
+    font-weight: bold;
+}
+.avg{
+    color: #000;
+    text-shadow: 1px -1px #847e72;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 

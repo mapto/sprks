@@ -42,28 +42,28 @@ $var username: $username
                  name = "plen"
                  id = "len6"
                  class="target"
-                 value = "1" />
+                 value = "6" />
           <label for = "len6">minimum 6 characters</label>
 			<br/>
            <input type = "radio"
                  name = "plen"
                  id = "len8"
                  class="target"
-                 value = "2" />
+                 value = "8" />
           <label for = "len8">minimum 8 characters</label>
 			<br/>
 			 <input type = "radio"
                  name = "plen"
                  id = "len10"
                  class="target"
-                 value = "3" />
+                 value = "10" />
           <label for = "len10">minimum 10 characters</label>
 			<br/>
 			 <input type = "radio"
                  name = "plen"
                  id = "len12"
                  class="target"
-                 value = "4" />
+                 value = "12" />
           <label for = "len12">minimum 12 characters</label>
 			<br/><br/>
 </p>
@@ -176,8 +176,9 @@ $var username: $username
           <label for = "renew4">renew monthly</label>
 			<br/><br/>
 </p>
-<!--
-<p>          <input type='hidden' value='0' name='pattempts'> <!-- method for posting unchecked checkboxes
+
+<!-- checkbox for pattempts (depricated)
+<p>          <input type='hidden' value='0' name='pattempts'>
              <input type = "checkbox"
 					name = "pattempts"
 					id = "attempts"
@@ -185,8 +186,8 @@ $var username: $username
 					value = "1" />
              <label for = "attempts"><b>Limit wrong password attempts</b></label><br/><br/>
 </p>
-
 -->
+
 
 
 <p>
@@ -198,33 +199,24 @@ $var username: $username
                  class="target"
                  value = "0"
                  checked = "checked" />
-          <label for = "attempts1">option1</label>
+          <label for = "attempts1">no limit to attempts</label>
 			<br/>
           <input type = "radio"
                  name = "pattempts"
                  id = "attempts2"
                  class="target"
                  value = "1" />
-          <label for = "attempts2">option2</label>
+          <label for = "attempts2">10 login attempts</label>
 			<br/>
           <input type = "radio"
                  name = "pattempts"
                  id = "attempts3"
                  class="target"
                  value = "2" />
-          <label for = "attempts3">option3</label>
-			<br/>
-    </p>
-    <!--
-			  <input type = "radio"
-                 name = "pattempts"
-                 id = "attempts4"
-                 class="target"
-                 value = "3" />
-          <label for = "attempts4">option4</label>
+          <label for = "attempts3">3 login attemps</label>
 			<br/><br/>
+</p>
 
--->
 
 
 
@@ -247,7 +239,11 @@ $var username: $username
 /*wait until document is loaded*/
 jQuery(document).ready(function(){
 	
-	jQuery('.target').change(send_callback);
+
+    //send_callback();
+    jQuery('.target').change(send_callback);
+    //$$('#play').click(send)
+
 	var d = new Date();
 	var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()+", "+ d.getHours()+":"+d.getMinutes();
 	
@@ -435,7 +431,6 @@ send_callback = function() { // need different event handling, to capture any ch
         });
     return false;
 }
-
 
 </script> <!-- relative path to external files -->
 

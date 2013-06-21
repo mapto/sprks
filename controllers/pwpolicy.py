@@ -45,7 +45,7 @@ class pwpolicy:
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, notfound, result_get.date)
         else:
-            raise web.seeother('/login')
+            raise web.seeother('/home')
 
     def POST(self):
         web.header('Content-Type', 'application/json')

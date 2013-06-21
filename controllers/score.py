@@ -213,4 +213,4 @@ class score:
                 return 'You have not finished any term yet'
         else:
             #if user not logged in -> redirect to login page
-            raise web.seeother('/login')
+            raise web.seeother('/home')
