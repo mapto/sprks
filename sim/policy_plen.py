@@ -15,7 +15,7 @@ class policy_plen(policy_interface.policy_interface):
 
         value = int(value)
 
-        if value in [0, 1, 2, 3, 4]:
+        if value in [0, 6, 8, 10, 12]:
             self.param = value
         else:
             raise Exception('Invalid policy parameter.')
