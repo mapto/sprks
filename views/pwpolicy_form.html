@@ -42,28 +42,28 @@ $var username: $username
                  name = "plen"
                  id = "len6"
                  class="target"
-                 value = "6" />
+                 value = "1" />
           <label for = "len6">minimum 6 characters</label>
 			<br/>
            <input type = "radio"
                  name = "plen"
                  id = "len8"
                  class="target"
-                 value = "8" />
+                 value = "2" />
           <label for = "len8">minimum 8 characters</label>
 			<br/>
 			 <input type = "radio"
                  name = "plen"
                  id = "len10"
                  class="target"
-                 value = "10" />
+                 value = "3" />
           <label for = "len10">minimum 10 characters</label>
 			<br/>
 			 <input type = "radio"
                  name = "plen"
                  id = "len12"
                  class="target"
-                 value = "12" />
+                 value = "4" />
           <label for = "len12">minimum 12 characters</label>
 			<br/><br/>
 </p>
@@ -176,7 +176,8 @@ $var username: $username
           <label for = "renew4">renew monthly</label>
 			<br/><br/>
 </p>
-<p>          <input type='hidden' value='0' name='pattempts'> <!-- method for posting unchecked checkboxes--> 
+<!--
+<p>          <input type='hidden' value='0' name='pattempts'> <!-- method for posting unchecked checkboxes
              <input type = "checkbox"
 					name = "pattempts"
 					id = "attempts"
@@ -185,9 +186,9 @@ $var username: $username
              <label for = "attempts"><b>Limit wrong password attempts</b></label><br/><br/>
 </p>
 
+-->
 
 
-<!--
 <p>
 <label class="qn pattempts"><b>Number of wrong password attempts:</b></label>
 			<br/>
@@ -213,6 +214,8 @@ $var username: $username
                  value = "2" />
           <label for = "attempts3">option3</label>
 			<br/>
+    </p>
+    <!--
 			  <input type = "radio"
                  name = "pattempts"
                  id = "attempts4"
@@ -220,7 +223,7 @@ $var username: $username
                  value = "3" />
           <label for = "attempts4">option4</label>
 			<br/><br/>
-</p>
+
 -->
 
 
@@ -244,15 +247,15 @@ $var username: $username
 /*wait until document is loaded*/
 jQuery(document).ready(function(){
 	
-	
+	jQuery('.target').change(send_callback);
 	var d = new Date();
 	var strDate = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear()+", "+ d.getHours()+":"+d.getMinutes();
 	
 	//document.getElementById('curr_date').innerHTML = strDate;
 
 	if($:notfound==1){
-        # If code executed, then we have a new user
-        # Greet them accordingly
+        // If code executed, then we have a new user
+        // Greet them accordingly
 		alert('This is your first visit. You can see the policy as it has been left by your predecessor.')
 	}
 	/*ID is preset inside HTML code*/
@@ -433,12 +436,6 @@ send_callback = function() { // need different event handling, to capture any ch
     return false;
 }
 
-jQuery(document).ready(function() {
-
-    //send_callback();
-    jQuery('.target').change(send_callback);
-    //$$('#play').click(send)
-});
 
 </script> <!-- relative path to external files -->
 

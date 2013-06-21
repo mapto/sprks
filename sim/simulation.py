@@ -76,4 +76,4 @@ class simulation:
     def calc_prod_cost(self):
         cost = self.estimator.get_prod_cost(self.dict)
         # Extreme precision is not needed outside of simulation
-        return round(cost, 0)
+        return round(cost, 2)

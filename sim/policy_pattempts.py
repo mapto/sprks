@@ -12,8 +12,9 @@ class policy_pattempts(policy_interface.policy_interface):
 
         value = int(value)
 
-        if value in [0, 1]:
-            self.param = (value != 0)
+        if value in [0, 1, 2]:
+            #self.param = (value != 0)
+            self.param = value
         else:
             raise Exception('Wrong parameter type')
 
