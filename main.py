@@ -11,7 +11,6 @@ os.chdir(abspath)
 
 import web
 import session
-
 import controllers.home
 import controllers.register
 import controllers.login
@@ -21,6 +20,7 @@ import controllers.pwrequest
 import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
+import controllers.realtimesim
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
@@ -38,7 +38,8 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
-        '/forward', controllers.timeline.forward
+        '/forward', controllers.timeline.forward,
+        '/realtimesim', controllers.realtimesim.preview
 )
 
 app = web.application(urls, globals(), autoreload=False)
