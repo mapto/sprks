@@ -116,7 +116,7 @@ class TestMinSec:
         self.policy.set_policy('pautorecover', 1)
 
     def test_calc_risk_prob(self):
-        assert (self.policy.calc_risk_prob() < 1) and (self.policy.calc_risk_prob() > 0)
+        assert (self.policy.calc_risk_prob() <= 1) and (self.policy.calc_risk_prob() >= 0)
 
     def test_calc_risk_impact(self):
         assert self.policy.calc_risk_impact() == 1
