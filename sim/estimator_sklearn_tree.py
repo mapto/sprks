@@ -146,4 +146,4 @@ if __name__ == "__main__":
     print "predicted data"
    # print tool.model.predict(test_data)
 #    tool.risk_impact_model.predict(datapoints)
-    tool.prod_cost_model.predict(datapoints)
+    tool.prod_cost_model.predict(test_data_conv)
