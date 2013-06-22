@@ -12,20 +12,20 @@ $var username: $username
 
   <div class="content">
     <div class="span11 text-center rank">
-            <div class="ranking" id="second">
+            <div class="ranking second" id="r_second">
                 <div class="scr" id="risk_s2"></div>
                 <div class="rnk" id="risk_r2"></div>
                 <div class="when" id="risk_w2"></div>
             </div>
-            <div class="ranking" id="first">
+            <div class="ranking first" id="r_first">
                 <div class="scr" id="risk_s1"></div>
                 <div class="rnk" id="risk_r1">1</div>
                 <div class="when" id="risk_w1"></div>
             </div>
-            <div class="ranking" id="third">
+            <div class="ranking third" id="r_third">
                 <div class="scr" id="risk_s3"></div>
                 <div class="rnk" id="risk_r3"></div>
-                <div class="when" id=risk_"w3"></div>
+                <div class="when" id="risk_w3"></div>
             </div>
     </div>
   </div>
@@ -34,17 +34,17 @@ $var username: $username
 
   <div class="content">
     <div class="span11 text-center rank">
-            <div class="ranking" id="second">
+            <div class="ranking second" id="c_second">
                 <div class="scr" id="cost_s2"></div>
                 <div class="rnk" id="cost_r2"></div>
                 <div class="when" id="cost_w2"></div>
             </div>
-            <div class="ranking" id="first">
+            <div class="ranking first" id="c_first">
                 <div class="scr" id="cost_s1"></div>
                 <div class="rnk" id="cost_r1">1</div>
                 <div class="when" id="cost_w1"></div>
             </div>
-            <div class="ranking" id="third">
+            <div class="ranking third" id="c_third">
                 <div class="scr" id="cost_s3"></div>
                 <div class="rnk" id="cost_r3"></div>
                 <div class="when" id="cost_w3"></div>
@@ -95,7 +95,7 @@ $var username: $username
     	/*ID is preset inside HTML code*/
         console.log("found user $username");
 
-        return $username; // This value is set server-side and appears to client as hardcoded.
+        return "$username"; // This value is set server-side and appears to client as hardcoded.
     }
 
     // utility function
@@ -113,12 +113,13 @@ $var username: $username
             case "Contender":
             case "Own":
             case "Average":
-                call = "get" + capitalise(user) + capitalise(type);
+                call = "get" + user + capitalise(type); // user is already capitalized
                 break;
             default:
                 call = "getOwn" + capitalise(type);
         }
         fn = window[call];
+//        console.log("user " + user + ", ladder " + type + ", call " + call + ", value " + fn()["value"]);
         return fn();
     }
 

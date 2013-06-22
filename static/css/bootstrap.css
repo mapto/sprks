@@ -314,7 +314,7 @@ label {
     float:left;
     width:33.1%;
 }
-#second{
+.second{
     left:0;
     background-color: #c0c0c0;
     background-image: -moz-linear-gradient(top, #c0c0c0, #505050);
@@ -326,7 +326,7 @@ label {
     border: 1px solid #d4d4d4;
     height:150px;
 }
-#first{
+.first{
     left:33.35%;
     background-color:#ffcc00;
     background-image: -moz-linear-gradient(top, #ffcc00, #b8860b);
@@ -338,7 +338,7 @@ label {
     border: 1px solid #ffba00;
     height:200px;
 }
-#third{
+.third{
     right:0;
     background-color:#cc7722;
     background-image: -moz-linear-gradient(top, #cc7722, #8e5702);
