@@ -9,6 +9,7 @@ function init() {
 
 //     acc = new Fx.Accordion($('#accordion h2'), $('#accordion .content'), {display: 2, alwaysHide: true});
 //     new Fx.Accordion($('accordion'), '#accordion h2', '#accordion .content');
+     new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
 
      climbLadder("risk");
      climbLadder("cost");
