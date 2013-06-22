@@ -6,6 +6,7 @@ Environment takes care of the system objects that need to be used by many module
 __author__ = 'mruskov'
 
 import web
+import datetime
 
 # Now assuming that views directory is fixed.
 # It is invisible to the code which renderer is used
@@ -14,7 +15,8 @@ import web
 #   from environment import render_private as render
 #   render.score(8,2,3)
 #
-render_private = web.template.render('views/', base='index')
+globals = {'datetime': datetime.datetime} # Parameters for private render
+render_private = web.template.render('views/', base='index_private', globals=globals)
 render_public = web.template.render('views/', base='index_prelogin')
 
 try:
