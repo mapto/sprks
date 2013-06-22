@@ -11,6 +11,7 @@ $def with (content)
 $if content.cssfiles:
         $for f in content.cssfiles.split():
             <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
+
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
 </head>
 <body>

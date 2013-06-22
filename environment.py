@@ -17,7 +17,7 @@ import datetime
 #
 globals = {'datetime': datetime.datetime} # Parameters for private render
 render_private = web.template.render('views/', base='index_private', globals=globals)
-render_public = web.template.render('views/', base='index_prelogin')
+render_public = web.template.render('views/', base='index_public')
 
 try:
     settings = __import__('settings')
