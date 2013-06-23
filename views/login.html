@@ -25,14 +25,16 @@ $var date:
 
     <div class="container-fluid">
         <form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
+            <fieldset>
+                <legend> Login into system</legend>
             <div class="row-fluid">
                 <div class="span7 ">
-                    Username: <input type="text" name="username" />
+                    <input type="text" name="username" placeholder="Username" required/>
                 </div>
             </div>
             <div class="row-fluid">
                 <div class="span7 ">
-                    Password: <input type="password" name="password"/>
+                    <input type="password" name="password" placeholder="Password" required/>
                 </div>
             </div>
             <div class="row-fluid">
@@ -42,6 +44,7 @@ $var date:
                 <div class="span2 offset2" ><a href="/pwrequest">Forgotten password?/ Change password</a></div>
                 <div class="span2 offset2" ><a href="/register">REGISTER</a></div>
             </div>
+            </fieldset>
         </form>
     </div>
 

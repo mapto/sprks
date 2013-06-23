@@ -31,10 +31,13 @@ $var date:
 
 
 <form name="recoveryForm" action="/pwrecovery" method="POST" onsubmit="return validateForm()">
-    <div>New Password: <input type="password" name="Password"></div>
-    <div>Re Password: <input type="password" name="RPassword"></div>
+    <fieldset>
+     <legend>Set your new password</legend>
+    <div><input type="password" name="Password" placeholder="New password"></div>
+    <div><input type="password" name="RPassword" placeholder="Repeat your password"></div>
     <input type="hidden" name="user" value="$username">
     <input class="login_btn" type="submit" value="Reset">
+    </fieldset>
 </form>
 
 </div><!-- end of main body-->

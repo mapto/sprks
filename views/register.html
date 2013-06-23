@@ -24,23 +24,25 @@ $var date:
 <div class="loginbox"><!-- start of main body-->
 <br>
 <form name="registerForm" method="post" action="register" onsubmit="return validateForm()">
+    <fieldset>
+        <legend>Enter your details: *</legend>
     <div class="row-fluid">
-Username*: <div><input type="text" name="username" value="" /> $error</div>
+<div><input type="text" name="username" value="" placeholder="Username" required/> $error</div>
     </div>
     <div class="row-fluid">
-Password*: <div><input type="password" name="password" value=""/></div>
+<div><input type="password" name="password" value="" placeholder="Password" required/></div>
     </div>
     <div class="row-fluid">
-Password Re*: <div><input type="password" name="passwordre" value=""/></div>
+<div><input type="password" name="passwordre" value="" placeholder="Repeat your password" required/></div>
     </div>
     <div class="row-fluid">
-Email*: <br>(for password recovery purposes only)<div><input type="text" name="email"></div>
+<br>(for password recovery purposes only)<div><input type="email" name="email" placeholder="Email" required></div>
 
     </div>
 
 <input class="login_btn" type="submit" value="Register">
     <br>* all fields are mandatory to fill
-   
+   </fieldset>
 </form>
 
 </div><!-- end of main body-->

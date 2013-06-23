@@ -24,8 +24,11 @@ $var date:
 
 
 <form name="requestForm" action="/pwrequest" method="POST" onsubmit="return validateForm()">
-    <div>Username: <input type="text" name="Username"></div>
-    <input class="login_btn" type="submit" value="Request">
+    <fieldset>
+        <legend>You will be send an email</legend>
+        <div><input type="text" name="Username" placeholder="Username" required></div>
+        <input class="login_btn" type="submit" value="Request">
+    </fieldset>
 </form>
 
 </div><!-- end of main body-->
