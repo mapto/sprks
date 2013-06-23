@@ -5,29 +5,41 @@ from numpy import genfromtxt
 from sklearn import tree
 import StringIO
 import cPickle
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from numpy.random import RandomState
+import numpy as np
 
 
 class estimator_sklearn_tree(estimator_interface):
     def __init__(self):
         # columns in train_data and test CSV file: plen, psets, pdict, phist, prenew, pattempts, pautorecover
         self.name = "full"
-        train_data = genfromtxt('static/data/pw-train-data-' + self.name + '.csv', delimiter=',')
-        train_data_conv_risk = self.toNormalized_risk(train_data)
-        train_data_conv_cost = self.toNormalized_cost(train_data)
-        print "train data"
-        print train_data_conv_cost
-        # columns in train_value CSV file and result: risk_prob, risk_impact, prod_cost
+        #train_data_conv_risk = self.toNormalized_risk(train_data)
+        #train_data_conv_cost = self.toNormalized_cost(train_data)
+
         train_value = genfromtxt('static/data/pw-train-result-' + self.name + '.csv', delimiter=',')
         print "train value"
         print train_value
+
+        train_data_full = genfromtxt('static/data/pw-train-data-' + self.name + '.csv', delimiter=',')
+        self.model_full = tree.DecisionTreeRegressor().fit(train_data_full, train_value)
+        train_data_reduced = self.reduceDim(train_data_full, 4)
+        self.model_reduced = tree.DecisionTreeRegressor().fit(train_data_reduced, train_value)
+
+        print "train data full"
+        print train_data_full
+        print "train data reduced"
+        print train_data_reduced
+        # columns in train_value CSV file and result: risk_prob, risk_impact, prod_cost
+
         # test_data = genfromtxt('static/data/pw-test-data.csv', delimiter=',')
-        self.risk_prob_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 0])
+        """self.risk_prob_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 0])
         self.risk_impact_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 1])
-        self.prod_cost_model = tree.DecisionTreeRegressor().fit(train_data_conv_cost, train_value[:, 2])
-        #self.model = tree.DecisionTreeRegressor().fit(train_data, train_value)
+        self.prod_cost_model = tree.DecisionTreeRegressor().fit(train_data_conv_cost, train_value[:, 2])"""
         # print clf.predict(test_data)
         # use this only if you want to explore what the machine learning algorithm learned
-        self.exportPDF()
+       # self.exportPDF()
 
     def policy2datapoint(self, policy):
         return [policy["plen"].value(), policy["psets"].value(),
@@ -99,6 +111,43 @@ class estimator_sklearn_tree(estimator_interface):
             arr.append([support, entry, generator, memorization])
         return arr
 
+    def generateAllPolicies(self):
+        plen = [0, 6, 8, 10, 12]
+        psets = [1, 2, 3, 4]
+        pdict = [0, 1]
+        phist = [0, 1, 2, 3]
+        prenew = [0, 1, 2, 3]
+        pattempts = [0, 1, 2]
+        pautorec = [0, 1]
+
+        arr = []
+
+        for plen_v in plen:
+            for psets_v in psets:
+                for pdict_v in pdict:
+                    for phist_v in phist:
+                        for prenew_v in prenew:
+                            for pattempts_v in pattempts:
+                                for pautorec_v in pautorec:
+                                    tmp = [plen_v, psets_v, pdict_v, phist_v, prenew_v, pattempts_v, pautorec_v]
+                                    arr.append(tmp)
+        return arr
+
+    def getClusters(self, data):
+        rnd = RandomState(42)
+        kmeans = KMeans(n_clusters=9, random_state=rnd)
+        kmeans.fit(data)
+        return np.round(kmeans.cluster_centers_, decimals=2)
+
+    def reduceDim(self, data, new_dim):
+       # PCA = __import__('sklearn.decomposition.PCA')
+        pca = PCA(new_dim, whiten=True)
+        pca.fit(data)
+        data_pca = pca.transform(data)
+        print data_pca.shape
+        return data_pca
+
+
     def exportPDF(self):
         """ Use this to export a visual representation of the learned model
                 requires graphviz (http://www.graphviz.org) and pydot to be installed
@@ -116,9 +165,12 @@ class estimator_sklearn_tree(estimator_interface):
             # graph = pydot.graph_from_dot_data(dot_data.getvalue())
             # graph.write_pdf("static/data/tree-" + self.name + "-risk-impact.pdf")
             #
-            tree.export_graphviz(self.prod_cost_model, out_file=dot_data)
+            """tree.export_graphviz(self.prod_cost_model, out_file=dot_data)
             graph = pydot.graph_from_dot_data(dot_data.getvalue())
-            graph.write_pdf("static/data/tree-" + self.name + "-prod-cost.pdf")
+            graph.write_pdf("static/data/tree-" + self.name + "-prod-cost.pdf")"""
+            tree.export_graphviz(self.model, out_file=dot_data)
+            graph = pydot.graph_from_dot_data(dot_data.getvalue())
+            graph.write_pdf("static/data/tree-" + self.name + ".pdf")
 
             #
 
@@ -140,11 +192,21 @@ if __name__ == "__main__":
 
     os.chdir("..")
     tool = estimator_sklearn_tree()
-    test_data = genfromtxt('static/data/pw-test-data.csv', delimiter=',')
-    test_data_conv = tool.toNormalized_cost(test_data)
+    #test_data = genfromtxt('static/data/pw-test-data.csv', delimiter=',')
+    data = tool.generateAllPolicies()
+    data_conv = tool.toNormalized_risk(data)
+    print tool.getClusters(data_conv)
+    """print test_data
+    print "reduced data"
+    tst_data = tool.reduceDim(test_data, 4)
+    print tst_data"""
+    #test_data_conv = tool.toNormalized_cost(test_data)
     #print test_data_conv
-#    print tool.predict(test_data_conv)
-    print "predicted data"
-    print tool.prod_cost_model.predict(test_data_conv)
+    """ print "from full model"
+    print tool.model_full.predict(test_data)
+    print "from reduced model"
+    print tool.model_reduced.predict(tst_data)"""
+   # print "predicted data"
+   # print tool.prod_cost_model.predict(test_data_conv)
 #    tool.risk_impact_model.predict(datapoints)
 #    tool.prod_cost_model.predict(datapoints)
