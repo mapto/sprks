@@ -11,13 +11,15 @@ $if content.has_key('cssfiles'):
 $if content.has_key('prejs'):
     $for js in content.prejs.split():
         <script src="$js"></script>
+
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
 </head>
 <body>
 <header>
 <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-             <div class="link"><a href="/home">SPRKS</a></div>
+             <div class="link"><a href="http://orpheus.cs.ucl.ac.uk/">SPRKS</a></div>
         </div>
       </div>
     </div>
@@ -43,8 +45,6 @@ $:content
 $if content.has_key('postjs'):
     $for js in content.postjs.split():
         <script src="$js"></script>
-
-<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
 
 </body>
 </html>

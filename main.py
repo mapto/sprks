@@ -5,7 +5,7 @@ import os
 
 # change current directory to the project path
 # so local modules can be found even if not previously in system path
-abspath = os.path.dirname(__file__)
+abspath = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(abspath)
 os.chdir(abspath)
 
@@ -40,7 +40,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
         '/realtimesim', controllers.realtimesim.preview
-)
+        )
 
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:

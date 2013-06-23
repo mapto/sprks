@@ -1,15 +1,4 @@
 $def with (username, y_risk, y_risk_when, y_risk_rank,y_pc, y_pc_when, y_pc_rank, c_risk, c_risk_when, c_risk_rank,c_pc, c_pc_when, c_pc_rank, b_risk, b_risk_when, b_pc, b_pc_when, avg_risk, avg_pc, date)
-<!Doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<title>Scores</title>
-<!--[if IE]>
-    <script src=""></script>
-<![endif]-->
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"> <!-- relative path to external files -->
-</head>
-<body>
 $var title: Scores
 $var cssfiles: static/css/bootstrap.css
 $var date: $date
@@ -23,20 +12,20 @@ $var username: $username
 
   <div class="content">
     <div class="span11 text-center rank">
-            <div class="ranking" id="second">
-                <div class="scr" id="s2"></div>
-                <div class="rnk" id="r2"></div>
-                <div class="when" id="w2"></div>
+            <div class="ranking second" id="r_second">
+                <div class="scr" id="risk_s2"></div>
+                <div class="rnk" id="risk_r2"></div>
+                <div class="when" id="risk_w2"></div>
             </div>
-            <div class="ranking" id="first">
-                <div class="scr" id="s1"></div>
-                <div class="rnk" id="r1">1</div>
-                <div class="when" id="w1"></div>
+            <div class="ranking first" id="r_first">
+                <div class="scr" id="risk_s1"></div>
+                <div class="rnk" id="risk_r1">1</div>
+                <div class="when" id="risk_w1"></div>
             </div>
-            <div class="ranking" id="third">
-                <div class="scr" id="s3"></div>
-                <div class="rnk" id="r3"></div>
-                <div class="when" id="w3"></div>
+            <div class="ranking third" id="r_third">
+                <div class="scr" id="risk_s3"></div>
+                <div class="rnk" id="risk_r3"></div>
+                <div class="when" id="risk_w3"></div>
             </div>
     </div>
   </div>
@@ -45,20 +34,20 @@ $var username: $username
 
   <div class="content">
     <div class="span11 text-center rank">
-            <div class="ranking" id="second">
-                <div class="scr" id="pc_s2"></div>
-                <div class="rnk" id="pc_r2"></div>
-                <div class="when" id="pc_w2"></div>
+            <div class="ranking second" id="c_second">
+                <div class="scr" id="cost_s2"></div>
+                <div class="rnk" id="cost_r2"></div>
+                <div class="when" id="cost_w2"></div>
             </div>
-            <div class="ranking" id="first">
-                <div class="scr" id="pc_s1"></div>
-                <div class="rnk" id="pc_r1">1</div>
-                <div class="when" id="pc_w1"></div>
+            <div class="ranking first" id="c_first">
+                <div class="scr" id="cost_s1"></div>
+                <div class="rnk" id="cost_r1">1</div>
+                <div class="when" id="cost_w1"></div>
             </div>
-            <div class="ranking" id="third">
-                <div class="scr" id="pc_s3"></div>
-                <div class="rnk" id="pc_r3"></div>
-                <div class="when" id="pc_w3"></div>
+            <div class="ranking third" id="c_third">
+                <div class="scr" id="cost_s3"></div>
+                <div class="rnk" id="cost_r3"></div>
+                <div class="when" id="cost_w3"></div>
             </div>
     </div>
   </div>
@@ -86,86 +75,78 @@ $var username: $username
 
 
 
-
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!-- jquery loaded in frame decoration -->
 <script src="/static/js/mootools-core-1.4.5-full-compat.js"></script>
 <script src="/static/js/mootools-more-1.4.0.1.js"></script>
+<script src="static/js/score.js"></script>  <!-- JS extracted here -->
+
 <script>
+    // Extracted JS files to allow easier parallel development.
+    // This is the dedicated script for the password policy view
+    // JS is loaded from the above file.
+    // If you want to use templates from webpy,
+    // extract a method that grabs them here and call it from a script in the external JS file.
+    // Variables from Python can be sent back as return values.
+    // Use $$() for jqueries
 
-jQuery(document).ready(function() {
+    $$(document).ready(init);
 
-     new Fx.Accordion($('accordion'), '#accordion h2', '#accordion .content');
+    function getUsername() {
+    	/*ID is preset inside HTML code*/
+        console.log("found user $username");
 
+        return "$username"; // This value is set server-side and appears to client as hardcoded.
+    }
 
-     if($:y_risk==$:b_risk){
-        jQuery("#s1").text('$username, '+'$:y_risk');
-        jQuery("#w1").text('$y_risk_when');
+    // utility function
+    function capitalise(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
-        jQuery("#s2").text('contender, '+'$:c_risk');
-        jQuery("#r2").text('$:c_risk_rank');
-        jQuery("#w2").text('$c_risk_when');
-
-     }else if($:y_risk<$:b_risk){
-        jQuery("#s1").text('best, '+'$b_risk');
-        jQuery("#w1").text('$b_risk_when');
-        if($:y_risk<$:c_risk){
-             jQuery("#s2").text('$username, '+'$:y_risk');
-             jQuery("#r2").text('$:y_risk_rank');
-             jQuery("#w2").text('$y_risk_when');
-
-             jQuery("#s3").text('contender, '+'$:c_risk');
-             jQuery("#r3").text('$:c_risk_rank');
-             jQuery("#w3").text('$c_risk_when');
-        }else if($:y_risk>$:c_risk){
-             jQuery("#s3").text('$username, '+'$:y_risk');
-             jQuery("#r3").text('$:y_risk_rank');
-             jQuery("#w3").text('$y_risk_when');
-
-             jQuery("#s2").text('contender, '+'$:c_risk');
-             jQuery("#r2").text('$:c_risk_rank');
-             jQuery("#w2").text('$c_risk_when');
+    // A shorthand function to call all score getters below.
+    // It combines strings to compose the name of the function.
+    // also accepts "Contender", "Best", "Average", "Own" as user
+    // type is "risk" or "cost"
+    function getScore(user, type) {
+        switch (user) {
+            case "Best":
+            case "Contender":
+            case "Own":
+            case "Average":
+                call = "get" + user + capitalise(type); // user is already capitalized
+                break;
+            default:
+                call = "getOwn" + capitalise(type);
         }
-     }
+        fn = window[call];
+//        console.log("user " + user + ", ladder " + type + ", call " + call + ", value " + fn()["value"]);
+        return fn();
+    }
 
-    if($:y_pc==$:b_pc){
-        jQuery("#pc_s1").text('$username, '+'$:y_pc');
-        jQuery("#pc_w1").text('$y_pc_when');
-
-        jQuery("#pc_s2").text('contender, '+'$:c_pc');
-        jQuery("#pc_r2").text('$:c_pc_rank');
-        jQuery("#pc_w2").text('$c_pc_when');
-
-     }else if($:y_pc<$:b_pc){
-        jQuery("#pc_s1").text('best, '+'$b_pc');
-        jQuery("#pc_w1").text('$b_pc_when');
-        if($:y_pc<$:c_pc){
-             jQuery("#pc_s2").text('$username, '+'$:y_pc');
-             jQuery("#pc_r2").text('$:y_pc_rank');
-             jQuery("#pc_w2").text('$y_pc_when');
-
-             jQuery("#pc_s3").text('contender, '+'$:c_pc');
-             jQuery("#pc_r3").text('$:c_pc_rank');
-             jQuery("#pc_w3").text('$c_pc_when');
-        }else if($:y_pc>$:c_pc){
-             jQuery("#pc_s3").text('$username, '+'$:y_pc');
-             jQuery("#pc_r3").text('$:y_pc_rank');
-             jQuery("#pc_w3").text('$y_pc_when');
-
-             jQuery("#pc_s2").text('contender, '+'$:c_pc');
-             jQuery("#pc_r2").text('$:c_pc_rank');
-             jQuery("#pc_w2").text('$c_pc_when');
-        }
-     }
-});
-
-
-
-
-
+    // These values are set server-side and appear to client as hardcoded.
+    function getOwnRisk() {
+        return {"value": $y_risk, "rank": $y_risk_rank, "when": "$y_risk_when"};
+    }
+    function getOwnCost() {
+        return {"value": $y_pc, "rank": $y_pc_rank, "when": "$y_pc_when"};
+    }
+    function getContenderRisk() {
+        return {"value": $c_risk, "rank": $c_risk_rank, "when": "$c_risk_when"};
+    }
+    function getContenderCost() {
+        return {"value": $c_pc, "rank": $c_pc_rank, "when": "$c_pc_when"};
+    }
+    function getBestRisk() {
+        return {"value": $b_risk, "rank": 1, "when": "$b_risk_when"};
+    }
+    function getBestCost() {
+        return {"value": $b_pc, "rank": 1, "when": "$b_pc_when"};
+    }
+    function getAverageRisk() {
+        return {"value": $avg_risk, "rank": "", "when": ""};
+    }
+    function getAverageCost() {
+        return {"value": $avg_pc, "rank": "", "when": ""};
+    }
 
 </script>
-</body>
-
-</html>
-
