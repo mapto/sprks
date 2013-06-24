@@ -83,3 +83,13 @@ class users_model:
             return True
         else:
             return False
+
+    def get_policy_history(self, id):
+        history = db.select('pw_policy', where="userid=$id", order="date", vars=locals())
+        history_dict = []
+        for row in history:
+            tmp = {}
+            for k, v in row.iteritems():
+                tmp[k] = str(v)
+            history_dict.append(tmp)
+        return history_dict

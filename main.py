@@ -21,6 +21,7 @@ import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
 import controllers.realtimesim
+import controllers.policy_history
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
@@ -39,7 +40,8 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
-        '/realtimesim', controllers.realtimesim.preview
+        '/realtimesim', controllers.realtimesim.preview,
+        '/history', controllers.policy_history.history
         )
 
 app = web.application(urls, globals(), autoreload=False)
