@@ -6,6 +6,8 @@ from environment import render_private as render
 from environment import db
 import itertools
 import math
+from sim.simulation import simulation
+import json
 
 class score:
     def CHECK_CLOSEST_COMPETITOR(self,length, usrid, your_score):
@@ -214,3 +216,19 @@ class score:
         else:
             #if user not logged in -> redirect to login page
             raise web.seeother('/home')
+
+
+class multiple_score:
+    def POST(self):
+        web.header('Content-Type', 'application/json')
+        sim = simulation()
+        post_data = json.loads(web.data())
+        """for policy in policies:
+            for k,v in policy.iteritems():
+                sim.set_policy(k, v)"""
+        for k in post_data:
+            for v, k2 in k.iteritems():
+                if v == "data":
+                    for k3 in k2:
+                        print k3
+

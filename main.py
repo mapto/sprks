@@ -36,6 +36,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/password/recovery/(.*)', controllers.pwrecovery.pwrecovery, # restful URLs
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
+        '/score/multiple', controllers.score.multiple_score,
         '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs

@@ -5,6 +5,7 @@ import session
 from models.users import users_model
 import json
 
+
 class history:
     def GET(self):
         if session.mysession.session.loggedin:
