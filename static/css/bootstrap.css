@@ -465,3 +465,10 @@ label {
 #quote3:after{
    right:190px;
 }
+
+
+/*Graph*******/
+#chartContainer{
+    height:360px;
+    width:100%;
+}
