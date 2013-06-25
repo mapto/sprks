@@ -21,47 +21,4 @@ $var username: $username
         <div class="interviewee" id="interview3">Iza</div>
         <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier.</div>
 
-
-<script>
-    $$(document).ready(function(){
-
-        $$("#interview1").on('click', function(e){
-            if( $$("#quote1").css("display")=="block"){
-                $$("#quote1").css("display", "none");
-            }else{
-                $$("#quote1").css("display", " block");
-                $$("#quote2").css("display", " none");
-                $$("#quote3").css("display", " none");
-                 e.stopPropagation();
-            }
-
-        });
-        $$("#interview2").on('click', function(e){
-            if( $$("#quote2").css("display")=="block"){
-                $$("#quote2").css("display", "none");
-            }else{
-                $$("#quote2").css("display", " block");
-                $$("#quote1").css("display", " none");
-                $$("#quote3").css("display", " none");
-                 e.stopPropagation();
-            }
-        });
-        $$("#interview3").on('click', function(e){
-            if( $$("#quote3").css("display")=="block"){
-                $$("#quote3").css("display", "none");
-            }else{
-                $$("#quote3").css("display", " block");
-                $$("#quote2").css("display", " none");
-                $$("#quote1").css("display", " none");
-                e.stopPropagation();
-            }
-        });
-
-    $$(document).click(function(){
-         $$("#quote1").css("display", "none");
-         $$("#quote2").css("display", "none");
-         $$("#quote3").css("display", "none");
-    });
-
-    });
-</script>
+<script src="static/js/intro.js"></script>

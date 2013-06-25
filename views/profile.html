@@ -1,6 +1,12 @@
-$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
+$def with (username, date, jsondumps)
 $var title: Profile
 $var cssfiles: static/css/bootstrap.css
 $var date: $date
 $var username: $username
 <h1>Profile</h1>
+<script src="static/js/profile.js"></script>
+<script>
+            json = $:jsondumps[0]; //history values in json format from serverside (policy_history.py)
+            console.log(json);
+            $$(document).ready(init);
+</script>

@@ -90,6 +90,9 @@ function highlightActiveButton() {
         case "Introduction":
             css_class = "story";
             break;
+        case "Profile":
+            css_class = "profile";
+            break;
         default:
             css_class = "policy";
     }
