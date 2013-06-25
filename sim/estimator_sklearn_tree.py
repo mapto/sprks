@@ -38,7 +38,7 @@ class estimator_sklearn_tree(estimator_interface):
         """ Policy is a dictionary,
         whereas model accepts an ordered tuple (array)
          """
-        complexity = policy["plen"].value() * 3 + policy["psets"].value() * 3 + policy["pdict"].value() * 12 + policy[
+        complexity = policy["plen"].value() + policy["psets"].value() * 3 + policy["pdict"].value() * 12 + policy[
         "phist"].value() * 4
 
         return [complexity,
@@ -47,7 +47,7 @@ class estimator_sklearn_tree(estimator_interface):
             policy["pautorecover"].value() * 48]
 
     def policy2datapoint_cost(self, policy):
-        complexity = policy["plen"].value() * 3 + policy["psets"].value() * 3 + policy["pdict"].value() * 12 + policy[
+        complexity = policy["plen"].value() + policy["psets"].value() * 3 + policy["pdict"].value() * 12 + policy[
             "phist"].value() * 4
         generator = complexity * policy["prenew"].value() * 16
         memorization = generator + policy["pattempts"].value() * 24

@@ -223,12 +223,17 @@ class multiple_score:
         web.header('Content-Type', 'application/json')
         sim = simulation()
         post_data = json.loads(web.data())
-        """for policy in policies:
-            for k,v in policy.iteritems():
-                sim.set_policy(k, v)"""
-        for k in post_data:
-            for v, k2 in k.iteritems():
-                if v == "data":
-                    for k3 in k2:
-                        print k3
+        policy_costs_risks = []
+        for policy_entry in post_data:
+            result_entry = {}
+            for key, value in policy_entry.iteritems():
+                if key == "data":
+                    sim.set_multi_policy(value)
+                    result_entry["risk"] = sim.calc_risk_prob()
+                    result_entry["cost"] = sim.calc_prod_cost()
+                else:
+                    result_entry[key] = value
+            policy_costs_risks.append(result_entry)
+
+        return json.dumps(policy_costs_risks)
 
