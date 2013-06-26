@@ -1,5 +1,4 @@
 __author__ = 'zcabh_000'
-from sklearn import svm
 
 
 class incident:
