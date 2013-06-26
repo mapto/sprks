@@ -6,7 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 function init() {
- /*Only a reminder what the data is being sent */
+
+ /*Only as reminder what the data is being sent */
+
  json1=json[0];
  var prenew = ( json1.prenew);
             var pattempts = ( json1.pattempts);
@@ -20,43 +22,51 @@ function init() {
             var plen = ( json1.plen);
             var risk = ( json1.risk);
             var pdict = ( json1.pdict);
- /*****/
+ /***********************************************/
 
  createGraph(date,cost,risk,json);
 
  //create table dynamically:
             var table = $('<table></table>').addClass('profile_table');
+
             //provide column names:
             var row = $('<tr></tr>').addClass('profileTr');
-                var date = $('<td></td>').addClass('profileTd_date profileTh_date').text("date");
+                var date = $('<td></td>').addClass('profileTd_date profileTh').text("date");
                     row.append(date);
             for(var j in json[0]){
-
                 var attrName = j; //e.g. pdict
-                var col = $('<td></td>').addClass('profileTd').text(attrName);
                 if(attrName!=='date'&&attrName!=='idpolicy'&&attrName!=='userid'&&attrName!=='cost'&&attrName!=='risk'){ //do not show these fields
-                             row.append(col);
+                    var col = $('<td></td>').addClass('profileTd profileTh').text(attrName);
+                    row.append(col);
                 }
             }
             table.append(row);
 
             //fill table:
+            var prev_obj='';
             for(var i in json){
-                var obj = json[i]
+                var obj = json[i];
                 var row = $('<tr></tr>').addClass('profileTr');
                     var date = $('<td></td>').addClass('profileTd_date').text(obj['date']);
                     row.append(date);
                     for(var k in obj){
-
                          var attrName = k; //e.g. pdict
                          var attrValue = obj[k]; //e.g. 1
-                         var col = $('<td></td>').addClass('profileTd').text(attrValue);
-
                          if(attrName!=='date'&&attrName!=='idpolicy'&&attrName!=='userid'&&attrName!=='cost'&&attrName!=='risk'){ //do not show these fields
-                             row.append(col);
+                            if(i<1){ //if it's first row
+                                var col = $('<td></td>').addClass('profileTd').text(attrValue);
+                                row.append(col);//add all policy values
+                            }else if(i>0 && (obj[k]!==prev_obj[k])){ //if it's second row
+                                var col = $('<td></td>').addClass('profileTd').text('changed from '+prev_obj[k]+' to '+obj[k]);
+                                row.append(col); //add value column only if value have changed
+                            }else{
+                                var col = $('<td></td>').addClass('profileTd').text('');
+                                row.append(col); //add empty column if no changes
+                            }
                          }
                     }
                 table.append(row);
+                prev_obj=json[i];
             }
 
             $('#profile_table').append(table);
