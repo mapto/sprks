@@ -110,8 +110,14 @@ $if content.cssfiles:
 //    document.ready = initFrame(); // register callback to function from external JS file;
 
     function isFirstTurn() {
-        content_date = $content.date;  // this is not accessible in Story page
+        //content_date = "$content.date";  // possible fix
+        //start_date ="$get_start_time()";
+
+        content_date = $content.date;  // this is not accessible in Story page   ?does seem to give syntax error
         start_date = get_start_time();
+
+
+
         if (content_date == start_date || content_date == '') {
             return true;
         } else {
