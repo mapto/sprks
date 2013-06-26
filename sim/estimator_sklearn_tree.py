@@ -14,14 +14,12 @@ class estimator_sklearn_tree(estimator_interface):
         train_data = genfromtxt('static/data/pw-train-data-' + self.name + '.csv', delimiter=',')
         train_data_conv_risk = self.toNormalized_risk(train_data)
         train_data_conv_cost = self.toNormalized_cost(train_data)
-        print "train data"
-        print train_data
         # columns in train_value CSV file and result: risk_prob, risk_impact, prod_cost
         train_value = genfromtxt('static/data/pw-train-result-' + self.name + '.csv', delimiter=',')
         # test_data = genfromtxt('static/data/pw-test-data.csv', delimiter=',')
-        self.risk_prob_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 0])
-        self.risk_impact_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 1])
-        self.prod_cost_model = tree.DecisionTreeRegressor().fit(train_data_conv_cost, train_value[:, 2])
+#        self.risk_prob_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 0])
+ #       self.risk_impact_model = tree.DecisionTreeRegressor().fit(train_data_conv_risk, train_value[:, 1])
+  #      self.prod_cost_model = tree.DecisionTreeRegressor().fit(train_data_conv_cost, train_value[:, 2])
         #self.model = tree.DecisionTreeRegressor().fit(train_data, train_value)
         # print clf.predict(test_data)
         # use this only if you want to explore what the machine learning algorithm learned

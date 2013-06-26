@@ -2,6 +2,7 @@ __author__ = 'Horace'
 
 from estimator_sklearn_tree import estimator_sklearn_tree
 from estimator_simple import estimator_simple
+from classifier_sklearn import classifier_sklearn
 
 
 class simulation:
@@ -11,6 +12,7 @@ class simulation:
             self.dict = {}
         self.set_multi_policy(policies)
         self.estimator = estimator_sklearn_tree()
+        self.classifier = classifier_sklearn()
 #        self.estimator = estimator_simple()
 
     def set_multi_policy(self, policies):
@@ -64,16 +66,18 @@ class simulation:
             return getattr(getattr(policy_module, policy_id), policy_id)
 
     def calc_risk_prob(self):
-        risk = self.estimator.get_risk_prob(self.dict)
+        #risk = self.estimator.get_risk_prob(self.dict)
+        risk = self.classifier.predict(self.dict)[0]
         # Extreme precision is not needed outside of simulation
         return round(risk, 2)
 
     def calc_risk_impact(self):
-        impact = self.estimator.get_risk_impact(self.dict)
+#        impact = self.estimator.get_risk_impact(self.dict)
         # Extreme precision is not needed outside of simulation
-        return round(impact, 2)
+        return round(1, 2)
 
     def calc_prod_cost(self):
-        cost = self.estimator.get_prod_cost(self.dict)
+        #cost = self.estimator.get_prod_cost(self.dict)
+        cost = self.classifier.predict(self.dict)[1]
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)
