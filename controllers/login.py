@@ -20,11 +20,11 @@ class login:
 
     def POST(self):
         request = web.input()
-        auth_id = users_model().authenticate(request.username, request.password)
-        if auth_id > 0:
+        user_id = users_model().authenticate(request.username, request.password)
+        if user_id > 0:
             session.mysession.session.loggedin = True
             session.mysession.session.user = request.username
-            session.mysession.session.id = auth_id
+            session.mysession.session.id = user_id
             raise web.seeother('/pwpolicy')
         else:
             return render.login()
