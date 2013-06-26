@@ -4,7 +4,7 @@ import web
 import session
 from models.policies import policies_model
 import json
-from environment import render_private as render
+
 
 
 class history:
@@ -17,6 +17,7 @@ class history:
 
             if policy_history is not None:
                 #return json.dumps(policy_history)
+                print json.dumps(policy_history)
                 return render.profile(username, date, policy_history)
             else:
                 return "None"

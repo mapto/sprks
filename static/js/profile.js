@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 function init() {
+ /*Only a reminder what the data is being sent */
  json1=json[0];
  var prenew = ( json1.prenew);
             var pattempts = ( json1.pattempts);
@@ -19,21 +20,49 @@ function init() {
             var plen = ( json1.plen);
             var risk = ( json1.risk);
             var pdict = ( json1.pdict);
+ /*****/
 
-    createGraph(date,cost,risk,json);
+ createGraph(date,cost,risk,json);
 
-    for(var k in json)
-    {
+ //create table dynamically:
+            var table = $('<table></table>').addClass('profile_table');
+            //provide column names:
+            var row = $('<tr></tr>').addClass('profileTr');
+                var date = $('<td></td>').addClass('profileTd_date profileTh_date').text("date");
+                    row.append(date);
+            for(var j in json[0]){
 
-        if(k>0 && (json[k-1].risk != json[k].risk)){ //if risk changed
-            console.log('prev '+json[k-1].risk + 'curr '+ json[k].risk);
-        }else{
-            console.log(k+' '+json[k].risk);
-        }
+                var attrName = j; //e.g. pdict
+                var col = $('<td></td>').addClass('profileTd').text(attrName);
+                if(attrName!=='date'&&attrName!=='idpolicy'&&attrName!=='userid'&&attrName!=='cost'&&attrName!=='risk'){ //do not show these fields
+                             row.append(col);
+                }
+            }
+            table.append(row);
 
+            //fill table:
+            for(var i in json){
+                var obj = json[i]
+                var row = $('<tr></tr>').addClass('profileTr');
+                    var date = $('<td></td>').addClass('profileTd_date').text(obj['date']);
+                    row.append(date);
+                    for(var k in obj){
 
-    }
+                         var attrName = k; //e.g. pdict
+                         var attrValue = obj[k]; //e.g. 1
+                         var col = $('<td></td>').addClass('profileTd').text(attrValue);
+
+                         if(attrName!=='date'&&attrName!=='idpolicy'&&attrName!=='userid'&&attrName!=='cost'&&attrName!=='risk'){ //do not show these fields
+                             row.append(col);
+                         }
+                    }
+                table.append(row);
+            }
+
+            $('#profile_table').append(table);
 }
+
+
 function createGraph(date,cost,risk, data){
     dps1_1 = [];
     dps2_1 = [];
