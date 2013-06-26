@@ -11,7 +11,6 @@ class incident:
             raise KeyError("Incident ID not found.")
         return list[0]
 
-
     def get_incident_description(self, cls):
         #        return self.get_incident(cls).description
         return 1

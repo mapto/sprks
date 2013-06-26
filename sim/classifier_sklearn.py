@@ -2,6 +2,7 @@ __author__ = 'Daniyar'
 from sklearn import svm
 from numpy import genfromtxt
 from models.incident import incident
+import json
 
 
 class classifier_sklearn:
@@ -12,9 +13,9 @@ class classifier_sklearn:
 
     def predict(self, data):
         cls = self.incidents_model.predict(data)
-        return [incident.get_incident_risk(cls),
-                incident.get_incident_cost(cls),
-                incident.get_incident_description(cls)]
+        return json.dumps([incident().get_incident_risk(cls),
+                           incident().get_incident_cost(cls),
+                           incident().get_incident_description(cls)])
         #return self.incidents_model.predict(data)
 
 
