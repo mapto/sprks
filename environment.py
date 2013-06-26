@@ -6,7 +6,11 @@ Environment takes care of the system objects that need to be used by many module
 __author__ = 'mruskov'
 
 import web
-import datetime
+from datetime import datetime
+# from controllers.timeline import get_start_time
+
+def get_start_time():
+    return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
 
 # Now assuming that views directory is fixed.
 # It is invisible to the code which renderer is used
@@ -15,7 +19,7 @@ import datetime
 #   from environment import render_private as render
 #   render.score(8,2,3)
 #
-globals = {'datetime': datetime.datetime} # Parameters for private render
+globals = {'datetime': datetime, 'get_start_time': get_start_time} # Parameters for private render
 render_private = web.template.render('views/', base='index_private', globals=globals)
 render_public = web.template.render('views/', base='index_public')
 
@@ -32,3 +36,4 @@ except ImportError, AttributeError:
         user='root',
         pw='1234',
         db='sprks')
+

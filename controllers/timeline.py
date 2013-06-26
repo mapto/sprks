@@ -6,6 +6,7 @@ import session
 from sim.simulation import simulation
 from datetime import timedelta, datetime
 from environment import db
+from environment import get_start_time
 from pwpolicy import pwpolicy
 
 class forward:
@@ -18,7 +19,7 @@ class forward:
         # get the latest date that the user has submitted a policy and add 7 days to it
         # if the user hasn't submitted anything, take today's date
         data = pwpolicy.default
-        prev_date = datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
+        prev_date = get_start_time()  # needed only if user can press /forward without having seen the policy page
 
         user_policies = db.select('pw_policy', where="userid=$usrid", order="date DESC", vars=locals())
         if len(user_policies) > 0:

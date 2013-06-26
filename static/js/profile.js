@@ -19,9 +19,20 @@ function init() {
             var plen = ( json1.plen);
             var risk = ( json1.risk);
             var pdict = ( json1.pdict);
-    $("#risk").text('Risk is '+risk);
-    $("#cost").text('Cost is '+cost);
+
     createGraph(date,cost,risk,json);
+
+    for(var k in json)
+    {
+
+        if(k>0 && (json[k-1].risk != json[k].risk)){ //if risk changed
+            console.log('prev '+json[k-1].risk + 'curr '+ json[k].risk);
+        }else{
+            console.log(k+' '+json[k].risk);
+        }
+
+
+    }
 }
 function createGraph(date,cost,risk, data){
     dps1_1 = [];

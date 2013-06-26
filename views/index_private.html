@@ -110,10 +110,14 @@ $if content.cssfiles:
 //    document.ready = initFrame(); // register callback to function from external JS file;
 
     function isFirstTurn() {
-        $if content.date == datetime(year=2014, month=1, day=6, hour=9):
-            return true; // This value is set server-side and appears to client as hardcoded.
-        $else:
-            return false; // This value is set server-side and appears to client as hardcoded.
+        content_date = '$content.date';  // this is not accessible in Story page
+        start_date = '$get_start_time()';
+        if (content_date == start_date || content_date == '') {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     function contentTitle() {

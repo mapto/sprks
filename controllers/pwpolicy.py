@@ -6,6 +6,7 @@ from datetime import timedelta, datetime
 from environment import render_private as render
 from environment import db
 from models.pw_policy import pw_policy_model
+from environment import get_start_time
 
 class pwpolicy:
     # the default policy should be specified in a central place and reusable
@@ -28,9 +29,10 @@ class pwpolicy:
                                 result_get.pattempts, result_get.pautorecover, notfound, str(result_get.date))
             else:
                 notfound=1
-                dt = datetime.now()
-                dtt = dt - timedelta(days=dt.weekday())
+#                dt = datetime.now()
+#                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
                 # The default policy (i.e. when not specified by user)
+                dtt = get_start_time()
                 db.insert('pw_policy', userid=id_user, date=dtt.strftime("%Y/%m/%d %H:%M:%S"),
                           plen=pwpolicy.default["plen"],
                           psets=pwpolicy.default["psets"],
