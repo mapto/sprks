@@ -8,9 +8,8 @@
 function init() {
 
  /*Only as reminder what the data is being sent */
-
  json1=json[0];
- var prenew = ( json1.prenew);
+            var prenew = ( json1.prenew);
             var pattempts = ( json1.pattempts);
             var cost = ( json1.cost);
             var idpolicy = ( json1.idpolicy);
