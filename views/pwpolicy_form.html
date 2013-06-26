@@ -260,6 +260,8 @@ $var username: $username
     }
 
     function policyExists() {
+        console.log("policyExists -> date $:date");
+
         $if notfound != 1:
             return true; // This value is set server-side and appears in browser as hardcoded.
         $else:

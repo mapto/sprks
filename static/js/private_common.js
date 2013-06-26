@@ -42,7 +42,8 @@ function initFrame() {
             dataType: "json",
             success: function (curr_date) {
                 console.log("success: " + JSON.stringify(curr_date));
-                $("#curr_date").text(curr_date[0].value)
+                $("#curr_date").text(curr_date[0].value);
+                manageScoreButton();
             },
             error: function (response) {
                 console.log("fail: " + response.responseText);
