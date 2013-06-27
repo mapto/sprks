@@ -8,9 +8,13 @@ import json
 
 class classifier_sklearn:
     def __init__(self):
-        train_data = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
-        train_result = genfromtxt('static/data/pw-train-result-classifier-full.csv', delimiter=",")
-        self.incidents_model = svm.SVC().fit(train_data, train_result)
+        train_data_bfa = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
+        train_result_bfa = genfromtxt('static/data/pw-train-result-classifier-full.csv', delimiter=",")
+        self.incidents_models["bfa"] = svm.SVC().fit(train_data_bfa, train_result_bfa)
+
+        train_data_thft = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
+        train_result_thft = genfromtxt('static/data/pw-train-result-classifier-full.csv', delimiter=",")
+        self.incidents_models["thft"] = svm.SVC().fit(train_data_thft, train_result_thft)
 
     def policy2datapoint(self, policy):
         return [policy["plen"].value(), policy["psets"].value(),
@@ -20,9 +24,10 @@ class classifier_sklearn:
 
     def predict(self, data):
         datapoints = self.policy2datapoint(data)
-        cls = self.incidents_model.predict(datapoints)
+        cls_bfa = self.incidents_models["bfa"].predict(datapoints)
+        cls_thft = self.incidents_models["thft"].predict(datapoints)
         # data is returned as numpy.float64, we need integers so we could use them as incident indices
-        event = incident(cls[0].astype(int64))
+        event = incident(cls_bfa[0].astype(int64))
         return [event.get_risk(), event.get_cost(), event.get_description()]
         #return self.incidents_model.predict(data)
 
