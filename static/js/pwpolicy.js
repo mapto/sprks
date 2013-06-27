@@ -147,7 +147,28 @@ function init(){
     console.log("Policy initialized...");
 }
 
-
+function verboseScore(score) {
+    if(score < 0.2)
+    {
+        return "very low";
+    }
+    if(score < 0.4)
+    {
+        return "low";
+    }
+    if(score < 0.6)
+    {
+        return "average";
+    }
+    if(score < 0.8)
+    {
+        return "high";
+    }
+    if(score <= 1)
+    {
+        return "very high";
+    }
+}
 
 /* handle AJAX (realtime) submission */
 /*
@@ -212,9 +233,9 @@ function submit_change() { // need different event handling, to capture any chan
         contentType : "application/json; charset=utf-8",
         dataType : "json",
         success : function(score) {
-            console.log("success: " + JSON.stringify(score));
+            console.log("test: " + JSON.stringify(score));
             $(score).each(function(i) {
-                $("#" + score[i].name).text(score[i].value)
+                $("#" + score[i].name).text(verboseScore(score[i].value));
             })
         },
         error: function(response) {
