@@ -227,19 +227,16 @@ class multiple_score:
         for policy_entry in post_data:
             result_entry = {}
             for key, value in policy_entry.iteritems():
-                print(value)
-
                 if key == "data":
-
-                    sim.set_multi_policy(value)
-
+                    tmp_value = eval(value)
+                    sim.set_multi_policy(tmp_value)
                     result_entry["risk"] = sim.calc_risk_prob()
                     result_entry["cost"] = sim.calc_prod_cost()
                 else:
                     result_entry[key] = value
             policy_costs_risks.append(result_entry)
 
-            print('return cost '+ policy_costs_risks)
+           # print('return cost '+ policy_costs_risks)
 
         return json.dumps(policy_costs_risks)
 

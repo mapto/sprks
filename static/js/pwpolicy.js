@@ -258,11 +258,27 @@ function submit_change_mul(){
 
     new_policy.plen=$('input[name="plen"]:checked').val();
     new_policy.psets=$('input[name="psets"]:checked').val();
-    new_policy.pdict=$('input[name="pdict"]:checked').val();
+    if($('input[name="pdict"]:checked').val()==null)
+    {
+        new_policy.pdict = 0;
+    }
+    else
+    {
+        new_policy.pdict = 1;
+    }
+    if($('input[name="pautorecover"]:checked').val()==null)
+    {
+        new_policy.pautorecover = 0;
+    }
+    else
+    {
+        new_policy.pautorecover = 1;
+    }
+    //new_policy.pdict=$('input[name="pdict"]:checked').val();
     new_policy.phist=$('input[name="phist"]:checked').val();
     new_policy.prenew=$('input[name="prenew"]:checked').val();
     new_policy.pattempts=$('input[name="pattempts"]:checked').val();
-    new_policy.pautorecover=$('input[name="pautorecover"]:checked').val();
+    //new_policy.pautorecover=$('input[name="pautorecover"]:checked').val();
     msg.data=JSON.stringify(new_policy);
     console.log(msgs);
     msgs.push(msg);
