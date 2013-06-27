@@ -1,6 +1,7 @@
 __author__ = 'Daniyar'
 from sklearn import svm
 from numpy import genfromtxt
+from numpy import int64
 from models.incident import incident
 import json
 
@@ -20,9 +21,9 @@ class classifier_sklearn:
     def predict(self, data):
         datapoints = self.policy2datapoint(data)
         cls = self.incidents_model.predict(datapoints)
-        return [incident().get_incident_risk(cls),
-                           incident().get_incident_cost(cls),
-                           incident().get_incident_description(cls)]
+        # data is returned as numpy.float64, we need integers so we could use them as incident indices
+        event = incident(cls[0].astype(int64))
+        return [event.get_risk(), event.get_cost(), event.get_description()]
         #return self.incidents_model.predict(data)
 
 
