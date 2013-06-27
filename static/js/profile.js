@@ -95,6 +95,7 @@ function createGraph(date,cost,risk, data){
  axisY: {
  title: "Units"
  },
+
  // begin data for 2 line graphs. Note dps1 and dps2 are
  //defined above as a json object. See http://www.w3schools.com/json/
  data: [

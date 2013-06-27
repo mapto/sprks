@@ -10,9 +10,6 @@ function init(){
     //submit_change();
     $('.target').change(submit_change);
     $('.target').change(submit_change_mul);
-    // var a="100";
-    // $('.target').change(submit_change_mul(a));
-
 
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
 
@@ -32,106 +29,21 @@ function init(){
 
     console.log("found plen " + start_policy["plen"]);
     $("#len" + start_policy["plen"]).prop('checked', true);
-/*
-    switch (start_policy.plen) {
-        case $("#len0").val():
-    		console.log("found plen 0");
-	    	$("#len0").prop('checked', true);
-            break;
-        case $("#len6").val():
-		    console.log("found plen 6");
-		    $("#len6").prop('checked', true);
-	}else if ($:plen==jQuery("#len8").val()){
-		console.log("found plen 8");
-		jQuery("#len8").prop('checked', true);
-	}else if ($:plen==jQuery("#len10").val()){
-		console.log("found plen 10");
-		jQuery("#len10").prop('checked', true);
-	}else if ($:plen==jQuery("#len12").val()){
-		console.log("found plen 12");
-		jQuery("#len12").prop('checked', true);
-	}
-*/
-
 
 	/*preset pswd sets value*/
     console.log("found sets " + start_policy["psets"]);
     $("#sets" + start_policy["psets"]).prop('checked', true);
-/*
-	if ($:psets==jQuery("#sets1").val()){
-		console.log("found sets any");
-		jQuery("#sets1").prop('checked', true);
-	}else if ($:psets==jQuery("#sets2").val()){
-		console.log("found sets 2");
-		jQuery("#sets2").prop('checked', true);
-	}else if ($:psets==jQuery("#sets3").val()){
-		console.log("found sets 3");
-		jQuery("#sets3").prop('checked', true);
-	}else if ($:psets==jQuery("#sets4").val()){
-		console.log("found sets 4");
-		jQuery("#sets4").prop('checked', true);
-	}else console.log('FOUND error psets=0')
-*/
+
 	/*preset pswd dictionary value*/
     console.log("found " + (start_policy["pdict"]?"use":"no") + " dict");
     $("#dic").prop('checked', start_policy["pdict"] == 1);
-/*
-	if ($:pdict==jQuery("#dic").val()){
-		console.log("found use dict");
-		jQuery("#dic").prop('checked', true);
-	}else{
-		console.log('pdict:no')
-	}
-*/
 
-	/*preset pswd history check
-	none: 0
-	simple: 1
-	strict: 2
-	extreme: 3
-	*/
     console.log("found phist difficulty " + start_policy["phist"]);
     $("#hist" + start_policy["phist"]).prop('checked', true);
-/*
-	if ($:phist==jQuery("#hist1").val()){
-		console.log("found phist none");
-		jQuery("#hist1").prop('checked', true);
-	}else if ($:phist==jQuery("#hist2").val()){
-		console.log("found phist simple");
-		jQuery("#hist2").prop('checked', true);
-	}else if ($:phist==jQuery("#hist3").val()){
-		console.log("found phist strict");
-		jQuery("#hist3").prop('checked', true);
-	}else if ($:phist==jQuery("#hist4").val()){
-		console.log("found phist extreme");
-		jQuery("#hist4").prop('checked', true);
-	}
-*/
 
-
-	/*preset pswd renewal period check
-	never: 0
-	annual: 1
-	quarterly: 2
-	monthly: 3
-	*/
     console.log("found renew " + start_policy["prenew"]);
     $("#renew" + start_policy["prenew"]).prop('checked', true);
-/*
-	if ($:prenew==jQuery("#renew1").val()){
-		console.log("found renew never");
-		jQuery("#renew1").prop('checked', true);
-	}else if ($:prenew==jQuery("#renew2").val()){
-		console.log("found renew annually");
-		jQuery("#renew2").prop('checked', true);
-	}else if ($:prenew==jQuery("#renew3").val()){
-		console.log("found renew quarterly");
-		jQuery("#renew3").prop('checked', true);
-	}else if ($:prenew==jQuery("#renew4").val()){
-		console.log("found renew monthly");
-		jQuery("#renew4").prop('checked', true);
-	}
-*/
+
 	/*preset pswd attempts number check (yes/no)*/
     /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
     console.log("found attempts " + start_policy["prenew"]);
@@ -140,14 +52,6 @@ function init(){
 	/*preset pswd recovery option*/
     console.log("found pautorecover " + start_policy["pautorecover"]);
     $("#autorecover").prop('checked', start_policy["pautorecover"] == 1);
-/*
-	if ($:pautorecover==jQuery("#autorecover").val()){
-		console.log("found pautorecover");
-		jQuery("#autorecover").prop('checked', true);
-	}else{
-		console.log('pautorecover:no')
-	}
-*/
 
     console.log("Policy initialized...");
 }
@@ -253,10 +157,10 @@ function submit_change() { // need different event handling, to capture any chan
 
 function submit_change_mul(){
     var msgs = [];
-
     var new_policy = {};
     var msg ={};
-    msg.id="0";
+
+    msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
 
     new_policy.plen=$('input[name="plen"]:checked').val();
     new_policy.psets=$('input[name="psets"]:checked').val();
@@ -295,9 +199,13 @@ function submit_change_mul(){
             console.log("success: " + JSON.stringify(policy_costs_risks));
             $(policy_costs_risks).each(function(i) { //iteration accross policies
                 //iteration accross policy values
-                $("#m_cost").text('cost'+policy_costs_risks[i].cost);
-                $("#m_risk").text('risk'+policy_costs_risks[i].risk);
-                $("#m_id").text('id'+policy_costs_risks[i].id);
+
+                var cost = policy_costs_risks[i].cost;
+                var risk = policy_costs_risks[i].risk;
+                var id = policy_costs_risks[i].id;
+
+                display_graph(id, risk,cost);
+
             })
         },
         error: function(response) {
@@ -305,5 +213,56 @@ function submit_change_mul(){
         }
         });
     return false;
+
+}
+
+function display_graph(id, risk, cost){ //id examples: plen, psets, pdict, etc.
+
+    var graphid = "graph_"+id;//find corresponding graph placeholder id
+
+    var dps1 = [];
+    var dps2 = [];
+
+    $(document).find("#"+id).find('input').each(function(i) { //find options for corresponding question
+        if(this.checked== true){
+            tmpRisk = {label:this.value, y:risk};
+            tmpCost = {label:this.value, y:cost};
+        }else{
+            tmpRisk = {label:this.value};
+            tmpCost = {label:this.value};
+        }
+        dps1.push(tmpRisk);
+        dps2.push(tmpCost);
+
+    })
+
+    //display graph
+    var chart = new CanvasJS.Chart(graphid,{
+ title :{
+ text: "Risc/cost"
+ },
+ axisX: {
+ title: id
+ },
+ axisY: {
+ title: "result"
+ },
+ // begin data for 2 line graphs. Note dps1 and dps2 are
+ //defined above as a json object. See http://www.w3schools.com/json/
+ data: [
+ { type: "line", name: "R", showInLegend: true, dataPoints : dps1},
+ { type: "line", name: "PC", showInLegend: true, dataPoints : dps2}
+ ]
+ // end of data for 2 line graphs
+
+ }); // End of new chart variable
+
+ chart.render();
+
+
+
+
+
+
 
 }
