@@ -9,7 +9,11 @@
 function init(){
     //submit_change();
     $('.target').change(submit_change);
-    //$('.target').change(submit_change_mul);
+    $('.target').change(submit_change_mul);
+    // var a="100";
+    // $('.target').change(submit_change_mul(a));
+
+
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
 
 	var d = new Date();
@@ -239,8 +243,6 @@ function submit_change() { // need different event handling, to capture any chan
                 $("#" + score[i].name).text(verboseScore(score[i].value));
             })
 
-            submit_change_mul();
-
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
@@ -291,9 +293,12 @@ function submit_change_mul(){
         dataType : "json",
         success : function(policy_costs_risks) {
             console.log("success: " + JSON.stringify(policy_costs_risks));
-            //$(score).each(function(i) {
-            //    $("#" + score[i].name).text(score[i].value)
-            //})
+            $(policy_costs_risks).each(function(i) { //iteration accross policies
+                //iteration accross policy values
+                $("#m_cost").text('cost'+policy_costs_risks[i].cost);
+                $("#m_risk").text('risk'+policy_costs_risks[i].risk);
+                $("#m_id").text('id'+policy_costs_risks[i].id);
+            })
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
