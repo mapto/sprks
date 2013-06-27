@@ -1,0 +1,7 @@
+{"id": 3, "name": "eternal", "type":"bruteforce",
+"pwpolicy": {"plen": 8, "psets": 1, "pdict": 0, "phist": 0, "prenew": 0, "pattempts": 0, "pautorecover": 1},
+"description": "You don't ever require from employees to renew their passwords.",
+"event": "Eventually someone's password gets stolen. The problem is that you understand about that just after a successful attack that leaks millions of customer accounts.",
+"consequences": "Once a password is compromised, this opens the way for social engineering and attempts to steal passwords that provide access to further data.",
+"risk": 0.5,
+"cost": 0}

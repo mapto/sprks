@@ -1,0 +1,7 @@
+{"id": 1, "name": "default", "type":"bruteforce",
+"pwpolicy": {"plen": 8, "psets": 1, "pdict": 0, "phist": 1, "prenew": 1, "pattempts": 0, "pautorecover": 1},
+"description": "Your policy sounds reasonable.",
+"event": "No major incidents happen as a result.",
+"consequences": "None",
+"risk": 0.3,
+"cost": 0.3}
