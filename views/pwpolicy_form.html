@@ -18,8 +18,8 @@ $var username: $username
         <input type="hidden" name="userid" id="pswdid" placeholder="ID">
 </p>
 
-<p>
-    <label class="qn plen"><b>Password length (value of the shortest permitted password):</b></label>
+<p class="qn" id="plen">
+    <label ><b>Password length (value of the shortest permitted password):</b></label>
     <br/>
     <input type="radio"
            name="plen"
@@ -57,10 +57,11 @@ $var username: $username
            value="12"/>
     <label for="len12">minimum 12 characters</label>
     <br/><br/>
+    <div class="graph" id="graph_plen"></div>
 </p>
 
-<p>
-    <label class="qn psets"><b>Number of symbol sets that must be used in password:</b></label>
+<p class="qn" id="psets">
+    <label><b>Number of symbol sets that must be used in password:</b></label>
     <br/>
     <input type="radio"
            name="psets"
@@ -91,9 +92,10 @@ $var username: $username
            value="4"/>
     <label for="sets4">at least 4</label>
     <br/><br/>
+    <div class="graph" id="graph_psets"></div>
 </p>
 
-<p>
+<p class="qn" id="pdict">
     <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
     <input type="checkbox"
            name="pdict"
@@ -101,10 +103,11 @@ $var username: $username
            class="target"
            value="1"/>
     <label for="dic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
+    <div class="graph" id="graph_pdict"></div>
 </p>
 
-<p>
-    <label class="qn phist"><b>Password history checking mechanism:</b></label>
+<p class="qn" id="phist">
+    <label><b>Password history checking mechanism:</b></label>
     <br/>
     <input type="radio"
            name="phist"
@@ -135,11 +138,13 @@ $var username: $username
            value="3"/>
     <label for="hist4">extreme check (10 past passwords, string distance of 2)</label>
     <br/><br/>
-    * string distance: how many letters are needed to be changed to obtain the same password<br/><br/>
+    <label>* string distance: how many letters are needed to be changed to obtain the same password<br/></label>
+    <br/>
+    <div class="graph" id="graph_phist"></div>
 </p>
 
-<p>
-    <label class="qn prenew"><b>When the system asks user to renew passwords:</b></label>
+<p class="qn" id="prenew">
+    <label><b>When the system asks user to renew passwords:</b></label>
     <br/>
     <input type="radio"
            name="prenew"
@@ -170,6 +175,7 @@ $var username: $username
            value="3"/>
     <label for="renew4">renew monthly</label>
     <br/><br/>
+    <div class="graph" id="graph_prenew"></div>
 </p>
 
 <!-- checkbox for pattempts (depricated)
@@ -184,8 +190,8 @@ $var username: $username
 -->
 
 
-<p>
-    <label class="qn pattempts"><b>Number of wrong password attempts:</b></label>
+<p class="qn" id="pattempts">
+    <label><b>Number of wrong password attempts:</b></label>
     <br/>
     <input type="radio"
            name="pattempts"
@@ -209,11 +215,12 @@ $var username: $username
            value="2"/>
     <label for="attempts3">3 login attempts</label>
     <br/><br/>
+    <div class="graph" id="graph_pattempts"></div>
 </p>
 
 
 
-<p>
+<p class="qn" id="pautorecover">
     <input type='hidden' value='0' name='pautorecover'> <!-- method for posting unchecked checkboxes-->
     <input type="checkbox"
            name="pautorecover"
@@ -221,12 +228,12 @@ $var username: $username
            class="target"
            value="1"/>
     <label for="autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
+    <div class="graph" id="graph_pautorecover"></div>
 </p>
 
 </form>
-<div id="m_cost"></div>
-<div id="m_risk"></div>
-<div id="m_id"></div>
+
+<script src="/static/js/canvasjs-1.2.1/canvasjs.js"></script>
 <script src="static/js/pwpolicy.js"></script>  <!-- JS extracted here -->
 
 <script>
