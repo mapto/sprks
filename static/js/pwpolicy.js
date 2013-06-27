@@ -9,7 +9,7 @@
 function init(){
     //submit_change();
     $('.target').change(submit_change);
-    $('.target').change(submit_change_mul);
+    $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
 
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
 
