@@ -482,3 +482,19 @@ label {
 .profileTd {padding:3px; padding-left:10px;width:100px; }
 .profileTd_date{width:180px;padding:3px; padding-left:10px;}
 .profileTh{font-weight:bold;}
+
+
+
+/*PWPOLICY page***/
+/***graphs*/
+.graph{
+    float:left;
+    width:30%;
+    height:210px;
+    margin:5px;
+}
+.qn{
+    float:left;
+    width:65%;
+    text-align: left;
+}

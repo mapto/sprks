@@ -1,0 +1,7 @@
+{"id": 6, "name": "too_often", "type":"bruteforce",
+"pwpolicy": {"plen": 8, "psets": 3, "pdict": 0, "phist": 0, "prenew": 3, "pattempts": 0, "pautorecover": 0},
+"description": "You require users to come up with new passwords very often. On the other hand password recovery needs to go through a manned helpdesk.",
+"event": "People come up with complicated passwords, but because this needs to happen too often and no repetition is allowed, they often forget them.",
+"consequences": "Huge queues start to accumulate in front of the help desk in the beginning of each month. This happens with a regularity that some team leaders start arranging monthly team meetings in the queue in front of the support desk. On top of that some creative social engineering starts to emerge in those queues.",
+"risk": 0.8,
+"cost": 0.7}
