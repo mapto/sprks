@@ -9,6 +9,7 @@
 function init(){
     //submit_change();
     $('.target').change(submit_change);
+    //$('.target').change(submit_change_mul);
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
 
 	var d = new Date();
@@ -237,10 +238,51 @@ function submit_change() { // need different event handling, to capture any chan
             $(score).each(function(i) {
                 $("#" + score[i].name).text(verboseScore(score[i].value));
             })
+
+            submit_change_mul();
+
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
         }
         });
     return false;
+}
+
+function submit_change_mul(){
+    var msgs = [];
+
+    var new_policy = {};
+    var msg ={};
+    msg.id="0";
+
+    new_policy.plen=$('input[name="plen"]:checked').val();
+    new_policy.psets=$('input[name="psets"]:checked').val();
+    new_policy.pdict=$('input[name="pdict"]:checked').val();
+    new_policy.phist=$('input[name="phist"]:checked').val();
+    new_policy.prenew=$('input[name="prenew"]:checked').val();
+    new_policy.pattempts=$('input[name="pattempts"]:checked').val();
+    new_policy.pautorecover=$('input[name="pautorecover"]:checked').val();
+    msg.data=JSON.stringify(new_policy);
+    console.log(msgs);
+    msgs.push(msg);
+    var request = $.ajax({
+        url: "/score/multiple",
+        type: "POST",
+        async : false,
+        data : JSON.stringify(msgs),
+        contentType : "application/json; charset=utf-8",
+        dataType : "json",
+        success : function(policy_costs_risks) {
+            console.log("success: " + JSON.stringify(policy_costs_risks));
+            //$(score).each(function(i) {
+            //    $("#" + score[i].name).text(score[i].value)
+            //})
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+        });
+    return false;
+
 }
