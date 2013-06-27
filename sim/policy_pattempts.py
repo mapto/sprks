@@ -22,6 +22,8 @@ class policy_pattempts(policy_interface.policy_interface):
 
         if self.param == 1:
             return .3
+        elif self.param == 2:
+            return .5
         else:
             return .8
 
@@ -32,5 +34,7 @@ class policy_pattempts(policy_interface.policy_interface):
 
         if self.param == 1:
             return 10
+        elif self.param == 2:
+            return 5
         else:
             return 1
