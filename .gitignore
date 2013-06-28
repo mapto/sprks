@@ -41,4 +41,3 @@ nosetests.xml
 
 /sessions
 settings.py
-settings_prelogin.py
