@@ -189,12 +189,12 @@ function submit_change_mul(){
     new_policy.pattempts=$('input[name="pattempts"]:checked').val();
     //new_policy.pautorecover=$('input[name="pautorecover"]:checked').val();
     msg.data=JSON.stringify(new_policy);
-    console.log(msgs);
+
     msgs.push(msg);
 
     $(".qn").each(function(i) { //iteration accross questions
         var id_tmp =  $(this).attr('id');
-        console.log(id_tmp);
+
         msgs = msgs.concat(get_range(new_policy, id_tmp));
     });
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
@@ -207,21 +207,7 @@ function submit_change_mul(){
         contentType : "application/json; charset=utf-8",
         dataType : "json",
         success : function(policy_costs_risks) {
-            /*
-            console.log("success: " + JSON.stringify(policy_costs_risks));
-            $(policy_costs_risks).each(function(i) { //iteration accross policies
-                //iteration accross policy values
-                cost[i] = policy_costs_risks[i].cost;
-                risk[i] = policy_costs_risks[i].risk;
-                ids[i] = policy_costs_risks[i].id;
-
-
-
-            })
-            */
-
-            //display_graph(ids, risk,cost);
-            display_graph(policy_costs_risks);
+            initialize_graphs(policy_costs_risks);
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
@@ -237,33 +223,88 @@ function create_variation(policy, id, value) {
         new_policy[key] = policy[key];
     }
     new_policy[id] = value;
-//    new_policy['id'] = id + value;
+
     return new_policy;
 }
 
 function get_range (policy, id){
     var msgs = [];
-
-        var input_vals = [];
         $(document).find("#"+id).find('input').each(function(i) {
             var new_policy = create_variation(policy, id, this.value);
             var msg = {};
-           // if (this.value != policy[id]) {
+
                 msg['id'] = id + this.value;
                 msg.data=JSON.stringify(new_policy);
                 msgs.push(msg);
-            //}
+
         });
 return msgs;
 }
-function display_graph(policy_costs_risks){ //id examples: plen, psets, pdict, etc.
-    var graph_ids = ["graph_plen","graph_psets"];
-    $(policy_costs_risks).each(function (i){
-        $(this).each(function (j){
-            +console.log(this.id);
-        });
+function initialize_graphs(policy_costs_risks){ //id examples: plen, psets, pdict, etc.
+    console.log(policy_costs_risks);
+    var graph_id = {};
+    dps_risk = {};
+    dps_cost = {};
 
+    $(".qn").each( function(i){
+         dps_risk[$(this).closest($(".qn")).attr('id')] = [];//initializing dps
+         dps_cost[$(this).closest($(".qn")).attr('id')] = [];//initializing dps
+         graph_id[$(this).closest($(".qn")).attr('id')] = "graph_"+[$(this).closest($(".qn")).attr('id')]; //assigning graph ids like graph_id.plen = "graph_plen"
     });
+
+    $(policy_costs_risks).each(function (i){
+        if(this.id.replace(/[a-z]+/, '') != ''){//skip ids without value numbers to avoid duplicate data (e.g. plen)
+                var new_string = this.id.replace(/[0-9]+/, ''); // removing numbers from plen0 etc.
+                tmpRisk = {label:this.id, y:this.risk};
+                tmpCost = {label:this.id, y:this.cost};
+                dps_risk[new_string].push(tmpRisk);
+                dps_cost[new_string].push(tmpCost);
+        }
+    });
+    console.log("Initializing graphs details(ids, risks, costs)...");
+    console.log(graph_id);
+    console.log(dps_risk);
+    console.log(dps_cost);
+
+    display_graphs(graph_id,dps_risk,dps_cost);
+}
+
+function display_graphs(graph_id,dps_risk,dps_cost){
+
+
+     $(".qn").each( function(i){
+
+
+
+var chart = new CanvasJS.Chart(graph_id[$(this).closest($(".qn")).attr('id')],{ //processing graph for each question
+ title :{
+ text: "Risc/cost"
+ },
+ axisX: {
+ title: $(this).closest($(".qn")).attr('id')
+ },
+ axisY: {
+ title: "result"
+ },
+ // begin data for 2 line graphs. Note dps1 and dps2 are
+ //defined above as a json object. See http://www.w3schools.com/json/
+ data: [
+ { type: "line", name: "R", showInLegend: true, dataPoints : dps_risk[$(this).closest($(".qn")).attr('id')]},
+ { type: "line", name: "PC", showInLegend: true, dataPoints : dps_cost[$(this).closest($(".qn")).attr('id')]}
+ ]
+ // end of data for 2 line graphs
+
+ }); // End of new chart variable
+
+ chart.render();
+
+
+
+     });
+
+}
+
+
 
 
 
@@ -313,6 +354,3 @@ function display_graph(policy_costs_risks){ //id examples: plen, psets, pdict, e
 
 
 */
-
-
-}
