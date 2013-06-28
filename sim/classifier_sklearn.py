@@ -8,12 +8,14 @@ import json
 
 class classifier_sklearn:
     def __init__(self):
+        self.incidents_models = {}
+
         train_data_bfa = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
         train_result_bfa = genfromtxt('static/data/pw-train-result-classifier-full.csv', delimiter=",")
         self.incidents_models["bfa"] = svm.SVC().fit(train_data_bfa, train_result_bfa)
 
-        train_data_thft = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
-        train_result_thft = genfromtxt('static/data/pw-train-result-classifier-full.csv', delimiter=",")
+        train_data_thft = genfromtxt('static/data/pw-train-data-stolen.csv', delimiter=',')
+        train_result_thft = genfromtxt('static/data/pw-train-result-classifier-stolen.csv', delimiter=",")
         self.incidents_models["thft"] = svm.SVC().fit(train_data_thft, train_result_thft)
 
     def policy2datapoint(self, policy):
@@ -27,8 +29,22 @@ class classifier_sklearn:
         cls_bfa = self.incidents_models["bfa"].predict(datapoints)
         cls_thft = self.incidents_models["thft"].predict(datapoints)
         # data is returned as numpy.float64, we need integers so we could use them as incident indices
-        event = incident(cls_bfa[0].astype(int64))
-        return [event.get_risk(), event.get_cost(), event.get_description()]
+        event_bfa = incident(cls_bfa[0].astype(int64))
+        event_thft = incident(cls_thft[0].astype(int64))
+
+        bfa_risk = event_bfa.get_risk()
+        thft_risk = event_thft.get_risk()
+
+        if bfa_risk >= thft_risk:
+            risk = bfa_risk
+            cost = event_bfa.get_cost()
+            description = event_bfa.get_description()
+        else:
+            risk = thft_risk
+            cost = event_thft.get_cost()
+            description = event_thft.get_description()
+
+        return [risk, cost, description]
         #return self.incidents_model.predict(data)
 
 
