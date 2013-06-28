@@ -40,5 +40,4 @@ nosetests.xml
 .pydevproject
 
 /sessions
-settings.py
-settings_prelogin.py
+/settings.py
