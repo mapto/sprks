@@ -40,4 +40,4 @@ nosetests.xml
 .pydevproject
 
 /sessions
-settings.py
+/settings.py
