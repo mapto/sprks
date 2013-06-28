@@ -158,7 +158,10 @@ function submit_change() { // need different event handling, to capture any chan
 function submit_change_mul(){
     var msgs = [];
     var new_policy = {};
-    var msg ={};
+    var msg = {};
+    var risk = [];
+    var cost = [];
+    var ids = [];
 
     msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
 
@@ -188,6 +191,14 @@ function submit_change_mul(){
     msg.data=JSON.stringify(new_policy);
     console.log(msgs);
     msgs.push(msg);
+
+    $(".qn").each(function(i) { //iteration accross questions
+        var id_tmp =  $(this).attr('id');
+        console.log(id_tmp);
+        msgs = msgs.concat(get_range(new_policy, id_tmp));
+    });
+//    msgs = msgs.concat(get_range(new_policy, msg.id));
+    // console.log(msgs.concat(get_range(new_policy, "plen")));
     var request = $.ajax({
         url: "/score/multiple",
         type: "POST",
@@ -196,17 +207,21 @@ function submit_change_mul(){
         contentType : "application/json; charset=utf-8",
         dataType : "json",
         success : function(policy_costs_risks) {
+            /*
             console.log("success: " + JSON.stringify(policy_costs_risks));
             $(policy_costs_risks).each(function(i) { //iteration accross policies
                 //iteration accross policy values
+                cost[i] = policy_costs_risks[i].cost;
+                risk[i] = policy_costs_risks[i].risk;
+                ids[i] = policy_costs_risks[i].id;
 
-                var cost = policy_costs_risks[i].cost;
-                var risk = policy_costs_risks[i].risk;
-                var id = policy_costs_risks[i].id;
 
-                display_graph(id, risk,cost);
 
             })
+            */
+
+            //display_graph(ids, risk,cost);
+            display_graph(policy_costs_risks);
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
@@ -216,21 +231,56 @@ function submit_change_mul(){
 
 }
 
-function display_graph(id, risk, cost){ //id examples: plen, psets, pdict, etc.
+function create_variation(policy, id, value) {
+    var new_policy = {};
+    for (var key in policy) {
+        new_policy[key] = policy[key];
+    }
+    new_policy[id] = value;
+//    new_policy['id'] = id + value;
+    return new_policy;
+}
 
-    var graphid = "graph_"+id;//find corresponding graph placeholder id
+function get_range (policy, id){
+    var msgs = [];
+
+        var input_vals = [];
+        $(document).find("#"+id).find('input').each(function(i) {
+            var new_policy = create_variation(policy, id, this.value);
+            var msg = {};
+           // if (this.value != policy[id]) {
+                msg['id'] = id + this.value;
+                msg.data=JSON.stringify(new_policy);
+                msgs.push(msg);
+            //}
+        });
+return msgs;
+}
+function display_graph(policy_costs_risks){ //id examples: plen, psets, pdict, etc.
+    var graph_ids = ["graph_plen","graph_psets"];
+    $(policy_costs_risks).each(function (i){
+        $(this).each(function (j){
+            +console.log(this.id);
+        });
+
+    });
+
+
+
+    /*
+    var graphid = "graph_"+ids[0];//find corresponding graph placeholder id
 
     var dps1 = [];
     var dps2 = [];
 
-    $(document).find("#"+id).find('input').each(function(i) { //find options for corresponding question
-        if(this.checked== true){
-            tmpRisk = {label:this.value, y:risk};
-            tmpCost = {label:this.value, y:cost};
-        }else{
-            tmpRisk = {label:this.value};
-            tmpCost = {label:this.value};
-        }
+    $(document).find("#"+ids[0]).find('input').each(function(i) { //find options for corresponding question
+        //if(this.checked== true){
+            tmpRisk = {label:this.value, y:risk[i]};
+            tmpCost = {label:this.value, y:cost[i]};
+        //}else{
+        //    tmpRisk = {label:this.value};
+        //    tmpCost = {label:this.value};
+        //}
         dps1.push(tmpRisk);
         dps2.push(tmpCost);
 
@@ -242,7 +292,7 @@ function display_graph(id, risk, cost){ //id examples: plen, psets, pdict, etc.
  text: "Risc/cost"
  },
  axisX: {
- title: id
+ title: ids[0]
  },
  axisY: {
  title: "result"
@@ -262,7 +312,7 @@ function display_graph(id, risk, cost){ //id examples: plen, psets, pdict, etc.
 
 
 
-
+*/
 
 
 }
