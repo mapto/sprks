@@ -25,6 +25,6 @@ class login:
             session.mysession.session.loggedin = True
             session.mysession.session.user = request.username
             session.mysession.session.id = user_id
-            raise web.seeother('/pwpolicy')
+            raise web.seeother('/intro')
         else:
             return render.login()

@@ -41,7 +41,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
-        '/timeline', controllers.timeline.preview,
+#        '/timeline', controllers.timeline.preview,
         '/history', controllers.policy_history.history
         )
 
