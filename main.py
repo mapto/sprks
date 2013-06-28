@@ -20,7 +20,7 @@ import controllers.pwrequest
 import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
-import controllers.realtimesim
+import controllers.chronos
 import controllers.policy_history
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
@@ -41,7 +41,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
-        '/realtimesim', controllers.realtimesim.preview,
+        '/timeline', controllers.timeline.preview,
         '/history', controllers.policy_history.history
         )
 
