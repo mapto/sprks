@@ -8,6 +8,14 @@ from datetime import timedelta, datetime
 from environment import db
 from environment import get_start_time
 from pwpolicy import pwpolicy
+from environment import render_public as render
+
+
+class timeline:
+
+    def GET(self):
+        return render.timeline()
+
 
 class forward:
     def POST(self):
