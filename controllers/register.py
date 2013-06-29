@@ -1,6 +1,7 @@
 __author__ = "Dan"
 
 import web
+import json
 import environment
 from environment import render_public as render
 from models.users import users_model
@@ -16,13 +17,18 @@ class register:
         """
         Stores user details into 'users' table.
         """
-        post_data = web.input()
-        user_id = users_model().register(post_data.username, post_data.password, post_data.email)
 
+        payload = json.loads(web.data())
+        user_id = users_model().register(payload['username'], payload['password'], payload['email'])
+
+        web.header('Content-Type', 'application/json')
         if user_id == 0:
-            return render.register("User already exists")
+            return json.dumps({
+                'errors': ['User already exists']});
         elif user_id > 0:
-            environment.mysession.session.user_id = user_id
-            raise web.seeother('/intro')
+            environment.session.user_id = user_id
+            return json.dumps({
+                'errors': []});
         else:
-            return render.register("Database error")
+            return json.dumps({
+                'errors': ['Database error']});

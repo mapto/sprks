@@ -41,13 +41,18 @@ $var postjs:
                     username: $$('#username').val(),
                     password: password,
                     email: $$('#email').val()
-                })
-            }).done(function (data) {
-                var response = JSON.parse(data)
-                if (response.errors.length === 0) {
-                    window.location.replace('home');
-                } else {
-                    $$('#errors').html(response.errors.join('<br>'));
+                }),
+                statusCode: {
+                    500: function(){
+                        $$('#errors').html("Server error");
+                    },
+                    200: function(response){
+                        if (response.errors.length === 0) {
+                            window.location = ("/");
+                        } else {
+                            $$('#errors').html(response.errors.join('<br>'));
+                        }
+                    }
                 }
             });
 
