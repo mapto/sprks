@@ -11,7 +11,7 @@ from pwpolicy import pwpolicy
 from environment import render_public as render
 
 
-class timeline:
+class go:
 
     def GET(self):
         return render.timeline()
