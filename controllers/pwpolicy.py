@@ -53,24 +53,23 @@ class pwpolicy:
     def POST(self):
         web.header('Content-Type', 'application/json')
         sim = simulation()
-        data = json.loads(web.data())
-        dat = eval(data["data"])
-        if "pdict" in dat:
+        payload = json.loads(web.data())
+        data = eval(payload["data"])
+        if "pdict" in data:
             dict1=1
         else:
-            dat["pdict"]=0
-        if "pautorecover" in dat:
+            data["pdict"]=0
+        if "pautorecover" in data:
             pautorecover1=1
         else:
-            dat["pautorecover"]=0
-        if "pattempts" in dat:
+            data["pautorecover"]=0
+        if "pattempts" in data:
             pattempts1=1
         else:
-            dat["pattempts"]=0
-        pw_policy_model().update({'userid':str(environment.session.user_id), 'date':data["date"]}, dat)
-        for k, value in dat.iteritems():
+            data["pattempts"]=0
+        pw_policy_model().update({'userid':str(environment.session.user_id), 'date':payload["date"]}, data)
+        for k, value in data.iteritems():
             sim.set_policy(k, value)
-#        return json.dumps(data)
         return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
                            {"name": "impact", "value": sim.calc_risk_impact()},
                            {"name": "cost", "value": sim.calc_prod_cost()}])
