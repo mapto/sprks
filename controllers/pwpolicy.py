@@ -55,18 +55,12 @@ class pwpolicy:
         sim = simulation()
         payload = json.loads(web.data())
         data = eval(payload["data"])
-        if "pdict" in data:
-            dict1=1
-        else:
-            data["pdict"]=0
-        if "pautorecover" in data:
-            pautorecover1=1
-        else:
-            data["pautorecover"]=0
-        if "pattempts" in data:
-            pattempts1=1
-        else:
-            data["pattempts"]=0
+        if "pdict" not in data:
+            data["pdict"] = 0
+        if "pautorecover" not in data:
+            data["pautorecover"] = 0
+        if "pattempts" not in data:
+            data["pattempts"] = 0
         pw_policy_model().update({'userid':str(environment.session.user_id), 'date':payload["date"]}, data)
         for k, value in data.iteritems():
             sim.set_policy(k, value)
