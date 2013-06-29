@@ -11,7 +11,7 @@ class users_model:
         """
         Returns username of user given user_id, empty string otherwise.
         """
-        users = db.select('users', where="Id=$user_id", vars=locals())
+        users = db.select('users', where="user_id=$user_id", vars=locals())
         if len(users) == 1:
             return users[0].username
         else:
@@ -25,7 +25,7 @@ class users_model:
         password = hash_utils.hash_password(password)
         auth = db.select('users', where="username=$username&&password=$password", vars=locals())
         if len(auth) == 1:
-            return auth[0].Id
+            return auth[0].user_id
         else:
             return 0
 
@@ -46,7 +46,7 @@ class users_model:
             db.insert('users', username=username, email=email, password=hash_utils.hash_password(password))
             user_lookup = self.select_users(username)
             if len(user_lookup) == 1:
-                return user_lookup[0].Id
+                return user_lookup[0].user_id
             else:
                 return -1
 
@@ -55,6 +55,7 @@ class users_model:
         Updates password according to specified username and new password.
         Returns true if updated for one user, false otherwise.
         """
+        # TODO should take user_id instead
         if db.update('users', where="username=$username", password=hash_utils.hash_password(password), vars=locals())\
                 == 1:
             return True
@@ -63,22 +64,23 @@ class users_model:
 
     def request_password(self, username, rand):
         """
-        Creates password recovery ticket in pwrecovery table.
+        Creates password recovery ticket in password_recovery table.
         Returns recipient email address if user found, else empty string
         """
+        # TODO should take user_id instead
         user_list = self.select_users(username)
         if len(user_list) == 1:
-            db.insert('pwrecovery', username=username, date=web.SQLLiteral('NOW()'), rid=rand, isrecovered=0)
+            db.insert('password_recovery', username=username, date=web.SQLLiteral('NOW()'), rid=rand, isrecovered=0)
             # TODO detect database error?
             return user_list[0].email
         else:
             return ''
 
-    def pwrecovery_status(self, rand):
+    def password_recovery_status(self, rand):
         """
         Return username of user if password request ticket is valid. Empty string otherwise.
         """
-        user_list = db.select('pwrecovery', where="rid=$rand&&isrecovered=0", vars=locals())
+        user_list = db.select('password_recovery', where="rid=$rand&&isrecovered=0", vars=locals())
         # TODO inner join with 'users' table?
         if len(user_list) == 1:
             return user_list[0].username

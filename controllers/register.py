@@ -8,7 +8,8 @@ from models.users import users_model
 
 class register:
     def GET(self):
-        # TODO shouldn't be able to register if already logged in
+        if environment.session.user_id > 0:
+            raise web.seeother('/pwpolicy')
         return render.register()
 
     def POST(self):
