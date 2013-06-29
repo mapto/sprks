@@ -1,6 +1,6 @@
 import web
 import json
-import session
+import environment
 from sim.simulation import simulation
 from datetime import timedelta, datetime
 from environment import render_private as render
@@ -19,14 +19,14 @@ class pwpolicy:
         """
         Renders the form to input password policies.
         """
-        if session.mysession.session.loggedin:
+        if environment.session.user_id > 0:
             #use this variable to request any ID number
-            id_user = session.mysession.session.id
+            id_user = environment.session.user_id
             check = db.select('pw_policy', where="userid=$id_user", order="date DESC", vars=locals())
             if len(check) > 0:
                 result_get = check[0]
-                session.mysession.session.date = result_get.date
-                return render.pwpolicy_form(session.mysession.session.user,result_get.userid, result_get.plen, result_get.psets,
+                environment.session.date = result_get.date
+                return render.pwpolicy_form(environment.session.user_id,result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, 0, str(result_get.date))
             else:
@@ -43,8 +43,8 @@ class pwpolicy:
                           pattempts=pwpolicy.default["pattempts"],
                           pautorecover=pwpolicy.default["pautorecover"])
                 result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
-                session.mysession.session.date = result_get.date
-                return render.pwpolicy_form(session.mysession.session.user, result_get.userid, result_get.plen, result_get.psets,
+                environment.session.date = result_get.date
+                return render.pwpolicy_form(environment.session.user_id, result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
                                 result_get.pattempts, result_get.pautorecover, 1, result_get.date)
         else:
@@ -52,7 +52,6 @@ class pwpolicy:
 
     def POST(self):
         web.header('Content-Type', 'application/json')
-        usrid = session.mysession.session.id
         sim = simulation()
         data = json.loads(web.data())
         dat = eval(data["data"])
@@ -68,7 +67,7 @@ class pwpolicy:
             pattempts1=1
         else:
             dat["pattempts"]=0
-        pw_policy_model().update({'userid':str(usrid), 'date':data["date"]}, dat)
+        pw_policy_model().update({'userid':str(environment.session.user_id), 'date':data["date"]}, dat)
         for k, value in dat.iteritems():
             sim.set_policy(k, value)
 #        return json.dumps(data)

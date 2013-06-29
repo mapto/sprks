@@ -10,7 +10,7 @@ sys.path.append(abspath)
 os.chdir(abspath)
 
 import web
-import session
+import environment
 import controllers.home
 import controllers.register
 import controllers.login
@@ -47,10 +47,11 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
 
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:
-    session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0})
-    web.config._session = session
+    store = web.session.DBStore(environment.db, 'sessions')
+    environment.session = web.session.Session(app, store, initializer={'user_id': 0})
+    web.config._session = environment.session
 else:
-    session.mysession.session = web.config._session
+    environment.session = web.config._session
 
 if __name__ == "__main__":
     app.run() # when run as standalone application run own server

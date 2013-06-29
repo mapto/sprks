@@ -7,6 +7,17 @@ from environment import db
 
 class users_model:
 
+    def get_username(self, user_id):
+        """
+        Returns username of user given user_id, empty string otherwise.
+        """
+        users = db.select('users', where="Id=$user_id", vars=locals())
+        if len(users) == 1:
+            return users[0].username
+        else:
+            return ''
+
+
     def authenticate(self, username, password):
         """
         Returns ID of user if successfully authenticated, 0 otherwise.

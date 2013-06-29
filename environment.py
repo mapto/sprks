@@ -1,5 +1,4 @@
 """
-Now separated settings from environment.
 Environment takes care of the system objects that need to be used by many modules
 """
 
@@ -8,6 +7,7 @@ __author__ = 'mruskov'
 import web
 from datetime import datetime
 # from controllers.timeline import get_start_time
+
 
 def get_start_time():
     return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
@@ -44,3 +44,4 @@ except ImportError, AttributeError:
         host = '127.0.0.1',
         port = 3306
     )
+

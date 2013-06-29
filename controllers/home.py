@@ -3,7 +3,8 @@ __author__ = 'Zhanelya'
 
 
 from environment import render_public as render
-import session
+import environment
+
 
 class home:
     """ Controllers commonly need a reference to the model (db) and also views
@@ -11,9 +12,7 @@ class home:
     """
 
     def GET(self):
-        session.mysession.session.loggedin = False
-        session.mysession.session.user = 'Anonymous'
-        session.mysession.session.date = ""
+        environment.session.user_id = 0
         return render.home()
 
 
