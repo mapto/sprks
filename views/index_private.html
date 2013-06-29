@@ -1,13 +1,9 @@
 $def with (content)
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-
 <title>$content.title</title>
-<!--[if IE]>
-    <script src=""></script>
-<![endif]-->
 $if content.cssfiles:
         $for f in content.cssfiles.split():
             <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>

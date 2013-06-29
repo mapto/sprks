@@ -8,8 +8,8 @@ from models.users import users_model
 
 
 class login:
-    """ Controllers commonly need a reference to the model (db) and also views
-       These are declared in environment
+    """
+    Handles login
     """
 
     def GET(self):

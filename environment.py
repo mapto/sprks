@@ -7,7 +7,11 @@ __author__ = 'mruskov'
 import web
 from datetime import datetime
 # from controllers.timeline import get_start_time
+# TODO remove this or fix?
 
+
+class session:
+    user_id = 0;
 
 def get_start_time():
     return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
