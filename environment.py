@@ -1,5 +1,4 @@
 """
-Now separated settings from environment.
 Environment takes care of the system objects that need to be used by many modules
 """
 
@@ -8,6 +7,11 @@ __author__ = 'mruskov'
 import web
 from datetime import datetime
 # from controllers.timeline import get_start_time
+# TODO remove this or fix?
+
+
+class session:
+    user_id = 0;
 
 def get_start_time():
     return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
@@ -26,14 +30,22 @@ render_public = web.template.render('views/', base='index_public')
 try:
     settings = __import__('settings')
     # Assuming that only MySQL is used
-    db = web.database(dbn='mysql',
-        user=getattr(settings,'dbuser'),
-        pw=getattr(settings,'dbpw'),
-        db=getattr(settings,'dbname'))
+    db = web.database(
+        dbn = 'mysql',
+        user = getattr(settings,'dbuser'),
+        pw = getattr(settings, 'dbpw'),
+        db = getattr(settings, 'dbname', 'sprks'),
+        host = getattr(settings, 'host', '127.0.0.1'),
+        port = getattr(settings, 'port', 3306)
+    )
 except ImportError, AttributeError:
     # Default DB credentials
-    db = web.database(dbn='mysql',
-        user='root',
-        pw='1234',
-        db='sprks')
+    db = web.database(
+        dbn = 'mysql',
+        user = 'root',
+        pw = '1234',
+        db = 'sprks',
+        host = '127.0.0.1',
+        port = 3306
+    )
 

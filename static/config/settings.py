@@ -9,4 +9,8 @@ A user-customized version of this file should be placed in the root directory (s
 # database credentials
 dbuser = ''
 dbpw = ''
-dbname = ''
+
+# default values if left unset
+# dbname = 'sprks'
+# host = 'localhost'
+# port = 3306

@@ -2,18 +2,26 @@ __author__ = 'mruskov'
 
 import web
 import json
-import session
+import environment
 from sim.simulation import simulation
 from datetime import timedelta, datetime
 from environment import db
 from environment import get_start_time
 from pwpolicy import pwpolicy
+from environment import render_public as render
+
+
+class go:
+
+    def GET(self):
+        return render.timeline()
+
 
 class forward:
     def POST(self):
         # make sure that the following line stays as per your local installation
         web.header('Content-Type', 'application/json')
-        usrid = session.mysession.session.id
+        usrid = environment.session.user_id
         sim = simulation()
 
         # get the latest date that the user has submitted a policy and add 7 days to it
@@ -43,6 +51,7 @@ class forward:
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 
+        # TODO put this into model
         db.insert('scores', userid=usrid, score_type=1, score_value = sim.calc_risk_prob(), date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
         db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(), date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
         db.insert('pw_policy', userid=usrid, date=new_date.strftime("%Y/%m/%d %H:%M:%S"),

@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sprks</title>
-    <link href="/static/css/bootstrap.css" rel="stylesheet">
-    <script> function validateForm(){
-        var x = document.forms["loginForm"]
-        if(x["username"].value==""||x["username".value==null]||x["password"].value==null||x["password"].value=="")
-        {
-            alert("All fields must be filled")
-            return false
-        }
-        return true
-    }
-    </script>
-</head>
-<body>
 $var title: Login
-$var cssfiles: static/css/bootstrap.css
-$var date:
-<!-- start of main body-->
 <section>
 
 <div class="loginbox">
@@ -26,7 +6,7 @@ $var date:
     <div class="container-fluid">
         <form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
             <fieldset>
-                <legend> Login into system</legend>
+                <legend>Login</legend>
             <div class="row-fluid">
                 <div class="span7 ">
                     <input type="text" name="username" placeholder="Username" required/>
@@ -41,8 +21,8 @@ $var date:
                 <div class="span1 ">
                     <input class="login_btn" type="submit" value="Login">
                 </div>
-                <div class="span2 offset2" ><a href="/pwrequest">Forgotten password?/ Change password</a></div>
-                <div class="span2 offset2" ><a href="/register">REGISTER</a></div>
+                <div class="span2 offset2" ><a href="/pwrequest">Recover Password</a></div>
+                <div class="span2 offset2" ><a href="/register">Register</a></div>
             </div>
             </fieldset>
         </form>
@@ -51,10 +31,14 @@ $var date:
 </div>
 
 </section>
-<!-- end of main body-->
 
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-</body>
-</html>
+<script> function validateForm(){
+    var x = document.forms["loginForm"]
+    if(x["username"].value==""||x["username".value==null]||x["password"].value==null||x["password"].value=="")
+    {
+        alert("All fields must be filled")
+        return false
+    }
+    return true
+}
+</script>

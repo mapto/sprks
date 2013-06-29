@@ -10,7 +10,7 @@ sys.path.append(abspath)
 os.chdir(abspath)
 
 import web
-import session
+import environment
 import controllers.home
 import controllers.register
 import controllers.login
@@ -20,7 +20,7 @@ import controllers.pwrequest
 import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
-import controllers.realtimesim
+import controllers.chronos
 import controllers.policy_history
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
@@ -41,16 +41,17 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
-        '/realtimesim', controllers.realtimesim.preview,
+        '/timeline', controllers.timeline.go,
         '/history', controllers.policy_history.history
         )
 
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:
-    session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0})
-    web.config._session = session
+    store = web.session.DBStore(environment.db, 'sessions')
+    environment.session = web.session.Session(app, store, initializer={'user_id': 0})
+    web.config._session = environment.session
 else:
-    session.mysession.session = web.config._session
+    environment.session = web.config._session
 
 if __name__ == "__main__":
     app.run() # when run as standalone application run own server
