@@ -179,9 +179,9 @@ class score:
 
     def GET(self):
         #check if is logged in
-        if localsys.session.user_id > 0:
+        if localsys.storage.session.user_id > 0:
             #use this variable to request any ID number
-            id_user = localsys.session.user_id
+            id_user = localsys.storage.session.user_id
 
             all_scores = db.select('scores', order="score_value ASC")
             length = len(all_scores)
@@ -207,7 +207,7 @@ class score:
                 #avg_pc = self.FIND_AVG(your_pc)
                 print b_u_risk_rank
 
-                return render.score(localsys.session.user_id,
+                return render.score(localsys.storage.session.user_id,
                                     b_u_risk, b_u_risk_date, b_u_risk_rank,
                                     b_u_cost, b_u_cost_date, b_u_cost_rank,
                                     c_risk, c_risk_when, c_risk_rank,
@@ -215,7 +215,7 @@ class score:
                                     b_risk, b_risk_when,
                                     b_pc, b_pc_when,
                                     avg_risk,
-                                    avg_pc, localsys.session.date)
+                                    avg_pc, localsys.storage.session.date)
 
 
             else:
