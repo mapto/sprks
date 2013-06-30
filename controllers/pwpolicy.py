@@ -1,8 +1,9 @@
-import web
 import json
+
+import web
+
 import environment
 from sim.simulation import simulation
-from datetime import timedelta, datetime
 from environment import render_private as render
 from environment import db
 from models.pw_policy import pw_policy_model
@@ -28,12 +29,13 @@ class pwpolicy:
         if len(check) > 0:
             result_get = check[0]
             environment.session.date = result_get.date
-            return render.pwpolicy_form(environment.session.user_id,result_get.userid, result_get.plen, result_get.psets,
-                            result_get.pdict, result_get.phist, result_get.prenew,
-                            result_get.pattempts, result_get.pautorecover, 0, str(result_get.date))
+            return render.pwpolicy_form(environment.session.user_id, result_get.userid, result_get.plen,
+                                        result_get.psets,
+                                        result_get.pdict, result_get.phist, result_get.prenew,
+                                        result_get.pattempts, result_get.pautorecover, 0, str(result_get.date))
         else:
-#                dt = datetime.now()
-#                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
+        #                dt = datetime.now()
+        #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
             # The default policy (i.e. when not specified by user)
             dtt = get_start_time()
             db.insert('pw_policy', userid=user_id, date=dtt.strftime("%Y/%m/%d %H:%M:%S"),
@@ -46,9 +48,10 @@ class pwpolicy:
                       pautorecover=pwpolicy.default["pautorecover"])
             result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
             environment.session.date = result_get.date
-            return render.pwpolicy_form(environment.session.user_id, result_get.userid, result_get.plen, result_get.psets,
-                            result_get.pdict, result_get.phist, result_get.prenew,
-                            result_get.pattempts, result_get.pautorecover, 1, result_get.date)
+            return render.pwpolicy_form(environment.session.user_id, result_get.userid, result_get.plen,
+                                        result_get.psets,
+                                        result_get.pdict, result_get.phist, result_get.prenew,
+                                        result_get.pattempts, result_get.pautorecover, 1, result_get.date)
 
     def POST(self):
         web.header('Content-Type', 'application/json')
@@ -61,7 +64,7 @@ class pwpolicy:
             data["pautorecover"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
-        pw_policy_model().update({'userid':str(environment.session.user_id), 'date':payload["date"]}, data)
+        pw_policy_model().update({'userid': str(environment.session.user_id), 'date': payload["date"]}, data)
         for k, value in data.iteritems():
             sim.set_policy(k, value)
         return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},

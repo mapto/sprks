@@ -1,42 +1,42 @@
 <!Doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>Canvas</title>
+    <meta charset="utf-8"/>
+    <title>Canvas</title>
 </head>
 <body>
 <canvas id="example">Update your browser</canvas>
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script>
-jQuery(document).ready(function(){  
+    jQuery(document).ready(function () {
 
-	/*Canvas fn BEGIN*/
-	var x=0;
-	var r=100;
-	var y=r+10;
-	var canvas  = document.getElementById("example"),
-        context = canvas.getContext("2d");
-		context.canvas.width  = 350;
-		context.canvas.height = window.innerHeight/1.5;
-    function drawCircle(x, y, r)
-    {
-	
-      context.arc(x, y, r, 0, 2 * Math.PI, false);
-	  context.arc(x ,y ,r/2 ,0, 2 * Math.PI, false);
-	 
-    }
-    context.beginPath();
-    drawCircle(x, y, r);
-	context.lineWidth   = 8;
-    context.fillStyle = "ff1000";
-	context.fill();
-	context.strokeStyle = "#a60000";
-    context.stroke();
-	
-	/*Canvas fn END*/
-	
-});
+        /*Canvas fn BEGIN*/
+        var x = 0;
+        var r = 100;
+        var y = r + 10;
+        var canvas = document.getElementById("example"),
+                context = canvas.getContext("2d");
+        context.canvas.width = 350;
+        context.canvas.height = window.innerHeight / 1.5;
+        function drawCircle(x, y, r) {
+
+            context.arc(x, y, r, 0, 2 * Math.PI, false);
+            context.arc(x, y, r / 2, 0, 2 * Math.PI, false);
+
+        }
+
+        context.beginPath();
+        drawCircle(x, y, r);
+        context.lineWidth = 8;
+        context.fillStyle = "ff1000";
+        context.fill();
+        context.strokeStyle = "#a60000";
+        context.stroke();
+
+        /*Canvas fn END*/
+
+    });
 </script>
 </body>
 

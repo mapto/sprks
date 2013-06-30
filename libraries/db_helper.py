@@ -2,7 +2,6 @@ __author__ = 'Horace'
 
 
 class update_helper:
-
     @staticmethod
     def stringify(table, where, values):
         """
@@ -13,7 +12,6 @@ class update_helper:
 
 
 class string_helper:
-
     @staticmethod
     def pairs_to_strings(dict):
         """

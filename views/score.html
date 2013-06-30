@@ -8,10 +8,10 @@ $var username: $username
 
 <div id="accordion">
 
-  <h2>Risk</h2>
+    <h2>Risk</h2>
 
-  <div class="content">
-    <div class="span11 text-center rank">
+    <div class="content">
+        <div class="span11 text-center rank">
             <div class="ranking second" id="r_second">
                 <div class="scr" id="risk_s2"></div>
                 <div class="rnk" id="risk_r2"></div>
@@ -27,13 +27,13 @@ $var username: $username
                 <div class="rnk" id="risk_r3"></div>
                 <div class="when" id="risk_w3"></div>
             </div>
+        </div>
     </div>
-  </div>
 
-  <h2>Productivity cost</h2>
+    <h2>Productivity cost</h2>
 
-  <div class="content">
-    <div class="span11 text-center rank">
+    <div class="content">
+        <div class="span11 text-center rank">
             <div class="ranking second" id="c_second">
                 <div class="scr" id="cost_s2"></div>
                 <div class="rnk" id="cost_r2"></div>
@@ -49,30 +49,28 @@ $var username: $username
                 <div class="rnk" id="cost_r3"></div>
                 <div class="when" id="cost_w3"></div>
             </div>
+        </div>
     </div>
-  </div>
-  <h2>Average</h2>
+    <h2>Average</h2>
 
-  <div class="content">
-      <div class="span11 text-center rank">
-      <h4 class="text-left avg">
-            <div>
+    <div class="content">
+        <div class="span11 text-center rank">
+            <h4 class="text-left avg">
+                <div>
 
-			    <div class="span6">Risk</div>
-                <div class="span3">$avg_risk</div>
-           	</div>
-			<div>
+                    <div class="span6">Risk</div>
+                    <div class="span3">$avg_risk</div>
+                </div>
+                <div>
 
-			    <div class="span6">Productivity cost</div>
-                <div class="span3">$avg_pc</div>
+                    <div class="span6">Productivity cost</div>
+                    <div class="span3">$avg_pc</div>
 
-			</div>
-      </h4>
-      </div>
-  </div>
+                </div>
+            </h4>
+        </div>
+    </div>
 </div>
-
-
 
 
 <!-- jquery loaded in frame decoration -->
@@ -92,7 +90,7 @@ $var username: $username
     $$(document).ready(init);
 
     function getUsername() {
-    	/*ID is preset inside HTML code*/
+        /*ID is preset inside HTML code*/
         console.log("found user $username");
 
         return "$username"; // This value is set server-side and appears to client as hardcoded.

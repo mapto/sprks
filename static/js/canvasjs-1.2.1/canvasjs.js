@@ -1,19 +1,19 @@
 ﻿/*
-* CanvasJS v1.2.1 - http://canvasjs.com/
-* Copyright 2013 fenopix
-* 
-* CanvasJS follows Dual Licensing Model as mentioned below. 
-* 
-* ---------------------Free for Non-Commercial Use--------------------
-* 
-* For non-commercial purposes you can use the software for free under Creative Commons Attribution-NonCommercial 3.0 License. Refer to the following link for further details on the same.
-*     http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
-* 
-* ---------------------Commercial License--------------------
-* Unless a commercial license has been purchased, you can use this product for evaluation purposes only. Please refer to the following link for further details 
-*     http://canvasjs.com/
-* 
-*/
+ * CanvasJS v1.2.1 - http://canvasjs.com/
+ * Copyright 2013 fenopix
+ *
+ * CanvasJS follows Dual Licensing Model as mentioned below.
+ *
+ * ---------------------Free for Non-Commercial Use--------------------
+ *
+ * For non-commercial purposes you can use the software for free under Creative Commons Attribution-NonCommercial 3.0 License. Refer to the following link for further details on the same.
+ *     http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+ *
+ * ---------------------Commercial License--------------------
+ * Unless a commercial license has been purchased, you can use this product for evaluation purposes only. Please refer to the following link for further details
+ *     http://canvasjs.com/
+ *
+ */
 
 (function () {
 
@@ -311,163 +311,160 @@
     };
 
     var themes =
-        {
-            "theme1": {
-                Chart:
-                    {
-                        colorSet: colorSets[0]
-                    },
-                Title: {
-                    fontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif", fontSize: 33,
-                    fontColor: "#3A3A3A",
-                    fontWeight: "bold",
-                    verticalAlign: "top",
-                    margin: 10
-                },
-                Axis: {
-                    titleFontSize: 26,
-                    //titleFontColor: "rgb(98,98,98)",
-                    titleFontColor: "#666666",
-                    //titleFontFamily: "arial black",
-                    //titleFontFamily: "Verdana, Geneva, Calibri, sans-serif",
-                    titleFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
-                    //titleFontWeight: "bold",
-
-                    //labelFontFamily: "Times New Roman, Times, serif",
-                    labelFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
-                    //labelFontFamily: "Helvetica Neue, Helvetica",
-                    labelFontSize: 18,
-                    labelFontColor: "grey",
-                    //labelFontWeight: "bold",
-                    tickColor: "#BBBBBB",
-                    tickThickness: 2,
-                    gridThickness: 2,
-                    gridColor: "#BBBBBB",
-                    lineThickness: 2,
-                    lineColor: "#BBBBBB"
-                },
-                Legend: {
-                    verticalAlign: "bottom",
-                    horizontalAlign: "center",
-                    fontFamily: "monospace, sans-serif,arial black"
-                },
-                DataSeries: {
-                    //bevelEnabled: true,
-                    indexLabelFontColor: "grey",
-                    //indexLabelFontFamily: "Trebuchet MS, monospace, Courier New, Courier",
-                    indexLabelFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
-                    //indexLabelFontWeight: "bold",
-                    indexLabelFontSize: 18,
-                    indexLabelLineColor: "lightgrey",
-                    indexLabelLineThickness: 2
-                }
+    {
+        "theme1": {
+            Chart: {
+                colorSet: colorSets[0]
             },
-
-            "theme2": {
-                Chart:
-                    {
-                        colorSet: "colorSet2"
-                    },
-                Title: {
-                    fontFamily: "impact, charcoal, arial black, sans-serif", fontSize: 32,//fontColor: "rgb(58,58,58)",
-                    fontColor: "#333333",
-                    //fontFamily: "arial black", fontSize: 30,//fontColor: "rgb(58,58,58)",
-                    //fontFamily: "arial black",
-                    //fontFamily: "Helvetica Neue, Helvetica", fontSize: 35,// fontColor: "rgb(58,58,58)",
-                    //fontWeight: "bold",
-                    verticalAlign: "top",
-                    margin: 10
-                },
-                Axis: {
-                    titleFontSize: 22,
-                    titleFontColor: "rgb(98,98,98)",
-                    //titleFontFamily: "arial black",
-                    titleFontFamily: "monospace, sans-serif,arial black",
-                    titleFontWeight: "bold",
-
-
-                    labelFontFamily: "monospace, Courier New, Courier",
-                    //labelFontFamily: "Helvetica Neue, Helvetica",
-                    labelFontSize: 16,
-                    labelFontColor: "grey",
-                    labelFontWeight: "bold",
-                    tickColor: "grey",
-                    tickThickness: 2,
-                    gridThickness: 2,
-                    gridColor: "grey",
-                    lineThickness: 0
-                },
-                Legend: {
-                    verticalAlign: "bottom",
-                    horizontalAlign: "center",
-                    fontFamily: "monospace, sans-serif,arial black"
-                },
-                DataSeries: {
-                    indexLabelFontColor: "grey",
-                    //indexLabelFontFamily: "Trebuchet MS, monospace, Courier New, Courier",
-                    indexLabelFontFamily: "Courier New, Courier, monospace",
-                    indexLabelFontWeight: "bold",
-                    indexLabelFontSize: 18,
-                    indexLabelLineColor: "lightgrey",
-                    indexLabelLineThickness: 2
-                }
+            Title: {
+                fontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif", fontSize: 33,
+                fontColor: "#3A3A3A",
+                fontWeight: "bold",
+                verticalAlign: "top",
+                margin: 10
             },
+            Axis: {
+                titleFontSize: 26,
+                //titleFontColor: "rgb(98,98,98)",
+                titleFontColor: "#666666",
+                //titleFontFamily: "arial black",
+                //titleFontFamily: "Verdana, Geneva, Calibri, sans-serif",
+                titleFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
+                //titleFontWeight: "bold",
 
-            "theme3": {
-                Chart:
-                    {
-                        colorSet: "colorSet1"
-                    },
-                Title: {
-                    //fontFamily: "impact, charcoal, arial black, sans-serif", fontSize: 30,//fontColor: "rgb(58,58,58)",
-                    //fontFamily: "arial black", fontSize: 30,//fontColor: "rgb(58,58,58)",
-                    //fontFamily: "arial black",
-                    fontFamily: "Candara, Optima, Trebuchet MS, Helvetica Neue, Helvetica, Trebuchet MS, serif", fontSize: 32,
-                    //fontFamily: "Palatino Linotype, Book Antiqua, Palatino, serif", fontSize: 30,
-                    //fontFamily: "Lucida Sans Unicode, Lucida Grande, Trebuchet MS, sans-serif", fontSize: 30,
-                    fontColor: "rgb(68,78,58)",
-                    fontColor: "#3A3A3A",
-                    fontWeight: "bold",
-                    verticalAlign: "top",
-                    margin: 10
-                },
-                Axis: {
-                    titleFontSize: 22,
-                    titleFontColor: "rgb(98,98,98)",
-                    //titleFontFamily: "arial black",
-                    titleFontFamily: "Verdana, Geneva, Calibri, sans-serif",
-                    //titleFontWeight: "bold",
+                //labelFontFamily: "Times New Roman, Times, serif",
+                labelFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
+                //labelFontFamily: "Helvetica Neue, Helvetica",
+                labelFontSize: 18,
+                labelFontColor: "grey",
+                //labelFontWeight: "bold",
+                tickColor: "#BBBBBB",
+                tickThickness: 2,
+                gridThickness: 2,
+                gridColor: "#BBBBBB",
+                lineThickness: 2,
+                lineColor: "#BBBBBB"
+            },
+            Legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontFamily: "monospace, sans-serif,arial black"
+            },
+            DataSeries: {
+                //bevelEnabled: true,
+                indexLabelFontColor: "grey",
+                //indexLabelFontFamily: "Trebuchet MS, monospace, Courier New, Courier",
+                indexLabelFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
+                //indexLabelFontWeight: "bold",
+                indexLabelFontSize: 18,
+                indexLabelLineColor: "lightgrey",
+                indexLabelLineThickness: 2
+            }
+        },
 
-                    //labelFontFamily: "Times New Roman, Times, serif",
-                    labelFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
-                    //labelFontFamily: "Helvetica Neue, Helvetica",
-                    labelFontSize: 18,
-                    labelFontColor: "grey",
-                    //labelFontWeight: "bold",
-                    tickColor: "grey",
-                    tickThickness: 2,
-                    gridThickness: 2,
-                    gridColor: "grey",
-                    lineThickness: 2,
-                    lineColor: "grey"
-                },
-                Legend: {
-                    verticalAlign: "bottom",
-                    horizontalAlign: "center",
-                    fontFamily: "monospace, sans-serif,arial black"
-                },
-                DataSeries: {
-                    bevelEnabled: true,
-                    indexLabelFontColor: "grey",
-                    //indexLabelFontFamily: "Trebuchet MS, monospace, Courier New, Courier",
-                    indexLabelFontFamily: "Candara, Optima, Calibri, Verdana, Geneva, sans-serif",
-                    //indexLabelFontWeight: "bold",
-                    indexLabelFontSize: 18,
-                    indexLabelLineColor: "lightgrey",
-                    indexLabelLineThickness: 2
-                }
+        "theme2": {
+            Chart: {
+                colorSet: "colorSet2"
+            },
+            Title: {
+                fontFamily: "impact, charcoal, arial black, sans-serif", fontSize: 32,//fontColor: "rgb(58,58,58)",
+                fontColor: "#333333",
+                //fontFamily: "arial black", fontSize: 30,//fontColor: "rgb(58,58,58)",
+                //fontFamily: "arial black",
+                //fontFamily: "Helvetica Neue, Helvetica", fontSize: 35,// fontColor: "rgb(58,58,58)",
+                //fontWeight: "bold",
+                verticalAlign: "top",
+                margin: 10
+            },
+            Axis: {
+                titleFontSize: 22,
+                titleFontColor: "rgb(98,98,98)",
+                //titleFontFamily: "arial black",
+                titleFontFamily: "monospace, sans-serif,arial black",
+                titleFontWeight: "bold",
+
+
+                labelFontFamily: "monospace, Courier New, Courier",
+                //labelFontFamily: "Helvetica Neue, Helvetica",
+                labelFontSize: 16,
+                labelFontColor: "grey",
+                labelFontWeight: "bold",
+                tickColor: "grey",
+                tickThickness: 2,
+                gridThickness: 2,
+                gridColor: "grey",
+                lineThickness: 0
+            },
+            Legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontFamily: "monospace, sans-serif,arial black"
+            },
+            DataSeries: {
+                indexLabelFontColor: "grey",
+                //indexLabelFontFamily: "Trebuchet MS, monospace, Courier New, Courier",
+                indexLabelFontFamily: "Courier New, Courier, monospace",
+                indexLabelFontWeight: "bold",
+                indexLabelFontSize: 18,
+                indexLabelLineColor: "lightgrey",
+                indexLabelLineThickness: 2
+            }
+        },
+
+        "theme3": {
+            Chart: {
+                colorSet: "colorSet1"
+            },
+            Title: {
+                //fontFamily: "impact, charcoal, arial black, sans-serif", fontSize: 30,//fontColor: "rgb(58,58,58)",
+                //fontFamily: "arial black", fontSize: 30,//fontColor: "rgb(58,58,58)",
+                //fontFamily: "arial black",
+                fontFamily: "Candara, Optima, Trebuchet MS, Helvetica Neue, Helvetica, Trebuchet MS, serif", fontSize: 32,
+                //fontFamily: "Palatino Linotype, Book Antiqua, Palatino, serif", fontSize: 30,
+                //fontFamily: "Lucida Sans Unicode, Lucida Grande, Trebuchet MS, sans-serif", fontSize: 30,
+                fontColor: "rgb(68,78,58)",
+                fontColor: "#3A3A3A",
+                fontWeight: "bold",
+                verticalAlign: "top",
+                margin: 10
+            },
+            Axis: {
+                titleFontSize: 22,
+                titleFontColor: "rgb(98,98,98)",
+                //titleFontFamily: "arial black",
+                titleFontFamily: "Verdana, Geneva, Calibri, sans-serif",
+                //titleFontWeight: "bold",
+
+                //labelFontFamily: "Times New Roman, Times, serif",
+                labelFontFamily: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif",
+                //labelFontFamily: "Helvetica Neue, Helvetica",
+                labelFontSize: 18,
+                labelFontColor: "grey",
+                //labelFontWeight: "bold",
+                tickColor: "grey",
+                tickThickness: 2,
+                gridThickness: 2,
+                gridColor: "grey",
+                lineThickness: 2,
+                lineColor: "grey"
+            },
+            Legend: {
+                verticalAlign: "bottom",
+                horizontalAlign: "center",
+                fontFamily: "monospace, sans-serif,arial black"
+            },
+            DataSeries: {
+                bevelEnabled: true,
+                indexLabelFontColor: "grey",
+                //indexLabelFontFamily: "Trebuchet MS, monospace, Courier New, Courier",
+                indexLabelFontFamily: "Candara, Optima, Calibri, Verdana, Geneva, sans-serif",
+                //indexLabelFontWeight: "bold",
+                indexLabelFontSize: 18,
+                indexLabelLineColor: "lightgrey",
+                indexLabelLineThickness: 2
             }
         }
+    }
 
     //#endregion Themes
 
@@ -494,7 +491,9 @@
     }
 
     function inherit(proto) {
-        function F() { }
+        function F() {
+        }
+
         F.prototype = proto
         return new F
     }
@@ -544,7 +543,9 @@
         var str = str.replace(/^\s\s*/, ''),
             ws = /\s/,
             i = str.length;
-        while (ws.test(str.charAt(--i))) { };
+        while (ws.test(str.charAt(--i))) {
+        }
+        ;
         return str.slice(0, i + 1);
     }
 
@@ -1988,7 +1989,6 @@
                 dataPointY = dataSeries.dataPoints[i].y;
 
 
-
                 if (dataPointX < axisXDataInfo.min)
                     axisXDataInfo.min = dataPointX;
                 if (dataPointX > axisXDataInfo.max)
@@ -2147,7 +2147,6 @@
                 dataPointY = dataSeries.dataPoints[i].y;
 
 
-
                 if (dataPointX < axisXDataInfo.min)
                     axisXDataInfo.min = dataPointX;
                 if (dataPointX > axisXDataInfo.max)
@@ -2259,11 +2258,20 @@
         first = touches ? touches[0] : ev;
 
         switch (ev.type) {
-            case "touchstart": case "MSPointerDown": mouseEvents = ["mousemove", "mousedown"]; break;
-            case "touchmove": case "MSPointerMove": mouseEvents = ["mousemove"]; break;
-            case "touchend": case "MSPointerUp": mouseEvents = (this._lastTouchEventType === "touchstart" || this._lastTouchEventType === "MSPointerDown") ? ["mouseup", "click"] : ["mouseup"];
+            case "touchstart":
+            case "MSPointerDown":
+                mouseEvents = ["mousemove", "mousedown"];
                 break;
-            default: return;
+            case "touchmove":
+            case "MSPointerMove":
+                mouseEvents = ["mousemove"];
+                break;
+            case "touchend":
+            case "MSPointerUp":
+                mouseEvents = (this._lastTouchEventType === "touchstart" || this._lastTouchEventType === "MSPointerDown") ? ["mouseup", "click"] : ["mouseup"];
+                break;
+            default:
+                return;
         }
 
         this._lastTouchEventType = ev.type;
@@ -2273,9 +2281,9 @@
             var type = mouseEvents[i];
             var simulatedEvent = document.createEvent("MouseEvent");
             simulatedEvent.initMouseEvent(type, true, true, window, 1,
-                                      first.screenX, first.screenY,
-                                      first.clientX, first.clientY, false,
-                                      false, false, false, 0/*left*/, null);
+                first.screenX, first.screenY,
+                first.clientX, first.clientY, false,
+                false, false, false, 0/*left*/, null);
 
             first.target.dispatchEvent(simulatedEvent);
 
@@ -2355,7 +2363,6 @@
 
             if (eventParam.hasOwnProperty(type))
                 eventParam[type].call(eventParam.context, xy.x, xy.y);
-
 
 
         }
@@ -4625,7 +4632,6 @@
             ghostCtx.fillStyle = hexColor;
 
 
-
             if (allXValues.length > 0) {
 
                 color = dataSeries._colorSet[0];
@@ -4709,7 +4715,6 @@
 
                             var markerProps = dataSeries.getMarkerProperties(i, x, y, this.ctx);
                             markers.push(markerProps);
-
 
 
                             markerColor = intToHexColorString(id);
@@ -5083,7 +5088,6 @@
                 this.ctx.strokeStyle = "#4572A7 ";
 
 
-
                 for (var i = 0; i < dataPoints.length; i++) {
 
                     dataPointX = dataPoints[i].getTime ? dataPointX = dataPoints[i].x.getTime() : dataPointX = dataPoints[i].x;
@@ -5223,13 +5227,13 @@
                     this._eventManager.objectMap[id] = { objectType: "dataPoint", dataSeriesIndex: dataSeriesIndex, dataPointIndex: i, x1: x, y1: y };
                     var markerColor = intToHexColorString(id);
                     RenderHelper.drawMarker(
-                            markerProps.x, markerProps.y, this._eventManager.ghostCtx,
-                            markerProps.type,
-                            markerProps.size,
-                            markerColor,
-                            markerColor,
-                            markerProps.borderThickness
-                        );
+                        markerProps.x, markerProps.y, this._eventManager.ghostCtx,
+                        markerProps.type,
+                        markerProps.size,
+                        markerColor,
+                        markerColor,
+                        markerProps.borderThickness
+                    );
                     //markers.push();
 
                     prevDataPointX = x;
@@ -5302,8 +5306,7 @@
         var explodeOffset = 0.07;
 
 
-        var drawSegmentLabel = function (ctx, x1, x2, y1, y2, currentlyExploded, label, radius, theta, indexLabelFontColor, placement, indexLabelLineColor, indexLabelLineThickness, frame, fps, pastExploded, labelLength,
-            indexLabelFontStyle, indexLabelFontWeight, indexLabelFontSize, indexLabelFontFamily, indexLabelBackgroundColor, index) {
+        var drawSegmentLabel = function (ctx, x1, x2, y1, y2, currentlyExploded, label, radius, theta, indexLabelFontColor, placement, indexLabelLineColor, indexLabelLineThickness, frame, fps, pastExploded, labelLength, indexLabelFontStyle, indexLabelFontWeight, indexLabelFontSize, indexLabelFontFamily, indexLabelBackgroundColor, index) {
             ctx.save();
 
             ctx.lineWidth = indexLabelLineThickness;
@@ -5349,8 +5352,6 @@
             }
 
 
-
-
             ctx.fillStyle = indexLabelFontColor;
             if (x1 > 0) {
                 ctx.fillText(label, x1, (y1 + y2) / 2);
@@ -5361,12 +5362,10 @@
             }
 
 
-
             if (placement === "outside" && labelLengths[index]) {
 
                 var pointX = radius * (Math.cos(theta));
                 var pointY = radius * (Math.sin(theta));
-
 
 
                 if (currentlyExploded === true && pastExploded !== true) {
@@ -5420,7 +5419,6 @@
         plotArea.width = plotArea.x2 - plotArea.x1;
         plotArea.height = plotArea.y2 - plotArea.y1;
         var plotAreaCenter = { x: (plotArea.x2 + plotArea.x1) / 2, y: (plotArea.y2 + plotArea.y1) / 2 };
-
 
 
         /*******Setting properties********/
@@ -5521,8 +5519,7 @@
                 }
 
 
-
-                // loop from 1st to last quadrent 
+                // loop from 1st to last quadrent
 
                 for (var i = 0; i < noDataPoints; i++) {
                     if (labelLocationAngles[i] < Math.PI / 2) {
@@ -5607,8 +5604,10 @@
                         overFlow.push(Math.abs(leftOverflow) - plotArea.width / 2)
                     }
                     //// emptying all the arrays for second iteration					
-                    x1 = []; x2 = [];
-                    y1 = []; y2 = [];
+                    x1 = [];
+                    x2 = [];
+                    y1 = [];
+                    y2 = [];
                     if (overFlow.length) {
 
                         labelRadius = labelRadius - (Math.max.apply(Math, overFlow) + dataSeries.indexLabelFontSize / 2 + 2);
@@ -5620,8 +5619,6 @@
             }
 
         }
-
-
 
 
         var that = this;
@@ -5703,7 +5700,6 @@
                         currentlyExploded = true;
                     else
                         currentlyExploded = false;
-
 
 
                     //if (typeof (dataSeries.dataPoints[i]) === Boolean)
@@ -5793,7 +5789,6 @@
                     var pastExploded = that._eventManager.objectMap[id].pastExploded;
 
 
-
                     if (currentlyExploded === true && pastExploded === false) {
                         center.x = center.x + Xoffset / fps * (animationParameter.frame + 1);
                         center.y = center.y + Yoffset / fps * (animationParameter.frame + 1);
@@ -5820,8 +5815,6 @@
                     }
 
                     drawSegment(that.ctx, center, radius, color, type, arcAngles[i], arcAngles[i + 1]);
-
-
 
 
                     if (animationParameter.frame === fps - 1) {
@@ -5942,7 +5935,6 @@
         }
 
 
-
         //loop for drawing labels
         function drawLabel(frame, fps) {
             //   var color = dataSeries.dataPoints[i].color ? dataSeries.dataPoints[i].color : dataSeries.color ? dataSeries.color : colorPallet[(i % colorPallet.length)];
@@ -6024,8 +6016,6 @@
             return;
 
 
-
-
         }
     }
 
@@ -6035,13 +6025,13 @@
 
     Chart.prototype.requestAnimFrame = (function () {
         return window.requestAnimationFrame ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame ||
-                window.oRequestAnimationFrame ||
-                window.msRequestAnimationFrame ||
-                function (callback) {
-                    window.setTimeout(callback, 1000 / 60);
-                };
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
     })();
 
     //#endregion Class Chart
@@ -6113,6 +6103,7 @@
         this._isDirty = true;
         this._wrappedText = null;
     }
+
     extend(TextBlock, CanvasJSObject);
     TextBlock.prototype.render = function (preserveContext) {
         if (preserveContext)
@@ -6270,7 +6261,7 @@
         }
 
         this.width = null,//read only
-        this.height = null//read only
+            this.height = null//read only
         this.bounds = { x1: null, y1: null, x2: null, y2: null };
     }
 
@@ -6407,13 +6398,14 @@
         this.ctx = this.chart.ctx;
 
         this.width = 0,
-        //this.fontSize = 12,
-        this.height = 0,
-        this.orientation = null,
-        this.horizontalSpacing = 10;
+            //this.fontSize = 12,
+            this.height = 0,
+            this.orientation = null,
+            this.horizontalSpacing = 10;
         this.dataSeries = [];
         this.bounds = { x1: null, y1: null, x2: null, y2: null };
     }
+
     extend(Legend, CanvasJSObject);
 
     Legend.prototype.render = function () {
@@ -6642,6 +6634,7 @@
         this.canvas = chart.canvas;
         this.ctx = this.chart.ctx;
     }
+
     extend(PlotArea, CanvasJSObject);
 
     PlotArea.prototype.render = function () {
@@ -6670,6 +6663,7 @@
 
         this.axisPlacement = this.getDefaultAxisPlacement();
     }
+
     extend(DataSeries, CanvasJSObject);
 
     //Static Method that returns the axisPlacement for a given ChartType. Returns one of "normal", "xySwapped", "none"
@@ -6818,7 +6812,6 @@
         }
 
 
-
         if (typeof (this._options.titleFontSize) === "undefined") {
 
             this.titleFontSize = fontSize = this.chart.getAutoFontSize(this.titleFontSize);
@@ -6868,6 +6861,7 @@
         this.trackChanges("minimum");
         this.trackChanges("maximum");
     }
+
     extend(Axis, CanvasJSObject);
 
     Axis.prototype.createLabels = function () {
@@ -7048,7 +7042,7 @@
             axisY2.calculateAxisParameters();
 
         if (axisY && axisY2 && typeof (axisY._options.maximum) === "undefined" && typeof (axisY._options.minimum) === "undefined" && typeof (axisY._options.interval) === "undefined"
-                && typeof (axisY2._options.maximum) === "undefined" && typeof (axisY2._options.minimum) === "undefined" && typeof (axisY2._options.interval) === "undefined") {
+            && typeof (axisY2._options.maximum) === "undefined" && typeof (axisY2._options.minimum) === "undefined" && typeof (axisY2._options.interval) === "undefined") {
 
             var noTicksY = (axisY.maximum - axisY.minimum) / axisY.interval;
 
@@ -7324,7 +7318,8 @@
             if (totalLabelWidth > this.lineCoordinates.width * thresholdRatio) {
                 skipLabels = true;
             }
-        } if (this._position === "left" || this._position === "right") {
+        }
+        if (this._position === "left" || this._position === "right") {
             for (i = 0; i < this._labels.length; i++) {
                 label = this._labels[i];
                 if (label.position < this.minimum)
@@ -8234,6 +8229,7 @@
 
         this._initialize();
     }
+
     extend(ToolTip, CanvasJSObject);
 
     ToolTip.prototype._initialize = function () {
@@ -8605,8 +8601,8 @@
                     }
 
                     if (dataSeries.type === "line" || dataSeries.type === "stepLine" || dataSeries.type === "spline" || dataSeries.type === "area" || dataSeries.type === "splineArea" || dataSeries.type === "column" || dataSeries.type === "bar" || dataSeries.type === "scatter"
-                    || dataSeries.type === "stackedColumn" || dataSeries.type === "stackedColumn100" || dataSeries.type === "stackedBar" || dataSeries.type === "stackedBar100"
-                    || dataSeries.type === "stackedArea" || dataSeries.type === "stackedArea100") {
+                        || dataSeries.type === "stackedColumn" || dataSeries.type === "stackedColumn100" || dataSeries.type === "stackedBar" || dataSeries.type === "stackedBar100"
+                        || dataSeries.type === "stackedArea" || dataSeries.type === "stackedArea100") {
                         toolTipContent += dataPoint.toolTipContent ? dataPoint.toolTipContent : dataSeries.toolTipContent ? dataSeries.toolTipContent : this.content && typeof (this.content) !== "function" ? this.content : "<span style='\"'color:{color};'\"'>{name}:</span>&nbsp;&nbsp;{y}";
                     } else if (dataSeries.type === "bubble") {
                         toolTipContent += dataPoint.toolTipContent ? dataPoint.toolTipContent : dataSeries.toolTipContent ? dataSeries.toolTipContent : this.content && typeof (this.content) !== "function" ? this.content : "<span style='\"'color:{color};'\"'>{name}:</span>&nbsp;&nbsp;{y}, &nbsp;&nbsp;{z}";
@@ -9024,7 +9020,9 @@
         Chart: function (containerId, options) {
             var _chart = new Chart(containerId, options, this);
 
-            this.render = function () { _chart.render() };
+            this.render = function () {
+                _chart.render()
+            };
             this.options = _chart._options;
         },
         addColorSet: function (name, colorSet) {

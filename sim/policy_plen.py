@@ -2,6 +2,7 @@ import policy_interface
 
 __author__ = 'Horace'
 
+
 class policy_plen(policy_interface.policy_interface):
     def __init__(self):
         self.__init__(6) # default value for constructor with parameter

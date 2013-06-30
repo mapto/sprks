@@ -1,16 +1,19 @@
 __author__ = 'zhanelya'
 
+import itertools
+import math
+import json
+
 import web
+
 import environment
 from environment import render_private as render
 from environment import db
-import itertools
-import math
 from sim.simulation import simulation
-import json
+
 
 class score:
-    def CHECK_CLOSEST_COMPETITOR(self,length, usrid, your_score):
+    def CHECK_CLOSEST_COMPETITOR(self, length, usrid, your_score):
         print "entered check closest"
         """c = your_score.score_value
         c_when = your_score.date
@@ -80,11 +83,12 @@ class score:
                         break
         print value_risk, prev_value_risk, next_value_risk
         print value_cost, prev_value_cost, next_value_cost
-        if next_risk_rank+1 == length:
+        if next_risk_rank + 1 == length:
             next_risk_rank = 0
-        if next_cost_rank+1 == length:
+        if next_cost_rank + 1 == length:
             next_cost_rank = 0
-        if math.fabs(float(value_risk)-float(prev_value_risk)) <= math.fabs(float(next_value_risk)-float(value_risk)):
+        if math.fabs(float(value_risk) - float(prev_value_risk)) <= math.fabs(
+                        float(next_value_risk) - float(value_risk)):
             closest_score_risk = prev_value_risk
             closest_ranking_risk = prev_risk_rank
             closest_date_risk = prev_value_risk_date
@@ -92,8 +96,9 @@ class score:
             closest_score_risk = next_value_risk
             closest_ranking_risk = next_risk_rank
             closest_date_risk = next_value_risk_date
-      #  , ,  = , ,   else , ,
-        if math.fabs(float(value_cost)-float(prev_value_cost)) <= math.fabs(float(next_value_cost)-float(value_cost)):
+            #  , ,  = , ,   else , ,
+        if math.fabs(float(value_cost) - float(prev_value_cost)) <= math.fabs(
+                        float(next_value_cost) - float(value_cost)):
             closest_score_cost = prev_value_cost
             closest_ranking_cost = prev_cost_rank
             closest_date_cost = prev_value_cost_date
@@ -101,11 +106,11 @@ class score:
             closest_score_cost = next_value_cost
             closest_ranking_cost = next_cost_rank
             closest_date_cost = next_value_cost_date
-        #, ,  = , ,   else , ,
+            #, ,  = , ,   else , ,
 
         return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
-    def FIND_BEST_USER(self,length, usrid, your_score):
+    def FIND_BEST_USER(self, length, usrid, your_score):
         print "entered find best user"
         """score_type = your_score.score_type
 
@@ -139,7 +144,7 @@ class score:
                     break
                 else:
                     rank_cost += 1
-        #return b, b_when
+            #return b, b_when
         print risk_value, rank_risk, date_risk
         print cost_value, rank_cost, date_cost
         return risk_value, rank_risk, date_risk, cost_value, rank_cost, date_cost
@@ -163,9 +168,9 @@ class score:
         return value_risk, date_risk, value_cost, date_cost
 
     def FIND_AVG(self, your_score):
-#        score_type = your_score.score_type
+    #        score_type = your_score.score_type
 
-       # average = db.select('scores', where="score_type=$score_type", vars=locals())
+    # average = db.select('scores', where="score_type=$score_type", vars=locals())
         average_risk = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =1;")[0]
         average_cost = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =2;")[0]
 
@@ -190,11 +195,14 @@ class score:
             if len(all_scores) > 0:
                 #your_risk = your_risk[0]
                 #your_pc = your_pc[0]
-                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(length, id_user, scores_1)
-                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(length, id_user, scores_2)
-               # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
-                b_risk, b_risk_when,  b_pc, b_pc_when = self.FIND_BEST(scores_3)
-              # ,  = self.FIND_BEST(your_pc)
+                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(
+                    length, id_user, scores_1)
+                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(length,
+                                                                                                             id_user,
+                                                                                                             scores_2)
+                # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
+                b_risk, b_risk_when, b_pc, b_pc_when = self.FIND_BEST(scores_3)
+                # ,  = self.FIND_BEST(your_pc)
                 avg_risk, avg_pc = self.FIND_AVG(scores_4)
                 #avg_pc = self.FIND_AVG(your_pc)
                 print b_u_risk_rank
@@ -236,7 +244,7 @@ class multiple_score:
                     result_entry[key] = value
             policy_costs_risks.append(result_entry)
 
-           # print('return cost '+ policy_costs_risks)
+            # print('return cost '+ policy_costs_risks)
 
         return json.dumps(policy_costs_risks)
 

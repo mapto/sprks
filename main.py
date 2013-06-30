@@ -12,11 +12,9 @@ os.chdir(abspath)
 import web
 import environment
 import controllers.home
-import controllers.register
-import controllers.login
+import controllers.auth
 import controllers.intro
-import controllers.pwrecovery
-import controllers.pwrequest
+import controllers.password
 import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
@@ -25,15 +23,9 @@ import controllers.policy_history
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
-        '/login', controllers.login.login,
-        '/register', controllers.register.register,
-        '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
-        '/pwrecovery', controllers.pwrecovery.pwrecovery,
-        '/pwrequest', controllers.pwrequest.pwrequest,
-        '/password', controllers.pwrequest.pwrequest, # default password is request
-        '/password/request', controllers.pwrequest.pwrequest,
-        '/password/recovery', controllers.pwrecovery.pwrecovery, # restful URLs
-        '/password/recovery/(.*)', controllers.pwrecovery.pwrecovery, # restful URLs
+        '/login', controllers.auth.login,
+        '/register', controllers.auth.register,
+        '/password', controllers.password.manage,
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/score/multiple', controllers.score.multiple_score,
@@ -43,10 +35,11 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/forward', controllers.timeline.forward,
         '/timeline', controllers.timeline.go,
         '/history', controllers.policy_history.history,
-        # APIs below this
-        '/api/user/register', controllers.register.register,
-        '/api/user/login', controllers.login.login
-        )
+        # APIs
+        '/api/user/register', controllers.auth.register,
+        '/api/user/login', controllers.auth.login,
+        '/api/user/password', controllers.password.manage
+)
 
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:

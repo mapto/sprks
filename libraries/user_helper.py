@@ -5,7 +5,6 @@ import environment
 
 
 class auth:
-
     def user_id(self):
         """
         Returns user_id if client is authorized, else 0. Potentially allows other methods of authorization (eg OAuth).

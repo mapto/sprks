@@ -1,11 +1,13 @@
 __author__ = 'Dan'
 
+import json
+
+import web
+
 from environment import render_private as render
 from models.users import users_model
-import web
 import environment
 from models.policies import policies_model
-import json
 
 
 class history:

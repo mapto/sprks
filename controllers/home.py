@@ -1,6 +1,4 @@
-
 __author__ = 'Zhanelya'
-
 
 from environment import render_public as render
 import environment

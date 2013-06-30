@@ -2,98 +2,105 @@ $def with (content)
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>$content.title</title>
-$if content.cssfiles:
-        $for f in content.cssfiles.split():
-            <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
+    <meta charset="utf-8"/>
+    <title>$content.title</title>
+    $if content.cssfiles:
+    $for f in content.cssfiles.split():
+    <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
 
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
-<script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
 </head>
 <body>
 <header>
-<div class="navbar  navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-        <div class="link"><a href="/pwpolicy">SPRKS</a></div>
-        <div class="link logout" class="text-right" id="logout"> <a href="/home"> Logout </a></div>  <div class="link logout usrname" class="text-right" id="logout">$content.username </div>
-		</div>
-      </div>
+    <div class="navbar  navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="link"><a href="/pwpolicy">SPRKS</a></div>
+                <div class="link logout" class="text-right" id="logout"><a href="/home"> Logout </a></div>
+                <div class="link logout usrname" class="text-right" id="logout">$content.username</div>
+            </div>
+        </div>
     </div>
-<nav class="time_controls">
-		<ul>
-			<h4>
-				 <div id="curr_date">$content.date</div>
-			</h4>
-			<li><a href="#" class="icon-play" id="play"></a></li> 
-			<li><a href="#" class="icon-pause"></a></li> 
-			<li><a href="#" class="icon-forward"></a></li> 
-		</ul>
-</nav>
+    <nav class="time_controls">
+        <ul>
+            <h4>
+                <div id="curr_date">$content.date</div>
+            </h4>
+            <li><a href="#" class="icon-play" id="play"></a></li>
+             
+            <li><a href="#" class="icon-pause"></a></li>
+             
+            <li><a href="#" class="icon-forward"></a></li>
+             
+        </ul>
+    </nav>
 </header>
 
 <section>
-<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
 
 
+                <div class="container-fluid">
+                    <div class="row-fluid">
+                        <div class="span12 loginbox main_body_container">
 
 
+                            $:content
 
 
-<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12 loginbox main_body_container">
+                        </div>
+                        <!--class="container-fluid"-->
+                    </div>
+                    <!--class="row-fluid"-->
+                </div>
+                <!-- class="span loginbox main_body_container"-->
 
 
-			$:content
-
-
-</div> <!--class="container-fluid"-->
-		</div> <!--class="row-fluid"-->
-			</div> <!-- class="span loginbox main_body_container"-->
-
-
-<aside>
-</aside>
-</div><!--class="container-fluid"-->
-		</div><!--class="row-fluid"-->
-			</div> <!--span-->
-
-			</section>
-<footer>
-      <nav class="risk-menu">
-		<ul>
-                <li>risk probability: <br/><span id="prob"></span></li>
-                <li>risk impact:  <br/><span id="impact"></span> </li>
-                <li>productivity cost:<br/><span id="cost"></span> </li>
-
-		</ul>
-	  </nav>
-
-<div class="navbar navbar-fixed-bottom">
-      <div class="navbar-inner">
-        <div  class="menu">
-
-            <div class="story"><a href="/intro">Story </a></div>
-            <div class="policy"><a href="/pwpolicy">Policy</a></div>
-            <div class="profile"><a href="/history">Profile</a></div>
-            <div class="score"><a href="/score">Scores</a></div>
-
-
+                <aside>
+                </aside>
+            </div>
+            <!--class="container-fluid"-->
         </div>
-        <div class="container-fluid">
-		<h4 style="margin-left:220px;">
-		Status bar: added value, notificns, etc.
-         </h4>
-		</div>
-      </div>
+        <!--class="row-fluid"-->
+    </div>
+    <!--span-->
+
+</section>
+<footer>
+    <nav class="risk-menu">
+        <ul>
+            <li>risk probability: <br/><span id="prob"></span></li>
+            <li>risk impact: <br/><span id="impact"></span></li>
+            <li>productivity cost:<br/><span id="cost"></span></li>
+
+        </ul>
+    </nav>
+
+    <div class="navbar navbar-fixed-bottom">
+        <div class="navbar-inner">
+            <div class="menu">
+
+                <div class="story"><a href="/intro">Story </a></div>
+                <div class="policy"><a href="/pwpolicy">Policy</a></div>
+                <div class="profile"><a href="/history">Profile</a></div>
+                <div class="score"><a href="/score">Scores</a></div>
+
+
+            </div>
+            <div class="container-fluid">
+                <h4 style="margin-left:220px;">
+                    Status bar: added value, notificns, etc.
+                </h4>
+            </div>
+        </div>
     </div>
 </footer>
 
-<script src="static/js/private_common.js"></script>  <!-- JS extracted here -->
+<script src="static/js/private_common.js"></script>
+<!-- JS extracted here -->
 <script>
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
@@ -104,17 +111,14 @@ $if content.cssfiles:
     // Use $$() for jqueries
 
     $$(document).ready(initFrame);
-//    document.ready = initFrame(); // register callback to function from external JS file;
+    //    document.ready = initFrame(); // register callback to function from external JS file;
 
     function isFirstTurn() {
         //content_date = $content.date;  // this is not accessible in Story page   ?does seem to give syntax error
         //start_date = get_start_time();
 
         content_date = "$content.date";  // possible fix
-        start_date ="$get_start_time()";
-
-
-
+        start_date = "$get_start_time()";
 
 
         if (content_date == start_date || content_date == '') {

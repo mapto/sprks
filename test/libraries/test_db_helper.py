@@ -4,7 +4,6 @@ from libraries.db_helper import *
 
 
 class TestUpdateHelper:
-
     def setup_method(self, method):
         self.list1 = {'list1_key1': 'list1_value1', 'list1_key2': 'list1_value2', 'list1_key3': 'list1_value3'}
         self.list2 = {'list2_key1': 'list2_value1', 'list2_key2': 'list2_value2', 'list2_key3': 'list2_value3'}
@@ -16,7 +15,6 @@ class TestUpdateHelper:
 
 
 class TestStringHelper:
-
     def setup_method(self, method):
         self.dict = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'}
 
