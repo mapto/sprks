@@ -1,4 +1,3 @@
-
 --
 -- Database: `sprks`
 --
@@ -10,11 +9,11 @@
 --
 
 CREATE TABLE IF NOT EXISTS `password_recovery` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `token` char(56) NOT NULL,
   `invalid` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`, `token`)
+  PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

@@ -4,11 +4,14 @@ $def with (content)
 <head>
     <meta charset="utf-8"/>
     <title>$content.title</title>
-    $if content.cssfiles:
-        $for f in content.cssfiles.split():
-            <link rel="stylesheet" href="$f" type="text/css" media="screen" charset="utf-8"/>
+    $if content.has_key('cssfiles'):
+        $for css in content.cssfiles.split():
+            <link rel="stylesheet" href="$css" type="text/css" media="screen" charset="utf-8"/>
+    $if content.has_key('prejs'):
+        $for js in content.prejs.split():
+            <script src="$js"></script>
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
 </head>
 <body>

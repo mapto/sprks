@@ -12,9 +12,8 @@ os.chdir(abspath)
 import web
 import environment
 import controllers.home
-import controllers.auth
+import controllers.user
 import controllers.intro
-import controllers.password
 import controllers.pwpolicy
 import controllers.score
 import controllers.timeline
@@ -23,9 +22,9 @@ import controllers.policy_history
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
-        '/login', controllers.auth.login,
-        '/register', controllers.auth.register,
-        '/password', controllers.password.manage,
+        '/login', controllers.user.login,
+        '/register', controllers.user.register,
+        '/password', controllers.user.password,
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/score/multiple', controllers.score.multiple_score,
@@ -36,9 +35,9 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/timeline', controllers.timeline.go,
         '/history', controllers.policy_history.history,
         # APIs
-        '/api/user/register', controllers.auth.register,
-        '/api/user/login', controllers.auth.login,
-        '/api/user/password', controllers.password.manage
+        '/api/user/register', controllers.user.register,
+        '/api/user/login', controllers.user.login,
+        '/api/user/password', controllers.user.password
 )
 
 app = web.application(urls, globals(), autoreload=False)
