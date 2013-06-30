@@ -18,12 +18,6 @@ function init(){
 
 	//document.getElementById('curr_date').innerHTML = strDate;
 
-	if(!policyExists()){
-        // If code executed, then we have a new user
-        // Greet them accordingly
-		alert('This is your first visit. You can see the policy as it has been left by your predecessor.')
-	}
-
     // contains elements in the following order:
     start_policy = getInitPolicy();
 
