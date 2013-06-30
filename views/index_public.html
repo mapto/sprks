@@ -4,7 +4,8 @@ $def with (content)
 <head>
     <meta charset="utf-8"/>
     <title>$content.title</title>
-    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/bootstrap.min.js" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
     $if content.has_key('cssfiles'):
         $for css in content.cssfiles.split():
@@ -52,8 +53,8 @@ $if content.has_key('username'):
     <div class="time_controls">
         <ul>
             <h4><div id="curr_date"></div></h4>
-            <li><a href="#" class="icon-play" id="play"></a></li>
-            <li><a href="#" class="icon-pause"></a></li>
+            <li><a href="#" class="icon-play icon-large" id="play"></a></li>
+            <li><a href="#" class="icon-pause icon-large"></a></li>
             <li><a href="#" class="icon-forward"></a></li>
         </ul>
     </div>
@@ -83,13 +84,11 @@ $if content.has_key('postjs'):
 
 <script src="static/js/private_common.js"></script>
 <script>
-    // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
     // If you want to use templates from webpy,
     // extract a method that grabs them here and call it from a script in the external JS file.
     // Variables from Python can be sent back as return values.
-    // Use $$() for jqueries
 
     $$(document).ready(initFrame);
     //    document.ready = initFrame(); // register callback to function from external JS file;

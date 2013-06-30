@@ -108,39 +108,40 @@ label {
     margin-right: -4px;
 }
 
+
 .time_controls a {
     display: block;
     background-color: #f9f9f9;
     color: #a7a7a7;
-    margin: 7px;
-    width: 40px;
-    height: 40px;
+    margin: 0.9em;
+    width: 30px;
+    height: 30px;
     position: relative;
     text-align: center;
-    line-height: 40px;
+    line-height: 30px;
     border-radius: 50%;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    -webkit-transform: scale(1.5, 1.5);
+    -o-transform: scale(1.5, 1.5);
+    transform: scale(1.5, 1.5);
+}
+
+.icon-play {
+    background-position: -255px -63px;
+}
+
+.icon-pause {
+    background-position: -280px -63px;
+}
+
+.icon-forward {
+    background-position: -352px -63px;
 }
 
 .time_controls a:hover {
     text-decoration: none;
     color: #555;
     background-color: #fff;
-}
-
-.icon-play {
-    /*iconset specified in bootstrap-min above*/
-    background-position: -326px -80px;
-}
-
-.icon-pause {
-    /*iconset specified in bootstrap-min above*/
-    background-position: -357px -80px;
-}
-
-.icon-forward {
-    /*iconset specified in bootstrap-min above*/
-    background-position: -418px -80px;
 }
 
 .risk-menu {
@@ -188,7 +189,7 @@ label {
     font-weight: bold;
     font-size: 14px;
     color: #e6e1cb;
-    max-width: 100px;
+    max-width: 300px;
     float: left;
 }
 
