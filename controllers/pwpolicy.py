@@ -1,7 +1,5 @@
-import json
-
 import web
-
+import json
 import localsys
 from sim.simulation import simulation
 from localsys.environment import *
@@ -66,6 +64,6 @@ class pwpolicy:
         pw_policy_model().update({'userid': str(localsys.session.user_id), 'date': payload["date"]}, data)
         for k, value in data.iteritems():
             sim.set_policy(k, value)
-        return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
-                           {"name": "impact", "value": sim.calc_risk_impact()},
+#        return json.dumps(data)
+        return json.dumps([{"name": "risk", "value": sim.calc_risk_prob()},
                            {"name": "cost", "value": sim.calc_prod_cost()}])

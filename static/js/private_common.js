@@ -10,23 +10,23 @@
  */
 
 function initFrame() {
-    if ($("#prob").text() == '' || $("#impact").text() == '' || $("#cost").text() == '') {
+    if ($("#risk").text() == '' || $("#cost").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
         $(".risk-menu").css("display", "block");
     }
 
     $(document).click(function () {
-        if ($("#prob").text() == '' || $("#impact").text() == '' || $("#cost").text() == '') {
+        if ($("#risk").text() == '' || $("#cost").text() == '') {
             $(".risk-menu").css("display", "none");
         } else {
             $(".risk-menu").css("display", "block");
         }
     });
 
-    manageScoreButton();
+//    manageScoreButton();
 
-    highlightActiveButton();
+    manageButtons();
 
 
     send = function () {
@@ -43,6 +43,7 @@ function initFrame() {
                 console.log("success: " + JSON.stringify(curr_date));
                 $("#curr_date").text(curr_date[0].value);
                 manageScoreButton();
+                window.location.href = "/score";
             },
             error: function (response) {
                 console.log("fail: " + response.responseText);
@@ -51,7 +52,7 @@ function initFrame() {
         return false;
     }
     //function for sending request on play btn press
-    $('#play').click(send);
+    $('.score').click(send);
 
     //opening incident window
     $('#play').click(function () {
@@ -80,24 +81,28 @@ function manageScoreButton() {
 }
 
 // highlight active button(scores/story/policy)
-function highlightActiveButton() {
+function manageButtons() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
     switch (document.title) {
         case "Scores":
-            css_class = "score";
+            current_class = "score";
+            hidden_class = "none";
             break;
         case "Introduction":
-            css_class = "story";
-            break;
-        case "Profile":
-            css_class = "profile";
+            current_class = "story";
+            hidden_class = "score";
             break;
         default:
-            css_class = "policy";
+            current_class = "policy";
+            hidden_class = "none";
     }
 
-    $("." + css_class + " a").css("background-color", "#C10000");
-    $("." + css_class + " a").css("color", "#fff");
-    $("." + css_class + " a").css("cursor", "default");
+    $("." + current_class + " a").css("background-color", "#C10000");
+    $("." + current_class + " a").css("color", "#fff");
+    $("." + current_class + " a").css("cursor", "default");
+
+    $("." + hidden_class + " a").css("pointer-events", "none");
+    $("." + hidden_class + " a").css("cursor", "default");
+    $("." + hidden_class + " a").css("color", "#F2F2F2");
 }
