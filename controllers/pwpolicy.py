@@ -72,6 +72,5 @@ class pwpolicy:
         for k, value in dat.iteritems():
             sim.set_policy(k, value)
 #        return json.dumps(data)
-        return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},
-                           {"name": "impact", "value": sim.calc_risk_impact()},
+        return json.dumps([{"name": "risk", "value": sim.calc_risk_prob()},
                            {"name": "cost", "value": sim.calc_prod_cost()}])

@@ -69,14 +69,16 @@ class simulation:
 
     def calc_risk_prob(self):
         #risk = self.estimator.get_risk_prob(self.dict)
-        risk = self.classifier.predict(self.dict)[0]
+        risk = self.classifier.predict_data(self.dict)
+        value = risk[1]  # 0 - name, 1 - risk
         # Extreme precision is not needed outside of simulation
-        return round(risk, 2)
+        return round(value, 2)
 
     def calc_risk_impact(self):
 #        impact = self.estimator.get_risk_impact(self.dict)
         # Extreme precision is not needed outside of simulation
-        return round(1, 2)
+        return 1
+        # return round(1, 2)
 
     def derive_maintenance_cost(self, policy):
         # range for complexity [7, 48]
@@ -84,12 +86,12 @@ class simulation:
                    + policy["psets"].value() * 3\
                    + policy["pdict"].value() * 12\
                    + policy["phist"].value() * 4
+
         generation = complexity * policy["prenew"].value()  # range for generation [0, 144]
         memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
         support = (policy["pattempts"].value() * 24 + memorization) * policy["pautorecover"].value() # range [0, 240]
-        print "support: " + str(support / 240)
 
-        return support / 1992 # normalized, notice from _future_ import that converts division to floating. default is integer division
+        return support / 240 # normalized, notice from _future_ import that converts division to floating. default is integer division
 
     def derive_prod_cost(self, policy):
         """ Productivity cost can be derived from a clear formula.
@@ -101,19 +103,15 @@ class simulation:
                    + policy["psets"].value() * 3\
                    + policy["pdict"].value() * 12\
                    + policy["phist"].value() * 4
-        print "complexity: " + str(complexity)
+
         generation = complexity * policy["prenew"].value() # range for generation [0, 144]
         gen_norm = generation / 144 # notice from _future_ import that converts division to floating. default is integer division
-        print "generation: " + str(gen_norm)
-        print "generation: " + str(generation)
-        print "generation: " + str(policy["pattempts"].value())
+
         memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
-        print "memorization: " + str(memorization)
         mem_norm = memorization / 192
-        print "memorization: " + str(mem_norm)
+
         entry = policy["plen"].value() # range [0, 12]
         entry_norm = entry / 12
-        print "entry: " + str(entry_norm)
 
         return (gen_norm + mem_norm + entry_norm) / 3
 
@@ -124,6 +122,7 @@ class simulation:
         # cost = self.classifier.predict(self.dict)[1]
         productivity = self.derive_prod_cost(self.dict)
         maintenance = self.derive_maintenance_cost(self.dict)
-        cost = (productivity + maintenance) / 2
+
+        cost = (productivity + maintenance) / 2 # overall (needs to be weighted) cost
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)

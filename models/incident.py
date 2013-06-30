@@ -1,38 +1,69 @@
 __author__ = 'zcabh_000'
 
+import glob
+import json
+from models.pw_policy import pw_policy_model
+
 class incident:
-    # index reference:
-    # 0 - name (temporarily also serves as description)
-    # 1 - plen, 2 - psets, 3 - pdict, 4 - phist, 5 - prenew, 6 - pattempts, 7 - pautorecover,
-    # 8 - risk, 9 - cost
-    list = (('void',         0, 0, 0, 0, 0, 0, 0,  0,   0),
-            ('default',      8, 2, 0, 1, 1, 0, 1,  0.3, 0.3),
-            ('very_easy',    0, 1, 0, 0, 1, 0, 1,  1,   0),
-            ('eternal',      8, 1, 0, 0, 0, 0, 1,  0.5, 0),
-            ('too_hard',    12,4,1,3,1,0,1,        0.7, 1),
-            ('easy_recovery',8,1,0,0,3,0,1,        0.5, 0.1),
-            ('too_demanding',8,1,1,3,3,0,0,        1,   0),
-            ('easy_secure',  8,2,0,0,1,1,1,        0.1, 0.2),
-            ('hard_secure', 10,3,0,0,1,1,0,        0.1, 0.3),
-            ('too_often',    8,3,0,0,3,0,0,        0.8, 0.7))
+    # names = ['default', 'too_often', 'very_easy', 'eternal', 'too_hard', 'easy_recovery', 'infrequent_use', 'easy_secure', 'hard_secure', 'no_pass']
+    incidents = {} # will contain {"bruteforce": []}"
+    singleton = None
 
-    def __init__(self, cls):
-        self.my_class = incident.list[cls]
-        print 'incident class name is ' + self.my_class[0]
+    @staticmethod
+    def read_files():
+        for ref in glob.glob('static/incidents/*.json'):
+            file = open(ref)
+            data = json.load(file)
 
-    def get_incident(self, cls):
-        if len(list) < cls:
-            raise KeyError("Incident ID not found.")
-        return list[cls]
+            risk_type = data["type"]
+            if not risk_type in incident.incidents:
+                incident.incidents[risk_type] = {}
 
+            incident.incidents[risk_type][data["id"]] = data
+
+            file.close()
+            # print data["name"] + " " + str(data["id"])
+
+
+    @staticmethod
+    def get_incident(id='1', type='any'): # if type not specified, search
+        if not incident.incidents:
+            incident.read_files()
+
+
+        if type == "any": # search and return the first one found
+            for risk in incident.incidents.keys():
+                if id in incident.incidents[risk]:
+                    # print "found: " + "[" + str(id) + "] in class " + risk + " ->" + str(incident.incidents[risk][id]['name']) +  " " + str(incident.incidents[risk][id]['risk'])
+
+                    return incident.incidents[risk][id]
+        else:
+            return incident.incidents[type][id]
+
+    def generate_samples(self):
+        list = []
+        for policy in pw_policy_model.range.keys():
+            if not policy in self.data['pwpolicy']:
+                list.push()
+
+    # the following list of getters and setters might be incomplete
     def get_description(self):
-        return self.my_class[0]
+        return self.data['description']
+
+    def get_consequences(self):
+        return self.data['consequences']
+
+    def get_event(self):
+        return self.data['event']
+
+    def get_type(self):
+        return self.data['type']
 
     def get_id(self):
-        return self.my_class[0]
+        return self.data['id']
 
     def get_cost(self):
-        return self.my_class[9]
+        return self.data['cost']
 
     def get_risk(self):
-        return self.my_class[8]
+        return self.data['risk']

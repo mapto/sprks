@@ -1,5 +1,5 @@
-{"id": 6, "name": "too_hard", "type":"bruteforce",
-"pwpolicy": {"plen": 12, "psets": 4, "pdict": 1, "phist": 3, "prenew": 1, "pattempts": 0, "pautorecover": 1},
+{"id": 12, "name": "too_hard", "type":"stolen",
+"pwpolicy": {"plen": 12, "psets": 4, "pdict": 1, "phist": 3, "prenew": 1},
 "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.",
 "event": "The employees try to comply really hard in the beginning, but every time they have to renew theirs they struggle more and more to come up with something new and different.",
 "consequences": "Because passwords are complicated, many employees forget them and end up requesting new ones.",

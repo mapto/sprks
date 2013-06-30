@@ -21,7 +21,7 @@ function init(){
     // contains elements in the following order:
     start_policy = getInitPolicy();
 
-    console.log("found plen " + start_policy["plen"]);
+//    console.log("found plen " + start_policy["plen"]);
     $("#len" + start_policy["plen"]).prop('checked', true);
 
 	/*preset pswd sets value*/
@@ -235,7 +235,7 @@ function get_range (policy, id){
 return msgs;
 }
 function initialize_graphs(policy_costs_risks){ //id examples: plen, psets, pdict, etc.
-    console.log(policy_costs_risks);
+//    console.log(policy_costs_risks);
     var graph_id = {};
     dps_risk = {};
     dps_cost = {};
@@ -256,9 +256,9 @@ function initialize_graphs(policy_costs_risks){ //id examples: plen, psets, pdic
         }
     });
     console.log("Initializing graphs details(ids, risks, costs)...");
-    console.log(graph_id);
-    console.log(dps_risk);
-    console.log(dps_cost);
+//    console.log(graph_id);
+//    console.log(dps_risk);
+//    console.log(dps_cost);
 
     display_graphs(graph_id,dps_risk,dps_cost);
 }

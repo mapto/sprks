@@ -1,4 +1,4 @@
-{"id": 6, "name": "too_often", "type":"bruteforce",
+{"id": 6, "name": "too_often", "type":"stolen",
 "pwpolicy": {"plen": 8, "psets": 3, "pdict": 0, "phist": 0, "prenew": 3, "pattempts": 0, "pautorecover": 0},
 "description": "You require users to come up with new passwords very often. On the other hand password recovery needs to go through a manned helpdesk.",
 "event": "People come up with complicated passwords, but because this needs to happen too often and no repetition is allowed, they often forget them.",

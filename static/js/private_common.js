@@ -11,14 +11,14 @@
  */
 
 function initFrame() {
-    if ($("#prob").text() == '' || $("#impact").text() == '' || $("#cost").text() == '') {
+    if ($("#risk").text() == '' || $("#cost").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
         $(".risk-menu").css("display", "block");
     }
 
     $(document).click(function () {
-        if ($("#prob").text() == '' || $("#impact").text() == '' || $("#cost").text() == '') {
+        if ($("#risk").text() == '' || $("#cost").text() == '') {
             $(".risk-menu").css("display", "none");
         } else {
             $(".risk-menu").css("display", "block");
