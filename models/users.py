@@ -8,7 +8,7 @@ class users_model:
         """
         Returns username of user given user_id, empty string otherwise.
         """
-        users = db.select('users', where="Id=$user_id", vars=locals())
+        users = db.select('users', where="user_id=$user_id", vars=locals())
         if len(users) == 1:
             return users[0].username
         else:
@@ -52,7 +52,7 @@ class users_model:
         Updates password according to specified user_id and new password.
         Returns true if updated for one user, false otherwise.
         """
-        if db.update('users', where="Id=$user_id", password=hash_utils.hash_password(password), vars=locals()) \
+        if db.update('users', where="user_id=$user_id", password=hash_utils.hash_password(password), vars=locals()) \
                 == 1:
             return True
         else:
