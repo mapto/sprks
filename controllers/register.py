@@ -17,7 +17,6 @@ class register:
         """
         Stores user details into 'users' table.
         """
-
         payload = json.loads(web.data())
         user_id = users_model().register(payload['username'], payload['password'], payload['email'])
 

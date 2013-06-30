@@ -1,6 +1,6 @@
-
 __author__ = "Dan"
 
+import json
 import web
 import environment
 from environment import render_public as render
@@ -17,10 +17,14 @@ class login:
         return render.login()
 
     def POST(self):
-        request = web.input()
-        user_id = users_model().authenticate(request.username, request.password)
+        payload = json.loads(web.data())
+        user_id = users_model().authenticate(payload['username'], payload['password'])
+
+        web.header('Content-Type', 'application/json')
         if user_id > 0:
             environment.session.user_id = user_id
-            raise web.seeother('/pwpolicy')
+            return json.dumps({
+                'errors': []});
         else:
-            return render.login()
+            return json.dumps({
+                'errors': ['Invalid username/password']});

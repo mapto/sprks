@@ -1,10 +1,9 @@
 $def with (error="")
 $var title: Register
-$var postjs:
 <div class="loginbox">
     <br>
 
-    <form method="post" action="" id="registerForm">
+    <form id="registerForm">
         <fieldset>
             <legend>Register</legend>
             <div class="row-fluid">
@@ -35,7 +34,7 @@ $var postjs:
         if (password === $$('#password_confirm').val()) {
             $$.ajax({
                 type: 'POST',
-                url: '/register',
+                url: '/api/user/register',
                 dataType: 'json',
                 data: JSON.stringify({
                     username: $$('#username').val(),

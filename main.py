@@ -42,7 +42,10 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
         '/timeline', controllers.timeline.go,
-        '/history', controllers.policy_history.history
+        '/history', controllers.policy_history.history,
+        # APIs below this
+        '/api/user/register', controllers.register.register,
+        '/api/user/login', controllers.login.login
         )
 
 app = web.application(urls, globals(), autoreload=False)
