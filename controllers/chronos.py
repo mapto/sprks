@@ -1,11 +1,9 @@
 import json
 import web
 import environment
-from models.prophet import magic8
 
 
 class chronos:
-
     def POST(self):
         request = json.loads(web.data())
 

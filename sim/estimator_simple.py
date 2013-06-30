@@ -2,6 +2,7 @@ __author__ = 'mruskov'
 
 from estimator_interface import estimator_interface
 
+
 class estimator_simple(estimator_interface):
     def __init__(self):
         """ Nothing to be done here

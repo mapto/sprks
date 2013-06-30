@@ -3,7 +3,7 @@ __author__ = 'Horace'
 import web
 import pytest
 from mock import patch, MagicMock
-from controllers.pwrecovery import *
+from controllers.change import *
 
 
 class TestGetRequest:
@@ -17,7 +17,7 @@ class TestGetRequest:
         """
         self.mock_users_model.pwrecovery_status.return_value = ''
 
-        assert pwrecovery().GET('') == "Invalid password recovery request"
+        assert change().GET('') == "Invalid password recovery request"
 
     @patch('models.users.users_model.pwrecovery_status', mock_users_model.pwrecovery_status)
     @patch('environment.render_public.pwrecovery', mock_render_public.pwrecovery)
@@ -32,11 +32,10 @@ class TestGetRequest:
         self.mock_users_model.pwrecovery_status.return_value = 'dummy_username1'
         self.mock_render_public.pwrecovery.side_effect = mock_render
 
-        assert pwrecovery().GET('') == "render.pwrecovery dummy_username1"
+        assert change().GET('') == "render.pwrecovery dummy_username1"
 
 
 class TestPostRequest:
-
     mock_web_ctx = MagicMock()
 
     # TODO patches cause errors

@@ -2,59 +2,58 @@ $def with (incident)
 <!Doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>Incident</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"> <!-- relative path to external files -->
+    <meta charset="utf-8"/>
+    <title>Incident</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <!-- relative path to external files -->
 </head>
 <body>
 
 
-
-
-
-
-
-
-
-
-
-
 <div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12 loginbox main_body_container">
+    <div class="row-fluid">
+        <div class="span12 loginbox main_body_container">
 
-<dov class="incident_box"></dov>
+            <dov class="incident_box"></dov>
 
-			$:incident
-<div class="description">
-    <p>Policy: You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.</p>
-    <p>Incident:</p>
-    <p>Jessica, a Business Analyst at a utility company, needs to urgently share a large volume of files with colleagues in her department as part of a high priority task she is undertaking. These files
- contain “Confidential” company information for “internal use only”. Jessica has made the
- files available through Microsoft SharePoint, restricting access to certain team members.</p>
-    <p>Some team members tell her they cannot access the files due to infrequent use and forgotten passwords. Jessica knows from past experience that it may
- take up to 3 hours for the administrator to approve the pasword resetting procedure. If these files are not made
- available within the next 30 minutes, this will severely impact delivery and quality.</p>
-    <p>As not all of her colleagues require access to all the files, to manually distribute them would involve her identifying the subset of files for each person - this will be a very time-consuming task, so Jessica creates an archive of all the relevant documents and considers
- how best to deliver it to the group.</p>
-    <p>Consequences: Jessica requests that those that have entered the system and accessed the files share their (main log-in) account details and
- passwords with those without to allow them access to the information.</p>
+            $:incident
+            <div class="description">
+                <p>Policy: You require very complex passwords that are impossible to memorize and you ask people to
+                    change them every month. On the other hand password recovery needs to go through a manned
+                    helpdesk.</p>
 
-    <p>Risk probability: .8, productivity cost: .2</p>
+                <p>Incident:</p>
+
+                <p>Jessica, a Business Analyst at a utility company, needs to urgently share a large volume of files
+                    with colleagues in her department as part of a high priority task she is undertaking. These files
+                    contain “Confidential” company information for “internal use only”. Jessica has made the
+                    files available through Microsoft SharePoint, restricting access to certain team members.</p>
+
+                <p>Some team members tell her they cannot access the files due to infrequent use and forgotten
+                    passwords. Jessica knows from past experience that it may
+                    take up to 3 hours for the administrator to approve the pasword resetting procedure. If these files
+                    are not made
+                    available within the next 30 minutes, this will severely impact delivery and quality.</p>
+
+                <p>As not all of her colleagues require access to all the files, to manually distribute them would
+                    involve her identifying the subset of files for each person - this will be a very time-consuming
+                    task, so Jessica creates an archive of all the relevant documents and considers
+                    how best to deliver it to the group.</p>
+
+                <p>Consequences: Jessica requests that those that have entered the system and accessed the files share
+                    their (main log-in) account details and
+                    passwords with those without to allow them access to the information.</p>
+
+                <p>Risk probability: .8, productivity cost: .2</p>
+            </div>
+
+        </div>
+
+    </div>
+    <!--class="container-fluid"-->
 </div>
-
-</div>
-
-            </div> <!--class="container-fluid"-->
-        </div> <!--class="row-fluid"-->
+<!--class="row-fluid"-->
 </div> <!-- class="span loginbox main_body_container"-->
-
-
-
-
-
-
-
 
 
 </body>

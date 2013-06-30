@@ -53,7 +53,6 @@ class TestSetPolicy:
     """
 
     def setup_method(self, method):
-
         policy_set = {'plen': 12, 'psets': 4, 'pdict': 1, 'phist': 3, 'prenew': 3, 'pattempts': 1, 'pautorecover': 0}
         self.multi_policy = simulation()
         self.multi_policy.set_multi_policy(policy_set)
@@ -81,6 +80,7 @@ class TestMaxSec:
     """
     Tests the values for maximum security.
     """
+
     def setup_method(self, method):
         self.policy = simulation()
         self.policy.set_policy('plen', 12)
@@ -105,6 +105,7 @@ class TestMinSec:
     """
     Tests the values for minimum security.
     """
+
     def setup_method(self, method):
         self.policy = simulation()
         self.policy.set_policy('plen', 0)

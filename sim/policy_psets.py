@@ -4,7 +4,6 @@ __author__ = 'Horace'
 
 
 class policy_psets(policy_interface.policy_interface):
-
     def __init__(self):
         self.__init__(3) # default value for constructor with parameter
 

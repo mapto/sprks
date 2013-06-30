@@ -2,6 +2,7 @@ import policy_interface
 
 __author__ = 'Horace'
 
+
 class policy_pautorecover(policy_interface.policy_interface):
     # whether passwords can be recovered without human contact
     def __init__(self):

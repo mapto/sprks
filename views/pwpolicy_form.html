@@ -13,13 +13,13 @@ $var username: $username
            <label class="qn id"><b>ID:</b></label>
     -->
     $if id:
-        <input type="hidden" value=$:id name="userid" id="pswdid" placeholder="ID">
+    <input type="hidden" value=$:id name="userid" id="pswdid" placeholder="ID">
     $else:
-        <input type="hidden" name="userid" id="pswdid" placeholder="ID">
+    <input type="hidden" name="userid" id="pswdid" placeholder="ID">
 </p>
 
 <p class="qn" id="plen">
-    <label ><b>Password length (value of the shortest permitted password):</b></label>
+    <label><b>Password length (value of the shortest permitted password):</b></label>
     <br/>
     <input type="radio"
            name="plen"
@@ -57,7 +57,8 @@ $var username: $username
            value="12"/>
     <label for="len12">minimum 12 characters</label>
     <br/><br/>
-    <div class="graph" id="graph_plen"></div>
+
+<div class="graph" id="graph_plen"></div>
 </p>
 
 <p class="qn" id="psets">
@@ -92,7 +93,8 @@ $var username: $username
            value="4"/>
     <label for="sets4">at least 4</label>
     <br/><br/>
-    <div class="graph" id="graph_psets"></div>
+
+<div class="graph" id="graph_psets"></div>
 </p>
 
 <p class="qn" id="pdict">
@@ -103,7 +105,8 @@ $var username: $username
            class="target"
            value="1"/>
     <label for="dic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
-    <div class="graph" id="graph_pdict"></div>
+
+<div class="graph" id="graph_pdict"></div>
 </p>
 
 <p class="qn" id="phist">
@@ -140,7 +143,8 @@ $var username: $username
     <br/><br/>
     <label>* string distance: how many letters are needed to be changed to obtain the same password<br/></label>
     <br/>
-    <div class="graph" id="graph_phist"></div>
+
+<div class="graph" id="graph_phist"></div>
 </p>
 
 <p class="qn" id="prenew">
@@ -175,7 +179,8 @@ $var username: $username
            value="3"/>
     <label for="renew4">renew monthly</label>
     <br/><br/>
-    <div class="graph" id="graph_prenew"></div>
+
+<div class="graph" id="graph_prenew"></div>
 </p>
 
 <!-- checkbox for pattempts (depricated)
@@ -215,9 +220,9 @@ $var username: $username
            value="2"/>
     <label for="attempts3">3 login attempts</label>
     <br/><br/>
-    <div class="graph" id="graph_pattempts"></div>
-</p>
 
+<div class="graph" id="graph_pattempts"></div>
+</p>
 
 
 <p class="qn" id="pautorecover">
@@ -228,7 +233,8 @@ $var username: $username
            class="target"
            value="1"/>
     <label for="autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
-    <div class="graph" id="graph_pautorecover"></div>
+
+<div class="graph" id="graph_pautorecover"></div>
 </p>
 
 </form>
@@ -246,34 +252,54 @@ $var username: $username
     // Use $$() for jqueries
 
     $$(document).ready(init);
-//    document.ready = init(); // register callback to function from external JS file;
+    //    document.ready = init(); // register callback to function from external JS file;
 
     function getInitPolicy() {
-         // These values are set server-side and appear to client as hardcoded.
-        return {"plen": $:plen,
-                "psets": $:psets,
-                "pdict": $:pdict,
-                "phist": $:phist,
-                "prenew": $:prenew,
-                "pattempts": $:pattempts,
-                "pautorecover": $:pautorecover};
+        // These values are set server-side and appear to client as hardcoded.
+        return {"plen": $
+    :
+        plen,
+                "psets"
+    :
+        $:psets,
+                "pdict"
+    :
+        $:pdict,
+                "phist"
+    :
+        $:phist,
+                "prenew"
+    :
+        $:prenew,
+                "pattempts"
+    :
+        $:pattempts,
+                "pautorecover"
+    :
+        $:pautorecover
+    }
+    ;
     }
 
     // this is inherently linked to
     // not used, but passed as a parameter, now can be accessed from external scripts
     function getUserID() {
-    	/*ID is preset inside HTML code*/
+        /*ID is preset inside HTML code*/
         console.log("found id $:id");
 
-        return $:id; // This value is set server-side and appears to client as hardcoded.
+        return $
+    :
+        id; // This value is set server-side and appears to client as hardcoded.
     }
 
     function policyExists() {
         console.log("policyExists -> date $:date");
 
-        $if notfound != 1:
-            return true; // This value is set server-side and appears in browser as hardcoded.
+        $if
+        notfound != 1
+    :
+        return true; // This value is set server-side and appears in browser as hardcoded.
         $else:
-            return false; // This value is set server-side and appears to client as hardcoded.
+                return false; // This value is set server-side and appears to client as hardcoded.
     }
 </script> <!-- relative path to external files -->

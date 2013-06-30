@@ -1,12 +1,9 @@
-__author__ = 'Horace'
-
 import web
 from libraries.utils import hash_utils
 from environment import db
 
 
 class users_model:
-
     def get_username(self, user_id):
         """
         Returns username of user given user_id, empty string otherwise.
@@ -50,49 +47,47 @@ class users_model:
             else:
                 return -1
 
-    def update_password(self, username, password):
+    def update_password(self, user_id, password):
         """
-        Updates password according to specified username and new password.
+        Updates password according to specified user_id and new password.
         Returns true if updated for one user, false otherwise.
         """
-        # TODO should take user_id instead
-        if db.update('users', where="username=$username", password=hash_utils.hash_password(password), vars=locals())\
+        if db.update('users', where="user_id=$user_id", password=hash_utils.hash_password(password), vars=locals()) \
                 == 1:
             return True
         else:
             return False
 
-    def request_password(self, username, rand):
+    def request_password(self, username, token):
         """
         Creates password recovery ticket in password_recovery table.
         Returns recipient email address if user found, else empty string
         """
-        # TODO should take user_id instead
         user_list = self.select_users(username)
         if len(user_list) == 1:
-            db.insert('password_recovery', username=username, date=web.SQLLiteral('NOW()'), rid=rand, isrecovered=0)
-            # TODO detect database error?
-            return user_list[0].email
+            user = user_list[0]
+            db.insert('password_recovery', user_id=user.user_id, date=web.SQLLiteral('NOW()'), token=token, invalid=0)
+            return user.email
         else:
             return ''
 
-    def password_recovery_status(self, rand):
+    def password_recovery_user(self, token):
         """
-        Return username of user if password request ticket is valid. Empty string otherwise.
+        Return user_id if password request ticket is valid. 0 otherwise.
+        :param token:
         """
-        user_list = db.select('password_recovery', where="rid=$rand&&isrecovered=0", vars=locals())
-        # TODO inner join with 'users' table?
+        user_list = db.select('password_recovery', where="token=$token&&invalid=0", vars=locals())
         if len(user_list) == 1:
-            return user_list[0].username
+            return user_list[0].user_id
         else:
-            return ''
+            return 0
 
-    def update_pwrecovery_status(self, username, success=1):
+    def update_recovery_status(self, token, invalid=1):
         """
         Updates password recovery ticket, assuming successful recovery.
         Returns true if one row affected, else false.
         """
-        if db.update('pwrecovery', where="username=$username", isrecovered=success, vars=locals()) == 1:
+        if db.update('pwrecovery', where="token=$token", invalid=invalid, vars=locals()) == 1:
             return True
         else:
             return False

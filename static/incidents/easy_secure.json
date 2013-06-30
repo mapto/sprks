@@ -1,7 +1,15 @@
-{"id": 5, "name": "easy_secure", "type":"bruteforce",
-"pwpolicy": {"plen": 8, "psets": 2, "pdict": 0, "phist": 0, "prenew": 1, "pattempts": 1, "pautorecover": 1},
-"description": "You demand employees to renew their passwords very frequently. Whenever someone forgets their password, they request the system to generate a new one for them automatically.",
-"event": "The password recovery page becomes the most visited page on your intranet and this has become a well-known fact.",
-"consequences": "Attackers can easily get to know that the password recovery page is used so much and start to look for ways to hijack the automated mechanism.",
-"risk": 0.1,
-"cost": 0.2}
+{"id": 5, "name": "easy_secure", "type": "bruteforce",
+    "pwpolicy": {
+        "plen": 8,
+        "psets": 2,
+        "pdict": 0,
+        "phist": 0,
+        "prenew": 1,
+        "pattempts": 1,
+        "pautorecover": 1
+    },
+    "description": "You demand employees to renew their passwords very frequently. Whenever someone forgets their password, they request the system to generate a new one for them automatically.",
+    "event": "The password recovery page becomes the most visited page on your intranet and this has become a well-known fact.",
+    "consequences": "Attackers can easily get to know that the password recovery page is used so much and start to look for ways to hijack the automated mechanism.",
+    "risk": 0.1,
+    "cost": 0.2}

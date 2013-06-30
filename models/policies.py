@@ -1,10 +1,8 @@
-
 from environment import db
 from sim.simulation import simulation
 
 
 class policies_model:
-
     def get_policy_history(self, id):
         """
         Returns list of past policies set by user.

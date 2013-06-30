@@ -1,14 +1,12 @@
-$def with (error="")
 $var title: Register
-$var postjs:
 <div class="loginbox">
     <br>
 
-    <form method="post" action="" id="registerForm">
+    <form id="registerForm">
         <fieldset>
             <legend>Register</legend>
             <div class="row-fluid">
-                <div><input type="text" id="username" value="" placeholder="Username" required/> $error</div>
+                <div><input type="text" id="username" value="" placeholder="Username" required/></div>
             </div>
             <div class="row-fluid">
                 <div><input type="password" id="password" value="" placeholder="Password" required/></div>
@@ -19,10 +17,12 @@ $var postjs:
             </div>
             <div class="row-fluid">
                 <br>
+
                 <div><input type="email" id="email" placeholder="Email" required></div>
             </div>
 
             <input class="login_btn" type="submit" value="Register"><br>
+
             <div id="errors"></div>
         </fieldset>
     </form>
@@ -35,7 +35,7 @@ $var postjs:
         if (password === $$('#password_confirm').val()) {
             $$.ajax({
                 type: 'POST',
-                url: '/register',
+                url: '/api/user/register',
                 dataType: 'json',
                 data: JSON.stringify({
                     username: $$('#username').val(),
@@ -43,10 +43,10 @@ $var postjs:
                     email: $$('#email').val()
                 }),
                 statusCode: {
-                    500: function(){
+                    500: function () {
                         $$('#errors').html("Server error");
                     },
-                    200: function(response){
+                    200: function (response) {
                         if (response.errors.length === 0) {
                             window.location = ("/");
                         } else {

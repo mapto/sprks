@@ -1,44 +1,61 @@
 $var title: Login
 <section>
 
-<div class="loginbox">
+    <div class="loginbox">
 
-    <div class="container-fluid">
-        <form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
-            <fieldset>
-                <legend>Login</legend>
-            <div class="row-fluid">
-                <div class="span7 ">
-                    <input type="text" name="username" placeholder="Username" required/>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span7 ">
-                    <input type="password" name="password" placeholder="Password" required/>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span1 ">
-                    <input class="login_btn" type="submit" value="Login">
-                </div>
-                <div class="span2 offset2" ><a href="/pwrequest">Recover Password</a></div>
-                <div class="span2 offset2" ><a href="/register">Register</a></div>
-            </div>
-            </fieldset>
-        </form>
+        <div class="container-fluid">
+            <form id="loginForm">
+                <fieldset>
+                    <legend>Login</legend>
+                    <div class="row-fluid">
+                        <div class="span7 ">
+                            <input type="text" id="username" placeholder="Username" required/>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span7 ">
+                            <input type="password" id="password" placeholder="Password" required/>
+                        </div>
+                    </div>
+                    <div id="errors"></div>
+                    <div class="row-fluid">
+                        <div class="span1 ">
+                            <input class="login_btn" type="submit" value="Login">
+                        </div>
+                        <div class="span2 offset2"><a href="/password">Recover Password</a></div>
+                        <div class="span2 offset2"><a href="/register">Register</a></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
     </div>
-
-</div>
 
 </section>
 
-<script> function validateForm(){
-    var x = document.forms["loginForm"]
-    if(x["username"].value==""||x["username".value==null]||x["password"].value==null||x["password"].value=="")
-    {
-        alert("All fields must be filled")
-        return false
-    }
-    return true
-}
+<script>
+    $$('#loginForm').submit(function (e) {
+        e.preventDefault();
+        $$.ajax({
+            type: 'POST',
+            url: '/api/user/login',
+            dataType: 'json',
+            data: JSON.stringify({
+                username: $$('#username').val(),
+                password: $$('#password').val()
+            }),
+            statusCode: {
+                500: function () {
+                    $$('#errors').html("Server error");
+                },
+                200: function (response) {
+                    if (response.errors.length === 0) {
+                        window.location = ("/");
+                    } else {
+                        $$('#errors').html(response.errors.join('<br>'));
+                    }
+                }
+            }
+        });
+    })
 </script>

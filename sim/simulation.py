@@ -14,6 +14,7 @@ pattempts: {1, 0} // is there a limit on wrong password attempts
 pautorecover: {1, 0} // are forgotten passwords restored automatically(1), or is there human support(0)
 """
 
+
 class simulation:
     def __init__(self, policies={}):
         if not hasattr(self, 'dict'):
@@ -22,7 +23,8 @@ class simulation:
         self.set_multi_policy(policies)
         self.estimator = estimator_sklearn_tree()
         self.classifier = classifier_sklearn()
-#        self.estimator = estimator_simple()
+
+    #        self.estimator = estimator_simple()
 
     def set_multi_policy(self, policies):
         """
@@ -81,7 +83,7 @@ class simulation:
         return round(risk, 2)
 
     def calc_risk_impact(self):
-#        impact = self.estimator.get_risk_impact(self.dict)
+    #        impact = self.estimator.get_risk_impact(self.dict)
         # Extreme precision is not needed outside of simulation
         return round(1, 2)
 
