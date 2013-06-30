@@ -2,7 +2,7 @@ __author__ = 'Horace'
 
 from mock import patch
 from mock import Mock
-import environment
+import localsys
 
 
 class TestMock:
@@ -12,6 +12,6 @@ class TestMock:
 
     mock_db = Mock()
 
-    @patch.object(environment, 'db', mock_db)
+    @patch.object(localsys.datstore, 'db', mock_db)
     def test_patch_object(self):
-        assert self.mock_db == environment.db
+        assert self.mock_db == localsys.datastore.db

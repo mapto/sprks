@@ -2,8 +2,8 @@ import json
 
 import web
 
-import environment
-from environment import render_public as render
+
+from localsys.environment import render
 from models.users import users_model
 from libraries.utils import hash_utils
 from libraries.user_helper import auth
@@ -15,7 +15,13 @@ class login:
     """
 
     def GET(self):
-        environment.session.user_id = 0
+        if getattr(web.input(), 'action', '') == 'logout':
+            auth().logout()
+            raise web.seeother('/')
+
+        if auth().check() > 0:
+            raise web.seeother('/')
+
         return render.login()
 
     def POST(self):
@@ -27,10 +33,11 @@ class login:
 
         web.header('Content-Type', 'application/json')
         if user_id > 0:
-            environment.session.user_id = user_id
+            auth().login(user_id)
             return json.dumps({
                 'success': True,
-                'msgs': ['Successful login']
+                'msgs': ['Successful login'],
+                'user_id': user_id
             })
         else:
             return json.dumps({
@@ -44,8 +51,8 @@ class register:
     Handles user registration
     """
     def GET(self):
-        if environment.session.user_id > 0:
-            raise web.seeother('/pwpolicy')
+        if auth().check() > 0:
+            raise web.seeother('/')
         return render.register()
 
     def POST(self):
@@ -62,11 +69,12 @@ class register:
                 'msgs': ['User already exists']
             })
         elif user_id > 0:
-            environment.session.user_id = user_id
+            auth().login(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
-                'msgs': ['User registered']
+                'msgs': ['User registered'],
+                'user_id': user_id
             })
         else:
             return json.dumps({
@@ -82,9 +90,9 @@ class password:
 
     def GET(self):
 
-        user_id = auth().user_id()
+        user_id = auth().check()
         if user_id > 0:
-            return environment.render_private.password_change(user_id, '', users_model().get_username(environment.session.user_id))
+            return render.password_change(user_id, '', users_model().get_username(user_id))
 
         token = getattr(web.input(), 'token', '')
         user_id = users_model().password_recovery_user(token)
@@ -101,7 +109,7 @@ class password:
         payload = json.loads(web.data())
         user_model = users_model()
 
-        current_user_id = auth().user_id()
+        current_user_id = auth().check()
 
         token_user_id = 0
         if 'token' in payload:
@@ -127,7 +135,7 @@ class password:
                 })
 
         if user_model.update_password(user_id, payload['password']):
-            environment.session.user_id = user_id
+            auth().login(user_id)
             web.ctx.status = '200 OK'
             return json.dumps({
                 'success': True,

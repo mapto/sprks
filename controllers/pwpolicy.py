@@ -2,12 +2,11 @@ import json
 
 import web
 
-import environment
+import localsys
 from sim.simulation import simulation
-from environment import render_private as render
-from environment import db
+from localsys.environment import *
+from localsys.storage import db
 from models.pw_policy import pw_policy_model
-from environment import get_start_time
 from libraries.user_helper import auth
 
 
@@ -21,15 +20,15 @@ class pwpolicy:
         """
         Renders the form to input password policies.
         """
-        user_id = auth().user_id()
+        user_id = auth().check()
         if user_id == 0:
-            raise web.seeother('/home')
+            raise web.seeother('home')
 
         check = db.select('pw_policy', where="userid=$user_id", order="date DESC", vars=locals())
         if len(check) > 0:
             result_get = check[0]
-            environment.session.date = result_get.date
-            return render.pwpolicy_form(environment.session.user_id, result_get.userid, result_get.plen,
+            localsys.storage.session.date = result_get.date
+            return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
                                         result_get.pattempts, result_get.pautorecover, 0, str(result_get.date))
@@ -47,8 +46,8 @@ class pwpolicy:
                       pattempts=pwpolicy.default["pattempts"],
                       pautorecover=pwpolicy.default["pautorecover"])
             result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
-            environment.session.date = result_get.date
-            return render.pwpolicy_form(environment.session.user_id, result_get.userid, result_get.plen,
+            localsys.storage.session.date = result_get.date
+            return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
                                         result_get.pattempts, result_get.pautorecover, 1, result_get.date)
@@ -64,7 +63,7 @@ class pwpolicy:
             data["pautorecover"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
-        pw_policy_model().update({'userid': str(environment.session.user_id), 'date': payload["date"]}, data)
+        pw_policy_model().update({'userid': str(localsys.session.user_id), 'date': payload["date"]}, data)
         for k, value in data.iteritems():
             sim.set_policy(k, value)
         return json.dumps([{"name": "prob", "value": sim.calc_risk_prob()},

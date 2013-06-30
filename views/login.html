@@ -53,9 +53,8 @@ $var title: Login
                 200: function (response) {
                     if (response.success === true){
                         window.location = ("/");
-                    } else {
-                        formModel.messages(response.msgs);
                     }
+                    formModel.messages(response.msgs);
                 }
             }
         });

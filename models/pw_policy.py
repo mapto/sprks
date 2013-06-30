@@ -1,7 +1,7 @@
 __author__ = 'Horace'
 
 from libraries import db_helper
-from environment import db
+from localsys.storage import db
 
 
 class pw_policy_model:

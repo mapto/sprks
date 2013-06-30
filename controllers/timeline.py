@@ -5,12 +5,11 @@ from datetime import timedelta
 
 import web
 
-import environment
+import localsys
 from sim.simulation import simulation
-from environment import db
-from environment import get_start_time
+from localsys.storage import db
+from localsys.environment import *
 from pwpolicy import pwpolicy
-from environment import render_public as render
 
 
 class go:
@@ -22,7 +21,7 @@ class forward:
     def POST(self):
         # make sure that the following line stays as per your local installation
         web.header('Content-Type', 'application/json')
-        usrid = environment.session.user_id
+        usrid = localsys.session.user_id
         sim = simulation()
 
         # get the latest date that the user has submitted a policy and add 7 days to it
@@ -43,7 +42,7 @@ class forward:
                     "pautorecover": policy.pautorecover}
             # If we have a dynamic starting date. Fancy, but client does a check for the starting date
         # else:
-        #     # update to next Monday after system day as a starting date
+        #     # update to next Monday after localsys day as a starting date
         #     while prev_date < datetime.now():
         #         prev_date = prev_date + timedelta(days=7)
 

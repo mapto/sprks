@@ -1,6 +1,6 @@
 __author__ = 'admin'
 
-from environment import db
+from localsys import db
 
 
 class records:

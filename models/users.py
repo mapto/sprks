@@ -1,6 +1,6 @@
 import web
 from libraries.utils import hash_utils
-from environment import db
+from localsys.storage import db
 
 
 class users_model:

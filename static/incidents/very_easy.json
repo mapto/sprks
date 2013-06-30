@@ -9,6 +9,6 @@
     },
     "description": "You don't require challenging passwords.",
     "event": "Some employees use empty passwords. With time such behaviour starts to spread to the point that people start expecting that they can login anywhere without having to type a password.",
-    "consequences": "The system is very easy to attack, because attackers don't even need to guess passwords.",
+    "consequences": "The localsys is very easy to attack, because attackers don't even need to guess passwords.",
     "risk": 1,
     "cost": 0}

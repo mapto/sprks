@@ -4,13 +4,13 @@ import sys
 import os
 
 # change current directory to the project path
-# so local modules can be found even if not previously in system path
+# so local modules can be found even if not previously in localsys path
 abspath = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(abspath)
 os.chdir(abspath)
 
 import web
-import environment
+from localsys import storage
 import controllers.home
 import controllers.user
 import controllers.intro
@@ -28,7 +28,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/intro', controllers.intro.intro,
         '/score', controllers.score.score,
         '/score/multiple', controllers.score.multiple_score,
-        '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
+        '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/skeleton.html for AJAX services
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
@@ -42,11 +42,11 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
 
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:
-    store = web.session.DBStore(environment.db, 'sessions')
-    environment.session = web.session.Session(app, store, initializer={'user_id': 0})
-    web.config._session = environment.session
+    store = web.session.DBStore(storage.db, 'sessions')
+    storage.session = web.session.Session(app, store, initializer={'user_id': 0})
+    web.config._session = storage.session
 else:
-    environment.session = web.config._session
+    storage.session = web.config._session
 
 if __name__ == "__main__":
     app.run() # when run as standalone application run own server

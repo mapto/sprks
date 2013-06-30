@@ -1,4 +1,5 @@
 $def with (content)
+$var username = get_username()
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +25,8 @@ $def with (content)
         <div class="container-fluid">
             <div class="link"><a href="/">sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
-                $if content.has_key('username'):
-                    <a href="password">Change Password</a> | </a><a href="home">Logout $content.username</a>
+                $if self.username != '':
+                    <a href="password">Change Password</a> | </a><a href="login?action=logout">Logout $self.username</a>
                 $else:
                     <a href="login">Login</a>
             </div>
@@ -34,7 +35,7 @@ $def with (content)
 </div>
 </header>
 
-$if content.has_key('username'):
+$if self.username != '':
     <div class="menu">
         <div class="story"><a href="/intro">Story </a></div>
         <div class="policy"><a href="/pwpolicy">Policy</a></div>
@@ -71,7 +72,7 @@ $if content.has_key('username'):
     <div class="navbar navbar-fixed-bottom">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <h4 style="margin-left:220px;">Status bar: added value, notificns, etc.
+                <h4 style="margin-left:220px;">Status bar: added value, notifications, etc.
                 </h4>
             </div>
         </div>

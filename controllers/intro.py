@@ -1,15 +1,16 @@
 __author__ = 'mruskov'
 
 import web
-import environment
-from environment import render_private as render
+import localsys
+from localsys.environment import render
 from models.users import users_model
+from libraries.user_helper import auth
 
 
 class intro:
     def GET(self):
-        if environment.session.user_id > 0:
-            return render.intro(users_model().get_username(environment.session.user_id))
+        if auth().check() > 0:
+            return render.intro()
         else:
             raise web.seeother('/home')
 
