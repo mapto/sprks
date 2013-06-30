@@ -128,11 +128,13 @@ class password:
             if current_user_id == 0:
                 user_id = token_user_id
                 user_model.update_recovery_status(token)
-            else:
+            elif current_user_id != token_user_id:
                 return json.dumps({
                     'success': False,
-                    'msgs': ['Current user and password recovery token do not match']
+                    'msgs': ['Password recovery token is not for current user']
                 })
+            else:
+                user_id = token_user_id
 
         if user_model.update_password(user_id, payload['password']):
             auth().login(user_id)

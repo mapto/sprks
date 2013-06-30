@@ -16,7 +16,7 @@ class history:
         user_id = auth().check()
         if user_id > 0:
             username = users_model().get_username(user_id)
-            date = localsys.session.date
+            date = localsys.storage.session.date
             policy_history = policies_model().get_policy_history(user_id)
 
             if policy_history:
