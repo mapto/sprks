@@ -1,0 +1,548 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.navbar-inner {
+    background-color: #C10000;
+    background-image: -moz-linear-gradient(top, #C10000, #750000);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#C10000), to(#750000));
+    background-image: -webkit-linear-gradient(top, #C10000, #750000);
+    background-image: -o-linear-gradient(top, #C10000, #750000);
+    background-image: linear-gradient(to bottom, #C10000, #750000);
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#C10000', endColorstr='#750000', GradientType=0);
+    *zoom: 1;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+    min-height: 45px;
+}
+
+.span12 {
+    background-color: #F2F2F2;
+    padding: 15px;
+    padding-left: 200px; /*if menu is used*/
+    padding-right: 200px;
+}
+
+.span12.intro_container {
+    display: block;
+    background-color: #f9f9f9;
+    color: #847f7f;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    width: auto;
+    text-align: left;
+    margin: 0 auto;
+    padding: 30px;
+    padding-left: 50px;
+}
+
+.main_btn a {
+    position: absolute;
+    display: block;
+    margin: 10px;
+    width: 210px;
+    height: 40px;
+    border-radius: 3%;
+    line-height: 40px;
+    font-size: 20px;
+    background-color: #92000a;
+    color: #f2ddc6;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.main_btn a:hover {
+    text-decoration: none;
+    background-color: #C10000;
+    color: #fff;
+}
+
+.loginbox.main_body_container {
+    max-width: 100%; /*central block for main info, use with loginbox class*/
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+label {
+    display: inline;
+    margin-bottom: 5px;
+
+}
+
+#curr_date {
+    font-size: 14px;
+}
+
+.time_controls {
+    width: auto;
+    position: fixed;
+    right: 1px;
+    top: 60px;
+    z-index: 1030;
+
+    list-style: none;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 15px;
+    border: solid 1px #b0b0b0;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.time_controls ul {
+    padding-right: 26px;
+}
+
+.time_controls li {
+    position: relative;
+    display: inline-block;
+    margin-right: -4px;
+}
+
+.time_controls a {
+    display: block;
+    background-color: #f9f9f9;
+    color: #a7a7a7;
+    margin: 7px;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.time_controls a:hover {
+    text-decoration: none;
+    color: #555;
+    background-color: #fff;
+}
+
+.icon-play {
+    /*iconset specified in bootstrap-min above*/
+    background-position: -326px -80px;
+}
+
+.icon-pause {
+    /*iconset specified in bootstrap-min above*/
+    background-position: -357px -80px;
+}
+
+.icon-forward {
+    /*iconset specified in bootstrap-min above*/
+    background-position: -418px -80px;
+}
+
+.risk-menu {
+    display: none;
+    width: 150px;
+    position: fixed;
+    right: 0;
+    left: 5px;
+    bottom: 52px;
+    z-index: 1030;
+    margin-bottom: 10px;
+    margin-left: -10px;
+}
+
+.risk-menu ul {
+    position: relative;
+    display: block;
+
+    background-color: #f9f9f9;
+    color: #555;
+    text-align: left;
+    font-weight: bold;
+
+    width: 210px;
+    height: auto;
+
+    max-height: 150px;
+
+    line-height: 50px;
+    border-radius: 3%;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.risk-menu li {
+    display: block;
+    min-width: 160px;
+    margin: 5px;
+
+}
+
+.link {
+    margin-right: 5px;
+    margin-top: 10px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    color: #e6e1cb;
+    max-width: 100px;
+    float: left;
+}
+
+.link:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.link.usrname:hover {
+    color: #e6e1cb;
+    cursor: default;
+}
+
+.link a {
+    color: #e6e1cb;
+}
+
+.link a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.logout {
+    float: right;
+}
+
+.loginbox {
+    display: block;
+    background-color: #f9f9f9;
+    color: #847f7f;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    width: auto;
+    max-width: 260px;
+    text-align: left;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.login_btn {
+    display: block;
+    background-color: #f9f9f9;
+    color: #847f7f;
+    width: 80px;
+    height: 30px;
+    position: relative;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 10%;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.login_btn:hover {
+    color: #555;
+    background-color: #fff;
+}
+
+.loginbox a:hover {
+    color: #555;
+    text-decoration: none;
+}
+
+.menu {
+    position: fixed;
+    left: 11px;
+    top: 64px;
+    width: 210px;
+}
+
+.menu a {
+    position: relative;
+    display: block;
+    margin: 10px;
+    width: 210px;
+    height: 40px;
+    border-radius: 3%;
+    line-height: 40px;
+    font-size: 20px;
+
+    background-color: #f9f9f9;
+    color: #555;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+}
+
+.menu a:hover {
+    text-decoration: none;
+    background-color: #fff;
+    color: #000;
+}
+
+.score {
+    display: none;
+}
+
+.incident_box {
+
+}
+
+/*SCORES*/
+#accordion {
+    margin: 20px 0 0;
+}
+
+#accordion H2 {
+    background: #750000;
+    color: white;
+    cursor: pointer;
+    font: 18px Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 0 0 4px 0;
+    padding: 5px 7px 2px;
+}
+
+#accordion .content {
+    padding-left: 15px;
+    font-weight: bold;
+    background-color: #F4F5F5;
+}
+
+#accordion .content p {
+    margin: 0.5em 0;
+    padding: 0 6px 8px 6px;
+}
+
+.rank {
+    position: relative;
+    height: 300px;
+    bottom: 10px;
+}
+
+.ranking {
+    position: absolute;
+    bottom: 0;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    float: left;
+    width: 33.1%;
+}
+
+.second {
+    left: 0;
+    background-color: #c0c0c0;
+    background-image: -moz-linear-gradient(top, #c0c0c0, #505050);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c0c0c0), to(#505050));
+    background-image: -webkit-linear-gradient(top, #c0c0c0, #505050);
+    background-image: -o-linear-gradient(top, #c0c0c0, #505050);
+    background-image: linear-gradient(to bottom, #c0c0c0, #505050);
+    background-repeat: repeat-x;
+    border: 1px solid #d4d4d4;
+    height: 150px;
+}
+
+.first {
+    left: 33.35%;
+    background-color: #ffcc00;
+    background-image: -moz-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffcc00), to(#b8860b));
+    background-image: -webkit-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: -o-linear-gradient(top, #ffcc00, #b8860b);
+    background-image: linear-gradient(to bottom, #ffcc00, #b8860b);
+    background-repeat: repeat-x;
+    border: 1px solid #ffba00;
+    height: 200px;
+}
+
+.third {
+    right: 0;
+    background-color: #cc7722;
+    background-image: -moz-linear-gradient(top, #cc7722, #8e5702);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#cc7722), to(#8e5702));
+    background-image: -webkit-linear-gradient(top, #cc7722, #8e5702);
+    background-image: -o-linear-gradient(top, #cc7722, #8e5702);
+    background-image: linear-gradient(to bottom, #cc7722, #8e5702);
+    background-repeat: repeat-x;
+    border: 1px solid #d28955;
+    height: 100px;
+}
+
+.scr {
+    position: absolute;
+    width: 100%;
+    margin-top: -2.1em;
+    color: #000;
+    text-shadow: 1px -1px 1px #847e72;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.rnk {
+    position: absolute;
+    width: 100%;
+    top: 45%;
+    bottom: 45%;
+    color: #faf0e6;
+    text-shadow: 2px 2px 5px #4c3c18;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.when {
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    color: #000;
+    text-shadow: 1px -1px 1px #847e72;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.avg {
+    color: #000;
+    text-shadow: 1px -1px #847e72;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Bubble with interview
+------------------------------------------ */
+.interviewee {
+    position: fixed;
+    bottom: 75px;
+    height: 100px;
+    width: 60px;
+    right: 30px;
+    padding: 5px;
+    float right;
+    background-image: url(../img/pt1307_stick_figure_standing_normal.png);
+    /*
+    image source:
+    http://www.google.co.uk/imgres?start=239&client=opera&channel=suggest&biw=1091&bih=558&tbm=isch&tbnid=oFnLPBTrCJB2HM:&imgrefurl=http://www.123rf.com/photo_3074816_stick-man-with-arms-up-and-target-head--vector.html&docid=xA5FGUEZcKaxqM&imgurl=http://us.cdn3.123rf.com/168nwm/cole123rf/cole123rf0804/cole123rf080400284/2930913-stick-man-or-figure-standing-on-red-target--vector.jpg&w=150&h=168&ei=zIDJUaiFKKi90QWnsoCICQ&zoom=1&ved=1t:3588,r:51,s:200,i:157&iact=rc&page=18&tbnh=134&tbnw=120&ndsp=15&tx=78&ty=59#imgdii=oFnLPBTrCJB2HM%3A%3BJ9fEF1n39KtPnM%3BoFnLPBTrCJB2HM%3A
+    */
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    font-weight: bold;
+    text-align: center;
+    color: #505050;
+    cursor: pointer;
+}
+
+.interviewee:hover {
+    color: #000;
+}
+
+#interview1 {
+    right: 30px;
+}
+
+#interview2 {
+    right: 105px;
+}
+
+#interview3 {
+    right: 180px;
+}
+
+.quote {
+    z-index: 3000;
+    display: none;
+    border-radius: 10%;
+    width: 300px;
+    padding: 15px;
+    position: fixed;
+    bottom: 188px;
+    right: 10px;
+    float left;
+
+    color: #0e0e0e #;
+    background-color: rgba(250, 250, 250, 0.9);
+    border: 1px solid #d4d4d4;
+    box-shadow: 0px 1px 8px #ccc, inset 0px 2px 3px #fff;
+}
+
+.profile {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* creates triangle */
+.quote:after {
+    content: "";
+    display: block; /* reduce the damage in FF3.0 */
+    position: absolute;
+    bottom: -15px;
+    width: 0;
+    border-width: 15px 15px 0;
+    border-style: solid;
+    border-color: #ccc transparent;
+}
+
+#quote1:after {
+    right: 60px;
+}
+
+#quote2:after {
+    right: 130px;
+}
+
+#quote3:after {
+    right: 190px;
+}
+
+/*PROFILE page*/
+/*Graph*******/
+#chartContainer {
+    height: 360px;
+    width: 100%;
+}
+
+/*Table*****/
+#profile_table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.profile_table {
+    font: 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.profileTr {
+    border: 1px solid #d2d2d2;
+}
+
+.profileTd {
+    padding: 3px;
+    padding-left: 10px;
+    width: 100px;
+}
+
+.profileTd_date {
+    width: 180px;
+    padding: 3px;
+    padding-left: 10px;
+}
+
+.profileTh {
+    font-weight: bold;
+}
+
+/*PWPOLICY page***/
+/***graphs*/
+.graph {
+    float: left;
+    width: 30%;
+    height: 210px;
+    margin: 5px;
+}
+
+.qn {
+    float: left;
+    width: 65%;
+    text-align: left;
+}

@@ -4,39 +4,73 @@ $def with (content)
 <head>
     <meta charset="utf-8"/>
     <title>$content.title</title>
-    <link rel="stylesheet" href="static/css/bootstrap.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/bootstrap.min.js" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
     $if content.has_key('cssfiles'):
         $for css in content.cssfiles.split():
             <link rel="stylesheet" href="$css" type="text/css" media="screen" charset="utf-8"/>
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
     $if content.has_key('prejs'):
         $for js in content.prejs.split():
             <script src="$js"></script>
-
-    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
 </head>
-<body>
+<body style="background-color: #F2F2F2">
 <header>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <div class="link"><a href="http://orpheus.cs.ucl.ac.uk/">SPRKS</a></div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <div class="link"><a href="/">sprks</a></div>
+            <div class="link logout" class="text-right" id="logout">
+                $if content.has_key('username'):
+                    <a href="password">Change Password</a> | </a><a href="home">Logout $content.username</a>
+                $else:
+                    <a href="login">Login</a>
             </div>
         </div>
     </div>
-
+</div>
 </header>
 
-$:content
+$if content.has_key('username'):
+    <div class="menu">
+        <div class="story"><a href="/intro">Story </a></div>
+        <div class="policy"><a href="/pwpolicy">Policy</a></div>
+        <div class="profile"><a href="/history">Profile</a></div>
+        <div class="score"><a href="/score">Scores</a></div>
+    </div>
+
+    <div class="risk-menu">
+        <ul>
+            <li>risk probability: <br/><span id="prob"></span></li>
+            <li>risk impact: <br/><span id="impact"></span></li>
+            <li>productivity cost:<br/><span id="cost"></span></li>
+        </ul>
+    </div>
+
+    <div class="time_controls">
+        <ul>
+            <h4><div id="curr_date"></div></h4>
+            <li><a href="#" class="icon-play" id="play"></a></li>
+            <li><a href="#" class="icon-pause"></a></li>
+            <li><a href="#" class="icon-forward"></a></li>
+        </ul>
+    </div>
+
+<article class="container-fluid">
+    <div class="row-fluid">
+        <div class="offset2 span8" style="background-color: #fff; padding: 2em; box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff; color: #847f7f">
+            $:content
+        </div>
+    </div>
+</article>
+
 <footer>
-
     <div class="navbar navbar-fixed-bottom">
-
-
         <div class="navbar-inner">
             <div class="container-fluid">
-                <h4>
-
+                <h4 style="margin-left:220px;">Status bar: added value, notificns, etc.
                 </h4>
             </div>
         </div>
@@ -46,6 +80,21 @@ $:content
 $if content.has_key('postjs'):
     $for js in content.postjs.split():
         <script src="$js"></script>
+
+<script src="static/js/private_common.js"></script>
+<script>
+    // Extracted JS files to allow easier parallel development.
+    // This is the common script for all registered user views.
+    // JS is loaded from the above file.
+    // If you want to use templates from webpy,
+    // extract a method that grabs them here and call it from a script in the external JS file.
+    // Variables from Python can be sent back as return values.
+    // Use $$() for jqueries
+
+    $$(document).ready(initFrame);
+    //    document.ready = initFrame(); // register callback to function from external JS file;
+
+</script>
 
 </body>
 </html>

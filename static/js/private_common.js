@@ -7,7 +7,6 @@
  * refactored so that calculations are not done both in Python and Javascript
  * In this case requested from the server and embedded in JS getters (Python, see html template) and calculated in client (JS, this file).
  *
- * this file works only with views/index_private.html because it relies on some webpy getter functions defined there
  */
 
 function initFrame() {
@@ -71,7 +70,7 @@ function initFrame() {
 // If different elements of the interface need to show up in later turns,
 // this could be done here
 function manageScoreButton() {
-    if (isFirstTurn()) { // isFirstTurn() is defined in views/index_private.html template
+    if (false) { // originally tests for isFirstTurn() TODO
         console.log('$content.date equal to start date. Don\'t show score.');
         $(".score").css("display", "none");
     } else {
@@ -84,7 +83,7 @@ function manageScoreButton() {
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
-    switch (contentTitle()) { // contentTitle() is defined in views/index_private.html template
+    switch (document.title) {
         case "Scores":
             css_class = "score";
             break;

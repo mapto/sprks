@@ -3,7 +3,7 @@ __author__ = 'Horace'
 import web
 import pytest
 from mock import patch, MagicMock
-from controllers.change import *
+from controllers.user import *
 
 
 class TestGetRequest:
@@ -17,7 +17,7 @@ class TestGetRequest:
         """
         self.mock_users_model.pwrecovery_status.return_value = ''
 
-        assert change().GET('') == "Invalid password recovery request"
+        assert password().GET('') == "Invalid password recovery request"
 
     @patch('models.users.users_model.pwrecovery_status', mock_users_model.pwrecovery_status)
     @patch('environment.render_public.pwrecovery', mock_render_public.pwrecovery)

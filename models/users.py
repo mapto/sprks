@@ -14,7 +14,6 @@ class users_model:
         else:
             return ''
 
-
     def authenticate(self, username, password):
         """
         Returns ID of user if successfully authenticated, 0 otherwise.
@@ -26,11 +25,17 @@ class users_model:
         else:
             return 0
 
-    def select_users(self, username):
+    def select_users(self, username='', user_id=0):
         """
-        Returns list of all users with such username.
+        Returns list of all users with 'username' and 'user_id' (optional) parameters.
         """
-        return db.select('users', where="username=$username", vars=locals())
+        if user_id > 0:
+            if username != '':
+                return db.select('users', where="username=$username&&user_id=$user_id", vars=locals())
+            else:
+                return db.select('users', where="user_id=$user_id", vars=locals())
+        else:
+            return db.select('users', where="username=$username", vars=locals())
 
     def register(self, username, password, email):
         """
@@ -50,13 +55,18 @@ class users_model:
     def update_password(self, user_id, password):
         """
         Updates password according to specified user_id and new password.
-        Returns true if updated for one user, false otherwise.
+        Returns true if updated for one user or password unchanged, false otherwise.
         """
-        if db.update('users', where="user_id=$user_id", password=hash_utils.hash_password(password), vars=locals()) \
+        user_list = self.select_users(user_id=user_id)
+        password_hash = hash_utils.hash_password(password)
+        if len(user_list) == 1 and password_hash == user_list[0].password:
+            return True
+
+        if db.update('users', where="user_id=$user_id", password=password_hash, vars=locals()) \
                 == 1:
             return True
-        else:
-            return False
+
+        return False
 
     def request_password(self, username, token):
         """

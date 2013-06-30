@@ -28,9 +28,15 @@ class login:
         web.header('Content-Type', 'application/json')
         if user_id > 0:
             environment.session.user_id = user_id
-            return json.dumps({'errors': []})
+            return json.dumps({
+                'success': True,
+                'msgs': ['Successful login']
+            })
         else:
-            return json.dumps({'errors': ['Invalid username/password']})
+            return json.dumps({
+                'success': False,
+                'msgs': ['Invalid username/password']
+            })
 
 
 class register:
@@ -51,12 +57,22 @@ class register:
 
         web.header('Content-Type', 'application/json')
         if user_id == 0:
-            return json.dumps({'errors': ['User already exists']})
+            return json.dumps({
+                'success': False,
+                'msgs': ['User already exists']
+            })
         elif user_id > 0:
             environment.session.user_id = user_id
-            return json.dumps({'errors': []})
+            web.ctx.status = '201 Created'
+            return json.dumps({
+                'success': True,
+                'msgs': ['User registered']
+            })
         else:
-            return json.dumps({'errors': ['Database error']})
+            return json.dumps({
+                'success': False,
+                'msgs': ['Database error']
+            })
 
 
 class password:
@@ -68,7 +84,7 @@ class password:
 
         user_id = auth().user_id()
         if user_id > 0:
-            return environment.render_private.password_change(user_id, '')
+            return environment.render_private.password_change(user_id, '', users_model().get_username(environment.session.user_id))
 
         token = getattr(web.input(), 'token', '')
         user_id = users_model().password_recovery_user(token)
@@ -94,7 +110,10 @@ class password:
 
         if token_user_id == 0:
             if current_user_id == 0:
-                return json.dumps({'errors': ['Invalid token and user not logged in']})
+                return json.dumps({
+                    'success': False,
+                    'msgs': ['Invalid token and user not logged in']
+                })
             else:
                 user_id = current_user_id
         else:
@@ -102,13 +121,23 @@ class password:
                 user_id = token_user_id
                 user_model.update_recovery_status(token)
             else:
-                return json.dumps({'errors': ['Current user and password recovery token do not match']})
+                return json.dumps({
+                    'success': False,
+                    'msgs': ['Current user and password recovery token do not match']
+                })
 
         if user_model.update_password(user_id, payload['password']):
             environment.session.user_id = user_id
-            return json.dumps({'errors': []})
+            web.ctx.status = '200 OK'
+            return json.dumps({
+                'success': True,
+                'msgs': ['Successfully changed password']
+            })
         else:
-            return json.dumps({'errors': ['Database error - password not updated']})
+            return json.dumps({
+                'success': False,
+                'msgs': ['Database error - password not updated']
+                })
 
     def POST(self):
         """
@@ -120,7 +149,10 @@ class password:
         user_email = users_model().request_password(username, token)
         web.header('Content-Type', 'application/json')
         if user_email == '':
-            return json.dumps({'errors': ['User not found']})
+            return json.dumps({
+                'success': False,
+                'msgs': ['User not found']
+            })
         else:
             web.config.smtp_server = 'smtp.gmail.com'
             web.config.smtp_port = 587
@@ -128,5 +160,8 @@ class password:
             web.config.smtp_password = 'sprks123456789'
             web.config.smtp_starttls = True
             web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
-                         'http://localhost:8080/password?token=' + token)
-            return json.dumps({'errors': []})
+                         'http://' + web.ctx.host + web.ctx.homepath + '/password?token=' + token)
+            return json.dumps({
+                'success': True,
+                'msgs': ['Password recovery email sent']
+            })
