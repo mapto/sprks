@@ -65,8 +65,9 @@ class users_model:
         """
         user_list = self.select_users(username)
         if len(user_list) == 1:
-            db.insert('password_recovery', user_id=user_list[0].user_id, date=web.SQLLiteral('NOW()'), token=token, invalid=0)
-            return user_list[0].email
+            user = user_list[0]
+            db.insert('password_recovery', user_id=user.user_id, date=web.SQLLiteral('NOW()'), token=token, invalid=0)
+            return user.email
         else:
             return ''
 

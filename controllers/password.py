@@ -67,7 +67,6 @@ class manage:
         payload = json.loads(web.data())
         username = payload['username']
         token = hash_utils.random_hex(username)
-        print token
         user_email = users_model().request_password(username, token)
         web.header('Content-Type', 'application/json')
         if user_email == '':
