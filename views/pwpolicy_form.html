@@ -13,9 +13,10 @@ $var username: $username
            <label class="qn id"><b>ID:</b></label>
     -->
     $if id:
-    <input type="hidden" value=$:id name="userid" id="pswdid" placeholder="ID">
+        <input type="hidden" value=$:id name="userid" id="pswdid" placeholder="ID">
     $else:
-    <input type="hidden" name="userid" id="pswdid" placeholder="ID">
+        <input type="hidden" name="userid" id="pswdid" placeholder="ID">
+
 </p>
 
 <p class="qn" id="plen">
@@ -256,29 +257,8 @@ $var username: $username
 
     function getInitPolicy() {
         // These values are set server-side and appear to client as hardcoded.
-        return {"plen": $
-    :
-        plen,
-                "psets"
-    :
-        $:psets,
-                "pdict"
-    :
-        $:pdict,
-                "phist"
-    :
-        $:phist,
-                "prenew"
-    :
-        $:prenew,
-                "pattempts"
-    :
-        $:pattempts,
-                "pautorecover"
-    :
-        $:pautorecover
-    }
-    ;
+        return {"plen": $plen, "psets":$psets,"pdict":$pdict,"phist":$phist,"prenew":$prenew,
+                "pattempts":$pattempts,"pautorecover":$pautorecover};
     }
 
     // this is inherently linked to
@@ -287,19 +267,15 @@ $var username: $username
         /*ID is preset inside HTML code*/
         console.log("found id $:id");
 
-        return $
-    :
-        id; // This value is set server-side and appears to client as hardcoded.
+        return $id; // This value is set server-side and appears to client as hardcoded.
     }
 
     function policyExists() {
         console.log("policyExists -> date $:date");
 
-        $if
-        notfound != 1
-    :
-        return true; // This value is set server-side and appears in browser as hardcoded.
+        $if notfound != 1:
+            return true; // This value is set server-side and appears in browser as hardcoded.
         $else:
-                return false; // This value is set server-side and appears to client as hardcoded.
+            return false; // This value is set server-side and appears to client as hardcoded.
     }
 </script> <!-- relative path to external files -->

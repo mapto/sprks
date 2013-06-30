@@ -14,7 +14,7 @@ class history:
     def GET(self):
         if environment.session.user_id > 0:
             user_id = environment.session.user_id
-            username = users_model.get_username(user_id)
+            username = users_model().get_username(user_id)
             date = environment.session.date
             policy_history = policies_model().get_policy_history(user_id)
 
