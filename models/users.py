@@ -65,13 +65,12 @@ class users_model:
         """
         user_list = self.select_users(username)
         if len(user_list) == 1:
-            db.insert('password_recovery', username=username, date=web.SQLLiteral('NOW()'), token=token, invalid=0)
-            # TODO detect database error?
+            db.insert('password_recovery', user_id=user_list[0].user_id, date=web.SQLLiteral('NOW()'), token=token, invalid=0)
             return user_list[0].email
         else:
             return ''
 
-    def password_recovery_valid(self, token):
+    def password_recovery_user(self, token):
         """
         Return user_id if password request ticket is valid. 0 otherwise.
         :param token:

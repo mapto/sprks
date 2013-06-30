@@ -6,11 +6,11 @@ $def with (content)
     <title>$content.title</title>
     <link rel="stylesheet" href="static/css/bootstrap.css" type="text/css" media="screen" charset="utf-8"/>
     $if content.has_key('cssfiles'):
-    $for css in content.cssfiles.split():
-    <link rel="stylesheet" href="$css" type="text/css" media="screen" charset="utf-8"/>
+        $for css in content.cssfiles.split():
+            <link rel="stylesheet" href="$css" type="text/css" media="screen" charset="utf-8"/>
     $if content.has_key('prejs'):
-    $for js in content.prejs.split():
-    <script src="$js"></script>
+        $for js in content.prejs.split():
+            <script src="$js"></script>
 
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
@@ -44,8 +44,8 @@ $:content
 </footer>
 
 $if content.has_key('postjs'):
-$for js in content.postjs.split():
-<script src="$js"></script>
+    $for js in content.postjs.split():
+        <script src="$js"></script>
 
 </body>
 </html>

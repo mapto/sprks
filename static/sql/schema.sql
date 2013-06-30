@@ -12,9 +12,9 @@
 CREATE TABLE IF NOT EXISTS `password_recovery` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
-  `token` text NOT NULL,
+  `token` char(56) NOT NULL,
   `invalid` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`user_id`, `token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

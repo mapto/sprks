@@ -20,8 +20,8 @@ class manage:
         if user_id > 0:
             return environment.render_private.password_change(user_id, '')
 
-        token = web.input().token
-        user_id = users_model().password_recovery_status(token)
+        token = getattr(web.input(), 'token', '')
+        user_id = users_model().password_recovery_user(token)
         if user_id == 0:
             return render.password_recover()
         else:
@@ -33,16 +33,29 @@ class manage:
         """
 
         payload = json.loads(web.data())
+        user_model = users_model()
 
         current_user_id = auth().user_id()
+
+        token_user_id = 0
         if 'token' in payload:
             token = payload['token']
-            user_id = users_model().password_recovery_valid(token)
-            if user_id == 0 and current_user_id == 0:
+            token_user_id = user_model.password_recovery_user(token)
+
+        if token_user_id == 0:
+            if current_user_id == 0:
                 return json.dumps({'errors': ['Invalid token and user not logged in']})
-        # TODO LOGIC ERROR
-        if users_model().update_password(user_id, payload['password']):
-            users_model().update_recovery_status(token)
+            else:
+                user_id = current_user_id
+        else:
+            if current_user_id == 0:
+                user_id = token_user_id
+                user_model.update_recovery_status(token)
+            else:
+                return json.dumps({'errors': ['Current user and password recovery token do not match']})
+
+        if user_model.update_password(user_id, payload['password']):
+            environment.session.user_id = user_id
             return json.dumps({'errors': []})
         else:
             return json.dumps({'errors': ['Database error - password not updated']})
@@ -54,6 +67,7 @@ class manage:
         payload = json.loads(web.data())
         username = payload['username']
         token = hash_utils.random_hex(username)
+        print token
         user_email = users_model().request_password(username, token)
         web.header('Content-Type', 'application/json')
         if user_email == '':
