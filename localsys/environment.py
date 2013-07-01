@@ -27,7 +27,8 @@ class context:
     @staticmethod
     def user_id():
         """
-        Returns user_id of current user if logged in, else returns 0.
+        If HTTP Authorization header, returns user authorized, or 0.
+        Else if user sesion in progress, returns session user_id, or 0.
         """
         user_id = context.cache().get('user_id')
         if user_id is None:
@@ -38,11 +39,12 @@ class context:
     @staticmethod
     def username():
         """
-        Returns username of current user if logged in, else returns empty string.
+        If HTTP Authorization header, returns user authorized, or empty string.
+        Else if user sesion in progress, returns session username, or empty string.
         """
         username = context.cache().get('username')
         if username is None:
-            context.cache()['username'] = users_model.get_username(users_model.authorize())
+            context.cache()['username'] = users_model.get_username(context.user_id())
             return context.cache()['username']
         return username
 
