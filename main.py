@@ -19,8 +19,10 @@ import controllers.score
 import controllers.timeline
 import controllers.chronos
 import controllers.policy_history
+import controllers.HttpAuth
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
+        '/Auth', controllers.HttpAuth.Auth,
         '/home', controllers.home.home,
         '/login', controllers.user.login,
         '/register', controllers.user.register,
