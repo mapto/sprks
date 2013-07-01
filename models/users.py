@@ -4,23 +4,38 @@ from localsys.storage import db
 import localsys
 from localsys import storage
 
+import re
+import base64
+
 
 class users_model:
 
     @staticmethod
     def authorize():
         """
-        Returns user_id if client is authorized, else 0. Stub to allow other methods of authorization (eg OAuth).
+        Returns user_id if request is authorized, else 0.
+        Authorizes by checking the following in order:
+        1. HTTP Authorization header
+        2. Session data
         """
 
-        return storage.session.user_id
+        if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
+            # Do not use context cache - will cause infinite recursion.
+            return storage.session.user_id
+        else:
+            auth = re.sub('^Basic ','',web.ctx.env.get('HTTP_AUTHORIZATION'))
+            username, password = base64.decodestring(auth).split(':')
+            return users_model.check_credentials(username, password)
+
 
     @staticmethod
-    def session_user_id(user_id):
+    def session_login(user_id):
         """
         Sets session user_id to parameter.
         """
         localsys.storage.session.user_id = user_id
+
+        # Can't guarantee this method will be used before cache is initialized.
         localsys.environment.context.flush_cache()
 
         return user_id
