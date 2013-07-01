@@ -9,7 +9,7 @@
 function init() {
     //submit_change();
     $('.target').change(submit_change);
-    $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
+    //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
 
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
 
@@ -94,7 +94,9 @@ function submit_change() { // need different event handling, to capture any chan
     new_policy.pattempts = $('input[name="pattempts"]:checked').val();
     new_policy.pautorecover = $('input[name="pautorecover"]:checked').val();
     msg.data = JSON.stringify(new_policy);
+    msg.id = $(this).closest($(".qn")).attr('id');
     console.log(msg);
+
     var request = $.ajax({
         url: "/pwpolicy",
         type: "POST",
@@ -104,9 +106,13 @@ function submit_change() { // need different event handling, to capture any chan
         dataType: "json",
         success: function (score) {
             console.log("test: " + JSON.stringify(score));
-            $(score).each(function (i) {
-                $("#" + score[i].name).text(verboseScore(score[i].value));
-            })
+            msg1 = score.msg1;
+            msg2 = score.msg2;
+            $(msg1).each(function (i) {
+                $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
+            });
+
+            initialize_graphs(msg2);
 
         },
         error: function (response) {

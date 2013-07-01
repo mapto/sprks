@@ -14,7 +14,17 @@ class users_model:
         else:
             return ''
 
-    def authenticate(self, username, password):
+    def get_user_id(self, username):
+        """
+        Returns user_id given username, 0 otherwise.
+        """
+        users = db.select('users', where="username=$username", vars=locals())
+        if len(users) == 1:
+            return users[0].user_id
+        else:
+            return 0
+
+    def check_credentials(self, username, password):
         """
         Returns ID of user if successfully authenticated, 0 otherwise.
         """
@@ -25,7 +35,7 @@ class users_model:
         else:
             return 0
 
-    def select_users(self, username='', user_id=0):
+    def select_users(self, user_id=0, username=''):
         """
         Returns list of all users with 'username' and 'user_id' (optional) parameters.
         """
@@ -42,11 +52,11 @@ class users_model:
         Attempts to insert new user data into users table.
         Returns ID of user if successfully registered, 0 if user already exists, -1 if database error.
         """
-        if len(self.select_users(username)) > 0:
+        if len(self.select_users(username=username)) > 0:
             return 0
         else:
             db.insert('users', username=username, email=email, password=hash_utils.hash_password(password))
-            user_lookup = self.select_users(username)
+            user_lookup = self.select_users(username=username)
             if len(user_lookup) == 1:
                 return user_lookup[0].user_id
             else:
@@ -68,12 +78,12 @@ class users_model:
 
         return False
 
-    def request_password(self, username, token):
+    def request_password(self, token, user_id):
         """
         Creates password recovery ticket in password_recovery table.
         Returns recipient email address if user found, else empty string
         """
-        user_list = self.select_users(username)
+        user_list = self.select_users(user_id=user_id)
         if len(user_list) == 1:
             user = user_list[0]
             db.insert('password_recovery', user_id=user.user_id, date=web.SQLLiteral('NOW()'), token=token, invalid=0)

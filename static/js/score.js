@@ -15,6 +15,8 @@ function init() {
     climbLadder("cost");
 
     console.log("Score initialized...");
+
+    congratulate_first();
 }
 
 // Ladder is "risk" or "cost"
@@ -49,3 +51,36 @@ function putOnLadder(ladder, step, name) {
     $("#" + ladder + "_w" + step).text(score["when"]);
 
 }
+
+//congratulations popup (if a user is first
+function congratulate_first(){
+    var text = '';
+    if( getOwnRisk().value == getBestRisk().value || getOwnCost().value == getBestCost().value){
+       text = 'Congratulations, you got the best';
+     if( getOwnRisk().value == getBestRisk().value){
+       text = text+ ' Risk';
+     }
+     if (getOwnCost().value == getBestCost().value){
+       if(getOwnRisk().value == getBestRisk().value){text = text+' and';}
+       text = text+ ' Cost';
+     }
+    }
+
+    $("#congratulate").text(text);
+    $("#congratulate").show();
+
+    $('#congratulate').delay(2500).fadeOut();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

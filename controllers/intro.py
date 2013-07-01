@@ -4,12 +4,12 @@ import web
 import localsys
 from localsys.environment import render
 from models.users import users_model
-from libraries.user_helper import auth
+from libraries.user_helper import authenticate
 
 
 class intro:
     def GET(self):
-        if auth().check() > 0:
+        if authenticate().check() > 0:
             return render.intro()
         else:
             raise web.seeother('/home')

@@ -4,7 +4,7 @@ import web
 from localsys import storage
 
 
-class auth:
+class authenticate:
     def check(self):
         """
         Returns user_id if client is authorized, else 0. Stub to allow other methods of authorization (eg OAuth).

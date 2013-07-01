@@ -547,3 +547,28 @@ label {
     width: 65%;
     text-align: left;
 }
+
+/*******SCORE page: congratulations popup */
+#congratulate{
+    position: fixed;
+    top:25%;
+    left:35%;
+    width:30%;
+    height:45%;
+    box-shadow: 0px 3px 20px #aaa, inset 0px 2px 3px #fff;
+
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size:17px;
+    padding:12px;
+    color:#000;
+
+    background-size:100%;
+    background-image: url(/static/img/trophy-cup.jpg);
+    background-repeat: no-repeat;
+    /*
+    image source:
+    http://www.psdgraphics.com/3d/gold-trophy-cup/
+    */
+}

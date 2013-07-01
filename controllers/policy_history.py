@@ -8,12 +8,12 @@ from localsys.environment import render
 from models.users import users_model
 import localsys
 from models.policies import policies_model
-from libraries.user_helper import auth
+from libraries.user_helper import authenticate
 
 
 class history:
     def GET(self):
-        user_id = auth().check()
+        user_id = authenticate().check()
         if user_id > 0:
             username = users_model().get_username(user_id)
             date = localsys.storage.session.date
