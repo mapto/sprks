@@ -3,7 +3,7 @@ __author__ = 'zhanelya'
 import itertools
 import math
 import json
-
+import models.users
 import web
 
 import localsys
@@ -207,7 +207,7 @@ class score:
                 #avg_pc = self.FIND_AVG(your_pc)
                 print b_u_risk_rank
 
-                return render.score(localsys.storage.session.user_id,
+                return render.score(models.users.users_model().get_username(localsys.storage.session.user_id),
                                     b_u_risk, b_u_risk_date, b_u_risk_rank,
                                     b_u_cost, b_u_cost_date, b_u_cost_rank,
                                     c_risk, c_risk_when, c_risk_rank,
