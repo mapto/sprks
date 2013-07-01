@@ -1,6 +1,5 @@
 import web
 from datetime import datetime
-from libraries.user_helper import authenticate
 from models.users import users_model
 from web import ctx
 
@@ -32,7 +31,7 @@ class context:
         """
         user_id = context.cache().get('user_id')
         if user_id is None:
-            context.cache()['user_id'] = authenticate.check()
+            context.cache()['user_id'] = users_model.authorize()
             return context.cache()['user_id']
         return user_id
 
@@ -43,10 +42,9 @@ class context:
         """
         username = context.cache().get('username')
         if username is None:
-            context.cache()['username'] = users_model.get_username(authenticate.check())
+            context.cache()['username'] = users_model.get_username(users_model.authorize())
             return context.cache()['username']
         return username
-
 
 
 def get_start_time():

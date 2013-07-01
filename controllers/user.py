@@ -48,8 +48,8 @@ class login:
             auth = re.sub('^Basic ','',auth)
             username, password = base64.decodestring(auth).split(':')
         elif auth_method == 'json':
-            username = payload['username']
-            password = payload['password']
+            username = payload.get('username')
+            password = payload.get('password')
         else:
             return json.dumps({
                 'success': False,

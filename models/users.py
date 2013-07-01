@@ -2,9 +2,18 @@ import web
 from libraries.utils import hash_utils
 from localsys.storage import db
 import localsys
+from localsys import storage
 
 
 class users_model:
+
+    @staticmethod
+    def authorize():
+        """
+        Returns user_id if client is authorized, else 0. Stub to allow other methods of authorization (eg OAuth).
+        """
+
+        return storage.session.user_id
 
     @staticmethod
     def session_user_id(user_id):
