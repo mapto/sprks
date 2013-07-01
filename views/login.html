@@ -1,31 +1,29 @@
 $var title: Login
 
-<div class="container-fluid">
-    <form id="loginForm">
-        <fieldset>
-            <legend>Login</legend>
-            <div class="row-fluid">
-                <div class="span7 ">
-                    <input type="text" data-bind="value: username" placeholder="Username" required/>
-                </div>
+<form id="loginForm">
+    <fieldset>
+        <legend>Login</legend>
+        <div class="row-fluid">
+            <div class="span7 ">
+                <input type="text" data-bind="value: username" placeholder="Username" required/>
             </div>
-            <div class="row-fluid">
-                <div class="span7 ">
-                    <input type="password" data-bind="value: password" placeholder="Password" required/>
-                </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span7 ">
+                <input type="password" data-bind="value: password" placeholder="Password" required/>
             </div>
-            <ul data-bind="foreach: messages">
-                <li data-bind="text: $$data"></li>
-            </ul>
-            <div class="row-fluid">
-                <input class="login_btn" type="submit" value="Login">
-                <br>
-                <a href="/password">Recover Password</a> |
-                <a href="/register">Register</a>
-            </div>
-        </fieldset>
-    </form>
-</div>
+        </div>
+        <ul data-bind="foreach: messages">
+            <li data-bind="text: $$data"></li>
+        </ul>
+        <div class="row-fluid">
+            <input class="login_btn" type="submit" value="Login">
+            <br>
+            <a href="/password">Recover Password</a> |
+            <a href="/register">Register</a>
+        </div>
+    </fieldset>
+</form>
 
 <script>
 

@@ -4,11 +4,9 @@ import web
 import re
 import base64
 
-
-from localsys.environment import render
+from localsys.environment import *
 from models.users import users_model
 from libraries.utils import hash_utils
-from libraries.user_helper import authenticate
 
 
 class login:
@@ -21,10 +19,10 @@ class login:
         If action parameter is specified =='logout', logs out user. Else displays login screen
         """
         if web.input().get('action', '') == 'logout':
-            authenticate().logout()
+            users_model.session_user_id(0)
             raise web.seeother('/')
 
-        if authenticate().check() > 0:
+        if context.user_id() > 0:
             raise web.seeother('/')
 
         return render.login()
@@ -50,8 +48,8 @@ class login:
             auth = re.sub('^Basic ','',auth)
             username, password = base64.decodestring(auth).split(':')
         elif auth_method == 'json':
-            username = payload['username']
-            password = payload['password']
+            username = payload.get('username')
+            password = payload.get('password')
         else:
             return json.dumps({
                 'success': False,
@@ -63,7 +61,7 @@ class login:
 
         if user_id > 0:
             if not stateless:
-                authenticate().login(user_id)
+                users_model.session_user_id(user_id)
             return json.dumps({
                 'success': True,
                 'msgs': ['Successful login'],
@@ -81,7 +79,7 @@ class register:
     Handles user registration
     """
     def GET(self):
-        if authenticate().check() > 0:
+        if context.user_id() > 0:
             raise web.seeother('/')
         return render.register()
 
@@ -99,7 +97,7 @@ class register:
                 'msgs': ['User already exists']
             })
         elif user_id > 0:
-            authenticate().login(user_id)
+            users_model.session_user_id(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
@@ -120,7 +118,7 @@ class password:
 
     def GET(self):
 
-        user_id = authenticate().check()
+        user_id = context.user_id()
         if user_id > 0:
             return render.password_change(user_id, '')
 
@@ -148,9 +146,9 @@ class password:
                 'msgs': ['Invalid user_id specified']
             })
 
-        if user_id == authenticate().check() or user_id == user_model.password_recovery_user(payload.get('token', '')):
+        if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
             if user_model.update_password(user_id, payload['password']):
-                authenticate().login(user_id)
+                users_model.session_user_id(user_id)
                 return json.dumps({
                     'success': True,
                     'msgs': ['Password changed']

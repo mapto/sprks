@@ -1,10 +1,32 @@
 import web
 from libraries.utils import hash_utils
 from localsys.storage import db
+import localsys
+from localsys import storage
 
 
 class users_model:
-    def get_username(self, user_id):
+
+    @staticmethod
+    def authorize():
+        """
+        Returns user_id if client is authorized, else 0. Stub to allow other methods of authorization (eg OAuth).
+        """
+
+        return storage.session.user_id
+
+    @staticmethod
+    def session_user_id(user_id):
+        """
+        Sets session user_id to parameter.
+        """
+        localsys.storage.session.user_id = user_id
+        localsys.environment.context.flush_cache()
+
+        return user_id
+
+    @staticmethod
+    def get_username(user_id):
         """
         Returns username of user given user_id, empty string otherwise.
         """
@@ -14,7 +36,8 @@ class users_model:
         else:
             return ''
 
-    def get_user_id(self, username):
+    @staticmethod
+    def get_user_id(username):
         """
         Returns user_id given username, 0 otherwise.
         """
@@ -24,9 +47,10 @@ class users_model:
         else:
             return 0
 
-    def check_credentials(self, username, password):
+    @staticmethod
+    def check_credentials(username, password):
         """
-        Returns ID of user if successfully authenticated, 0 otherwise.
+        Returns ID of user if credentials match, 0 otherwise.
         """
         password = hash_utils.hash_password(password)
         auth = db.select('users', where="username=$username&&password=$password", vars=locals())
@@ -35,7 +59,8 @@ class users_model:
         else:
             return 0
 
-    def select_users(self, user_id=0, username=''):
+    @staticmethod
+    def select_users(user_id=0, username=''):
         """
         Returns list of all users with 'username' and 'user_id' (optional) parameters.
         """

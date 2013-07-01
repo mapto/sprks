@@ -1,5 +1,4 @@
 $var title: Sprks
-$var username = get_username()
 
 <h2>Security Policy Risk Simulator </h2>
 <h5>An exploratory simulation game featuring the real-life complexities of corporate information
@@ -18,7 +17,7 @@ $var username = get_username()
     <li>Manage the incidents occurring under your security policy.</li>
     <li>See how your policy compares to policies designed by others.</li>
 </ul>
-$if self.username == '':
+$if username() == '':
     <p>To start a game please:</p>.
     <div class="span11">
         <div class="span4 text-center main_btn"><a href="/register">Register</a></div>
