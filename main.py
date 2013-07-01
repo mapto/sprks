@@ -37,7 +37,6 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         # APIs
         '/api/user/register', controllers.user.register,
         '/api/user/login', controllers.user.login,
-        '/api/user/password', controllers.user.password,
         '/api/user/password(/?)(.+)', controllers.user.password
 )
 
