@@ -28,6 +28,7 @@ $var title: Login
 </div>
 
 <script>
+
     formModel = {
         username: ko.observable(),
         password: ko.observable(),
@@ -42,9 +43,12 @@ $var title: Login
             type: 'POST',
             url: '/api/user/login',
             dataType: 'json',
+            beforeSend: function (xhr){
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
+            },
             data: JSON.stringify({
-                username: formModel.username(),
-                password: formModel.password()
+                authMethod: 'basic',
+                stateless: false
             }),
             statusCode: {
                 500: function () {

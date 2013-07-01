@@ -4,7 +4,7 @@ Environment takes care of the system objects that need to be used by many module
 
 import web
 from datetime import datetime
-from libraries.user_helper import auth
+from libraries.user_helper import authenticate
 from models.users import users_model
 
 
@@ -16,14 +16,14 @@ def get_user_id():
     """
     Returns current user_id if logged in, otherwise 0.
     """
-    return auth().check()
+    return authenticate().check()
 
 
 def get_username():
     """
     Returns current username if logged in, otherwise empty string.
     """
-    return users_model().get_username(auth().check())
+    return users_model().get_username(authenticate().check())
 
 
 globals = {
