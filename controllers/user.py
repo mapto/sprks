@@ -135,21 +135,32 @@ class password:
             'msgs': ['Unauthorized request']
         })
 
-    def POST(self):
+    def POST(self, a, arg1=0):
         """
-        Sends password recovery email to user.
+        Creates password recovery request, taking argument as user_id (default) or username
         """
         payload = json.loads(web.data())
-        username = payload['username']
-        token = hash_utils.random_hex(username)
-        user_email = users_model().request_password(username, token)
+        token = hash_utils.random_hex()
+
         web.header('Content-Type', 'application/json')
+        uid_type = getattr(payload,'uid_type','')
+        if uid_type == 'username':
+            user_email = users_model().request_password(token, users_model.get_user_id(arg1))
+        elif uid_type == 'user_id' or 'uid_type' == '':
+            user_email = users_model().request_password(token, int(arg1))
+        else:
+            return json.dumps({
+                'success': False,
+                'msgs': ['Unknown uid type']
+            })
+
         if user_email == '':
             return json.dumps({
                 'success': False,
                 'msgs': ['User not found']
             })
-        else:
+
+        try:
             web.config.smtp_server = 'smtp.gmail.com'
             web.config.smtp_port = 587
             web.config.smtp_username = 'sprkssuprt@gmail.com'
@@ -160,4 +171,9 @@ class password:
             return json.dumps({
                 'success': True,
                 'msgs': ['Password recovery email sent']
+            })
+        except Exception:
+            return json.dumps({
+                'success': False,
+                'msgs': ['Server error']
             })
