@@ -17,7 +17,10 @@ class login:
     """
 
     def GET(self):
-        if getattr(web.input(), 'action', '') == 'logout':
+        """
+        If action parameter is specified =='logout', logs out user. Else displays login screen
+        """
+        if web.input().get('action', '') == 'logout':
             authenticate().logout()
             raise web.seeother('/')
 
@@ -30,11 +33,9 @@ class login:
         """
         Authenticates user
         """
-        # TODO check everywhere replace getattr(obj, 'key') with obj['key']
         payload = json.loads(web.data())
-        #auth_method = getattr(payload, 'authMethod', 'ASDF')
-        auth_method = payload['authMethod']
-        stateless = getattr(payload, 'stateless', False)
+        auth_method = payload.get('authMethod', 'basic')
+        stateless = payload.get('stateless', False)
 
         web.header('Content-Type', 'application/json')
 
@@ -123,7 +124,7 @@ class password:
         if user_id > 0:
             return render.password_change(user_id, '')
 
-        token = getattr(web.input(), 'token', '')
+        token = web.input().get('token','')
         user_id = users_model().password_recovery_user(token)
         if user_id == 0:
             return render.password_recover()
@@ -147,7 +148,7 @@ class password:
                 'msgs': ['Invalid user_id specified']
             })
 
-        if user_id == authenticate().check() or user_id == user_model.password_recovery_user(getattr(payload, 'token', '')):
+        if user_id == authenticate().check() or user_id == user_model.password_recovery_user(payload.get('token', '')):
             if user_model.update_password(user_id, payload['password']):
                 authenticate().login(user_id)
                 return json.dumps({
@@ -172,7 +173,7 @@ class password:
         token = hash_utils.random_hex()
 
         web.header('Content-Type', 'application/json')
-        uid_type = getattr(payload,'uid_type','')
+        uid_type = payload.get('uid_type','')
         if uid_type == 'username':
             user_email = users_model().request_password(token, users_model.get_user_id(arg1))
         elif uid_type == 'user_id' or 'uid_type' == '':
