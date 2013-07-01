@@ -7,7 +7,7 @@ from sim.simulation import simulation
 from localsys.environment import *
 from localsys.storage import db
 from models.pw_policy import pw_policy_model
-from libraries.user_helper import auth
+from libraries.user_helper import authenticate
 
 
 class pwpolicy:
@@ -20,7 +20,7 @@ class pwpolicy:
         """
         Renders the form to input password policies.
         """
-        user_id = auth().check()
+        user_id = authenticate().check()
         if user_id == 0:
             raise web.seeother('home')
 

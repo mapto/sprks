@@ -1,12 +1,14 @@
 import json
 
 import web
+import re
+import base64
 
 
 from localsys.environment import render
 from models.users import users_model
 from libraries.utils import hash_utils
-from libraries.user_helper import auth
+from libraries.user_helper import authenticate
 
 
 class login:
@@ -16,10 +18,10 @@ class login:
 
     def GET(self):
         if getattr(web.input(), 'action', '') == 'logout':
-            auth().logout()
+            authenticate().logout()
             raise web.seeother('/')
 
-        if auth().check() > 0:
+        if authenticate().check() > 0:
             raise web.seeother('/')
 
         return render.login()
@@ -28,12 +30,39 @@ class login:
         """
         Authenticates user
         """
+        # TODO check everywhere replace getattr(obj, 'key') with obj['key']
         payload = json.loads(web.data())
-        user_id = users_model().authenticate(payload['username'], payload['password'])
+        #auth_method = getattr(payload, 'authMethod', 'ASDF')
+        auth_method = payload['authMethod']
+        stateless = getattr(payload, 'stateless', False)
 
         web.header('Content-Type', 'application/json')
+
+        if auth_method == 'basic':
+            if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
+                return json.dumps({
+                    'success': False,
+                    'msgs': ['Missing HTTP Authorization header']
+                })
+
+            auth = web.ctx.env.get('HTTP_AUTHORIZATION')
+            auth = re.sub('^Basic ','',auth)
+            username, password = base64.decodestring(auth).split(':')
+        elif auth_method == 'json':
+            username = payload['username']
+            password = payload['password']
+        else:
+            return json.dumps({
+                'success': False,
+                'msgs': ['Invalid authentication mechanism']
+            })
+
+        user_id = users_model().check_credentials(username, password)
+
+
         if user_id > 0:
-            auth().login(user_id)
+            if not stateless:
+                authenticate().login(user_id)
             return json.dumps({
                 'success': True,
                 'msgs': ['Successful login'],
@@ -51,7 +80,7 @@ class register:
     Handles user registration
     """
     def GET(self):
-        if auth().check() > 0:
+        if authenticate().check() > 0:
             raise web.seeother('/')
         return render.register()
 
@@ -69,7 +98,7 @@ class register:
                 'msgs': ['User already exists']
             })
         elif user_id > 0:
-            auth().login(user_id)
+            authenticate().login(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
@@ -90,7 +119,7 @@ class password:
 
     def GET(self):
 
-        user_id = auth().check()
+        user_id = authenticate().check()
         if user_id > 0:
             return render.password_change(user_id, '')
 
@@ -118,9 +147,9 @@ class password:
                 'msgs': ['Invalid user_id specified']
             })
 
-        if user_id == auth().check() or user_id == user_model.password_recovery_user(getattr(payload, 'token', '')):
+        if user_id == authenticate().check() or user_id == user_model.password_recovery_user(getattr(payload, 'token', '')):
             if user_model.update_password(user_id, payload['password']):
-                auth().login(user_id)
+                authenticate().login(user_id)
                 return json.dumps({
                     'success': True,
                     'msgs': ['Password changed']

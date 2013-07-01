@@ -24,7 +24,7 @@ class users_model:
         else:
             return 0
 
-    def authenticate(self, username, password):
+    def check_credentials(self, username, password):
         """
         Returns ID of user if successfully authenticated, 0 otherwise.
         """
