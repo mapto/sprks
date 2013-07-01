@@ -10,7 +10,7 @@ class TestHashUtils:
 
     def setup_method(self, method):
         random.seed()
-        self.random_str = hash_utils.random_hex(str(random.randint(1, 10000000)))
+        self.random_str = hash_utils.random_hex()
 
     def test_hash_password(self):
         """

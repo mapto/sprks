@@ -17,4 +17,4 @@ class hash_utils:
         Generates random string using parameter as salt, sha224 hashing, random integer, and returns hexdigest.
         """
         random.seed()
-        return hashlib.sha224(time.gmtime() + str(random.randint(1, 100000))).hexdigest()
+        return hashlib.sha224(time.asctime(time.gmtime()) + str(random.randint(1, 100000))).hexdigest()

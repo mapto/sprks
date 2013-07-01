@@ -43,7 +43,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:
     store = web.session.DBStore(storage.db, 'sessions')
-    storage.session = web.session.Session(app, store, initializer={'user_id': 0, 'cache':{}})
+    storage.session = web.session.Session(app, store, initializer={'user_id': 0})
     web.config._session = storage.session
 else:
     storage.session = web.config._session
