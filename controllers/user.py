@@ -1,8 +1,6 @@
 import json
 
 import web
-import re
-import base64
 
 from localsys.environment import *
 from models.users import users_model
@@ -18,54 +16,30 @@ class login:
         """
         If action parameter is specified =='logout', logs out user. Else displays login screen
         """
+
+        if context.user_id() == 0:
+            return render.login()
+
         if web.input().get('action', '') == 'logout':
-            users_model.session_user_id(0)
-            raise web.seeother('/')
+            users_model.session_login(0)
 
-        if context.user_id() > 0:
-            raise web.seeother('/')
+        raise web.seeother('/')
 
-        return render.login()
+
 
     def POST(self):
         """
         Authenticates user
         """
-        payload = json.loads(web.data())
-        auth_method = payload.get('authMethod', 'basic')
-        stateless = payload.get('stateless', False)
-
         web.header('Content-Type', 'application/json')
 
-        if auth_method == 'basic':
-            if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
-                return json.dumps({
-                    'success': False,
-                    'msgs': ['Missing HTTP Authorization header']
-                })
-
-            auth = web.ctx.env.get('HTTP_AUTHORIZATION')
-            auth = re.sub('^Basic ','',auth)
-            username, password = base64.decodestring(auth).split(':')
-        elif auth_method == 'json':
-            username = payload.get('username')
-            password = payload.get('password')
-        else:
-            return json.dumps({
-                'success': False,
-                'msgs': ['Invalid authentication mechanism']
-            })
-
-        user_id = users_model().check_credentials(username, password)
-
+        user_id = context.user_id()
 
         if user_id > 0:
-            if not stateless:
-                users_model.session_user_id(user_id)
+            users_model.session_login(user_id)
             return json.dumps({
                 'success': True,
-                'msgs': ['Successful login'],
-                'user_id': user_id
+                'msgs': ['Successful login']
             })
         else:
             return json.dumps({
@@ -97,7 +71,7 @@ class register:
                 'msgs': ['User already exists']
             })
         elif user_id > 0:
-            users_model.session_user_id(user_id)
+            users_model.session_login(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
@@ -131,7 +105,7 @@ class password:
 
     def PUT(self, a, arg1=0):
         """
-        If user is logged in XOR valid password recovery token is included, changes user password.
+        Changes password for specified user
         """
 
         user_id = int(arg1)
@@ -148,7 +122,7 @@ class password:
 
         if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
             if user_model.update_password(user_id, payload['password']):
-                users_model.session_user_id(user_id)
+                users_model.session_login(user_id)
                 return json.dumps({
                     'success': True,
                     'msgs': ['Password changed']

@@ -45,7 +45,6 @@ $var title: Login
                 xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
             },
             data: JSON.stringify({
-                authMethod: 'basic',
                 stateless: false
             }),
             statusCode: {
