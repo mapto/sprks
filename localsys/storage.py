@@ -1,5 +1,6 @@
 import web
 
+
 try:
     settings = __import__('settings')
     # Assuming that only MySQL is used

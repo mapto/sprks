@@ -1,36 +1,63 @@
-"""
-Environment takes care of the system objects that need to be used by many modules
-"""
-
 import web
 from datetime import datetime
 from libraries.user_helper import authenticate
 from models.users import users_model
+from web import ctx
+
+
+class context:
+    """
+    Caches current user details.
+    """
+
+    @staticmethod
+    def cache():
+        """
+        Returns a cache specific to the context (http request)
+        """
+        try:
+            return getattr(ctx, 'cache')
+        except AttributeError:
+            ctx.cache = {}
+            return ctx.cache
+
+    @staticmethod
+    def flush_cache():
+        context.cache().clear()
+
+    @staticmethod
+    def user_id():
+        """
+        Returns user_id of current user if logged in, else returns 0.
+        """
+        user_id = context.cache().get('user_id')
+        if user_id is None:
+            context.cache()['user_id'] = authenticate.check()
+            return context.cache()['user_id']
+        return user_id
+
+    @staticmethod
+    def username():
+        """
+        Returns username of current user if logged in, else returns empty string.
+        """
+        username = context.cache().get('username')
+        if username is None:
+            context.cache()['username'] = users_model.get_username(authenticate.check())
+            return context.cache()['username']
+        return username
+
 
 
 def get_start_time():
     return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
 
 
-def get_user_id():
-    """
-    Returns current user_id if logged in, otherwise 0.
-    """
-    return authenticate().check()
-
-
-def get_username():
-    """
-    Returns current username if logged in, otherwise empty string.
-    """
-    return users_model().get_username(authenticate().check())
-
-
-globals = {
+render_globals = {
     'datetime': datetime,
     'get_start_time': get_start_time,
-    'get_user_id': get_user_id,
-    'get_username': get_username
+    'user_id': context.user_id,
+    'username': context.username
 }
 
-render = web.template.render('views/', base='skeleton', globals=globals)
+render = web.template.render('views/', base='skeleton', globals=render_globals)

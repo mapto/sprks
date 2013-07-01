@@ -1,5 +1,4 @@
 $def with (content)
-$var username = get_username()
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,8 +24,8 @@ $var username = get_username()
         <div class="container-fluid">
             <div class="link"><a href="/">sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
-                $if self.username != '':
-                    <a href="password">Change Password</a> | </a><a href="login?action=logout">Logout $self.username</a>
+                $if user_id() > 0:
+                    <a href="password">Change Password</a> | </a><a href="login?action=logout">Logout $username()</a>
                 $else:
                     <a href="login">Login</a>
             </div>
@@ -35,7 +34,7 @@ $var username = get_username()
 </div>
 </header>
 
-$if self.username != '':
+$if user_id() > 0:
     <div class="menu">
         <div class="story"><a href="/intro">Story </a></div>
         <div class="policy"><a href="/pwpolicy">Policy</a></div>
