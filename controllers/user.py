@@ -7,7 +7,7 @@ from models.users import users_model
 from libraries.utils import hash_utils
 
 
-class login:
+class account:
     """
     Handles login
     """
@@ -45,24 +45,24 @@ class login:
                 'msgs': ['Invalid username/password']
             })
 
-
-class register:
-    """
-    Handles user registration
-    """
-    def GET(self):
-        if context.user_id() > 0:
-            raise web.seeother('/')
-        return render.register()
-
-    def POST(self):
+    def PUT(self, a, username=''):
         """
         Stores user details into database.
         """
         payload = json.loads(web.data())
-        user_id = users_model().register(payload['username'], payload['password'], payload['email'])
+        password = payload.get('password')
+        email = payload.get('email')
 
         web.header('Content-Type', 'application/json')
+
+        if password is None or email is None or username == '':
+            return json.dumps({
+                'success': False,
+                'msgs': ['Username/email/password cannot be empty']
+            })
+
+        user_id = users_model().register(username, password, email)
+
         if user_id == 0:
             return json.dumps({
                 'success': False,
@@ -81,6 +81,16 @@ class register:
                 'success': False,
                 'msgs': ['Database error']
             })
+
+
+class register:
+    """
+    Handles user registration screen
+    """
+    def GET(self):
+        if context.user_id() > 0:
+            raise web.seeother('/')
+        return render.register()
 
 
 class password:

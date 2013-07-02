@@ -23,7 +23,7 @@ import controllers.incident
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
-        '/login', controllers.user.login,
+        '/login', controllers.user.account,
         '/register', controllers.user.register,
         '/password', controllers.user.password,
         '/intro', controllers.intro.intro,
@@ -36,8 +36,8 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/timeline', controllers.timeline.go,
         '/history', controllers.policy_history.history,
         # APIs
-        '/api/user/register', controllers.user.register,
-        '/api/user/login', controllers.user.login,
+        '/api/user/account(/?)(.+)', controllers.user.account,
+        '/api/user/account', controllers.user.account,
         '/api/user/password(/?)(.+)', controllers.user.password,
         '/incident', controllers.incident.incident        
 )
