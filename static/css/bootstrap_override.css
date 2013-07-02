@@ -144,6 +144,11 @@ label {
     background-color: #fff;
 }
 
+.score-value {
+    font-size: x-large;
+    font-weight: bolder;
+}
+
 .risk-menu {
     display: none;
     width: 150px;
@@ -154,6 +159,7 @@ label {
     z-index: 1030;
     margin-bottom: 10px;
     margin-left: -10px;
+    font-size: x-small;
 }
 
 .risk-menu ul {
@@ -162,8 +168,8 @@ label {
 
     background-color: #f9f9f9;
     color: #555;
-    text-align: left;
-    font-weight: bold;
+  text-align: center;
+  font-weight: normal;
 
     width: 210px;
     height: auto;
