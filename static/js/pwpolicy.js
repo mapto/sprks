@@ -241,8 +241,7 @@ function get_range(policy, id) {
     });
     return msgs;
 }
-function initialize_graphs(policy_costs_risks){ //id examples: plen, psets, pdict, etc.
-//    console.log(policy_costs_risks);
+
 function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
     console.log(policy_costs_risks);
     var graph_id = {};
@@ -299,11 +298,6 @@ function display_graphs(graph_id, dps_risk, dps_cost) {
         }); // End of new chart variable
 
         chart.render();
-
- chart.render();
-
-    });
-
 
      });
 

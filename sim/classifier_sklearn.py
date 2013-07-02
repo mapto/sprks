@@ -43,7 +43,7 @@ class classifier_sklearn:
             event = incident.get_incident(id=cls)
 
             if greatest is None or event["risk"] > greatest[1]:
-                greatest = [event["id"], event["risk"]] # 0 - name, 1 - risk
+                greatest = [event["name"], event["risk"]] # 0 - name, 1 - risk
 
         return greatest
         #return self.incidents_model.predict(data)

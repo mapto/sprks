@@ -137,3 +137,7 @@ class simulation:
         cost = (productivity + maintenance) / 2 # overall (needs to be weighted) cost
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)
+
+    def get_incident(self):
+        risk = self.classifier.predict_data(self.dict)
+        value = risk[0]  # 0 - name, 1 - risk
