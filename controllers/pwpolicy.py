@@ -1,7 +1,5 @@
 import json
-
 import web
-
 import localsys
 from sim.simulation import simulation
 from localsys.environment import *
@@ -19,7 +17,7 @@ class pwpolicy:
         """
         Renders the form to input password policies.
         """
-        user_id = users_model.authorize()
+        user_id = context.user_id()
         if user_id == 0:
             raise web.seeother('home')
 
@@ -63,12 +61,12 @@ class pwpolicy:
             data["pautorecover"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
-        pw_policy_model().update({'userid': str(localsys.storage.session.user_id), 'date': payload["date"]}, data)
+        pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
         for k, value in data.iteritems():
             sim.set_policy(k, value)
-        msg["msg1"] = [{"name": "prob", "value": sim.calc_risk_prob()},
-                           {"name": "impact", "value": sim.calc_risk_impact()},
-                           {"name": "cost", "value": sim.calc_prod_cost()}]
+#        return json.dumps(data)
+        msg["msg1"] = [{"name": "risk", "value": sim.calc_risk_prob()},
+                       {"name": "cost", "value": sim.calc_prod_cost()}]
         msgs = []
         tmp_msg = {}
         tmp_msg["id"] = payload["id"]
@@ -130,3 +128,4 @@ class pwpolicy:
             # print('return cost '+ policy_costs_risks)
 
         return policy_costs_risks
+

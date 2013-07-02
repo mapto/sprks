@@ -2,15 +2,15 @@ __author__ = 'mruskov'
 
 import web
 from localsys.environment import render
-from models.users import users_model
+from localsys.environment import context
 
 
 class intro:
     def GET(self):
-        if users_model.authorize() > 0:
+        if context.user_id() > 0:
             return render.intro()
         else:
             raise web.seeother('/home')
 
     def POST(self):
-        raise web.seeother('/pwpolicy')
+        raise web.seeother('/policy/password')

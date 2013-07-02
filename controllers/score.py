@@ -10,6 +10,7 @@ import localsys
 from localsys.environment import render
 from localsys.storage import db
 from sim.simulation import simulation
+from localsys.environment import context
 
 
 class score:
@@ -179,9 +180,9 @@ class score:
 
     def GET(self):
         #check if is logged in
-        if localsys.storage.session.user_id > 0:
+        if context.user_id() > 0:
             #use this variable to request any ID number
-            id_user = localsys.storage.session.user_id
+            id_user = context.user_id()
 
             all_scores = db.select('scores', order="score_value ASC")
             length = len(all_scores)
@@ -207,7 +208,7 @@ class score:
                 #avg_pc = self.FIND_AVG(your_pc)
                 print b_u_risk_rank
 
-                return render.score(models.users.users_model().get_username(localsys.storage.session.user_id),
+                return render.score(context.username(),
                                     b_u_risk, b_u_risk_date, b_u_risk_rank,
                                     b_u_cost, b_u_cost_date, b_u_cost_rank,
                                     c_risk, c_risk_when, c_risk_rank,

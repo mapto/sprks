@@ -45,6 +45,9 @@ class estimator_sklearn_tree(estimator_interface):
                 policy["pautorecover"].value() * 48]
 
     def policy2datapoint_cost(self, policy):
+        """ OBSOLETE: This class is currently not used.
+            This method was copied to simulation, but also kept here for backwards compatibility
+        """
         complexity = policy["plen"].value() + policy["psets"].value() * 3 + policy["pdict"].value() * 12 + policy[
             "phist"].value() * 4
         generator = complexity * policy["prenew"].value() * 16

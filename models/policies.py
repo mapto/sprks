@@ -22,3 +22,11 @@ class policies_model:
             tmp['cost'] = sim.calc_prod_cost()
             history.append(tmp)
         return history
+
+    def get_latest_policy(self, id):
+        results = db.select('pw_policy', where="userid=$id", order="date", vars=locals())[0]
+        policy = {}
+        for k, value in results.iteritems():
+            if k != 'idpolicy' and k != 'userid' and k != 'date':
+                policy[k] = str(value)
+        return policy

@@ -95,6 +95,8 @@ class users_model:
         if len(self.select_users(username=username)) > 0:
             return 0
         else:
+            if username == '' or email == '':
+                return -1
             db.insert('users', username=username, email=email, password=hash_utils.hash_password(password))
             user_lookup = self.select_users(username=username)
             if len(user_lookup) == 1:

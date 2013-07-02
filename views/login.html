@@ -39,7 +39,7 @@ $var title: Login
         e.preventDefault();
         $$.ajax({
             type: 'POST',
-            url: '/api/user/login',
+            url: '/api/user/account',
             dataType: 'json',
             beforeSend: function (xhr){
                 xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
@@ -55,7 +55,7 @@ $var title: Login
                     if (response.success === true){
                         window.location = ("/");
                     }
-                    formModel.messages(response.msgs);
+                    formModel.messages(response.messages);
                 }
             }
         });
