@@ -52,7 +52,7 @@ $var title: Register
                         formModel.messages(['Server error']);
                     },
                     200: function (response) {
-                        formModel.messages(response.msgs);
+                        formModel.messages(response.messages);
                     },
                     201: function(response) {
                         window.location = ("/");

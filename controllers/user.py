@@ -34,12 +34,12 @@ class account:
             users_model.session_login(context.user_id())
             return json.dumps({
                 'success': True,
-                'msgs': ['Successful login']
+                'messages': ['Successful login']
             })
         else:
             return json.dumps({
                 'success': False,
-                'msgs': ['Invalid username/password']
+                'messages': ['Invalid username/password']
             })
 
     def PUT(self, a, username=''):
@@ -55,7 +55,7 @@ class account:
         if password is None or email is None or username == '':
             return json.dumps({
                 'success': False,
-                'msgs': ['Username/email/password cannot be empty']
+                'messages': ['Username/email/password cannot be empty']
             })
 
         user_id = users_model().register(username, password, email)
@@ -63,20 +63,20 @@ class account:
         if user_id == 0:
             return json.dumps({
                 'success': False,
-                'msgs': ['User already exists']
+                'messages': ['User already exists']
             })
         elif user_id > 0:
             users_model.session_login(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
-                'msgs': ['User registered'],
+                'messages': ['User registered'],
                 'user_id': user_id
             })
         else:
             return json.dumps({
                 'success': False,
-                'msgs': ['Database error']
+                'messages': ['Database error']
             })
 
 
@@ -122,7 +122,7 @@ class password:
         if not (user_id > 0):
             return json.dumps({
                 'success': False,
-                'msgs': ['Invalid user_id specified']
+                'messages': ['Invalid user_id specified']
             })
 
         if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
@@ -130,16 +130,16 @@ class password:
                 users_model.session_login(user_id)
                 return json.dumps({
                     'success': True,
-                    'msgs': ['Password changed']
+                    'messages': ['Password changed']
                 })
             return json.dumps({
                 'success': False,
-                'msgs': ['Database error']
+                'messages': ['Database error']
                 })
 
         return json.dumps({
             'success': False,
-            'msgs': ['Unauthorized request']
+            'messages': ['Unauthorized request']
         })
 
     def POST(self, a, arg1=0):
@@ -158,13 +158,13 @@ class password:
         else:
             return json.dumps({
                 'success': False,
-                'msgs': ['Unknown uid type']
+                'messages': ['Unknown uid type']
             })
 
         if user_email == '':
             return json.dumps({
                 'success': False,
-                'msgs': ['User not found']
+                'messages': ['User not found']
             })
 
         try:
@@ -177,10 +177,10 @@ class password:
                          'http://' + web.ctx.host + web.ctx.homepath + '/password?token=' + token)
             return json.dumps({
                 'success': True,
-                'msgs': ['Password recovery email sent']
+                'messages': ['Password recovery email sent']
             })
         except Exception:
             return json.dumps({
                 'success': False,
-                'msgs': ['Server error']
+                'messages': ['Server error']
             })
