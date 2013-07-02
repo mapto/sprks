@@ -13,4 +13,4 @@ class intro:
             raise web.seeother('/home')
 
     def POST(self):
-        raise web.seeother('/pwpolicy')
+        raise web.seeother('/policy/password')

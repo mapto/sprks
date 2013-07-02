@@ -1,12 +1,17 @@
 __author__ = 'zcabh_000'
 
+import glob
+import json
+from models.pw_policy import pw_policy_model
+
+
 class incident:
     # names = ['default', 'too_often', 'very_easy', 'eternal', 'too_hard', 'easy_recovery', 'infrequent_use', 'easy_secure', 'hard_secure', 'no_pass']
     incidents = {} # will contain {"bruteforce": []}"
     singleton = None
 
-    @staticmethod
-    def read_files():
+    @classmethod
+    def read_files(self):
         for ref in glob.glob('static/incidents/*.json'):
             file = open(ref)
             data = json.load(file)
@@ -21,8 +26,8 @@ class incident:
             # print data["name"] + " " + str(data["id"])
 
 
-    @staticmethod
-    def get_incident(id='1', type='any'): # if type not specified, search
+    @classmethod
+    def get_incident(self, id='1', type='any'): # if type not specified, search
         if not incident.incidents:
             incident.read_files()
 

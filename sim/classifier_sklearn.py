@@ -40,7 +40,7 @@ class classifier_sklearn:
             # event = incident(cls[0].astype(int64))
             # risk = event.get_risk()
 
-            event = incident.get_incident(id=cls)
+            event = incident.get_incident(cls)
 
             if greatest is None or event["risk"] > greatest[1]:
                 greatest = [event["name"], event["risk"]] # 0 - name, 1 - risk

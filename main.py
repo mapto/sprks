@@ -19,6 +19,7 @@ import controllers.score
 import controllers.timeline
 import controllers.chronos
 import controllers.policy_history
+import controllers.incident
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
@@ -37,7 +38,8 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         # APIs
         '/api/user/register', controllers.user.register,
         '/api/user/login', controllers.user.login,
-        '/api/user/password(/?)(.+)', controllers.user.password
+        '/api/user/password(/?)(.+)', controllers.user.password,
+        '/incident', controllers.incident.incident        
 )
 
 app = web.application(urls, globals(), autoreload=False)

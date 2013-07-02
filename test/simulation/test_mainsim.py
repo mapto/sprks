@@ -80,6 +80,24 @@ class TestMaxSec:
     """
     Tests the values for maximum security.
     """
+class TestEstimators:
+    def setup_method(self, method):
+        self.outputs = ["risk_prob", "risk_impact", "prod_cost"]
+        self.tool = estimator_sklearn_tree()
+#        self.train_data = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
+#        self.train_result = genfromtxt('static/data/pw-train-result-full.csv', delimiter=',')
+        self.train_data = genfromtxt('/home/mruskov/work/PycharmProjects/sprks/static/data/pw-train-data-full.csv', delimiter=',')
+        self.train_result = genfromtxt('/home/mruskov/work/PycharmProjects/sprks/static/data/pw-train-result-full.csv', delimiter=',')
+
+        self.eps = .1
+
+    def test_sklearn_tree(self):
+        """Doesn't work because tool converts data in constructor
+        """
+        result = self.tool.predict(self.train_data)
+        delta = numpy.max(numpy.abs(result - self.train_result))
+        assert delta < self.eps
+
 
     def setup_method(self, method):
         self.policy = simulation()
@@ -123,4 +141,4 @@ class TestMinSec:
         assert self.policy.calc_risk_impact() == 1
 
     def test_calc_prod_cost(self):
-        assert (self.policy.calc_prod_cost() >= 0) and (self.policy.calc_prod_cost() <= 100)
+        assert (self.policy.calc_prod_cost() >= 0) and (self.policy.calc_prod_cost() <= 1)
