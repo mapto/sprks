@@ -35,7 +35,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/forward', controllers.timeline.forward,
         '/timeline', controllers.timeline.go,
         '/history', controllers.policy_history.history,
-        '/incident', controllers.pwpolicy.incident,
+        '/incident', controllers.incident.incident,
         # APIs
         '/api/user/account(/?)(.+)', controllers.user.account,
         '/api/user/account', controllers.user.account,

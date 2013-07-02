@@ -57,12 +57,13 @@ function initFrame() {
 
     //opening incident window
     $('#play').click(function () {
-        var width = 1350;
-        var height = 550;
-        var left = (screen.width / 2) - (width / 2);
-        var top = (screen.height / 2) - (height / 2);
-        myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-        myWindow.focus();
+        window.open("/incident","_self")
+        //var width = 1000;
+        //var height = 550;
+        //var left = (screen.width / 2) - (width / 2);
+        //var top = (screen.height / 2) - (height / 2);
+        //myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+        //myWindow.focus();
     });
 
     console.log("Private decoration initialized...");
@@ -102,6 +103,9 @@ function highlightActiveButton() {
             break;
         case "Profile":
             css_class = "profile";
+            break;
+        case "Incident":
+            css_class = "incident";
             break;
         default:
             css_class = "policy";

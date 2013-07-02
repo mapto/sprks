@@ -67,7 +67,9 @@ body {
 .loginbox.main_body_container {
     max-width: 100%; /*central block for main info, use with loginbox class*/
 }
-
+.main-body{
+    width:100%;
+}
 label {
     display: block;
     margin-bottom: 5px;
@@ -84,30 +86,29 @@ label {
 }
 
 .time_controls {
-    width: auto;
+    width: 15%;
     position: fixed;
-    right: 1px;
+    right: 1%;
     top: 60px;
     z-index: 1030;
 
     list-style: none;
     text-align: center;
-    margin-right: 20px;
+
     margin-top: 15px;
     border: solid 1px #b0b0b0;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
 
 .time_controls ul {
-    padding-right: 26px;
+    margin-left:-1%;
 }
 
 .time_controls li {
     position: relative;
     display: inline-block;
-    margin-right: -4px;
-}
 
+}
 
 .time_controls a {
     display: block;
@@ -151,7 +152,7 @@ label {
 
 .risk-menu {
     display: none;
-    width: 150px;
+    width:15%;
     position: fixed;
     right: 0;
     left: 5px;
@@ -165,17 +166,12 @@ label {
 .risk-menu ul {
     position: relative;
     display: block;
-
     background-color: #f9f9f9;
     color: #555;
-  text-align: center;
-  font-weight: normal;
-
-    width: 210px;
+    text-align: center;
+    font-weight: normal;
+    width:100%;
     height: auto;
-
-    max-height: 150px;
-
     line-height: 50px;
     border-radius: 3%;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
@@ -183,9 +179,9 @@ label {
 
 .risk-menu li {
     display: block;
-    min-width: 160px;
+    width:100%;
     margin: 5px;
-
+    margin-left:0;
 }
 
 .link {
@@ -261,14 +257,14 @@ label {
     position: fixed;
     left: 11px;
     top: 64px;
-    width: 210px;
+    width: 15%;
 }
 
 .menu a {
     position: relative;
     display: block;
     margin: 10px;
-    width: 210px;
+    width: 100%;
     height: 40px;
     border-radius: 3%;
     line-height: 40px;

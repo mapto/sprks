@@ -38,6 +38,18 @@ class incident:
         else:
             return incident.incidents[type][id]
 
+    @classmethod
+    def get_incident_by_name(self, name='infrequent_use'): # if type not specified, search
+        ref = 'static/incidents/' + name + '.json'
+        file = open(ref)
+        data = json.load(file)
+        file.close()
+
+        id = data["id"]
+        type =  data["type"]
+
+        return incident.incidents[type][id]
+
     def generate_samples(self):
         list = []
         for policy in pw_policy_model.range.keys():

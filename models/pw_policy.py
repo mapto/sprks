@@ -22,10 +22,10 @@ class pw_policy_model:
                     policy["prenew"], policy["pattempts"],
                     policy["pautorecover"]]
         else:
-            return [policy["plen"].value(), policy["psets"].value(),
-                    policy["pdict"].value(), policy["phist"].value(),
-                    policy["prenew"].value(), policy["pattempts"].value(),
-                    policy["pautorecover"].value()]
+            return [policy["plen"], policy["psets"],
+                    policy["pdict"], policy["phist"],
+                    policy["prenew"], policy["pattempts"],
+                    policy["pautorecover"]]
 
     def update(self, where, values):
         """
