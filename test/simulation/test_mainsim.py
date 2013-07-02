@@ -60,16 +60,6 @@ class TestMaxSec:
     Tests the values for maximum security.
     """
 class TestEstimators:
-    def setup_method(self, method):
-        self.outputs = ["risk_prob", "risk_impact", "prod_cost"]
-        self.tool = estimator_sklearn_tree()
-#        self.train_data = genfromtxt('static/data/pw-train-data-full.csv', delimiter=',')
-#        self.train_result = genfromtxt('static/data/pw-train-result-full.csv', delimiter=',')
-        self.train_data = genfromtxt('/home/mruskov/work/PycharmProjects/sprks/static/data/pw-train-data-full.csv', delimiter=',')
-        self.train_result = genfromtxt('/home/mruskov/work/PycharmProjects/sprks/static/data/pw-train-result-full.csv', delimiter=',')
-
-        self.eps = .1
-
     def test_sklearn_tree(self):
         """Doesn't work because tool converts data in constructor
         """
