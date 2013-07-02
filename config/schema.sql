@@ -92,3 +92,15 @@ ALTER TABLE `pw_policy`
 --
 ALTER TABLE `scores`
   ADD CONSTRAINT `` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+  delimiter $$
+
+CREATE TABLE `journal` (
+  `user_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `incident_id` int(11) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `commited` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+
+

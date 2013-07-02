@@ -8,13 +8,14 @@ from localsys.environment import render
 from models.users import users_model
 import localsys
 from models.policies import policies_model
+from localsys.environment import context
 
 
 class history:
     def GET(self):
-        user_id = users_model.authorize()
+        user_id = context.user_id()
         if user_id > 0:
-            username = users_model().get_username(user_id)
+            username = context.username()
             date = localsys.storage.session.date
             policy_history = policies_model().get_policy_history(user_id)
 

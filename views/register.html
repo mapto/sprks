@@ -38,13 +38,12 @@ $var title: Register
 
     $$('#registerForm').submit(function (e) {
         e.preventDefault();
-        if (formModel.password() === formModel.passwordConfirm()) {
+        if (formModel.password() === formModel.passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
             $$.ajax({
-                type: 'POST',
-                url: '/api/user/register',
+                type: 'PUT',
+                url: '/api/user/account/' + formModel.username(),
                 dataType: 'json',
                 data: JSON.stringify({
-                    username: formModel.username(),
                     password: formModel.password(),
                     email: formModel.email()
                 }),
@@ -53,7 +52,7 @@ $var title: Register
                         formModel.messages(['Server error']);
                     },
                     200: function (response) {
-                        formModel.messages(response.msgs);
+                        formModel.messages(response.messages);
                     },
                     201: function(response) {
                         window.location = ("/");

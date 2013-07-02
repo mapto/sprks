@@ -1,27 +1,6 @@
-__author__ = 'Horace'
-
 from sim.simulation import *
-
-
-class TestNoPolicy:
-    """
-    Tests the calculated values if no policy details are loaded.
-    """
-    # TODO tests broken - lazy init of policies vs auto init all policies
-    def setup_method(self, method):
-        self.no_policy = simulation()
-
-    def test_calc_risk_prob(self):
-        # assert self.no_policy.calc_risk_prob() == 1
-        pass
-
-    def test_calc_risk_impact(self):
-        # assert self.no_policy.calc_risk_impact() == 1
-        pass
-
-    def test_calc_prod_cost(self):
-        # assert self.no_policy.calc_prod_cost() == 0
-        pass
+import numpy
+from numpy import genfromtxt
 
 
 class TestPolicyConstructor:
@@ -80,6 +59,13 @@ class TestMaxSec:
     """
     Tests the values for maximum security.
     """
+class TestEstimators:
+    def test_sklearn_tree(self):
+        """Doesn't work because tool converts data in constructor
+        """
+        result = self.tool.predict(self.train_data)
+        delta = numpy.max(numpy.abs(result - self.train_result))
+        assert delta < self.eps
 
     def setup_method(self, method):
         self.policy = simulation()
@@ -123,4 +109,4 @@ class TestMinSec:
         assert self.policy.calc_risk_impact() == 1
 
     def test_calc_prod_cost(self):
-        assert (self.policy.calc_prod_cost() >= 0) and (self.policy.calc_prod_cost() <= 100)
+        assert (self.policy.calc_prod_cost() >= 0) and (self.policy.calc_prod_cost() <= 1)

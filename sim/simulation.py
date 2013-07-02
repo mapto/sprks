@@ -1,4 +1,4 @@
-__author__ = 'Horace'
+from __future__ import division # make division floating, not integer: http://stackoverflow.com/questions/1267869/how-can-i-force-division-to-be-floating-point-in-python
 
 from estimator_sklearn_tree import estimator_sklearn_tree
 from estimator_simple import estimator_simple
@@ -78,17 +78,65 @@ class simulation:
 
     def calc_risk_prob(self):
         #risk = self.estimator.get_risk_prob(self.dict)
-        risk = self.classifier.predict(self.dict)[0]
+        risk = self.classifier.predict_data(self.dict)
+        value = risk[1]  # 0 - name, 1 - risk
         # Extreme precision is not needed outside of simulation
-        return round(risk, 2)
+        return round(value, 2)
 
     def calc_risk_impact(self):
     #        impact = self.estimator.get_risk_impact(self.dict)
         # Extreme precision is not needed outside of simulation
-        return round(1, 2)
+        return 1
+        # return round(1, 2)
+
+    def derive_maintenance_cost(self, policy):
+        # range for complexity [7, 48]
+        complexity = policy["plen"].value()\
+                   + policy["psets"].value() * 3\
+                   + policy["pdict"].value() * 12\
+                   + policy["phist"].value() * 4
+
+        generation = complexity * policy["prenew"].value()  # range for generation [0, 144]
+        memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
+        support = (policy["pattempts"].value() * 24 + memorization) * policy["pautorecover"].value() # range [0, 240]
+
+        return support / 240 # normalized, notice from _future_ import that converts division to floating. default is integer division
+
+    def derive_prod_cost(self, policy):
+        """ Productivity cost can be derived from a clear formula.
+            There are other less obvious costs that need to be derived with machine learning algorithm.
+            These are compliance cost and risk impact (not for passwords)
+        """
+        # range for complexity [7, 48]
+        complexity = policy["plen"].value()\
+                   + policy["psets"].value() * 3\
+                   + policy["pdict"].value() * 12\
+                   + policy["phist"].value() * 4
+
+        generation = complexity * policy["prenew"].value() # range for generation [0, 144]
+        gen_norm = generation / 144 # notice from _future_ import that converts division to floating. default is integer division
+
+        memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
+        mem_norm = memorization / 192
+
+        entry = policy["plen"].value() # range [0, 12]
+        entry_norm = entry / 12
+
+        return (gen_norm + mem_norm + entry_norm) / 3
 
     def calc_prod_cost(self):
+        """ To ensure consistency across system, keep values in the [0, 1] range
+        """
         #cost = self.estimator.get_prod_cost(self.dict)
-        cost = self.classifier.predict(self.dict)[1]
+        # cost = self.classifier.predict(self.dict)[1]
+        productivity = self.derive_prod_cost(self.dict)
+        maintenance = self.derive_maintenance_cost(self.dict)
+
+        cost = (productivity + maintenance) / 2 # overall (needs to be weighted) cost
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)
+
+    def get_incident(self):
+        risk = self.classifier.predict_data(self.dict)
+        value = risk[0]  # 0 - name, 1 - risk
+        return value

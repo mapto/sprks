@@ -1,14 +1,15 @@
 import json
 import web
 import localsys
+from localsys.environment import context
 
 
 class chronos:
     def POST(self):
         request = json.loads(web.data())
 
-        if localsys.session.user_id > 0:
-            user_id = localsys.session.user_id
+        if context.user_id() > 0:
+            user_id = context.user_id()
 
         else:
             raise web.seeother('/home')

@@ -10,14 +10,14 @@
  */
 
 function initFrame() {
-    if ($("#prob").text() == '' || $("#impact").text() == '' || $("#cost").text() == '') {
+    if ($("#risk").text() == '' || $("#cost").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
         $(".risk-menu").css("display", "block");
     }
 
     $(document).click(function () {
-        if ($("#prob").text() == '' || $("#impact").text() == '' || $("#cost").text() == '') {
+        if ($("#risk").text() == '' || $("#cost").text() == '') {
             $(".risk-menu").css("display", "none");
         } else {
             $(".risk-menu").css("display", "block");
@@ -25,6 +25,7 @@ function initFrame() {
     });
 
     manageScoreButton();
+    manageIncidentButton();
 
     highlightActiveButton();
 
@@ -43,6 +44,7 @@ function initFrame() {
                 console.log("success: " + JSON.stringify(curr_date));
                 $("#curr_date").text(curr_date[0].value);
                 manageScoreButton();
+                manageIncidentButton();
             },
             error: function (response) {
                 console.log("fail: " + response.responseText);
@@ -55,12 +57,13 @@ function initFrame() {
 
     //opening incident window
     $('#play').click(function () {
-        var width = 600;
-        var height = 450;
-        var left = (screen.width / 2) - (width / 2);
-        var top = (screen.height / 2) - (height / 2);
-        myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-        myWindow.focus();
+        window.open("/incident","_self")
+        //var width = 1000;
+        //var height = 550;
+        //var left = (screen.width / 2) - (width / 2);
+        //var top = (screen.height / 2) - (height / 2);
+        //myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+        //myWindow.focus();
     });
 
     console.log("Private decoration initialized...");
@@ -79,6 +82,14 @@ function manageScoreButton() {
     }
 }
 
+function manageIncidentButton() {
+/*
+    var value = isFirstTurn() ? "none" : "block";
+    console.log(".incident style is " + value);
+    $(".incident").css("display", value);
+*/
+}
+
 // highlight active button(scores/story/policy)
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
@@ -92,6 +103,9 @@ function highlightActiveButton() {
             break;
         case "Profile":
             css_class = "profile";
+            break;
+        case "Incident":
+            css_class = "incident";
             break;
         default:
             css_class = "policy";

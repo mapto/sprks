@@ -40,13 +40,13 @@ $if user_id() > 0:
         <div class="policy"><a href="/pwpolicy">Policy</a></div>
         <div class="profile"><a href="/history">Profile</a></div>
         <div class="score"><a href="/score">Scores</a></div>
+        <div class="incident"><a href="/incident">Incident</a></div>
     </div>
 
     <div class="risk-menu">
         <ul>
-            <li>risk probability: <br/><span id="prob"></span></li>
-            <li>risk impact: <br/><span id="impact"></span></li>
-            <li>productivity cost:<br/><span id="cost"></span></li>
+                <li style="color: #369ead;">Risk:<br/><span class="score-value" id="risk"></span></li>
+                <li style="color: #c24642;">Cost:<br/><span class="score-value" id="cost"></span> </li>
         </ul>
     </div>
 
@@ -61,7 +61,7 @@ $if user_id() > 0:
 
 <article class="container-fluid">
     <div class="row-fluid">
-        <div class="offset2 span8" style="background-color: #fff; padding: 2em; box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff; color: #847f7f">
+        <div class="offset2 span8 main-body" style="background-color: #fff; padding: 2em; box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff; color: #847f7f">
             $:content
         </div>
     </div>
