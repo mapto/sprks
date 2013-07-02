@@ -109,7 +109,7 @@ class password:
 
     def PUT(self, a, arg1=0):
         """
-        Changes password for specified user
+        Changes password for specified user_id
         """
 
         user_id = int(arg1)
@@ -145,11 +145,15 @@ class password:
         """
         Creates password recovery request, taking argument as user_id (default) or username
         """
-        payload = json.loads(web.data())
+        try:
+            uid_type = json.loads(web.data()).get('uid_type','')
+        except ValueError:
+            uid_type = ''
+
         token = hash_utils.random_hex()
 
         web.header('Content-Type', 'application/json')
-        uid_type = payload.get('uid_type','')
+
         if uid_type == 'username':
             user_email = users_model().request_password(token, users_model.get_user_id(arg1))
         elif uid_type == 'user_id' or 'uid_type' == '':
