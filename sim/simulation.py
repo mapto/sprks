@@ -139,3 +139,4 @@ class simulation:
     def get_incident(self):
         risk = self.classifier.predict_data(self.dict)
         value = risk[0]  # 0 - name, 1 - risk
+        return value

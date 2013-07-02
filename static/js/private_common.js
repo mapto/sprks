@@ -57,8 +57,8 @@ function initFrame() {
 
     //opening incident window
     $('#play').click(function () {
-        var width = 600;
-        var height = 450;
+        var width = 1350;
+        var height = 550;
         var left = (screen.width / 2) - (width / 2);
         var top = (screen.height / 2) - (height / 2);
         myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
