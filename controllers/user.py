@@ -52,7 +52,7 @@ class account:
 
         web.header('Content-Type', 'application/json')
 
-        if password is None or email is None or username == '':
+        if password is None or email is None or username == '' or email == '':
             return json.dumps({
                 'success': False,
                 'messages': ['Username/email/password cannot be empty']
@@ -70,8 +70,7 @@ class account:
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
-                'messages': ['User registered'],
-                'user_id': user_id
+                'messages': ['User registered']
             })
         else:
             return json.dumps({
