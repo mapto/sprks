@@ -17,7 +17,7 @@ class pwpolicy:
         """
         Renders the form to input password policies.
         """
-        user_id = users_model.authorize()
+        user_id = context.user_id()
         if user_id == 0:
             raise web.seeother('home')
 

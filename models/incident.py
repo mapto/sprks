@@ -1,5 +1,3 @@
-__author__ = 'zcabh_000'
-
 import glob
 import json
 from models.pw_policy import pw_policy_model
@@ -30,7 +28,6 @@ class incident:
     def get_incident(self, id='1', type='any'): # if type not specified, search
         if not incident.incidents:
             incident.read_files()
-
 
         if type == "any": # search and return the first one found
             for risk in incident.incidents.keys():

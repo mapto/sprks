@@ -25,8 +25,6 @@ class login:
 
         raise web.seeother('/')
 
-
-
     def POST(self):
         """
         Authenticates user

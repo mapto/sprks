@@ -1,10 +1,3 @@
-/**
- * Created with PyCharm.
- * User: Жанеля
- * Date: 02.07.13
- * Time: 10:23
- * To change this template use File | Settings | File Templates.
- */
 function initIncident() {
     sendIncidentRequest();
 }

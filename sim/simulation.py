@@ -1,7 +1,5 @@
 from __future__ import division # make division floating, not integer: http://stackoverflow.com/questions/1267869/how-can-i-force-division-to-be-floating-point-in-python
 
-__author__ = 'Horace'
-
 from estimator_sklearn_tree import estimator_sklearn_tree
 from estimator_simple import estimator_simple
 from classifier_sklearn import classifier_sklearn
