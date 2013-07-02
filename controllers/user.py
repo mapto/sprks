@@ -9,14 +9,13 @@ from libraries.utils import hash_utils
 
 class account:
     """
-    Handles login
+    Handles login, and REST API for login/registration.
     """
 
     def GET(self):
         """
         If action parameter is specified =='logout', logs out user. Else displays login screen
         """
-
         if context.user_id() == 0:
             return render.login()
 
@@ -31,10 +30,8 @@ class account:
         """
         web.header('Content-Type', 'application/json')
 
-        user_id = context.user_id()
-
-        if user_id > 0:
-            users_model.session_login(user_id)
+        if context.user_id() > 0:
+            users_model.session_login(context.user_id())
             return json.dumps({
                 'success': True,
                 'msgs': ['Successful login']
