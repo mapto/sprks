@@ -128,3 +128,15 @@ class pwpolicy:
             # print('return cost '+ policy_costs_risks)
 
         return policy_costs_risks
+
+class incident:
+    def GET(self, policies):
+        sim = simulation()
+        incident = sim.get_incident()
+        #incident = 'bla'
+        return render.incident(incident)
+
+    def get_incident(self):
+
+        name = 'easy_incident'
+        return name
