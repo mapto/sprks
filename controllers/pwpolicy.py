@@ -61,7 +61,7 @@ class pwpolicy:
             data["pautorecover"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
-        pw_policy_model().update({'userid': str(localsys.storage.session.user_id), 'date': payload["date"]}, data)
+        pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 #        return json.dumps(data)

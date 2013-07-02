@@ -21,7 +21,7 @@ class forward:
     def POST(self):
         # make sure that the following line stays as per your local installation
         web.header('Content-Type', 'application/json')
-        usrid = localsys.storage.session.user_id
+        usrid = context.user_id()
         sim = simulation()
 
         # get the latest date that the user has submitted a policy and add 7 days to it
