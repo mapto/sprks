@@ -10,6 +10,7 @@ from sim.simulation import simulation
 from localsys.storage import db
 from localsys.environment import *
 from pwpolicy import pwpolicy
+from models.journal import records
 
 
 class go:
@@ -23,7 +24,7 @@ class forward:
         web.header('Content-Type', 'application/json')
         usrid = localsys.storage.session.user_id
         sim = simulation()
-
+        post_data = json.loads(web.data())
         # get the latest date that the user has submitted a policy and add 7 days to it
         # if the user hasn't submitted anything, take today's date
         data = pwpolicy.default
@@ -51,8 +52,14 @@ class forward:
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 
+        validation = records.validateJournal(post_data["recent_costs"], new_date, usrid) #0-if validation failed, 1-otherwise
+
+        risk = sim.calc_risk_prob()
+
+        calendar = records.updateJournal(risk, usrid) #inserts new events into journal
+
         # TODO put this into model
-        db.insert('scores', userid=usrid, score_type=1, score_value=sim.calc_risk_prob(),
+        db.insert('scores', userid=usrid, score_type=1, score_value=risk,
                   date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
         db.insert('scores', userid=usrid, score_type=2, score_value=sim.calc_prod_cost(),
                   date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
