@@ -100,13 +100,7 @@ class pwpolicy:
 
     def get_range(self, policy, id):
         msgs = []
-        sets = {"plen":[0,6,8,10,12],
-                "psets":[1,2,3,4],
-                "pdict":[0,1],
-                "phist":[0,1,2,3],
-                "prenew":[0,1,2,3],
-                "pattempts":[0,1,2],
-                "precovery":[0,1,2]}
+        sets = pw_policy_model.ranges
         for value in sets[id]:
             new_policy = self.create_variation(policy, id, value)
             msg = {}
