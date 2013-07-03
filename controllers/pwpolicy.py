@@ -99,7 +99,7 @@ class pwpolicy:
                 "phist":[0,1,2,3],
                 "prenew":[0,1,2,3],
                 "pattempts":[0,1,2],
-                "precovery":[0,1]}
+                "precovery":[0,1,2]}
         for value in sets[id]:
             new_policy = self.create_variation(policy, id, value)
             msg = {}
