@@ -8,7 +8,51 @@
 /*wait until document is loaded*/
 function init() {
 
-    window.calendar = {};
+    test_calendar = {
+  'date': '2014-01-14' ,
+  'history': [
+    {
+      'date': '2014-01-20',
+      'events': [
+        {
+        'incdt_id': 5,
+        'cost': 2000
+        }
+      ]
+    },
+    {
+      'date': '2014-01-21',
+      events: []
+    }
+  ],
+  'prophecy': [
+    {
+      'date': '2014/1/8',
+       events: [
+        {
+          'incdt_id': 1,
+          'cost': 7000000
+        },
+        {
+          'incdt_id': 4,
+          'cost': 5000
+        }
+      ]
+    },
+    {
+      'date': '2014/1/15',
+      'events': [
+        {
+          'incdt_id': 8,
+          'cost': 1000
+        }
+      ]
+    }
+  ]
+}
+
+
+    window.calendar = test_calendar;
     window.date = $('#time').text();
     //submit_change();
    // $('.target').change(submit_change);
@@ -97,9 +141,9 @@ function verboseScore(score) {
 */
 
 function calculate_cost_from_calendar() {
-    tmp_calendar = window.calendar;
-    last_date = tmp_calendar.date;
-    tmp_prophecy = tmp_calendar.prophecy;
+    var tmp_calendar = window.calendar;
+    var last_date = tmp_calendar.date;
+    var tmp_prophecy = tmp_calendar.prophecy;
     var sum = 0;
     $(tmp_prophecy).each(function(i) {
         if(tmp_prophecy[i].date < last_date)
@@ -115,6 +159,21 @@ function calculate_cost_from_calendar() {
     return sum;
 }
 
+function check_events() {
+    var tmp_events_calendar = window.calendar.prophecy;
+    $(tmp_events_calendar).each(function(i) {
+        if(tmp_events_calendar[i].date == window.date)
+        {
+            tmp_event = tmp_events_calendar[i].events
+            $(tmp_event).each(function(j){
+                alert("Event #"+tmp_event[j].incdt_id+" happend!");
+            })
+
+        }
+
+    })
+
+}
 
 
 function submit_change() { // need different event handling, to capture any change
@@ -122,7 +181,7 @@ function submit_change() { // need different event handling, to capture any chan
     var msg = {};
     var new_policy = {};
     var day = d.getDate() - 1; // Why is this -1? --Martin
-    var strDate = document.forms["input"]["date"].value;
+    var strDate = $('#time').text();
     msg.date = strDate;
     msg.userid = document.forms["input"]["userid"].value;
     new_policy.plen = $('input[name="plen"]:checked').val();
