@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 function initIncident(){
-
+    window.timer1 = setInterval(function(){alert("Hello")},5000);
     var incident;
     var request = jQuery.ajax({
         url: get_filename(),

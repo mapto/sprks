@@ -50,8 +50,8 @@ function init() {
     $("#renew" + start_policy["pattempts"]).prop('checked', true);
 
     /*preset pswd recovery option*/
-    console.log("found pautorecover " + start_policy["pautorecover"]);
-    $("#autorecover").prop('checked', start_policy["pautorecover"] == 1);
+    console.log("found precovery " + start_policy["precovery"]);
+    $("#recovery" + start_policy["precovery"]).prop('checked', true);
 
     console.log("Policy initialized...");
 }
@@ -92,7 +92,7 @@ function submit_change() { // need different event handling, to capture any chan
     new_policy.phist = $('input[name="phist"]:checked').val();
     new_policy.prenew = $('input[name="prenew"]:checked').val();
     new_policy.pattempts = $('input[name="pattempts"]:checked').val();
-    new_policy.pautorecover = $('input[name="pautorecover"]:checked').val();
+    new_policy.precovery = $('input[name="precovery"]:checked').val();
     msg.data = JSON.stringify(new_policy);
     msg.id = $(this).closest($(".qn")).attr('id');
     console.log(msg);
@@ -142,19 +142,11 @@ function submit_change_mul() {
     {
         new_policy.pdict = 1;
     }
-    if($('input[name="pautorecover"]:checked').val()==null)
-    {
-        new_policy.pautorecover = 0;
-    }
-    else
-    {
-        new_policy.pautorecover = 1;
-    }
     //new_policy.pdict=$('input[name="pdict"]:checked').val();
+    new_policy.precovery=$('input[name="precovery"]:checked').val();
     new_policy.phist=$('input[name="phist"]:checked').val();
     new_policy.prenew=$('input[name="prenew"]:checked').val();
     new_policy.pattempts=$('input[name="pattempts"]:checked').val();
-    //new_policy.pautorecover=$('input[name="pautorecover"]:checked').val();
     msg.data=JSON.stringify(new_policy);
 
     msgs.push(msg);
@@ -196,7 +188,7 @@ send = function() { // need different event handling, to capture any change
     obj1.phist=$$('input[name="phist"]:checked').val();
     obj1.prenew=$$('input[name="prenew"]:checked').val();
     obj1.pattempts=$$('input[name="pattempts"]:checked').val();
-    obj1.pautorecover=$$('input[name="pautorecover"]:checked').val();
+    obj1.precovery=$$('input[name="precovery"]:checked').val();
     obj.data=JSON.stringify(obj1);
     obj.date=strDate;
     console.log(obj);
