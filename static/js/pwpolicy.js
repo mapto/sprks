@@ -56,6 +56,20 @@ function init() {
     $("#recovery" + start_policy["precovery"]).prop('checked', true);
 
     console.log("Policy initialized...");
+
+
+    summarize_policy(start_policy); //update policy summary for user
+
+}
+
+function summarize_policy(policy){
+    for (var key in policy){
+        console.log(policy);
+      // NEED TO FIX PDICT UNDEFINED
+
+        if (policy[key]==''){alert('need to fix pdict');policy[key]=0;}
+        $("#sum-"+key).text(key+' '+policy[key]);
+    }
 }
 
 function verboseScore(score) {
@@ -122,6 +136,7 @@ function submit_change() { // need different event handling, to capture any chan
     msg.recent_cost = calculate_cost_from_calendar();
     msg.prophesize = false;
     console.log(msg);
+    summarize_policy(new_policy); //update policy summary for user
 
     var request = $.ajax({
         url: "/pwpolicy",
@@ -299,7 +314,9 @@ function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
     }
 
     function display_graphs(graph_id, dps_risk, dps_cost) {
+
         $(".qn").each(function (i) {
+
             var chart = new CanvasJS.Chart(graph_id[$(this).closest($(".qn")).attr('id')], { //processing graph for each question
                 /*
                 title: {
@@ -323,4 +340,5 @@ function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
             }); // End of new chart variable
         chart.render();
         });
+
 }
