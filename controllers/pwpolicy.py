@@ -25,7 +25,7 @@ class pwpolicy:
         if len(check) > 0:
             result_get = check[0]
             localsys.storage.session.date = result_get.date
-            return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
+            return render.pwpolicy_form(users_model.get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
                                         result_get.pattempts, result_get.precovery, 0, str(result_get.date))
@@ -100,7 +100,7 @@ class pwpolicy:
                 "phist":[0,1,2,3],
                 "prenew":[0,1,2,3],
                 "pattempts":[0,1,2],
-                "precovery":[0,1]}
+                "precovery":[0,1,2]}
         for value in sets[id]:
             new_policy = self.create_variation(policy, id, value)
             msg = {}
