@@ -73,7 +73,8 @@ function initFrame() {
 
     //opening incident window
     $('#play').click(function () {
-        window.open("/incident","_self")
+        submit_change();
+        //window.open("/incident","_self")
         //var width = 1000;
         //var height = 550;
         //var left = (screen.width / 2) - (width / 2);

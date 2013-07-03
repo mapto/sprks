@@ -7,8 +7,10 @@
  */
 /*wait until document is loaded*/
 function init() {
+
+    window.calendar = {};
     //submit_change();
-    $('.target').change(submit_change);
+   // $('.target').change(submit_change);
     //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
 
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
@@ -78,6 +80,13 @@ function verboseScore(score) {
 /*
 //sends data when users press play button
 */
+
+function calculate_cost_from_calendar() {
+    tmp_calendar = window.calendar;
+
+
+}
+
 function submit_change() { // need different event handling, to capture any change
     var d = new Date();
     var msg = {};
@@ -122,7 +131,7 @@ function submit_change() { // need different event handling, to capture any chan
     return false;
 }
 
-function submit_change_mul() {
+/*function submit_change_mul() {
     var msgs = [];
     var new_policy = {};
     var msg = {};
@@ -234,7 +243,8 @@ function get_range(policy, id) {
 
     });
     return msgs;
-}
+}*/
+
 function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
 //    console.log(policy_costs_risks);
 //    function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdict, etc.

@@ -5,6 +5,7 @@ from sim.simulation import simulation
 from localsys.environment import *
 from localsys.storage import db
 from models.pw_policy import pw_policy_model
+from controllers import timeline
 
 
 class pwpolicy:
@@ -63,6 +64,10 @@ class pwpolicy:
         if "pattempts" not in data:
             data["pattempts"] = 0
         pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
+
+        #get the calendar
+        calendar = timeline.forward.get_calendar(data=data)
+
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 #        return json.dumps(data)
@@ -83,6 +88,7 @@ class pwpolicy:
         print msgs
         scores = self.multiple_score(msgs)
         msg["msg2"] = scores
+        msg["calendar"] = calendar
         return json.dumps(msg)
 
     def create_variation(self, policy, id, value):
