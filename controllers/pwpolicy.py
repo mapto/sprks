@@ -34,7 +34,8 @@ class pwpolicy:
         #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
             # The default policy (i.e. when not specified by user)
             dtt = get_start_time()
-            db.insert('pw_policy', userid=user_id, date=dtt.strftime("%Y/%m/%d %H:%M:%S"),
+            string_time = dtt.strftime("%Y/%m/%d %H:%M:%S")
+            db.insert('pw_policy', userid=user_id, date=string_time,
                       plen=pwpolicy.default["plen"],
                       psets=pwpolicy.default["psets"],
                       pdict=pwpolicy.default["pdict"],
@@ -42,12 +43,12 @@ class pwpolicy:
                       prenew=pwpolicy.default["prenew"],
                       pattempts=pwpolicy.default["pattempts"],
                       precovery=pwpolicy.default["precovery"])
-            result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
-            localsys.storage.session.date = result_get.date
-            return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
-                                        result_get.psets,
-                                        result_get.pdict, result_get.phist, result_get.prenew,
-                                        result_get.pattempts, result_get.precovery, 1, result_get.date)
+            #result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
+            localsys.storage.session.date = string_time
+            return render.pwpolicy_form(users_model().get_username(user_id), user_id, self.default["plen"],
+                                        self.default["psets"],
+                                        self.default["pdict"],self.default["phist"], self.default["prenew"],
+                                        self.default["pattempts"], self.default["precovery"], 1, string_time)
 
     def POST(self):
         web.header('Content-Type', 'application/json')
