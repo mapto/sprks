@@ -279,32 +279,27 @@ function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
     }
 
     function display_graphs(graph_id, dps_risk, dps_cost) {
-
-
         $(".qn").each(function (i) {
-
-
             var chart = new CanvasJS.Chart(graph_id[$(this).closest($(".qn")).attr('id')], { //processing graph for each question
+                /*
                 title: {
                     text: "Risk and Cost"
                 },
                 axisX: {
                     title: $(this).closest($(".qn")).attr('id')
                 },
+                */
                 axisY: {
-                    title: "result"
+                    title: "Risk / PC"
                 },
                 // begin data for 2 line graphs. Note dps1 and dps2 are
                 //defined above as a json object. See http://www.w3schools.com/json/
                 data: [
-                    { type: "line", name: "R", showInLegend: true, dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
-                    { type: "line", name: "PC", showInLegend: true, dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
+                    { type: "line", /*name: "R", showInLegend: true,*/ dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
+                    { type: "line", /*name: "PC", showInLegend: true,*/ dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
                 ]
                 // end of data for 2 line graphs
-
             }); // End of new chart variable
-
         chart.render();
         });
-
 }
