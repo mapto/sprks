@@ -45,7 +45,8 @@ $var title: Register
                 dataType: 'json',
                 data: JSON.stringify({
                     password: formModel.password(),
-                    email: formModel.email()
+                    email: formModel.email(),
+                    autologin: true
                 }),
                 statusCode: {
                     500: function () {

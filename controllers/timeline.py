@@ -67,3 +67,32 @@ class forward:
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
                   prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
         return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
+
+
+    def get_calendar(self, data):
+        web.header('Content-Type', 'application/json')
+        usrid = context.user_id()
+        sim = simulation()
+        post_data = json.loads(data)
+        policy = post_data["policy"]
+
+        for k, value in policy.iteritems():
+            sim.set_policy(k, value)
+
+        validation = records.validateJournal(post_data["recent_costs"], post_data["date"], usrid) #0-if validation failed, 1-otherwise
+
+        risk = sim.calc_risk_prob()
+        cost = sim.calc_prod_cost()
+
+        calendar = records.updateJournal(risk, usrid) #inserts new events into journal
+
+        # TODO put this into model
+        db.insert('scores', userid=usrid, score_type=1, score_value=risk,
+                  date=post_data["date"], rank=0)
+        db.insert('scores', userid=usrid, score_type=2, score_value=cost,
+                  date=post_data["date"], rank=0)
+        db.insert('pw_policy', userid=usrid, date=post_data["date"],
+                  plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
+                  prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
+       # return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
+        return calendar

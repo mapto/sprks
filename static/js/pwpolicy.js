@@ -7,8 +7,10 @@
  */
 /*wait until document is loaded*/
 function init() {
+
+    window.calendar = {};
     //submit_change();
-    $('.target').change(submit_change);
+   // $('.target').change(submit_change);
     //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
 
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
@@ -50,10 +52,24 @@ function init() {
     $("#renew" + start_policy["pattempts"]).prop('checked', true);
 
     /*preset pswd recovery option*/
-    console.log("found pautorecover " + start_policy["pautorecover"]);
-    $("#autorecover").prop('checked', start_policy["pautorecover"] == 1);
+    console.log("found precovery " + start_policy["precovery"]);
+    $("#recovery" + start_policy["precovery"]).prop('checked', true);
 
     console.log("Policy initialized...");
+
+
+    summarize_policy(start_policy); //update policy summary for user
+
+}
+
+function summarize_policy(policy){
+    for (var key in policy){
+        console.log(policy);
+      // NEED TO FIX PDICT UNDEFINED
+
+        if (policy[key]==''){alert('need to fix pdict');policy[key]=0;}
+        $("#sum-"+key).text(key+' '+policy[key]);
+    }
 }
 
 function verboseScore(score) {
@@ -78,6 +94,28 @@ function verboseScore(score) {
 /*
 //sends data when users press play button
 */
+
+function calculate_cost_from_calendar() {
+    tmp_calendar = window.calendar;
+    last_date = tmp_calendar.date;
+    tmp_prophecy = tmp_calendar.prophecy;
+    var sum = 0;
+    $(tmp_prophecy).each(function(i) {
+        if(tmp_prophecy[i].date < last_date)
+        {
+
+            var events = tmp_prophecy[i]._events;
+            for(var j=0;j<events.length;j++)
+            {
+                sum+=events[j].cost;
+            }
+        }
+    })
+    return sum;
+}
+
+
+
 function submit_change() { // need different event handling, to capture any change
     var d = new Date();
     var msg = {};
@@ -92,10 +130,13 @@ function submit_change() { // need different event handling, to capture any chan
     new_policy.phist = $('input[name="phist"]:checked').val();
     new_policy.prenew = $('input[name="prenew"]:checked').val();
     new_policy.pattempts = $('input[name="pattempts"]:checked').val();
-    new_policy.pautorecover = $('input[name="pautorecover"]:checked').val();
+    new_policy.precovery = $('input[name="precovery"]:checked').val();
     msg.data = JSON.stringify(new_policy);
     msg.id = $(this).closest($(".qn")).attr('id');
+    msg.recent_cost = calculate_cost_from_calendar();
+    msg.prophesize = false;
     console.log(msg);
+    summarize_policy(new_policy); //update policy summary for user
 
     var request = $.ajax({
         url: "/pwpolicy",
@@ -108,6 +149,7 @@ function submit_change() { // need different event handling, to capture any chan
             console.log("test: " + JSON.stringify(score));
             msg1 = score.msg1;
             msg2 = score.msg2;
+            window.calendar = score.calendar;
 /*
             $(msg1).each(function (i) {
                 $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
@@ -122,7 +164,7 @@ function submit_change() { // need different event handling, to capture any chan
     return false;
 }
 
-function submit_change_mul() {
+/*function submit_change_mul() {
     var msgs = [];
     var new_policy = {};
     var msg = {};
@@ -142,19 +184,11 @@ function submit_change_mul() {
     {
         new_policy.pdict = 1;
     }
-    if($('input[name="pautorecover"]:checked').val()==null)
-    {
-        new_policy.pautorecover = 0;
-    }
-    else
-    {
-        new_policy.pautorecover = 1;
-    }
     //new_policy.pdict=$('input[name="pdict"]:checked').val();
+    new_policy.precovery=$('input[name="precovery"]:checked').val();
     new_policy.phist=$('input[name="phist"]:checked').val();
     new_policy.prenew=$('input[name="prenew"]:checked').val();
     new_policy.pattempts=$('input[name="pattempts"]:checked').val();
-    //new_policy.pautorecover=$('input[name="pautorecover"]:checked').val();
     msg.data=JSON.stringify(new_policy);
 
     msgs.push(msg);
@@ -196,7 +230,7 @@ send = function() { // need different event handling, to capture any change
     obj1.phist=$$('input[name="phist"]:checked').val();
     obj1.prenew=$$('input[name="prenew"]:checked').val();
     obj1.pattempts=$$('input[name="pattempts"]:checked').val();
-    obj1.pautorecover=$$('input[name="pautorecover"]:checked').val();
+    obj1.precovery=$$('input[name="precovery"]:checked').val();
     obj.data=JSON.stringify(obj1);
     obj.date=strDate;
     console.log(obj);
@@ -242,7 +276,8 @@ function get_range(policy, id) {
 
     });
     return msgs;
-}
+}*/
+
 function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
 //    console.log(policy_costs_risks);
 //    function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
@@ -280,30 +315,29 @@ function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
 
     function display_graphs(graph_id, dps_risk, dps_cost) {
 
-
         $(".qn").each(function (i) {
 
-
             var chart = new CanvasJS.Chart(graph_id[$(this).closest($(".qn")).attr('id')], { //processing graph for each question
+                /*
                 title: {
                     text: "Risk and Cost"
                 },
                 axisX: {
                     title: $(this).closest($(".qn")).attr('id')
                 },
+                */
                 axisY: {
-                    title: "result"
+                    title: "Risk / PC"
                 },
                 // begin data for 2 line graphs. Note dps1 and dps2 are
                 //defined above as a json object. See http://www.w3schools.com/json/
                 data: [
-                    { type: "line", name: "R", showInLegend: true, dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
-                    { type: "line", name: "PC", showInLegend: true, dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
+
+                    { type: "line", color: "#369ead",name: "PC", /*showInLegend: true,*/ dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}, //blue
+                    { type: "line", color: "#c24642",/*name: "R", showInLegend: true,*/ dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]} //red
                 ]
                 // end of data for 2 line graphs
-
             }); // End of new chart variable
-
         chart.render();
         });
 

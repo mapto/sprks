@@ -183,6 +183,28 @@ label {
     margin: 5px;
     margin-left:0;
 }
+.risk_menu-title-risk{
+    color: #c24642;
+}
+.risk_menu-title-cost{
+    color: #369ead;
+}
+
+
+.policy-summary {
+    display: block;
+    width:14%;
+    background-color: #f9f9f9;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    padding:10px;
+    position: fixed;
+    right: 1%;
+    bottom: 52px;
+    z-index: 1030;
+    margin-bottom: 10px;
+    font-size: x-small;
+}
+
 
 .link {
     margin-right: 5px;
@@ -540,7 +562,7 @@ label {
 .graph {
     float: left;
     width: 30%;
-    height: 210px;
+    height: 190px;
     margin: 5px;
 }
 
