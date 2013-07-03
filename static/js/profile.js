@@ -110,8 +110,9 @@ function createGraph(date, cost, risk, data) {
         // begin data for 2 line graphs. Note dps1 and dps2 are
         //defined above as a json object. See http://www.w3schools.com/json/
         data: [
-            { type: "line", name: "Risk(%) ", showInLegend: true, dataPoints: dps1_1},
-            { type: "line", name: "Productivity cost($ million) ", showInLegend: true, dataPoints: dps2_1}
+
+            { type: "line", color: "#369ead", name: "Productivity cost($ million) ", showInLegend: true, dataPoints: dps2_1}, //blue
+            { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true, dataPoints: dps1_1} //red
         ]
         // end of data for 2 line graphs
 
