@@ -49,7 +49,6 @@ class account:
         payload = json.loads(web.data())
         password = payload.get('password')
         email = payload.get('email')
-        autologin = payload.get('autologin', False)
 
         web.header('Content-Type', 'application/json')
 
@@ -67,7 +66,7 @@ class account:
                 'messages': ['User already exists']
             })
         elif user_id > 0:
-            if autologin:
+            if payload.get('autologin', False):
                 users_model.session_login(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
