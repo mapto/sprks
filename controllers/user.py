@@ -49,6 +49,7 @@ class account:
         payload = json.loads(web.data())
         password = payload.get('password')
         email = payload.get('email')
+        autologin = payload.get('autologin', False)
 
         web.header('Content-Type', 'application/json')
 
@@ -66,7 +67,8 @@ class account:
                 'messages': ['User already exists']
             })
         elif user_id > 0:
-            users_model.session_login(user_id)
+            if autologin:
+                users_model.session_login(user_id)
             web.ctx.status = '201 Created'
             return json.dumps({
                 'success': True,
@@ -126,7 +128,8 @@ class password:
 
         if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
             if user_model.update_password(user_id, payload['password']):
-                users_model.session_login(user_id)
+                if payload.get('autologin', False):
+                    users_model.session_login(user_id)
                 return json.dumps({
                     'success': True,
                     'messages': ['Password changed']
