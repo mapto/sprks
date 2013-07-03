@@ -83,8 +83,21 @@ function verboseScore(score) {
 
 function calculate_cost_from_calendar() {
     tmp_calendar = window.calendar;
+    last_date = tmp_calendar.date;
+    tmp_prophecy = tmp_calendar.prophecy;
+    var sum = 0;
+    $(tmp_prophecy).each(function(i) {
+        if(tmp_prophecy[i].date < last_date)
+        {
 
-
+            var events = tmp_prophecy[i]._events;
+            for(var j=0;j<events.length;j++)
+            {
+                sum+=events[j].cost;
+            }
+        }
+    })
+    return sum;
 }
 
 function submit_change() { // need different event handling, to capture any change
@@ -104,6 +117,8 @@ function submit_change() { // need different event handling, to capture any chan
     new_policy.precovery = $('input[name="precovery"]:checked').val();
     msg.data = JSON.stringify(new_policy);
     msg.id = $(this).closest($(".qn")).attr('id');
+    msg.recent_cost = calculate_cost_from_calendar();
+    msg.prophesize = false;
     console.log(msg);
 
     var request = $.ajax({
@@ -117,6 +132,7 @@ function submit_change() { // need different event handling, to capture any chan
             console.log("test: " + JSON.stringify(score));
             msg1 = score.msg1;
             msg2 = score.msg2;
+            window.calendar = score.calendar;
 /*
             $(msg1).each(function (i) {
                 $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
