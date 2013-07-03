@@ -100,6 +100,8 @@ function calculate_cost_from_calendar() {
     return sum;
 }
 
+
+
 function submit_change() { // need different event handling, to capture any change
     var d = new Date();
     var msg = {};
