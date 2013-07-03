@@ -44,9 +44,6 @@ $var title: Login
             beforeSend: function (xhr){
                 xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
             },
-            data: JSON.stringify({
-                stateless: false
-            }),
             statusCode: {
                 500: function () {
                     formModel.messages(['Server error']);
