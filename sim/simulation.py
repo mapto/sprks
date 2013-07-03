@@ -11,7 +11,7 @@ pdict: {1, 0}  // are passwords checked whether they match a dictionary
 phist: {0, 1, 2, 3}  // history check of passwords resp. none, minimum (1 past password, exact match), strict (2 past passwords, string distance of 2), extreme (4 past passwords, string distance of 5)
 prenew: {0, 1, 2, 3} // when the localsys asks users to renew passwords: never, annually, quarterly, monthly
 pattempts: {1, 0} // is there a limit on wrong password attempts
-pautorecover: {1, 0} // are forgotten passwords restored automatically(1), or is there human support(0)
+precovery: {1, 0} // are forgotten passwords restored automatically(1), or is there human support(0)
 """
 
 
@@ -44,7 +44,7 @@ class simulation:
         phist: {0, 1, 2, 3}
         prenew: {0, 1, 2, 3}
         pattempts: {1, 0}
-        pautorecover: {1, 0}
+        precovery: {1, 0}
         """
 
         # Risk probability and impact are multiplied together
@@ -98,7 +98,7 @@ class simulation:
 
         generation = complexity * policy["prenew"].value()  # range for generation [0, 144]
         memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
-        support = (policy["pattempts"].value() * 24 + memorization) * policy["pautorecover"].value() # range [0, 240]
+        support = (policy["pattempts"].value() * 24 + memorization) * policy["precovery"].value() # range [0, 240]
 
         return support / 240 # normalized, notice from _future_ import that converts division to floating. default is integer division
 
