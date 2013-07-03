@@ -40,7 +40,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/api/user/account(/?)(.+)', controllers.user.account,
         '/api/user/account', controllers.user.account,
         '/api/user/password(/?)(.+)', controllers.user.password,
-        '/incident', controllers.incident.incident        
+        '/api/chronos/sync', controllers.chronos.chronos
 )
 
 app = web.application(urls, globals(), autoreload=False)
