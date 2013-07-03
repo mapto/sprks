@@ -24,6 +24,8 @@ function initFrame() {
         }
     });
 
+
+
     manageScoreButton();
     manageIncidentButton();
 
@@ -52,8 +54,22 @@ function initFrame() {
         });
         return false;
     }
+
+    startTimer = function() {
+        console.log("timer started");
+        //window.open("/incident","_self")
+        window.timer1 = setInterval(function(){alert("Hello")},5000);
+        return false;
+    }
+
+    pauseInterval = function() {
+        clearInterval(window.timer1);
+    }
     //function for sending request on play btn press
-    $('#play').click(send);
+   // $('#play').click(send);
+
+   // $('#play').click(startTimer);
+    $('#pause').click(pauseInterval);
 
     //opening incident window
     $('#play').click(function () {
