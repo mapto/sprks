@@ -127,7 +127,8 @@ class password:
 
         if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
             if user_model.update_password(user_id, payload['password']):
-                if payload.get('autologin', False):
+                if payload.get('autologin', False) and context.user_id() != user_id:
+                    # Auto-login user whose password's changed.
                     users_model.session_login(user_id)
                 return json.dumps({
                     'success': True,

@@ -25,7 +25,7 @@ class pwpolicy:
         if len(check) > 0:
             result_get = check[0]
             localsys.storage.session.date = result_get.date
-            return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
+            return render.pwpolicy_form(users_model.get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
                                         result_get.pattempts, result_get.precovery, 0, str(result_get.date))
@@ -44,7 +44,7 @@ class pwpolicy:
                       precovery=pwpolicy.default["precovery"])
             result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
             localsys.storage.session.date = result_get.date
-            return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
+            return render.pwpolicy_form(users_model.get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
                                         result_get.pattempts, result_get.precovery, 1, result_get.date)
