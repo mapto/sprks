@@ -183,7 +183,12 @@ label {
     margin: 5px;
     margin-left:0;
 }
-
+.risk_menu-title-risk{
+    color: #c24642;
+}
+.risk_menu-title-cost{
+    color: #369ead;
+}
 .link {
     margin-right: 5px;
     margin-top: 10px;
