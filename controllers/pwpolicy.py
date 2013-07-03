@@ -11,7 +11,7 @@ class pwpolicy:
     # the default policy should be specified in a central place and reusable
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
-               "pautorecover": 1}
+               "precovery": 1}
 
     def GET(self):
         """
@@ -28,7 +28,7 @@ class pwpolicy:
             return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
-                                        result_get.pattempts, result_get.pautorecover, 0, str(result_get.date))
+                                        result_get.pattempts, result_get.precovery, 0, str(result_get.date))
         else:
         #                dt = datetime.now()
         #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
@@ -41,13 +41,13 @@ class pwpolicy:
                       phist=pwpolicy.default["phist"],
                       prenew=pwpolicy.default["prenew"],
                       pattempts=pwpolicy.default["pattempts"],
-                      pautorecover=pwpolicy.default["pautorecover"])
+                      precovery=pwpolicy.default["precovery"])
             result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
             localsys.storage.session.date = result_get.date
             return render.pwpolicy_form(users_model().get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
-                                        result_get.pattempts, result_get.pautorecover, 1, result_get.date)
+                                        result_get.pattempts, result_get.precovery, 1, result_get.date)
 
     def POST(self):
         web.header('Content-Type', 'application/json')
@@ -57,8 +57,8 @@ class pwpolicy:
         data = eval(payload["data"])
         if "pdict" not in data:
             data["pdict"] = 0
-        if "pautorecover" not in data:
-            data["pautorecover"] = 0
+        if "precovery" not in data:
+            data["precovery"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
         pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
@@ -73,7 +73,7 @@ class pwpolicy:
         tmp_msg["data"] = data
         msgs.append(tmp_msg)
 
-        my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "pautorecover"]
+        my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "precovery"]
         for key in my_list:
             tmp_policy = self.get_range(data, key)
             for k in tmp_policy:
@@ -99,7 +99,7 @@ class pwpolicy:
                 "phist":[0,1,2,3],
                 "prenew":[0,1,2,3],
                 "pattempts":[0,1,2],
-                "pautorecover":[0,1]}
+                "precovery":[0,1]}
         for value in sets[id]:
             new_policy = self.create_variation(policy, id, value)
             msg = {}

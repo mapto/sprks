@@ -1,4 +1,4 @@
-$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
+$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, precovery, notfound, date)
 $var title: Password policy
 $var date: $date
 <h1>Password Policy</h1>
@@ -223,17 +223,33 @@ $var date: $date
 <div class="graph" id="graph_pattempts"></div>
 </p>
 
-
-<p class="qn" id="pautorecover">
-    <input type='hidden' value='0' name='pautorecover'> <!-- method for posting unchecked checkboxes-->
-    <input type="checkbox"
-           name="pautorecover"
-           id="autorecover"
+<p class="qn" id="precovery">
+    <label><b>Password recovery options:</b></label>
+    <br/>
+    <input type="radio"
+           name="precovery"
+           id="recovery1"
+           class="target"
+           value="0"
+           checked="checked"/>
+    <label for="recovery1">second e-mail for recovery letter</label>
+    <br/>
+    <input type="radio"
+           name="precovery"
+           id="recovery2"
            class="target"
            value="1"/>
-    <label for="autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
-
-<div class="graph" id="graph_pautorecover"></div>
+    <label for="recovery2">secret question</label>
+    <br/>
+    <input type="radio"
+           name="precovery"
+           id="recovery3"
+           class="target"
+           value="2"/>
+    <label for="recovery3">transaction questions</label>
+    <br/>
+<br/><br/>
+<div class="graph" id="graph_precovery"></div>
 </p>
 
 </form>
@@ -256,7 +272,7 @@ $var date: $date
     function getInitPolicy() {
         // These values are set server-side and appear to client as hardcoded.
         return {"plen": $plen, "psets":$psets,"pdict":$pdict,"phist":$phist,"prenew":$prenew,
-                "pattempts":$pattempts,"pautorecover":$pautorecover};
+                "pattempts":$pattempts,"precovery": $precovery};
     }
 
     // this is inherently linked to
