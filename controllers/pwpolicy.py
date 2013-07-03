@@ -5,7 +5,8 @@ from sim.simulation import simulation
 from localsys.environment import *
 from localsys.storage import db
 from models.pw_policy import pw_policy_model
-from controllers import timeline
+from models.journal import records
+import string
 
 
 class pwpolicy:
@@ -29,13 +30,13 @@ class pwpolicy:
             return render.pwpolicy_form(users_model.get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
-                                        result_get.pattempts, result_get.precovery, 0, str(result_get.date))
+                                        result_get.pattempts, result_get.pautorecover, 0, str(result_get.date)[0:string.find(str(result_get.date), ' ')])
         else:
         #                dt = datetime.now()
         #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
             # The default policy (i.e. when not specified by user)
             dtt = get_start_time()
-            string_time = dtt.strftime("%Y/%m/%d %H:%M:%S")
+            string_time = dtt.strftime("%Y/%m/%d")
             db.insert('pw_policy', userid=user_id, date=string_time,
                       plen=pwpolicy.default["plen"],
                       psets=pwpolicy.default["psets"],
@@ -43,7 +44,7 @@ class pwpolicy:
                       phist=pwpolicy.default["phist"],
                       prenew=pwpolicy.default["prenew"],
                       pattempts=pwpolicy.default["pattempts"],
-                      precovery=pwpolicy.default["precovery"])
+                      pautorecover=pwpolicy.default["precovery"])
             #result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
             localsys.storage.session.date = string_time
             return render.pwpolicy_form(users_model().get_username(user_id), user_id, self.default["plen"],
@@ -66,7 +67,7 @@ class pwpolicy:
         pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
 
         #get the calendar
-        calendar = timeline.forward.get_calendar(data=data)
+        calendar = self.get_calendar(data=data)
 
         for k, value in data.iteritems():
             sim.set_policy(k, value)
@@ -129,4 +130,32 @@ class pwpolicy:
             # print('return cost '+ policy_costs_risks)
 
         return policy_costs_risks
+
+    def get_calendar(self, data):
+        web.header('Content-Type', 'application/json')
+        usrid = context.user_id()
+        sim = simulation()
+        post_data = json.loads(data)
+        policy = post_data["policy"]
+
+        for k, value in policy.iteritems():
+            sim.set_policy(k, value)
+
+        validation = records.validateJournal(post_data["recent_costs"], post_data["date"], usrid) #0-if validation failed, 1-otherwise
+
+        risk = sim.calc_risk_prob()
+        cost = sim.calc_prod_cost()
+
+        calendar = records.updateJournal(risk, usrid) #inserts new events into journal
+
+        # TODO put this into model
+        db.insert('scores', userid=usrid, score_type=1, score_value=risk,
+                  date=post_data["date"], rank=0)
+        db.insert('scores', userid=usrid, score_type=2, score_value=cost,
+                  date=post_data["date"], rank=0)
+        db.insert('pw_policy', userid=usrid, date=post_data["date"],
+                  plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
+                  prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
+       # return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
+        return calendar
 

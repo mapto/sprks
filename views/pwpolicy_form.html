@@ -7,6 +7,7 @@ $var date: $date
 
 <p>
     <input type="hidden" name="date" value="$date">
+    <p id="time">$date</p>
     <!--
            <label class="qn id"><b>ID:</b></label>
     -->
@@ -290,7 +291,6 @@ $var date: $date
         $if notfound != 1:
             return true; // This value is set server-side and appears in browser as hardcoded.
         $else:
-            window.date  = $date;
             return false; // This value is set server-side and appears to client as hardcoded.
     }
 </script> <!-- relative path to external files -->

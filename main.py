@@ -19,6 +19,7 @@ import controllers.score
 import controllers.timeline
 import controllers.chronos
 import controllers.policy_history
+import controllers.incident
 
 
 urls = ('/', controllers.pwpolicy.pwpolicy,

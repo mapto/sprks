@@ -9,7 +9,7 @@ import localsys
 from sim.simulation import simulation
 from localsys.storage import db
 from localsys.environment import *
-from pwpolicy import pwpolicy
+from controllers.pwpolicy import pwpolicy
 from models.journal import records
 
 

@@ -58,7 +58,14 @@ function initFrame() {
     startTimer = function() {
         console.log("timer started");
         //window.open("/incident","_self")
-        window.timer1 = setInterval(function(){alert("Hello")},5000);
+        window.timer1 = setInterval(function(){
+            var tmp = new Date(window.date);
+            var addHours = 24*7;
+            tmp.setHours(tmp.getHours()+addHours);
+            var new_date = tmp.getFullYear()+'/'+(tmp.getMonth()+1)+'/'+tmp.getDate();
+            $('#time').text(new_date);
+            window.date = new_date;
+            },10000);
         return false;
     }
 
@@ -70,10 +77,11 @@ function initFrame() {
 
    // $('#play').click(startTimer);
     $('#pause').click(pauseInterval);
-
+    //$('#time').text("test");
     //opening incident window
     $('#play').click(function () {
-        submit_change();
+     //   submit_change();
+        startTimer();
         //window.open("/incident","_self")
         //var width = 1000;
         //var height = 550;

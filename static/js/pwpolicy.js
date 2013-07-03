@@ -9,6 +9,7 @@
 function init() {
 
     window.calendar = {};
+    window.date = $('#time').text();
     //submit_change();
    // $('.target').change(submit_change);
     //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
@@ -58,7 +59,7 @@ function init() {
     console.log("Policy initialized...");
 
 
-    summarize_policy(start_policy); //update policy summary for user
+    //summarize_policy(start_policy); //update policy summary for user
 
 }
 
@@ -136,7 +137,7 @@ function submit_change() { // need different event handling, to capture any chan
     msg.recent_cost = calculate_cost_from_calendar();
     msg.prophesize = false;
     console.log(msg);
-    summarize_policy(new_policy); //update policy summary for user
+    //summarize_policy(new_policy); //update policy summary for user
 
     var request = $.ajax({
         url: "/pwpolicy",
