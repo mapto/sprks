@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `pw_policy` (
   `phist` int(11) NOT NULL,
   `prenew` int(11) NOT NULL,
   `pattempts` tinyint(4) NOT NULL,
-  `precovery` tinyint(4) NOT NULL,
+  `pautorecover` tinyint(4) NOT NULL,
   `userid` int(11) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`idpolicy`),

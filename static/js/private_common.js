@@ -78,11 +78,20 @@ function initFrame() {
    // $('#play').click(send);
 
    // $('#play').click(startTimer);
-    $('#pause').click(pauseInterval);
+    $('#pause').click(function() {
+        $('.target').removeAttr('disabled');
+        pauseInterval();
+
+    });
+
+    $('.target').change(function(){
+        window.id_elem = $(this).closest($(".qn")).attr('id');
+    })
     //$('#time').text("test");
     //opening incident window
     $('#play').click(function () {
-     //   submit_change();
+        $('.target').attr('disabled', 'disabled');
+        submit_change();
         startTimer();
         //window.open("/incident","_self")
         //var width = 1000;

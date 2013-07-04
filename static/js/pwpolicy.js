@@ -54,6 +54,7 @@ function init() {
 
     window.calendar = test_calendar;
     window.date = $('#time').text();
+    window.id_elem = 'plen';
     //submit_change();
    // $('.target').change(submit_change);
     //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
@@ -192,7 +193,7 @@ function submit_change() { // need different event handling, to capture any chan
     new_policy.pattempts = $('input[name="pattempts"]:checked').val();
     new_policy.precovery = $('input[name="precovery"]:checked').val();
     msg.data = JSON.stringify(new_policy);
-    msg.id = $(this).closest($(".qn")).attr('id');
+    msg.id = window.id_elem;
     msg.recent_cost = calculate_cost_from_calendar();
     msg.prophesize = false;
     console.log(msg);

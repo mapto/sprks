@@ -12,7 +12,7 @@ class pw_policy_model:
               "phist": [1, 2, 3, 4],
               "prenew": [0, 1, 2, 3],
               "pattempts": [0, 1, 2],
-              "precovery": [0, 1, 2]}
+              "pautorecover": [0, 1, 2]}
 
     @staticmethod
     def policy2datapoint(policy):
@@ -20,12 +20,12 @@ class pw_policy_model:
             return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
                     policy["prenew"], policy["pattempts"],
-                    policy["precovery"]]
+                    policy["pautorecover"]]
         else:
             return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
                     policy["prenew"], policy["pattempts"],
-                    policy["precovery"]]
+                    policy["pautorecover"]]
 
     def update(self, where, values):
         """

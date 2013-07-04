@@ -13,7 +13,7 @@ class pwpolicy:
     # the default policy should be specified in a central place and reusable
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
-               "precovery": 1}
+               "pautorecover": 1}
 
     def GET(self):
         """
@@ -44,13 +44,13 @@ class pwpolicy:
                       phist=pwpolicy.default["phist"],
                       prenew=pwpolicy.default["prenew"],
                       pattempts=pwpolicy.default["pattempts"],
-                      pautorecover=pwpolicy.default["precovery"])
+                      pautorecover=pwpolicy.default["pautorecover"])
             #result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
             localsys.storage.session.date = string_time
             return render.pwpolicy_form(users_model().get_username(user_id), user_id, self.default["plen"],
                                         self.default["psets"],
                                         self.default["pdict"],self.default["phist"], self.default["prenew"],
-                                        self.default["pattempts"], self.default["precovery"], 1, string_time)
+                                        self.default["pattempts"], self.default["pautorecover"], 1, string_time)
 
     def POST(self):
         web.header('Content-Type', 'application/json')
@@ -61,13 +61,13 @@ class pwpolicy:
         if "pdict" not in data:
             data["pdict"] = 0
         if "precovery" not in data:
-            data["precovery"] = 0
+            data["pautorecover"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
         pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
 
         #get the calendar
-        calendar = self.get_calendar(data=data)
+        calendar = self.get_calendar(data=data, cost=payload["recent_cost"], date=payload["date"])
 
         for k, value in data.iteritems():
             sim.set_policy(k, value)
@@ -80,7 +80,7 @@ class pwpolicy:
         tmp_msg["data"] = data
         msgs.append(tmp_msg)
 
-        my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "precovery"]
+        my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "pautorecover"]
         for key in my_list:
             tmp_policy = self.get_range(data, key)
             for k in tmp_policy:
@@ -131,29 +131,31 @@ class pwpolicy:
 
         return policy_costs_risks
 
-    def get_calendar(self, data):
+    def get_calendar(self, data, cost, date):
         web.header('Content-Type', 'application/json')
         usrid = context.user_id()
         sim = simulation()
-        post_data = json.loads(data)
-        policy = post_data["policy"]
+        post_data = data
+        policy = post_data
 
         for k, value in policy.iteritems():
             sim.set_policy(k, value)
 
-        validation = records.validateJournal(post_data["recent_costs"], post_data["date"], usrid) #0-if validation failed, 1-otherwise
+        validation = records().validateJournal(cost, date, usrid) #0-if validation failed, 1-otherwise
 
         risk = sim.calc_risk_prob()
         cost = sim.calc_prod_cost()
 
-        calendar = records.updateJournal(risk, usrid) #inserts new events into journal
+        calendar = records().updateJournal(risk, usrid) #inserts new events into journal
 
         # TODO put this into model
+       # dtt = datetime.strptime(date, "%Y/%m/%d")
+       # string_time = dtt.strftime("%Y/%m/%d")
         db.insert('scores', userid=usrid, score_type=1, score_value=risk,
-                  date=post_data["date"], rank=0)
+                  date=date, rank=0)
         db.insert('scores', userid=usrid, score_type=2, score_value=cost,
-                  date=post_data["date"], rank=0)
-        db.insert('pw_policy', userid=usrid, date=post_data["date"],
+                  date=date, rank=0)
+        db.insert('pw_policy', userid=usrid, date=date,
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
                   prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
        # return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
