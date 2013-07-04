@@ -31,6 +31,7 @@ class records:
     def updateJournal(self, risk, userid):
         #calendar = chronos.prophesize(risk)["prophecy"]
         calendar = self.default_calendar["prophecy"]
+        whole_calendar = self.default_calendar
         for dates in calendar:
             for key in dates:
                 date = ""
@@ -44,4 +45,4 @@ class records:
                         inc_id = event['incdt_id']
                         cost = event['cost']
                         storage.db.insert('journal', user_id=userid, date=dtt.strftime("%Y/%m/%d"), cost=cost, incident_id=inc_id, commited=0)
-        return calendar
+        return whole_calendar
