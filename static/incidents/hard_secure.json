@@ -1,7 +1,14 @@
-{"id": 7, "name": "hard_secure", "type":"general",
-"pwpolicy": {"plen": 10, "psets": 3, "pattempts": 1, "pautorecover": 0},
-"description": "You demand employees to renew their passwords very frequently. Whenever someone forgets their password, they request the system to generate a new one for them automatically.",
-"event": "The password recovery page becomes the most visited page on your intranet and this has become a well-known fact.",
-"consequences": "Attackers can easily get to know that the password recovery page is used so much and start to look for ways to hijack the automated mechanism.",
-"risk": 0.1,
-"cost": 0.3}
+{"id": 7, "name": "hard_secure", "type": "general",
+    "pwpolicy": {
+        "plen": 10,
+        "psets": 3,
+        "pattempts": 1,
+        "precovery": 0
+    },
+    "description": "You demand employees to renew their passwords very frequently. Whenever someone forgets their password, they request the system to generate a new one for them automatically.",
+    "event": "The password recovery page becomes the most visited page on your intranet and this has become a well-known fact.",
+    "consequences": "Attackers can easily get to know that the password recovery page is used so much and start to look for ways to hijack the automated mechanism.",
+    "risk": 0.1,
+    "cost": 0.3,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.1}

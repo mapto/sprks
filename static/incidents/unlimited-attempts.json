@@ -1,7 +1,11 @@
-{"id": 4, "name": "unlimited-attempts", "type":"bruteforce",
-"pwpolicy": {"pattempts": 0},
-"description": "You don't set a limit to password entry attempts.",
-"event": "Eventually someone's does a bruteforce attack and succeeds.",
-"consequences": "Eventually someone's does a bruteforce attack and succeeds.",
-"risk": 0.8,
-"cost": 0}
+{"id": 4, "name": "unlimited-attempts", "type": "bruteforce",
+    "pwpolicy": {
+        "pattempts": 0
+    },
+    "description": "You don't set a limit to password entry attempts.",
+    "event": "Eventually someone's does a bruteforce attack and succeeds.",
+    "consequences": "Eventually someone's does a bruteforce attack and succeeds.",
+    "risk": 0.8,
+    "cost": 0,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.1}

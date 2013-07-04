@@ -1,7 +1,14 @@
-{"id": 5, "name": "easy_secure", "type":"general",
-"pwpolicy": {"plen": 8, "psets": 2, "pattempts": 1, "pautorecover": 1},
-"description": "Some reasonable policy",
-"event": "It's nice sunny weather",
-"consequences": "You make it difficult for attackers to guess your password, but easy to staff",
-"risk": 0.1,
-"cost": 0.2}
+{"id": 5, "name": "easy_secure", "type": "general",
+    "pwpolicy": {
+        "plen": 8,
+        "psets": 2,
+        "pattempts": 1,
+        "precovery": 1
+    },
+    "description": "Some reasonable policy",
+    "event": "It's nice sunny weather",
+    "consequences": "You make it difficult for attackers to guess your password, but easy to staff",
+    "risk": 0.1,
+    "cost": 0.2,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.1}
