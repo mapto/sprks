@@ -13,7 +13,7 @@ class pwpolicy:
     # the default policy should be specified in a central place and reusable
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
-               "pautorecover": 1}
+               "precovery": 1}
 
     def GET(self):
         """
@@ -30,7 +30,7 @@ class pwpolicy:
             return render.pwpolicy_form(users_model.get_username(user_id), user_id, result_get.plen,
                                         result_get.psets,
                                         result_get.pdict, result_get.phist, result_get.prenew,
-                                        result_get.pattempts, result_get.pautorecover, 0, str(result_get.date)[0:string.find(str(result_get.date), ' ')])
+                                        result_get.pattempts, result_get.precovery, 0, str(result_get.date)[0:string.find(str(result_get.date), ' ')])
         else:
         #                dt = datetime.now()
         #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
@@ -44,13 +44,13 @@ class pwpolicy:
                       phist=pwpolicy.default["phist"],
                       prenew=pwpolicy.default["prenew"],
                       pattempts=pwpolicy.default["pattempts"],
-                      pautorecover=pwpolicy.default["pautorecover"])
+                      precovery=pwpolicy.default["precovery"])
             #result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
             localsys.storage.session.date = string_time
             return render.pwpolicy_form(users_model().get_username(user_id), user_id, self.default["plen"],
                                         self.default["psets"],
                                         self.default["pdict"],self.default["phist"], self.default["prenew"],
-                                        self.default["pattempts"], self.default["pautorecover"], 1, string_time)
+                                        self.default["pattempts"], self.default["precovery"], 1, string_time)
 
     def POST(self):
         web.header('Content-Type', 'application/json')
@@ -61,7 +61,7 @@ class pwpolicy:
         if "pdict" not in data:
             data["pdict"] = 0
         if "precovery" not in data:
-            data["pautorecover"] = 0
+            data["precovery"] = 0
         if "pattempts" not in data:
             data["pattempts"] = 0
         pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
@@ -80,7 +80,7 @@ class pwpolicy:
         tmp_msg["data"] = data
         msgs.append(tmp_msg)
 
-        my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "pautorecover"]
+        my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "precovery"]
         for key in my_list:
             tmp_policy = self.get_range(data, key)
             for k in tmp_policy:
@@ -157,7 +157,7 @@ class pwpolicy:
                   date=date, rank=0)
         db.insert('pw_policy', userid=usrid, date=date,
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
-                  prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
+                  prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
        # return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
         return calendar
 

@@ -37,7 +37,8 @@ class simulation:
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
 
-        self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
+     #   self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
+        self.dict[policy_name] = policy_value
 
     def load_policy(self, policy_name):
         """
@@ -78,14 +79,14 @@ class simulation:
 
     def derive_maintenance_cost(self, policy):
         # range for complexity [7, 48]
-        complexity = policy["plen"].value()\
-                   + policy["psets"].value() * 3\
-                   + policy["pdict"].value() * 12\
-                   + policy["phist"].value() * 4
+        complexity = int(policy["plen"])\
+                   + int(policy["psets"]) * 3\
+                   + int(policy["pdict"]) * 12\
+                   + int(policy["phist"]) * 4
 
-        generation = complexity * policy["prenew"].value()  # range for generation [0, 144]
-        memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
-        support = (policy["pattempts"].value() * 24 + memorization) * policy["pautorecover"].value() # range [0, 240]
+        generation = complexity * int(policy["prenew"])  # range for generation [0, 144]
+        memorization = generation + int(policy["pattempts"]) * 24 # range [0, 192]
+        support = (int(policy["pattempts"]) * 24 + memorization) * int(policy["precovery"]) # range [0, 240]
 
         return support / 240.0 # normalized, notice from _future_ import that converts division to floating. default is integer division
 
@@ -95,18 +96,18 @@ class simulation:
             These are compliance cost and risk impact (not for passwords)
         """
         # range for complexity [7, 48]
-        complexity = policy["plen"].value()\
-                   + policy["psets"].value() * 3\
-                   + policy["pdict"].value() * 12\
-                   + policy["phist"].value() * 4
+        complexity = int(policy["plen"])\
+                   + int(policy["psets"]) * 3\
+                   + int(policy["pdict"]) * 12\
+                   + int(policy["phist"]) * 4
 
-        generation = complexity * policy["prenew"].value() # range for generation [0, 144]
+        generation = complexity * int(policy["prenew"]) # range for generation [0, 144]
         gen_norm = generation / 144.0 # notice from _future_ import that converts division to floating. default is integer division
 
-        memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
+        memorization = generation + int(policy["pattempts"]) * 24 # range [0, 192]
         mem_norm = memorization / 192.0
 
-        entry = policy["plen"].value() # range [0, 12]
+        entry = int(policy["plen"]) # range [0, 12]
         entry_norm = entry / 12.0
 
         return (gen_norm + mem_norm + entry_norm) / 3.0

@@ -40,7 +40,7 @@ class forward:
                     "phist": policy.phist,
                     "prenew": policy.prenew,
                     "pattempts": policy.pattempts,
-                    "pautorecover": policy.pautorecover}
+                    "precovery": policy.precovery}
             # If we have a dynamic starting date. Fancy, but client does a check for the starting date
         # else:
         #     # update to next Monday after localsys day as a starting date
@@ -65,7 +65,7 @@ class forward:
                   date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
         db.insert('pw_policy', userid=usrid, date=new_date.strftime("%Y/%m/%d %H:%M:%S"),
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
-                  prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
+                  prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
         return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
 
 
@@ -93,6 +93,6 @@ class forward:
                   date=post_data["date"], rank=0)
         db.insert('pw_policy', userid=usrid, date=post_data["date"],
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
-                  prenew=data["prenew"], pattempts=data["pattempts"], pautorecover=data["pautorecover"])
+                  prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
        # return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
         return calendar
