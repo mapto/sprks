@@ -226,6 +226,11 @@ class score:
             #if user not logged in -> redirect to login page
             raise web.seeother('/home')
 
+class score_static:
+    def GET(self):
+        msg = '{"title", "Scores"}'
+        return json.dumps(msg)
+
 
 class multiple_score:
     def POST(self):
