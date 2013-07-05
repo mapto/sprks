@@ -54,6 +54,10 @@ function init() {
 
     window.calendar = test_calendar;
     window.date = $('#time').text();
+    window.first_date = new Date(window.date);
+    window.nextSync = window.first_date;
+    window.nextSync.setMonth(window.nextSync.getMonth()+2);
+    window.nextSyncStr = window.nextSync.getFullYear()+'/'+window.nextSync.getMonth()+'/'+window.nextSync.getDate();
     window.id_elem = 'plen';
     //submit_change();
    // $('.target').change(submit_change);

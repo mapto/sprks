@@ -55,9 +55,10 @@ function initFrame() {
         return false;
     }
 
-    startTimer = function() {
+    startTimer = function(interval) {
         console.log("timer started");
         //window.open("/incident","_self")
+        if(window.timer1!=null) pauseInterval();
         window.timer1 = setInterval(function(){
 
             var tmp = new Date(window.date);
@@ -67,7 +68,11 @@ function initFrame() {
             $('#time').text(new_date);
             window.date = new_date;
             check_events();
-            },10000);
+            if(window.date==window.nextSyncStr) {
+                alert("Changes submitted");
+                submit_change();
+            }
+            },interval);
         return false;
     }
 
@@ -84,6 +89,10 @@ function initFrame() {
 
     });
 
+    $('#forward').click(function() {
+        startTimer(3000);
+    })
+
     $('.target').change(function(){
         window.id_elem = $(this).closest($(".qn")).attr('id');
     })
@@ -91,8 +100,8 @@ function initFrame() {
     //opening incident window
     $('#play').click(function () {
         $('.target').attr('disabled', 'disabled');
-        submit_change();
-        startTimer();
+       // submit_change();
+        startTimer(10000);
         //window.open("/incident","_self")
         //var width = 1000;
         //var height = 550;
