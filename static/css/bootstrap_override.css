@@ -192,7 +192,7 @@ label {
 
 
 .policy-summary {
-    display: block;
+    display: none;
     width:14%;
     background-color: #f9f9f9;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
