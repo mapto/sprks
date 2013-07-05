@@ -90,7 +90,7 @@ function initFrame() {
     });
 
     $('#forward').click(function() {
-        startTimer(3000);
+        startTimer(1000);
     })
 
     $('.target').change(function(){
@@ -101,7 +101,7 @@ function initFrame() {
     $('#play').click(function () {
         $('.target').attr('disabled', 'disabled');
        // submit_change();
-        startTimer(10000);
+        startTimer(3000);
         //window.open("/incident","_self")
         //var width = 1000;
         //var height = 550;
