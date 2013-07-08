@@ -1,18 +1,14 @@
-$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, precovery, notfound, date)
 $var title: Password policy
-$var date: $date
 <h1>Password Policy</h1>
 
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
 
 <p>
-    <input type="hidden" name="date" value="$date">
-    <p id="time">$date</p>
-    <!--
-           <label class="qn id"><b>ID:</b></label>
-    -->
-    $if id:
-        <input type="hidden" value=$:id name="userid" id="pswdid" placeholder="ID">
+
+    <p id="time"></p>
+
+    $if user_id():
+        <input type="hidden" value=$:user_id() name="userid" id="pswdid" placeholder="ID">
     $else:
         <input type="hidden" name="userid" id="pswdid" placeholder="ID">
 
@@ -183,18 +179,6 @@ $var date: $date
 <div class="graph" id="graph_prenew"></div>
 </p>
 
-<!-- checkbox for pattempts (depricated)
-<p>          <input type='hidden' value='0' name='pattempts'>
-             <input type = "checkbox"
-					name = "pattempts"
-					id = "attempts"
-                 class="target"
-					value = "1" />
-             <label for = "attempts"><b>Limit wrong password attempts</b></label><br/><br/>
-</p>
--->
-
-
 <p class="qn" id="pattempts">
     <label><b>Number of wrong password attempts:</b></label>
     <br/>
@@ -267,30 +251,13 @@ $var date: $date
     // Variables from Python can be sent back as return values.
     // Use $$() for jqueries
 
-    $$(document).ready(init);
-    //    document.ready = init(); // register callback to function from external JS file;
+    $$(document).ready(initPwpolicy);
 
-    function getInitPolicy() {
-        // These values are set server-side and appear to client as hardcoded.
-        return {"plen": $plen, "psets":$psets,"pdict":$pdict,"phist":$phist,"prenew":$prenew,
-                "pattempts":$pattempts,"precovery": $precovery};
-    }
-
-    // this is inherently linked to
-    // not used, but passed as a parameter, now can be accessed from external scripts
     function getUserID() {
         /*ID is preset inside HTML code*/
-        console.log("found id $:id");
-
-        return $id; // This value is set server-side and appears to client as hardcoded.
+        console.log("found id $:user_id()");
+        return $user_id(); // This value is set server-side and appears to client as hardcoded.
     }
 
-    function policyExists() {
-        console.log("policyExists -> date $:date");
 
-        $if notfound != 1:
-            return true; // This value is set server-side and appears in browser as hardcoded.
-        $else:
-            return false; // This value is set server-side and appears to client as hardcoded.
-    }
 </script> <!-- relative path to external files -->

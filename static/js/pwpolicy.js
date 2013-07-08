@@ -6,7 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 /*wait until document is loaded*/
-function init() {
+var pwpolicy;
+
+function initPwpolicy() {
+    getInitPolicy();// request policy from server and write to pwpolicy var
+
+
 
     test_calendar = {
   'date': '2014-01-14' ,
@@ -71,6 +76,8 @@ function init() {
 
     //document.getElementById('curr_date').innerHTML = strDate;
 
+
+
     if (!policyExists()) {
         // If code executed, then we have a new user
         // Greet them accordingly
@@ -78,42 +85,65 @@ function init() {
     }
 
     // contains elements in the following order:
-    start_policy = getInitPolicy();
 
-//    console.log("found plen " + start_policy["plen"]);
-    $("#len" + start_policy["plen"]).prop('checked', true);
+    $("#len" + pwpolicy["plen"]).prop('checked', true);
 
     /*preset pswd sets value*/
-    console.log("found sets " + start_policy["psets"]);
-    $("#sets" + start_policy["psets"]).prop('checked', true);
+    console.log("found sets " + pwpolicy["psets"]);
+    $("#sets" + pwpolicy["psets"]).prop('checked', true);
 
     /*preset pswd dictionary value*/
-    console.log("found " + (start_policy["pdict"] ? "use" : "no") + " dict");
-    $("#dic").prop('checked', start_policy["pdict"] == 1);
+    console.log("found " + (pwpolicy["pdict"] ? "use" : "no") + " dict");
+    $("#dic").prop('checked', pwpolicy["pdict"] == 1);
 
-    console.log("found phist difficulty " + start_policy["phist"]);
-    $("#hist" + start_policy["phist"]).prop('checked', true);
+    console.log("found phist difficulty " + pwpolicy["phist"]);
+    $("#hist" + pwpolicy["phist"]).prop('checked', true);
 
-    console.log("found renew " + start_policy["prenew"]);
-    $("#renew" + start_policy["prenew"]).prop('checked', true);
+    console.log("found renew " + pwpolicy["prenew"]);
+    $("#renew" + pwpolicy["prenew"]).prop('checked', true);
 
     /*preset pswd attempts number check (yes/no)*/
     /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
-    console.log("found attempts " + start_policy["prenew"]);
-    $("#renew" + start_policy["pattempts"]).prop('checked', true);
+    console.log("found attempts " + pwpolicy["prenew"]);
+    $("#renew" + pwpolicy["pattempts"]).prop('checked', true);
 
     /*preset pswd recovery option*/
-    console.log("found precovery " + start_policy["precovery"]);
-    $("#recovery" + start_policy["precovery"]).prop('checked', true);
+    console.log("found precovery " + pwpolicy["precovery"]);
+    $("#recovery" + pwpolicy["precovery"]).prop('checked', true);
 
     console.log("Policy initialized...");
 
-
-    //summarize_policy(start_policy); //update policy summary for user
+    //summarize_policy(pwpolicy); //update policy summary for user
 
 }
 
-function summarize_policy(policy){
+function getInitPolicy(){
+    var request = jQuery.ajax({
+        url: "/pwpolicy_rest", //function specified in incident.html
+        type: "GET",
+        async:false,
+        success : function(data) {
+            pwpolicy = JSON.parse(data);
+            console.log(pwpolicy);
+            $('#time').text(pwpolicy.date);
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+}
+
+function policyExists() {
+        if (pwpolicy.notfound != 1){
+            return true; // This value is set server-side
+        }
+        else {
+            return false; // This value is set server-side
+        }
+}
+
+function summarize_policy(policy){ //not currently used
     for (var key in policy){
         console.log(policy);
       // NEED TO FIX PDICT UNDEFINED
