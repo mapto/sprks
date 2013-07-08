@@ -3,6 +3,7 @@ __author__ = 'zhanelya'
 import itertools
 import math
 import json
+from json import JSONEncoder
 import models.users
 import web
 
@@ -14,6 +15,15 @@ from localsys.environment import context
 
 
 class score:
+    def GET(self):
+        #check if is logged in
+        if context.user_id() > 0:
+            return render.score_static()
+        #previously rendered with: context.username(),localsys.storage.session.date and scores from get_scores
+        else:
+            #if user not logged in -> redirect to login page
+            raise web.seeother('/home')
+
     def CHECK_CLOSEST_COMPETITOR(self, length, usrid, your_score):
         print "entered check closest"
         """c = your_score.score_value
@@ -178,7 +188,7 @@ class score:
         #avg = average[0].avg
         return average_risk.avg, average_cost.avg
 
-    def GET(self):
+    def get_scores(self):
         #check if is logged in
         if context.user_id() > 0:
             #use this variable to request any ID number
@@ -187,50 +197,47 @@ class score:
             all_scores = db.select('scores', order="score_value ASC")
             length = len(all_scores)
             scores_1, scores_2, scores_3, scores_4 = itertools.tee(all_scores, 4)
-            #your_risk = db.select('scores', where="userid=$id_user and score_type=1", vars=locals())
-            #your_pc = db.select('scores', where="userid=$id_user and score_type=2", vars=locals())
 
-            #if user scores found -> display score page
-
-            #if len(your_risk) > 0 and len(your_pc) > 0:
             if len(all_scores) > 0:
-                #your_risk = your_risk[0]
-                #your_pc = your_pc[0]
+
                 b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(
                     length, id_user, scores_1)
                 c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(length,
                                                                                                              id_user,
                                                                                                              scores_2)
-                # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
                 b_risk, b_risk_when, b_pc, b_pc_when = self.FIND_BEST(scores_3)
-                # ,  = self.FIND_BEST(your_pc)
+
                 avg_risk, avg_pc = self.FIND_AVG(scores_4)
-                #avg_pc = self.FIND_AVG(your_pc)
-                print b_u_risk_rank
 
-                return render.score(context.username(),
-                                    b_u_risk, b_u_risk_date, b_u_risk_rank,
-                                    b_u_cost, b_u_cost_date, b_u_cost_rank,
-                                    c_risk, c_risk_when, c_risk_rank,
-                                    c_pc, c_pc_when, c_pc_rank,
-                                    b_risk, b_risk_when,
-                                    b_pc, b_pc_when,
-                                    avg_risk,
-                                    avg_pc, localsys.storage.session.date)
-
-
-            else:
-                #if user scores not found -> assume that no term has been finished yet
-                return 'You have not finished any term yet'
-        else:
-            #if user not logged in -> redirect to login page
-            raise web.seeother('/home')
+                #generate json
+                msg = JSONEncoder().encode({
+                "b_u_risk": str(b_u_risk),
+                "b_u_risk_date": str(b_u_risk_date.date()),
+                "b_u_risk_rank": b_u_risk_rank,
+                "b_u_cost": str(b_u_cost),
+                "b_u_cost_date": str(b_u_cost_date.date()),
+                "b_u_cost_rank": b_u_cost_rank,
+                "c_risk": str(c_risk),
+                "c_risk_when": str(c_risk_when.date()),
+                "c_risk_rank": c_risk_rank,
+                "c_pc": str(c_pc),
+                "c_pc_when": str(c_pc_when.date()),
+                "c_pc_rank": c_pc_rank,
+                "b_risk": str(b_risk),
+                "b_risk_when": str(b_risk_when.date()),
+                "b_pc": str(b_pc),
+                "b_pc_when": str(b_pc_when.date()),
+                "avg_risk": str(avg_risk),
+                "avg_pc": str(avg_pc)
+                })
+        return msg
 
 class score_static:
-    def GET(self):
-        msg = '{"title", "Scores"}'
-        return json.dumps(msg)
+    def GET(self): #for ajax call
+        a = score() #create instance of score class
+        msg = a.get_scores() #get scores
 
+        return msg
 
 class multiple_score:
     def POST(self):

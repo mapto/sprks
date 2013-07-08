@@ -1,94 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <title>Title goes here</title>
-    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
-
-    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
-
-</head>
-<body style="background-color: #F2F2F2">
-<header>
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <div class="link"><a href="/">sprks</a></div>
-            <div class="link logout" class="text-right" id="logout">
-                $if user_id() > 0:
-                    <a href="password">Change Password</a> | </a><a href="login?action=logout">Logout $username()</a>
-                $else:
-                    <a href="login">Login</a>
-            </div>
-        </div>
-    </div>
-</div>
-</header>
-
-$if user_id() > 0:
-    <div class="menu">
-        <div class="story"><a>Story </a></div>
-        <div class="policy"><a>Policy</a></div>
-        <div class="profile"><a>Profile</a></div>
-        <div class="score"><a >Scores</a></div>
-        <div class="incident"><a href>Incident</a></div>
-    </div>
-
-    <div class="risk-menu">
-        <ul>
-                <li class="risk_menu-title-risk">Risk:<br/><span class="score-value" id="risk"></span></li>
-                <li class="risk_menu-title-cost">Cost:<br/><span class="score-value" id="cost"></span> </li>
-        </ul>
-    </div>
-
-    <div class="policy-summary">
-        <h4>Policy summary</h4>
-        <h5>
-        <div class="policy-summary-field" id="sum-plen"></div>
-        <div class="policy-summary-field" id="sum-psets"></div>
-        <div class="policy-summary-field" id="sum-pdict"></div>
-        <div class="policy-summary-field" id="sum-phist"></div>
-        <div class="policy-summary-field" id="sum-prenew"></div>
-        <div class="policy-summary-field" id="sum-pattempts"></div>
-        <div class="policy-summary-field" id="sum-precovery"></div>
-        </h5>
-    </div>
-    <div class="time_controls">
-        <ul>
-            <h4><div id="curr_date"></div></h4>
-            <li><a href="#" class="icon-play icon-large" id="play"></a></li>
-            <li><a href="#" class="icon-pause icon-large" id="pause"></a></li>
-            <li><a href="#" class="icon-forward" id="forward"></a></li>
-        </ul>
-    </div>
-
-<article class="container-fluid">
-    <div class="row-fluid">
-        <div class="offset2 span8 main-body" style="background-color: #fff; padding: 2em; box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff; color: #847f7f">
-
-
-
-
-
-
-
-
-
-
-            <div id="score_box">
-
-
-
-
-                $def with (username, y_risk, y_risk_when, y_risk_rank,y_pc, y_pc_when, y_pc_rank, c_risk, c_risk_when, c_risk_rank,c_pc, c_pc_when, c_pc_rank, b_risk, b_risk_when, b_pc, b_pc_when, avg_risk, avg_pc, date)
 $var title: Scores
-$var date: $date
-$var username: $username
-
+<div id="score_box">
 <h1>Scores</h1>
 
 <div id="accordion">
@@ -144,12 +55,12 @@ $var username: $username
                 <div>
 
                     <div class="span6">Risk</div>
-                    <div class="span3">$avg_risk</div>
+                    <div class="span3" id="avg_risk">avg_risk</div>
                 </div>
                 <div>
 
                     <div class="span6">Productivity cost</div>
-                    <div class="span3">$avg_pc</div>
+                    <div class="span3" id="avg_pc">avg_pc</div>
 
                 </div>
             </h4>
@@ -157,42 +68,14 @@ $var username: $username
     </div>
 </div>
 <div id="congratulate" hidden></div>
+</div>
 
+<!-- jquery loaded in frame decoration -->
+<script src="/static/js/mootools-core-1.4.5-full-compat.js"></script>
+<script src="/static/js/mootools-more-1.4.0.1.js"></script>
 
+<script src="static/js/score_static.js"></script>   <!-- JS extracted here -->
 
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
-    </div>
-</article>
-
-<footer>
-    <div class="navbar navbar-fixed-bottom">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <h4 style="margin-left:220px;">Status bar: added value, notifications, etc.
-                </h4>
-            </div>
-        </div>
-    </div>
-</footer>
-
-$if content.has_key('postjs'):
-    $for js in content.postjs.split():
-        <script src="$js"></script>
-
-<script src="static/js/private_common.js"></script>
 <script>
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
@@ -200,56 +83,12 @@ $if content.has_key('postjs'):
     // extract a method that grabs them here and call it from a script in the external JS file.
     // Variables from Python can be sent back as return values.
 
-    $(document).ready(initScoreStatic);
+    $$(document).ready(initScoreStatic);
 
+    function getUsername() {
+        /*ID is preset inside HTML code*/
+        console.log("found user $username()");
 
+        return "$username()"; // This value is set server-side and appears to client as hardcoded.
+    }
 </script>
-
-
-
-
-
-
-
-
-
-
-<!-- jquery loaded in frame decoration -->
-<script src="/static/js/mootools-core-1.4.5-full-compat.js"></script>
-<script src="/static/js/mootools-more-1.4.0.1.js"></script>
-<script src="static/js/score.js"></script>  <!-- JS extracted here -->
-<script src="static/js/score_static.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
