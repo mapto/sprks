@@ -48,7 +48,7 @@ class records:
                         'interventionAccept': 'true'}
 
     def commit_history(self, date):
-        result = storage.db.update('journal', commited=1, where="date<$date", vars=locals())
+        result = storage.db.update('journal', commited=1, where="date<$date&&user_id=$context.user_id()", vars=locals())
         return result
 
     def record_prophecy(self):

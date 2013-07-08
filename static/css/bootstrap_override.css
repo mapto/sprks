@@ -561,9 +561,10 @@ label {
 /***graphs*/
 .graph {
     float: left;
-    width: 30%;
-    height: 190px;
-    margin: 5px;
+    width:0;
+    /*width: 30%;*/
+    /*height: 190px;*/
+    /*margin: 5px;*/
 }
 
 .qn {

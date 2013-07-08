@@ -1,4 +1,5 @@
 import json
+from json import JSONEncoder
 import web
 import localsys
 from sim.simulation import simulation
@@ -8,49 +9,12 @@ from models.pw_policy import pw_policy_model
 from models.journal import records
 import string
 
-
 class pwpolicy:
-    # the default policy should be specified in a central place and reusable
-    default = {"plen": 8, "psets": 2, "pdict": 0,
-               "phist": 1, "prenew": 1, "pattempts": 0,
-               "precovery": 1}
-
     def GET(self):
-        """
-        Renders the form to input password policies.
-        """
         user_id = context.user_id()
         if user_id == 0:
             raise web.seeother('home')
-
-        check = db.select('pw_policy', where="userid=$user_id", order="date DESC", vars=locals())
-        if len(check) > 0:
-            result_get = check[0]
-            localsys.storage.session.date = result_get.date
-            return render.pwpolicy_form(users_model.get_username(user_id), user_id, result_get.plen,
-                                        result_get.psets,
-                                        result_get.pdict, result_get.phist, result_get.prenew,
-                                        result_get.pattempts, result_get.precovery, 0, str(result_get.date)[0:string.find(str(result_get.date), ' ')])
-        else:
-        #                dt = datetime.now()
-        #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
-            # The default policy (i.e. when not specified by user)
-            dtt = get_start_time()
-            string_time = dtt.strftime("%Y/%m/%d")
-            db.insert('pw_policy', userid=user_id, date=string_time,
-                      plen=pwpolicy.default["plen"],
-                      psets=pwpolicy.default["psets"],
-                      pdict=pwpolicy.default["pdict"],
-                      phist=pwpolicy.default["phist"],
-                      prenew=pwpolicy.default["prenew"],
-                      pattempts=pwpolicy.default["pattempts"],
-                      precovery=pwpolicy.default["precovery"])
-            #result_get = db.select('pw_policy', where="userid=$user_id", vars=locals())[0]
-            localsys.storage.session.date = string_time
-            return render.pwpolicy_form(users_model().get_username(user_id), user_id, self.default["plen"],
-                                        self.default["psets"],
-                                        self.default["pdict"],self.default["phist"], self.default["prenew"],
-                                        self.default["pattempts"], self.default["precovery"], 1, string_time)
+        return render.pwpolicy_form()
 
     def POST(self):
         web.header('Content-Type', 'application/json')
@@ -161,3 +125,56 @@ class pwpolicy:
                   prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
         #return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
         return calendar
+
+
+class pwpolicy_rest:
+     # the default policy should be specified in a central place and reusable
+    default = {"plen": 8, "psets": 2, "pdict": 0,
+               "phist": 1, "prenew": 1, "pattempts": 0,
+               "precovery": 1}
+
+    def GET(self):
+        """
+        Renders the form to input password policies.
+        """
+        user_id = context.user_id()
+        if user_id == 0:
+            raise web.seeother('home')
+
+        check = db.select('pw_policy', where="userid=$user_id", order="date DESC", vars=locals())
+        if len(check) > 0:
+            result_get = check[0]
+            localsys.storage.session.date = result_get.date
+
+            json = JSONEncoder().encode({
+                "plen": result_get.plen,
+                "psets": result_get.psets,
+                "pdict": result_get.pdict,
+                "phist": result_get.phist,
+                "prenew": result_get.prenew,
+                "pattempts": result_get.pattempts,
+                "precovery": result_get.precovery,
+                "notfound": 0,
+                "date": str(result_get.date)[0:string.find(str(result_get.date), ' ')]
+                })
+
+        else:
+            # The default policy (i.e. when not specified by user)
+            dtt = get_start_time()
+            string_time = dtt.strftime("%Y/%m/%d")
+            localsys.storage.session.date = string_time
+
+            json = JSONEncoder().encode({
+                "plen": self.default["plen"],
+                "psets": self.default["psets"],
+                "pdict": self.default["pdict"],
+                "phist": self.default["phist"],
+                "prenew": self.default["prenew"],
+                "pattempts": self.default["pattempts"],
+                "precovery": self.default["precovery"],
+                "notfound": 1,
+                "date": string_time
+                })
+
+        return json
+
