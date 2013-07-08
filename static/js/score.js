@@ -1,26 +1,43 @@
 /**
  * Created with PyCharm.
- * User: mruskov
- * Date: 22/06/13
- * Time: 17:02
+ * User: Жанеля
+ * Date: 05.07.13
+ * Time: 14:51
  * To change this template use File | Settings | File Templates.
  */
-function init() {
-
-//     acc = new Fx.Accordion($('#accordion h2'), $('#accordion .content'), {display: 2, alwaysHide: true});
-//     new Fx.Accordion($('accordion'), '#accordion h2', '#accordion .content');
+var score_obj;
+function initScore(){
+    send_request(); //request scores, write them to score_obj global variable
+    console.log(score_obj);
+    //create accordion score representation
     new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
-
     climbLadder("risk");
     climbLadder("cost");
-
+    $("#avg_risk").text(score_obj.avg_risk);
+    $("#avg_pc").text(score_obj.avg_pc);
     console.log("Score initialized...");
-
     congratulate_first();
+}
+
+function send_request(){
+    var request = jQuery.ajax({
+        url: "/score_rest",
+        type: "GET",
+        async : false,
+
+        success : function(score) {
+            score_obj = JSON.parse(score.toString());
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
 }
 
 // Ladder is "risk" or "cost"
 function climbLadder(ladder) {
+    console.log("entered climb");
     // scores:
     var own = getScore("Own", ladder);
     var contender = getScore("Contender", ladder);
@@ -52,6 +69,63 @@ function putOnLadder(ladder, step, name) {
 
 }
 
+function getScore(user, type) {
+        switch (user) {
+            case "Best":
+            case "Contender":
+            case "Own":
+            case "Average":
+                call = "get" + user + capitalise(type); // user is already capitalized
+                break;
+            default:
+                call = "getOwn" + capitalise(type);
+        }
+        fn = window[call];
+//        console.log("user " + user + ", ladder " + type + ", call " + call + ", value " + fn()["value"]);
+        return fn();
+    }
+
+// utility function
+    function capitalise(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+// These values are set server-side and appear to client as json.
+    function getOwnRisk() {
+        return {"value": score_obj.b_u_risk, "rank": score_obj.b_u_risk_rank, "when": score_obj.b_u_risk_date};
+    }
+    function getOwnCost() {
+        return {"value": score_obj.b_u_cost, "rank": score_obj.b_u_cost_rank, "when": score_obj.b_u_cost_date};
+    }
+    function getContenderRisk() {
+        return {"value": score_obj.c_risk, "rank": score_obj.c_risk_rank, "when": score_obj.c_risk_when};
+    }
+    function getContenderCost() {
+        return {"value": score_obj.c_pc, "rank": score_obj.c_pc_rank, "when": score_obj.c_pc_when};
+    }
+    function getBestRisk() {
+        return {"value": score_obj.b_risk, "rank": 1, "when": score_obj.b_risk_when};
+    }
+    function getBestCost() {
+        return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when};
+    }
+    function getAverageRisk() {
+        return {"value": score_obj.avg_risk, "rank": "", "when": ""};
+    }
+    function getAverageCost() {
+        return {"value": score_obj.avg_pc, "rank": "", "when": ""};
+    }
+
+
+
+
+
+
+
+
+
+
+
 //congratulations popup (if a user is first
 function congratulate_first(){
     var text = '';
@@ -68,16 +142,8 @@ function congratulate_first(){
 
     $("#congratulate").text(text);
     $("#congratulate").show();
-
     $('#congratulate').delay(2500).fadeOut();
 }
-
-
-
-
-
-
-
 
 
 

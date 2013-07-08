@@ -43,7 +43,7 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/api/chronos/sync', controllers.chronos.chronos,
 
         #REST
-        '/score_static', controllers.score.score_static,
+        '/score_rest', controllers.score.score_rest,
         '/incident_rest', controllers.incident.incident_rest
 
 )

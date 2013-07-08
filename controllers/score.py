@@ -18,7 +18,7 @@ class score:
     def GET(self):
         #check if is logged in
         if context.user_id() > 0:
-            return render.score_static()
+            return render.score()
         #previously rendered with: context.username(),localsys.storage.session.date and scores from get_scores
         else:
             #if user not logged in -> redirect to login page
@@ -232,7 +232,7 @@ class score:
                 })
         return msg
 
-class score_static:
+class score_rest:
     def GET(self): #for ajax call
         a = score() #create instance of score class
         msg = a.get_scores() #get scores
