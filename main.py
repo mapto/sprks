@@ -44,7 +44,8 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
 
         #REST
         '/score_rest', controllers.score.score_rest,
-        '/incident_rest', controllers.incident.incident_rest
+        '/incident_rest', controllers.incident.incident_rest,
+        '/history_rest', controllers.policy_history.history_rest
 
 )
 

@@ -26,6 +26,7 @@ function initIncident(){
             console.log("fail: " + response.responseText);
         }
     });
+    return false;
 }
 
 function get_filename(){
@@ -45,5 +46,6 @@ function get_incident_name(){
             console.log("fail: " + response.responseText);
         }
     });
+    return false;
 }
 

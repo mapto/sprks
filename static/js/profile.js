@@ -5,24 +5,11 @@
  * Time: 16:27
  * To change this template use File | Settings | File Templates.
  */
-function init() {
+var json;
+function initProfile() {
 
-    /*Only as reminder what the data is being sent */
-    json1 = json[0];
-    var prenew = ( json1.prenew);
-    var pattempts = ( json1.pattempts);
-    var cost = ( json1.cost);
-    var idpolicy = ( json1.idpolicy);
-    var psets = ( json1.psets);
-    var phist = ( json1.phist);
-    var userid = ( json1.userid);
-    var pautorecover = ( json1.pautorecover);
-    var date = ( json1.date);
-    var plen = ( json1.plen);
-    var risk = ( json1.risk);
-    var pdict = ( json1.pdict);
-    /***********************************************/
-
+    get_profile(); //history values in json format from serverside (policy_history.py) by ajax call written to json var
+    console.log(json);
     createGraph(date, cost, risk, json);
 
     //create table dynamically:
@@ -70,6 +57,24 @@ function init() {
 
     $('#profile_table').append(table);
 }
+
+
+
+function get_profile(){
+    var request = jQuery.ajax({
+        url: "/history_rest", //function specified in incident.html
+        type: "GET",
+        async:false,
+        success : function(data) {
+            json = JSON.parse(data);
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+}
+
 
 
 function createGraph(date, cost, risk, data) {
