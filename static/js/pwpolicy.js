@@ -10,9 +10,11 @@ function init() {
 
     test_calendar = {
   'date': '2014-01-14' ,
-  'history': [
+        'policyAccept':'true',
+        'interventionAccept':'true',
+  'calendar': [
     {
-      'date': '2014-01-20',
+      'date': '2014/1/20',
       'events': [
         {
         'incdt_id': 5,
@@ -21,14 +23,12 @@ function init() {
       ]
     },
     {
-      'date': '2014-01-21',
-      events: []
-    }
-  ],
-  'prophecy': [
+      'date': '2014/1/21',
+      'events': []
+    },
     {
-      'date': '2014/1/8',
-       events: [
+      'date': '2014/2/5',
+       'events': [
         {
           'incdt_id': 1,
           'cost': 7000000
@@ -40,7 +40,7 @@ function init() {
       ]
     },
     {
-      'date': '2014/1/15',
+      'date': '2014/2/7',
       'events': [
         {
           'incdt_id': 8,
@@ -149,7 +149,7 @@ function verboseScore(score) {
 function calculate_cost_from_calendar() {
     var tmp_calendar = window.calendar;
     var last_date = tmp_calendar.date;
-    var tmp_prophecy = tmp_calendar.prophecy;
+    var tmp_prophecy = tmp_calendar.calendar;
     var sum = 0;
     $(tmp_prophecy).each(function(i) {
         if(tmp_prophecy[i].date < last_date)
@@ -166,7 +166,7 @@ function calculate_cost_from_calendar() {
 }
 
 function check_events() {
-    var tmp_events_calendar = window.calendar.prophecy;
+    var tmp_events_calendar = window.calendar.calendar;
     $(tmp_events_calendar).each(function(i) {
         if(tmp_events_calendar[i].date == window.date)
         {

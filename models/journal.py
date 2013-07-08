@@ -6,12 +6,46 @@ from datetime import datetime
 
 
 class records:
-    default_calendar = {'date': '2014-01-14',
-                        'history': [{'date': '2014-01-20', 'events':
-                            [{'incdt_id': 5, 'cost': 2000}]}, {'date': '2014-01-21', 'events': []}],
-                        'prophecy': [{'date': '2014/1/8', 'events':
-                            [{'incdt_id': 1, 'cost': 800000}, {'incdt_id': 4, 'cost': 5000}]},
-                                     {'date': '2014/1/15', 'events': [{'incdt_id': 8, 'cost': 1000}]}]}
+    default_calendar = {'date': '2014/1/14',
+                        'calendar': [
+    {
+      'date': '2014/1/20',
+      'events': [
+        {
+        'incdt_id': 5,
+        'cost': 2000
+        }
+      ]
+    },
+    {
+      'date': '2014/1/21',
+      'events': []
+    },
+    {
+      'date': '2014/2/5',
+       'events': [
+        {
+          'incdt_id': 1,
+          'cost': 7000000
+        },
+        {
+          'incdt_id': 4,
+          'cost': 5000
+        }
+      ]
+    },
+    {
+      'date': '2014/2/7',
+      'events': [
+        {
+          'incdt_id': 8,
+          'cost': 1000
+        }
+      ]
+    }
+  ] ,
+                        'policyAccept':'true',
+                        'interventionAccept': 'true'}
 
     def commit_history(self, date):
         result = storage.db.update('journal', commited=1, where="date<$date", vars=locals())
@@ -30,7 +64,7 @@ class records:
 
     def updateJournal(self, risk, userid):
         #calendar = chronos.prophesize(risk)["prophecy"]
-        calendar = self.default_calendar["prophecy"]
+        calendar = self.default_calendar["calendar"]
         whole_calendar = self.default_calendar
         for dates in calendar:
             for key in dates:
