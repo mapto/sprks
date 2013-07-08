@@ -1,6 +1,5 @@
-$def with (username, date, jsondumps)
 $var title: Profile
-$var date: $date
+
 <h1>Profile</h1>
 <div>Now displays attribute names and values in a way that they are required, but it doesn't make much sense for the
     player what does each attribute name mean or how to interpret its value. Possible improvement: can extract labels
@@ -16,7 +15,5 @@ $var date: $date
 <script src="static/js/profile.js"></script>
 
 <script>
-    json = $:jsondumps; //history values in json format from serverside (policy_history.py)
-    console.log(json);
-    $$(document).ready(init);
+    $$(document).ready(initProfile());
 </script>

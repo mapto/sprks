@@ -21,7 +21,6 @@ import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 
-
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
         '/login', controllers.user.account,
@@ -41,7 +40,13 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/api/user/account(/?)(.+)', controllers.user.account,
         '/api/user/account', controllers.user.account,
         '/api/user/password(/?)(.+)', controllers.user.password,
-        '/api/chronos/sync', controllers.chronos.chronos
+        '/api/chronos/sync', controllers.chronos.chronos,
+
+        #REST
+        '/score_rest', controllers.score.score_rest,
+        '/incident_rest', controllers.incident.incident_rest,
+        '/history_rest', controllers.policy_history.history_rest
+
 )
 
 app = web.application(urls, globals(), autoreload=False)
