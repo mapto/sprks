@@ -1,6 +1,41 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.4
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jul 08, 2013 at 03:45 PM
+-- Server version: 5.6.12
+-- PHP Version: 5.4.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
 -- Database: `sprks`
 --
+CREATE DATABASE IF NOT EXISTS `sprks` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `sprks`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `journal`
+--
+
+CREATE TABLE IF NOT EXISTS `journal` (
+  `user_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `incident_id` int(11) NOT NULL,
+  `cost` int(11) NOT NULL,
+  `commited` tinyint(1) NOT NULL,
+  KEY `user_id_idx` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -13,8 +48,9 @@ CREATE TABLE IF NOT EXISTS `password_recovery` (
   `date` datetime NOT NULL,
   `token` char(56) NOT NULL,
   `invalid` int(11) NOT NULL,
-  PRIMARY KEY (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`token`),
+  KEY `user_id_idx` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -35,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `pw_policy` (
   `date` datetime NOT NULL,
   PRIMARY KEY (`idpolicy`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -52,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`idscores`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -79,28 +115,36 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(70) NOT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `journal`
+--
+ALTER TABLE `journal`
+  ADD CONSTRAINT `journal_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `password_recovery`
+--
+ALTER TABLE `password_recovery`
+  ADD CONSTRAINT `password_recovery_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pw_policy`
 --
 ALTER TABLE `pw_policy`
-  ADD CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pw_policy_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `scores`
 --
 ALTER TABLE `scores`
-  ADD CONSTRAINT `` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `scores_user_id` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-  delimiter $$
-
-CREATE TABLE `journal` (
-  `user_id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  `incident_id` int(11) NOT NULL,
-  `cost` int(11) NOT NULL,
-  `commited` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
-
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

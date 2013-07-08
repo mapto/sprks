@@ -6,15 +6,49 @@ from datetime import datetime
 
 
 class records:
-    default_calendar = {'date': '2014-01-14',
-                        'history': [{'date': '2014-01-20', 'events':
-                            [{'incdt_id': 5, 'cost': 2000}]}, {'date': '2014-01-21', 'events': []}],
-                        'prophecy': [{'date': '2014/1/8', 'events':
-                            [{'incdt_id': 1, 'cost': 800000}, {'incdt_id': 4, 'cost': 5000}]},
-                                     {'date': '2014/1/15', 'events': [{'incdt_id': 8, 'cost': 1000}]}]}
+    default_calendar = {
+        'date': '2014-01-14',
+        'calendar': [
+            {
+                'date': '2014-01-20',
+                'events': [
+                    {
+                        'incdt_id': 5,
+                        'cost': 2000
+                    }
+                ]
+            },
+            {
+                'date': '2014-01-21',
+                'events': []
+            },
+            {
+                'date': '2014/1/8',
+                'events': [
+                    {
+                        'incdt_id': 1,
+                        'cost': 7000000
+                    },
+                    {
+                        'incdt_id': 4,
+                        'cost': 5000
+                    }
+                ]
+            },
+            {
+                'date': '2014/1/15',
+                'events': [
+                    {
+                        'incdt_id': 8,
+                        'cost': 1000
+                    }
+                ]
+            }
+        ]
+    }
 
     def commit_history(self, date):
-        result = storage.db.update('journal', commited=1, where="date<$date", vars=locals())
+        result = storage.db.update('journal', commited=1, where="date<$date&&user", vars=locals())
         return result
 
     def record_prophecy(self):
