@@ -10,7 +10,7 @@ class records:
                         'history': [{'date': '2014-01-20', 'events':
                             [{'incdt_id': 5, 'cost': 2000}]}, {'date': '2014-01-21', 'events': []}],
                         'prophecy': [{'date': '2014/1/8', 'events':
-                            [{'incdt_id': 1, 'cost': 7000000}, {'incdt_id': 4, 'cost': 5000}]},
+                            [{'incdt_id': 1, 'cost': 800000}, {'incdt_id': 4, 'cost': 5000}]},
                                      {'date': '2014/1/15', 'events': [{'incdt_id': 8, 'cost': 1000}]}]}
 
     def commit_history(self, date):
@@ -21,7 +21,7 @@ class records:
         pass
 
     def validateJournal(self, cost, date, user_id):
-        sum = storage.db.select('journal', what="SUM(cost) as sum", where="date<$date and user_id=$user_id", vars=locals())[0].sum
+        sum = storage.db.select('journal', what="SUM(cost) as sum", where="date<$date and user_id=$user_id and commited!=1", vars=locals())[0].sum
         self.commit_history(date)
         if sum == cost:
             return 1

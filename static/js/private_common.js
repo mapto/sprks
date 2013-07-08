@@ -70,6 +70,11 @@ function initFrame() {
             check_events();
             if(window.date==window.nextSyncStr) {
                 alert("Changes submitted");
+                window.first_date = new Date(window.date);
+                window.nextSync = window.first_date;
+                window.nextSync.setMonth(window.nextSync.getMonth()+2);
+                window.nextSync.setDate(1);
+                window.nextSyncStr = window.nextSync.getFullYear()+'/'+window.nextSync.getMonth()+'/'+window.nextSync.getDate();
                 submit_change();
             }
             },interval);

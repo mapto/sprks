@@ -52,7 +52,7 @@ class forward:
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 
-        validation = records.validateJournal(post_data["recent_costs"], new_date, usrid) #0-if validation failed, 1-otherwise
+        validation = records.validateJournal(post_data["recent_costs"], new_date, usrid)  #0-if validation failed, 1-otherwise
 
         risk = sim.calc_risk_prob()
 
