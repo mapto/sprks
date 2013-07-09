@@ -6,6 +6,7 @@ import json
 from localsys.storage import db
 
 class pw_policy_model:
+
     ranges = {"plen": [0, 6, 8, 10, 12],
               "psets": [1, 2, 3, 4],
               "pdict": [0, 1],
@@ -155,5 +156,4 @@ if __name__ == "__main__":
     #model.generate_training_set()
     policy = model.latest_policy(3)
     print policy
-
 

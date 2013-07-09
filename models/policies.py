@@ -5,6 +5,15 @@ from sim.simulation import simulation
 class policies_model:
 
     @classmethod
+    def populate_policies(cls, user_id, date):
+        # foreach employee
+        # foreach location
+        # foreach device
+        # create new row
+        pass
+        #TODO
+
+    @classmethod
     def get_policy_history(cls, user_id):
         """
         Returns list of past policies set by user.
@@ -30,9 +39,8 @@ class policies_model:
         """
         Doc stub
         """
-        results = db.select('pw_policy', where="userid=$user_id", order="date", vars=locals())[0]
-        policy = {}
-        for k, value in results.iteritems():
-            if k != 'idpolicy' and k != 'userid' and k != 'date':
-                policy[k] = str(value)
-        return policy
+        return db.select('SELECT * FROM pw_policy'
+                        'OUTER JOIN biometrics ON policy.bioid=biometrics.id'
+                        'OUTER JOIN passface ON policy.passid=passface.id'
+                        'OUTER JOIN pw_policy ON policy.pwid=pw_policy.id'
+                        'WHERE policies.user_id=$user_id AND policies.date=MAX(policies.date) LIMIT 27', vars=locals())

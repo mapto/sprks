@@ -4,6 +4,7 @@ import web
 
 from localsys.environment import *
 from models.users import users_model
+from models.policies import policies_model
 from libraries.utils import hash_utils
 
 
@@ -77,6 +78,8 @@ class account:
             if payload.get('autologin', False):
                 users_model.session_login(user_id)
             web.ctx.status = '201 Created'
+            policies_model.populate_policies(user_id, start_date)
+
             return json.dumps(
                 {
                     'success': True,

@@ -178,6 +178,7 @@ CREATE  TABLE `sprks`.`policies` (
   `device` VARCHAR(45) NOT NULL ,
   `policy_id` INT NOT NULL ,
   `date` DATE NOT NULL ,
+  `bio_id` INT(11)
   PRIMARY KEY (`id`) );
 
 

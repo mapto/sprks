@@ -3,6 +3,7 @@ import web
 import localsys
 from datetime import date
 from localsys.environment import context
+import models
 
 
 class chronos:
@@ -39,7 +40,8 @@ class chronos:
         # calendar = get current month from journal
 
         if not payload.get('silentMode', False):
-            return json.dumps({
+            response = {
+
                 'date': date(2000, 1, 1).isoformat(),
                 'policyAccept': True,
                 'interventionAccept': True,
@@ -48,7 +50,13 @@ class chronos:
                         # calendar
                     }
                 ]
-            })
+            }
+
+            if payload.get('initPolicy', False):
+                # get user's policy data
+                response['policy'] = models.policies.policies_model.get_latest_policy(context.user_id())
+
+            return json.dumps(response)
 
     def sync_history(self, date, new_costs):
         # look for past uncommitted interventions that haven't been handled
