@@ -8,8 +8,10 @@
  * In this case requested from the server and embedded in JS getters (Python, see html template) and calculated in client (JS, this file).
  *
  */
+var policies_array = {};
 
-function initFrame() {
+
+function initFrame () {
     if ($("#risk").text() == '' || $("#cost").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
@@ -183,3 +185,61 @@ $('#forward').click(function() {
    $('#pause').parent().removeClass('active');
 });
 
+
+//populate policies array onchange of inputs
+$('.target').change(function(){
+   var attribute = $(this).parent().attr('id'); //can be empployee/device/location/plen/psets/etc.
+   if(attribute=='employee'||attribute=='location'||attribute=='device'){ //write json for empl/loc/dev
+       console.log('policyEmpl/Loc/Dev');
+       if(!policies_array[attribute]){ //if doesn't exist, initialize array
+           policies_array[attribute]=[]
+       }
+       if($(this).prop('checked')){
+           policies_array[attribute] = policies_array[attribute].concat($(this).val());
+       }else{
+           var index = policies_array[attribute].indexOf($(this).val());
+           policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
+       }
+
+   }else if(attribute=='policy_form'){
+       policies_array[attribute]=$(this).val(); //how many policies to be passed
+       console.log('yep');
+   }
+   else{ //write the policyDelta  //NOT YET IMPLEMENTED
+       /*
+       if (!policies_array.policyDelta){ //initialize dictionary if doesn't exist
+           policies_array.policyDelta={};
+       }
+       policies_array.policyDelta[attribute] = $(this).val();
+       */
+
+
+
+/*
+       if (!policies_array.policyDelta){ //initialize dictionary if doesn't exist
+           policies_array.policyDelta={};
+       }
+       console.log('policyDelta'+$(this).parent().attr('id'));
+       if($(this).parent().attr('id')=='biometric_policy'){
+           policies_array.policyDelta.biometric = $(this).val();
+       }
+       if($(this).parent().attr('id')=='passfaces_policy'){
+           policies_array.policyDelta.passfaces = $(this).val();
+       }
+*/
+/*
+       if($(this).parent().attr('id').substring(0,1)=='p'){
+           console.log($(this).parent().attr('id'))
+           var attribute = $(this).parent().attr('id');
+           if(!policies_array.policyDelta[attribute]){
+                policies_array.policyDelta[attribute] = []
+           }
+           policies_array.policyDelta[attribute] = policies_array.policyDelta[attribute].concat($(this).val());
+       }
+       */
+   }
+
+
+   console.log(policies_array);
+
+});

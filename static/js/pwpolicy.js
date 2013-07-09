@@ -448,14 +448,14 @@ $('#aut_num').change(function(){
                    'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
     if (this.value>0){
-        var s = $("<select id=\"autentication1\" name=\"autentication1\" />");
+        var s = $("<select  class=\"target\" id=\"autentication1\" name=\"autentication1\" />");
         for(var val in options) {
             $("<option />", {value: val, text: options[val]}).appendTo(s);
         }
         s.appendTo("#aut1");
         //create first authentication options set
         if(this.value>1){
-            var s = $("<select id=\"autentication2\" name=\"autentication2\" />");
+            var s = $("<select class=\"target\" id=\"autentication2\" name=\"autentication2\" />");
             for(var val in options) {
                 $("<option />", {value: val, text: options[val]}).appendTo(s);
             }
