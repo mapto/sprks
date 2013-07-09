@@ -61,6 +61,6 @@ else:
     storage.session = web.config._session
 
 if __name__ == "__main__":
-    app.run() # when run as standalone application run own server
+    app.run()  # when run as standalone application run own server
 else:
     application = app.wsgifunc() # when called from Apache, use WSGI

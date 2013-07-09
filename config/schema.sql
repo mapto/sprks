@@ -176,9 +176,10 @@ CREATE  TABLE `sprks`.`policies` (
   `location` VARCHAR(45) NOT NULL ,
   `employee` VARCHAR(45) NOT NULL ,
   `device` VARCHAR(45) NOT NULL ,
-  `policy_id` INT NOT NULL ,
+  `bio_id` INT NOT NULL ,
+  `pass_id` INT NOT NULL ,
+  `pw_id` INT NOT NULL,
   `date` DATE NOT NULL ,
-  `bio_id` INT(11)
   PRIMARY KEY (`id`) );
 
 
