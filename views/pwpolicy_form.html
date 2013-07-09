@@ -1,22 +1,90 @@
 $var title: Policy
 <h1>Policy</h1>
+<form id="policy_form" name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
 <p id="time"></p>
-<label><b>Please select the number of authentication mechanisms: </b></label><br><br>
+<div class="company" id="employee">
+<label><h4>Choose employee types</h4></label><br/>
+    <input type="checkbox"
+           name="executives"
+           id="executives"
+           class="target"
+           value="executives"/>
+    <label for="executives">executives</label><br/><br/>
+    <input type="checkbox"
+           name="desk"
+           id="desk"
+           class="target"
+           value="desk"/>
+    <label for="desk">desk</label><br/><br/>
+    <input type="checkbox"
+           name="road"
+           id="road"
+           class="target"
+           value="road"/>
+    <label for="road">road</label><br/><br/>
+</div>
 
-<select class="authentication" id="aut_num" name="aut_num">
+<div class="company" id="location">
+<label><h4>Choose location types</h4></label><br/>
+    <input type="checkbox"
+           name="office"
+           id="office"
+           class="target"
+           value="office"/>
+    <label for="office">office</label><br/><br/>
+    <input type="checkbox"
+           name="public"
+           id="public"
+           class="target"
+           value="public"/>
+    <label for="public">public</label><br/><br/>
+    <input type="checkbox"
+           name="home"
+           id="home"
+           class="target"
+           value="home"/>
+    <label for="home">home</label><br/><br/>
+</div>
+
+<div class="company" id="device">
+<label><h4>Choose device types</h4></label><br/>
+    <input type="checkbox"
+           name="desktop"
+           id="desktop"
+           class="target"
+           value="desktop"/>
+    <label for="desktop">desktop</label><br/><br/>
+    <input type="checkbox"
+           name="laptop"
+           id="laptop"
+           class="target"
+           value="laptop"/>
+    <label for="laptop">laptop</label><br/><br/>
+    <input type="checkbox"
+           name="phone"
+           id="phone"
+           class="target"
+           value="phone"/>
+    <label for="phone">phone</label><br/><br/>
+</div>
+
+<label><h4>Please select the number of authentication mechanisms: </h4></label><br>
+
+<select class="target authentication" id="aut_num" name="aut_num">
    <option value="" disabled selected>number</option>
    <option value="0">0</option>
    <option value="1">1</option>
    <option value="2">2</option>
  </select>
+
  <div class="aut" id="aut1"></div>
  <div class="aut" id="aut2"></div>
 
 
 <!--BIOMETRIC POLICY BEGIN-->
 <div class=" policy policy0" id="biometric_policy">
-    <h3>Biometric</h3>
-    <select id="biometric" name="biometric">
+    <h4>Biometric</h4>
+    <select class="target" id="biometric" name="biometric">
         <option value="0">fingerprint</option>
         <option value="1">iris scan</option>
     </select>
@@ -25,8 +93,8 @@ $var title: Policy
 
 <!--PASSFACES POLICY BEGIN-->
 <div class=" policy policy1" id="passfaces_policy">
-    <h3>Passfaces/swipe</h3>
-    <select id="passfaces" name="passfaces">
+    <h4>Passfaces/swipe</h4>
+    <select class="target"  id="passfaces" name="passfaces">
         <option value="0">passfaces</option>
         <option value="1">swipe-lock</option>
     </select>
@@ -35,9 +103,9 @@ $var title: Policy
 
 <!--PASSWORD POLICY BEGIN-->
 <div class=" policy policy2" id="password_policy">
-<h3>Password Policy</h3>
+<h4>Password Policy</h4>
 
-<form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
+
 
 <p>
 
@@ -89,7 +157,7 @@ $var title: Policy
     <br/><br/>
 
 <div class="graph" id="graph_plen"></div>
-</p>
+
 
 <p class="qn" id="psets">
     <label><b>Number of symbol sets that must be used in password:</b></label>
@@ -271,8 +339,9 @@ $var title: Policy
 <div class="graph" id="graph_precovery"></div>
 </p>
 
-</form>
+
 </div>
+</form>
 <!--PASSWORD POLICY END-->
 
 
