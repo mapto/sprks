@@ -1,4 +1,19 @@
 $var title: Password policy
+<label><b>Please select the number of authentication mechanisms: </b></label><br><br>
+
+<select class="authentication" id="aut_num" name="aut_num">
+   <option value="" disabled selected>number</option>
+   <option value="0">0</option>
+   <option value="1">1</option>
+   <option value="2">2</option>
+ </select>
+ <div class="aut" id="aut1"></div>
+ <div class="aut" id="aut2"></div>
+
+
+
+
+
 <h1>Password Policy</h1>
 
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->

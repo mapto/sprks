@@ -438,3 +438,39 @@ function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
         });
 
 }
+
+//3 different authentication mechanisms
+$('#aut_num').change(function(){
+    $("#autentication1").remove();
+    $("#autentication2").remove();
+    //remove all options
+    var options = ['biometric (fingerprint / iris scan)',   //value:0
+                   'passfaces/swipe-lock',                  //value:1
+                   'passwords'];                            //value:2
+    if (this.value>0){
+        var s = $("<select id=\"autentication1\" name=\"autentication1\" />");
+        for(var val in options) {
+            $("<option />", {value: val, text: options[val]}).appendTo(s);
+        }
+        s.appendTo("#aut1");
+        //create first authentication options set
+        if(this.value>1){
+            var s = $("<select id=\"autentication2\" name=\"autentication2\" />");
+            for(var val in options) {
+                $("<option />", {value: val, text: options[val]}).appendTo(s);
+            }
+            s.appendTo("#aut2");
+            //create second options set
+        }
+    }
+});
+$(".aut").change(function(){
+    if($('#aut_num').val()==2 && ($('#autentication1').val()==$('#autentication2').val())){ //ensure distinct selected options
+        alert('Please, select two distinct options');
+    }
+    display_policy($(this).find('select').val());
+})
+
+function display_policy(policy_value){
+    console.log(policy_value);
+}
