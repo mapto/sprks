@@ -163,7 +163,7 @@ CREATE TABLE `sprks`.`passfaces` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pdata` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-)
+);
 
 
 

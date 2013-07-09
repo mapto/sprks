@@ -10,12 +10,9 @@ from sim.simulation import simulation
 
 class score:
     def GET(self):
-        #check if is logged in
         if context.user_id() > 0:
             return render.score()
-        #previously rendered with: context.username(),localsys.storage.session.date and scores from get_scores
         else:
-            #if user not logged in -> redirect to login page
             raise web.seeother('/home')
 
 

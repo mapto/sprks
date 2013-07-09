@@ -27,7 +27,8 @@ class pw_policy_model:
                     policy["prenew"], policy["pattempts"],
                     policy["precovery"]]
 
-    def update(self, where, values):
+    @classmethod
+    def update(cls, where, values):
         """
         Generates query string using db_helper.update_helper.stringify, and runs db.query.
         """
