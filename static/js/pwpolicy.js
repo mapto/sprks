@@ -128,7 +128,7 @@ function getInitPolicy(){
             $('#time').text(pwpolicy.date);
         },
         error: function(response) {
-            console.log("fail: " + response.responseText);
+            console.log("failed getInitPolicy: " + response.responseText);
         }
     });
     return false;
