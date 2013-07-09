@@ -49,8 +49,11 @@ class context:
         return username
 
 
+start_date = datetime.date(2014, 1, 6)
+
+
 def get_start_time():
-    return datetime.date(2014, 1, 6)
+    return start_date
 
 
 render_globals = {
