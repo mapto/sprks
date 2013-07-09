@@ -170,9 +170,16 @@ function highlightActiveButton() {
 $('#play').click(function() {
    $(this).parent().addClass('active');
    $('#pause').parent().removeClass('active');
+   $('#forward').parent().removeClass('active');
 });
 $('#pause').click(function() {
    $(this).parent().addClass('active');
    $('#play').parent().removeClass('active');
+   $('#forward').parent().removeClass('active');
+});
+$('#forward').click(function() {
+   $(this).parent().addClass('active');
+   $('#play').parent().removeClass('active');
+   $('#pause').parent().removeClass('active');
 });
 
