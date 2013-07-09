@@ -1,5 +1,5 @@
 import web
-from datetime import datetime
+import datetime
 from models.users import users_model
 from web import ctx
 
