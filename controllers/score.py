@@ -21,7 +21,7 @@ class score:
 
 class score_rest:
     def GET(self):
-        return score_model.get_scores(context.user_id())
+        return json.dumps(score_model.get_scores(context.user_id()))
 
 
 class multiple_score:

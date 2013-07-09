@@ -19,9 +19,9 @@ class incident:
     def POST(self):
         raise web.seeother('/policy/password')
 
+
 class incident_rest:
 
     def GET(self):
-        last_policy = policies_model().get_latest_policy(context.user_id())
-        name = classifier_sklearn().predict_data(last_policy)[0]
-        return name
+        last_policy = policies_model.get_latest_policy(context.user_id())
+        return classifier_sklearn().predict_data(last_policy)[0]

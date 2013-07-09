@@ -167,7 +167,7 @@ class score_model:
 
             avg_risk, avg_pc = cls.find_avg(scores_4)
 
-            msg = json.dumps({
+            msg = {
             "b_u_risk": str(b_u_risk),
             "b_u_risk_date": str(b_u_risk_date.date()),
             "b_u_risk_rank": b_u_risk_rank,
@@ -186,7 +186,7 @@ class score_model:
             "b_pc_when": str(b_pc_when.date()),
             "avg_risk": str(avg_risk),
             "avg_pc": str(avg_pc)
-            })
+            }
         return msg
 
     def multiple_score(self, policies):

@@ -3,6 +3,7 @@ from sim.simulation import simulation
 
 
 class policies_model:
+
     @classmethod
     def get_policy_history(cls, user_id):
         """
@@ -24,7 +25,8 @@ class policies_model:
             history.append(tmp)
         return history
 
-    def get_latest_policy(self, user_id):
+    @classmethod
+    def get_latest_policy(cls, user_id):
         """
         Doc stub
         """
