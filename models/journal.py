@@ -3,6 +3,7 @@ __author__ = 'admin'
 from localsys import storage
 from controllers.chronos import chronos
 from datetime import datetime
+from localsys.environment import context
 
 
 class records:
@@ -48,7 +49,8 @@ class records:
                         'interventionAccept': 'true'}
 
     def commit_history(self, date):
-        result = storage.db.update('journal', commited=1, where="date<$date&&user_id=$context.user_id()", vars=locals())
+        user_id = context.user_id()
+        result = storage.db.update('journal', commited=1, where="date<$date&&user_id=$user_id", vars=locals())
         return result
 
     def record_prophecy(self):

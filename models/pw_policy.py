@@ -93,6 +93,24 @@ class pw_policy_model:
                 print row
                 writer.writerow(row)
 
+    def create_variation(self, policy, id, value):
+        new_policy = {}
+        for key in policy:
+            new_policy[key] = policy[key]
+        new_policy[id] = value
+        return new_policy
+
+    def get_range(self, policy, id):
+        msgs = []
+        sets = self.ranges
+        for value in sets[id]:
+            new_policy = self.create_variation(policy, id, value)
+            msg = {}
+            msg['id'] = id+str(value)
+            msg["data"] = new_policy
+            msgs.append(msg)
+        return msgs
+
 
 if __name__ == "__main__":
     model = pw_policy_model()

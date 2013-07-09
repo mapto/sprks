@@ -6,8 +6,10 @@ from sim.simulation import simulation
 from localsys.environment import *
 from localsys.storage import db
 from models.pw_policy import pw_policy_model
-from models.journal import records
 import string
+from models.score import score_model
+from models.calendar import calendar_model
+
 
 class pwpolicy:
     def GET(self):
@@ -32,7 +34,7 @@ class pwpolicy:
         pw_policy_model().update({'userid': context.user_id(), 'date': payload["date"]}, data)
 
         #get the calendar
-        calendar = self.get_calendar(data=data, cost=payload["recent_cost"], date=payload["date"])
+        calendar = calendar_model().get_calendar(data=data, cost=payload["recent_cost"], date=payload["date"])
 
         for k, value in data.iteritems():
             sim.set_policy(k, value)
@@ -47,84 +49,15 @@ class pwpolicy:
 
         my_list = ["plen", "psets", "pdict", "phist", "prenew", "pattempts", "precovery"]
         for key in my_list:
-            tmp_policy = self.get_range(data, key)
+            tmp_policy = pw_policy_model.get_range(data, key)
             for k in tmp_policy:
                 msgs.append(k)
         print "final data"
         print msgs
-        scores = self.multiple_score(msgs)
+        scores = score_model().multiple_score(msgs)
         msg["msg2"] = scores
         msg["calendar"] = calendar
         return json.dumps(msg)
-
-    def create_variation(self, policy, id, value):
-        new_policy = {}
-        for key in policy:
-            new_policy[key] = policy[key]
-        new_policy[id] = value
-        return new_policy
-
-    def get_range(self, policy, id):
-        msgs = []
-        sets = pw_policy_model.ranges
-        for value in sets[id]:
-            new_policy = self.create_variation(policy, id, value)
-            msg = {}
-            msg['id'] = id+str(value)
-            msg["data"] = new_policy
-            msgs.append(msg)
-
-        return msgs
-
-    def multiple_score(self, policies):
-        post_data = policies
-        policy_costs_risks = []
-        sim = simulation()
-        for policy_entry in post_data:
-            result_entry = {}
-            for key in policy_entry:
-                if key == "data":
-                    tmp_value = policy_entry[key]
-                    sim.set_multi_policy(tmp_value)
-                    result_entry["risk"] = sim.calc_risk_prob()
-                    result_entry["cost"] = sim.calc_prod_cost()
-                else:
-                    result_entry["id"] = policy_entry[key]
-            policy_costs_risks.append(result_entry)
-
-            # print('return cost '+ policy_costs_risks)
-
-        return policy_costs_risks
-
-    def get_calendar(self, data, cost, date):
-        web.header('Content-Type', 'application/json')
-        usrid = context.user_id()
-        sim = simulation()
-        post_data = data
-        policy = post_data
-
-        for k, value in policy.iteritems():
-            sim.set_policy(k, value)
-
-        validation = records().validateJournal(cost, date, usrid)  #0-if validation failed, 1-otherwise
-
-        risk = sim.calc_risk_prob()
-        cost = sim.calc_prod_cost()
-
-        calendar = records().updateJournal(risk, usrid)  #inserts new events into journal
-
-        #TODO put this into model
-        # dtt = datetime.strptime(date, "%Y/%m/%d")
-        # string_time = dtt.strftime("%Y/%m/%d")
-        db.insert('scores', userid=usrid, score_type=1, score_value=risk,
-                  date=date, rank=0)
-        db.insert('scores', userid=usrid, score_type=2, score_value=cost,
-                  date=date, rank=0)
-        db.insert('pw_policy', userid=usrid, date=date,
-                  plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
-                  prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
-        #return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
-        return calendar
 
 
 class pwpolicy_rest:
