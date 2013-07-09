@@ -7,7 +7,9 @@ from localsys.storage import db
 
 
 class calendar_model:
-    def get_calendar(self, data, cost, date):
+
+    @classmethod
+    def get_calendar(cls, data, cost, date):
         web.header('Content-Type', 'application/json')
         usrid = context.user_id()
         sim = simulation()
