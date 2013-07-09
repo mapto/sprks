@@ -24,7 +24,6 @@ class calendar_model:
 
         calendar = records().updateJournal(risk, usrid)  #inserts new events into journal
 
-        #TODO put this into model
         # dtt = datetime.strptime(date, "%Y/%m/%d")
         # string_time = dtt.strftime("%Y/%m/%d")
         db.insert('scores', userid=usrid, score_type=1, score_value=risk,
