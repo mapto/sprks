@@ -1,9 +1,7 @@
-__author__ = 'Horace'
-
-
 class update_helper:
-    @staticmethod
-    def stringify(table, where, values):
+
+    @classmethod
+    def stringify(cls, table, where, values):
         """
         Turns parameters into SQL UPDATE query (table_name/string, WHERE/dict, VALUES/dict
         """
@@ -12,8 +10,9 @@ class update_helper:
 
 
 class string_helper:
-    @staticmethod
-    def pairs_to_strings(dict):
+
+    @classmethod
+    def pairs_to_strings(cls, dict):
         """
         Converts dictionary key/value pairs to list{"key='value'", "key2='value'", ...}
         """
@@ -23,8 +22,8 @@ class string_helper:
 
         return list
 
-    @staticmethod
-    def dict_to_sql_query(dict):
+    @classmethod
+    def dict_to_sql_query(cls, dict):
         """
         Converts dictionary to sql-compliant string: key1='value1',key2='value2',...
         """

@@ -165,3 +165,21 @@ function highlightActiveButton() {
     $("." + css_class + " a").css("color", "#fff");
     $("." + css_class + " a").css("cursor", "default");
 }
+
+//time-control buttons active css
+$('#play').click(function() {
+   $(this).parent().addClass('active');
+   $('#pause').parent().removeClass('active');
+   $('#forward').parent().removeClass('active');
+});
+$('#pause').click(function() {
+   $(this).parent().addClass('active');
+   $('#play').parent().removeClass('active');
+   $('#forward').parent().removeClass('active');
+});
+$('#forward').click(function() {
+   $(this).parent().addClass('active');
+   $('#play').parent().removeClass('active');
+   $('#pause').parent().removeClass('active');
+});
+

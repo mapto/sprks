@@ -6,7 +6,12 @@ from localsys.environment import context
 
 
 class chronos:
+
     def POST(self):
+        """
+        Listens to POST requests for main Chronos API
+        """
+
         payload = json.loads(web.data())
         web.header('Content-Type', 'application/json')
 
@@ -16,7 +21,8 @@ class chronos:
                 'messages': ['Unauthorized']
             })
 
-        self.sync_history(payload.get('date'), payload.get('newCosts'))
+        sync_date = self.sync_history(payload.get('date'), payload.get('newCosts'))
+
 
         #if monthly sync or event sync
 
@@ -45,6 +51,9 @@ class chronos:
             })
 
     def sync_history(self, date, new_costs):
+        # look for past uncommitted interventions that haven't been handled
+        # if client is behind, make it catch up. if client is ahead, throw error at the date they should backtrack
+        # return error or date to backgrack
         pass
 
     def prophesize(self):
