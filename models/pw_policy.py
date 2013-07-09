@@ -34,8 +34,42 @@ class pw_policy_model:
         """
         return db.query(db_helper.update_helper.stringify('pw_policy', where, values), vars=locals())
 
-    def latest_policy(self):
-        pass
+    @classmethod
+    def latest_policy(self, user_id):
+        policy = {
+            'location': "",
+            'employee': "",
+            'device': "",
+            'bdata': "",
+            'pdata': "",
+            'plen': 8,
+            'psets': 2,
+            'pdict': 0,
+            'phist': 1,
+            'prenew': 1,
+            'pattempts': 0,
+            'precovery': 1,
+        }
+        db_policy_all = db.select('policies', where="user_id=$user_id", order="date DESC", vars=locals())
+        if len(db_policy_all):
+            db_policy = db_policy_all[0]
+            db_bio = db.select('biometrics', where="id=$db_policy.bio_id", vars=locals())[0]
+            db_pass = db.select('passfaces', where="id=$db_policy.pass_id", vars=locals())[0]
+            db_pw = db.select('pw_policy_test', where="id=$db_policy.pw_id", vars=locals())[0]
+            policy["location"] = db_policy.location
+            policy["employee"] = db_policy.employee
+            policy["device"] = db_policy.device
+            policy["bdata"] = db_bio.bdata
+            policy["pdata"] = db_pass.pdata
+            policy["plen"] = db_pw.plen
+            policy["psets"] = db_pw.psets
+            policy["pdict"] = db_pw.pdict
+            policy["phist"] = db_pw.phist
+            policy["prenew"] = db_pw.prenew
+            policy["pattempts"] = db_pw.pattempts
+            policy["precovery"] = db_pw.precovery
+
+        return policy
 
     def generate_samples(self, partial_policy, start_index = 0):
         """ Generates all possible ways to complete a partial policy
@@ -118,6 +152,8 @@ if __name__ == "__main__":
     # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
     # result = model.generate_samples({'plen': 0})
     # result = model.generate_samples({})
-    model.generate_training_set()
+    #model.generate_training_set()
+    policy = model.latest_policy(3)
+    print policy
 
 
