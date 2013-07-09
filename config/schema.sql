@@ -145,6 +145,42 @@ ALTER TABLE `pw_policy`
 ALTER TABLE `scores`
   ADD CONSTRAINT `scores_user_id` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Biometrics policy table
+--
+CREATE  TABLE `sprks`.`biometrics` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `bdata` TINYINT(1) NOT NULL ,
+  PRIMARY KEY (`id`) );
+
+
+--
+-- Passfaces policy table
+--
+
+
+CREATE TABLE `sprks`.`passfaces` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pdata` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+)
+
+
+
+--
+-- Policies table
+--
+CREATE  TABLE `sprks`.`policies` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `user_id` INT NOT NULL ,
+  `location` VARCHAR(45) NOT NULL ,
+  `employee` VARCHAR(45) NOT NULL ,
+  `device` VARCHAR(45) NOT NULL ,
+  `policy_id` INT NOT NULL ,
+  `date` DATE NOT NULL ,
+  PRIMARY KEY (`id`) );
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
