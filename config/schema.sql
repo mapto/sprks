@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 08, 2013 at 03:45 PM
+-- Generation Time: Jul 09, 2013 at 11:29 AM
 -- Server version: 5.6.12
 -- PHP Version: 5.4.12
 
@@ -30,7 +30,7 @@ USE `sprks`;
 
 CREATE TABLE IF NOT EXISTS `journal` (
   `user_id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `incident_id` int(11) NOT NULL,
   `cost` int(11) NOT NULL,
   `commited` tinyint(1) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `journal` (
 
 CREATE TABLE IF NOT EXISTS `password_recovery` (
   `user_id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `datetime` datetime NOT NULL,
   `token` char(56) NOT NULL,
   `invalid` int(11) NOT NULL,
   PRIMARY KEY (`token`),
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `pw_policy` (
   `pattempts` tinyint(4) NOT NULL,
   `precovery` tinyint(4) NOT NULL,
   `userid` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   PRIMARY KEY (`idpolicy`),
   KEY `userid_idx` (`userid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `userid` int(11) NOT NULL,
   `score_type` int(11) NOT NULL,
   `score_value` decimal(5,2) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`idscores`),
   KEY `userid_idx` (`userid`)

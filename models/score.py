@@ -3,14 +3,13 @@ __author__ = 'Daniyar'
 import itertools
 from localsys.storage import db
 import math
-from json import JSONEncoder
-from localsys.environment import context
+import json
 from sim.simulation import simulation
 
 
 class score_model:
 
-    def CHECK_CLOSEST_COMPETITOR(self, length, usrid, your_score):
+    def check_closest_competitor(self, length, usrid, your_score):
         value_risk = 0.0
         value_cost = 0.0
         prev_value_risk = 9999
@@ -91,7 +90,7 @@ class score_model:
 
         return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
-    def FIND_BEST_USER(self, length, usrid, your_score):
+    def find_best_USER(self, length, usrid, your_score):
         rank_risk = 0
         rank_cost = 0
         date_risk = "N/A"
@@ -122,7 +121,7 @@ class score_model:
         print cost_value, rank_cost, date_cost
         return risk_value, rank_risk, date_risk, cost_value, rank_cost, date_cost
 
-    def FIND_BEST(self, scores):
+    def find_best(self, scores):
         date_risk = "N/A"
         value_risk = 0.0
         date_cost = "N/A"
@@ -140,7 +139,7 @@ class score_model:
                 break
         return value_risk, date_risk, value_cost, date_cost
 
-    def FIND_AVG(self, your_score):
+    def find_avg(self, your_score):
     #        score_type = your_score.score_type
 
     # average = db.select('scores', where="score_type=$score_type", vars=locals())
@@ -150,48 +149,44 @@ class score_model:
         #avg = average[0].avg
         return average_risk.avg, average_cost.avg
 
-    def get_scores(self):
-        #check if is logged in
-        if context.user_id() > 0:
-            #use this variable to request any ID number
-            id_user = context.user_id()
+    @classmethod
+    def get_scores(cls, id_user):
 
-            all_scores = db.select('scores', order="score_value ASC")
-            length = len(all_scores)
-            scores_1, scores_2, scores_3, scores_4 = itertools.tee(all_scores, 4)
+        all_scores = db.select('scores', order="score_value ASC")
+        length = len(all_scores)
+        scores_1, scores_2, scores_3, scores_4 = itertools.tee(all_scores, 4)
 
-            if len(all_scores) > 0:
+        if len(all_scores) > 0:
 
-                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(
-                    length, id_user, scores_1)
-                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(length,
-                                                                                                             id_user,
-                                                                                                             scores_2)
-                b_risk, b_risk_when, b_pc, b_pc_when = self.FIND_BEST(scores_3)
+            b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = cls.find_best_USER(
+                length, id_user, scores_1)
+            c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = cls.check_closest_competitor(length,
+                                                                                                         id_user,
+                                                                                                         scores_2)
+            b_risk, b_risk_when, b_pc, b_pc_when = cls.find_best(scores_3)
 
-                avg_risk, avg_pc = self.FIND_AVG(scores_4)
+            avg_risk, avg_pc = cls.find_avg(scores_4)
 
-                #generate json
-                msg = JSONEncoder().encode({
-                "b_u_risk": str(b_u_risk),
-                "b_u_risk_date": str(b_u_risk_date.date()),
-                "b_u_risk_rank": b_u_risk_rank,
-                "b_u_cost": str(b_u_cost),
-                "b_u_cost_date": str(b_u_cost_date.date()),
-                "b_u_cost_rank": b_u_cost_rank,
-                "c_risk": str(c_risk),
-                "c_risk_when": str(c_risk_when.date()),
-                "c_risk_rank": c_risk_rank,
-                "c_pc": str(c_pc),
-                "c_pc_when": str(c_pc_when.date()),
-                "c_pc_rank": c_pc_rank,
-                "b_risk": str(b_risk),
-                "b_risk_when": str(b_risk_when.date()),
-                "b_pc": str(b_pc),
-                "b_pc_when": str(b_pc_when.date()),
-                "avg_risk": str(avg_risk),
-                "avg_pc": str(avg_pc)
-                })
+            msg = json.dumps({
+            "b_u_risk": str(b_u_risk),
+            "b_u_risk_date": str(b_u_risk_date.date()),
+            "b_u_risk_rank": b_u_risk_rank,
+            "b_u_cost": str(b_u_cost),
+            "b_u_cost_date": str(b_u_cost_date.date()),
+            "b_u_cost_rank": b_u_cost_rank,
+            "c_risk": str(c_risk),
+            "c_risk_when": str(c_risk_when.date()),
+            "c_risk_rank": c_risk_rank,
+            "c_pc": str(c_pc),
+            "c_pc_when": str(c_pc_when.date()),
+            "c_pc_rank": c_pc_rank,
+            "b_risk": str(b_risk),
+            "b_risk_when": str(b_risk_when.date()),
+            "b_pc": str(b_pc),
+            "b_pc_when": str(b_pc_when.date()),
+            "avg_risk": str(avg_risk),
+            "avg_pc": str(avg_pc)
+            })
         return msg
 
     def multiple_score(self, policies):

@@ -32,15 +32,19 @@ class account:
 
         if context.user_id() > 0:
             users_model.session_login(context.user_id())
-            return json.dumps({
-                'success': True,
-                'messages': ['Successful login']
-            })
+            return json.dumps(
+                {
+                    'success': True,
+                    'messages': ['Successful login']
+                }
+            )
         else:
-            return json.dumps({
-                'success': False,
-                'messages': ['Invalid username/password']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Invalid username/password']
+                }
+            )
 
     def PUT(self, a, username=''):
         """
@@ -53,31 +57,39 @@ class account:
         web.header('Content-Type', 'application/json')
 
         if password is None or email is None or username == '' or email == '':
-            return json.dumps({
-                'success': False,
-                'messages': ['Username/email/password cannot be empty']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Username/email/password cannot be empty']
+                }
+            )
 
         user_id = users_model().register(username, password, email)
 
         if user_id == 0:
-            return json.dumps({
-                'success': False,
-                'messages': ['User already exists']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['User already exists']
+                }
+            )
         elif user_id > 0:
             if payload.get('autologin', False):
                 users_model.session_login(user_id)
             web.ctx.status = '201 Created'
-            return json.dumps({
-                'success': True,
-                'messages': ['User registered']
-            })
+            return json.dumps(
+                {
+                    'success': True,
+                    'messages': ['User registered']
+                }
+            )
         else:
-            return json.dumps({
-                'success': False,
-                'messages': ['Database error']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Database error']
+                }
+            )
 
 
 class register:
@@ -120,29 +132,37 @@ class password:
         web.header('Content-Type', 'application/json')
 
         if not (user_id > 0):
-            return json.dumps({
-                'success': False,
-                'messages': ['Invalid user_id specified']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Invalid user_id specified']
+                }
+            )
 
         if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
             if user_model.update_password(user_id, payload['password']):
                 if payload.get('autologin', False) and context.user_id() != user_id:
                     # Auto-login user whose password's changed.
                     users_model.session_login(user_id)
-                return json.dumps({
-                    'success': True,
-                    'messages': ['Password changed']
-                })
-            return json.dumps({
-                'success': False,
-                'messages': ['Database error']
-                })
+                return json.dumps(
+                    {
+                        'success': True,
+                        'messages': ['Password changed']
+                    }
+                )
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Database error']
+                }
+            )
 
-        return json.dumps({
-            'success': False,
-            'messages': ['Unauthorized request']
-        })
+        return json.dumps(
+            {
+                'success': False,
+                'messages': ['Unauthorized request']
+            }
+        )
 
     def POST(self, a, arg1=0):
         """
@@ -162,16 +182,20 @@ class password:
         elif uid_type == 'user_id' or 'uid_type' == '':
             user_email = users_model().request_password(token, int(arg1))
         else:
-            return json.dumps({
-                'success': False,
-                'messages': ['Unknown uid type']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Unknown uid type']
+                }
+            )
 
         if user_email == '':
-            return json.dumps({
-                'success': False,
-                'messages': ['User not found']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['User not found']
+                }
+            )
 
         try:
             web.config.smtp_server = 'smtp.gmail.com'
@@ -181,12 +205,16 @@ class password:
             web.config.smtp_starttls = True
             web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
                          'http://' + web.ctx.host + web.ctx.homepath + '/password?token=' + token)
-            return json.dumps({
-                'success': True,
-                'messages': ['Password recovery email sent']
-            })
+            return json.dumps(
+                {
+                    'success': True,
+                    'messages': ['Password recovery email sent']
+                }
+            )
         except Exception:
-            return json.dumps({
-                'success': False,
-                'messages': ['Server error']
-            })
+            return json.dumps(
+                {
+                    'success': False,
+                    'messages': ['Server error']
+                }
+            )

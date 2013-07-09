@@ -25,4 +25,7 @@ class date_utils:
 
     @classmethod
     def iso8601_to_date(cls, datestamp):
+        """
+        Converts ISO8601 date (YYYY-MM-DD) to datetime.date object.
+        """
         return datetime.datetime.strptime(datestamp, '%Y-%m-%d')

@@ -53,7 +53,7 @@ class chronos:
     def sync_history(self, date, new_costs):
         # look for past uncommitted interventions that haven't been handled
         # if client is behind, make it catch up. if client is ahead, throw error at the date they should backtrack
-        # return error or date to backgrack
+        # Synchronizes history where possible, and returns the date that the client to resume at.
         pass
 
     def prophesize(self):

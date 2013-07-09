@@ -20,11 +20,9 @@ class score:
 
 
 class score_rest:
-    def GET(self): #for ajax call
-        a = score_model() #create instance of score class
-        msg = a.get_scores() #get scores
+    def GET(self):
+        return score_model.get_scores(context.user_id())
 
-        return msg
 
 class multiple_score:
     def POST(self):

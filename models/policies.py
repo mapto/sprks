@@ -3,12 +3,13 @@ from sim.simulation import simulation
 
 
 class policies_model:
-    def get_policy_history(self, id):
+    @classmethod
+    def get_policy_history(cls, user_id):
         """
         Returns list of past policies set by user.
         """
         # TODO potential performance/memory bug
-        results = db.select('pw_policy', where="userid=$id", order="date", vars=locals())
+        results = db.select('pw_policy', where="userid=$user_id", order="date", vars=locals())
         history = []
         sim = simulation()
         for row in results:
@@ -23,8 +24,11 @@ class policies_model:
             history.append(tmp)
         return history
 
-    def get_latest_policy(self, id):
-        results = db.select('pw_policy', where="userid=$id", order="date", vars=locals())[0]
+    def get_latest_policy(self, user_id):
+        """
+        Doc stub
+        """
+        results = db.select('pw_policy', where="userid=$user_id", order="date", vars=locals())[0]
         policy = {}
         for k, value in results.iteritems():
             if k != 'idpolicy' and k != 'userid' and k != 'date':

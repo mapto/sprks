@@ -22,7 +22,6 @@ import controllers.policy_history
 import controllers.incident
 
 urls = (
-    '/favicon.ico', controllers.home.favicon,
     '/', controllers.pwpolicy.pwpolicy,
     '/home', controllers.home.home,
     '/login', controllers.user.account,
@@ -38,6 +37,7 @@ urls = (
     '/timeline', controllers.timeline.go,
     '/history', controllers.policy_history.history,
     '/incident', controllers.incident.incident,
+
     # APIs
     '/api/user/account(/?)(.+)', controllers.user.account,
     '/api/user/account', controllers.user.account,

@@ -46,7 +46,7 @@ class incident:
         file.close()
 
         id = data["id"]
-        type =  data["type"]
+        type = data["type"]
 
         return incident.incidents[type][id]
 

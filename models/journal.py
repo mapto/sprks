@@ -45,8 +45,9 @@ class records:
       ]
     }
   ] ,
-                        'policyAccept':'true',
-                        'interventionAccept': 'true'}
+    'policyAccept':'true',
+    'interventionAccept': 'true'
+    }
 
     def commit_history(self, date):
         user_id = context.user_id()

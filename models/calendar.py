@@ -5,6 +5,7 @@ import web
 from localsys.environment import context
 from localsys.storage import db
 
+
 class calendar_model:
     def get_calendar(self, data, cost, date):
         web.header('Content-Type', 'application/json')

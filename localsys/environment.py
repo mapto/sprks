@@ -50,7 +50,7 @@ class context:
 
 
 def get_start_time():
-    return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
+    return datetime.date(2014, 1, 6)
 
 
 render_globals = {
