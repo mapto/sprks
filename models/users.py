@@ -10,8 +10,8 @@ import base64
 
 class users_model:
 
-    @staticmethod
-    def authorize():
+    @classmethod
+    def authorize(cls):
         """
         Returns user_id if request is authorized, else 0.
         Authorizes by checking the following in order:
@@ -27,9 +27,8 @@ class users_model:
             username, password = base64.decodestring(auth).split(':')
             return users_model.check_credentials(username, password)
 
-
-    @staticmethod
-    def session_login(user_id):
+    @classmethod
+    def session_login(cls, user_id):
         """
         Sets session user_id to parameter.
         """
@@ -40,8 +39,8 @@ class users_model:
 
         return user_id
 
-    @staticmethod
-    def get_username(user_id):
+    @classmethod
+    def get_username(cls, user_id):
         """
         Returns username of user given user_id, empty string otherwise.
         """
@@ -51,8 +50,8 @@ class users_model:
         else:
             return ''
 
-    @staticmethod
-    def get_user_id(username):
+    @classmethod
+    def get_user_id(cls, username):
         """
         Returns user_id given username, 0 otherwise.
         """
@@ -62,8 +61,8 @@ class users_model:
         else:
             return 0
 
-    @staticmethod
-    def check_credentials(username, password):
+    @classmethod
+    def check_credentials(cls, username, password):
         """
         Returns ID of user if credentials match, 0 otherwise.
         """
@@ -74,8 +73,8 @@ class users_model:
         else:
             return 0
 
-    @staticmethod
-    def select_users(user_id=0, username=''):
+    @classmethod
+    def select_users(cls, user_id=0, username=''):
         """
         Returns list of all users with 'username' and 'user_id' (optional) parameters.
         """
@@ -87,29 +86,31 @@ class users_model:
         else:
             return db.select('users', where="username=$username", vars=locals())
 
-    def register(self, username, password, email):
+    @classmethod
+    def register(cls, username, password, email):
         """
         Attempts to insert new user data into users table.
         Returns ID of user if successfully registered, 0 if user already exists, -1 if database error.
         """
-        if len(self.select_users(username=username)) > 0:
+        if len(cls.select_users(username=username)) > 0:
             return 0
         else:
             if username == '' or email == '':
                 return -1
             db.insert('users', username=username, email=email, password=hash_utils.hash_password(password))
-            user_lookup = self.select_users(username=username)
+            user_lookup = cls.select_users(username=username)
             if len(user_lookup) == 1:
                 return user_lookup[0].user_id
             else:
                 return -1
 
-    def update_password(self, user_id, password):
+    @classmethod
+    def update_password(cls, user_id, password):
         """
         Updates password according to specified user_id and new password.
         Returns true if updated for one user or password unchanged, false otherwise.
         """
-        user_list = self.select_users(user_id=user_id)
+        user_list = cls.select_users(user_id=user_id)
         password_hash = hash_utils.hash_password(password)
         if len(user_list) == 1 and password_hash == user_list[0].password:
             return True
@@ -120,12 +121,13 @@ class users_model:
 
         return False
 
-    def request_password(self, token, user_id):
+    @classmethod
+    def request_password(cls, token, user_id):
         """
         Creates password recovery ticket in password_recovery table.
         Returns recipient email address if user found, else empty string
         """
-        user_list = self.select_users(user_id=user_id)
+        user_list = cls.select_users(user_id=user_id)
         if len(user_list) == 1:
             user = user_list[0]
             db.insert('password_recovery', user_id=user.user_id, date=web.SQLLiteral('NOW()'), token=token, invalid=0)
@@ -133,7 +135,8 @@ class users_model:
         else:
             return ''
 
-    def password_recovery_user(self, token):
+    @classmethod
+    def password_recovery_user(cls, token):
         """
         Return user_id if password request ticket is valid. 0 otherwise.
         :param token:
@@ -144,7 +147,8 @@ class users_model:
         else:
             return 0
 
-    def update_recovery_status(self, token, invalid=1):
+    @classmethod
+    def update_recovery_status(cls, token, invalid=1):
         """
         Updates password recovery ticket, assuming successful recovery.
         Returns true if one row affected, else false.

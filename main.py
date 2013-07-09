@@ -21,32 +21,34 @@ import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 
-urls = ('/', controllers.pwpolicy.pwpolicy,
-        '/home', controllers.home.home,
-        '/login', controllers.user.account,
-        '/register', controllers.user.register,
-        '/password', controllers.user.password,
-        '/intro', controllers.intro.intro,
-        '/score', controllers.score.score,
-        '/score/multiple', controllers.score.multiple_score,
-        '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/skeleton.html for AJAX services
-        '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
-        '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
-        '/forward', controllers.timeline.forward,
-        '/timeline', controllers.timeline.go,
-        '/history', controllers.policy_history.history,
-        '/incident', controllers.incident.incident,
-        # APIs
-        '/api/user/account(/?)(.+)', controllers.user.account,
-        '/api/user/account', controllers.user.account,
-        '/api/user/password(/?)(.+)', controllers.user.password,
-        '/api/chronos/sync', controllers.chronos.chronos,
+urls = (
+    '/favicon.ico', controllers.home.favicon,
+    '/', controllers.pwpolicy.pwpolicy,
+    '/home', controllers.home.home,
+    '/login', controllers.user.account,
+    '/register', controllers.user.register,
+    '/password', controllers.user.password,
+    '/intro', controllers.intro.intro,
+    '/score', controllers.score.score,
+    '/score/multiple', controllers.score.multiple_score,
+    '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/skeleton.html for AJAX services
+    '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
+    '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
+    '/forward', controllers.timeline.forward,
+    '/timeline', controllers.timeline.go,
+    '/history', controllers.policy_history.history,
+    '/incident', controllers.incident.incident,
+    # APIs
+    '/api/user/account(/?)(.+)', controllers.user.account,
+    '/api/user/account', controllers.user.account,
+    '/api/user/password(/?)(.+)', controllers.user.password,
+    '/api/chronos/sync', controllers.chronos.chronos,
 
-        #REST
-        '/score_rest', controllers.score.score_rest,
-        '/incident_rest', controllers.incident.incident_rest,
-        '/history_rest', controllers.policy_history.history_rest,
-        '/pwpolicy_rest', controllers.pwpolicy.pwpolicy_rest
+    #REST
+    '/score_rest', controllers.score.score_rest,
+    '/incident_rest', controllers.incident.incident_rest,
+    '/history_rest', controllers.policy_history.history_rest,
+    '/pwpolicy_rest', controllers.pwpolicy.pwpolicy_rest
 
 )
 

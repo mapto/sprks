@@ -54,7 +54,7 @@ class records:
     def record_prophecy(self):
         pass
 
-    def validateJournal(self, cost, date, user_id):
+    def validate_journal(self, cost, date, user_id):
         sum = storage.db.select('journal', what="SUM(cost) as sum", where="date<$date and user_id=$user_id and commited!=1", vars=locals())[0].sum
         self.commit_history(date)
         if sum == cost:
@@ -62,7 +62,7 @@ class records:
         else:
             return 0
 
-    def updateJournal(self, risk, userid):
+    def update_journal(self, risk, userid):
         #calendar = chronos.prophesize(risk)["prophecy"]
         calendar = self.default_calendar["calendar"]
         whole_calendar = self.default_calendar
