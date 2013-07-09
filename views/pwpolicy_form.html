@@ -1,5 +1,6 @@
 $var title: Policy
 <h1>Policy</h1>
+<p id="time"></p>
 <label><b>Please select the number of authentication mechanisms: </b></label><br><br>
 
 <select class="authentication" id="aut_num" name="aut_num">
@@ -39,8 +40,6 @@ $var title: Policy
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
 
 <p>
-
-    <p id="time"></p>
 
     $if user_id():
         <input type="hidden" value=$:user_id() name="userid" id="pswdid" placeholder="ID">
