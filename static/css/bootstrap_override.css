@@ -144,6 +144,12 @@ label {
     color: #555;
     background-color: #fff;
 }
+.active a{
+    background-color: #99958c;
+}
+.active a:hover{
+    background-color: #99958c;
+}
 
 .score-value {
     font-size: x-large;
