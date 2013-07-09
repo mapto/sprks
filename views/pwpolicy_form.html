@@ -1,4 +1,5 @@
-$var title: Password policy
+$var title: Policy
+<h1>Policy</h1>
 <label><b>Please select the number of authentication mechanisms: </b></label><br><br>
 
 <select class="authentication" id="aut_num" name="aut_num">
@@ -11,10 +12,29 @@ $var title: Password policy
  <div class="aut" id="aut2"></div>
 
 
+<!--BIOMETRIC POLICY BEGIN-->
+<div class=" policy policy0" id="biometric_policy">
+    <h3>Biometric</h3>
+    <select id="biometric" name="biometric">
+        <option value="0">fingerprint</option>
+        <option value="1">iris scan</option>
+    </select>
+</div>
+<!--BIOMETRIC POLICY END-->
 
+<!--PASSFACES POLICY BEGIN-->
+<div class=" policy policy1" id="passfaces_policy">
+    <h3>Passfaces/swipe</h3>
+    <select id="passfaces" name="passfaces">
+        <option value="0">passfaces</option>
+        <option value="1">swipe-lock</option>
+    </select>
+</div>
+<!--PASSFACES POLICY END-->
 
-
-<h1>Password Policy</h1>
+<!--PASSWORD POLICY BEGIN-->
+<div class=" policy policy2" id="password_policy">
+<h3>Password Policy</h3>
 
 <form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
 
@@ -253,6 +273,9 @@ $var title: Password policy
 </p>
 
 </form>
+</div>
+<!--PASSWORD POLICY END-->
+
 
 <script src="/static/js/canvasjs-1.2.1/canvasjs.js"></script>
 <script src="static/js/pwpolicy.js"></script>  <!-- JS extracted here -->

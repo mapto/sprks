@@ -444,7 +444,7 @@ $('#aut_num').change(function(){
     $("#autentication1").remove();
     $("#autentication2").remove();
     //remove all options
-    var options = ['biometric (fingerprint / iris scan)',   //value:0
+    var options = ['biometric',   //value:0
                    'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
     if (this.value>0){
@@ -463,14 +463,23 @@ $('#aut_num').change(function(){
             //create second options set
         }
     }
+    display_policies();
 });
 $(".aut").change(function(){
     if($('#aut_num').val()==2 && ($('#autentication1').val()==$('#autentication2').val())){ //ensure distinct selected options
-        alert('Please, select two distinct options');
+        alert('Please, select two distinct options or change the number of mechanisms');
     }
-    display_policy($(this).find('select').val());
+    display_policies();
 })
 
-function display_policy(policy_value){
-    console.log(policy_value);
+function display_policies(){ //display selected policies only
+    hide_policies();
+
+    $('.policy' +$("#autentication1").val()).css("display","block");
+    $('.policy' +$("#autentication2").val()).css("display","block");
+}
+function hide_policies(){ //hide all policies
+    $('.policy').each(function(){
+        $(this).css("display","none");
+    })
 }

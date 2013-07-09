@@ -607,11 +607,17 @@ label {
 
 /*AUTENTICATION mechanisms*/
 #aut_num{
-    width:12%;
+    width:15%;
 }
 .aut
 {
    display:inline-block;
+}
+.policy{
+    display:none;
+}
+#biometric{
+    width:15%;
 }
 
 
