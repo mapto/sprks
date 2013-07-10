@@ -93,11 +93,14 @@ function initFrame () {
    // $('#play').click(startTimer);
     $('#pause').click(function() {
         $('.target').removeAttr('disabled');
+        $('#apply').removeAttr('disabled');
         pauseInterval();
 
     });
 
     $('#forward').click(function() {
+        $('.target').attr('disabled', 'disabled');
+        $('#apply').attr('disabled', 'disabled');
         startTimer(1000);
     })
 
@@ -108,6 +111,7 @@ function initFrame () {
     //opening incident window
     $('#play').click(function () {
         $('.target').attr('disabled', 'disabled');
+        $('#apply').attr('disabled', 'disabled');
        // submit_change();
         startTimer(3000);
         //window.open("/incident","_self")
