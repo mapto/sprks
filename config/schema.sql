@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 09, 2013 at 11:29 AM
--- Server version: 5.6.12
--- PHP Version: 5.4.12
+-- Generation Time: Jul 10, 2013 at 05:22 AM
+-- Server version: 5.5.24-log
+-- PHP Version: 5.4.3
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,8 +19,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `sprks`
 --
-CREATE DATABASE IF NOT EXISTS `sprks` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `sprks`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `biometrics`
+--
+
+CREATE TABLE IF NOT EXISTS `biometrics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bdata` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -40,6 +50,18 @@ CREATE TABLE IF NOT EXISTS `journal` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `passfaces`
+--
+
+CREATE TABLE IF NOT EXISTS `passfaces` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pdata` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_recovery`
 --
 
@@ -51,6 +73,25 @@ CREATE TABLE IF NOT EXISTS `password_recovery` (
   PRIMARY KEY (`token`),
   KEY `user_id_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `policies`
+--
+
+CREATE TABLE IF NOT EXISTS `policies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `location` varchar(45) NOT NULL,
+  `employee` varchar(45) NOT NULL,
+  `device` varchar(45) NOT NULL,
+  `bio_id` int(11) DEFAULT NULL,
+  `pass_id` int(11) DEFAULT NULL,
+  `pw_id` int(11) DEFAULT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -144,44 +185,6 @@ ALTER TABLE `pw_policy`
 --
 ALTER TABLE `scores`
   ADD CONSTRAINT `scores_user_id` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Biometrics policy table
---
-CREATE  TABLE `sprks`.`biometrics` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `bdata` TINYINT(1) NOT NULL ,
-  PRIMARY KEY (`id`) );
-
-
---
--- Passfaces policy table
---
-
-
-CREATE TABLE `sprks`.`passfaces` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pdata` int(1) NOT NULL,
-  PRIMARY KEY (`id`)
-);
-
-
-
---
--- Policies table
---
-CREATE  TABLE `sprks`.`policies` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `user_id` INT NOT NULL ,
-  `location` VARCHAR(45) NOT NULL ,
-  `employee` VARCHAR(45) NOT NULL ,
-  `device` VARCHAR(45) NOT NULL ,
-  `bio_id` INT NOT NULL ,
-  `pass_id` INT NOT NULL ,
-  `pw_id` INT NOT NULL,
-  `date` DATE NOT NULL ,
-  PRIMARY KEY (`id`) );
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

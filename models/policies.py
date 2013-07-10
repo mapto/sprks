@@ -1,20 +1,36 @@
 from localsys.storage import db
 from sim.simulation import simulation
+from localsys import environment
 
 
 class policies_model:
 
     @classmethod
     def populate_policies(cls, user_id, date):
-        # foreach employee
-        # foreach location
-        # foreach device
-        # create new row
-        pass
-        #TODO
+        """
+        Populates policies (27 rows) for new users. Returns the list of ids of the inserted rows.
+        """
+        employee_types = {'executives', 'desk', 'road'}
+        location_types = {'office', 'public', 'home'}
+        device_types = {'desktop', 'laptop', 'phone'}
+
+        values = []
+        for employee in employee_types:
+            for location in location_types:
+                for device in device_types:
+                    values.append(
+                        {
+                            'user_id': user_id,
+                            'location': location,
+                            'employee': employee,
+                            'device': device,
+                            'date': environment.start_date
+                        }
+                    )
+        return db.multiple_insert('policies', values)
 
     @classmethod
-    def get_policy_history(cls, user_id):
+    def get_policy_history(cls, user_id, latest=True):
         """
         Returns list of past policies set by user.
         """
@@ -39,8 +55,4 @@ class policies_model:
         """
         Doc stub
         """
-        return db.select('SELECT * FROM pw_policy'
-                        'OUTER JOIN biometrics ON policy.bioid=biometrics.id'
-                        'OUTER JOIN passface ON policy.passid=passface.id'
-                        'OUTER JOIN pw_policy ON policy.pwid=pw_policy.id'
-                        'WHERE policies.user_id=$user_id AND policies.date=MAX(policies.date) LIMIT 27', vars=locals())
+        return db.select('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())

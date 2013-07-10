@@ -40,7 +40,7 @@ class context:
     def username():
         """
         If HTTP Authorization header, returns user authorized, or empty string.
-        Else if user sesion in progress, returns session username, or empty string.
+        Else if user session in progress, returns session username, or empty string.
         """
         username = context.cache().get('username')
         if username is None:
