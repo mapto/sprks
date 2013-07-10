@@ -41,7 +41,6 @@ class pwpolicy:
         tmp_msg['id'] = payload['id']
         tmp_msg['data'] = data
         msgs.append(tmp_msg)
-
         my_list = ['plen', 'psets', 'pdict', 'phist', 'prenew', 'pattempts', 'precovery']
         for key in my_list:
             tmp_policy = pw_policy_model.get_range(data, key)

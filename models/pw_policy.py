@@ -219,8 +219,8 @@ if __name__ == "__main__":
             }
         }]
 
-    #policy = model.parse_policy(policyUpdate)
+    policy = model.parse_policy(policyUpdate)
     #policies.policies_model.populate_policies(4, "2014-01-01")
 
-    #print policy
+    print policy
 
