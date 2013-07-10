@@ -24,7 +24,6 @@ import controllers.user
 import controllers.intro
 import controllers.pwpolicy
 import controllers.score
-import controllers.timeline
 import controllers.chronos
 import controllers.policy_history
 import controllers.incident
@@ -42,8 +41,6 @@ urls = (
         storage.path + '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/skeleton.html for AJAX services
         storage.path + '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         storage.path + '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
-        storage.path + '/forward', controllers.timeline.forward,
-        storage.path + '/timeline', controllers.timeline.go,
         storage.path + '/history', controllers.policy_history.history,
         storage.path + '/incident', controllers.incident.incident,
 
