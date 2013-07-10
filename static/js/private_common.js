@@ -188,10 +188,10 @@ $('#forward').click(function() {
 
 //populate policies array onchange of inputs
 $('.target').change(function(){
-   var attribute = $(this).parent().attr('id'); //can be empployee/device/location/plen/psets/etc.
+   var attribute = $(this).parent().attr('id'); //can be empployee/device/location/biometric/passfaces/plen/psets/etc.
    if(attribute=='employee'||attribute=='location'||attribute=='device'){ //write json for empl/loc/dev
-       console.log('policyEmpl/Loc/Dev');
-       if(!policies_array[attribute]){ //if doesn't exist, initialize array
+       console.log('policy Empl/Loc/Dev');      //write employee/location/device
+       if(!policies_array[attribute]){          //if doesn't exist, initialize array
            policies_array[attribute]=[]
        }
        if($(this).prop('checked')){
@@ -200,32 +200,26 @@ $('.target').change(function(){
            var index = policies_array[attribute].indexOf($(this).val());
            policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
        }
-
    }else if(attribute=='policy_form'){
-       policies_array[attribute]=$(this).val(); //how many policies to be passed
-       console.log('yep');
-   }
-   else{ //write the policyDelta  //NOT YET IMPLEMENTED
-       /*
-       if (!policies_array.policyDelta){ //initialize dictionary if doesn't exist
+       console.log($(this).val()+' policies'); //how many policies to be passed     DO WE NEED that?
+   }else{                                       //write the policyDelta
+       if (!policies_array.policyDelta){        //initialize dictionary if doesn't exist
            policies_array.policyDelta={};
        }
-       policies_array.policyDelta[attribute] = $(this).val();
-       */
-
-
+       if(attribute=='biometric_policy' || attribute=='passfaces_policy'){
+           policies_array.policyDelta[attribute.replace('_policy','')] = $(this).val();
+       }else{
+           if(!policies_array.policyDelta.pwpolicy){
+           policies_array.policyDelta.pwpolicy={};
+           }
+           policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
+       }
+   }
+   console.log(policies_array);
+});
 
 /*
-       if (!policies_array.policyDelta){ //initialize dictionary if doesn't exist
-           policies_array.policyDelta={};
-       }
-       console.log('policyDelta'+$(this).parent().attr('id'));
-       if($(this).parent().attr('id')=='biometric_policy'){
-           policies_array.policyDelta.biometric = $(this).val();
-       }
-       if($(this).parent().attr('id')=='passfaces_policy'){
-           policies_array.policyDelta.passfaces = $(this).val();
-       }
+
 */
 /*
        if($(this).parent().attr('id').substring(0,1)=='p'){
@@ -237,9 +231,3 @@ $('.target').change(function(){
            policies_array.policyDelta[attribute] = policies_array.policyDelta[attribute].concat($(this).val());
        }
        */
-   }
-
-
-   console.log(policies_array);
-
-});

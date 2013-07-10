@@ -7,47 +7,6 @@ from localsys.environment import context
 
 
 class records:
-    default_calendar = {'date': '2014/1/14',
-                        'calendar': [
-    {
-      'date': '2014/1/20',
-      'events': [
-        {
-        'incdt_id': 5,
-        'cost': 2000
-        }
-      ]
-    },
-    {
-      'date': '2014/1/21',
-      'events': []
-    },
-    {
-      'date': '2014/2/5',
-       'events': [
-        {
-          'incdt_id': 1,
-          'cost': 7000000
-        },
-        {
-          'incdt_id': 4,
-          'cost': 5000
-        }
-      ]
-    },
-    {
-      'date': '2014/2/7',
-      'events': [
-        {
-          'incdt_id': 8,
-          'cost': 1000
-        }
-      ]
-    }
-  ] ,
-    'policyAccept':'true',
-    'interventionAccept': 'true'
-    }
 
     def commit_history(self, date):
         user_id = context.user_id()
@@ -57,13 +16,10 @@ class records:
     def record_prophecy(self):
         pass
 
-    def validate_journal(self, cost, date, user_id):
+    def validate_journal(self, user_id, date, new_costs):
         sum = storage.db.select('journal', what="SUM(cost) as sum", where="date<$date and user_id=$user_id and commited!=1", vars=locals())[0].sum
         self.commit_history(date)
-        if sum == cost:
-            return 1
-        else:
-            return 0
+        return sum == new_costs
 
     def update_journal(self, risk, userid):
         #calendar = chronos.prophesize(risk)["prophecy"]
@@ -76,10 +32,10 @@ class records:
                 inc_id = ""
                 if key == 'date':
                     date = dates[key]
-                    dtt = datetime.strptime(date, "%Y/%m/%d")
+                    dtt = date
                 else:
                     for event in dates[key]:
                         inc_id = event['incdt_id']
                         cost = event['cost']
-                        storage.db.insert('journal', user_id=userid, date=dtt.strftime("%Y/%m/%d"), cost=cost, incident_id=inc_id, commited=0)
+                        storage.db.insert('journal', user_id=userid, date=date, cost=cost, incident_id=inc_id, commited=0)
         return whole_calendar

@@ -2,6 +2,7 @@ __author__ = 'zhanelya'
 
 from localsys.environment import context
 from localsys.environment import render
+from localsys.storage import path
 from models.score import score_model
 import json
 import web
@@ -10,10 +11,13 @@ from sim.simulation import simulation
 
 class score:
     def GET(self):
+        #check if is logged in
         if context.user_id() > 0:
             return render.score()
+        #previously rendered with: context.username(),localsys.storage.session.date and scores from get_scores
         else:
-            raise web.seeother('/home')
+            #if user not logged in -> redirect to login page
+            raise web.seeother(path + '/home')
 
 
 class score_rest:

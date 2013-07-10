@@ -1,9 +1,9 @@
 from libraries import db_helper
 from localsys.storage import db
+from localsys.storage import path
 import csv
 import glob
 import json
-from localsys.storage import db
 
 
 class pw_policy_model:
@@ -15,6 +15,10 @@ class pw_policy_model:
               "prenew": [0, 1, 2, 3],
               "pattempts": [0, 1, 2],
               "precovery": [0, 1, 2]}
+
+    default = {"plen": 8, "psets": 2, "pdict": 0,
+               "phist": 1, "prenew": 1, "pattempts": 0,
+               "precovery": 1}
 
     @staticmethod
     def policy2datapoint(policy):
@@ -99,7 +103,7 @@ class pw_policy_model:
         entries = {"bruteforce": [], "stolen": [], "general": [] }
 
         # read incidents and generate training sets
-        for ref in glob.glob('static/incidents/*.json'):
+        for ref in glob.glob(path + '/static/incidents/*.json'):
             file = open(ref)
             incident = json.load(file)
             file.close()
@@ -123,7 +127,7 @@ class pw_policy_model:
         for risk in entries.keys():
             tail = 'general' if risk == 'general' else 'risk-' + risk
 
-            csv_name = 'static/data/pw-train-generated-' + tail + '.csv'
+            csv_name = path + '/static/data/pw-train-generated-' + tail + '.csv'
             print csv_name
             writer = csv.writer(open(csv_name, 'w'))
             for row in entries[risk]:

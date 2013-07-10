@@ -3,6 +3,7 @@ import json
 import web
 
 from localsys.environment import *
+from localsys.storage import path
 from models.users import users_model
 from models.policies import policies_model
 from libraries.utils import hash_utils
@@ -23,7 +24,7 @@ class account:
         if web.input().get('action', '') == 'logout':
             users_model.session_login(0)
 
-        raise web.seeother('/')
+        raise web.seeother(path + '/')
 
     def POST(self):
         """
@@ -101,7 +102,7 @@ class register:
     """
     def GET(self):
         if context.user_id() > 0:
-            raise web.seeother('/')
+            raise web.seeother(path)
         return render.register()
 
 

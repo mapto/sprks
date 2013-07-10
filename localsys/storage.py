@@ -1,8 +1,9 @@
 import web
+import importlib
 
 
 try:
-    settings = __import__('settings')
+    settings = importlib.import_module('config.settings')
     # Assuming that only MySQL is used
     db = web.database(
         dbn='mysql',
@@ -12,6 +13,7 @@ try:
         host=getattr(settings, 'host', '127.0.0.1'),
         port=getattr(settings, 'port', 3306)
     )
+    path = getattr(settings, 'path', '')
 except ImportError, AttributeError:
     # Default DB credentials
     db = web.database(
@@ -22,3 +24,4 @@ except ImportError, AttributeError:
         host='127.0.0.1',
         port=3306
     )
+    path = ''

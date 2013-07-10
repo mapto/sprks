@@ -33,34 +33,40 @@ class policies_model:
         return db.multiple_insert('policies', values)
 
     @classmethod
-    def get_policy_history(cls, user_id, latest=True):
+    def get_policy_history(cls, user_id, latest=False):
         """
         Returns list of past policies set by user.
         """
-        # TODO potential performance/memory bug
-        results = db.select('pw_policy', where="userid=$user_id", order="date", vars=locals())
-        history = []
-        sim = simulation()
-        for row in results:
-            tmp = {}
-            for k, v in row.iteritems():
-                tmp[k] = str(v)
-                if k != 'idpolicy' and k != 'userid' and k != 'date':
-                    # TODO bad bad bad
-                    sim.set_policy(k, v)
-            tmp['risk'] = sim.calc_risk_prob()
-            tmp['cost'] = sim.calc_prod_cost()
-            history.append(tmp)
-        return history
+
+        restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=11) ' if latest else ''
+        return db.query(
+            'SELECT * FROM policies '
+            'LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id '
+            'LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id '
+            'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy '
+            'WHERE policies.user_id=$user_id ' + restrict_latest +
+            'ORDER BY policies.date DESC LIMIT 27', vars=locals())
+
+        #
+        # results = db.select('pw_policy', where="userid=$user_id", order="date", vars=locals())
+        # history = []
+        # sim = simulation()
+        # for row in results:
+        #     tmp = {}
+        #     for k, v in row.iteritems():
+        #         tmp[k] = str(v)
+        #         if k != 'idpolicy' and k != 'userid' and k != 'date':
+        #             sim.set_policy(k, v)
+        #     tmp['risk'] = sim.calc_risk_prob()
+        #     tmp['cost'] = sim.calc_prod_cost()
+        #     history.append(tmp)
+        # return history
 
     @classmethod
     def get_latest_policy(cls, user_id):
         """
-        Doc stub
+        Gets latest policy
         """
-        return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
+        #return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
+        return cls.get_policy_history(user_id, latest=True)
 
-
-if __name__ == "__main__":
-    res = policies_model.get_latest_policy(4)
-    print res[0]

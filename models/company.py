@@ -1,6 +1,7 @@
 __author__ = 'Daniyar'
 
 import numpy
+from localsys.storage import path
 
 class company:
     def __init__(self, size=200, distribution=[.1, .5, .4], support=5):
@@ -12,8 +13,8 @@ class company:
         self.location_types = {'office', 'public', 'home'}
         self.device_types = {'desktop', 'laptop', 'phone'}
 
-        self.employees2locations = numpy.genfromtxt('static/data/locations.csv', delimiter=',') # rows - locations, columns - employees
-        self.employees2devices = numpy.genfromtxt('static/data/devices.csv', delimiter=',') # rows - devices, columns - employees
+        self.employees2locations = numpy.genfromtxt(path + '/static/data/locations.csv', delimiter=',') # rows - locations, columns - employees
+        self.employees2devices = numpy.genfromtxt(path + '/static/data/devices.csv', delimiter=',') # rows - devices, columns - employees
 
     def get_size(self):
         return self.size
