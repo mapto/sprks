@@ -1,16 +1,30 @@
 from localsys.storage import db
 from sim.simulation import simulation
+from localsys import environment
 
 
 class policies_model:
 
     @classmethod
     def populate_policies(cls, user_id, date):
-        # foreach employee
-        # foreach location
-        # foreach device
-        # create new row
-        pass
+        employee_types = {'executives', 'desk', 'road'}
+        location_types = {'office', 'public', 'home'}
+        device_types = {'desktop', 'laptop', 'phone'}
+
+        values = []
+        for employee in employee_types:
+            for location in location_types:
+                for device in device_types:
+                    values.append(
+                        {
+                            'user_id': user_id,
+                            'location': location,
+                            'employee': employee,
+                            'device': device,
+                            'date': environment.start_date
+                        }
+                    )
+        db.multiple_insert('policies', values)
         #TODO
 
     @classmethod
