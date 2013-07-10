@@ -1,6 +1,6 @@
 $var title: Policy
 <h1>Policy</h1>
-<form id="policy_form" name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
+<form id="policy_form" name="input" method="post" action="$path/add"> <!-- service specified in action must use relative path -->
 <p id="time"></p>
 <div class="company" id="employee">
 <label><h4>Choose employee types</h4></label><br/>
@@ -345,8 +345,8 @@ $var title: Policy
 <!--PASSWORD POLICY END-->
 
 
-<script src="/static/js/canvasjs-1.2.1/canvasjs.js"></script>
-<script src="static/js/pwpolicy.js"></script>  <!-- JS extracted here -->
+<script src="$path/static/js/canvasjs-1.2.1/canvasjs.js"></script>
+<script src="$path/static/js/pwpolicy.js"></script>  <!-- JS extracted here -->
 
 <script>
     // Extracted JS files to allow easier parallel development.

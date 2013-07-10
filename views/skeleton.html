@@ -6,7 +6,7 @@ $def with (content)
     <title>$content.title</title>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="$path/static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
     $if content.has_key('cssfiles'):
         $for css in content.cssfiles.split():
             <link rel="stylesheet" href="$css" type="text/css" media="screen" charset="utf-8"/>
@@ -25,7 +25,7 @@ $def with (content)
             <div class="link"><a href="/">sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a href="password">Change Password</a> | </a><a href="login?action=logout">Logout $username()</a>
+                    <a href="password">Change Password</a> | </a><a href="$path/login?action=logout">Logout $username()</a>
                 $else:
                     <a href="login">Login</a>
             </div>
@@ -36,11 +36,12 @@ $def with (content)
 
 $if user_id() > 0:
     <div class="menu">
-        <div class="story"><a href="/intro">Story </a></div>
-        <div class="policy"><a href="/pwpolicy">Policy</a></div>
-        <div class="profile"><a href="/history">Profile</a></div>
-        <div class="score"><a href="/score">Scores</a></div>
-        <div class="incident"><a href="/incident">Incident</a></div>
+        <!-- these paths need to be absolute, because password policy is not in the same (appearance) directory as others -->
+        <div class="story"><a href="$path/intro">Story </a></div>
+        <div class="policy"><a href="$path/policy/password">Policy</a></div>
+        <div class="profile"><a href="$path/history">Profile</a></div>
+        <div class="score"><a href="$path/score">Scores</a></div>
+        <div class="incident"><a href="$path/incident">Incident</a></div>
     </div>
 
     <div class="risk-menu">
@@ -94,7 +95,7 @@ $if content.has_key('postjs'):
     $for js in content.postjs.split():
         <script src="$js"></script>
 
-<script src="static/js/private_common.js"></script>
+<script src="$path/static/js/private_common.js"></script>
 <script>
     // This is the common script for all registered user views.
     // JS is loaded from the above file.

@@ -2,18 +2,19 @@ import json
 import web
 import localsys
 from sim.simulation import simulation
-from localsys.environment import *
 from localsys.storage import db
+from localsys.storage import path
+from localsys.environment import context
 from models.pw_policy import pw_policy_model
-import string
 from models.score import score_model
 from models.calendar import calendar_model
+from localsys.environment import render
 
 
 class pwpolicy:
     def GET(self):
         if context.user_id() == 0:
-            raise web.seeother('home')
+            raise web.seeother(path + '/home')
         return render.pwpolicy_form()
 
     def POST(self):
@@ -54,24 +55,16 @@ class pwpolicy:
 
 class pwpolicy_rest:
 
-    default_policy = {
-        'plen': 8,
-        'psets': 2,
-        'pdict': 0,
-        'phist': 1,
-        'prenew': 1,
-        'pattempts': 0,
-        'precovery': 1,
-        'date': get_start_time().isoformat()
-    }
-
+     # the default policy should be specified in a central place and reusable
+    default = pw_policy_model.default.copy()
+    #    default['date'] = get_start_time().isoformat()
     def GET(self):
         """
         Handles AJAX requests to get client's most recent policies.
         """
 
         if context.user_id() == 0:
-            raise web.seeother('home')
+            raise web.seeother(path + '/home')
 
         check = db.select('pw_policy', where='userid=$context.user_id()', order='date DESC', vars=locals())
         if len(check) > 0:

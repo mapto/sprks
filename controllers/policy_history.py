@@ -5,7 +5,7 @@ import web
 
 from localsys.environment import render
 from models.users import users_model
-import localsys
+from localsys.storage import path
 from models.policies import policies_model
 from localsys.environment import context
 
@@ -15,7 +15,7 @@ class history:
         if context.user_id() > 0:
             return render.profile()
         else:
-            raise web.seeother('/home')
+            raise web.seeother(path + '/home')
 
 
 class history_rest:
