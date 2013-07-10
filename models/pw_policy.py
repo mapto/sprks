@@ -147,6 +147,15 @@ class pw_policy_model:
             msgs.append(msg)
         return msgs
 
+    def parse_policy(self, policyUpdate):
+        policies = {}
+        for update in policyUpdate:
+            for empl in update['employee']:
+                for loc in update['location']:
+                    for dev in update['device']:
+                        for key, value in update['policyDelta'].iteritems():
+
+
 
 if __name__ == "__main__":
     model = pw_policy_model()
