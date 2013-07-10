@@ -14,21 +14,28 @@ class records:
         result = db.update('journal', commited=1, where="date<$date&&user_id=$user_id", vars=locals())
         return result
 
-    def record_prophecy(self):
-        pass
-
-    def validate_journal(self, user_id, date, new_costs):
-        sum = db.select('journal', what="SUM(cost) as sum",
-                                where="date<$date AND user_id=$user_id AND commited=false", vars=locals())[0].sum
-        self.commit_history(date)
-        return sum == new_costs
-
     @classmethod
     def last_sync(cls, user_id):
         """
         Given user_id, returns the date of the most recent sync.
         """
         return date_utils.iso8601_to_date(db.query('SELECT date FROM policies ORDER BY date DESC LIMIT 1')[0].date)
+
+    @classmethod
+    def first_due_event_day(cls, user_id, last_sync_date):
+        """
+        Returns the date for the first event due after previous sync. If no event found, returns none.
+        """
+        # TODO
+        'SELECT date FROM journal WHERE user_id=user_id AND committed=false AND date<$last_sync_day ' \
+        'GROUP BY date ORDER BY date DESC LIMIT 1'
+
+    @classmethod
+    def skipped_policy_review(cls, client_date, last_sync_date):
+        """
+        Returns true if a policy review was due since the last sync.
+        """
+        pass
 
     def update_journal(self, risk, userid):
         #calendar = chronos.prophesize(risk)["prophecy"]
@@ -46,5 +53,25 @@ class records:
                     for event in dates[key]:
                         inc_id = event['incdt_id']
                         cost = event['cost']
-                        storage.db.insert('journal', user_id=userid, date=date, cost=cost, incident_id=inc_id, commited=0)
+                        db.insert('journal', user_id=userid, date=date, cost=cost, incident_id=inc_id, commited=0)
         return whole_calendar
+
+    @classmethod
+    def sync_history(self, user_id, client_date, new_costs):
+        # Synchronizes history where possible, and returns the date that the client should resume at.
+        last_sync_date = records.last_sync(user_id)
+        if client_date <= last_sync_date:
+            # Client behind the server
+            return last_sync_date
+        else:
+            # The client is ahead of the server date.
+
+            records.first_due_event_day(user_id, last_sync_date)
+            # if any events were skipped, go to the day of the first missed event
+
+            # if policy update was skipped
+            # go back to last day of previous month
+
+            records.skipped_policy_review(client_date, last_sync_date)
+
+            return client_date

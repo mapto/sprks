@@ -1,4 +1,5 @@
 __author__ = 'Daniyar'
+
 from models.journal import records
 from sim.simulation import simulation
 import web
@@ -19,12 +20,12 @@ class calendar_model:
         for k, value in policy.iteritems():
             sim.set_policy(k, value)
 
-        validation = records().validateJournal(cost, date, usrid)  #0-if validation failed, 1-otherwise
+        validation = records().validate_ournal(cost, date, usrid)  #0-if validation failed, 1-otherwise
 
         risk = sim.calc_risk_prob()
         cost = sim.calc_prod_cost()
 
-        calendar = records().updateJournal(risk, usrid)  #inserts new events into journal
+        calendar = records().update_journal(risk, usrid)  #inserts new events into journal
 
         # dtt = datetime.strptime(date, "%Y/%m/%d")
         # string_time = dtt.strftime("%Y/%m/%d")
