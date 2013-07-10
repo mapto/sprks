@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `policies` (
 --
 
 CREATE TABLE IF NOT EXISTS `pw_policy` (
-  `idpolicy` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `plen` int(11) NOT NULL,
   `psets` int(11) NOT NULL,
   `pdict` tinyint(4) NOT NULL,
@@ -108,10 +108,7 @@ CREATE TABLE IF NOT EXISTS `pw_policy` (
   `prenew` int(11) NOT NULL,
   `pattempts` tinyint(4) NOT NULL,
   `precovery` tinyint(4) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `date` date NOT NULL,
-  PRIMARY KEY (`idpolicy`),
-  KEY `userid_idx` (`userid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
@@ -173,12 +170,6 @@ ALTER TABLE `journal`
 --
 ALTER TABLE `password_recovery`
   ADD CONSTRAINT `password_recovery_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `pw_policy`
---
-ALTER TABLE `pw_policy`
-  ADD CONSTRAINT `pw_policy_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `scores`
