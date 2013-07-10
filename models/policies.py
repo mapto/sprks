@@ -39,7 +39,7 @@ class policies_model:
         """
 
         restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=11) ' if latest else ''
-        return db.select(
+        return db.query(
             'SELECT * FROM policies '
             'LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id '
             'LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id '
