@@ -8,6 +8,7 @@
  * In this case requested from the server and embedded in JS getters (Python, see html template) and calculated in client (JS, this file).
  *
  */
+var policyUpdate = [];
 var policies_array = {};
 
 
@@ -186,11 +187,10 @@ $('#forward').click(function() {
 });
 
 
-//populate policies array onchange of inputs
+//populate policies_array onchange of inputs
 $('.target').change(function(){
    var attribute = $(this).parent().attr('id'); //can be empployee/device/location/biometric/passfaces/plen/psets/etc.
-   if(attribute=='employee'||attribute=='location'||attribute=='device'){ //write json for empl/loc/dev
-       console.log('policy Empl/Loc/Dev');      //write employee/location/device
+   if(attribute=='employee'||attribute=='location'||attribute=='device'){   //write employee/location/device
        if(!policies_array[attribute]){          //if doesn't exist, initialize array
            policies_array[attribute]=[]
        }
@@ -200,14 +200,21 @@ $('.target').change(function(){
            var index = policies_array[attribute].indexOf($(this).val());
            policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
        }
-   }else if(attribute=='policy_form'){
-       console.log($(this).val()+' policies'); //how many policies to be passed     DO WE NEED that?
+   }else if(attribute=='policy_form'){ //if number of used mechanisms is changed
+        //console.log($(this).val()+' policies'); //how many policies to be passed
+        if (!policies_array.policyDelta){        //initialize dictionary if doesn't exist
+           policies_array.policyDelta={};
+        }
+        null_unused_policy('biometric');
+        null_unused_policy('passfaces');
+        null_unused_policy('pwpolicy');
    }else{                                       //write the policyDelta
        if (!policies_array.policyDelta){        //initialize dictionary if doesn't exist
            policies_array.policyDelta={};
        }
        if(attribute=='biometric_policy' || attribute=='passfaces_policy'){
-           policies_array.policyDelta[attribute.replace('_policy','')] = $(this).val();
+           policies_array.policyDelta[attribute.replace('_policy','')] = {};
+           policies_array.policyDelta[attribute.replace('_policy','')][attribute.substring(0,1)+'data'] = $(this).val();
        }else{
            if(!policies_array.policyDelta.pwpolicy){
            policies_array.policyDelta.pwpolicy={};
@@ -215,19 +222,40 @@ $('.target').change(function(){
            policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
        }
    }
-   console.log(policies_array);
+   //console.log(policies_array);
 });
 
-/*
+$('.aut').change(function(){ //if one of the names of mechanism to be used was changed
+    if($('.authentication').val()>=1){
+            var policy1 = $('.policy' +$("#authentication1").val()).attr('id');
+            if($('.authentication').val()==2){
+                var policy2 = $('.policy' +$("#authentication2").val()).attr('id'); //if exists
+            }
+    }
+    if(policy1!= 'biometric_policy' && policy2!= 'biometric_policy'){null_unused_policy('biometric');}
+    if(policy1!= 'passfaces_policy' && policy2!= 'passfaces_policy'){null_unused_policy('passfaces');}
+    if(policy1!= 'password_policy' && policy2!= 'password_policy'){null_unused_policy('pwpolicy');}
+});
 
-*/
-/*
-       if($(this).parent().attr('id').substring(0,1)=='p'){
-           console.log($(this).parent().attr('id'))
-           var attribute = $(this).parent().attr('id');
-           if(!policies_array.policyDelta[attribute]){
-                policies_array.policyDelta[attribute] = []
-           }
-           policies_array.policyDelta[attribute] = policies_array.policyDelta[attribute].concat($(this).val());
-       }
-       */
+function null_unused_policy(policy){
+     policies_array.policyDelta[policy]={};
+}
+//write policyUpdate array on apply btn press
+$("#apply").click(function(){
+    if(!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
+        || $.isEmptyObject(policies_array.employee)
+        || $.isEmptyObject(policies_array.location)
+        || $.isEmptyObject(policies_array.device)){
+        alert('Failed to apply policy. You have to check at least one of the employees, locations and devices');
+    }else if(!policies_array.policyDelta){
+        alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms');
+    }else{
+        policyUpdate = policyUpdate.concat(policies_array);
+        //reset policies form
+        policies_array = {};
+        $("#policy_form")[0].reset();
+        console.log(policyUpdate);
+        alert('Policy saved. All the changes will be applied in the end of the term')
+    }
+});
+
