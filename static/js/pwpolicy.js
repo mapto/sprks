@@ -8,7 +8,9 @@
 /*wait until document is loaded*/
 var pwpolicy;
 
-function initPwpolicy() {
+function initPolicy() {
+
+
     getInitPolicy();// request policy from server and write to pwpolicy var
 
 
@@ -215,6 +217,48 @@ function check_events() {
 function submit_change() { // need different event handling, to capture any change
     var d = new Date();
     var msg = {};
+    //msg.userid = document.forms["input"]["userid"].value;
+    var new_policy = {};
+    var day = d.getDate() - 1; // Why is this -1? --Martin
+    var strDate = $('#time').text();
+    msg.date = strDate;
+    msg.policyUpdate = policyUpdate;
+    msg.newCosts = calculate_cost_from_calendar();
+    msg.silentMode = false;
+    msg.initPolicy = true;
+    console.log(msg);
+    //summarize_policy(new_policy); //update policy summary for user
+
+    var request = $.ajax({
+        url: "/pwpolicy",
+        type: "POST",
+        async: false,
+        data: JSON.stringify(msg),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (score) {
+            console.log("test: " + JSON.stringify(score));
+            msg1 = score.msg1;
+            msg2 = score.msg2;
+            window.calendar = score.calendar;
+/*
+            $(msg1).each(function (i) {
+                $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
+            });
+*/
+            visualize(msg2);
+        },
+        error: function (response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+}
+
+/*
+function submit_change() { // old version, which submits all the values even not changed ones
+    var d = new Date();
+    var msg = {};
     var new_policy = {};
     var day = d.getDate() - 1; // Why is this -1? --Martin
     var strDate = $('#time').text();
@@ -246,11 +290,7 @@ function submit_change() { // need different event handling, to capture any chan
             msg1 = score.msg1;
             msg2 = score.msg2;
             window.calendar = score.calendar;
-/*
-            $(msg1).each(function (i) {
-                $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
-            });
-*/
+
             visualize(msg2);
         },
         error: function (response) {
@@ -258,7 +298,8 @@ function submit_change() { // need different event handling, to capture any chan
         }
     });
     return false;
-}
+} //old version
+*/
 
 /*function submit_change_mul() {
     var msgs = [];
@@ -441,21 +482,22 @@ function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
 
 //3 different authentication mechanisms
 $('#aut_num').change(function(){
-    $("#autentication1").remove();
-    $("#autentication2").remove();
+    $("#authentication1").remove();
+    $("#authentication2").remove();
+    hide_policies();
     //remove all options
     var options = ['biometric',   //value:0
                    'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
     if (this.value>0){
-        var s = $("<select  class=\"target\" id=\"autentication1\" name=\"autentication1\" />");
+        var s = $("<select  class=\"target\" id=\"authentication1\" name=\"autenthication1\" />");
         for(var val in options) {
             $("<option />", {value: val, text: options[val]}).appendTo(s);
         }
         s.appendTo("#aut1");
         //create first authentication options set
         if(this.value>1){
-            var s = $("<select class=\"target\" id=\"autentication2\" name=\"autentication2\" />");
+            var s = $("<select class=\"target\" id=\"authentication2\" name=\"authentication2\" />");
             for(var val in options) {
                 $("<option />", {value: val, text: options[val]}).appendTo(s);
             }
@@ -463,20 +505,22 @@ $('#aut_num').change(function(){
             //create second options set
         }
     }
-    display_policies();
+
 });
 $(".aut").change(function(){
-    if($('#aut_num').val()==2 && ($('#autentication1').val()==$('#autentication2').val())){ //ensure distinct selected options
+    if($('#aut_num').val()==2 && ($('#authentication1').val()==$('#authentication2').val())){ //ensure distinct selected options
+        hide_policies();
         alert('Please, select two distinct options or change the number of mechanisms');
+    }else{
+        display_policies();
     }
-    display_policies();
 })
 
 function display_policies(){ //display selected policies only
     hide_policies();
 
-    $('.policy' +$("#autentication1").val()).css("display","block");
-    $('.policy' +$("#autentication2").val()).css("display","block");
+    $('.policy' +$("#authentication1").val()).css("display","block");
+    $('.policy' +$("#authentication2").val()).css("display","block");
 }
 function hide_policies(){ //hide all policies
     $('.policy').each(function(){

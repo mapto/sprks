@@ -1,7 +1,7 @@
 $var title: Policy
 <h1>Policy</h1>
 <form id="policy_form" name="input" method="post" action="$path/add"> <!-- service specified in action must use relative path -->
-<p id="time"></p>
+<p id="time">2014/1/6</p>
 <div class="company" id="employee">
 <label><h4>Choose employee types</h4></label><br/>
     <input type="checkbox"
@@ -341,6 +341,11 @@ $var title: Policy
 
 
 </div>
+
+<div>
+<input type="button" name="apply" id="apply" value="Apply">
+</div>
+
 </form>
 <!--PASSWORD POLICY END-->
 
@@ -357,7 +362,7 @@ $var title: Policy
     // Variables from Python can be sent back as return values.
     // Use $$() for jqueries
 
-    $$(document).ready(initPwpolicy);
+    $$(document).ready(initPolicy);
 
     function getUserID() {
         /*ID is preset inside HTML code*/

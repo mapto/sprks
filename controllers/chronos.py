@@ -18,6 +18,7 @@ class chronos:
 
         payload = json.loads(web.data())
         web.header('Content-Type', 'application/json')
+
         client_date = date_utils.iso8601_to_date(payload.get('date'))
 
         if context.user_id() == 0:
@@ -26,14 +27,11 @@ class chronos:
                 'messages': ['Unauthorized']
             })
 
-        sync_date = self.sync_history(client_date, payload.get('newCosts'))
+        sync_date = self.sync_history(context.user_id(), client_date, payload.get('newCosts'))
 
         if client_date.day == 1:
             pass
             # payload.get('policyUpdate')
-
-            # if event occured on the previous day
-                # payload.get('intervention')
 
             # delete old prophecy
             # self.prophesize()
@@ -59,15 +57,23 @@ class chronos:
 
             return json.dumps(response)
 
-    def sync_history(self, date, new_costs):
-        query = 'SELECT * FROM journal WHERE committed=false AND date<date GROUP BY date'
-        #if result.length == 1
-        # if client is behind, make it catch up. if client is ahead, throw error at the date they should backtrack
-        # Synchronizes history where possible, and returns the date that the client to resume at.
-        records.validate_journal(context.user_id(), date, new_costs)
+    def sync_history(self, user_id, client_date, new_costs):
+        # Synchronizes history where possible, and returns the date that the client should resume at.
+        last_sync_date = records.last_sync(user_id)
+        if client_date <= last_sync_date:
+            return last_sync_date
+        else:
+            # The client is ahead of the server date.
 
-    def prophesize(self):
-        """
-        Generates calendar of future events.
-        """
-        pass
+            #query SELECT * FROM journal WHERE user_id=user_id AND committed=false AND date<$date GROUP BY date ORDER BY date
+            # if rows > 1: an eventful day was missed - backtrack to the previous day
+
+            # if any events were skipped, go to the day of the first missed event
+
+            # if policy update was skipped
+            # go back to previous day
+
+
+            if not records.validate_journal(context.user_id(), date, new_costs):
+                pass
+                # newCosts dont match - log an error

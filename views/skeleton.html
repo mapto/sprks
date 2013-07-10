@@ -38,7 +38,7 @@ $if user_id() > 0:
     <div class="menu">
         <!-- these paths need to be absolute, because password policy is not in the same (appearance) directory as others -->
         <div class="story"><a href="$path/intro">Story </a></div>
-        <div class="policy"><a href="$path/policy/password">Policy</a></div>
+        <div class="policy_btn"><a href="$path/policy/password">Policy</a></div>
         <div class="profile"><a href="$path/history">Profile</a></div>
         <div class="score"><a href="$path/score">Scores</a></div>
         <div class="incident"><a href="$path/incident">Incident</a></div>
@@ -103,8 +103,8 @@ $if content.has_key('postjs'):
     // extract a method that grabs them here and call it from a script in the external JS file.
     // Variables from Python can be sent back as return values.
 
-    $$(document).ready(initFrame);
-    //    document.ready = initFrame(); // register callback to function from external JS file;
+    initFrame();    //no care for document ready as below
+    //$$(document).ready(initFrame); // register callback to function from external JS file;
 
 </script>
 

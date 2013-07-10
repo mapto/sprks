@@ -22,16 +22,14 @@ import web
 import controllers.home
 import controllers.user
 import controllers.intro
-import controllers.pwpolicy
 import controllers.score
-import controllers.timeline
 import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 
 urls = (
-        storage.path + '', controllers.pwpolicy.pwpolicy, # without the first slash still should load the page
-        storage.path + '/', controllers.pwpolicy.pwpolicy,
+        storage.path + '', controllers.home.home,
+        storage.path + '/', controllers.home.home,
         storage.path + '/home', controllers.home.home,
         storage.path + '/login', controllers.user.account,
         storage.path + '/register', controllers.user.register,
@@ -39,11 +37,6 @@ urls = (
         storage.path + '/intro', controllers.intro.intro,
         storage.path + '/score', controllers.score.score,
         storage.path + '/score/multiple', controllers.score.multiple_score,
-        storage.path + '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/skeleton.html for AJAX services
-        storage.path + '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
-        storage.path + '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
-        storage.path + '/forward', controllers.timeline.forward,
-        storage.path + '/timeline', controllers.timeline.go,
         storage.path + '/history', controllers.policy_history.history,
         storage.path + '/incident', controllers.incident.incident,
 
@@ -57,7 +50,6 @@ urls = (
         storage.path + '/score_rest', controllers.score.score_rest,
         storage.path + '/incident_rest', controllers.incident.incident_rest,
         storage.path + '/history_rest', controllers.policy_history.history_rest,
-        storage.path + '/pwpolicy_rest', controllers.pwpolicy.pwpolicy_rest
 )
 
 app = web.application(urls, globals(), autoreload=False)
