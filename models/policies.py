@@ -24,7 +24,10 @@ class policies_model:
                             'location': location,
                             'employee': employee,
                             'device': device,
-                            'date': environment.start_date
+                            'date': environment.start_date,
+                            'bio_id': 0,
+                            'pass_id': 0,
+                            'pw_id': 0
                         }
                     )
         return db.multiple_insert('policies', values)
