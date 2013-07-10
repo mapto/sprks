@@ -153,7 +153,7 @@ class pw_policy_model:
             for empl in update['employee']:
                 for loc in update['location']:
                     for dev in update['device']:
-                        for key, value in update['policyDelta'].iteritems():
+                        for key, value in update['policyDelta'].iteritems():pass
 
 
 
