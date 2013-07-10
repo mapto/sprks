@@ -9,4 +9,4 @@ A user-customized version of this file should be placed in the root directory (s
 # database credentials
 dbuser = ''
 dbpw = ''
-dbname = ''
+dbname = 'sprks-demo'

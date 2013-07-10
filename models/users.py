@@ -14,7 +14,9 @@ class users_model:
         password = hash_utils.hash_password(password)
         auth = db.select('users', where="username=$username&&password=$password", vars=locals())
         if len(auth) == 1:
-            return auth[0].Id
+            value = auth[0]
+            id = value.user_id
+            return id
         else:
             return 0
 

@@ -6,7 +6,7 @@ pdict: {1, 0}  // are passwords checked whether they match a dictionary
 phist: {0, 1, 2, 3}  // history check of passwords resp. none, minimum (1 past password, exact match), strict (2 past passwords, string distance of 2), extreme (4 past passwords, string distance of 5)
 prenew: {0, 1, 2, 3} // when the system asks users to renew passwords: never, annually, quarterly, monthly
 pattempts: {1, 0} // is there a limit on wrong password attempts
-pautorecover: {1, 0} // are forgotten passwords restored automatically(1), or is there human support(0)
+precovery: {1, 0} // are forgotten passwords restored automatically(1), or is there human support(0)
 
  */
 CREATE TABLE `users` (
@@ -25,7 +25,7 @@ CREATE TABLE `pw_policy` (
   `phist` int(11) NOT NULL,
   `prenew` int(11) NOT NULL,
   `pattempts` tinyint(4) NOT NULL,
-  `pautorecover` tinyint(4) NOT NULL,
+  `precovery` tinyint(4) NOT NULL,
   `userid` int(11) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`idpolicy`),

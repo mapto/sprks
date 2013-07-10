@@ -2,7 +2,7 @@ import policy_interface
 
 __author__ = 'Horace'
 
-class policy_pautorecover(policy_interface.policy_interface):
+class policy_precovery(policy_interface.policy_interface):
     # whether passwords can be recovered without human contact
     def __init__(self):
         self.__init__(0)
@@ -11,7 +11,7 @@ class policy_pautorecover(policy_interface.policy_interface):
 
         value = int(value)
 
-        if value in [0, 1]:
+        if value in [0, 1, 2]:
             self.param = (value != 0)
         else:
             raise Exception('Wrong parameter type')
