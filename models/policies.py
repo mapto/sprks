@@ -24,7 +24,10 @@ class policies_model:
                             'location': location,
                             'employee': employee,
                             'device': device,
-                            'date': environment.start_date
+                            'date': environment.start_date,
+                            'bio_id': 0,
+                            'pass_id': 0,
+                            'pw_id': 0
                         }
                     )
         return db.multiple_insert('policies', values)
@@ -55,4 +58,9 @@ class policies_model:
         """
         Doc stub
         """
-        return db.select('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
+        return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
+
+
+if __name__ == "__main__":
+    res = policies_model.get_latest_policy(4)
+    print res[0]

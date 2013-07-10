@@ -5,6 +5,7 @@ import glob
 import json
 from localsys.storage import db
 
+
 class pw_policy_model:
 
     ranges = {"plen": [0, 6, 8, 10, 12],
@@ -52,7 +53,7 @@ class pw_policy_model:
             'precovery': 1,
         }
         db_policy_all = db.select('policies', where="user_id=$user_id", order="date DESC", vars=locals())
-        if len(db_policy_all):
+        if len(db_policy_all) > 0:
             db_policy = db_policy_all[0]
             db_bio = db.select('biometrics', where="id=$db_policy.bio_id", vars=locals())[0]
             db_pass = db.select('passfaces', where="id=$db_policy.pass_id", vars=locals())[0]
@@ -151,9 +152,24 @@ class pw_policy_model:
         policies = {}
         for update in policyUpdate:
             for empl in update['employee']:
+                if not empl in policies.keys():
+                    policies[empl] = {}
                 for loc in update['location']:
+                    if not loc in policies[empl].keys():
+                        policies[empl][loc] = {}
                     for dev in update['device']:
+                        if not dev in policies[empl][loc].keys():
+                            policies[empl][loc][dev] = {}
                         for key, value in update['policyDelta'].iteritems():
+                            if not key in policies[empl][loc][dev]:
+                                policies[empl][loc][dev][key] = {}
+                            if value == {}:
+                                policies[empl][loc][dev][key] = {}
+                            else:
+                                for k, v in value.iteritems():
+                                    policies[empl][loc][dev][key][k] = v
+                            #policies[empl][loc][dev][key] = value
+        return policies
 
 
 
@@ -163,6 +179,44 @@ if __name__ == "__main__":
     # result = model.generate_samples({'plen': 0})
     # result = model.generate_samples({})
     #model.generate_training_set()
-    policy = model.latest_policy(3)
-    print policy
+    #policy = model.latest_policy(3)
+
+    policyUpdate = [
+    {
+      'employee': ['executive', 'contractor'],
+      'location': ['office', 'home'],
+      'device': ['mobile', 'desktop'],
+      'policyDelta': {
+           'pwpolicy': {'plen': 12,
+                'pdict': 'true'},
+           'passfacepolicy': {},
+           'biopolicy': {}
+      }
+    },
+    {
+      'employee': ['office_worker', 'road_worker'],
+      'location': ['office', 'public'],
+      'device': ['desktop', 'laptop'],
+      'policyDelta': {
+       'pwpolicy': {'plen': 8,
+        'psets': 3},
+       'passfacepolicy': {},
+       'biopolicy': {'bdata': 2}
+      }
+    },
+        {
+            'employee': ['office_worker'],
+            'location':['office'],
+            'device':['desktop'],
+            'policyDelta': {
+               'pwpolicy': {'plen':0},
+               'passfacepolicy': {'pdata': 1},
+                'biopolicy': {}
+            }
+        }]
+
+    #policy = model.parse_policy(policyUpdate)
+    #policies.policies_model.populate_policies(4, "2014-01-01")
+
+    #print policy
 
