@@ -14,3 +14,5 @@ dbpw = ''
 # dbname = 'sprks'
 # host = 'localhost'
 # port = 3306
+
+path = '/sprks'

@@ -41,7 +41,7 @@ $var title: Register
         if (formModel.password() === formModel.passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
             $$.ajax({
                 type: 'PUT',
-                url: '/api/user/account/' + formModel.username(),
+                url: '$path/api/user/account/' + formModel.username(),
                 dataType: 'json',
                 data: JSON.stringify({
                     password: formModel.password(),

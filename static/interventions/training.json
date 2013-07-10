@@ -1,0 +1,7 @@
+{"id": 1, "name": "training", "type": "stolen",
+    "description": "A training that goes through recurring patterns of password thefts and advice how to counter them.",
+    "event": "Everyone got interested in the training. Still, they knew that occasionally there are times when you have to do what you do.",
+    "consequences": "The employees get the idea and do their best to comply. In some occasions it also undermines productivity.",
+    "direct-cost": 0.01,
+    "risk-modifier": -0.05,
+    "cost-modifier": 0.01}

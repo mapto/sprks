@@ -1,6 +1,7 @@
 from sim.simulation import *
 import numpy
 from numpy import genfromtxt
+from models.pw_policy import pw_policy_model
 
 
 class TestPolicyConstructor:
@@ -25,6 +26,11 @@ class TestPolicyConstructor:
     def test_calc_prod_cost(self):
         assert self.impl_policy.calc_prod_cost() == self.multi_policy.calc_prod_cost()
 
+    def test_default_in_range(self):
+        """ The default values need to be valid, as per possible ranges
+        """
+        for key in pw_policy_model.ranges.iterkeys():
+            assert pw_policy_model.default[key] in pw_policy_model.ranges[key]
 
 class TestSetPolicy:
     """

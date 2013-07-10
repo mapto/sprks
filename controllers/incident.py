@@ -5,8 +5,11 @@ import json
 from localsys.environment import render
 from localsys.environment import context
 from models.incident import incident as model
+from localsys.storage import path
 from models.policies import policies_model
 from sim.classifier_sklearn import classifier_sklearn
+
+
 class incident:
 
     def GET(self):
@@ -14,10 +17,10 @@ class incident:
         if context.user_id() > 0: #if a user is logged in
             return render.incident()
         else:
-            raise web.seeother('/home')
+            raise web.seeother(path + '/home')
 
     def POST(self):
-        raise web.seeother('/policy/password')
+        raise web.seeother(path + '/policy/password')
 
 
 class incident_rest:

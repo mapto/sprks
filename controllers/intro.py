@@ -3,6 +3,7 @@ __author__ = 'mruskov'
 import web
 from localsys.environment import render
 from localsys.environment import context
+from localsys.storage import path
 
 
 class intro:
@@ -10,7 +11,7 @@ class intro:
         if context.user_id() > 0:
             return render.intro()
         else:
-            raise web.seeother('/home')
+            raise web.seeother(path + '/home')
 
     def POST(self):
-        raise web.seeother('/policy/password')
+        raise web.seeother(path + '/policy/password')
