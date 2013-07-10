@@ -13,24 +13,16 @@ from controllers.pwpolicy import pwpolicy
 from models.journal import records
 
 
-class go:
-    def GET(self):
-        return render.timeline()
-
-
 class forward:
     def POST(self):
         # make sure that the following line stays as per your local installation
         web.header('Content-Type', 'application/json')
-        usrid = context.user_id()
         sim = simulation()
         post_data = json.loads(web.data())
-        # get the latest date that the user has submitted a policy and add 7 days to it
-        # if the user hasn't submitted anything, take today's date
         data = pwpolicy.default
         prev_date = get_start_time()  # needed only if user can press /forward without having seen the policy page
 
-        user_policies = db.select('pw_policy', where="userid=$usrid", order="date DESC", vars=locals())
+        user_policies = db.select('pw_policy', where="userid=$context.user_id()", order="date DESC", vars=locals())
         if len(user_policies) > 0:
             policy = user_policies[0] # get last policy
             prev_date = policy.date
@@ -52,18 +44,18 @@ class forward:
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 
-        validation = records.validateJournal(post_data["recent_costs"], new_date, usrid)  #0-if validation failed, 1-otherwise
+        validation = records.validate_journal(post_data["recent_costs"], new_date, context.user_id())  #0-if validation failed, 1-otherwise
 
         risk = sim.calc_risk_prob()
 
-        calendar = records.updateJournal(risk, usrid) #inserts new events into journal
+        calendar = records.update_journal(risk, context.user_id()) #inserts new events into journal
 
         # TODO put this into model
-        db.insert('scores', userid=usrid, score_type=1, score_value=risk,
+        db.insert('scores', userid=context.user_id(), score_type=1, score_value=risk,
                   date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
-        db.insert('scores', userid=usrid, score_type=2, score_value=sim.calc_prod_cost(),
+        db.insert('scores', userid=context.user_id(), score_type=2, score_value=sim.calc_prod_cost(),
                   date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
-        db.insert('pw_policy', userid=usrid, date=new_date.strftime("%Y/%m/%d %H:%M:%S"),
+        db.insert('pw_policy', userid=context.user_id(), date=new_date.strftime("%Y/%m/%d %H:%M:%S"),
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
                   prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
         return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
@@ -71,7 +63,7 @@ class forward:
 
     def get_calendar(self, data):
         web.header('Content-Type', 'application/json')
-        usrid = context.user_id()
+        context.user_id() = context.user_id()
         sim = simulation()
         post_data = json.loads(data)
         policy = post_data["policy"]
@@ -79,19 +71,19 @@ class forward:
         for k, value in policy.iteritems():
             sim.set_policy(k, value)
 
-        validation = records.validateJournal(post_data["recent_costs"], post_data["date"], usrid) #0-if validation failed, 1-otherwise
+        validation = records.validateJournal(post_data["recent_costs"], post_data["date"], context.user_id()) #0-if validation failed, 1-otherwise
 
         risk = sim.calc_risk_prob()
         cost = sim.calc_prod_cost()
 
-        calendar = records.updateJournal(risk, usrid) #inserts new events into journal
+        calendar = records.updateJournal(risk, context.user_id()) #inserts new events into journal
 
         # TODO put this into model
-        db.insert('scores', userid=usrid, score_type=1, score_value=risk,
+        db.insert('scores', userid=context.user_id(), score_type=1, score_value=risk,
                   date=post_data["date"], rank=0)
-        db.insert('scores', userid=usrid, score_type=2, score_value=cost,
+        db.insert('scores', userid=context.user_id(), score_type=2, score_value=cost,
                   date=post_data["date"], rank=0)
-        db.insert('pw_policy', userid=usrid, date=post_data["date"],
+        db.insert('pw_policy', userid=context.user_id(), date=post_data["date"],
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
                   prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
        # return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
