@@ -13,6 +13,7 @@ var policies_array = {};
 
 
 function initFrame () {
+
     if ($("#risk").text() == '' || $("#cost").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
@@ -26,7 +27,6 @@ function initFrame () {
             $(".risk-menu").css("display", "block");
         }
     });
-
 
 
     manageScoreButton();
@@ -161,13 +161,18 @@ function highlightActiveButton() {
             css_class = "incident";
             break;
         default:
-            css_class = "policy";
+            css_class = "policy_btn";
     }
 
     $("." + css_class + " a").css("background-color", "#C10000");
     $("." + css_class + " a").css("color", "#fff");
     $("." + css_class + " a").css("cursor", "default");
 }
+
+
+
+
+
 
 //time-control buttons active css
 $('#play').click(function() {
@@ -258,7 +263,7 @@ $("#apply").click(function(){
         $("#authentication2").remove();
         hide_policies();
         console.log(policyUpdate);
-        alert('Policy saved. All the changes will be applied in the end of the term')
+        alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue')
     }
 });
 

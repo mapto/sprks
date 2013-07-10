@@ -8,7 +8,9 @@
 /*wait until document is loaded*/
 var pwpolicy;
 
-function initPwpolicy() {
+function initPolicy() {
+
+
     getInitPolicy();// request policy from server and write to pwpolicy var
 
 
@@ -215,6 +217,48 @@ function check_events() {
 function submit_change() { // need different event handling, to capture any change
     var d = new Date();
     var msg = {};
+    //msg.userid = document.forms["input"]["userid"].value;
+    var new_policy = {};
+    var day = d.getDate() - 1; // Why is this -1? --Martin
+    var strDate = $('#time').text();
+    msg.date = strDate;
+    msg.policyUpdate = policyUpdate;
+    msg.newCosts = calculate_cost_from_calendar();
+    msg.silentMode = false;
+    msg.initPolicy = true;
+    console.log(msg);
+    //summarize_policy(new_policy); //update policy summary for user
+
+    var request = $.ajax({
+        url: "/pwpolicy",
+        type: "POST",
+        async: false,
+        data: JSON.stringify(msg),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (score) {
+            console.log("test: " + JSON.stringify(score));
+            msg1 = score.msg1;
+            msg2 = score.msg2;
+            window.calendar = score.calendar;
+/*
+            $(msg1).each(function (i) {
+                $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
+            });
+*/
+            visualize(msg2);
+        },
+        error: function (response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+}
+
+/*
+function submit_change() { // old version, which submits all the values even not changed ones
+    var d = new Date();
+    var msg = {};
     var new_policy = {};
     var day = d.getDate() - 1; // Why is this -1? --Martin
     var strDate = $('#time').text();
@@ -246,11 +290,7 @@ function submit_change() { // need different event handling, to capture any chan
             msg1 = score.msg1;
             msg2 = score.msg2;
             window.calendar = score.calendar;
-/*
-            $(msg1).each(function (i) {
-                $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
-            });
-*/
+
             visualize(msg2);
         },
         error: function (response) {
@@ -258,7 +298,8 @@ function submit_change() { // need different event handling, to capture any chan
         }
     });
     return false;
-}
+} //old version
+*/
 
 /*function submit_change_mul() {
     var msgs = [];
