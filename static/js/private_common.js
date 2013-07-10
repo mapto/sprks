@@ -254,6 +254,9 @@ $("#apply").click(function(){
         //reset policies form
         policies_array = {};
         $("#policy_form")[0].reset();
+        $("#authentication1").remove();
+        $("#authentication2").remove();
+        hide_policies();
         console.log(policyUpdate);
         alert('Policy saved. All the changes will be applied in the end of the term')
     }
