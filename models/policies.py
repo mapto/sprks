@@ -47,21 +47,6 @@ class policies_model:
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 27', vars=locals())
 
-        #
-        # results = db.select('pw_policy', where="userid=$user_id", order="date", vars=locals())
-        # history = []
-        # sim = simulation()
-        # for row in results:
-        #     tmp = {}
-        #     for k, v in row.iteritems():
-        #         tmp[k] = str(v)
-        #         if k != 'idpolicy' and k != 'userid' and k != 'date':
-        #             sim.set_policy(k, v)
-        #     tmp['risk'] = sim.calc_risk_prob()
-        #     tmp['cost'] = sim.calc_prod_cost()
-        #     history.append(tmp)
-        # return history
-
     @classmethod
     def get_latest_policy(cls, user_id):
         """
