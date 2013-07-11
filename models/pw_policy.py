@@ -220,13 +220,14 @@ if __name__ == "__main__":
             }
         }]
 
-    updated_policy = model.parse_policy(policyUpdate)
-    latest_policy_before = model.iter_to_nested_obj(model.get_latest_policy(4))
-    latest_policy_after = model.merge_policies(updated_policy, latest_policy_before)
-    print "updated_policy", updated_policy
-    print "latest_policy before", model.nested_obj_to_list_of_dict(latest_policy_before)
+    """ updated_policy = model.parse_policy(policyUpdate)
+        latest_policy_before = model.iter_to_nested_obj(model.get_policy_history(4, True))
+        latest_policy_after = model.merge_policies(updated_policy, latest_policy_before)
+        print "updated_policy", updated_policy
+        print "latest_policy before", model.nested_obj_to_list_of_dict(latest_policy_before)
 
-    #print model.get_latest_policy(4)[1]
+        #print model.get_latest_policy(4)[1]
 
-    print "latest_policy after", model.nested_obj_to_list_of_dict(latest_policy_after)
-
+        print "latest_policy after", model.nested_obj_to_list_of_dict(latest_policy_after)"""
+    model.commit_policy_update(policyUpdate, '2014-02-15')
+    #print model.parse_policy(policyUpdate)

@@ -33,13 +33,9 @@ class chronos:
 
         policy_update = payload.get('policyUpdate')
 
-        updated_policy = {}
-
         if policy_update is not None:
-            updated_policy = policies_model().parse_policy()
-            latest_policy = policies_model().iter_to_nested_obj(policies_model().get_latest_policy(context.user_id()))
-            merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
-            print policies_model().nested_obj_to_list_of_dict(merged_policy)
+            policies_model().commit_policy_update(policy_update, client_date)
+
 
         if sync_date.day == 1 and policy_update is not None:
             for policy_change in policy_update.iteritems():

@@ -1,7 +1,7 @@
 from localsys.storage import db
-from sim.simulation import simulation
 from localsys import environment
 from copy import deepcopy
+from localsys.environment import context
 
 
 class policies_model:
@@ -49,15 +49,23 @@ class policies_model:
             'ORDER BY policies.date DESC LIMIT 27', vars=locals())
 
     @classmethod
-    def commit_policy_update(cls, policy_update):
+    def commit_policy_update(cls, policy_update, date):
         """
         Takes a direct dump of the policyUpdate object in the request JSON, and iterates through the transaction
         logs, committing each policyDelta into the database.
         Returns None
         """
-        for policy_change in policy_update.iteritems():
-            # call parse_policy? TODO
-            pass
+        print "parsing update policy..."
+        updated_policy = policies_model().parse_policy(policy_update)
+        print "done"
+        print "getting latest policy from db..."
+        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(4))
+        print "done"
+        print "merging policies..."
+        merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
+        print "done"
+        #print policies_model().nested_obj_to_list_of_dict(merged_policy)
+        policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(merged_policy), date)
 
 
     def parse_policy(self, policyUpdate):
@@ -155,3 +163,23 @@ class policies_model:
                             tmp_obj['data'] = deepcopy(data)
                     policies_list.append(deepcopy(tmp_obj))
         return policies_list
+
+    def check_default(self, policy):
+        return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+policy['pdict']+policy['prenew']
+
+    def insert_into_tables(self, policy, date):
+        if self.check_default(policy) == 0:
+            id_pwpolicy = 0
+        else:
+            id_pwpolicy = db.insert('pw_policy', plen=policy['plen'], psets=policy['psets'], pdict=policy['pdict'],
+                                    phist=policy['phist'], prenew=policy['prenew'], pattempts=policy['pattempts'],
+                                    precovery=policy['precovery'])
+        db.insert('policies', user_id=4, location=policy['location'],
+                              employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
+                              pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
+
+    def insert_polices(self, policies, date):
+        for policy in policies:
+            self.insert_into_tables(policy['data'], date)
+            #print policy
+
