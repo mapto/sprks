@@ -28,8 +28,8 @@ class records:
         Returns the date for the first event due after previous sync. If no event found, returns none.
         """
         # TODO
-        'SELECT date FROM journal WHERE user_id=user_id AND committed=false AND date<$last_sync_day ' \
-        'GROUP BY date ORDER BY date DESC LIMIT 1'
+        db.query('SELECT date FROM journal WHERE user_id=user_id AND committed=false AND date<$last_sync_day '
+                 'GROUP BY date ORDER BY date DESC LIMIT 1', vars=locals())
 
     @classmethod
     def policy_review_due(cls, client_date, last_sync_date):
@@ -45,9 +45,10 @@ class records:
         """
         Clears uncommitted entries in the journal for specified user_id on or after the specified date.
         """
-        'DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date'
+        db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars(locals()))
 
-    def update_journal(self, risk, userid):
+    @classmethod
+    def update_journal(self, userid, risk):
         #calendar = chronos.prophesize(risk)["prophecy"]
         calendar = self.default_calendar["calendar"]
         whole_calendar = self.default_calendar
