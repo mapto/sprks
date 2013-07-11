@@ -51,6 +51,7 @@ class policies_model:
     def get_latest_policy(cls, user_id):
         """
         Gets latest policy
+        :deprecated: Use get_policy_history() with latest=False
         """
         #return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
         return cls.get_policy_history(user_id, latest=False)

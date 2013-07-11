@@ -19,7 +19,7 @@ class chronos:
         payload = json.loads(web.data())
         web.header('Content-Type', 'application/json')
 
-        client_date = date_utils.iso8601_to_date(payload.get('date'))
+        client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
 
         if context.user_id() == 0:
             return json.dumps({
@@ -29,9 +29,11 @@ class chronos:
 
         sync_date = records.sync_history(context.user_id(), client_date, payload.get('newCosts'))
 
-        if sync_date.day == 1 and payload.get('policyUpdate') is not None:
-            pass
-            # payload.get('policyUpdate')
+        policy_update = payload.get('policyUpdate')
+
+        if sync_date.day == 1 and policy_update is not None:
+            for policy_change in policy_update.iteritems():
+                policy_change
 
             # delete old prophecy
             # self.prophesize()
