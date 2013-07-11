@@ -242,6 +242,24 @@ function check_events() {
 
 }
 
+var response; // TODO remove, because used only for dev purposes
+
+function get_factors(policy) {
+    var factors = [];
+
+//    {"bdata": 0, "pdata": 0, "plen": 0}
+    if (policy['bdata'] && policy['bdata'] != 0) {
+        factors.push('biometric');
+    }
+    if (policy['pdata'] && policy['pdata'] != 0) {
+        factors.push('passfaces');
+    }
+    if (policy['plen'] && policy['plen'] != 0) {
+        factors.push('password');
+    }
+
+    return factors;
+}
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {};
@@ -263,13 +281,36 @@ function submit_change() { // need different event handling, to capture any chan
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (policy) {
-            console.log("policy: " + JSON.stringify(policy));
-            for (var key in policy){
-                if (key=='date'){                   //parse time
-                    $('#time').text(policy[key]);
-                }
+            var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
 
+            console.log("policy: " + JSON.stringify(policy));
+
+            response = policy;
+            $('#time').text(policy['date']);
+
+            emp = policy['policy'][0]['employee'];
+            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+            $("#" + emp).prop('checked', true);
+
+            loc = policy['policy'][0]['location'];
+            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+            $("#" + loc).prop('checked', true);
+
+            dev = policy['policy'][0]['device'];
+            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+            $("#" + dev).prop('checked', true);
+            // TODO: handle policy for more than one environment (emp, loc, dev)
+
+            factors = get_factors(policy['policy'][0]);
+
+            $("#aut_num").val(factors.length);
+            $("#aut_num").change(); // have to do it manually, previous line doesn't call it
+
+            for (var i = 0; (i < factors.length) || (i < 2); i++) {
+                $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
+                $("#authentication" + (i+1)).change();
             }
+
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -509,20 +550,31 @@ $('#aut_num').change(function(){
     $("#authentication2").remove();
     hide_policies();
     //remove all options
-    var options = ['biometric',   //value:0
+    //    <option value="" disabled selected>number</option>
+
+    var options = ['none set',
+                   'biometric',   //value:0
                    'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
     if (this.value>0){
         var s = $("<select  class=\"target\" id=\"authentication1\" name=\"autenthication1\" />");
         for(var val in options) {
-            $("<option />", {value: val, text: options[val]}).appendTo(s);
+            if (val == 0) {
+                $("<option disabled selected/>", {value: "", text: options[val]}).appendTo(s);
+            } else {
+                $("<option />", {value: val - 1, text: options[val]}).appendTo(s);
+            }
         }
         s.appendTo("#aut1");
         //create first authentication options set
         if(this.value>1){
             var s = $("<select class=\"target\" id=\"authentication2\" name=\"authentication2\" />");
             for(var val in options) {
-                $("<option />", {value: val, text: options[val]}).appendTo(s);
+                if (val == 0) {
+                    $("<option value=\"\" disabled selected/>", {text: options[val]}).appendTo(s);
+                } else {
+                    $("<option />", {value: val - 1, text: options[val]}).appendTo(s);
+                }
             }
             s.appendTo("#aut2");
             //create second options set
