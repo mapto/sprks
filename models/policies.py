@@ -1,7 +1,6 @@
 from localsys.storage import db
-from sim.simulation import simulation
 from localsys import environment
-
+from copy import deepcopy
 
 class policies_model:
 
@@ -47,7 +46,6 @@ class policies_model:
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 27', vars=locals())
 
-    @classmethod
     def get_latest_policy(cls, user_id):
         """
         Gets latest policy
@@ -55,6 +53,9 @@ class policies_model:
         #return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
         return cls.get_policy_history(user_id, latest=False)
 
+    """
+    parses policy update sent by the client and returns it in the form {'desk': {'public': {'laptop': {'passfacepolicy': {}, 'biopolicy': {'bdata': 2}, 'pwpolicy': {'plen': 8, 'psets': 3}}, 'desktop': ...
+    """
     def parse_policy(self, policyUpdate):
         policies = {}
         for update in policyUpdate:
@@ -75,46 +76,86 @@ class policies_model:
                             #policies[empl][loc][dev][key] = value
         return policies
 
-    @classmethod
-    def iter_to_dict(self, policies, policy):
+    """
+    converts data from the database into nested object format
+    """
 
-        employee = policies['employee']
-        if not employee in policy.keys():
-            policy[employee] = {}
-        location = policies['location']
-        if not location in policy[employee].keys():
-            policy[employee][location] = {}
-        device = policies['device']
-        if not device in policy[employee][location].keys():
-            policy[employee][location][device] = {}
-        policy[employee][location][device]['pwpolicy'] = {}
-        policy[employee][location][device]['passfacepolicy'] = {}
-        policy[employee][location][device]['biopolicy'] = {}
-        for key in policies:
-            if key == 'bio_id' or key == 'pw_id' or key == 'date' or key == 'id' or key == 'pass_id':
-                continue
-            if key == 'pdata':
-                policy[employee][location][device]['passfacepolicy'][key] = str(policies[key])
-            if key == 'bdata':
-                policy[employee][location][device]['biopolicy'][key] = 1 #policies[key]
-            if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or key == 'plen'\
-                or key == 'phist' or key == 'pattempts':
-                policy[employee][location][device]['pwpolicy'][key] = policies[key]
+    def iter_to_nested_obj(self, res):
+        policy = {}
+        for policies in res:
+            employee = policies['employee']
+            if not employee in policy.keys():
+                policy[employee] = {}
+            location = policies['location']
+            if not location in policy[employee].keys():
+                policy[employee][location] = {}
+            device = policies['device']
+            if not device in policy[employee][location].keys():
+                policy[employee][location][device] = {}
+            policy[employee][location][device]['id'] = policies['id_policy']
+            policy[employee][location][device]['pwpolicy'] = {}
+            policy[employee][location][device]['passfacepolicy'] = {}
+            policy[employee][location][device]['biopolicy'] = {}
+            for key in policies:
+                if key == 'bio_id' or key == 'pw_id' or key == 'date' or key == 'id_policy' or key == 'pass_id':
+                    continue
+                if key == 'pdata':
+                    policy[employee][location][device]['passfacepolicy'][key] = str(policies[key])
+                if key == 'bdata':
+                    policy[employee][location][device]['biopolicy'][key] = policies[key]
+                if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or key == 'plen'\
+                    or key == 'phist' or key == 'pattempts':
+                    policy[employee][location][device]['pwpolicy'][key] = policies[key]
         return policy
 
+    """
+    Merges two policies
+    """
+
+    def merge_policies(self, updated_policy, old_policy):
+        tmp_policy = deepcopy(old_policy)
+        for employee in updated_policy:
+                for location in updated_policy[employee]:
+                    for device in updated_policy[employee][location]:
+                        for policy in updated_policy[employee][location][device]:
+                                if updated_policy[employee][location][device][policy] == {}:
+                                    for key, value in tmp_policy[employee][location][device][policy].iteritems():
+                                        tmp_policy[employee][location][device][policy][key] = 0
+                                else:
+                                    for key, value in updated_policy[employee][location][device][policy].iteritems():
+                                        tmp_policy[employee][location][device][policy][key] = value
+        return tmp_policy
+
+    """
+    converts nested object into list of dictionaries
+    """
+
+    def nested_obj_to_list_of_dict(self, policies):
+        #tmp_obj = {}
+        policies_list = []
+       # data = {}
+        for employee in policies:
+            data = {}
+            tmp_obj = {}
+            data['employee'] = employee
+            for location in policies[employee]:
+                data['location'] = location
+                for device in policies[employee][location]:
+                    data['device'] = device
+                    for policy in policies[employee][location][device]:
+                        if policy == 'id':
+                            tmp_obj['id'] = policies[employee][location][device][policy]
+                        else:
+                            for key, value in policies[employee][location][device][policy].iteritems():
+                                data[key] = value
+                            tmp_obj['data'] = deepcopy(data)
+                    policies_list.append(deepcopy(tmp_obj))
+        return policies_list
+
+
 if __name__ == "__main__":
-    policy = {}
-    tmp = {}
-    res = policies_model.get_latest_policy(4)
-    for row in res:
-#for row in res:
-#for k, v in row.iteritems():
-#    print k, v
-    #print row
-    #for field in row:
-     #   print field + ":" + str(row[field])
-        tmp = policies_model.iter_to_dict(row, policy)
-        policy = tmp
+    policies = policies_model().get_latest_policy(4)
+    policy = policies_model().iter_to_dict(policies)
     print policy
         #for k in field:
         #    print k

@@ -4,6 +4,7 @@ from localsys.storage import path
 import csv
 import glob
 import json
+from models.policies import policies_model
 
 
 class pw_policy_model:
@@ -178,7 +179,7 @@ class pw_policy_model:
 
 
 if __name__ == "__main__":
-    model = pw_policy_model()
+    model = policies_model()
     # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
     # result = model.generate_samples({'plen': 0})
     # result = model.generate_samples({})
@@ -187,9 +188,9 @@ if __name__ == "__main__":
 
     policyUpdate = [
     {
-      'employee': ['executive', 'contractor'],
+      'employee': ['executives', 'road'],
       'location': ['office', 'home'],
-      'device': ['mobile', 'desktop'],
+      'device': ['phone', 'desktop'],
       'policyDelta': {
            'pwpolicy': {'plen': 12,
                 'pdict': 'true'},
@@ -198,7 +199,7 @@ if __name__ == "__main__":
       }
     },
     {
-      'employee': ['office_worker', 'road_worker'],
+      'employee': ['desk', 'road'],
       'location': ['office', 'public'],
       'device': ['desktop', 'laptop'],
       'policyDelta': {
@@ -209,7 +210,7 @@ if __name__ == "__main__":
       }
     },
         {
-            'employee': ['office_worker'],
+            'employee': ['desk'],
             'location':['office'],
             'device':['desktop'],
             'policyDelta': {
@@ -219,8 +220,13 @@ if __name__ == "__main__":
             }
         }]
 
-    policy = model.parse_policy(policyUpdate)
-    #policies.policies_model.populate_policies(4, "2014-01-01")
+    updated_policy = model.parse_policy(policyUpdate)
+    latest_policy_before = model.iter_to_nested_obj(model.get_latest_policy(4))
+    latest_policy_after = model.merge_policies(updated_policy, latest_policy_before)
+    print "updated_policy", updated_policy
+    print "latest_policy before", model.nested_obj_to_list_of_dict(latest_policy_before)
 
-    print policy
+    #print model.get_latest_policy(4)[1]
+
+    print "latest_policy after", model.nested_obj_to_list_of_dict(latest_policy_after)
 
