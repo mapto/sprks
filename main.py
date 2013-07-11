@@ -26,6 +26,7 @@ import controllers.score
 import controllers.chronos
 import controllers.policy_history
 import controllers.incident
+import controllers.pwpolicy
 
 urls = (
         storage.path + '', controllers.home.home,
@@ -39,6 +40,7 @@ urls = (
         storage.path + '/score/multiple', controllers.score.multiple_score,
         storage.path + '/history', controllers.policy_history.history,
         storage.path + '/incident', controllers.incident.incident,
+        storage.path + '/policy/password', controllers.pwpolicy.pwpolicy,
 
         # APIs
         storage.path + '/api/user/account(/?)(.+)', controllers.user.account,
