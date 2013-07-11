@@ -28,4 +28,4 @@ class date_utils:
         """
         Converts ISO8601 date (YYYY-MM-DD) to datetime.date object.
         """
-        return datetime.datetime.strptime(datestamp, '%Y-%m-%d')
+        return (datetime.datetime.strptime(datestamp, '%Y-%m-%d')).date()

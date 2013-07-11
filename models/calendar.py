@@ -20,12 +20,12 @@ class calendar_model:
         for k, value in policy.iteritems():
             sim.set_policy(k, value)
 
-        validation = records().validate_ournal(cost, date, usrid)  #0-if validation failed, 1-otherwise
+        validation = records().validate_journal(cost, date, usrid)
 
         risk = sim.calc_risk_prob()
         cost = sim.calc_prod_cost()
 
-        calendar = records().update_journal(risk, usrid)  #inserts new events into journal
+        calendar = records.update_journal(usrid, risk)  #inserts new events into journal
 
         # dtt = datetime.strptime(date, "%Y/%m/%d")
         # string_time = dtt.strftime("%Y/%m/%d")

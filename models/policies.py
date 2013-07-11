@@ -56,6 +56,7 @@ class policies_model:
     """
     parses policy update sent by the client and returns it in the form {'desk': {'public': {'laptop': {'passfacepolicy': {}, 'biopolicy': {'bdata': 2}, 'pwpolicy': {'plen': 8, 'psets': 3}}, 'desktop': ...
     """
+
     def parse_policy(self, policyUpdate):
         policies = {}
         for update in policyUpdate:
@@ -151,11 +152,3 @@ class policies_model:
                             tmp_obj['data'] = deepcopy(data)
                     policies_list.append(deepcopy(tmp_obj))
         return policies_list
-
-
-if __name__ == "__main__":
-    policies = policies_model().get_latest_policy(4)
-    policy = policies_model().iter_to_dict(policies)
-    print policy
-        #for k in field:
-        #    print k

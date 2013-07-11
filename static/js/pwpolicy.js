@@ -11,7 +11,7 @@ var pwpolicy;
 function initPolicy() {
 
 
-    getInitPolicy();// request policy from server and write to pwpolicy var
+    submit_change();// request policy from server and write to pwpolicy var
 
 
 
@@ -65,7 +65,7 @@ function initPolicy() {
     window.nextSync = window.first_date;
     window.nextSync.setMonth(window.nextSync.getMonth()+2);
     window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear()+'/'+window.nextSync.getMonth()+'/'+window.nextSync.getDate();
+    window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
     window.id_elem = 'plen';
     //submit_change();
    // $('.target').change(submit_change);
@@ -119,6 +119,33 @@ function initPolicy() {
 
 }
 
+/****************UNCOMMENT if policy is initialised in a separate request
+function getInitPolicy(){
+    var msg = {};
+    msg.initPolicy = true;
+    console.log(msg);
+    var request = $.ajax({
+        url: "/api/chronos/sync",
+        type: "POST",
+        async: false,
+        data: JSON.stringify(msg),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success : function(data) {
+            pwpolicy = JSON.parse(data);
+            console.log(pwpolicy);
+            //$('#time').text(pwpolicy.date);
+        },
+        error: function(response) {
+            console.log("failed getInitPolicy: " + response.responseText);
+        }
+    });
+    return false;
+}
+
+*/
+
+/* deprecated methos for getting initial policy
 function getInitPolicy(){
     var request = jQuery.ajax({
         url: "/pwpolicy_rest", //function specified in incident.html
@@ -135,6 +162,8 @@ function getInitPolicy(){
     });
     return false;
 }
+*/
+
 
 function policyExists() {
         if (pwpolicy.notfound != 1){
@@ -215,22 +244,19 @@ function check_events() {
 
 
 function submit_change() { // need different event handling, to capture any change
-    var d = new Date();
     var msg = {};
-    //msg.userid = document.forms["input"]["userid"].value;
-    var new_policy = {};
-    var day = d.getDate() - 1; // Why is this -1? --Martin
+
+    if(policyUpdate.length>0){
     var strDate = $('#time').text();
-    msg.date = strDate;
-    msg.policyUpdate = policyUpdate;
-    msg.newCosts = calculate_cost_from_calendar();
-    msg.silentMode = false;
+        msg.date = strDate;
+        msg.policyUpdate = policyUpdate;
+        msg.newCosts = calculate_cost_from_calendar();
+        msg.silentMode = false;
+    }
     msg.initPolicy = true;
     console.log(msg);
-    //summarize_policy(new_policy); //update policy summary for user
-
     var request = $.ajax({
-        url: "/pwpolicy",
+        url: "/api/chronos/sync",
         type: "POST",
         async: false,
         data: JSON.stringify(msg),
@@ -238,15 +264,15 @@ function submit_change() { // need different event handling, to capture any chan
         dataType: "json",
         success: function (score) {
             console.log("test: " + JSON.stringify(score));
-            msg1 = score.msg1;
-            msg2 = score.msg2;
-            window.calendar = score.calendar;
+            //msg1 = score.msg1;
+            //msg2 = score.msg2;
+            //window.calendar = score.calendar;
 /*
             $(msg1).each(function (i) {
                 $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
             });
 */
-            visualize(msg2);
+            //visualize(msg2);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
