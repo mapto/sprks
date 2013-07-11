@@ -27,7 +27,7 @@ class chronos:
                 'messages': ['Unauthorized']
             })
 
-        sync_date = records.sync_history(context.user_id(), client_date, payload.get('newCosts'))
+        sync_date = records.sync_history(context.user_id(), client_date)
 
         policy_update = payload.get('policyUpdate')
 
@@ -55,7 +55,7 @@ class chronos:
 
             if payload.get('initPolicy', False):
                 # get user's policy data
-                response['policy'] = policies_model.get_latest_policy(context.user_id())
+                response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
 
             return json.dumps(response)
 

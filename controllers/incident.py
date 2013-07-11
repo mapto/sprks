@@ -26,5 +26,5 @@ class incident:
 class incident_rest:
 
     def GET(self):
-        last_policy = policies_model.get_latest_policy(context.user_id())
+        last_policy = policies_model.get_policy_history(context.user_id(), latest=True)
         return classifier_sklearn().predict_data(last_policy)[0]

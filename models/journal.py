@@ -66,9 +66,11 @@ class records:
         return whole_calendar
 
     @classmethod
-    def sync_history(self, user_id, client_date, new_costs):
+    def sync_history(self, user_id, client_date):
         """
         Synchronizes history where possible, and returns the date that the client should resume at.
+        The date returned should also be corrected so it can be checked whether a policy or event-triggered
+        recalculation should be performed.
         """
         last_sync_date = records.last_sync(user_id)
         if client_date <= last_sync_date:

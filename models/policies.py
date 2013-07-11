@@ -47,15 +47,6 @@ class policies_model:
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 27', vars=locals())
 
-    @classmethod
-    def get_latest_policy(cls, user_id):
-        """
-        Gets latest policy
-        :deprecated: Use get_policy_history() with latest=False
-        """
-        #return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
-        return cls.get_policy_history(user_id, latest=False)
-
     def parse_policy(self, policyUpdate):
         policies = {}
         for update in policyUpdate:
@@ -106,7 +97,7 @@ class policies_model:
 if __name__ == "__main__":
     policy = {}
     tmp = {}
-    res = policies_model.get_latest_policy(4)
+    res = policies_model.get_policy_history(4, latest=True)
     for row in res:
 #for row in res:
 #for k, v in row.iteritems():
