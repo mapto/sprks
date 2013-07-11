@@ -51,6 +51,7 @@ class account:
     def PUT(self, a, username=''):
         """
         Stores user details into database.
+        And, if needed, populates tables for first-time user
         """
         payload = json.loads(web.data())
         password = payload.get('password')
