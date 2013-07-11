@@ -552,33 +552,22 @@ $('#aut_num').change(function(){
     //remove all options
     //    <option value="" disabled selected>number</option>
 
-    var options = ['none set',
+    var options = ['none set',  // need to do -1 to get the rest of the values
                    'biometric',   //value:0
                    'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
-    if (this.value>0){
-        var s = $("<select  class=\"target\" id=\"authentication1\" name=\"autenthication1\" />");
+
+    for (var i = 0; i < this.value; i++) {  // use i+1, because indices in form start from 1
+        var s = $("<select class=\"target\" id=\"authentication" + (i+1) + "\" name=\"authentication" + (i+1) + "\" />");
         for(var val in options) {
             if (val == 0) {
-                $("<option disabled selected/>", {value: "", text: options[val]}).appendTo(s);
+                $("<option value=\"\" disabled selected>" + options[val] + "</option>").appendTo(s);
             } else {
                 $("<option />", {value: val - 1, text: options[val]}).appendTo(s);
             }
         }
-        s.appendTo("#aut1");
-        //create first authentication options set
-        if(this.value>1){
-            var s = $("<select class=\"target\" id=\"authentication2\" name=\"authentication2\" />");
-            for(var val in options) {
-                if (val == 0) {
-                    $("<option value=\"\" disabled selected/>", {text: options[val]}).appendTo(s);
-                } else {
-                    $("<option />", {value: val - 1, text: options[val]}).appendTo(s);
-                }
-            }
-            s.appendTo("#aut2");
-            //create second options set
-        }
+        s.appendTo("#aut" + (i+1));
+        //create second options set
     }
 
 });
