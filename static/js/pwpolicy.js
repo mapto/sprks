@@ -262,17 +262,14 @@ function submit_change() { // need different event handling, to capture any chan
         data: JSON.stringify(msg),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (score) {
-            console.log("test: " + JSON.stringify(score));
-            //msg1 = score.msg1;
-            //msg2 = score.msg2;
-            //window.calendar = score.calendar;
-/*
-            $(msg1).each(function (i) {
-                $("#" + msg1[i].name).text(verboseScore(msg1[i].value));
-            });
-*/
-            //visualize(msg2);
+        success: function (policy) {
+            console.log("policy: " + JSON.stringify(policy));
+            for (var key in policy){
+                if (key=='date'){                   //parse time
+                    $('#time').text(policy[key]);
+                }
+
+            }
         },
         error: function (response) {
             console.log("fail: " + response.responseText);

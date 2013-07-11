@@ -27,6 +27,8 @@ class chronos:
                 'messages': ['Unauthorized']
             })
 
+
+
         sync_date = records.sync_history(context.user_id(), client_date)
 
         policy_update = payload.get('policyUpdate')
@@ -58,5 +60,35 @@ class chronos:
                 response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
 
             return json.dumps(response)
+        """
 
+
+        response = {
+                'date': '2013-02-01',
+                'policyAccept': True,
+                'interventionAccept': True,
+                'calendar': [
+                    {
+                        # calendar
+                    }
+                ],
+                'policy': [
+                    {
+                        'employee': 'executive',
+                        'location': 'home',
+                        'device': 'mobile',
+                        'plen': 8,
+                        'psets': 2,
+                        'pdict': 0,
+                        'phist': 1,
+                        'prenew': 1,
+                        'pattempts': 0,
+                        'precovery': 1
+                    },
+                ]
+
+            }
+
+        return json.dumps(response)
+"""
 
