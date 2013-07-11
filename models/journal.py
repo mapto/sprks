@@ -19,7 +19,8 @@ class records:
         """
         Given user_id, returns the date of the most recent sync.
         """
-        return date_utils.iso8601_to_date(db.query('SELECT date FROM policies ORDER BY date DESC LIMIT 1')[0].date)
+#        return date_utils.iso8601_to_date(db.query('SELECT date FROM policies ORDER BY date DESC LIMIT 1')[0].date)
+        return db.query('SELECT date FROM policies ORDER BY date DESC LIMIT 1')[0].date
 
     @classmethod
     def first_due_event_day(cls, user_id, last_sync_date):
