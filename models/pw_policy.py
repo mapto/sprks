@@ -193,7 +193,7 @@ if __name__ == "__main__":
       'device': ['phone', 'desktop'],
       'policyDelta': {
            'pwpolicy': {'plen': 12,
-                'pdict': 'true'},
+                'pdict': 1},
            'passfacepolicy': {},
            'biopolicy': {}
       }

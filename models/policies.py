@@ -164,8 +164,21 @@ class policies_model:
                     policies_list.append(deepcopy(tmp_obj))
         return policies_list
 
+    """
+    Checks if password mechanism is used or not
+    """
+
     def check_default(self, policy):
-        return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+policy['pdict']+policy['prenew']
+        pdict = policy['pdict']
+        if pdict == 'true':
+            return 1
+        elif pdict == 'false':
+            pdict = 0
+        return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+pdict+policy['prenew']
+
+    """
+    Inserts separate row(policy) into table
+    """
 
     def insert_into_tables(self, policy, date):
         if self.check_default(policy) == 0:
@@ -177,6 +190,10 @@ class policies_model:
         db.insert('policies', user_id=4, location=policy['location'],
                               employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
                               pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
+
+    """
+    Inserts set of policies into table
+    """
 
     def insert_polices(self, policies, date):
         for policy in policies:
