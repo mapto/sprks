@@ -76,38 +76,45 @@ class policies_model:
         return policies
 
     @classmethod
-    def iter_to_dict(self, policies):
-        policy = {}
+    def iter_to_dict(self, policies, policy):
+
+        employee = policies['employee']
+        if not employee in policy.keys():
+            policy[employee] = {}
+        location = policies['location']
+        if not location in policy[employee].keys():
+            policy[employee][location] = {}
+        device = policies['device']
+        if not device in policy[employee][location].keys():
+            policy[employee][location][device] = {}
+        policy[employee][location][device]['pwpolicy'] = {}
+        policy[employee][location][device]['passfacepolicy'] = {}
+        policy[employee][location][device]['biopolicy'] = {}
         for key in policies:
             if key == 'bio_id' or key == 'pw_id' or key == 'date' or key == 'id' or key == 'pass_id':
                 continue
-            employee = policies['employee']
-            policy[employee] = {}
-            location = policies['location']
-            policy[employee][location] = {}
-            device = policies['device']
-            policy[employee][location][device] = {}
-            policy[employee][location][device]['pwpolicy'] = {}
-            policy[employee][location][device]['passfacepolicy'] = {}
-            policy[employee][location][device]['biopolicy'] = {}
-            if key is 'pdata':
+            if key == 'pdata':
                 policy[employee][location][device]['passfacepolicy'][key] = str(policies[key])
-            if key is 'bdata':
-                policy[employee][location][device]['biopolicy'][key] = policies[key]
+            if key == 'bdata':
+                policy[employee][location][device]['biopolicy'][key] = 1 #policies[key]
             if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or key == 'plen'\
                 or key == 'phist' or key == 'pattempts':
                 policy[employee][location][device]['pwpolicy'][key] = policies[key]
         return policy
 
 if __name__ == "__main__":
-    row = policies_model.get_latest_policy(4)[0]
+    policy = {}
+    tmp = {}
+    res = policies_model.get_latest_policy(4)
+    for row in res:
 #for row in res:
 #for k, v in row.iteritems():
 #    print k, v
     #print row
-    for field in row:
-        print field + ":" + str(row[field])
-    print policies_model.iter_to_dict(row)
-    print row['pdata']
+    #for field in row:
+     #   print field + ":" + str(row[field])
+        tmp = policies_model.iter_to_dict(row, policy)
+        policy = tmp
+    print policy
         #for k in field:
         #    print k
