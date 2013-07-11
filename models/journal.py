@@ -28,7 +28,7 @@ class records:
         Returns the date for the first event due after previous sync. If no event found, returns none.
         """
         # TODO
-        db.query('SELECT date FROM journal WHERE user_id=user_id AND committed=false AND date<$last_sync_day '
+        db.query('SELECT date FROM journal WHERE user_id=user_id AND committed=false AND date<$last_sync_date '
                  'GROUP BY date ORDER BY date DESC LIMIT 1', vars=locals())
 
     @classmethod
