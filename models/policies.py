@@ -37,7 +37,7 @@ class policies_model:
         Returns list of past policies set by user.
         """
 
-        restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=11) ' if latest else ''
+        restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=$user_id) ' if latest else ''
         return db.query(
             'SELECT * FROM policies '
             'LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id '

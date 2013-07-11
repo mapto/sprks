@@ -49,10 +49,9 @@ class chronos:
             # self.prophesize()
             # add new prophecy to journal
 
-        # calendar = get current month from journal
 
-        if not payload.get('silentMode', False):
-            response = {
+        # calendar = get current month from journal
+        response = {
                 'date': sync_date.isoformat(),
                 'policyAccept': True,
                 'interventionAccept': True,
@@ -61,18 +60,10 @@ class chronos:
                         # calendar
                     }
                 ]
-            }
-
-            if payload.get('initPolicy', False):
-                # get user's policy data
-                response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
-
-            return json.dumps(response)
-        """
-
-
-        response = {
-                'date': '2013-02-01',
+        }
+        if not payload.get('silentMode', False):
+            response = {
+                'date': '2013-02-06',
                 'policyAccept': True,
                 'interventionAccept': True,
                 'calendar': [
@@ -92,11 +83,15 @@ class chronos:
                         'prenew': 1,
                         'pattempts': 0,
                         'precovery': 1
-                    },
-                ]
-
+                    }
+                        ]
             }
+       # if payload.get('initPolicy', False):
+                # get user's policy data
+                #response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
+
+            #return json.dumps(response)
 
         return json.dumps(response)
-"""
+
 
