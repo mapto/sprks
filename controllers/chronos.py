@@ -33,18 +33,34 @@ class chronos:
 
         policy_update = payload.get('policyUpdate')
 
+        updated_policy = {}
+
+        if policy_update is not None:
+            updated_policy = policies_model().parse_policy()
+            latest_policy = policies_model().iter_to_nested_obj(policies_model().get_latest_policy(context.user_id()))
+            merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
+            print policies_model().nested_obj_to_list_of_dict(merged_policy)
+
         if sync_date.day == 1 and policy_update is not None:
             for policy_change in policy_update.iteritems():
                 policy_change
+        if sync_date.day == 1:
+            if policy_update is None:
+                # Expecting a policy update, but not found.
+                sync_date -= 1
+            else:
+                policies_model.commit_policy_update(policy_update)
 
+        if sync_date == records.next_due_event_day(context.user_id()):
+            pass
             # delete old prophecy
             # self.prophesize()
             # add new prophecy to journal
 
         # calendar = get current month from journal
 
-        if not payload.get('silentMode', False):
-            response = {
+        # calendar = get current month from journal
+        response = {
                 'date': sync_date.isoformat(),
                 'policyAccept': True,
                 'interventionAccept': True,
@@ -53,18 +69,10 @@ class chronos:
                         # calendar
                     }
                 ]
-            }
-
-            if payload.get('initPolicy', False):
-                # get user's policy data
-                response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
-
-            return json.dumps(response)
-        """
-
-
-        response = {
-                'date': '2013-02-01',
+        }
+        if not payload.get('silentMode', False):
+            response = {
+                'date': '2013-02-06',
                 'policyAccept': True,
                 'interventionAccept': True,
                 'calendar': [
@@ -84,11 +92,15 @@ class chronos:
                         'prenew': 1,
                         'pattempts': 0,
                         'precovery': 1
-                    },
-                ]
-
+                    }
+                        ]
             }
+       # if payload.get('initPolicy', False):
+                # get user's policy data
+                #response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
+
+            #return json.dumps(response)
 
         return json.dumps(response)
-"""
+
 

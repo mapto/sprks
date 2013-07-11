@@ -1,6 +1,8 @@
 from localsys.storage import db
+from sim.simulation import simulation
 from localsys import environment
 from copy import deepcopy
+
 
 class policies_model:
 
@@ -37,7 +39,7 @@ class policies_model:
         Returns list of past policies set by user.
         """
 
-        restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=11) ' if latest else ''
+        restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=$user_id) ' if latest else ''
         return db.query(
             'SELECT * FROM policies '
             'LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id '
@@ -46,16 +48,17 @@ class policies_model:
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 27', vars=locals())
 
-    def get_latest_policy(cls, user_id):
+    @classmethod
+    def commit_policy_update(cls, policy_update):
         """
-        Gets latest policy
+        Takes a direct dump of the policyUpdate object in the request JSON, and iterates through the transaction
+        logs, committing each policyDelta into the database.
+        Returns None
         """
-        #return db.query('SELECT * FROM policies LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.idpolicy WHERE policies.user_id =1 LIMIT 27', vars=locals())
-        return cls.get_policy_history(user_id, latest=False)
+        for policy_change in policy_update.iteritems():
+            # call parse_policy? TODO
+            pass
 
-    """
-    parses policy update sent by the client and returns it in the form {'desk': {'public': {'laptop': {'passfacepolicy': {}, 'biopolicy': {'bdata': 2}, 'pwpolicy': {'plen': 8, 'psets': 3}}, 'desktop': ...
-    """
 
     def parse_policy(self, policyUpdate):
         policies = {}
