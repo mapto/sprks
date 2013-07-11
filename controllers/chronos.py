@@ -33,10 +33,15 @@ class chronos:
 
         policy_update = payload.get('policyUpdate')
 
-        if sync_date.day == 1 and policy_update is not None:
-            for policy_change in policy_update.iteritems():
-                policy_change
+        if sync_date.day == 1:
+            if policy_update is None:
+                # Expecting a policy update, but not found.
+                sync_date -= 1
+            else:
+                policies_model.commit_policy_update(policy_update)
 
+        if sync_date == records.next_due_event_day(context.user_id()):
+            pass
             # delete old prophecy
             # self.prophesize()
             # add new prophecy to journal

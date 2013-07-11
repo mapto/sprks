@@ -1,7 +1,5 @@
-__author__ = 'admin'
-
 from localsys import storage
-from datetime import datetime
+from datetime import date
 from localsys.storage import db
 from localsys.environment import context
 from libraries.utils import date_utils
@@ -12,33 +10,9 @@ class records:
     def commit_history(self, date):
         user_id = context.user_id()
         result = db.update('journal', commited=1, where="date<$date&&user_id=$user_id", vars=locals())
+        # TODO create empty entry in journal noting a sync was performed
         return result
 
-    @classmethod
-    def last_sync(cls, user_id):
-        """
-        Given user_id, returns the date of the most recent sync.
-        """
-#        return date_utils.iso8601_to_date(db.query('SELECT date FROM policies ORDER BY date DESC LIMIT 1')[0].date)
-        return db.query('SELECT date FROM policies ORDER BY date DESC LIMIT 1')[0].date
-
-    @classmethod
-    def first_due_event_day(cls, user_id, last_sync_date):
-        """
-        Returns the date for the first event due after previous sync. If no event found, returns none.
-        """
-        # TODO
-        db.query('SELECT date FROM journal WHERE user_id=user_id AND committed=false AND date<$last_sync_date '
-                 'GROUP BY date ORDER BY date DESC LIMIT 1', vars=locals())
-
-    @classmethod
-    def policy_review_due(cls, client_date, last_sync_date):
-        """
-        Returns true if a policy review was due since the last sync.
-        """
-        # TODO handle new year
-        if (client_date.month - last_sync_date.month) > 0 or (client_date.year - last_sync_date.year) > 0:
-            pass
 
     @classmethod
     def clear_history(cls, user_id, date):
@@ -46,6 +20,40 @@ class records:
         Clears uncommitted entries in the journal for specified user_id on or after the specified date.
         """
         db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars(locals()))
+
+    @classmethod
+    def last_sync(cls, user_id):
+        """
+        Given user_id, returns the date of the most recent sync. If no previous
+        """
+        result = db.query('SELECT date FROM policies WHERE user_id=$user_id AND committed=true '
+                          'ORDER BY date DESC LIMIT 1', vars=locals())
+        if len(result) > 0:
+            return date_utils.iso8601_to_date(result[0].date)
+        return None
+
+    @classmethod
+    def next_due_event_day(cls, user_id):
+        """
+        Given user_id, returns the date for the first event due after previous sync. If no event found, returns none.
+        """
+        result = db.query('SELECT date FROM journal WHERE user_id=$user_id AND committed=false '
+                 'GROUP BY date ORDER BY date ASC LIMIT 1', vars=locals())
+        if len(result) > 0:
+            return date_utils.iso8601_to_date(result[0].date)
+        return None
+
+    @classmethod
+    def next_due_policy_day(cls, last_sync_date):
+        """
+        Returns next day that policy review is due since the last sync.
+        """
+        month = last_sync_date.month + 1
+        if month > 12:
+            return date(last_sync_date.year+1, month-12, 1)
+        else:
+            return date(last_sync_date.year, month, 1)
+
 
     @classmethod
     def update_journal(self, userid, risk):
@@ -81,11 +89,11 @@ class records:
         else:
             # The client is ahead of the server date.
 
-            records.first_due_event_day(user_id, last_sync_date)
+            records.next_due_event_day(user_id)
             # if any events were skipped, go to the day of the first missed event
 
             # if policy update is due, go to first day of new month
 
-            records.policy_review_due(client_date, last_sync_date)
+            records.next_due_policy_day(last_sync_date)
 
             return client_date

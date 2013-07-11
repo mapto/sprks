@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 10, 2013 at 05:22 AM
--- Server version: 5.5.24-log
--- PHP Version: 5.4.3
+-- Generation Time: Jul 11, 2013 at 04:42 PM
+-- Server version: 5.6.12
+-- PHP Version: 5.4.12
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `sprks`
 --
+CREATE DATABASE IF NOT EXISTS `sprks` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `sprks`;
 
 -- --------------------------------------------------------
 
@@ -41,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `biometrics` (
 CREATE TABLE IF NOT EXISTS `journal` (
   `user_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `incident_id` int(11) NOT NULL,
-  `cost` int(11) NOT NULL,
+  `incident_id` int(11) DEFAULT NULL,
+  `cost` int(11) DEFAULT NULL,
   `commited` tinyint(1) NOT NULL,
   KEY `user_id_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `pw_policy` (
   `pattempts` tinyint(4) NOT NULL,
   `precovery` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -126,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`idscores`),
   KEY `userid_idx` (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -153,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(70) NOT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables
