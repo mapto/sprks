@@ -24,8 +24,9 @@ class records:
     @classmethod
     def last_sync(cls, user_id):
         """
-        Given user_id, returns the date of the most recent sync. If no previous
+        Given user_id, returns the date of the most recent sync.
         """
+
         result = db.query('SELECT date FROM policies WHERE user_id=$user_id '
                           'ORDER BY date DESC LIMIT 1', vars=locals())
         if len(result) > 0:
@@ -34,7 +35,7 @@ class records:
         return None
 
     @classmethod
-    def next_due_event_day(cls, user_id):
+    def next_due_event_date(cls, user_id):
         """
         Given user_id, returns the date for the first event due after previous sync. If no event found, returns none.
         """
@@ -45,7 +46,7 @@ class records:
         return None
 
     @classmethod
-    def next_due_policy_day(cls, last_sync_date):
+    def next_due_policy_date(cls, last_sync_date):
         """
         Returns next day that policy review is due since the last sync.
         """
@@ -92,11 +93,11 @@ class records:
         else:
             # The client is ahead of the server date.
 
-            records.next_due_event_day(user_id)
+            records.next_due_event_date(user_id)
             # if any events were skipped, go to the day of the first missed event
 
             # if policy update is due, go to first day of new month
 
-            records.next_due_policy_day(last_sync_date)
+            records.next_due_policy_date(last_sync_date)
 
             return client_date

@@ -88,30 +88,7 @@ function initPolicy() {
 
     // contains elements in the following order:
 
-    $("#len" + pwpolicy["plen"]).prop('checked', true);
 
-    /*preset pswd sets value*/
-    console.log("found sets " + pwpolicy["psets"]);
-    $("#sets" + pwpolicy["psets"]).prop('checked', true);
-
-    /*preset pswd dictionary value*/
-    console.log("found " + (pwpolicy["pdict"] ? "use" : "no") + " dict");
-    $("#dic").prop('checked', pwpolicy["pdict"] == 1);
-
-    console.log("found phist difficulty " + pwpolicy["phist"]);
-    $("#hist" + pwpolicy["phist"]).prop('checked', true);
-
-    console.log("found renew " + pwpolicy["prenew"]);
-    $("#renew" + pwpolicy["prenew"]).prop('checked', true);
-
-    /*preset pswd attempts number check (yes/no)*/
-    /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
-    console.log("found attempts " + pwpolicy["prenew"]);
-    $("#renew" + pwpolicy["pattempts"]).prop('checked', true);
-
-    /*preset pswd recovery option*/
-    console.log("found precovery " + pwpolicy["precovery"]);
-    $("#recovery" + pwpolicy["precovery"]).prop('checked', true);
 
     console.log("Policy initialized...");
 
@@ -242,8 +219,6 @@ function check_events() {
 
 }
 
-var response; // TODO remove, because used only for dev purposes
-
 function get_factors(policy) {
     var factors = [];
 
@@ -259,6 +234,83 @@ function get_factors(policy) {
     }
 
     return factors;
+}
+
+function update_password_form(policy) {
+    var plen = policy["plen"];
+    console.log("found plen " + plen);
+    $("#len" + plen).prop("checked", true);
+
+    // TODO: implement (copy from other place) other pwpolicy items
+    /*preset pswd sets value*/
+    console.log("found sets " + policy["psets"]);
+    $("#sets" + policy["psets"]).prop('checked', true);
+
+    /*preset pswd dictionary value*/
+    console.log("found " + (policy["pdict"] ? "use" : "no") + " dict");
+    $("#dic").prop('checked', policy["pdict"] == 1);
+
+    console.log("found phist difficulty " + policy["phist"]);
+    $("#hist" + policy["phist"]).prop('checked', true);
+
+    console.log("found renew " + policy["prenew"]);
+    $("#renew" + policy["prenew"]).prop('checked', true);
+
+    /*preset pswd attempts number check (yes/no)*/
+    /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
+    console.log("found attempts " + policy["pattempts"]);
+    $("#pattempts" + policy["pattempts"]).prop('checked', true);
+
+    /*preset pswd recovery option*/
+    console.log("found precovery " + policy["precovery"]);
+    $("#recovery" + policy["precovery"]).prop('checked', true);
+}
+
+function update_biometric_form(policy) {
+    $("#biometric").val(policy["bdata"]);
+}
+
+function update_passfaces_form(policy) {
+    $("#passfaces").val(policy["pdata"]);
+}
+
+function display_contextualized_policy(contextualized) {
+    var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
+
+    emp = contextualized['employee'];
+    // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+    $("#" + emp).prop('checked', true);
+
+    loc = contextualized['location'];
+    // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+    $("#" + loc).prop('checked', true);
+
+    dev = contextualized['device'];
+    // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+    $("#" + dev).prop('checked', true);
+    // TODO: handle policy for more than one environment (emp, loc, dev)
+
+    factors = get_factors(contextualized);
+
+    $("#aut_num").val(factors.length);
+    $("#aut_num").change(); // have to do it manually, previous line doesn't call it
+
+    for (var i = 0; (i < factors.length) && (i < 2); i++) {
+        $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
+        $("#authentication" + (i+1)).change();
+
+        // dynamically compose name of function and call it
+        var fname = "update_" + factors[i] + "_form";  // compose function name
+        window[fname](contextualized); // call function fname with parameter contextualized
+    }
+
+}
+
+function update_policy(policy) {
+    $('#time').text(policy['date']);
+
+    // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
+    display_contextualized_policy(policy['policy'][0]);
 }
 
 function submit_change() { // need different event handling, to capture any change
@@ -280,38 +332,7 @@ function submit_change() { // need different event handling, to capture any chan
         data: JSON.stringify(msg),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (policy) {
-            var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
-
-            console.log("policy: " + JSON.stringify(policy));
-
-            response = policy;
-            $('#time').text(policy['date']);
-
-            emp = policy['policy'][0]['employee'];
-            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
-            $("#" + emp).prop('checked', true);
-
-            loc = policy['policy'][0]['location'];
-            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
-            $("#" + loc).prop('checked', true);
-
-            dev = policy['policy'][0]['device'];
-            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
-            $("#" + dev).prop('checked', true);
-            // TODO: handle policy for more than one environment (emp, loc, dev)
-
-            factors = get_factors(policy['policy'][0]);
-
-            $("#aut_num").val(factors.length);
-            $("#aut_num").change(); // have to do it manually, previous line doesn't call it
-
-            for (var i = 0; (i < factors.length) || (i < 2); i++) {
-                $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
-                $("#authentication" + (i+1)).change();
-            }
-
-        },
+        success: update_policy,
         error: function (response) {
             console.log("fail: " + response.responseText);
         }
