@@ -11,7 +11,7 @@ class records:
 
     @classmethod
     def commit_history(cls, user_id, date):
-        result = db.update('journal', commited=True, where="date<$date&&user_id=$user_id", vars=locals())
+        result = db.update('journal', commited=1, where="date<$date&&user_id=$user_id", vars=locals())
         return result
 
     @classmethod
