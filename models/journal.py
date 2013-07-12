@@ -4,6 +4,7 @@ from localsys.storage import db
 from localsys.environment import context
 from libraries.utils import date_utils
 from datetime import timedelta
+import datetime
 
 
 class records:
@@ -18,7 +19,7 @@ class records:
         """
         Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
-        db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars(locals()))
+        db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars=locals())
 
     @classmethod
     def last_sync(cls, user_id):
@@ -82,24 +83,25 @@ class records:
         """
         For a given risk, generates new prophecies and stores in journal for given user_id.
         """
+        pass
         # TODO doesn't work!!!
         # calendar = chronos.prophesize(risk)["prophecy"]
-        calendar = cls.default_calendar["calendar"]
-        whole_calendar = cls.default_calendar
-        for dates in calendar:
-            for key in dates:
-                date = ""
-                cost = ""
-                inc_id = ""
-                if key == 'date':
-                    date = dates[key]
-                    dtt = date
-                else:
-                    for event in dates[key]:
-                        inc_id = event['incdt_id']
-                        cost = event['cost']
-                        db.insert('journal', user_id=user_id, date=date, cost=cost, incident_id=inc_id, commited=0)
-        return whole_calendar
+        # calendar = cls.default_calendar["calendar"]
+        # whole_calendar = cls.default_calendar
+        # for dates in calendar:
+        #     for key in dates:
+        #         date = ""
+        #         cost = ""
+        #         inc_id = ""
+        #         if key == 'date':
+        #             date = dates[key]
+        #             dtt = date
+        #         else:
+        #             for event in dates[key]:
+        #                 inc_id = event['incdt_id']
+        #                 cost = event['cost']
+        #                 db.insert('journal', user_id=user_id, date=date, cost=cost, incident_id=inc_id, commited=0)
+        # return whole_calendar
 
     @classmethod
     def get_calendar(cls, user_id, sync_date):
@@ -110,16 +112,32 @@ class records:
         :param sync_date:
         """
 
-        start_date = date(sync_date.year, sync_date.month, 1)
+        start_date = datetime.date(sync_date.year, sync_date.month, 1)
 
         end_date = (start_date + timedelta(days=32)).replace(day=1)
 
         raw_calendar = db.query('SELECT * FROM journal '
                                 'WHERE user_id=$user_id AND date>=$start_date AND date<$end_date', vars=locals())
+
         calendar = {}
+        # Converts database results into dictionary
         for event in raw_calendar.iteritems():
-            if event.date in calendar:
-                pass
+            if event.date not in calendar:
+                calendar[event.date] = {
+                    'date': event.date.isoformat(),
+                    'events': []
+                }
+            calendar[event.date].events.append({
+                'incdt_id': event.incident_id,
+                'cost': event.cost
+            })
+
+        calendar_array = []
+        # Converts calendar dictionary into array
+        for date, agenda in sorted(calendar.iteritems()):
+            calendar_array.append(agenda)
+
+        return calendar_array
 
     @classmethod
     def sync_history(cls, user_id, client_date):
