@@ -154,7 +154,11 @@ class records:
         next_sync_date = records.next_sync(user_id, last_sync_date)
         if client_date >= next_sync_date:
             # Client is ahead of the next predicted sync date.
-            return next_sync_date
+            corrected_sync_date = next_sync_date
+        else:
+            # Client is at an arbitrary date between next_sync_date and last_sync_date for some weird reason.
+            corrected_sync_date = client_date
 
-        # Client is at an arbitrary date between next_sync_date and last_sync_date for no apparent reason. Do nothing.
-        return client_date
+        cls.commit_history(user_id, corrected_sync_date)
+
+        return corrected_sync_date
