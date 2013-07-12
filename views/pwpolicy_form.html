@@ -212,32 +212,32 @@ $var title: Policy
     <br/>
     <input type="radio"
            name="phist"
-           id="hist1"
+           id="hist0"
            class="target"
            value="0"
            checked="checked"/>
-    <label for="hist1">none</label>
+    <label for="hist0">none</label>
+    <br/>
+    <input type="radio"
+           name="phist"
+           id="hist1"
+           class="target"
+           value="1"/>
+    <label for="hist1">minimum check (1 past password, exact match) </label>
     <br/>
     <input type="radio"
            name="phist"
            id="hist2"
            class="target"
-           value="1"/>
-    <label for="hist2">minimum check (1 past password, exact match) </label>
+           value="2"/>
+    <label for="hist2">strict check (3 past passwords, string distance of 1) </label>
     <br/>
     <input type="radio"
            name="phist"
            id="hist3"
            class="target"
-           value="2"/>
-    <label for="hist3">strict check (3 past passwords, string distance of 1) </label>
-    <br/>
-    <input type="radio"
-           name="phist"
-           id="hist4"
-           class="target"
            value="3"/>
-    <label for="hist4">extreme check (10 past passwords, string distance of 2)</label>
+    <label for="hist3">extreme check (10 past passwords, string distance of 2)</label>
     <br/><br/>
     <label>* string distance: how many letters are needed to be changed to obtain the same password<br/></label>
     <br/>
@@ -250,32 +250,32 @@ $var title: Policy
     <br/>
     <input type="radio"
            name="prenew"
-           id="renew1"
+           id="renew0"
            class="target"
            value="0"
            checked="checked"/>
-    <label for="renew1">never renew the password</label>
+    <label for="renew0">never renew the password</label>
+    <br/>
+    <input type="radio"
+           name="prenew"
+           id="renew1"
+           class="target"
+           value="1"/>
+    <label for="renew1">annual renewal</label>
     <br/>
     <input type="radio"
            name="prenew"
            id="renew2"
            class="target"
-           value="1"/>
-    <label for="renew2">annual renewal</label>
+           value="2"/>
+    <label for="renew2">renew quarterly</label>
     <br/>
     <input type="radio"
            name="prenew"
            id="renew3"
            class="target"
-           value="2"/>
-    <label for="renew3">renew quarterly</label>
-    <br/>
-    <input type="radio"
-           name="prenew"
-           id="renew4"
-           class="target"
            value="3"/>
-    <label for="renew4">renew monthly</label>
+    <label for="renew3">renew monthly</label>
     <br/><br/>
 
 <div class="graph" id="graph_prenew"></div>
@@ -286,25 +286,25 @@ $var title: Policy
     <br/>
     <input type="radio"
            name="pattempts"
-           id="attempts1"
+           id="attempts0"
            class="target"
            value="0"
            checked="checked"/>
-    <label for="attempts1">no limit to attempts</label>
+    <label for="attempts0">no limit to attempts</label>
+    <br/>
+    <input type="radio"
+           name="pattempts"
+           id="attempts1"
+           class="target"
+           value="1"/>
+    <label for="attempts1">10 login attempts</label>
     <br/>
     <input type="radio"
            name="pattempts"
            id="attempts2"
            class="target"
-           value="1"/>
-    <label for="attempts2">10 login attempts</label>
-    <br/>
-    <input type="radio"
-           name="pattempts"
-           id="attempts3"
-           class="target"
            value="2"/>
-    <label for="attempts3">3 login attempts</label>
+    <label for="attempts2">3 login attempts</label>
     <br/><br/>
 
 <div class="graph" id="graph_pattempts"></div>
@@ -315,25 +315,25 @@ $var title: Policy
     <br/>
     <input type="radio"
            name="precovery"
-           id="recovery1"
+           id="recovery0"
            class="target"
            value="0"
            checked="checked"/>
-    <label for="recovery1">second e-mail for recovery letter</label>
+    <label for="recovery0">second e-mail for recovery letter</label>
+    <br/>
+    <input type="radio"
+           name="precovery"
+           id="recovery1"
+           class="target"
+           value="1"/>
+    <label for="recovery1">secret question</label>
     <br/>
     <input type="radio"
            name="precovery"
            id="recovery2"
            class="target"
-           value="1"/>
-    <label for="recovery2">secret question</label>
-    <br/>
-    <input type="radio"
-           name="precovery"
-           id="recovery3"
-           class="target"
            value="2"/>
-    <label for="recovery3">transaction questions</label>
+    <label for="recovery2">transaction questions</label>
     <br/>
 <br/><br/>
 <div class="graph" id="graph_precovery"></div>
