@@ -1,4 +1,4 @@
-from localsys import storage
+from localsys import environment
 from datetime import date
 from localsys.storage import db
 from localsys.environment import context
@@ -26,10 +26,11 @@ class records:
         """
         Given user_id, returns the date of the most recent sync. If no previous
         """
-        result = db.query('SELECT date FROM policies WHERE user_id=$user_id AND committed=true '
+        result = db.query('SELECT date FROM policies WHERE user_id=$user_id '
                           'ORDER BY date DESC LIMIT 1', vars=locals())
         if len(result) > 0:
-            return date_utils.iso8601_to_date(result[0].date)
+            #return date_utils.iso8601_to_date(result[0].date)
+            return result[0].date
         return None
 
     @classmethod
@@ -83,6 +84,8 @@ class records:
         recalculation should be performed.
         """
         last_sync_date = records.last_sync(user_id)
+        if last_sync_date == None:
+            return environment.get_start_time()
         if client_date <= last_sync_date:
             # Client behind the server
             return last_sync_date

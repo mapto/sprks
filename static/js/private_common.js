@@ -66,6 +66,9 @@ function initFrame () {
 
             var tmp = new Date(window.date);
             var addHours = 24;
+            var addDays = 1;
+
+            //tmp.setDate(tmp.getDate()+addDays);
             tmp.setHours(tmp.getHours()+addHours);
 
             var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();

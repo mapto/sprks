@@ -7,6 +7,7 @@ from localsys.storage import path
 from models.users import users_model
 from models.policies import policies_model
 from libraries.utils import hash_utils
+from models.journal import records
 
 
 class account:
