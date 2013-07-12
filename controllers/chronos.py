@@ -48,7 +48,7 @@ class chronos:
         if event_accept or policy_accept:
             records.clear_prophecy(context.user_id(), corrected_sync_date)
             # TODO get prophecy for multiple risks
-            records.record_prophecy(context.user_id(), simulation().calc_risk_prob())
+            #records.record_prophecy(context.user_id(), simulation().calc_risk_prob())
 
         response = {
             'date': corrected_sync_date.isoformat(),
