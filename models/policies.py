@@ -110,7 +110,7 @@ class policies_model:
         updated_policy = policies_model().parse_policy(policy_update)
         print "done"
         print "getting latest policy from db..."
-        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(4))
+        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
         print "done"
         print "merging policies..."
         merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
@@ -244,7 +244,7 @@ class policies_model:
             id_pwpolicy = db.insert('pw_policy', plen=policy['plen'], psets=policy['psets'], pdict=policy['pdict'],
                                     phist=policy['phist'], prenew=policy['prenew'], pattempts=policy['pattempts'],
                                     precovery=policy['precovery'])
-        db.insert('policies', user_id=4, location=policy['location'],
+        db.insert('policies', user_id=context.user_id(), location=policy['location'],
                               employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
                               pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
 
