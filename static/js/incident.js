@@ -7,29 +7,13 @@
  */
 
 var incident;
-var incident_name;
 function initIncident(){
-    window.timer1 = setInterval(function(){alert("Hello")},5000);
+//    window.timer1 = setInterval(function(){alert("Hello")},5000);
 
     get_incident_name();
-
-    var request = jQuery.ajax({
-        url: get_filename(), //function specified in incident.html
-        type: "GET",
-        success : function(data) {
-            incident = JSON.parse(data);
-            $(".incident_box").each(function(){
-                $(this).text(incident[ ($(this).attr('id')) ]);
-            });
-        },
-        error: function(response) {
-            console.log("fail: " + response.responseText);
-        }
-    });
-    return false;
 }
 
-function get_filename(){
+function get_filename(incident_name){
         var filename = '/static/incidents/'+incident_name+'.json';
         return filename;
     }
@@ -39,9 +23,7 @@ function get_incident_name(){
         url: "/incident_rest", //function specified in incident.html
         type: "GET",
         async:false,
-        success : function(name) {
-            incident_name = name;
-        },
+        success : get_incident_data,
         error: function(response) {
             console.log("fail: " + response.responseText);
         }
@@ -49,3 +31,19 @@ function get_incident_name(){
     return false;
 }
 
+function get_incident_data(name) {
+    var request = jQuery.ajax({
+        url: get_filename(name), //function specified in incident.html
+        type: "GET",
+        success : function(incident) {
+            $(".incident_box").each(function(){
+                $(this).text(incident[ ($(this).attr('id')) ]);
+            });
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+
+}

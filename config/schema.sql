@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `journal` (
   `date` date NOT NULL,
   `incident_id` int(11) DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
-  `commited` tinyint(1) NOT NULL,
+  `committed` tinyint(1) NOT NULL,
   KEY `user_id_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `password_recovery` (
 --
 
 CREATE TABLE IF NOT EXISTS `policies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_policy` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `location` varchar(45) NOT NULL,
   `employee` varchar(45) NOT NULL,
@@ -190,11 +190,3 @@ ALTER TABLE `scores`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-ALTER TABLE `sprks`.`policies` CHANGE COLUMN `id` `id_policy` INT(11) NOT NULL AUTO_INCREMENT  ;
-
-/*What a shame*/
-ALTER TABLE `sprks`.`journal` CHANGE COLUMN `commited` `committed` TINYINT(4) NOT NULL  ;
-
-

@@ -28,7 +28,8 @@ class classifier_sklearn:
 
     def predict_data(self, data):
         datapoints = pw_policy.policy2datapoint(data)
-        return self.predict_datapoint(datapoints)
+        result = self.predict_datapoint(datapoints)
+        return result
 
     def predict_datapoint(self, datapoints):
         greatest = None

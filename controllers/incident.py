@@ -27,4 +27,7 @@ class incident_rest:
 
     def GET(self):
         last_policy = policies_model.get_policy_history(context.user_id(), latest=True)
+        # TODO here taking only the first one. should actually handle all 27 (3x3x3) of them
+        last_policy = last_policy[0]
+        print classifier_sklearn().predict_data(last_policy)[0]
         return classifier_sklearn().predict_data(last_policy)[0]
