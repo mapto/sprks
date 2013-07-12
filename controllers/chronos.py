@@ -88,9 +88,9 @@ class chronos:
                     }
                         ]
             }
-       # if payload.get('initPolicy', False):
+        if payload.get('initPolicy', False):
                 # get user's policy data
-                #response['policy'] = policies_model.get_policy_history(context.user_id(), latest=True)
+                response['policy'] = policies_model().get_policies_list(context.user_id())['policy']
 
             #return json.dumps(response)
 

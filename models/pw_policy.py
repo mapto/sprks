@@ -229,5 +229,7 @@ if __name__ == "__main__":
         #print model.get_latest_policy(4)[1]
 
         print "latest_policy after", model.nested_obj_to_list_of_dict(latest_policy_after)"""
-    model.commit_policy_update(policyUpdate, '2014-02-15')
-    #print model.parse_policy(policyUpdate)
+    #model.commit_policy_update(policyUpdate, '2014-02-15')
+    #print model.nested_obj_to_list_of_dict(model.iter_to_nested_obj(model.get_policy_history(4)))
+    #print model.get_policy_history(4)[0]
+    print model.get_policies_list(4)

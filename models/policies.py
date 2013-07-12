@@ -177,12 +177,12 @@ class policies_model:
         Inserts separate row(policy) into table
         """
 
-        pdict = policy['pdict']
+        """ pdict = policy['pdict']
         if pdict == 'true':
             return 1
         elif pdict == 'false':
-            pdict = 0
-        return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+pdict+policy['prenew']
+            pdict = 0"""
+        return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+policy['pdict']+policy['prenew']
 
 
 
@@ -206,4 +206,26 @@ class policies_model:
         for policy in policies:
             self.insert_into_tables(policy['data'], date)
             #print policy
+
+    def get_policies_list(self, user_id):
+        latest_policies = self.get_policy_history(user_id)
+        policy = {}
+        policies = []
+        date = latest_policies[0].date
+        for row in latest_policies:
+            for key, value in row.iteritems():
+                if key == 'id_policy' or key == 'bio_id' or key == 'pw_id' or key == 'id' or key == 'user_id' or \
+                                key == 'pass_id' or key == 'date':
+                    continue
+                policy[key] = value
+            policies.append(policy)
+        response = {'policyAccept': True,
+                    'interventionAccept': True,
+                    'calendar': [{}],
+                    'polciy': policies,
+                    'date': date
+                    }
+        return response
+
+
 
