@@ -37,6 +37,8 @@ class policies_model:
     def get_policy_history(cls, user_id, latest=False):
         """
         Returns list of past policies set by user.
+        :param user_id: user_id of user to get policies for
+        :param latest: flag limits to only getting the latest set of policies
         """
 
         restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=$user_id) ' if latest else ''
@@ -54,6 +56,8 @@ class policies_model:
         Takes a direct dump of the policyUpdate object in the request JSON, and iterates through the transaction
         logs, committing each policyDelta into the database.
         Returns None
+        :param policy_update:
+        :param date:
         """
         print "parsing update policy..."
         updated_policy = policies_model().parse_policy(policy_update)
@@ -69,6 +73,9 @@ class policies_model:
 
 
     def parse_policy(self, policyUpdate):
+        """
+        converts data from the database into nested object format
+        """
         policies = {}
         for update in policyUpdate:
             for empl in update['employee']:
@@ -88,11 +95,11 @@ class policies_model:
                             #policies[empl][loc][dev][key] = value
         return policies
 
-    """
-    converts data from the database into nested object format
-    """
-
     def iter_to_nested_obj(self, res):
+        """
+        Merges two policies
+        :param res:
+        """
         policy = {}
         for policies in res:
             employee = policies['employee']
@@ -120,11 +127,12 @@ class policies_model:
                     policy[employee][location][device]['pwpolicy'][key] = policies[key]
         return policy
 
-    """
-    Merges two policies
-    """
-
     def merge_policies(self, updated_policy, old_policy):
+        """
+        converts nested object into list of dictionaries
+        :param updated_policy:
+        :param old_policy:
+        """
         tmp_policy = deepcopy(old_policy)
         for employee in updated_policy:
                 for location in updated_policy[employee]:
@@ -138,11 +146,11 @@ class policies_model:
                                         tmp_policy[employee][location][device][policy][key] = value
         return tmp_policy
 
-    """
-    converts nested object into list of dictionaries
-    """
-
     def nested_obj_to_list_of_dict(self, policies):
+        """
+        Checks if password mechanism is used or not
+        :param policies:
+        """
         #tmp_obj = {}
         policies_list = []
        # data = {}
@@ -164,11 +172,11 @@ class policies_model:
                     policies_list.append(deepcopy(tmp_obj))
         return policies_list
 
-    """
-    Checks if password mechanism is used or not
-    """
-
     def check_default(self, policy):
+        """
+        Inserts separate row(policy) into table
+        """
+
         pdict = policy['pdict']
         if pdict == 'true':
             return 1
@@ -176,11 +184,12 @@ class policies_model:
             pdict = 0
         return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+pdict+policy['prenew']
 
-    """
-    Inserts separate row(policy) into table
-    """
+
 
     def insert_into_tables(self, policy, date):
+        """
+        Inserts set of policies into table
+        """
         if self.check_default(policy) == 0:
             id_pwpolicy = 0
         else:
@@ -191,9 +200,7 @@ class policies_model:
                               employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
                               pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
 
-    """
-    Inserts set of policies into table
-    """
+
 
     def insert_polices(self, policies, date):
         for policy in policies:

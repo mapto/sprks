@@ -37,9 +37,6 @@ class chronos:
             policies_model().commit_policy_update(policy_update, client_date)
 
 
-        if sync_date.day == 1 and policy_update is not None:
-            for policy_change in policy_update.iteritems():
-                policy_change
         if sync_date.day == 1:
             if policy_update is None:
                 # Expecting a policy update, but not found.
@@ -47,7 +44,7 @@ class chronos:
             else:
                 policies_model.commit_policy_update(policy_update)
 
-        if sync_date == records.next_due_event_day(context.user_id()):
+        if sync_date == records.next_due_event_date(context.user_id()):
             pass
             # delete old prophecy
             # self.prophesize()
