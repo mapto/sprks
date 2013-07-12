@@ -295,7 +295,7 @@ function display_contextualized_policy(contextualized) {
     $("#aut_num").val(factors.length);
     $("#aut_num").change(); // have to do it manually, previous line doesn't call it
 
-    for (var i = 0; (i < factors.length) || (i < 2); i++) {
+    for (var i = 0; (i < factors.length) && (i < 2); i++) {
         $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
         $("#authentication" + (i+1)).change();
 
