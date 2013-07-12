@@ -34,6 +34,10 @@ CREATE TABLE IF NOT EXISTS `biometrics` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+insert into biometrics values(0,0);
+insert into biometrics values(1,1);
+insert into biometrics values(2,2);
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +65,9 @@ CREATE TABLE IF NOT EXISTS `passfaces` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+insert into passfaces values(0,0);
+insert into passfaces values(1,1);
+insert into passfaces values(2,2);
 -- --------------------------------------------------------
 
 --
@@ -113,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `pw_policy` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+insert into pw_policy values(0,8,2,0,1,1,0,1);
 -- --------------------------------------------------------
 
 --

@@ -2,6 +2,8 @@ from localsys.storage import db
 from localsys import environment
 from copy import deepcopy
 from localsys.environment import context
+from pprint import pprint
+
 
 
 class policies_model:
@@ -49,6 +51,51 @@ class policies_model:
             'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.id '
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 27', vars=locals())
+
+    @classmethod
+    def policies_equal(cls, policy1, policy2):
+        skipped = ["user_id", "bio_id", "pw_id", "pass_id", "date", "employee", "device", "location", "id_policy"]
+        for key in policy1:
+            if key in skipped:
+                continue
+            if policy1[key] != policy2[key]:
+                return False
+
+        return True
+
+    @classmethod
+    def get_compressed_policy(cls, user_id):
+        policies = policies_model.get_policy_history(user_id, latest=True)
+        skipped = ["user_id", "bio_id", "pw_id", "pass_id", "date", "employee", "device", "location", "id_policy"]
+        environmental = ["employee", "location", "device"]
+
+        env = {}
+        added = False
+        for new_policy in policies:
+            for key in env:
+                stored_policy = env[key]
+                #TODO handle logic for multiple env vars(i.e. locations/devices/employees)
+                if policies_model.policies_equal(new_policy, stored_policy):
+                    for next in environmental:
+                        if new_policy[next] not in stored_policy[next]:
+                            stored_policy[next].add(new_policy[next])
+                    added = True
+                    break
+
+            if not added:
+                i = int(new_policy['id_policy'])
+                env[i] = {}
+                for key in new_policy:
+                    if key in skipped:
+                        continue
+                    env[i][key] = new_policy[key]
+                print env[i]
+                env[i]['employee'] = [new_policy['employee']]
+                env[i]['location'] = [new_policy['location']]
+                env[i]['device'] = [new_policy['device']]
+
+
+        return env
 
     @classmethod
     def commit_policy_update(cls, policy_update, date):
@@ -234,3 +281,5 @@ class policies_model:
 
 
 
+if __name__ == "__main__":
+    print policies_model.get_compressed_policy(1)
