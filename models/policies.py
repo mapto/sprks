@@ -160,15 +160,15 @@ class policies_model:
                 policy[employee][location][device] = {}
             policy[employee][location][device]['id'] = policies['id_policy']
             policy[employee][location][device]['pwpolicy'] = {}
-            policy[employee][location][device]['passfacepolicy'] = {}
-            policy[employee][location][device]['biopolicy'] = {}
+            policy[employee][location][device]['passfaces'] = {}
+            policy[employee][location][device]['biometric'] = {}
             for key in policies:
                 if key == 'bio_id' or key == 'pw_id' or key == 'date' or key == 'id_policy' or key == 'pass_id':
                     continue
                 if key == 'pdata':
-                    policy[employee][location][device]['passfacepolicy'][key] = str(policies[key])
+                    policy[employee][location][device]['passfaces'][key] = str(policies[key])
                 if key == 'bdata':
-                    policy[employee][location][device]['biopolicy'][key] = policies[key]
+                    policy[employee][location][device]['biometric'][key] = policies[key]
                 if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or key == 'plen'\
                     or key == 'phist' or key == 'pattempts':
                     policy[employee][location][device]['pwpolicy'][key] = policies[key]
