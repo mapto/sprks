@@ -242,8 +242,6 @@ function check_events() {
 
 }
 
-var response; // TODO remove, because used only for dev purposes
-
 function get_factors(policy) {
     var factors = [];
 
@@ -259,6 +257,60 @@ function get_factors(policy) {
     }
 
     return factors;
+}
+
+function update_password_form(policy) {
+    var plen = policy["plen"];
+    $("#len" + plen).prop("checked", true);
+
+    // TODO: implement (copy from other place) other pwpolicy items
+}
+
+function update_biometric_form(policy) {
+    $("#biometric").val(policy["bdata"]);
+}
+
+function update_passfaces_form(policy) {
+    $("#passfaces").val(policy["pdata"]);
+}
+
+function display_contextualized_policy(contextualized) {
+    var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
+
+    emp = contextualized['employee'];
+    // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+    $("#" + emp).prop('checked', true);
+
+    loc = contextualized['location'];
+    // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+    $("#" + loc).prop('checked', true);
+
+    dev = contextualized['device'];
+    // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
+    $("#" + dev).prop('checked', true);
+    // TODO: handle policy for more than one environment (emp, loc, dev)
+
+    factors = get_factors(contextualized);
+
+    $("#aut_num").val(factors.length);
+    $("#aut_num").change(); // have to do it manually, previous line doesn't call it
+
+    for (var i = 0; (i < factors.length) || (i < 2); i++) {
+        $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
+        $("#authentication" + (i+1)).change();
+
+        // dynamically compose name of function and call it
+        var fname = "update_" + factors[i] + "_form";  // compose function name
+        window[fname](contextualized); // call function fname with parameter contextualized
+    }
+
+}
+
+function update_policy(policy) {
+    $('#time').text(policy['date']);
+
+    // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
+    display_contextualized_policy(policy['policy'][0]);
 }
 
 function submit_change() { // need different event handling, to capture any change
@@ -280,38 +332,7 @@ function submit_change() { // need different event handling, to capture any chan
         data: JSON.stringify(msg),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function (policy) {
-            var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
-
-            console.log("policy: " + JSON.stringify(policy));
-
-            response = policy;
-            $('#time').text(policy['date']);
-
-            emp = policy['policy'][0]['employee'];
-            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
-            $("#" + emp).prop('checked', true);
-
-            loc = policy['policy'][0]['location'];
-            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
-            $("#" + loc).prop('checked', true);
-
-            dev = policy['policy'][0]['device'];
-            // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
-            $("#" + dev).prop('checked', true);
-            // TODO: handle policy for more than one environment (emp, loc, dev)
-
-            factors = get_factors(policy['policy'][0]);
-
-            $("#aut_num").val(factors.length);
-            $("#aut_num").change(); // have to do it manually, previous line doesn't call it
-
-            for (var i = 0; (i < factors.length) || (i < 2); i++) {
-                $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
-                $("#authentication" + (i+1)).change();
-            }
-
-        },
+        success: update_policy,
         error: function (response) {
             console.log("fail: " + response.responseText);
         }
