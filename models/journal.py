@@ -7,11 +7,10 @@ from libraries.utils import date_utils
 
 class records:
 
-    def commit_history(self, date):
-        user_id = context.user_id()
-        result = db.update('journal', commited=1, where="date<$date&&user_id=$user_id", vars=locals())
+    @classmethod
+    def commit_history(cls, user_id, date):
+        result = db.update('journal', commited=True, where="date<$date&&user_id=$user_id", vars=locals())
         return result
-
 
     @classmethod
     def clear_history(cls, user_id, date):
@@ -47,7 +46,7 @@ class records:
 
         next_due_event_date = records.next_due_event_date(user_id)
 
-        if next_due_event_date is not None and next_due_event_date<next_due_policy_date:
+        if next_due_event_date is not None and next_due_event_date < next_due_policy_date:
             return next_due_event_date
 
         return next_due_policy_date
@@ -115,5 +114,5 @@ class records:
             # Client is ahead of the next predicted sync date.
             return next_sync_date
 
-        # Client is at an arbitrary date for no apparent reason. Do nothing.
+        # Client is at an arbitrary date between next_sync_date and last_sync_date for no apparent reason. Do nothing.
         return client_date
