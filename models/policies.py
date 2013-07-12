@@ -50,7 +50,7 @@ class policies_model:
             'LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id '
             'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.id '
             'WHERE policies.user_id=$user_id ' + restrict_latest +
-            'ORDER BY policies.date DESC LIMIT 27', vars=locals())
+            'ORDER BY policies.date DESC LIMIT 54', vars=locals())
 
     @classmethod
     def policies_equal(cls, policy1, policy2):
@@ -255,28 +255,27 @@ class policies_model:
             self.insert_into_tables(policy['data'], date)
             #print policy
 
-    def get_policies_list(self, user_id):
-        latest_policies = self.get_policy_history(user_id)
+    @classmethod
+    def get_policies_list(cls, user_id):
+        """
+        Given user_id, returns the latest policies set.
+        """
+        latest_policies = cls.get_policy_history(user_id, latest=True)
         policies = []
         #date = latest_policies[0].date
         for row in latest_policies:
             policy = {}
+            id_keys = ['id_policy', 'bio_id', 'pw_id', 'id', 'user_id', 'pass_id']
             for key, value in row.iteritems():
-                if key == 'id_policy' or key == 'bio_id' or key == 'pw_id' or key == 'id' or key == 'user_id' or \
-                                key == 'pass_id':
+                if key in id_keys:
                     continue
                 if key == 'date':
                     date = value
                 else:
                     policy[key] = value
             policies.append(deepcopy(policy))
-        response = {'policyAccept': True,
-                    'interventionAccept': True,
-                    'calendar': [{}],
-                    'policy': policies,
-                    'date': date
-                    }
-        return response
+
+        return policies
 
 
 

@@ -48,37 +48,16 @@ class chronos:
             # TODO get prophecy for multiple risks
             records.record_prophecy(context.user_id(), simulation().calc_risk_prob())
 
-        calendar = records.get_calendar(context.user_id(), corrected_sync_date)
-
         response = {
             'date': corrected_sync_date.isoformat(),
             'policyAccept': policy_accept,
             'eventAccept': event_accept,
             'calendar': [
-                calendar
-            ],
-            'policy': [
-                {
-                    'employee': 'executives',
-                    'location': 'home',
-                    'device': 'phone',
-                    'plen': 8,
-                    'psets': 2,
-                    'pdict': 0,
-                    'phist': 1,
-                    'prenew': 1,
-                    'pattempts': 0,
-                    'precovery': 1
-                }
-                    ]
+                records.get_calendar(context.user_id(), corrected_sync_date)
+            ]
         }
 
         if payload.get('initPolicy', False):
-                # get user's policy data
-                response['policy'] = policies_model().get_policies_list(context.user_id())['policy']
-
-            #return json.dumps(response)
+            response['policy'] = policies_model().get_policies_list(context.user_id())
 
         return json.dumps(response)
-
-
