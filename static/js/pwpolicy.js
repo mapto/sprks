@@ -259,7 +259,7 @@ function update_password_form(policy) {
     /*preset pswd attempts number check (yes/no)*/
     /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
     console.log("found attempts " + policy["pattempts"]);
-    $("#pattempts" + policy["pattempts"]).prop('checked', true);
+    $("#attempts" + policy["pattempts"]).prop('checked', true);
 
     /*preset pswd recovery option*/
     console.log("found precovery " + policy["precovery"]);
@@ -310,11 +310,13 @@ function display_contextualized_policy(contextualized) {
 }
 
 function update_policy(policy) {
+    console.log('erase policyUpdate array to rewrite it');
+    policyUpdate = [];
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
     $('#time').text(policy['date']);
-
+    console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
     display_contextualized_policy(policy['policy'][0]);
 }
