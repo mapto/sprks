@@ -183,15 +183,15 @@ class policies_model:
         """
         tmp_policy = deepcopy(old_policy)
         for employee in updated_policy:
-                for location in updated_policy[employee]:
-                    for device in updated_policy[employee][location]:
-                        for policy in updated_policy[employee][location][device]:
-                                if updated_policy[employee][location][device][policy] == {}:
-                                    for key, value in tmp_policy[employee][location][device][policy].iteritems():
-                                        tmp_policy[employee][location][device][policy][key] = 0
-                                else:
-                                    for key, value in updated_policy[employee][location][device][policy].iteritems():
-                                        tmp_policy[employee][location][device][policy][key] = value
+            for location in updated_policy[employee]:
+                for device in updated_policy[employee][location]:
+                    for policy in updated_policy[employee][location][device]:
+                        if updated_policy[employee][location][device][policy] == {}:
+                            for key, value in tmp_policy[employee][location][device][policy].iteritems():
+                                tmp_policy[employee][location][device][policy][key] = 0
+                        else:
+                            for key, value in updated_policy[employee][location][device][policy].iteritems():
+                                tmp_policy[employee][location][device][policy][key] = value
         return tmp_policy
 
     def nested_obj_to_list_of_dict(self, policies):

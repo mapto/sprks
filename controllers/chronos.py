@@ -1,13 +1,11 @@
 import json
 import web
-import localsys
-from datetime import date
 from localsys.environment import context
-import models
 from libraries.utils import date_utils
 from models.policies import policies_model
 from models.journal import records
-
+from sim.simulation import simulation
+from datetime import timedelta
 
 class chronos:
 
@@ -18,6 +16,9 @@ class chronos:
 
         payload = json.loads(web.data())
         web.header('Content-Type', 'application/json')
+
+        event_accept = False
+        policy_accept = False
 
         client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
 
@@ -34,26 +35,27 @@ class chronos:
         if corrected_sync_date.day == 1:
             if policy_update is None:
                 # Expecting a policy update, but not found.
-                corrected_sync_date -= 1
+                corrected_sync_date -= timedelta(days=1)
             else:
                 policies_model.commit_policy_update(policy_update, corrected_sync_date)
+                policy_accept = True
 
         if corrected_sync_date == records.next_due_event_date(context.user_id()):
-            pass
-            # delete old prophecy
-            # self.prophesize()
-            # add new prophecy to journal
+            event_accept = True
 
-        # calendar = get current month from journal
+        if event_accept or policy_accept:
+            records.clear_history(context.user_id(), corrected_sync_date)
+            # TODO get prophecy for multiple risks
+            records.record_prophecy(context.user_id(), simulation().calc_risk_prob())
+
+        calendar = records.get_calendar(context.user_id(), corrected_sync_date)
 
         response = {
             'date': corrected_sync_date.isoformat(),
-            'policyAccept': True,
-            'interventionAccept': True,
+            'policyAccept': policy_accept,
+            'eventAccept': event_accept,
             'calendar': [
-                {
-                    # calendar
-                }
+                calendar
             ],
             'policy': [
                 {
