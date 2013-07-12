@@ -209,20 +209,24 @@ class policies_model:
 
     def get_policies_list(self, user_id):
         latest_policies = self.get_policy_history(user_id)
-        policy = {}
+        print len(latest_policies)
         policies = []
-        date = latest_policies[0].date
+        #date = latest_policies[0].date
         for row in latest_policies:
+            policy = {}
             for key, value in row.iteritems():
                 if key == 'id_policy' or key == 'bio_id' or key == 'pw_id' or key == 'id' or key == 'user_id' or \
-                                key == 'pass_id' or key == 'date':
+                                key == 'pass_id':
                     continue
-                policy[key] = value
-            policies.append(policy)
+                if key == 'date':
+                    date = value
+                else:
+                    policy[key] = value
+            policies.append(deepcopy(policy))
         response = {'policyAccept': True,
                     'interventionAccept': True,
                     'calendar': [{}],
-                    'polciy': policies,
+                    'policy': policies,
                     'date': date
                     }
         return response
