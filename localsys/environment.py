@@ -54,6 +54,9 @@ start_date = datetime.date(2014, 1, 6)
 
 
 def get_start_time():
+    """
+    :deprecated: Use globals['start_date'] instead
+    """
     return start_date
 
 
