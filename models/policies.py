@@ -122,7 +122,7 @@ class policies_model:
 
     def parse_policy(self, policyUpdate):
         """
-        converts data from the database into nested object format
+        Converts client-submitted policyUpdate changes to proprietary nested object format.
         """
         policies = {}
         for update in policyUpdate:
@@ -232,8 +232,6 @@ class policies_model:
             pdict = 0"""
         return int(policy['plen'])+int(policy['psets'])+int(policy['phist'])+int(policy['pattempts'])+int(policy['pdict'])+int(policy['prenew'])
 
-
-
     def insert_into_tables(self, policy, date):
         """
         Inserts set of policies into table
@@ -247,8 +245,6 @@ class policies_model:
         db.insert('policies', user_id=context.user_id(), location=policy['location'],
                               employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
                               pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
-
-
 
     def insert_polices(self, policies, date):
         for policy in policies:
@@ -276,8 +272,3 @@ class policies_model:
             policies.append(deepcopy(policy))
 
         return policies
-
-
-
-if __name__ == "__main__":
-    print policies_model.get_compressed_policy(1)
