@@ -115,9 +115,10 @@ class policies_model:
         print "merging policies..."
         merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
         print "done"
+        print "inserting into table"
         #print policies_model().nested_obj_to_list_of_dict(merged_policy)
         policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(merged_policy), date)
-
+        print "done"
 
     def parse_policy(self, policyUpdate):
         """
@@ -229,7 +230,6 @@ class policies_model:
             return 1
         elif pdict == 'false':
             pdict = 0"""
-        print policy
         return int(policy['plen'])+int(policy['psets'])+int(policy['phist'])+int(policy['pattempts'])+int(policy['pdict'])+int(policy['prenew'])
 
 
@@ -257,7 +257,6 @@ class policies_model:
 
     def get_policies_list(self, user_id):
         latest_policies = self.get_policy_history(user_id)
-        print len(latest_policies)
         policies = []
         #date = latest_policies[0].date
         for row in latest_policies:
