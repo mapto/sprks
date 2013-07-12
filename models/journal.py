@@ -3,6 +3,7 @@ from datetime import date
 from localsys.storage import db
 from localsys.environment import context
 from libraries.utils import date_utils
+from datetime import timedelta
 
 
 class records:
@@ -15,7 +16,7 @@ class records:
     @classmethod
     def clear_history(cls, user_id, date):
         """
-        Clears uncommitted entries in the journal for specified user_id on or after the specified date.
+        Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
         db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars(locals()))
 
@@ -76,12 +77,15 @@ class records:
 
         return date(last_sync_date.year, month, 1)
 
-
     @classmethod
-    def update_journal(self, userid, risk):
-        #calendar = chronos.prophesize(risk)["prophecy"]
-        calendar = self.default_calendar["calendar"]
-        whole_calendar = self.default_calendar
+    def record_prophecy(cls, user_id, risk):
+        """
+        For a given risk, generates new prophecies and stores in journal for given user_id.
+        """
+        # TODO doesn't work!!!
+        # calendar = chronos.prophesize(risk)["prophecy"]
+        calendar = cls.default_calendar["calendar"]
+        whole_calendar = cls.default_calendar
         for dates in calendar:
             for key in dates:
                 date = ""
@@ -94,8 +98,28 @@ class records:
                     for event in dates[key]:
                         inc_id = event['incdt_id']
                         cost = event['cost']
-                        db.insert('journal', user_id=userid, date=date, cost=cost, incident_id=inc_id, commited=0)
+                        db.insert('journal', user_id=user_id, date=date, cost=cost, incident_id=inc_id, commited=0)
         return whole_calendar
+
+    @classmethod
+    def get_calendar(cls, user_id, sync_date):
+        """
+        Retrieve all events (past or future) for given user_id for month that the specified date falls on.
+        Returns a custom dictionary-based data structure based on the REST API JSON spec.
+        :param user_id:
+        :param sync_date:
+        """
+
+        start_date = date(sync_date.year, sync_date.month, 1)
+
+        end_date = (start_date + timedelta(days=32)).replace(day=1)
+
+        raw_calendar = db.query('SELECT * FROM journal '
+                                'WHERE user_id=$user_id AND date>=$start_date AND date<$end_date', vars=locals())
+        calendar = {}
+        for event in raw_calendar.iteritems():
+            if event.date in calendar:
+                pass
 
     @classmethod
     def sync_history(cls, user_id, client_date):
