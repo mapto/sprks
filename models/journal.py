@@ -121,7 +121,7 @@ class records:
 
         calendar = {}
         # Converts database results into dictionary
-        for event in raw_calendar.iteritems():
+        for event in raw_calendar:
             if event.date not in calendar:
                 calendar[event.date] = {
                     'date': event.date.isoformat(),
