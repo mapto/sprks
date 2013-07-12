@@ -7,6 +7,7 @@ from models.journal import records
 from sim.simulation import simulation
 from datetime import timedelta
 
+
 class chronos:
 
     def POST(self):
