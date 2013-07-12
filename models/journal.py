@@ -18,7 +18,7 @@ class records:
         """
         Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
-        db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars(locals()))
+        db.query('DELETE FROM journal WHERE user_id=$user_id AND committed=false AND date>=$date', vars=locals())
 
     @classmethod
     def last_sync(cls, user_id):
@@ -117,7 +117,7 @@ class records:
         raw_calendar = db.query('SELECT * FROM journal '
                                 'WHERE user_id=$user_id AND date>=$start_date AND date<$end_date', vars=locals())
         calendar = {}
-        for event in raw_calendar.iteritems():
+        for event in raw_calendar:
             if event.date in calendar:
                 pass
 
