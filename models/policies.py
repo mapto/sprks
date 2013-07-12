@@ -113,13 +113,12 @@ class policies_model:
         latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
         print "done"
         print "merging policies..."
-        print updated_policy
-        print latest_policy
         merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
         print "done"
+        print "inserting into table"
         #print policies_model().nested_obj_to_list_of_dict(merged_policy)
         policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(merged_policy), date)
-
+        print "done"
 
     def parse_policy(self, policyUpdate):
         """
@@ -189,13 +188,9 @@ class policies_model:
                         for policy in updated_policy[employee][location][device]:
                                 if updated_policy[employee][location][device][policy] == {}:
                                     for key, value in tmp_policy[employee][location][device][policy].iteritems():
-                                        print tmp_policy
-                                        print employee
                                         tmp_policy[employee][location][device][policy][key] = 0
                                 else:
                                     for key, value in updated_policy[employee][location][device][policy].iteritems():
-                                        print tmp_policy
-                                        print employee
                                         tmp_policy[employee][location][device][policy][key] = value
         return tmp_policy
 
@@ -249,7 +244,7 @@ class policies_model:
             id_pwpolicy = db.insert('pw_policy', plen=policy['plen'], psets=policy['psets'], pdict=policy['pdict'],
                                     phist=policy['phist'], prenew=policy['prenew'], pattempts=policy['pattempts'],
                                     precovery=policy['precovery'])
-        db.insert('policies', user_id = context.user_id(), location=policy['location'],
+        db.insert('policies', user_id=context.user_id(), location=policy['location'],
                               employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
                               pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
 
@@ -262,7 +257,6 @@ class policies_model:
 
     def get_policies_list(self, user_id):
         latest_policies = self.get_policy_history(user_id)
-        print len(latest_policies)
         policies = []
         #date = latest_policies[0].date
         for row in latest_policies:
