@@ -29,6 +29,7 @@ class chronos:
                 'messages': ['Unauthorized']
             })
 
+        # corrected_sync_date backtracks if client submits invalid date.
         corrected_sync_date = records.sync_history(context.user_id(), client_date)
 
         policy_update = payload.get('policyUpdate')
@@ -45,7 +46,7 @@ class chronos:
             event_accept = True
 
         if event_accept or policy_accept:
-            records.clear_history(context.user_id(), corrected_sync_date)
+            records.clear_prophecy(context.user_id(), corrected_sync_date)
             # TODO get prophecy for multiple risks
             records.record_prophecy(context.user_id(), simulation().calc_risk_prob())
 

@@ -15,7 +15,7 @@ class records:
         return result
 
     @classmethod
-    def clear_history(cls, user_id, date):
+    def clear_prophecy(cls, user_id, date):
         """
         Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
