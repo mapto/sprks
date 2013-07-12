@@ -194,8 +194,8 @@ if __name__ == "__main__":
       'policyDelta': {
            'pwpolicy': {'plen': 12,
                 'pdict': 1},
-           'passfacepolicy': {},
-           'biopolicy': {}
+           'passfaces': {},
+           'biometric': {}
       }
     },
     {
@@ -205,8 +205,8 @@ if __name__ == "__main__":
       'policyDelta': {
        'pwpolicy': {'plen': 8,
         'psets': 3},
-       'passfacepolicy': {},
-       'biopolicy': {'bdata': 2}
+       'passfaces': {},
+       'biometric': {'bdata': 2}
       }
     },
         {
@@ -215,8 +215,8 @@ if __name__ == "__main__":
             'device':['desktop'],
             'policyDelta': {
                'pwpolicy': {'plen':0},
-               'passfacepolicy': {'pdata': 1},
-                'biopolicy': {}
+               'passfaces': {'pdata': 1},
+                'biometric': {}
             }
         }]
 
@@ -230,6 +230,7 @@ if __name__ == "__main__":
 
         print "latest_policy after", model.nested_obj_to_list_of_dict(latest_policy_after)"""
     #model.commit_policy_update(policyUpdate, '2014-02-15')
-    #print model.nested_obj_to_list_of_dict(model.iter_to_nested_obj(model.get_policy_history(4)))
+    #print model.nested_obj_to_list_of_dict(model.iter_to_nested_obj(model.get_policy_history(2)))
     #print model.get_policy_history(4)[0]
-    print model.get_policies_list(4)
+    #print model.get_policies_list(1)
+    model.merge_policies(model.parse_policy(policyUpdate), model.iter_to_nested_obj(model.get_policy_history(2)))

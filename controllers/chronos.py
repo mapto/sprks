@@ -57,9 +57,9 @@ class chronos:
             ],
             'policy': [
                 {
-                    'employee': 'executive',
+                    'employee': 'executives',
                     'location': 'home',
-                    'device': 'mobile',
+                    'device': 'phone',
                     'plen': 8,
                     'psets': 2,
                     'pdict': 0,

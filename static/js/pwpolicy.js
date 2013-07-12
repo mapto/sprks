@@ -309,6 +309,7 @@ function display_contextualized_policy(contextualized) {
 function update_policy(policy) {
     console.log('response from server:');
     console.log(policy);
+    //$('#pause').click();
     $('#time').text(policy['date']);
 
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized

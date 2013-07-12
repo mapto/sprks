@@ -105,7 +105,7 @@ function initFrame () {
     $('#forward').click(function() {
         $('.target').attr('disabled', 'disabled');
         $('#apply').attr('disabled', 'disabled');
-        startTimer(1000);
+        startTimer(500);
     })
 
     $('.target').change(function(){

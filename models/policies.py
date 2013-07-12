@@ -110,9 +110,11 @@ class policies_model:
         updated_policy = policies_model().parse_policy(policy_update)
         print "done"
         print "getting latest policy from db..."
-        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(4))
+        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
         print "done"
         print "merging policies..."
+        print updated_policy
+        print latest_policy
         merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
         print "done"
         #print policies_model().nested_obj_to_list_of_dict(merged_policy)
@@ -187,9 +189,13 @@ class policies_model:
                         for policy in updated_policy[employee][location][device]:
                                 if updated_policy[employee][location][device][policy] == {}:
                                     for key, value in tmp_policy[employee][location][device][policy].iteritems():
+                                        print tmp_policy
+                                        print employee
                                         tmp_policy[employee][location][device][policy][key] = 0
                                 else:
                                     for key, value in updated_policy[employee][location][device][policy].iteritems():
+                                        print tmp_policy
+                                        print employee
                                         tmp_policy[employee][location][device][policy][key] = value
         return tmp_policy
 
@@ -229,7 +235,7 @@ class policies_model:
             return 1
         elif pdict == 'false':
             pdict = 0"""
-        return policy['plen']+policy['psets']+policy['phist']+policy['pattempts']+policy['pdict']+policy['prenew']
+        return int(policy['plen'])+int(policy['psets'])+int(policy['phist'])+int(policy['pattempts'])+int(policy['pdict'])+int(policy['prenew'])
 
 
 
@@ -243,7 +249,7 @@ class policies_model:
             id_pwpolicy = db.insert('pw_policy', plen=policy['plen'], psets=policy['psets'], pdict=policy['pdict'],
                                     phist=policy['phist'], prenew=policy['prenew'], pattempts=policy['pattempts'],
                                     precovery=policy['precovery'])
-        db.insert('policies', user_id=4, location=policy['location'],
+        db.insert('policies', user_id = context.user_id(), location=policy['location'],
                               employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
                               pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
 
