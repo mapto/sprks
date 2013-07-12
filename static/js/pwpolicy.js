@@ -280,14 +280,17 @@ function display_contextualized_policy(contextualized) {
     emp = contextualized['employee'];
     // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
     $("#" + emp).prop('checked', true);
+    $("#" + emp).change();
 
     loc = contextualized['location'];
     // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
     $("#" + loc).prop('checked', true);
+    $("#" + loc).change();
 
     dev = contextualized['device'];
     // TODO; possibly uncheck all the rest. make class location and before setting next line unset all from class
     $("#" + dev).prop('checked', true);
+    $("#" + dev).change();
     // TODO: handle policy for more than one environment (emp, loc, dev)
 
     factors = get_factors(contextualized);

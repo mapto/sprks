@@ -199,7 +199,6 @@ $('#forward').click(function() {
    $('#pause').parent().removeClass('active');
 });
 
-
 //populate policies_array onchange of inputs
 $('.target').bind("change", function(){
    var attribute = $(this).parent().attr('id'); //can be empployee/device/location/biometric/passfaces/plen/psets/etc.
