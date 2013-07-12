@@ -10,7 +10,6 @@ class records:
     def commit_history(self, date):
         user_id = context.user_id()
         result = db.update('journal', commited=1, where="date<$date&&user_id=$user_id", vars=locals())
-        # TODO create empty entry in journal noting a sync was performed
         return result
 
 
@@ -27,12 +26,16 @@ class records:
         Given user_id, returns the date of the most recent sync.
         """
 
-        result = db.query('SELECT date FROM policies WHERE user_id=$user_id '
-                          'ORDER BY date DESC LIMIT 1', vars=locals())
-        if len(result) > 0:
-            #return date_utils.iso8601_to_date(result[0].date)
-            return result[0].date
-        return None
+        last_policy_sync = db.query('SELECT date FROM policies WHERE user_id=$user_id '
+                                    'ORDER BY date DESC LIMIT 1', vars=locals())
+
+        last_event_sync = db.query('SELECT date FROM journal WHERE user_id=$user_id AND committed=true '
+                                   'ORDER BY date DESC LIMIT 1', vars=locals())
+
+        if len(last_event_sync) > 0 and last_event_sync[0].date > last_policy_sync[0].date:
+            return last_event_sync[0].date
+
+        return last_policy_sync[0].date
 
     @classmethod
     def next_due_event_date(cls, user_id):
