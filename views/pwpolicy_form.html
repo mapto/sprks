@@ -1,4 +1,4 @@
-$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, pautorecover, notfound, date)
+$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, precovery, notfound, date)
 $var title: Password policy
 $var cssfiles: static/css/bootstrap.css
 $var date: $date
@@ -220,15 +220,15 @@ $var username: $username
 
 
 
-<p class="qn" id="pautorecover">
-    <input type='hidden' value='0' name='pautorecover'> <!-- method for posting unchecked checkboxes-->
+<p class="qn" id="precovery">
+    <input type='hidden' value='0' name='precovery'> <!-- method for posting unchecked checkboxes-->
     <input type="checkbox"
-           name="pautorecover"
+           name="precovery"
            id="autorecover"
            class="target"
            value="1"/>
     <label for="autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
-    <div class="graph" id="graph_pautorecover"></div>
+    <div class="graph" id="graph_precovery"></div>
 </p>
 
 </form>
@@ -256,7 +256,7 @@ $var username: $username
                 "phist": $:phist,
                 "prenew": $:prenew,
                 "pattempts": $:pattempts,
-                "pautorecover": $:pautorecover};
+                "precovery": $:precovery};
     }
 
     // this is inherently linked to

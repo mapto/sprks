@@ -13,7 +13,7 @@ class pwpolicy:
     # the default policy should be specified in a central place and reusable
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
-               "pautorecover": 1}
+               "precovery": 1}
 
     def GET(self):
         """
@@ -28,7 +28,7 @@ class pwpolicy:
                 session.mysession.session.date = result_get.date
                 return render.pwpolicy_form(session.mysession.session.user,result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
-                                result_get.pattempts, result_get.pautorecover, 0, str(result_get.date))
+                                result_get.pattempts, result_get.precovery, 0, str(result_get.date))
             else:
 #                dt = datetime.now()
 #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
@@ -41,12 +41,12 @@ class pwpolicy:
                           phist=pwpolicy.default["phist"],
                           prenew=pwpolicy.default["prenew"],
                           pattempts=pwpolicy.default["pattempts"],
-                          pautorecover=pwpolicy.default["pautorecover"])
+                          precovery=pwpolicy.default["precovery"])
                 result_get = db.select('pw_policy', where="userid=$id_user", vars=locals())[0]
                 session.mysession.session.date = result_get.date
                 return render.pwpolicy_form(session.mysession.session.user, result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
-                                result_get.pattempts, result_get.pautorecover, 1, result_get.date)
+                                result_get.pattempts, result_get.precovery, 1, result_get.date)
         else:
             raise web.seeother('/home')
 
@@ -60,10 +60,10 @@ class pwpolicy:
             dict1=1
         else:
             dat["pdict"]=0
-        if "pautorecover" in dat:
-            pautorecover1=1
+        if "precovery" in dat:
+            precovery1=1
         else:
-            dat["pautorecover"]=0
+            dat["precovery"]=0
         if "pattempts" in dat:
             pattempts1=1
         else:
