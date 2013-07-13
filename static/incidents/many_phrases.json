@@ -1,0 +1,16 @@
+{"id": 15, "name": "many_phrases", "type": "stolen",
+    "pwpolicy": {
+        "plen": 12,
+        "psets": 2,
+        "pdict": 0,
+        "phist": 3,
+        "prenew": 3,
+        "pattempts": 0
+    },
+    "description": "I like using long wordy passwords - they are easy to remember. My problem right now is that they need to be renewed monthly, but I cannot repeat them. It takes me too much to think of a new one",
+    "event": "People's memorable ideas get exausted and they start using external references to generate their passwords.",
+    "consequences": "It takes some effort to observe someone to understand what technique they use to generate their passwords and where to get the next phrase from.",
+    "risk": 0.8,
+    "cost": 0.6,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.05}

@@ -1,0 +1,13 @@
+{"id": 13, "name": "plain_words", "type": "bruteforce",
+    "pwpolicy": {
+        "plen": 6,
+        "psets": 1,
+        "pdict": 0
+    },
+    "description": "I can just use plain words for passwords, and it's so easy",
+    "event": "You don't check for dictionary attacks when passwords are generated. As a result your system is very easy to compromise",
+    "consequences": "Someone will eventually be tempted to do it.",
+    "risk": 0.8,
+    "cost": 0.05,
+    "risk-modifier": -0.1,
+    "cost-modifier": 0.01}

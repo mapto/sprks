@@ -62,7 +62,7 @@ class records:
         result = db.query('SELECT date FROM journal WHERE user_id=$user_id AND committed=false '
                           'GROUP BY date ORDER BY date ASC LIMIT 1', vars=locals())
         if len(result) > 0:
-            return date_utils.iso8601_to_date(result[0].date)
+            return result[0].date
         return None
 
     @classmethod

@@ -1,0 +1,15 @@
+{"id": 16, "name": "moderately_easy", "type": "stolen",
+    "pwpolicy": {
+        "plen": 8,
+        "psets": 2,
+        "pdict": 0,
+        "phist": 2,
+        "pattempts": 0
+    },
+    "description": "Passwords seem to be just fine and normal.",
+    "event": "It doesn't matter when employees change their passwords, if passwords are not challenging at all, they are easy to steal.",
+    "consequences": "Password gets stolen.",
+    "risk": 0.5,
+    "cost": 0.15,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.1}

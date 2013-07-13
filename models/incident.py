@@ -4,6 +4,8 @@ from models.pw_policy import pw_policy_model
 
 
 class incident:
+    """ To generate the incidents dataset call generate_policy_dataset in pwpolicy_model
+    """
     # names = ['default', 'too_often', 'very_easy', 'eternal', 'too_hard', 'easy_recovery', 'infrequent_use', 'easy_secure', 'hard_secure', 'no_pass']
     incidents = {} # will contain {"bruteforce": []}"
     singleton = None
@@ -11,8 +13,8 @@ class incident:
     @classmethod
     def read_files(self):
         for ref in glob.glob('static/incidents/*.json'):
-            file = open(ref)
-            data = json.load(file)
+            f = open(ref)
+            data = json.load(f)
 
             risk_type = data["type"]
             if not risk_type in incident.incidents:
@@ -20,41 +22,41 @@ class incident:
 
             incident.incidents[risk_type][data["id"]] = data
 
-            file.close()
+            f.close()
             # print data["name"] + " " + str(data["id"])
 
 
     @classmethod
-    def get_incident(self, id='1', type='any'): # if type not specified, search
+    def get_incident(self, ident='1', typ='any'): # if type not specified, search
         if not incident.incidents:
             incident.read_files()
 
-        if type == "any": # search and return the first one found
+        if typ == "any": # search and return the first one found
             for risk in incident.incidents.keys():
-                if id in incident.incidents[risk]:
+                if ident in incident.incidents[risk]:
                     # print "found: " + "[" + str(id) + "] in class " + risk + " ->" + str(incident.incidents[risk][id]['name']) +  " " + str(incident.incidents[risk][id]['risk'])
 
-                    return incident.incidents[risk][id]
+                    return incident.incidents[risk][ident]
         else:
-            return incident.incidents[type][id]
+            return incident.incidents[typ][ident]
 
     @classmethod
     def get_incident_by_name(self, name='infrequent_use'): # if type not specified, search
         ref = 'static/incidents/' + name + '.json'
-        file = open(ref)
-        data = json.load(file)
-        file.close()
+        f = open(ref)
+        data = json.load(f)
+        f.close()
 
-        id = data["id"]
-        type = data["type"]
+        ident = data["id"]
+        typ = data["type"]
 
-        return incident.incidents[type][id]
+        return incident.incidents[typ][ident]
 
     def generate_samples(self):
-        list = []
-        for policy in pw_policy_model.range.keys():
+        l = []
+        for policy in pw_policy_model.ranges.keys():
             if not policy in self.data['pwpolicy']:
-                list.push()
+                l.push()
 
     # the following list of getters and setters might be incomplete
     def get_description(self):
