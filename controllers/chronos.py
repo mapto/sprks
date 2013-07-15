@@ -18,10 +18,10 @@ class chronos:
         payload = json.loads(web.data())
         web.header('Content-Type', 'application/json')
 
-        event_accept = False
         policy_accept = False
 
         client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
+        policy_update = payload.get('policyUpdate')
 
         if context.user_id() == 0:
             return json.dumps({
@@ -29,10 +29,10 @@ class chronos:
                 'messages': ['Unauthorized']
             })
 
-        # corrected_sync_date backtracks if client submits invalid date.
-        corrected_sync_date = records.sync_history(context.user_id(), client_date)
+        journal = records(context.user_id())
 
-        policy_update = payload.get('policyUpdate')
+        # corrected_sync_date backtracks if client submits invalid date.
+        corrected_sync_date, event_accept = journal.validate_sync_date(client_date)
 
         if corrected_sync_date.day == 1:
             if policy_update is None:
@@ -42,21 +42,19 @@ class chronos:
                 policies_model.commit_policy_update(policy_update, corrected_sync_date)
                 policy_accept = True
 
-        # TODO next_due_event_date shouldn't be called again - convert from @classmethod?
-        if corrected_sync_date == records.next_due_event_date(context.user_id()):
-            event_accept = True
+        journal.commit_history(corrected_sync_date)
 
         if event_accept or policy_accept:
-            records.clear_prophecy(context.user_id(), corrected_sync_date)
+            journal.clear_prophecy(corrected_sync_date)
             prophecy = prophet.prophesize(context.user_id(), corrected_sync_date)
-            records.record_prophecy(context.user_id(), prophecy)
+            journal.record_prophecy(prophecy)
 
         response = {
             'date': corrected_sync_date.isoformat(),
             'policyAccept': policy_accept,
             'eventAccept': event_accept,
             'calendar': [
-                records.get_calendar(context.user_id(), corrected_sync_date)
+                journal.get_calendar(corrected_sync_date)
             ]
         }
 

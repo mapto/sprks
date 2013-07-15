@@ -5,7 +5,7 @@ from models.incident import incident
 from models.company import company
 import random
 from datetime import timedelta
-from datetime import date
+
 
 class prophet:
     @classmethod
@@ -26,8 +26,7 @@ class prophet:
         random.seed()
 
         policies = db.query('SELECT * FROM policies WHERE user_id=$user_id ORDER BY date DESC limit 1', vars=locals())
-        sim = simulation(policies=policies)
-        incidents = sim.get_related_incidents()
+        incidents = simulation().get_related_incidents(policies)
 
         prophecy = []
         for incident_id in incidents.iteritems():

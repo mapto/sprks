@@ -7,7 +7,6 @@ from localsys.storage import path
 from models.users import users_model
 from models.policies import policies_model
 from libraries.utils import hash_utils
-from models.journal import records
 
 
 class account:
@@ -119,7 +118,7 @@ class password:
         if user_id > 0:
             return render.password_change(user_id, '')
 
-        token = web.input().get('token','')
+        token = web.input().get('token', '')
         user_id = users_model().password_recovery_user(token)
         if user_id == 0:
             return render.password_recover()
@@ -175,7 +174,7 @@ class password:
         Creates password recovery request, taking argument as user_id (default) or username
         """
         try:
-            uid_type = json.loads(web.data()).get('uid_type','')
+            uid_type = json.loads(web.data()).get('uid_type', '')
         except ValueError:
             uid_type = ''
 
@@ -203,24 +202,16 @@ class password:
                 }
             )
 
-        try:
-            web.config.smtp_server = 'smtp.gmail.com'
-            web.config.smtp_port = 587
-            web.config.smtp_username = 'sprkssuprt@gmail.com'
-            web.config.smtp_password = 'sprks123456789'
-            web.config.smtp_starttls = True
-            web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
-                         'http://' + web.ctx.host + web.ctx.homepath + '/password?token=' + token)
-            return json.dumps(
-                {
-                    'success': True,
-                    'messages': ['Password recovery email sent']
-                }
-            )
-        except Exception:
-            return json.dumps(
-                {
-                    'success': False,
-                    'messages': ['Server error']
-                }
-            )
+        web.config.smtp_server = 'smtp.gmail.com'
+        web.config.smtp_port = 587
+        web.config.smtp_username = 'sprkssuprt@gmail.com'
+        web.config.smtp_password = 'sprks123456789'
+        web.config.smtp_starttls = True
+        web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
+                     'http://' + web.ctx.host + web.ctx.homepath + '/password?token=' + token)
+        return json.dumps(
+            {
+                'success': True,
+                'messages': ['Password recovery email sent']
+            }
+        )
