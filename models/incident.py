@@ -25,7 +25,7 @@ class incident:
 
 
     @classmethod
-    def get_incident(self, ident='1', typ='any'): # if type not specified, search
+    def get_incident(cls, ident='1', typ='any'): # if type not specified, search
         """
         Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
         :ident: The incident id. This must be present in the static/incidents files
