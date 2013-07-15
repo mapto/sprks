@@ -51,7 +51,7 @@ class classifier_sklearn:
                     for device in company.device_types:
                         if not device in self.incidents_models[risk][employee][location].keys():
                             self.incidents_models[risk][employee][location][device] = {}
-                        self.incidents_models[risk][employee][location][device] = self.generate_training_data(risk, employee, location, device, limit, general)
+                        self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
             # self.incidents_models[risk] = svm.SVR().fit(train_data, train_result)
 
         # print self.risks
