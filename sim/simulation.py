@@ -14,7 +14,7 @@ class simulation:
         # lazy initialization of policies dictionary
             self.dict = {}
         self.set_multi_policy(policies)
-        self.estimator = estimator_sklearn_tree()
+#        self.estimator = estimator_sklearn_tree()
         self.classifier = classifier_sklearn()
 
     #        self.estimator = estimator_simple()
@@ -128,3 +128,13 @@ class simulation:
         risk = self.classifier.predict_data(self.dict)
         value = risk[0]  # 0 - name, 1 - risk
         return value
+
+    def get_riks_list(self, policy):
+        return self.classifier.predict_data(policy)
+
+if __name__ == "__main__":
+    default = {"plen": 8, "psets": 2, "pdict": 0,
+               "phist": 1, "prenew": 1, "pattempts": 0,
+               "precovery": 1}
+    sim = simulation()
+    print sim.get_riks_list(default)

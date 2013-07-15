@@ -19,7 +19,6 @@ class incident:
                 incident.incidents[risk_type] = {}
 
             incident.incidents[risk_type][data["id"]] = data
-
             file.close()
             # print data["name"] + " " + str(data["id"])
 
