@@ -23,6 +23,7 @@ class pw_policy_model:
 
     @staticmethod
     def policy2datapoint(policy):
+
         if type(policy["plen"]) == int:
             return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
