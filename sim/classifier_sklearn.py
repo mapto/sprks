@@ -3,6 +3,7 @@ __author__ = 'Daniyar'
 from sklearn import svm
 import numpy
 import glob
+import csv
 import json
 from models.incident import incident
 from models.policies import policies_model as policy_model
@@ -115,7 +116,7 @@ class classifier_sklearn:
         Currently only handles pw_policy, but in future data preparation needs to be handled by the model.
         :param data: The policy configuration that needs to be consistent with the used data structure
         """
-        datapoints = policy.policy2datapoint(data)
+        datapoints = policy_model.policy2datapoint(data)
         result = self.predict_datapoint(datapoints)
         return result
 
@@ -159,6 +160,7 @@ if __name__ == "__main__":
 
     print "test data: "
     print test_data
+    print policy_model.policy2datapoint(test_data)
     print "classes:"
-#    print model.predict_data(test_data)
+    print model.predict_data(test_data)
 
