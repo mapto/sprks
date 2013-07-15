@@ -38,6 +38,8 @@ class chronos:
             if policy_update is None:
                 # Expecting a policy update, but not found.
                 corrected_sync_date -= timedelta(days=1)
+                # event_accept will always be false (backtracking one day before the next earliest sync point)
+                event_accept = False
             else:
                 policies_model.commit_policy_update(policy_update, corrected_sync_date)
                 policy_accept = True
@@ -59,6 +61,6 @@ class chronos:
         }
 
         if payload.get('initPolicy', False):
-            response['policy'] = policies_model().get_policies_list(context.user_id())
+            response['policy'] = policies_model.get_policies_list(context.user_id())
 
         return json.dumps(response)
