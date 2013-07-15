@@ -12,8 +12,8 @@ class simulation:
     def __init__(self, policies={}):
         """
         Initialization of the simulation. This class always assumes that there's a policy being set.
-        Before using it, make sure you update with the necessary policy.
-        TODO: This class does not take care of partial policies.
+        Before using it, make sure you update the policy with the one you want to use.
+        TODO: This class does not take care of partial policies
         :param policies: A dictionary of policies being explicitly set
         """
         if not hasattr(self, 'dict'):

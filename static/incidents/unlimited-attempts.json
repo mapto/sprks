@@ -1,5 +1,7 @@
 {"id": 4, "name": "unlimited-attempts", "type": "bruteforce",
-    "pwpolicy": {
+    "policy": {
+        "pdata": 0,
+        "bdata": 0,
         "pattempts": 0
     },
     "description": "You don't set a limit to password entry attempts.",

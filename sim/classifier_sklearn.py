@@ -3,10 +3,12 @@ __author__ = 'Daniyar'
 from sklearn import svm
 import numpy
 import glob
-from models.incident import incident
+import csv
 import json
 from models.pw_policy import pw_policy_model as pw_policy
 from models.company import company
+from models.incident import incident
+from models.policies import policies_model as policy_model
 
 
 class classifier_sklearn:
@@ -22,10 +24,7 @@ class classifier_sklearn:
         self.risks = []
         self.risks_set = ["bruteforce", "stolen"]
 
-        """ Currently the data model in the simulation is dependent on pw_policy
-            This should be generalized and made dependent on policies
-        """
-        limit = len(pw_policy.ranges)
+        limit = len(policy_model.get_ranges())
 
         general = numpy.genfromtxt('static/data/pw-train-generated-general.csv', delimiter=',')
 
@@ -57,13 +56,85 @@ class classifier_sklearn:
 
         # print self.risks
 
+    @staticmethod
+    def generate_training_set():
+        """
+        Generalizes the incidents into a training set to be used by the implicit model.
+        This assumes the types of risks
+        """
+
+        # this is iteration of incidents, values are specified in data
+        entries = {}
+
+        # read incidents and generate training sets
+        for ref in glob.glob('static/incidents/*.json'):
+            file = open(ref)
+            incident = json.load(file)
+            file.close()
+
+            risk = incident["type"]
+            policy = incident["policy"]
+            cls = incident["id"]
+
+            print str(incident["name"]) + " " + str(cls) + " type: " + str(risk)
+
+            # for a policy that has undefined values this returns all possible combinations
+            samples = classifier_sklearn.generate_samples(policy)
+
+            # add classification last column
+            for sample in samples:
+                data = policy_model.policy2datapoint(sample)
+                data.append(cls) # add last column with classification for printing in CSV
+
+                if risk not in entries:
+                    entries[risk] = []
+                entries[risk].append(data)  # put them in a risk dictionary
+
+        #save the risk dictionary files
+        for risk in entries.keys():
+            tail = 'general' if risk == 'general' else 'risk-' + risk
+
+            csv_name = 'static/data/pw-train-generated-' + tail + '.csv'
+            print csv_name
+            writer = csv.writer(open(csv_name, 'w'))
+            for row in entries[risk]:
+                print row
+                writer.writerow(row)
+
+    @staticmethod
+    def generate_samples(partial_policy, start_index = 0):
+        """
+        Generates all possible ways to complete a partial policy.
+        This is a recursive method meant to be used internally only.
+        For the public use of this call generate_training_set
+        :partial_policy: The policy that is currently in the process of construction
+        :start_index: Used to manage progress to avoid repetitions
+        """
+        list = [] # policies
+        indexedOptions = policy_model.get_ranges().keys()
+
+        for i in range(start_index, len(indexedOptions)): # search for first
+            policy = indexedOptions[i]
+
+        # for policy in indexedOptions:
+            if not policy in partial_policy:
+                for value in policy_model.get_ranges()[policy]:
+                    new_partial = partial_policy.copy()
+                    new_partial[policy] = value
+                    complete_new = classifier_sklearn.generate_samples(new_partial, start_index=i)
+                    list.extend(complete_new)
+
+                return list # stop loop when first value is found and recursion for it is done
+
+        return [partial_policy]
+
     def predict_data(self, data):
         """
         Makes a prediction for a particular policy
         Currently only handles pw_policy, but in future data preparation needs to be handled by the model.
         :param data: The policy configuration that needs to be consistent with the used data structure
         """
-        datapoints = pw_policy.policy2datapoint(data)
+        datapoints = policy_model.policy2datapoint(data)
         result = self.predict_datapoint(datapoints)
         return result
 
@@ -107,7 +178,7 @@ class classifier_sklearn:
         return risks_list
         #return self.incidents_model.predict(data)
 
-    def generate_training_data(self, risk, employee, location, device, limit, general):
+    def train_classifier(self, risk, employee, location, device, limit, general):
         filename = glob.glob('static/data/pw-train-generated-'+risk+'-'+employee+location+device+'.csv')
         data = numpy.genfromtxt(filename, delimiter=',')
         data = numpy.concatenate((data, general)) # add positive cases that need to contrast negative ones
@@ -117,10 +188,19 @@ class classifier_sklearn:
 
 
 if __name__ == "__main__":
+    # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
+    # result = model.generate_samples({'plen': 0})
+    # result = model.generate_samples({})
+
     # test_data = genfromtxt('../static/data/pw-test-data.csv', delimiter=',')
-    test_data = [6, 2, 1, 1, 2, 0, 1]
+    # test_data = [6, 2, 1, 1, 2, 0, 1]
+    classifier_sklearn.generate_training_set()
+    test_data = policy_model.get_default()
     model = classifier_sklearn()
+
     print "test data: "
     print test_data
+    print policy_model.policy2datapoint(test_data)
     print "classes:"
-    print model.predict_datapoint(test_data)
+    print model.predict_data(test_data)
+
