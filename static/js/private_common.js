@@ -14,14 +14,14 @@ var policies_array = {};
 
 function initFrame () {
 
-    if ($("#risk").text() == '' || $("#cost").text() == '') {
+    if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
         $(".risk-menu").css("display", "block");
     }
 
     $(document).click(function () {
-        if ($("#risk").text() == '' || $("#cost").text() == '') {
+        if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
             $(".risk-menu").css("display", "none");
         } else {
             $(".risk-menu").css("display", "block");

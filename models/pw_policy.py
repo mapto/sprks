@@ -26,6 +26,7 @@ class pw_policy_model:
         Gets a pw_policy dictionary
         :policy: The policy to read password policy parameters from
         Returns a tuple of password policy items. All other parameters are ignored.
+
         """
         return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],

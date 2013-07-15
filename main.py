@@ -27,7 +27,9 @@ import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 import controllers.pwpolicy
+
 import controllers.spa
+import controllers.user_spa
 urls = (
         storage.path + '', controllers.home.home,
         storage.path + '/', controllers.home.home,
@@ -55,6 +57,7 @@ urls = (
 
         #SPA
         storage.path + '/spa', controllers.spa.spa,
+        storage.path + '/login_spa', controllers.user_spa.account,
 )
 
 app = web.application(urls, globals(), autoreload=False)

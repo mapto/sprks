@@ -62,6 +62,7 @@ body {
     text-decoration: none;
     background-color: #C10000;
     color: #fff;
+    cursor: pointer;
 }
 
 .loginbox.main_body_container {

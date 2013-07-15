@@ -16,12 +16,12 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="link"><a>sprks</a></div>
+            <div class="link home_page"><a>sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a>Change Password</a> | </a><a href="$path/login?action=logout">Logout $username()</a>
+                    <a>Change Password</a> | </a><a href="$path/login_spa?action=logout">Logout $username()</a>
                 $else:
-                    <a>Login</a>
+                    <a class="login_page">Login</a>
             </div>
         </div>
     </div>
@@ -40,8 +40,8 @@ $if user_id() > 0:
 
     <div class="risk-menu">
         <ul>
-                <li class="risk_menu-title-risk">Risk:<br/><span class="score-value" id="risk"></span></li>
-                <li class="risk_menu-title-cost">Cost:<br/><span class="score-value" id="cost"></span> </li>
+                <li class="risk_menu-title-risk">Risk:<br/><span class="score-value" id="risk_menu"></span></li>
+                <li class="risk_menu-title-cost">Cost:<br/><span class="score-value" id="cost_menu"></span> </li>
         </ul>
     </div>
 
@@ -112,22 +112,22 @@ $if user_id() > 0:
                     <fieldset>
                         <legend>Register</legend>
                         <div class="row-fluid">
-                            <div><input type="text" data-bind="value: username" placeholder="Username" required/></div>
+                            <div><input class="register username" type="text" placeholder="Username" required/></div>
                         </div>
                         <div class="row-fluid">
-                            <div><input type="password" data-bind="value: password" placeholder="Password" required/></div>
+                            <div><input class="register password" type="password" placeholder="Password" required/></div>
                         </div>
                         <div class="row-fluid">
-                            <div><input type="password" data-bind="value: passwordConfirm"  placeholder="Confirm your password"
+                            <div><input class="register passwordConfirm" type="password" placeholder="Confirm your password"
                                         required/></div>
                         </div>
                         <div class="row-fluid">
                             <br>
-                            <div><input type="email" data-bind="value: email"  placeholder="Email" required></div>
+                            <div><input class="register email" type="email" placeholder="Email" required></div>
                         </div>
                         <input class="login_btn" type="submit" value="Register"><br>
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
+                        <ul data-bind="foreach: register_messages">
+                            <li data-bind="text: $$register_data"></li>
                         </ul>
                     </fieldset>
                 </form>
@@ -139,23 +139,38 @@ $if user_id() > 0:
                         <legend>Login</legend>
                         <div class="row-fluid">
                             <div class="span7 ">
-                                <input type="text" data-bind="value: username" placeholder="Username" required/>
+                                <input class="login username" data-bind="value: login_username" type="text" placeholder="Username" required/>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span7 ">
-                                <input type="password" data-bind="value: password" placeholder="Password" required/>
+                                <input class="login password"  data-bind="value: login_password" type="password" placeholder="Password" required/>
                             </div>
                         </div>
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
+                        <ul data-bind="foreach: login_messages">
+                            <li data-bind="text: $$login_data"></li>
                         </ul>
                         <div class="row-fluid">
                             <input class="login_btn" type="submit" value="Login">
                             <br>
-                            <a>Recover Password</a> |
-                            <a>Register</a>
+                            <a class="password_recover_page">Recover Password</a> |
+                            <a class="register_page">Register</a>
                         </div>
+                    </fieldset>
+                </form>
+            </div>
+
+             <div class="pages" id="password_recover_page">
+                <!--Password recovery-->
+                <form id="passwordRecoveryForm">
+                    <fieldset>
+                        <legend>Password Recovery</legend>
+                        <p>You will be emailed a password reset link.</p>
+                        <input class="pswdRec username" type="text" placeholder="Username" required>
+                        <input class="login_btn" type="submit" value="Request">
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
                     </fieldset>
                 </form>
             </div>
@@ -166,24 +181,9 @@ $if user_id() > 0:
                 <form id="passwordChangeForm">
                     <fieldset>
                         <legend>Set your new password</legend>
-                        <div><input type="password" data-bind="value: password" placeholder="Password" required></div>
-                        <div><input type="password" data-bind="value: passwordConfirm" placeholder="Confirm Password" required></div>
+                        <div><input class="pswdChange password" type="password" placeholder="Password" required></div>
+                        <div><input class="pswdChange passwordConfirm" type="password" placeholder="Confirm Password" required></div>
                         <input class="login_btn" type="submit" value="Change">
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
-                        </ul>
-                    </fieldset>
-                </form>
-            </div>
-
-            <div class="pages" id="password_recover_page">
-                <!--Password recovery-->
-                <form id="passwordRecoveryForm">
-                    <fieldset>
-                        <legend>Password Recovery</legend>
-                        <p>You will be emailed a password reset link.</p>
-                        <input type="text" data-bind="value: username" placeholder="Username" required>
-                        <input class="login_btn" type="submit" value="Request">
                         <ul data-bind="foreach: messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
@@ -698,6 +698,30 @@ $if user_id() > 0:
 <script>
     var title;
 
+
+    function allDataUnbinder(){
+        var bindedArray = [".register", ".login", ".pswdRec", ".pswdChange"];
+
+        $$(bindedArray).each(function(){
+            $$(this.toString()).each(function(){
+                if($$(this).attr('data-bind')){
+                    $$(this).removeAttr('data-bind');
+                }
+            });
+            //var unbindInput = $$(this.toString()).attr('class').substring(4);
+            //console.log(this.toString()+'.'+unbindInput);
+            //$$(this.toString()+'.'+unbindInput).removeAttr('data-bind');
+        });
+    }
+    function dataBinder(element){
+        //to create data-binds for some inputs for knockout use, e.g. - data-bind="value:username"
+        var dataBind = $$(element).attr('class').split(" ")[1];
+        var dataBindedinput = $$("."+$$(element).attr('class').split(" ")[0]+"."+dataBind);
+        dataBindedinput.attr('data-bind', 'value: '+$$(element).attr('class').split(" ")[0]+"_"+dataBind);
+        //console.log(dataBindedinput);
+    }
+
+
     $$("#home_page").css("display", "block");
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
@@ -711,64 +735,75 @@ $if user_id() > 0:
 </script>
 
 <script>    //REGISTER script
-    //$$(".register_page").click('click', function(e){
+    $$(".register_page").click('click', function(e){
+
+            allDataUnbinder();
+
             $$("#register_page").css("display", "block");
-    //});
+            $$(".register").each(function(){
+                dataBinder(this);
+            });
+
+            initRegister();
+    });
 </script>
 <script>
-    formModel = {
-        username: ko.observable(),
-        password: ko.observable(),
-        passwordConfirm: ko.observable(),
-        email: ko.observable(),
-        messages: ko.observableArray()
+function initRegister(){
+    register_formModel = {
+        register_username: ko.observable(),
+        register_password: ko.observable(),
+        register_passwordConfirm: ko.observable(),
+        register_email: ko.observable(),
+        register_messages: ko.observableArray()
     };
 
-    ko.applyBindings(formModel);
+    ko.applyBindings(register_formModel);
 
     $$('#registerForm').submit(function (e) {
         e.preventDefault();
-        if (formModel.password() === formModel.passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
+        if (register_formModel.register_password() === register_formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
             $$.ajax({
                 type: 'PUT',
-                url: '$path/api/user/account/' + formModel.username(),
+                url: '$path/api/user/account/' + register_formModel.register_username(),
                 dataType: 'json',
                 data: JSON.stringify({
-                    password: formModel.password(),
-                    email: formModel.email(),
+                    password: register_formModel.register_password(),
+                    email: register_formModel.register_email(),
                     autologin: true
                 }),
                 statusCode: {
                     500: function () {
-                        formModel.messages(['Server error']);
+                        register_formModel.register_messages(['Server error']);
                     },
                     200: function (response) {
-                        formModel.messages(response.messages);
+                        register_formModel.register_messages(response.messages);
                     },
                     201: function(response) {
-                        window.location = ("/");
                     }
                 }
             });
         } else {
-            formModel.messages(["Passwords don't match"]);
+            register_formModel.register_messages(["Passwords don't match"]);
         }
-    })
+    });
+}
 </script>
 
 <script>    //LOGIN script
-    //$$(".login_page").click('click', function(e){
+    $$(".login_page").click('click', function(e){
             $$("#login_page").css("display", "block");
-    //});
+            initLogin();
+    });
 </script>
 <script>
-    formModel = {
-        username: ko.observable(),
-        password: ko.observable(),
-        messages: ko.observableArray()
+function initLogin(){
+    login_formModel = {
+        login_username: ko.observable(),
+        login_password: ko.observable(),
+        login_messages: ko.observableArray()
     };
 
-    ko.applyBindings(formModel);
+    ko.applyBindings(login_formModel);
 
     $$('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -777,30 +812,31 @@ $if user_id() > 0:
             url: '/api/user/account',
             dataType: 'json',
             beforeSend: function (xhr){
-                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(login_formModel.login_username() + ':' + login_formModel.login_password()));
             },
             statusCode: {
                 500: function () {
-                    formModel.messages(['Server error']);
+                    login_formModel.login_messages(['Server error']);
                 },
                 200: function (response) {
                     if (response.success === true){
-                        window.location = ("/");
                     }
-                    formModel.messages(response.messages);
+                    login_formModel.login_messages(response.messages);
                 }
             }
         });
-    })
+    });
+}
 </script>
 
 <script>    //PSWD RECOVER script
-    //$$(".password_recover_page").click('click', function(e){
+    $$(".password_recover_page").click('click', function(e){
             $$("#password_recover_page").css("display", "block");
-    //});
+            initPasswordRecover();
+    });
 </script>
 <script>
-
+function initPasswordRecover(){
     formModel = {
         username: ko.observable(),
         messages: ko.observableArray()
@@ -826,15 +862,19 @@ $if user_id() > 0:
                 }
             }
         });
-    })
+    });
+}
+
 </script>
 
 <script>    //PSWD CHANGE script
-    //$$(".password_change_page").click('click', function(e){
+    $$(".password_change_page").click('click', function(e){
             $$("#password_change_page").css("display", "block");
-    //});
+            initPasswordChange();
+    });
 </script>
 <script>
+function initPasswordChange(){
     formModel = {
         password: ko.observable(),
         passwordConfirm: ko.observable(),
@@ -871,31 +911,32 @@ $if user_id() > 0:
         } else {
             formModel.messages(["Passwords don't match"]);
         }
-    })
+    });
+}
 </script>
 
 <script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
 <script>
-    //$$(".incident_page").click('click', function(e){
+    $$(".incident_page").click('click', function(e){
             initIncident();
             $$("#incident_page").css("display", "block");
-    //});
+    });
 </script>
 
 <script src="$path/static/js/intro.js"></script>            <!--INTRO script-->
 <script>
-    //$$(".intro_page").click('click', function(e){
+    $$(".intro_page").click('click', function(e){
             $$("#intro_page").css("display", "block");
-    //});
+    });
 </script>
 
 <script src="$path/static/js/canvasjs-1.2.1/canvasjs.js"></script> <!--PROFILE script-->
 <script src="$path/static/js/profile.js"></script>
 <script>
-    //$$(".profile_page").click('click', function(e){
+    $$(".profile_page").click('click', function(e){
             $$("#profile_page").css("display", "block");
             initProfile();
-    //});
+    });
 </script>
 
 <script src="$path/static/js/pwpolicy.js"></script>  <!-- POLICY script -->
@@ -908,10 +949,10 @@ $if user_id() > 0:
     // Variables from Python can be sent back as return values.
     // Use $$() for jqueries
 
-    //$$(".policy_page").click('click', function(e){
+    $$(".policy_page").click('click', function(e){
             $$("#policy_page").css("display", "block");
             initPolicy();
-    //});
+    });
 
     function getUserID() {
         /*ID is preset inside HTML code*/
@@ -930,10 +971,10 @@ $if user_id() > 0:
     // extract a method that grabs them here and call it from a script in the external JS file.
     // Variables from Python can be sent back as return values.
 
-    //$$(".score_page").click('click', function(e){
+    $$(".score_page").click('click', function(e){
             $$("#score_page").css("display", "block");
             initScore();
-    //});
+    });
 
     function getUsername() {
         /*ID is preset inside HTML code*/
