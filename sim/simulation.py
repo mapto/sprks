@@ -10,6 +10,12 @@ for policy specification see ranges variable in https://github.com/mapto/sprks/b
 
 class simulation:
     def __init__(self, policies={}):
+        """
+        Initialization of the simulation. This class always assumes that there's a policy being set.
+        Before using it, make sure you update with the necessary policy.
+        TODO: This class does not take care of partial policies.
+        :param policies: A dictionary of policies being explicitly set
+        """
         if not hasattr(self, 'dict'):
         # lazy initialization of policies dictionary
             self.dict = {}
@@ -91,7 +97,7 @@ class simulation:
         return support / 240.0 # normalized, notice from _future_ import that converts division to floating. default is integer division
 
     def derive_prod_cost(self, policy):
-        """ Productivity cost can be derived from a clear formula.
+        """ Productivity cost can be derived from a clear formula - this is an explicit model
             There are other less obvious costs that need to be derived with machine learning algorithm.
             These are compliance cost and risk impact (not for passwords)
         """
@@ -125,6 +131,8 @@ class simulation:
         return round(cost, 2)
 
     def get_incident(self):
+        """ The public interface to get
+        """
         risk = self.classifier.predict_data(self.dict)
         value = risk[0]  # 0 - name, 1 - risk
         return value

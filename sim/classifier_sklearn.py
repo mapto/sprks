@@ -10,27 +10,52 @@ from models.pw_policy import pw_policy_model as pw_policy
 
 class classifier_sklearn:
     def __init__(self):
+        """
+        Initializes all implicit models.
+        Currently there is one model per risk,
+        but should turn into one model per risk per environmental configuration
+        :param user_id:
+        :param sync_date:
+        """
         self.incidents_models = {}
         self.risks = []
+
+        """ Currently the data model in the simulation is dependent on pw_policy
+            This should be generalized and made dependent on policies
+        """
+        limit = len(pw_policy.ranges)
+
         general = numpy.genfromtxt('static/data/pw-train-generated-general.csv', delimiter=',')
+
         for filename in glob.glob('static/data/pw-train-generated-risk-*.csv'):
             risk = filename[36:-4] # take actual name
             self.risks.append(risk)
             # data = genfromtxt('static/data/pw-train-estimator-risk-' + risk + '.csv', delimiter=',')
             data = numpy.genfromtxt(filename, delimiter=',')
             data = numpy.concatenate((data, general)) # add positive cases that need to contrast negative ones
-            train_data = data[:, 0:7] # first 7 columns
-            train_result = data[:, 7] # last columns after 7
+            train_data = data[:, 0:limit] # first several columns represent the data dimension
+            train_result = data[:, limit] # result columns are ones after data dimensions
             self.incidents_models[risk] = svm.SVC().fit(train_data, train_result)
             # self.incidents_models[risk] = svm.SVR().fit(train_data, train_result)
 
         # print self.risks
 
     def predict_data(self, data):
+        """
+        Makes a prediction for a particular policy
+        Currently only handles pw_policy, but in future data preparation needs to be handled by the model.
+        :param data: The policy configuration that needs to be consistent with the used data structure
+        """
         datapoints = pw_policy.policy2datapoint(data)
-        return self.predict_datapoint(datapoints)
+        result = self.predict_datapoint(datapoints)
+        return result
 
     def predict_datapoint(self, datapoints):
+        """
+        Makes a prediction for a particular policy datapoint, given all implicit models
+        For external use, please refer to predict_data
+        :param datapoint: The data as a tuple
+        """
         greatest = None
 
         risks_list = {}

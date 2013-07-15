@@ -23,6 +23,7 @@ class pw_policy_model:
 
     @staticmethod
     def policy2datapoint(policy):
+
         if type(policy["plen"]) == int:
             return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
@@ -104,7 +105,7 @@ class pw_policy_model:
         entries = {"bruteforce": [], "stolen": [], "general": [] }
 
         # read incidents and generate training sets
-        for ref in glob.glob(path + '/static/incidents/*.json'):
+        for ref in glob.glob('static/incidents/*.json'):
             file = open(ref)
             incident = json.load(file)
             file.close()
@@ -128,7 +129,7 @@ class pw_policy_model:
         for risk in entries.keys():
             tail = 'general' if risk == 'general' else 'risk-' + risk
 
-            csv_name = path + '/static/data/pw-train-generated-' + tail + '.csv'
+            csv_name = 'static/data/pw-train-generated-' + tail + '.csv'
             print csv_name
             writer = csv.writer(open(csv_name, 'w'))
             for row in entries[risk]:
@@ -155,3 +156,13 @@ class pw_policy_model:
             msg["data"] = new_policy
             msgs.append(msg)
         return msgs
+
+if __name__ == "__main__":
+    model = pw_policy_model()
+    # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
+    # result = model.generate_samples({'plen': 0})
+    # result = model.generate_samples({})
+    model.generate_training_set()
+    policy = model.latest_policy(3)
+    print policy
+

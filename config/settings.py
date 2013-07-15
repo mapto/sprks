@@ -7,12 +7,12 @@ A user-customized version of this file should be placed in the root directory (s
 """
 
 # database credentials
-dbuser = ''
-dbpw = ''
+dbuser = 'root'
+dbpw = '1234'
 
 # default values if left unset
 # dbname = 'sprks'
 # host = 'localhost'
 # port = 3306
 
-path = '/sprks'
+# path = '/sprks'

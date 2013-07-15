@@ -2,8 +2,7 @@ from localsys.storage import db
 from localsys import environment
 from copy import deepcopy
 from localsys.environment import context
-from pprint import pprint
-
+import models.company
 
 
 class policies_model:
@@ -13,9 +12,9 @@ class policies_model:
         """
         Populates policies (27 rows) for new users. Returns the list of ids of the inserted rows.
         """
-        employee_types = {'executives', 'desk', 'road'}
-        location_types = {'office', 'public', 'home'}
-        device_types = {'desktop', 'laptop', 'phone'}
+        employee_types = models.company.company.employee_types
+        location_types = models.company.company.location_types
+        device_types = models.company.company.device_types
 
         values = []
         for employee in employee_types:
@@ -65,6 +64,7 @@ class policies_model:
 
     @classmethod
     def get_compressed_policy(cls, user_id):
+        # TODO currently not used. The issue below needs to be fixed before this can be used
         policies = policies_model.get_policy_history(user_id, latest=True)
         skipped = ["user_id", "bio_id", "pw_id", "pass_id", "date", "employee", "device", "location", "id_policy"]
         environmental = ["employee", "location", "device"]
