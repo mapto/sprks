@@ -10,11 +10,17 @@ for policy specification see ranges variable in https://github.com/mapto/sprks/b
 
 class simulation:
     def __init__(self, policies={}):
+        """
+        Initialization of the simulation. This class always assumes that there's a policy being set.
+        Before using it, make sure you update the policy with the one you want to use.
+        TODO: This class does not take care of partial policies
+        :param policies: A dictionary of policies being explicitly set
+        """
         if not hasattr(self, 'dict'):
         # lazy initialization of policies dictionary
             self.dict = {}
         self.set_multi_policy(policies)
-        self.estimator = estimator_sklearn_tree()
+#        self.estimator = estimator_sklearn_tree()
         self.classifier = classifier_sklearn()
 
     #        self.estimator = estimator_simple()
@@ -37,7 +43,6 @@ class simulation:
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
 
-     #   self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
         self.dict[policy_name] = policy_value
 
     def load_policy(self, policy_name):
@@ -91,7 +96,7 @@ class simulation:
         return support / 240.0 # normalized, notice from _future_ import that converts division to floating. default is integer division
 
     def derive_prod_cost(self, policy):
-        """ Productivity cost can be derived from a clear formula.
+        """ Productivity cost can be derived from a clear formula - this is an explicit model
             There are other less obvious costs that need to be derived with machine learning algorithm.
             These are compliance cost and risk impact (not for passwords)
         """
@@ -125,6 +130,18 @@ class simulation:
         return round(cost, 2)
 
     def get_incident(self):
+        """ The public interface to get
+        """
         risk = self.classifier.predict_data(self.dict)
         value = risk[0]  # 0 - name, 1 - risk
         return value
+
+    def get_related_incidents(self, policy):
+        return self.classifier.predict_data(policy)
+
+if __name__ == "__main__":
+    default = {"plen": 8, "psets": 2, "pdict": 0,
+               "phist": 1, "prenew": 1, "pattempts": 0,
+               "precovery": 1}
+    sim = simulation()
+    print sim.get_related_incidents(default)

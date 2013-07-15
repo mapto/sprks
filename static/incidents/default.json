@@ -1,5 +1,5 @@
 {"id": 1, "name": "default", "type": "general",
-    "pwpolicy": {
+    "policy": {
         "plen": 8,
         "psets": 1,
         "phist": 1,

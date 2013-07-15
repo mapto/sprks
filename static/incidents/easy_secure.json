@@ -1,5 +1,7 @@
 {"id": 5, "name": "easy_secure", "type": "general",
-    "pwpolicy": {
+    "policy": {
+        "pdata": 0,
+        "bdata": 0,
         "plen": 8,
         "psets": 2,
         "pattempts": 1,

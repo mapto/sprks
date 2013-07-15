@@ -14,14 +14,14 @@ var policies_array = {};
 
 function initFrame () {
 
-    if ($("#risk").text() == '' || $("#cost").text() == '') {
+    if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
         $(".risk-menu").css("display", "none");
     } else {
         $(".risk-menu").css("display", "block");
     }
 
     $(document).click(function () {
-        if ($("#risk").text() == '' || $("#cost").text() == '') {
+        if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
             $(".risk-menu").css("display", "none");
         } else {
             $(".risk-menu").css("display", "block");
@@ -168,13 +168,16 @@ function highlightActiveButton() {
         case "Incident":
             css_class = "incident";
             break;
+        case "Policy":
+            css_class = "policy";
+            break;
         default:
-            css_class = "policy_btn";
+            css_class = "";
     }
 
-    $("." + css_class + " a").css("background-color", "#C10000");
-    $("." + css_class + " a").css("color", "#fff");
-    $("." + css_class + " a").css("cursor", "default");
+    $("." + css_class + "_page" + " a").css("background-color", "#C10000");
+    $("." + css_class + "_page" + " a").css("color", "#fff");
+    $("." + css_class + "_page" + " a").css("cursor", "default");
 }
 
 

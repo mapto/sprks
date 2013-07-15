@@ -62,6 +62,7 @@ body {
     text-decoration: none;
     background-color: #C10000;
     color: #fff;
+    cursor: pointer;
 }
 
 .loginbox.main_body_container {
@@ -125,6 +126,10 @@ label {
     -webkit-transform: scale(1.5, 1.5);
     -o-transform: scale(1.5, 1.5);
     transform: scale(1.5, 1.5);
+}
+
+.time_controls a:hover{
+    cursor:pointer;
 }
 
 .icon-play {
@@ -309,6 +314,7 @@ label {
     text-decoration: none;
     background-color: #fff;
     color: #000;
+    cursor:pointer;
 }
 
 .score {
@@ -632,6 +638,12 @@ label {
     height:40px;
     margin:1%;
     margin-left:0;
+}
+
+
+/*********SPA********************************************************/
+.pages{
+    display:none;
 }
 
 

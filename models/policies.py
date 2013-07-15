@@ -3,9 +3,39 @@ from localsys import environment
 from copy import deepcopy
 from localsys.environment import context
 import models.company
+from models.pw_policy import pw_policy_model
 
 
 class policies_model:
+    """
+    This class takes care of all policies that do not have dedicated models (currently all except pw_policies)
+    It should provide the same features to be used from modules that require a policy
+    """
+    non_pw_ranges = {"bdata": [0, 1], "pdata": [0, 1]}
+    non_pw_default = {"bdata": 0, "pdata": 0}
+
+    @classmethod
+    def get_ranges(cls):
+        result = pw_policy_model.ranges.copy()
+        result.update(policies_model.non_pw_ranges)
+        return result
+
+    @classmethod
+    def get_default(cls):
+        result = pw_policy_model.default.copy()
+        result.update(policies_model.non_pw_default)
+        return result
+
+    @staticmethod
+    def policy2datapoint(policy):
+        """
+        Handles policies, distinguishing parameters that should be considered as part of the policy and ones that are independent
+        :policy: The policy to read password policy parameters from
+        Returns a tuple of password policy items. All other parameters are ignored.
+        """
+        result = [policy["bdata"], policy["pdata"]]
+        result.extend(pw_policy_model.policy2datapoint(policy))
+        return result
 
     @classmethod
     def populate_policies(cls, user_id, date):
@@ -76,9 +106,9 @@ class policies_model:
                 stored_policy = env[key]
                 #TODO handle logic for multiple env vars(i.e. locations/devices/employees)
                 if policies_model.policies_equal(new_policy, stored_policy):
-                    for next in environmental:
-                        if new_policy[next] not in stored_policy[next]:
-                            stored_policy[next].add(new_policy[next])
+                    for dimension in environmental:
+                        if new_policy[dimension] not in stored_policy[dimension]:
+                            stored_policy[dimension].add(new_policy[dimension])
                     added = True
                     break
 
@@ -93,7 +123,6 @@ class policies_model:
                 env[i]['employee'] = [new_policy['employee']]
                 env[i]['location'] = [new_policy['location']]
                 env[i]['device'] = [new_policy['device']]
-
 
         return env
 
@@ -170,8 +199,8 @@ class policies_model:
                     policy[employee][location][device]['passfaces'][key] = str(policies[key])
                 if key == 'bdata':
                     policy[employee][location][device]['biometric'][key] = policies[key]
-                if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or key == 'plen'\
-                    or key == 'phist' or key == 'pattempts':
+                if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or \
+                        key == 'plen' or key == 'phist' or key == 'pattempts':
                     policy[employee][location][device]['pwpolicy'][key] = policies[key]
         return policy
 
@@ -222,15 +251,20 @@ class policies_model:
 
     def check_default(self, policy):
         """
-        Inserts separate row(policy) into table
+        Checks if any values have been entered in the policy at all.
+        The name is confusing. This is not the default policy, as specified in this model.
+        :policy: a presumed policy, if not set, it contains 0s
+        Returns 0 if the given policy is not set
         """
 
-        """ pdict = policy['pdict']
-        if pdict == 'true':
-            return 1
-        elif pdict == 'false':
-            pdict = 0"""
-        return int(policy['plen'])+int(policy['psets'])+int(policy['phist'])+int(policy['pattempts'])+int(policy['pdict'])+int(policy['prenew'])
+        # pdict = policy['pdict']
+        # if pdict == 'true':
+        #     return 1
+        # elif pdict == 'false':
+        #     pdict = 0
+
+        return int(policy['plen']) + int(policy['psets']) + int(policy['phist']) + int(policy['pattempts'])\
+            + int(policy['pdict']) + int(policy['prenew'])
 
     def insert_into_tables(self, policy, date):
         """
@@ -245,8 +279,8 @@ class policies_model:
                                     phist=policy['phist'], prenew=policy['prenew'], pattempts=policy['pattempts'],
                                     precovery=policy['precovery'])
         db.insert('policies', user_id=context.user_id(), location=policy['location'],
-                              employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
-                              pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
+                  employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
+                  pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
 
     def insert_polices(self, policies, date):
         for policy in policies:

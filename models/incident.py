@@ -1,6 +1,5 @@
 import glob
 import json
-from models.pw_policy import pw_policy_model
 
 
 class incident:
@@ -21,13 +20,17 @@ class incident:
                 incident.incidents[risk_type] = {}
 
             incident.incidents[risk_type][data["id"]] = data
-
             f.close()
             # print data["name"] + " " + str(data["id"])
 
 
     @classmethod
-    def get_incident(self, ident='1', typ='any'): # if type not specified, search
+    def get_incident(cls, ident='1', typ='any'): # if type not specified, search
+        """
+        Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
+        :ident: The incident id. This must be present in the static/incidents files
+        :typ: if you know the risk that this incident is associated, specify it here. Otherwise it will search all of them
+        """
         if not incident.incidents:
             incident.read_files()
 
@@ -52,12 +55,6 @@ class incident:
 
         return incident.incidents[typ][ident]
 
-    def generate_samples(self):
-        l = []
-        for policy in pw_policy_model.ranges.keys():
-            if not policy in self.data['pwpolicy']:
-                l.push()
-
     # the following list of getters and setters might be incomplete
     def get_description(self):
         return self.data['description']
@@ -67,6 +64,9 @@ class incident:
 
     def get_event(self):
         return self.data['event']
+
+    def get_name(self):
+        return self.data['name']
 
     def get_type(self):
         return self.data['type']

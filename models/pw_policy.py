@@ -1,10 +1,5 @@
 from libraries import db_helper
 from localsys.storage import db
-from localsys.storage import path
-import csv
-import glob
-import json
-from models.policies import policies_model
 
 
 class pw_policy_model:
@@ -23,13 +18,13 @@ class pw_policy_model:
 
     @staticmethod
     def policy2datapoint(policy):
-        if type(policy["plen"]) == int:
-            return [policy["plen"], policy["psets"],
-                    policy["pdict"], policy["phist"],
-                    policy["prenew"], policy["pattempts"],
-                    policy["precovery"]]
-        else:
-            return [policy["plen"], policy["psets"],
+        """
+        Gets a pw_policy dictionary
+        :policy: The policy to read password policy parameters from
+        Returns a tuple of password policy items. All other parameters are ignored.
+
+        """
+        return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
                     policy["prenew"], policy["pattempts"],
                     policy["precovery"]]
@@ -78,6 +73,7 @@ class pw_policy_model:
 
         return policy
 
+<<<<<<< HEAD
     def generate_samples(self, partial_policy, start_index = 0):
         """ Generates all possible ways to complete a partial policy
         """
@@ -135,6 +131,8 @@ class pw_policy_model:
                 print row
                 writer.writerow(row)
 
+=======
+>>>>>>> f32991e34a90ea006bf97d9530f3853991558703
     def create_variation(self, policy, id, value):
         new_policy = {}
         for key in policy:
@@ -155,13 +153,3 @@ class pw_policy_model:
             msg["data"] = new_policy
             msgs.append(msg)
         return msgs
-
-if __name__ == "__main__":
-    model = pw_policy_model()
-    # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
-    # result = model.generate_samples({'plen': 0})
-    # result = model.generate_samples({})
-    model.generate_training_set()
-    policy = model.latest_policy(3)
-    print policy
-
