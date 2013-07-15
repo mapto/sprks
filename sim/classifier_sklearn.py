@@ -179,7 +179,7 @@ class classifier_sklearn:
         #return self.incidents_model.predict(data)
 
     def train_classifier(self, risk, employee, location, device, limit, general):
-        filename = glob.glob('static/data/pw-train-generated-'+risk+'-'+employee+location+device+'.csv')
+        filename = glob.glob('static/data/pw-train-generated-'+risk+'-'+employee+'-'+location+'-'+device+'.csv')
         data = numpy.genfromtxt(filename, delimiter=',')
         data = numpy.concatenate((data, general)) # add positive cases that need to contrast negative ones
         train_data = data[:, 0:limit] # first several columns represent the data dimension
