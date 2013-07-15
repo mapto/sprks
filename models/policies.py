@@ -3,9 +3,38 @@ from localsys import environment
 from copy import deepcopy
 from localsys.environment import context
 import models.company
+from models.pw_policy import pw_policy_model
 
 
 class policies_model:
+    """
+    This class takes care of all policies that do not have dedicated models (currently all except pw_policies)
+    It should provide the same features to be used from modules that require a policy
+    """
+    non_pw_ranges = {"bdata": [0, 1], "pdata": [0, 1]}
+    non_pw_default = {"bdata": 0, "pdata": 0}
+
+    @classmethod
+    def get_ranges(cls):
+        result = pw_policy_model.ranges.copy()
+        result.update(policies_model.non_pw_ranges)
+        return result
+
+    @classmethod
+    def get_default(cls):
+        result = pw_policy_model.default.copy()
+        result.update(policies_model.non_pw_default)
+        return result
+
+    @staticmethod
+    def policy2datapoint(policy):
+        """
+        Handles policies, distinguishing parameters that should be considered as part of the policy and ones that are independent
+        :policy: The policy to read password policy parameters from
+        Returns a tuple of password policy items. All other parameters are ignored.
+        """
+        result = [policy["bdata"], policy["pdata"]].extend(pw_policy_model.policy2datapoint(policy))
+        return result
 
     @classmethod
     def populate_policies(cls, user_id, date):
@@ -222,7 +251,10 @@ class policies_model:
 
     def check_default(self, policy):
         """
-        Inserts separate row(policy) into table
+        Checks if any values have been entered in the policy at all.
+        The name is confusing. This is not the default policy, as specified in this model.
+        :policy: a presumed policy, if not set, it contains 0s
+        Returns 0 if the given policy is not set
         """
 
         """ pdict = policy['pdict']

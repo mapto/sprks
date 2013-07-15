@@ -27,6 +27,11 @@ class incident:
 
     @classmethod
     def get_incident(self, ident='1', typ='any'): # if type not specified, search
+        """
+        Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
+        :ident: The incident id. This must be present in the static/incidents files
+        :typ: if you know the risk that this incident is associated, specify it here. Otherwise it will search all of them
+        """
         if not incident.incidents:
             incident.read_files()
 
@@ -66,6 +71,9 @@ class incident:
 
     def get_event(self):
         return self.data['event']
+
+    def get_name(self):
+        return self.data['name']
 
     def get_type(self):
         return self.data['type']

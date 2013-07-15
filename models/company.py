@@ -7,6 +7,7 @@ class company:
     employee_types = {'executives', 'desk', 'road'}
     location_types = {'office', 'public', 'home'}
     device_types = {'desktop', 'laptop', 'phone'}
+    max_incident_cost = pow(10, 8) # 10^8 is 100 million
 
     def __init__(self, size=200, distribution=[.1, .5, .4], support=5):
         self.size = size # in thousand of employees

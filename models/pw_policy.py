@@ -23,14 +23,12 @@ class pw_policy_model:
 
     @staticmethod
     def policy2datapoint(policy):
-
-        if type(policy["plen"]) == int:
-            return [policy["plen"], policy["psets"],
-                    policy["pdict"], policy["phist"],
-                    policy["prenew"], policy["pattempts"],
-                    policy["precovery"]]
-        else:
-            return [policy["plen"], policy["psets"],
+        """
+        Gets a pw_policy dictionary
+        :policy: The policy to read password policy parameters from
+        Returns a tuple of password policy items. All other parameters are ignored.
+        """
+        return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
                     policy["prenew"], policy["pattempts"],
                     policy["precovery"]]

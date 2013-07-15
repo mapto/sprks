@@ -4,8 +4,7 @@ from sklearn import svm
 import numpy
 import glob
 from models.incident import incident
-import json
-from models.pw_policy import pw_policy_model as pw_policy
+from models.policies import policies_model as policy
 
 
 class classifier_sklearn:
@@ -23,7 +22,7 @@ class classifier_sklearn:
         """ Currently the data model in the simulation is dependent on pw_policy
             This should be generalized and made dependent on policies
         """
-        limit = len(pw_policy.ranges)
+        limit = len(policy.ranges)
 
         general = numpy.genfromtxt('static/data/pw-train-generated-general.csv', delimiter=',')
 
@@ -46,7 +45,7 @@ class classifier_sklearn:
         Currently only handles pw_policy, but in future data preparation needs to be handled by the model.
         :param data: The policy configuration that needs to be consistent with the used data structure
         """
-        datapoints = pw_policy.policy2datapoint(data)
+        datapoints = policy.policy2datapoint(data)
         result = self.predict_datapoint(datapoints)
         return result
 
