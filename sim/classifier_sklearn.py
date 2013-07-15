@@ -58,7 +58,7 @@ class classifier_sklearn:
         """
         greatest = None
 
-        risks_list = {}
+        risks_list = []
 
         for risk in self.risks:
             cls = self.incidents_models[risk].predict(datapoints)[0]
@@ -68,7 +68,7 @@ class classifier_sklearn:
             # risk = event.get_risk()
             event = incident.get_incident(cls)
 
-            risks_list[risk] = event["risk"]
+            risks_list.append(event["id"])
 
             #if greatest is None or event["risk"] > greatest[1]:
             #   greatest = [event["name"], event["risk"]] # 0 - name, 1 - risk

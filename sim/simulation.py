@@ -137,7 +137,7 @@ class simulation:
         value = risk[0]  # 0 - name, 1 - risk
         return value
 
-    def get_riks_list(self, policy):
+    def get_related_incidents(self, policy):
         return self.classifier.predict_data(policy)
 
 if __name__ == "__main__":
@@ -145,4 +145,4 @@ if __name__ == "__main__":
                "phist": 1, "prenew": 1, "pattempts": 0,
                "precovery": 1}
     sim = simulation()
-    print sim.get_riks_list(default)
+    print sim.get_related_incidents(default)
