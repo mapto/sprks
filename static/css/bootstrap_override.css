@@ -127,6 +127,10 @@ label {
     transform: scale(1.5, 1.5);
 }
 
+.time_controls a:hover{
+    cursor:pointer;
+}
+
 .icon-play {
     background-position: -255px -63px;
 }
@@ -309,6 +313,7 @@ label {
     text-decoration: none;
     background-color: #fff;
     color: #000;
+    cursor:pointer;
 }
 
 .score {
@@ -632,6 +637,12 @@ label {
     height:40px;
     margin:1%;
     margin-left:0;
+}
+
+
+/*********SPA********************************************************/
+.pages{
+    display:none;
 }
 
 
