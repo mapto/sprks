@@ -1,6 +1,5 @@
 from datetime import date
 from localsys.storage import db
-from libraries.utils import date_utils
 from datetime import timedelta
 import datetime
 
@@ -42,7 +41,7 @@ class records:
     def __next_sync(self, last_sync_date):
         """
         For the given user and a last sync date, returns the next sync due (whether it be policy sync or event sync).
-        :param last_sync_date: 
+        :param last_sync_date:
         """
 
         next_due_policy_date = self.__next_due_policy_date(last_sync_date)
