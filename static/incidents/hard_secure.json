@@ -1,5 +1,7 @@
 {"id": 7, "name": "hard_secure", "type": "general",
     "policy": {
+        "pdata": 0,
+        "bdata": 0,
         "plen": 10,
         "psets": 3,
         "pattempts": 1,

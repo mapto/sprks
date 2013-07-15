@@ -106,9 +106,9 @@ class policies_model:
                 stored_policy = env[key]
                 #TODO handle logic for multiple env vars(i.e. locations/devices/employees)
                 if policies_model.policies_equal(new_policy, stored_policy):
-                    for next in environmental:
-                        if new_policy[next] not in stored_policy[next]:
-                            stored_policy[next].add(new_policy[next])
+                    for dimension in environmental:
+                        if new_policy[dimension] not in stored_policy[dimension]:
+                            stored_policy[dimension].add(new_policy[dimension])
                     added = True
                     break
 
@@ -123,7 +123,6 @@ class policies_model:
                 env[i]['employee'] = [new_policy['employee']]
                 env[i]['location'] = [new_policy['location']]
                 env[i]['device'] = [new_policy['device']]
-
 
         return env
 
@@ -200,8 +199,8 @@ class policies_model:
                     policy[employee][location][device]['passfaces'][key] = str(policies[key])
                 if key == 'bdata':
                     policy[employee][location][device]['biometric'][key] = policies[key]
-                if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or key == 'plen'\
-                    or key == 'phist' or key == 'pattempts':
+                if key == 'prenew' or key == 'pdict' or key == 'psets' or key == 'precovery' or \
+                        key == 'plen' or key == 'phist' or key == 'pattempts':
                     policy[employee][location][device]['pwpolicy'][key] = policies[key]
         return policy
 
@@ -258,12 +257,14 @@ class policies_model:
         Returns 0 if the given policy is not set
         """
 
-        """ pdict = policy['pdict']
-        if pdict == 'true':
-            return 1
-        elif pdict == 'false':
-            pdict = 0"""
-        return int(policy['plen'])+int(policy['psets'])+int(policy['phist'])+int(policy['pattempts'])+int(policy['pdict'])+int(policy['prenew'])
+        # pdict = policy['pdict']
+        # if pdict == 'true':
+        #     return 1
+        # elif pdict == 'false':
+        #     pdict = 0
+
+        return int(policy['plen']) + int(policy['psets']) + int(policy['phist']) + int(policy['pattempts'])\
+            + int(policy['pdict']) + int(policy['prenew'])
 
     def insert_into_tables(self, policy, date):
         """
@@ -276,8 +277,8 @@ class policies_model:
                                     phist=policy['phist'], prenew=policy['prenew'], pattempts=policy['pattempts'],
                                     precovery=policy['precovery'])
         db.insert('policies', user_id=context.user_id(), location=policy['location'],
-                              employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
-                              pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
+                  employee=policy['employee'], device=policy['device'], bio_id=policy['bdata'],
+                  pass_id=policy['pdata'], pw_id=id_pwpolicy, date=date)
 
     def insert_polices(self, policies, date):
         for policy in policies:

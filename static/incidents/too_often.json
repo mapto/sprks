@@ -1,5 +1,7 @@
 {"id": 14, "name": "too_often", "type": "stolen",
     "policy": {
+        "pdata": 0,
+        "bdata": 0,
         "plen": 8,
         "psets": 3,
         "pdict": 0,

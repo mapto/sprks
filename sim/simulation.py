@@ -43,7 +43,6 @@ class simulation:
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
 
-     #   self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
         self.dict[policy_name] = policy_value
 
     def load_policy(self, policy_name):

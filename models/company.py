@@ -7,10 +7,11 @@ class company:
     employee_types = {'executives', 'desk', 'road'}
     location_types = {'office', 'public', 'home'}
     device_types = {'desktop', 'laptop', 'phone'}
-    max_incident_cost = pow(10, 8) # 10^8 is 100 million
 
-    def __init__(self, size=200, distribution=[.1, .5, .4], support=5):
-        self.size = size # in thousand of employees
+    employees_count = 2 * pow(10, 5)
+    max_incident_cost = employees_count * pow(10, 3)
+
+    def __init__(self, distribution=[.1, .5, .4], support=5):
         self.distribution = distribution
         self.support = support # number of support staff per one staff unit (1000 employees)
         # 'desk' used for office worker, but changed in order to distinguish from office as location
