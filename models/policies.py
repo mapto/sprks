@@ -236,6 +236,8 @@ class policies_model:
         """
         Inserts set of policies into table
         """
+        print "policy inside insert_into_tables"
+        print policy
         if self.check_default(policy) == 0:
             id_pwpolicy = 0
         else:

@@ -9,6 +9,67 @@ import datetime
 
 class records:
 
+    default_calendar = {
+  'date': 'YYYY-MM-DD',
+  'policyAccept': True,
+  'eventAccept': True,
+  'calendar': [
+    {
+      'date': '2014-01-20',
+      'events': [
+        {
+        'incdt_id': 5,
+        'cost': 2000
+        }
+      ]
+    },
+    {
+      'date': '2014-01-21',
+      'events': []
+    },
+    {
+      'date': '2014-02-05',
+       'events': [
+        {
+          'incdt_id': 1,
+          'cost': 7000000
+        },
+        {
+          'incdt_id': 4,
+          'cost': 5000
+        }
+      ]
+    },
+    {
+      'date': '2014-02-07',
+      'events': [
+        {
+          'incdt_id': 8,
+          'cost': 1000
+        }
+      ]
+    }
+  ],
+  'policy': [
+    {
+      'employee': ['executives', 'road'],
+      'location': ['office', 'home'],
+      'device': ['phone', 'desktop'],
+      'plen': 8,
+      'psets': 2,
+      'pdict': 0,
+      'phist': 1,
+      'prenew': 1,
+      'pattempts': 0,
+      'precovery': 1
+    },
+    {
+      'employee': 'executives',
+      'location': 'home',
+      'device': 'phone',
+    }]
+  }
+
     @classmethod
     def commit_history(cls, user_id, date):
         result = db.update('journal', committed=1, where="date<$date&&user_id=$user_id", vars=locals())
@@ -86,8 +147,8 @@ class records:
         pass
         # TODO doesn't work!!!
         # calendar = chronos.prophesize(risk)["prophecy"]
-        # calendar = cls.default_calendar["calendar"]
-        # whole_calendar = cls.default_calendar
+        calendar = cls.default_calendar["calendar"]
+        whole_calendar = cls.default_calendar
         # for dates in calendar:
         #     for key in dates:
         #         date = ""

@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `policies` (
   `pass_id` int(11) DEFAULT NULL,
   `pw_id` int(11) DEFAULT NULL,
   `date` date NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id_policy`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

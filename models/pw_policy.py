@@ -122,7 +122,7 @@ class pw_policy_model:
             for sample in samples:
                 data = self.policy2datapoint(sample)
                 data.append(cls) # add last column with classification for printing in CSV
-                entries[risk].append(data)  # put them in a risk dictionary
+                entries[risk].append(data)  #  put them in a risk dictionary
 
         #save the risk dictionary files
         for risk in entries.keys():
