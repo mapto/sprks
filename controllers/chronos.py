@@ -4,8 +4,8 @@ from localsys.environment import context
 from libraries.utils import date_utils
 from models.policies import policies_model
 from models.journal import records
-from sim.simulation import simulation
 from datetime import timedelta
+from models.oracle import prophet
 
 
 class chronos:
@@ -42,13 +42,14 @@ class chronos:
                 policies_model.commit_policy_update(policy_update, corrected_sync_date)
                 policy_accept = True
 
+        # TODO next_due_event_date shouldn't be called again - convert from @classmethod?
         if corrected_sync_date == records.next_due_event_date(context.user_id()):
             event_accept = True
 
         if event_accept or policy_accept:
             records.clear_prophecy(context.user_id(), corrected_sync_date)
-            # TODO get prophecy for multiple risks
-            #records.record_prophecy(context.user_id(), simulation().calc_risk_prob())
+            prophecy = prophet.prophesize(context.user_id(), corrected_sync_date)
+            records.record_prophecy(context.user_id(), prophecy)
 
         response = {
             'date': corrected_sync_date.isoformat(),

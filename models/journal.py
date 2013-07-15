@@ -1,7 +1,5 @@
-from localsys import environment
 from datetime import date
 from localsys.storage import db
-from localsys.environment import context
 from libraries.utils import date_utils
 from datetime import timedelta
 import datetime
@@ -79,29 +77,24 @@ class records:
         return date(last_sync_date.year, month, 1)
 
     @classmethod
-    def record_prophecy(cls, user_id, risk):
+    def record_prophecy(cls, user_id, prophecy):
         """
-        For a given risk, generates new prophecies and stores in journal for given user_id.
+        For given user_id and prophecy (proprietary format), decodes the prophecy and stores them in the journal.
+        Accepts a prophecy in the following form:
+        [
+            {
+                'date': 'YYYY-MM-DD'
+                'incident_id': 1,
+                'cost': 5000000
+            },
+            ...
+        ]
         """
-        pass
-        # TODO doesn't work!!!
-        # calendar = chronos.prophesize(risk)["prophecy"]
-        # calendar = cls.default_calendar["calendar"]
-        # whole_calendar = cls.default_calendar
-        # for dates in calendar:
-        #     for key in dates:
-        #         date = ""
-        #         cost = ""
-        #         inc_id = ""
-        #         if key == 'date':
-        #             date = dates[key]
-        #             dtt = date
-        #         else:
-        #             for event in dates[key]:
-        #                 inc_id = event['incdt_id']
-        #                 cost = event['cost']
-        #                 db.insert('journal', user_id=user_id, date=date, cost=cost, incident_id=inc_id, commited=0)
-        # return whole_calendar
+        for event in prophecy.iteritems():
+            event['user_id'] = user_id
+            event['committed'] = 0
+
+        db.multiple_insert('journal', values=prophecy)
 
     @classmethod
     def get_calendar(cls, user_id, sync_date):
