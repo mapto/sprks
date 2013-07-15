@@ -51,7 +51,8 @@ class classifier_sklearn:
                     for device in company.device_types:
                         if not device in self.incidents_models[risk][employee][location].keys():
                             self.incidents_models[risk][employee][location][device] = {}
-                        self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
+                        self.incidents_models[risk][employee][location][device] = \
+                            self.train_classifier(risk, employee, location, device, limit, general)
             # self.incidents_models[risk] = svm.SVR().fit(train_data, train_result)
 
         # print self.risks
@@ -178,7 +179,18 @@ class classifier_sklearn:
         return risks_list
         #return self.incidents_model.predict(data)
 
+
     def train_classifier(self, risk, employee, location, device, limit, general):
+        """
+        Trains classifier for a given risk, employee, location, device.
+        Returns trained model that later can be used for making predictions
+        :param risk: Type of risk of attack. Can be 'bruteforce' or 'stolen'.
+        :param employee: type of employee (executives, desk, road)
+        :param location: type of location (home, office, public)
+        :param device: type of device (desktop, laptop, phone)
+        :param limit: number of parameters of a policy
+        :param general: set of general training data common for bruteforce and stolen attacks.
+        """
         filename = glob.glob('static/data/pw-train-generated-'+risk+'-'+employee+'-'+location+'-'+device+'.csv')
         data = numpy.genfromtxt(filename, delimiter=',')
         data = numpy.concatenate((data, general)) # add positive cases that need to contrast negative ones
