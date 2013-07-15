@@ -16,12 +16,12 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="link"><a href="/">sprks</a></div>
+            <div class="link"><a>sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a href="password">Change Password</a> | </a><a href="$path/login?action=logout">Logout $username()</a>
+                    <a>Change Password</a> | </a><a href="$path/login?action=logout">Logout $username()</a>
                 $else:
-                    <a href="login">Login</a>
+                    <a>Login</a>
             </div>
         </div>
     </div>
@@ -92,9 +92,9 @@ $if user_id() > 0:
                 $if username() == '':
                     <p>To start a game please:</p>.
                     <div class="span11">
-                        <div class="span4 text-center main_btn"><a href="$path/register">Register</a></div>
+                        <div class="span4 text-center main_btn"><a class="register_page">Register</a></div>
                         <div class="span2 text-center"><h3>OR</h3></div>
-                        <div class="span4 text-center main_btn"><a class="main_btn" href="$path/login">Login</a></div>
+                        <div class="span4 text-center main_btn"><a class="login_page">Login</a></div>
                     </div>
                     <br/><br/><br/><br/>
 
@@ -107,16 +107,88 @@ $if user_id() > 0:
                 <p>The website is best experienced with the <a href="www.google.com/chrome/">Chrome Browser</a>.</p>
             </div>
 
-            <div class="pages" id="incident_page">
-                <!--Incident-->
-                    <div class="description">
-                    <h1>Incident</h1> <br>
-                    <p><h4>Policy: </h4><div class="incident_box" id="description"></div></p>
-                    <p><h4>Incident: </h4><div class="incident_box" id="event"></div></p>
-                    <p><h4>Consequences: </h4><div class="incident_box" id="consequences"></div></p>
-                    <p><h4>Risk: </h4> <div class="incident_box" id="risk"></div>
-                    <p><h4>productivity cost: </h4> <div class="incident_box" id="cost"></div></p>
-                </div>
+            <div class="pages" id="register_page">
+                <form id="registerForm">
+                    <fieldset>
+                        <legend>Register</legend>
+                        <div class="row-fluid">
+                            <div><input type="text" data-bind="value: username" placeholder="Username" required/></div>
+                        </div>
+                        <div class="row-fluid">
+                            <div><input type="password" data-bind="value: password" placeholder="Password" required/></div>
+                        </div>
+                        <div class="row-fluid">
+                            <div><input type="password" data-bind="value: passwordConfirm"  placeholder="Confirm your password"
+                                        required/></div>
+                        </div>
+                        <div class="row-fluid">
+                            <br>
+                            <div><input type="email" data-bind="value: email"  placeholder="Email" required></div>
+                        </div>
+                        <input class="login_btn" type="submit" value="Register"><br>
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="pages" id="login_page">
+                <form id="loginForm">
+                    <fieldset>
+                        <legend>Login</legend>
+                        <div class="row-fluid">
+                            <div class="span7 ">
+                                <input type="text" data-bind="value: username" placeholder="Username" required/>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span7 ">
+                                <input type="password" data-bind="value: password" placeholder="Password" required/>
+                            </div>
+                        </div>
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                        <div class="row-fluid">
+                            <input class="login_btn" type="submit" value="Login">
+                            <br>
+                            <a>Recover Password</a> |
+                            <a>Register</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="pages" id="password_change_page">
+                <!--Password Change-->
+                <!--def with: user_id, token) -->
+                <form id="passwordChangeForm">
+                    <fieldset>
+                        <legend>Set your new password</legend>
+                        <div><input type="password" data-bind="value: password" placeholder="Password" required></div>
+                        <div><input type="password" data-bind="value: passwordConfirm" placeholder="Confirm Password" required></div>
+                        <input class="login_btn" type="submit" value="Change">
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="pages" id="password_recover_page">
+                <!--Password recovery-->
+                <form id="passwordRecoveryForm">
+                    <fieldset>
+                        <legend>Password Recovery</legend>
+                        <p>You will be emailed a password reset link.</p>
+                        <input type="text" data-bind="value: username" placeholder="Username" required>
+                        <input class="login_btn" type="submit" value="Request">
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                    </fieldset>
+                </form>
             </div>
 
             <div class="pages" id="intro_page">
@@ -172,19 +244,6 @@ $if user_id() > 0:
                     to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be
                     working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new
                     team and that makes work go a little easier.
-                </div>
-            </div>
-
-            <div class="pages" id="profile_page">
-                <h1>Profile</h1>
-                <div>Now displays attribute names and values in a way that they are required, but it doesn't make much sense for the
-                    player what does each attribute name mean or how to interpret its value. Possible improvement: can extract labels
-                    and value interpretations from pwpolicy_form.html, but not sure if it's possible to do
-                </div><br>
-
-                <div id="chartContainer"></div>
-                <div id="profile_table">
-                    <div id="changed_values"></div>
                 </div>
             </div>
 
@@ -533,6 +592,31 @@ $if user_id() > 0:
                 <!--PASSWORD POLICY END-->
             </div>
 
+            <div class="pages" id="incident_page">
+                <!--Incident-->
+                    <div class="description">
+                    <h1>Incident</h1> <br>
+                    <p><h4>Policy: </h4><div class="incident_box" id="description"></div></p>
+                    <p><h4>Incident: </h4><div class="incident_box" id="event"></div></p>
+                    <p><h4>Consequences: </h4><div class="incident_box" id="consequences"></div></p>
+                    <p><h4>Risk: </h4> <div class="incident_box" id="risk"></div>
+                    <p><h4>productivity cost: </h4> <div class="incident_box" id="cost"></div></p>
+                </div>
+            </div>
+
+            <div class="pages" id="profile_page">
+                <h1>Profile</h1>
+                <div>Now displays attribute names and values in a way that they are required, but it doesn't make much sense for the
+                    player what does each attribute name mean or how to interpret its value. Possible improvement: can extract labels
+                    and value interpretations from pwpolicy_form.html, but not sure if it's possible to do
+                </div><br>
+
+                <div id="chartContainer"></div>
+                <div id="profile_table">
+                    <div id="changed_values"></div>
+                </div>
+            </div>
+
             <div class="pages" id="score_page">
                 <h1>Scores</h1>
                 <div id="accordion">
@@ -612,6 +696,7 @@ $if user_id() > 0:
 
 <script src="$path/static/js/private_common.js"></script>      <!--MAIN script-->
 <script>
+    var title;
 
     $$("#home_page").css("display", "block");
     // This is the common script for all registered user views.
@@ -623,6 +708,170 @@ $if user_id() > 0:
     initFrame();    //no care for document ready as below
     //$$(document).ready(initFrame); // register callback to function from external JS file;
 
+</script>
+
+<script>    //REGISTER script
+    //$$(".register_page").click('click', function(e){
+            $$("#register_page").css("display", "block");
+    //});
+</script>
+<script>
+    formModel = {
+        username: ko.observable(),
+        password: ko.observable(),
+        passwordConfirm: ko.observable(),
+        email: ko.observable(),
+        messages: ko.observableArray()
+    };
+
+    ko.applyBindings(formModel);
+
+    $$('#registerForm').submit(function (e) {
+        e.preventDefault();
+        if (formModel.password() === formModel.passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
+            $$.ajax({
+                type: 'PUT',
+                url: '$path/api/user/account/' + formModel.username(),
+                dataType: 'json',
+                data: JSON.stringify({
+                    password: formModel.password(),
+                    email: formModel.email(),
+                    autologin: true
+                }),
+                statusCode: {
+                    500: function () {
+                        formModel.messages(['Server error']);
+                    },
+                    200: function (response) {
+                        formModel.messages(response.messages);
+                    },
+                    201: function(response) {
+                        window.location = ("/");
+                    }
+                }
+            });
+        } else {
+            formModel.messages(["Passwords don't match"]);
+        }
+    })
+</script>
+
+<script>    //LOGIN script
+    //$$(".login_page").click('click', function(e){
+            $$("#login_page").css("display", "block");
+    //});
+</script>
+<script>
+    formModel = {
+        username: ko.observable(),
+        password: ko.observable(),
+        messages: ko.observableArray()
+    };
+
+    ko.applyBindings(formModel);
+
+    $$('#loginForm').submit(function (e) {
+        e.preventDefault();
+        $$.ajax({
+            type: 'POST',
+            url: '/api/user/account',
+            dataType: 'json',
+            beforeSend: function (xhr){
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
+            },
+            statusCode: {
+                500: function () {
+                    formModel.messages(['Server error']);
+                },
+                200: function (response) {
+                    if (response.success === true){
+                        window.location = ("/");
+                    }
+                    formModel.messages(response.messages);
+                }
+            }
+        });
+    })
+</script>
+
+<script>    //PSWD RECOVER script
+    //$$(".password_recover_page").click('click', function(e){
+            $$("#password_recover_page").css("display", "block");
+    //});
+</script>
+<script>
+
+    formModel = {
+        username: ko.observable(),
+        messages: ko.observableArray()
+    }
+
+    ko.applyBindings(formModel);
+
+    $$('#passwordRecoveryForm').submit(function (e) {
+        e.preventDefault();
+        $$.ajax({
+            type: 'POST',
+            url: '$path/api/user/password/' + formModel.username(),
+            dataType: 'json',
+            data: JSON.stringify({
+                uid_type: 'username'
+            }),
+            statusCode: {
+                500: function () {
+                    formModel.messages(['Server error']);
+                },
+                200: function (response) {
+                    formModel.messages(response.messages);
+                }
+            }
+        });
+    })
+</script>
+
+<script>    //PSWD CHANGE script
+    //$$(".password_change_page").click('click', function(e){
+            $$("#password_change_page").css("display", "block");
+    //});
+</script>
+<script>
+    formModel = {
+        password: ko.observable(),
+        passwordConfirm: ko.observable(),
+        messages: ko.observableArray()
+    }
+
+    ko.applyBindings(formModel);
+
+    $$('#passwordChangeForm').submit(function (e) {
+        e.preventDefault();
+        if (formModel.password() === formModel.passwordConfirm()) {
+            $$.ajax({
+                type: 'PUT',
+                url: '$path/api/user/password/$user_id',
+                dataType: 'json',
+                data: JSON.stringify({
+                    password: formModel.password(),
+                    token: '',
+                    autologin: true
+                }),
+                statusCode: {
+                    500: function () {
+                        formModel.messages(['Server error']);
+                    },
+                    200: function (response) {
+                        formModel.messages(response.messages);
+                        if (response.success === true){
+                            formModel.password('');
+                            formModel.passwordConfirm('');
+                        }
+                    }
+                }
+            });
+        } else {
+            formModel.messages(["Passwords don't match"]);
+        }
+    })
 </script>
 
 <script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
