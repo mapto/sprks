@@ -33,7 +33,8 @@ class policies_model:
         :policy: The policy to read password policy parameters from
         Returns a tuple of password policy items. All other parameters are ignored.
         """
-        result = [policy["bdata"], policy["pdata"]].extend(pw_policy_model.policy2datapoint(policy))
+        result = [policy["bdata"], policy["pdata"]]
+        result.extend(pw_policy_model.policy2datapoint(policy))
         return result
 
     @classmethod

@@ -1,5 +1,5 @@
 {"id": 3, "name": "eternal", "type": "stolen",
-    "pwpolicy": {
+    "policy": {
         "prenew": 0
     },
     "description": "You don't ever require from employees to renew their passwords.",

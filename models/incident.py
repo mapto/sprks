@@ -1,6 +1,5 @@
 import glob
 import json
-from models.pw_policy import pw_policy_model
 
 
 class incident:
@@ -55,12 +54,6 @@ class incident:
         typ = data["type"]
 
         return incident.incidents[typ][ident]
-
-    def generate_samples(self):
-        l = []
-        for policy in pw_policy_model.ranges.keys():
-            if not policy in self.data['pwpolicy']:
-                l.push()
 
     # the following list of getters and setters might be incomplete
     def get_description(self):

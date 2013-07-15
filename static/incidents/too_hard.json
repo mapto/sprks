@@ -1,5 +1,5 @@
 {"id": 12, "name": "too_hard", "type": "stolen",
-    "pwpolicy": {
+    "policy": {
         "plen": 12,
         "psets": 4,
         "pdict": 1,

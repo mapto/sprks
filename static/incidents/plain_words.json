@@ -1,5 +1,5 @@
 {"id": 13, "name": "plain_words", "type": "bruteforce",
-    "pwpolicy": {
+    "policy": {
         "psets": 1,
         "pdict": 0
     },

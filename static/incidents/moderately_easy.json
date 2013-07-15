@@ -1,5 +1,5 @@
 {"id": 16, "name": "moderately_easy", "type": "stolen",
-    "pwpolicy": {
+    "policy": {
         "plen": 8,
         "psets": 2,
         "pdict": 0,

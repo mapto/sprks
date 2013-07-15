@@ -1,5 +1,5 @@
 {"id": 8, "name": "no_pass", "type": "bruteforce",
-    "pwpolicy": {
+    "policy": {
         "plen": 0
     },
     "description": "You don't require any password at all.",

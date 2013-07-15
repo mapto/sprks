@@ -1,5 +1,5 @@
 {"id": 9, "name": "very_easy", "type": "bruteforce",
-    "pwpolicy": {
+    "policy": {
         "plen": 6,
         "psets": 1,
         "pdict": 0,

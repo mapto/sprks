@@ -1,5 +1,5 @@
 {"id": 7, "name": "hard_secure", "type": "general",
-    "pwpolicy": {
+    "policy": {
         "plen": 10,
         "psets": 3,
         "pattempts": 1,

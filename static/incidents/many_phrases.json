@@ -1,5 +1,5 @@
 {"id": 15, "name": "many_phrases", "type": "stolen",
-    "pwpolicy": {
+    "policy": {
         "plen": 12,
         "psets": 2,
         "pdict": 0,

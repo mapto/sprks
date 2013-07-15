@@ -1,5 +1,5 @@
 {"id": 2, "name": "too_demanding", "type": "stolen",
-    "pwpolicy": {
+    "policy": {
         "pdict": 1,
         "phist": 3,
         "prenew": 3,

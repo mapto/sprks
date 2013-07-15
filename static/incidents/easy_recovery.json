@@ -1,5 +1,5 @@
 {"id": 11, "name": "easy_recovery", "type": "stolen",
-    "pwpolicy": {
+    "policy": {
         "prenew": 3,
         "precovery": 1
     },
