@@ -152,6 +152,7 @@ class policies_model:
     def parse_policy(self, policyUpdate):
         """
         Converts client-submitted policyUpdate changes to proprietary nested object format.
+        :param policyUpdate: policy updates from client
         """
         policies = {}
         for update in policyUpdate:
@@ -174,8 +175,8 @@ class policies_model:
 
     def iter_to_nested_obj(self, res):
         """
-        Merges two policies
-        :param res:
+        Converts iterator returned from SQL query into nested object
+        :param res: iterator
         """
         policy = {}
         for policies in res:
@@ -206,7 +207,7 @@ class policies_model:
 
     def merge_policies(self, updated_policy, old_policy):
         """
-        converts nested object into list of dictionaries
+        Merges old policy from database with updated policy from client into one nested object
         :param updated_policy:
         :param old_policy:
         """
@@ -225,8 +226,9 @@ class policies_model:
 
     def nested_obj_to_list_of_dict(self, policies):
         """
-        Checks if password mechanism is used or not
-        :param policies:
+        Converts nested object (e.g {'executive: {'home': {'phone': {...}}}'} ) into a list of dictionary:
+        [{'employee':'executives', 'location': 'home', 'device': 'phone',...}]
+        :param policies: nested object that represent policy
         """
         #tmp_obj = {}
         policies_list = []
@@ -251,10 +253,8 @@ class policies_model:
 
     def check_default(self, policy):
         """
-        Checks if any values have been entered in the policy at all.
-        The name is confusing. This is not the default policy, as specified in this model.
-        :policy: a presumed policy, if not set, it contains 0s
-        Returns 0 if the given policy is not set
+        Checks if password mechanism is used or not
+        :param policies: password policy
         """
 
         # pdict = policy['pdict']

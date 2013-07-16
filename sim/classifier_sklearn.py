@@ -150,6 +150,10 @@ class classifier_sklearn:
         tmp_list = {}
 
         #for risk in self.risks:
+        """
+        Iterates through classifier models to estimate class for different locations, workers and devices
+        Returns list of incident IDs
+        """
         for risk in self.risks_set:
             my_list = []
             for employee in company.employee_types:
@@ -161,19 +165,24 @@ class classifier_sklearn:
                         # event = incident(cls[0].astype(int64))
                         # risk = event.get_risk()
                         event = incident.get_incident(cls)
-                        my_list.append(event['id'])
+                        my_list.append({'id': event['id'], 'risk': event['risk']})
                         #risks_list.append(event["id"])
             tmp_list[risk] = my_list
             #if greatest is None or event["risk"] > greatest[1]:
             #   greatest = [event["name"], event["risk"]] # 0 - name, 1 - risk
 
-        max = 1
+        """
+        Finds the incident with maximum risk probability
+        """
         for risk in tmp_list:
-            for value in tmp_list[risk]:
-                if value < max:
-                    max = value
-            risks_list.append(max)
-            max = 1
+            tmp_id = tmp_list[risk][0]['id']
+            max = tmp_list[risk][0]['risk']
+            for tmp_incident in tmp_list[risk]:
+                if tmp_incident['risk'] > max:
+                    max = tmp_incident['risk']
+                    tmp_id = tmp_incident['id']
+            risks_list.append(tmp_id)
+            #max = 1
 
         return risks_list
         #return self.incidents_model.predict(data)

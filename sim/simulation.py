@@ -139,14 +139,17 @@ class simulation:
 
     def get_related_incidents(self, policy):
         """
-        Accepts full policy
+        Returns incidents for a particular policy. Accepts full policy (i.e smth like {"plen": 12, "psets": 1, "pdict": 1,
+               "phist": 1, "prenew": 1, "pattempts": 2,
+               "precovery": 1, "pdata": 0, "bdata": 1} )
+        :param policy: policy
         """
         print policy
         return self.classifier.predict_data(policy)
 
 if __name__ == "__main__":
-    default = {"plen": 8, "psets": 2, "pdict": 0,
-               "phist": 1, "prenew": 1, "pattempts": 3,
-               "precovery": 1, "pdata": 1, "bdata": 0}
+    default = {"plen": 12, "psets": 1, "pdict": 1,
+               "phist": 1, "prenew": 1, "pattempts": 2,
+               "precovery": 1, "pdata": 0, "bdata": 1}
     sim = simulation()
     print sim.get_related_incidents(default)
