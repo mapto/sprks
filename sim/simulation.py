@@ -146,7 +146,7 @@ class simulation:
 
 if __name__ == "__main__":
     default = {"plen": 8, "psets": 2, "pdict": 0,
-               "phist": 1, "prenew": 1, "pattempts": 0,
-               "precovery": 1}
+               "phist": 1, "prenew": 1, "pattempts": 3,
+               "precovery": 1, "pdata": 1, "bdata": 0}
     sim = simulation()
     print sim.get_related_incidents(default)

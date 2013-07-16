@@ -118,7 +118,7 @@ class records:
                     'date': event.date.isoformat(),
                     'events': []
                 }
-            calendar[event.date].events.append({
+            calendar[event.date]['events'].append({
                 'incdt_id': event.incident_id,
                 'cost': event.cost
             })
