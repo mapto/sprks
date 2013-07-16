@@ -22,8 +22,6 @@ class account:
         """
         If action parameter is specified =='logout', logs out user. Else displays login screen
         """
-        if context.user_id() == 0:
-            return render.spa()
 
         if web.input().get('action', '') == 'logout':
             users_model.session_login(0)
@@ -101,16 +99,6 @@ class account:
             )
 
 
-class register:
-    """
-    Handles user registration screen
-    """
-    def GET(self):
-        if context.user_id() > 0:
-            raise web.seeother(path)
-        return render.register()
-
-
 class password:
     """
     Handles password management
@@ -120,14 +108,14 @@ class password:
 
         user_id = context.user_id()
         if user_id > 0:
-            return render.password_change(user_id, '')
+            return render.skeleton_spa()
 
         token = web.input().get('token','')
         user_id = users_model().password_recovery_user(token)
         if user_id == 0:
-            return render.password_recover()
+            return render.skeleton_spa()
         else:
-            return render.password_change(user_id, token)
+            return render.skeleton_spa()
 
     def PUT(self, a, arg1=0):
         """
@@ -213,7 +201,7 @@ class password:
             web.config.smtp_password = 'sprks123456789'
             web.config.smtp_starttls = True
             web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
-                         'http://' + web.ctx.host + web.ctx.homepath + '/password?token=' + token)
+                         'http://' + web.ctx.host + web.ctx.homepath + '/password_spa?token=' + token)
             return json.dumps(
                 {
                     'success': True,

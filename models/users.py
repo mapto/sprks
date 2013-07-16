@@ -130,7 +130,7 @@ class users_model:
         user_list = cls.select_users(user_id=user_id)
         if len(user_list) == 1:
             user = user_list[0]
-            db.insert('password_recovery', user_id=user.user_id, timestamp=web.SQLLiteral('NOW()'), token=token, invalid=0)
+            db.insert('password_recovery', user_id=user.user_id, datetime=web.SQLLiteral('NOW()'), token=token, invalid=0)
             return user.email
         else:
             return ''

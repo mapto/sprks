@@ -58,6 +58,11 @@ urls = (
         #SPA
         storage.path + '/spa', controllers.spa.spa,
         storage.path + '/login_spa', controllers.user_spa.account,
+        #SPA API
+        storage.path + '/api/user_spa/account(/?)(.+)', controllers.user_spa.account,
+        storage.path + '/api/user_spa/account', controllers.user_spa.account,
+        storage.path + '/api/user_spa/password(/?)(.+)', controllers.user_spa.password,
+        storage.path + '/password_spa', controllers.user_spa.password,
 )
 
 app = web.application(urls, globals(), autoreload=False)
