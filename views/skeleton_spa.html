@@ -19,7 +19,7 @@
             <div class="link home_page"><a>sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a>Change Password</a> | </a><a href="$path/login_spa?action=logout">Logout $username()</a>
+                    <a class="password_change_page">Change Password</a> | </a><a href="$path/login_spa?action=logout">Logout $username()</a>
                 $else:
                     <a class="login_page">Login</a>
             </div>
@@ -112,22 +112,22 @@ $if user_id() > 0:
                     <fieldset>
                         <legend>Register</legend>
                         <div class="row-fluid">
-                            <div><input class="register username" type="text" placeholder="Username" required/></div>
+                            <div><input data-bind="value: register_username" type="text" placeholder="Username" required/></div>
                         </div>
                         <div class="row-fluid">
-                            <div><input class="register password" type="password" placeholder="Password" required/></div>
+                            <div><input data-bind="value: register_password" type="password" placeholder="Password" required/></div>
                         </div>
                         <div class="row-fluid">
-                            <div><input class="register passwordConfirm" type="password" placeholder="Confirm your password"
+                            <div><input data-bind="value: register_passwordConfirm" type="password" placeholder="Confirm your password"
                                         required/></div>
                         </div>
                         <div class="row-fluid">
                             <br>
-                            <div><input class="register email" type="email" placeholder="Email" required></div>
+                            <div><input data-bind="value: register_email" type="email" placeholder="Email" required></div>
                         </div>
                         <input class="login_btn" type="submit" value="Register"><br>
                         <ul data-bind="foreach: register_messages">
-                            <li data-bind="text: $$register_data"></li>
+                            <li data-bind="text: $$data"></li>
                         </ul>
                     </fieldset>
                 </form>
@@ -139,16 +139,16 @@ $if user_id() > 0:
                         <legend>Login</legend>
                         <div class="row-fluid">
                             <div class="span7 ">
-                                <input class="login username" data-bind="value: login_username" type="text" placeholder="Username" required/>
+                                <input data-bind="value: login_username" type="text" placeholder="Username" required/>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span7 ">
-                                <input class="login password"  data-bind="value: login_password" type="password" placeholder="Password" required/>
+                                <input data-bind="value: login_password" type="password" placeholder="Password" required/>
                             </div>
                         </div>
                         <ul data-bind="foreach: login_messages">
-                            <li data-bind="text: $$login_data"></li>
+                            <li data-bind="text: $$data"></li>
                         </ul>
                         <div class="row-fluid">
                             <input class="login_btn" type="submit" value="Login">
@@ -166,9 +166,9 @@ $if user_id() > 0:
                     <fieldset>
                         <legend>Password Recovery</legend>
                         <p>You will be emailed a password reset link.</p>
-                        <input class="pswdRec username" type="text" placeholder="Username" required>
+                        <input data-bind="value: pswd_recover_username" type="text" placeholder="Username" required>
                         <input class="login_btn" type="submit" value="Request">
-                        <ul data-bind="foreach: messages">
+                        <ul data-bind="foreach: pswd_recover_messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
                     </fieldset>
@@ -181,10 +181,10 @@ $if user_id() > 0:
                 <form id="passwordChangeForm">
                     <fieldset>
                         <legend>Set your new password</legend>
-                        <div><input class="pswdChange password" type="password" placeholder="Password" required></div>
-                        <div><input class="pswdChange passwordConfirm" type="password" placeholder="Confirm Password" required></div>
+                        <div><input data-bind="value: pswd_change_password" type="password" placeholder="Password" required></div>
+                        <div><input data-bind="value: pswd_change_passwordConfirm" type="password" placeholder="Confirm Password" required></div>
                         <input class="login_btn" type="submit" value="Change">
-                        <ul data-bind="foreach: messages">
+                        <ul data-bind="foreach: pswd_change_messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
                     </fieldset>
@@ -696,33 +696,136 @@ $if user_id() > 0:
 
 <script src="$path/static/js/private_common.js"></script>      <!--MAIN script-->
 <script>
-    var title;
+function initUserForms(){
+
+    formModel = {
+        register_username: ko.observable(),
+        register_password: ko.observable(),
+        register_passwordConfirm: ko.observable(),
+        register_email: ko.observable(),
+        register_messages: ko.observableArray(),
+        login_username: ko.observable(),
+        login_password: ko.observable(),
+        login_messages: ko.observableArray(),
+        pswd_recover_username: ko.observable(),
+        pswd_recover_messages: ko.observableArray(),
+        pswd_change_password: ko.observable(),
+        pswd_change_passwordConfirm: ko.observable(),
+        pswd_change_messages: ko.observableArray()
+    };
+
+    ko.applyBindings(formModel);
 
 
-    function allDataUnbinder(){
-        var bindedArray = [".register", ".login", ".pswdRec", ".pswdChange"];
-
-        $$(bindedArray).each(function(){
-            $$(this.toString()).each(function(){
-                if($$(this).attr('data-bind')){
-                    $$(this).removeAttr('data-bind');
+    $$('#registerForm').submit(function (e) {
+        e.preventDefault();
+        if (formModel.register_password() === formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
+            $$.ajax({
+                type: 'PUT',
+                url: '$path/api/user_spa/account/' + formModel.register_username(),
+                dataType: 'json',
+                data: JSON.stringify({
+                    password: formModel.register_password(),
+                    email: formModel.register_email(),
+                    autologin: true
+                }),
+                statusCode: {
+                    500: function () {
+                        formModel.register_messages(['Server error']);
+                    },
+                    200: function (response) {
+                        formModel.register_messages(response.messages);
+                    },
+                    201: function(response) {
+                        window.location = ("/spa");
+                    }
                 }
             });
-            //var unbindInput = $$(this.toString()).attr('class').substring(4);
-            //console.log(this.toString()+'.'+unbindInput);
-            //$$(this.toString()+'.'+unbindInput).removeAttr('data-bind');
-        });
-    }
-    function dataBinder(element){
-        //to create data-binds for some inputs for knockout use, e.g. - data-bind="value:username"
-        var dataBind = $$(element).attr('class').split(" ")[1];
-        var dataBindedinput = $$("."+$$(element).attr('class').split(" ")[0]+"."+dataBind);
-        dataBindedinput.attr('data-bind', 'value: '+$$(element).attr('class').split(" ")[0]+"_"+dataBind);
-        //console.log(dataBindedinput);
-    }
+        } else {
+            formModel.register_messages(["Passwords don't match"]);
+        }
+    });
 
+    $$('#loginForm').submit(function (e) {
+        e.preventDefault();
+        $$.ajax({
+            type: 'POST',
+            url: '/api/user_spa/account',
+            dataType: 'json',
+            beforeSend: function (xhr){
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.login_username() + ':' + formModel.login_password()));
+            },
+            statusCode: {
+                500: function () {
+                    formModel.login_messages(['Server error']);
+                },
+                200: function (response) {
+                    if (response.success === true){
+                        window.location = ("/spa");
+                    }
+                    formModel.login_messages(response.messages);
+                }
+            }
+        });
+    });
+    //TODO FIX IMPLEMENTATION OF PASSWORD RECOVERY (after e-mail is sent)
+    $$('#passwordRecoveryForm').submit(function (e) {
+        e.preventDefault();
+        $$.ajax({
+            type: 'POST',
+            url: '$path/api/user_spa/password/' + formModel.pswd_recover_username(),
+            dataType: 'json',
+            data: JSON.stringify({
+                uid_type: 'username'
+            }),
+            statusCode: {
+                500: function () {
+                    formModel.pswd_recover_messages(['Server error']);
+                },
+                200: function (response) {
+                    formModel.pswd_recover_messages(response.messages);
+                }
+            }
+        });
+    });
+
+    $$('#passwordChangeForm').submit(function (e) {
+        e.preventDefault();
+        if (formModel.pswd_change_password() === formModel.pswd_change_passwordConfirm()) {
+            $$.ajax({
+                type: 'PUT',
+                url: '$path/api/user_spa/password/$:user_id()',
+                dataType: 'json',
+                data: JSON.stringify({
+                    password: formModel.pswd_change_password(),
+                    token: '',
+                    autologin: true
+                }),
+                statusCode: {
+                    500: function () {
+                        formModel.pswd_change_messages(['Server error']);
+                    },
+                    200: function (response) {
+                        formModel.pswd_change_messages(response.messages);
+                        if (response.success === true){
+                            formModel.pswd_change_password('');
+                            formModel.pswd_change_passwordConfirm('');
+                        }
+                    }
+                }
+            });
+        } else {
+            formModel.pswd_change_messages(["Passwords don't match"]);
+        }
+    });
+}
+</script>
+<script>
+    var title;
 
     $$("#home_page").css("display", "block");
+
+    initUserForms();
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
     // If you want to use templates from webpy,
@@ -736,183 +839,31 @@ $if user_id() > 0:
 
 <script>    //REGISTER script
     $$(".register_page").click('click', function(e){
-
-            allDataUnbinder();
-
             $$("#register_page").css("display", "block");
-            $$(".register").each(function(){
-                dataBinder(this);
-            });
-
-            initRegister();
     });
-</script>
-<script>
-function initRegister(){
-    register_formModel = {
-        register_username: ko.observable(),
-        register_password: ko.observable(),
-        register_passwordConfirm: ko.observable(),
-        register_email: ko.observable(),
-        register_messages: ko.observableArray()
-    };
-
-    ko.applyBindings(register_formModel);
-
-    $$('#registerForm').submit(function (e) {
-        e.preventDefault();
-        if (register_formModel.register_password() === register_formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
-            $$.ajax({
-                type: 'PUT',
-                url: '$path/api/user/account/' + register_formModel.register_username(),
-                dataType: 'json',
-                data: JSON.stringify({
-                    password: register_formModel.register_password(),
-                    email: register_formModel.register_email(),
-                    autologin: true
-                }),
-                statusCode: {
-                    500: function () {
-                        register_formModel.register_messages(['Server error']);
-                    },
-                    200: function (response) {
-                        register_formModel.register_messages(response.messages);
-                    },
-                    201: function(response) {
-                    }
-                }
-            });
-        } else {
-            register_formModel.register_messages(["Passwords don't match"]);
-        }
-    });
-}
 </script>
 
 <script>    //LOGIN script
     $$(".login_page").click('click', function(e){
             $$("#login_page").css("display", "block");
-            initLogin();
     });
 </script>
-<script>
-function initLogin(){
-    login_formModel = {
-        login_username: ko.observable(),
-        login_password: ko.observable(),
-        login_messages: ko.observableArray()
-    };
 
-    ko.applyBindings(login_formModel);
-
-    $$('#loginForm').submit(function (e) {
-        e.preventDefault();
-        $$.ajax({
-            type: 'POST',
-            url: '/api/user/account',
-            dataType: 'json',
-            beforeSend: function (xhr){
-                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(login_formModel.login_username() + ':' + login_formModel.login_password()));
-            },
-            statusCode: {
-                500: function () {
-                    login_formModel.login_messages(['Server error']);
-                },
-                200: function (response) {
-                    if (response.success === true){
-                    }
-                    login_formModel.login_messages(response.messages);
-                }
-            }
-        });
-    });
-}
-</script>
 
 <script>    //PSWD RECOVER script
     $$(".password_recover_page").click('click', function(e){
             $$("#password_recover_page").css("display", "block");
-            initPasswordRecover();
     });
 </script>
 <script>
-function initPasswordRecover(){
-    formModel = {
-        username: ko.observable(),
-        messages: ko.observableArray()
-    }
 
-    ko.applyBindings(formModel);
-
-    $$('#passwordRecoveryForm').submit(function (e) {
-        e.preventDefault();
-        $$.ajax({
-            type: 'POST',
-            url: '$path/api/user/password/' + formModel.username(),
-            dataType: 'json',
-            data: JSON.stringify({
-                uid_type: 'username'
-            }),
-            statusCode: {
-                500: function () {
-                    formModel.messages(['Server error']);
-                },
-                200: function (response) {
-                    formModel.messages(response.messages);
-                }
-            }
-        });
-    });
-}
 
 </script>
 
 <script>    //PSWD CHANGE script
     $$(".password_change_page").click('click', function(e){
             $$("#password_change_page").css("display", "block");
-            initPasswordChange();
     });
-</script>
-<script>
-function initPasswordChange(){
-    formModel = {
-        password: ko.observable(),
-        passwordConfirm: ko.observable(),
-        messages: ko.observableArray()
-    }
-
-    ko.applyBindings(formModel);
-
-    $$('#passwordChangeForm').submit(function (e) {
-        e.preventDefault();
-        if (formModel.password() === formModel.passwordConfirm()) {
-            $$.ajax({
-                type: 'PUT',
-                url: '$path/api/user/password/$user_id',
-                dataType: 'json',
-                data: JSON.stringify({
-                    password: formModel.password(),
-                    token: '',
-                    autologin: true
-                }),
-                statusCode: {
-                    500: function () {
-                        formModel.messages(['Server error']);
-                    },
-                    200: function (response) {
-                        formModel.messages(response.messages);
-                        if (response.success === true){
-                            formModel.password('');
-                            formModel.passwordConfirm('');
-                        }
-                    }
-                }
-            });
-        } else {
-            formModel.messages(["Passwords don't match"]);
-        }
-    });
-}
 </script>
 
 <script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
