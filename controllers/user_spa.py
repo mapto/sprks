@@ -107,13 +107,11 @@ class password:
     def GET(self):
 
         user_id = context.user_id()
-
         if user_id > 0:
             return render.skeleton_spa()
 
         token = web.input().get('token','')
         user_id = users_model().password_recovery_user(token)
-        print user_id
         if user_id == 0:
             return render.skeleton_spa()
         else:
