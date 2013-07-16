@@ -136,7 +136,12 @@ class simulation:
         value = risk[0]  # 0 - name, 1 - risk
         return value
 
+
     def get_related_incidents(self, policy):
+        """
+        Accepts full policy
+        """
+        print policy
         return self.classifier.predict_data(policy)
 
 if __name__ == "__main__":

@@ -179,7 +179,8 @@ class classifier_sklearn:
         #return self.incidents_model.predict(data)
 
     def train_classifier(self, risk, employee, location, device, limit, general):
-        filename = glob.glob('static/data/pw-train-generated-'+risk+'-'+employee+'-'+location+'-'+device+'.csv')
+        #filename = glob.glob('static/data/pw-train-generated-'+risk+'-'+employee+'-'+location+'-'+device+'.csv')
+        filename = 'static/data/pw-train-generated-risk-bruteforce.csv'
         data = numpy.genfromtxt(filename, delimiter=',')
         data = numpy.concatenate((data, general)) # add positive cases that need to contrast negative ones
         train_data = data[:, 0:limit] # first several columns represent the data dimension
@@ -194,13 +195,16 @@ if __name__ == "__main__":
 
     # test_data = genfromtxt('../static/data/pw-test-data.csv', delimiter=',')
     # test_data = [6, 2, 1, 1, 2, 0, 1]
-    classifier_sklearn.generate_training_set()
-    test_data = policy_model.get_default()
-    model = classifier_sklearn()
+    #classifier_sklearn.generate_training_set()
+    #test_data = policy_model.get_default()
+    #model = classifier_sklearn()
+    filename = 'static/data/pw-train-generated-risk-bruteforce.csv'
+    data = numpy.genfromtxt(filename, delimiter=',')
+    print data
 
-    print "test data: "
-    print test_data
-    print policy_model.policy2datapoint(test_data)
-    print "classes:"
-    print model.predict_data(test_data)
+    #print "test data: "
+    #print test_data
+    #print policy_model.policy2datapoint(test_data)
+    #print "classes:"
+    #print model.predict_data(test_data)
 

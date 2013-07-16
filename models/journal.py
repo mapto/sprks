@@ -89,7 +89,8 @@ class records:
             ...
         ]
         """
-        for event in prophecy.iteritems():
+        #for event in prophecy.iteritems():
+        for event in prophecy:
             event['user_id'] = self.user_id
             event['committed'] = 0
 
