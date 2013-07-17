@@ -33,7 +33,7 @@ $var title: Login
         messages: ko.observableArray()
     };
 
-    ko.applyBindings(formModel);
+    ko.applyBindings(formModel, document.getElementById('loginForm'));
 
     $$('#loginForm').submit(function (e) {
         e.preventDefault();

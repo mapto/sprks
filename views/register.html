@@ -34,7 +34,7 @@ $var title: Register
         messages: ko.observableArray()
     };
 
-    ko.applyBindings(formModel);
+    ko.applyBindings(formModel, document.getElementById('registerForm'));
 
     $$('#registerForm').submit(function (e) {
         e.preventDefault();
