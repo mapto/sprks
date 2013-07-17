@@ -1,3 +1,7 @@
+"""
+OBSOLETE
+"""
+
 import json
 import web
 import localsys
@@ -8,7 +12,6 @@ from localsys.environment import context
 from models.pw_policy import pw_policy_model
 from models.score import score_model
 from localsys.environment import render
-
 
 class pwpolicy:
     def GET(self):

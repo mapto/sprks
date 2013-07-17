@@ -1,3 +1,6 @@
+"""
+Might be OBSOLETE for SPA, anyways most of the code was copied to user_spa with some changes applied
+"""
 import json
 
 import web
