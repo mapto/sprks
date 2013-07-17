@@ -104,18 +104,38 @@ class password:
     Handles password management
     """
 
-    def GET(self):
+    def GET(self, a=0, token=0):
+        """
+        Handles password recovery from link sent by email
+        First loads the page with (0,0),
+        then handles the request and logs in user with ('/', token)
 
-        user_id = context.user_id()
-        if user_id > 0:
+        for rendering page: a = 0, token = 0
+        for sending message: a = '/', token = token written to DB for password recovery
+        """
+        print(token)
+        if token == 0:                      #render page
             return render.skeleton_spa()
+        else:                               #return message to ajax call for password recovery
+            user_id = users_model().password_recovery_user(token)
 
-        token = web.input().get('token','')
-        user_id = users_model().password_recovery_user(token)
-        if user_id == 0:
-            return render.skeleton_spa()
-        else:
-            return render.skeleton_spa()
+            if user_id > 0:
+                users_model.session_login(user_id)
+                return json.dumps(
+                    {
+                        'success': True,
+                        'user_id': user_id,
+                        'messages': ['Please change your password']
+                    }
+                )
+            else:
+                return json.dumps(
+                    {
+                        'success': False,
+                        'user_id': user_id,
+                        'messages': ['User does not exist']
+                    }
+                )
 
     def PUT(self, a, arg1=0):
         """
@@ -123,6 +143,7 @@ class password:
         """
 
         user_id = int(arg1)
+        print(user_id)
         payload = json.loads(web.data())
         user_model = users_model()
 
@@ -201,7 +222,7 @@ class password:
             web.config.smtp_password = 'sprks123456789'
             web.config.smtp_starttls = True
             web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
-                         'http://' + web.ctx.host + web.ctx.homepath + '/password_spa?token=' + token)
+                         'http://' + web.ctx.host + web.ctx.homepath + '/password_spa#token=' + token)
             return json.dumps(
                 {
                     'success': True,

@@ -769,7 +769,7 @@ function initUserForms(){
             }
         });
     });
-    //TODO FIX IMPLEMENTATION OF PASSWORD RECOVERY (after e-mail is sent)
+
     $$('#passwordRecoveryForm').submit(function (e) {
         e.preventDefault();
         $$.ajax({
@@ -795,7 +795,7 @@ function initUserForms(){
         if (formModel.pswd_change_password() === formModel.pswd_change_passwordConfirm()) {
             $$.ajax({
                 type: 'PUT',
-                url: '$path/api/user_spa/password/$:user_id()',
+                url: '$path/api/user_spa/password/'+user_id,
                 dataType: 'json',
                 data: JSON.stringify({
                     password: formModel.pswd_change_password(),
@@ -809,8 +809,10 @@ function initUserForms(){
                     200: function (response) {
                         formModel.pswd_change_messages(response.messages);
                         if (response.success === true){
+                            console.log('changed pswd successfully');
                             formModel.pswd_change_password('');
                             formModel.pswd_change_passwordConfirm('');
+                            window.location = ("/spa");
                         }
                     }
                 }
@@ -820,9 +822,41 @@ function initUserForms(){
         }
     });
 }
+
+function passwordRecover(token){
+        if (token !== '') {
+            $$.ajax({
+                type: 'GET',
+                url: '$path/api/user_spa/password/'+token,
+                statusCode: {
+                    500: function () {
+                        $$("#password_recover_page").css("display", "block");
+                        formModel.pswd_recover_messages(['Server error']);
+                    },
+                    200: function (response) {
+                        response = $$.parseJSON(response);
+
+                        user_id = response.user_id;
+
+                        if(response.success === true){
+                            $$("#password_change_page").css("display", "block");
+                            formModel.pswd_change_messages(response.messages);
+                        }else if(response.success === false){
+                            $$("#password_recover_page").css("display", "block");
+                            formModel.pswd_recover_messages(response.messages);
+                        }
+                    }
+                }
+            });
+        }
+}
 </script>
 <script>
     var title;
+    var token = document.location.hash.substr(7);
+    var user_id = $:user_id();
+
+    passwordRecover(token);
 
     $$("#home_page").css("display", "block");
 
@@ -908,8 +942,8 @@ function initUserForms(){
 
     function getUserID() {
         /*ID is preset inside HTML code*/
-        console.log("found id $:user_id()");
-        return $user_id(); // This value is set server-side and appears to client as hardcoded.
+        console.log("found id user_id");
+        return user_id; // This value is set server-side and appears to client as hardcoded.
     }
 </script>
 
