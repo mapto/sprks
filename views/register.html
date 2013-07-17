@@ -26,7 +26,7 @@ $var title: Register
 
 <script>
 
-    formModel = {
+    registerFormModel = {
         username: ko.observable(),
         password: ko.observable(),
         passwordConfirm: ko.observable(),
@@ -34,26 +34,26 @@ $var title: Register
         messages: ko.observableArray()
     };
 
-    ko.applyBindings(formModel, document.getElementById('registerForm'));
+    ko.applyBindings(registerFormModel, document.getElementById('registerForm'));
 
     $$('#registerForm').submit(function (e) {
         e.preventDefault();
-        if (formModel.password() === formModel.passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
+        if (registerFormModel.password() === registerFormModel.passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
             $$.ajax({
                 type: 'PUT',
-                url: '$path/api/user/account/' + formModel.username(),
+                url: '$path/api/user/account/' + registerFormModel.username(),
                 dataType: 'json',
                 data: JSON.stringify({
-                    password: formModel.password(),
-                    email: formModel.email(),
+                    password: registerFormModel.password(),
+                    email: registerFormModel.email(),
                     autologin: true
                 }),
                 statusCode: {
                     500: function () {
-                        formModel.messages(['Server error']);
+                        registerFormModel.messages(['Server error']);
                     },
                     200: function (response) {
-                        formModel.messages(response.messages);
+                        registerFormModel.messages(response.messages);
                     },
                     201: function(response) {
                         window.location = ("/");
@@ -61,7 +61,7 @@ $var title: Register
                 }
             });
         } else {
-            formModel.messages(["Passwords don't match"]);
+            registerFormModel.messages(["Passwords don't match"]);
         }
     })
 </script>

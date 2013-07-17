@@ -27,13 +27,13 @@ $var title: Login
 
 <script>
 
-    formModel = {
+    loginFormModel = {
         username: ko.observable(),
         password: ko.observable(),
         messages: ko.observableArray()
     };
 
-    ko.applyBindings(formModel, document.getElementById('loginForm'));
+    ko.applyBindings(loginFormModel, document.getElementById('loginForm'));
 
     $$('#loginForm').submit(function (e) {
         e.preventDefault();
@@ -42,17 +42,17 @@ $var title: Login
             url: '/api/user/account',
             dataType: 'json',
             beforeSend: function (xhr){
-                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.username() + ':' + formModel.password()));
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(loginFormModel.username() + ':' + loginFormModel.password()));
             },
             statusCode: {
                 500: function () {
-                    formModel.messages(['Server error']);
+                    loginFormModel.messages(['Server error']);
                 },
                 200: function (response) {
                     if (response.success === true){
                         window.location = ("/");
                     }
-                    formModel.messages(response.messages);
+                    loginFormModel.messages(response.messages);
                 }
             }
         });
