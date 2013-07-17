@@ -3,7 +3,7 @@ import importlib
 
 
 try:
-    settings = importlib.import_module('config.settings')
+    settings = importlib.import_module('settings')
     # Assuming that only MySQL is used
     db = web.database(
         dbn='mysql',

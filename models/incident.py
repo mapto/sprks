@@ -10,7 +10,7 @@ class incident:
     singleton = None
 
     @classmethod
-    def read_files(self):
+    def read_files(cls):
         for ref in glob.glob('static/incidents/*.json'):
             f = open(ref)
             data = json.load(f)
@@ -28,8 +28,8 @@ class incident:
     def get_incident(cls, ident='1', typ='any'): # if type not specified, search
         """
         Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
-        :ident: The incident id. This must be present in the static/incidents files
-        :typ: if you know the risk that this incident is associated, specify it here. Otherwise it will search all of them
+        :param ident: The incident id. This must be present in the static/incidents files
+        :param typ: if risk that this incident is associated is known, specify it. Otherwise it will search all of them
         """
         if not incident.incidents:
             incident.read_files()

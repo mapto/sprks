@@ -26,7 +26,8 @@ class prophet:
 
         random.seed()
 
-        #policies = db.query('SELECT * FROM policies WHERE user_id=$user_id ORDER BY date DESC limit 1', vars=locals())
+        # policies = db.query('SELECT * FROM policies WHERE user_id=$user_id ORDER BY date DESC limit 1', vars=locals())
+        # TODO lasagna code - this should be fixed when multiple policies are used.
         policies = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(policies_model().get_policy_history(user_id, True)))[0]['data']
         incidents = simulation().get_related_incidents(policies)
         print "incidents"
@@ -36,12 +37,7 @@ class prophet:
             current_incident = incident.get_incident(incident_id)
             print "current incident"
             print current_incident
-            """
-            Calling method on a dict?? am I missing something?
-            """
-            #daily_prob = cls.daily_prob(current_incident.get_risk())
             daily_prob = cls.daily_prob(current_incident['risk'])
-            #incident_cost = current_incident.get_cost()*company.max_incident_cost
             incident_cost = current_incident['cost']*company.max_incident_cost
             for i in range(0, 31):
                 rand = random.random()

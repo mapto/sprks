@@ -150,3 +150,13 @@ class records:
             corrected_sync_date = client_date
 
         return corrected_sync_date, event_accept
+
+    def recent_events(self, sync_date, weeks=5):
+        """
+        Returns dictionary of recent events for current user, going backwords from specified sync_date.
+        Default timespan is 5 weeks.
+        """
+        # TODO currently just a stub
+        cutoff_date = sync_date - timedelta(days=weeks*7)
+        # perform query selecting only `date` and `incident_id`
+        return {}

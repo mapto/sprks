@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `password_recovery` (
 --
 
 CREATE TABLE IF NOT EXISTS `policies` (
-  `id_policy` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `location` varchar(45) NOT NULL,
   `employee` varchar(45) NOT NULL,
