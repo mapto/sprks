@@ -34,7 +34,6 @@ class pw_policy_model:
 #                    policy["prenew"].value(), policy["pattempts"].value(),
 #                    policy["precovery"].value()]
 
-
     def update(self, where, values):
         """
         Generates query string using db_helper.update_helper.stringify, and runs db.query.
@@ -100,6 +99,7 @@ class pw_policy_model:
             for row in entries[risk]:
                 print row
                 writer.writerow(row)
+
 
 if __name__ == "__main__":
     model = pw_policy_model()

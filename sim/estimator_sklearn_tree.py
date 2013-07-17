@@ -29,7 +29,7 @@ class estimator_sklearn_tree(estimator_interface):
         return [policy["plen"].value(), policy["psets"].value(),
                 policy["pdict"].value(), policy["phist"].value(),
                 policy["prenew"].value(), policy["pattempts"].value(),
-                policy["pautorecover"].value()]
+                policy["precovery"].value()]
 
     def policy2datapoint_risk(self, policy):
 
@@ -40,9 +40,9 @@ class estimator_sklearn_tree(estimator_interface):
             "phist"].value() * 4
 
         return [complexity,
-                policy["prenew"].value() * 16,
-                policy["pattempts"].value() * 24,
-                policy["pautorecover"].value() * 48]
+            policy["prenew"].value() * 16,
+            policy["pattempts"].value() * 24,
+            policy["precovery"].value() * 48]
 
     def policy2datapoint_cost(self, policy):
         """ OBSOLETE: This class is currently not used.
@@ -52,7 +52,7 @@ class estimator_sklearn_tree(estimator_interface):
             "phist"].value() * 4
         generator = complexity * policy["prenew"].value() * 16
         memorization = generator + policy["pattempts"].value() * 24
-        support = (policy["pattempts"].value() * 24 + memorization) * policy["pautorecover"].value() * 48
+        support = (policy["pattempts"].value() * 24 + memorization) * policy["precovery"].value() * 48
         entry = policy["plen"].value() * 3
         return [support, entry, generator, memorization]
 
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     test_data = genfromtxt('static/data/pw-test-data.csv', delimiter=',')
     test_data_conv = tool.toNormalized_cost(test_data)
     #print test_data_conv
-    #    print tool.predict(test_data_conv)
+#    print tool.predict(test_data_conv)
     print "predicted data"
     # print tool.model.predict(test_data)
     #    tool.risk_impact_model.predict(datapoints)
