@@ -50,6 +50,9 @@ class incident:
     def get_description(self):
         return self.data['description']
 
+    def get_name(self):
+        return self.data['name']
+
     def get_consequences(self):
         return self.data['consequences']
 

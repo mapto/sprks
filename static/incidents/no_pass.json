@@ -1,7 +1,13 @@
-{"id": 8, "name": "no_pass", "type":"bruteforce",
-"pwpolicy": {"plen": 0},
-"description": "You don't require any password at all.",
-"event": "Some employees use empty passwords. With time such behaviour starts to spread to the point that people start expecting that they can login anywhere without having to type a password.",
-"consequences": "The system is very easy to attack, because attackers don't even need to guess passwords.",
-"risk": 1,
-"cost": 0}
+{"id": 8, "name": "no_pass", "type": "bruteforce",
+    "policy": {
+        "pdata": 0,
+        "bdata": 0,
+        "plen": 0
+    },
+    "description": "You don't require any password at all.",
+    "event": "Some employees use empty passwords. With time such behaviour starts to spread to the point that people start expecting that they can login anywhere without having to type a password.",
+    "consequences": "The system is very easy to attack, because attackers don't even need to guess passwords.",
+    "risk": 1,
+    "cost": 0,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.1}

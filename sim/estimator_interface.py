@@ -1,5 +1,6 @@
 __author__ = 'mruskov'
 
+
 class estimator_interface:
     def __init__(self):
         """ Use this to load the training set of your policy

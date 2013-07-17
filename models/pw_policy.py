@@ -17,16 +17,23 @@ class pw_policy_model:
 
     @staticmethod
     def policy2datapoint(policy):
-        if type(policy["plen"]) == int:
+#        print policy
+#        if type(policy["plen"]) == int:
             return [policy["plen"], policy["psets"],
                     policy["pdict"], policy["phist"],
                     policy["prenew"], policy["pattempts"],
                     policy["precovery"]]
-        else:
-            return [policy["plen"].value(), policy["psets"].value(),
-                    policy["pdict"].value(), policy["phist"].value(),
-                    policy["prenew"].value(), policy["pattempts"].value(),
-                    policy["precovery"].value()]
+#        elif type(policy["plen"]) == str:
+#            return [int(policy["plen"]), int(policy["psets"]),
+#                    int(policy["pdict"]), int(policy["phist"]),
+#                    int(policy["prenew"]), int(policy["pattempts"]),
+#                    int(policy["precovery"])]
+#        else:
+#            return [policy["plen"].value(), policy["psets"].value(),
+#                    policy["pdict"].value(), policy["phist"].value(),
+#                    policy["prenew"].value(), policy["pattempts"].value(),
+#                    policy["precovery"].value()]
+
 
     def update(self, where, values):
         """
@@ -93,7 +100,6 @@ class pw_policy_model:
             for row in entries[risk]:
                 print row
                 writer.writerow(row)
-
 
 if __name__ == "__main__":
     model = pw_policy_model()

@@ -1,21 +1,31 @@
 from __future__ import division # make division floating, not integer: http://stackoverflow.com/questions/1267869/how-can-i-force-division-to-be-floating-point-in-python
 
-__author__ = 'Horace'
-
 from estimator_sklearn_tree import estimator_sklearn_tree
-from estimator_simple import estimator_simple
 from classifier_sklearn import classifier_sklearn
+from models.policies import policies_model
+from models.incident import incident as incident_model
+
+"""
+for policy specification see ranges variable in https://github.com/mapto/sprks/blob/master/models/pw_policy.py
+"""
 
 
 class simulation:
     def __init__(self, policies={}):
+        """
+        Initialization of the simulation. This class always assumes that there's a policy being set.
+        Before using it, make sure you update the policy with the one you want to use.
+        TODO: This class does not take care of partial policies
+        :param policies: A dictionary of policies being explicitly set
+        """
         if not hasattr(self, 'dict'):
         # lazy initialization of policies dictionary
             self.dict = {}
         self.set_multi_policy(policies)
-        self.estimator = estimator_sklearn_tree()
+#        self.estimator = estimator_sklearn_tree()
         self.classifier = classifier_sklearn()
-#        self.estimator = estimator_simple()
+
+    #        self.estimator = estimator_simple()
 
     def set_multi_policy(self, policies):
         """
@@ -29,19 +39,13 @@ class simulation:
         Sets a parameter to the user policy.
 
         Possible parameters are (for meanings check specific policy classes):
-        plen: {0, 6, 8, 10, 12}
-        psets: {1, 2, 3, 4}
-        pdict: {1, 0}
-        phist: {0, 1, 2, 3}
-        prenew: {0, 1, 2, 3}
-        pattempts: {1, 0}
-        pautorecover: {1, 0}
+        for possible parameters see ranges variable in https://github.com/mapto/sprks/blob/master/models/pw_policy.py
         """
 
         # Risk probability and impact are multiplied together
         # Productivity costs are added together
 
-        self.dict[policy_name] = self.load_policy(policy_name)(policy_value)
+        self.dict[policy_name] = policy_value
 
     def load_policy(self, policy_name):
         """
@@ -68,61 +72,89 @@ class simulation:
             return getattr(getattr(policy_module, policy_id), policy_id)
 
     def calc_risk_prob(self):
-        #risk = self.estimator.get_risk_prob(self.dict)
-        risk = self.classifier.predict_data(self.dict)
-        value = risk[1]  # 0 - name, 1 - risk
+        raise NotImplementedError
+
+    def get_risk(self, policy):
+        """ The public interface to get
+        """
+        risk = self.classifier.predict_data(policy)
+        highest = None
+        for i in risk:
+            incident = incident_model.get_incident(i)
+            if highest is None:
+                highest = incident
+            elif highest["risk"] < incident["risk"]:
+                highest = incident
+
         # Extreme precision is not needed outside of simulation
-        return round(value, 2)
+        return round(highest["risk"], 2)
 
     def calc_risk_impact(self):
-#        impact = self.estimator.get_risk_impact(self.dict)
+    #        impact = self.estimator.get_risk_impact(self.dict)
         # Extreme precision is not needed outside of simulation
         return 1
         # return round(1, 2)
 
     def derive_maintenance_cost(self, policy):
         # range for complexity [7, 48]
-        complexity = policy["plen"].value()\
-                   + policy["psets"].value() * 3\
-                   + policy["pdict"].value() * 12\
-                   + policy["phist"].value() * 4
+        complexity = int(policy["plen"])\
+                   + int(policy["psets"]) * 3\
+                   + int(policy["pdict"]) * 12\
+                   + int(policy["phist"]) * 4
 
-        generation = complexity * policy["prenew"].value()  # range for generation [0, 144]
-        memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
-        support = (policy["pattempts"].value() * 24 + memorization) * policy["precovery"].value() # range [0, 240]
+        generation = complexity * int(policy["prenew"])  # range for generation [0, 144]
+        memorization = generation + int(policy["pattempts"]) * 24 # range [0, 192]
+        support = (int(policy["pattempts"]) * 24 + memorization) * int(policy["precovery"]) # range [0, 240]
 
-        return support / 240 # normalized, notice from _future_ import that converts division to floating. default is integer division
+        return support / 240.0 # normalized, notice from _future_ import that converts division to floating. default is integer division
 
     def derive_prod_cost(self, policy):
-        """ Productivity cost can be derived from a clear formula.
+        """ Productivity cost can be derived from a clear formula - this is an explicit model
             There are other less obvious costs that need to be derived with machine learning algorithm.
             These are compliance cost and risk impact (not for passwords)
         """
         # range for complexity [7, 48]
-        complexity = policy["plen"].value()\
-                   + policy["psets"].value() * 3\
-                   + policy["pdict"].value() * 12\
-                   + policy["phist"].value() * 4
+        complexity = int(policy["plen"])\
+                   + int(policy["psets"]) * 3\
+                   + int(policy["pdict"]) * 12\
+                   + int(policy["phist"]) * 4
 
-        generation = complexity * policy["prenew"].value() # range for generation [0, 144]
-        gen_norm = generation / 144 # notice from _future_ import that converts division to floating. default is integer division
+        generation = complexity * int(policy["prenew"]) # range for generation [0, 144]
+        gen_norm = generation / 144.0 # notice from _future_ import that converts division to floating. default is integer division
 
-        memorization = generation + policy["pattempts"].value() * 24 # range [0, 192]
-        mem_norm = memorization / 192
+        memorization = generation + int(policy["pattempts"]) * 24 # range [0, 192]
+        mem_norm = memorization / 192.0
 
-        entry = policy["plen"].value() # range [0, 12]
-        entry_norm = entry / 12
+        entry = int(policy["plen"]) # range [0, 12]
+        entry_norm = entry / 12.0
 
-        return (gen_norm + mem_norm + entry_norm) / 3
+        return (gen_norm + mem_norm + entry_norm) / 3.0
 
-    def calc_prod_cost(self):
+    def calc_prod_cost(self, policy):
         """ To ensure consistency across system, keep values in the [0, 1] range
         """
         #cost = self.estimator.get_prod_cost(self.dict)
         # cost = self.classifier.predict(self.dict)[1]
-        productivity = self.derive_prod_cost(self.dict)
-        maintenance = self.derive_maintenance_cost(self.dict)
+        productivity = self.derive_prod_cost(policy)
+        maintenance = self.derive_maintenance_cost(policy)
 
-        cost = (productivity + maintenance) / 2 # overall (needs to be weighted) cost
+        cost = (productivity + maintenance) / 2.0 # overall (needs to be weighted) cost
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)
+
+    def get_incident(self):
+        """ The public interface to get
+        """
+        risk = self.classifier.predict_data(self.dict)
+        value = risk[0]
+        return value
+
+    def get_related_incidents(self, policy):
+        return self.classifier.predict_data(policy)
+
+if __name__ == "__main__":
+    default = {"plen": 8, "psets": 2, "pdict": 0,
+               "phist": 1, "prenew": 1, "pattempts": 0,
+               "precovery": 1}
+    sim = simulation()
+    print sim.get_related_incidents(default)

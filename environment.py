@@ -6,6 +6,7 @@ Environment takes care of the system objects that need to be used by many module
 __author__ = 'mruskov'
 
 import web
+import session
 from datetime import datetime
 # from controllers.timeline import get_start_time
 
@@ -19,7 +20,10 @@ def get_start_time():
 #   from environment import render_private as render
 #   render.score(8,2,3)
 #
-globals = {'datetime': datetime, 'get_start_time': get_start_time} # Parameters for private render
+globals = {
+    'datetime': datetime,
+    'get_start_time': get_start_time
+} # Parameters for private render
 render_private = web.template.render('views/', base='index_private', globals=globals)
 render_public = web.template.render('views/', base='index_public')
 

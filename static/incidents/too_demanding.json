@@ -1,7 +1,16 @@
-{"id": 2, "name": "too_demanding", "type":"stolen",
-"pwpolicy": {"pdict": 1, "phist": 3, "prenew": 3, "pautorecover": 0},
-"description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.",
-"event": "People start using password generators. Worse than that, they need help to memorize them and very frequently write them down on paper.",
-"consequences": "Employees start to think of passwords very differently. Sharing one's password stops being an issue anymore. The greatest embarassment comes when a friend tells you that when reading a newspaper article about Global Sparks, he saw someone's password in the background of the accompanying photograph.",
-"risk": 0.8,
-"cost": 0.2}
+{"id": 2, "name": "too_demanding", "type": "stolen",
+    "policy": {
+        "pdata": 0,
+        "bdata": 0,
+        "pdict": 1,
+        "phist": 3,
+        "prenew": 3,
+        "precovery": 0
+    },
+    "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.",
+    "event": "People start using password generators. Worse than that, they need help to memorize them and very frequently write them down on paper.",
+    "consequences": "Employees start to think of passwords very differently. Sharing one's password stops being an issue anymore. The greatest embarassment comes when a friend tells you that when reading a newspaper article about Global Sparks, he saw someone's password in the background of the accompanying photograph.",
+    "risk": 0.8,
+    "cost": 0.2,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.1}

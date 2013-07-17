@@ -7,6 +7,7 @@ from environment import render_private as render
 from environment import db
 from models.pw_policy import pw_policy_model
 from environment import get_start_time
+from models.incident import incident
 
 
 class pwpolicy:
@@ -69,8 +70,7 @@ class pwpolicy:
         else:
             dat["pattempts"]=0
         pw_policy_model().update({'userid':str(usrid), 'date':data["date"]}, dat)
-        for k, value in dat.iteritems():
-            sim.set_policy(k, value)
+
 #        return json.dumps(data)
-        return json.dumps([{"name": "risk", "value": sim.calc_risk_prob()},
-                           {"name": "cost", "value": sim.calc_prod_cost()}])
+        return json.dumps([{"name": "risk", "value": sim.get_risk(dat)},
+                           {"name": "cost", "value": sim.calc_prod_cost(dat)}])

@@ -22,6 +22,7 @@ import controllers.score
 import controllers.timeline
 import controllers.chronos
 import controllers.policy_history
+import controllers.incident
 
 urls = ('/', controllers.pwpolicy.pwpolicy,
         '/home', controllers.home.home,
@@ -42,7 +43,8 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
 #        '/timeline', controllers.timeline.preview,
-        '/history', controllers.policy_history.history
+        '/incident', controllers.incident.incident,
+        '/incident_rest', controllers.incident.incident_rest
         )
 
 app = web.application(urls, globals(), autoreload=False)

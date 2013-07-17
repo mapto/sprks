@@ -8,6 +8,7 @@ import itertools
 import math
 from sim.simulation import simulation
 import json
+from models.policies import policies_model as model
 
 class score:
     def CHECK_CLOSEST_COMPETITOR(self,length, usrid, your_score):
@@ -224,19 +225,20 @@ class multiple_score:
         sim = simulation()
         post_data = json.loads(web.data())
         policy_costs_risks = []
+
+        last_policy = model().get_policy_history(session.mysession.session.user)
         for policy_entry in post_data:
             result_entry = {}
             for key, value in policy_entry.iteritems():
                 if key == "data":
-                    tmp_value = eval(value)
-                    sim.set_multi_policy(tmp_value)
-                    result_entry["risk"] = sim.calc_risk_prob()
-                    result_entry["cost"] = sim.calc_prod_cost()
+                    next_policy = json.loads(value)
                 else:
                     result_entry[key] = value
+            result_entry["risk"] = sim.get_risk(next_policy)
+            result_entry["cost"] = sim.calc_prod_cost(next_policy)
             policy_costs_risks.append(result_entry)
 
-           # print('return cost '+ policy_costs_risks)
+        # print('return cost '+ policy_costs_risks)
 
         return json.dumps(policy_costs_risks)
 

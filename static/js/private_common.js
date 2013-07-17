@@ -44,7 +44,7 @@ function initFrame() {
                 console.log("success: " + JSON.stringify(curr_date));
                 $("#curr_date").text(curr_date[0].value);
                 manageScoreButton();
-                window.location.href = "/score";
+                window.location.href = "/incident";
             },
             error: function (response) {
                 console.log("fail: " + response.responseText);
@@ -93,10 +93,17 @@ function manageButtons() {
         case "Introduction":
             current_class = "story";
             hidden_class = "score";
+            $(".incident a").css("pointer-events", "none");
+            $(".incident a").css("cursor", "default");
+            $(".incident a").css("color", "#F2F2F2");
+            break;
+        case "Incident":
+            current_class = "incident";
+            hidden_class = "score";
             break;
         default:
             current_class = "policy";
-            hidden_class = "none";
+            hidden_class = "score";
     }
 
     $("." + current_class + " a").css("background-color", "#C10000");

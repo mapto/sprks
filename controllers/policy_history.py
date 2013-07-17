@@ -13,6 +13,7 @@ class history:
             username = session.mysession.session.user
             user_id = session.mysession.session.id
             date = session.mysession.session.date
+
             policy_history = policies_model().get_policy_history(user_id)
 
             if policy_history is not None:
