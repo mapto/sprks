@@ -198,9 +198,9 @@ class score_model:
             for key in policy_entry:
                 if key == "data":
                     tmp_value = policy_entry[key]
-                    sim.set_multi_policy(tmp_value)
-                    result_entry["risk"] = sim.calc_risk_prob()
-                    result_entry["cost"] = sim.calc_prod_cost()
+                    #sim.set_multi_policy(tmp_value)
+                    result_entry["risk"] = sim.calc_risk_prob(tmp_value)
+                    result_entry["cost"] = sim.calc_prod_cost(tmp_value)
                 else:
                     result_entry["id"] = policy_entry[key]
             policy_costs_risks.append(result_entry)

@@ -25,6 +25,7 @@ class simulation:
 
     #        self.estimator = estimator_simple()
 
+    #OBSOLETE
     def set_multi_policy(self, policies):
         """
         Accept policy as dict.
@@ -32,6 +33,7 @@ class simulation:
         for k, v in policies.iteritems():
             self.set_policy(k, v)
 
+    #OBSOLETE
     def set_policy(self, policy_name, policy_value):
         """
         Sets a parameter to the user policy.
@@ -45,6 +47,7 @@ class simulation:
 
         self.dict[policy_name] = policy_value
 
+    #OBSOLETE
     def load_policy(self, policy_name):
         """
         If required policy class is already loaded, returns it.
@@ -69,9 +72,10 @@ class simulation:
             # weird hack... no idea why we need getattr twice...
             return getattr(getattr(policy_module, policy_id), policy_id)
 
-    def calc_risk_prob(self):
+    #OBSOLETE. risks are now derived from incidents
+    def calc_risk_prob(self, policy):
         #risk = self.estimator.get_risk_prob(self.dict)
-        risk = self.classifier.predict_data(self.dict)
+        risk = self.classifier.predict_data(policy)
         value = risk[1]  # 0 - name, 1 - risk
         # Extreme precision is not needed outside of simulation
         return round(value, 2)
@@ -117,22 +121,23 @@ class simulation:
 
         return (gen_norm + mem_norm + entry_norm) / 3.0
 
-    def calc_prod_cost(self):
+    #OBSOLETE
+    def calc_prod_cost(self, policy):
         """ To ensure consistency across system, keep values in the [0, 1] range
         """
         #cost = self.estimator.get_prod_cost(self.dict)
         # cost = self.classifier.predict(self.dict)[1]
-        productivity = self.derive_prod_cost(self.dict)
-        maintenance = self.derive_maintenance_cost(self.dict)
+        productivity = self.derive_prod_cost(policy)
+        maintenance = self.derive_maintenance_cost(policy)
 
         cost = (productivity + maintenance) / 2.0 # overall (needs to be weighted) cost
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)
 
-    def get_incident(self):
+    def get_incident(self, policy):
         """ The public interface to get
         """
-        risk = self.classifier.predict_data(self.dict)
+        risk = self.classifier.predict_data(policy)
         value = risk[0]  # 0 - name, 1 - risk
         return value
 
