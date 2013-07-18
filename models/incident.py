@@ -43,6 +43,7 @@ class incident:
         else:
             return incident.incidents[typ][ident]
 
+    #OBSOLETE
     @classmethod
     def get_incident_by_name(self, name='infrequent_use'): # if type not specified, search
         ref = 'static/incidents/' + name + '.json'
