@@ -1,6 +1,7 @@
 __author__ = 'Daniyar'
 
 from sklearn import svm
+import cPickle
 import numpy
 import glob
 import csv
@@ -23,6 +24,12 @@ class classifier_sklearn:
         self.incidents_models = {}
         self.risks = []
         self.risks_set = ["bruteforce", "stolen"]
+        check_classifier = True
+        try:
+            f = open('static/data/classifier-model.txt','rb')
+        except IOError:
+            f = open('static/data/classifier-model.txt', 'wb')
+            check_classifier = False
 
         limit = len(policy_model.get_ranges())
 
@@ -51,7 +58,12 @@ class classifier_sklearn:
                     for device in company.device_types:
                         if not device in self.incidents_models[risk][employee][location].keys():
                             self.incidents_models[risk][employee][location][device] = {}
-                        self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
+                        if not check_classifier:
+                            self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
+                            cPickle.dump(self.incidents_models[risk][employee][location][device], f)
+                        else:
+                            self.incidents_models[risk][employee][location][device] = cPickle.load(f)
+                            #self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
             # self.incidents_models[risk] = svm.SVR().fit(train_data, train_result)
 
         # print self.risks
@@ -203,17 +215,17 @@ if __name__ == "__main__":
     # result = model.generate_samples({})
 
     # test_data = genfromtxt('../static/data/pw-test-data.csv', delimiter=',')
-    # test_data = [6, 2, 1, 1, 2, 0, 1]
+    test_data = [0,0,0,4,0,1,3,1,0]
     #classifier_sklearn.generate_training_set()
     #test_data = policy_model.get_default()
-    #model = classifier_sklearn()
-    filename = 'static/data/pw-train-generated-risk-bruteforce.csv'
-    data = numpy.genfromtxt(filename, delimiter=',')
-    print data
+    model = classifier_sklearn()
+    #filename = 'static/data/pw-train-generated-risk-bruteforce.csv'
+    #data = numpy.genfromtxt(filename, delimiter=',')
+    #print data
 
     #print "test data: "
     #print test_data
     #print policy_model.policy2datapoint(test_data)
     #print "classes:"
-    #print model.predict_data(test_data)
+    print model.predict_datapoint(test_data)
 
