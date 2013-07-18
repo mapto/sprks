@@ -696,7 +696,15 @@ $if user_id() > 0:
 </footer>
 
 <script src="$path/static/js/private_common.js"></script>      <!--MAIN script-->
-<script>
+<script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
+<script src="$path/static/js/intro.js"></script>            <!--INTRO script-->
+<script src="$path/static/js/canvasjs-1.2.1/canvasjs.js"></script> <!--PROFILE script-->
+<script src="$path/static/js/profile.js"></script>
+<script src="$path/static/js/pwpolicy.js"></script>  <!-- POLICY script -->
+<script src="$path/static/js/mootools-core-1.4.5-full-compat.js"></script>
+<script src="$path/static/js/mootools-more-1.4.0.1.js"></script>
+<script src="$path/static/js/score.js"></script>   <!-- SCORE script -->
+<script> // USER MANAGEMENT script
 function initUserForms(){
 
     formModel = {
@@ -716,7 +724,6 @@ function initUserForms(){
     };
 
     ko.applyBindings(formModel);
-
 
     $$('#registerForm').submit(function (e) {
         e.preventDefault();
@@ -858,8 +865,6 @@ function passwordRecover(token){
 
     passwordRecover(token);
 
-    $$("#home_page").css("display", "block");
-
     initUserForms();
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
@@ -870,103 +875,19 @@ function passwordRecover(token){
     initFrame();    //no care for document ready as below
     //$$(document).ready(initFrame); // register callback to function from external JS file;
 
-</script>
-
-<script>    //REGISTER script
-    $$(".register_page").click('click', function(e){
-            $$("#register_page").css("display", "block");
-    });
-</script>
-
-<script>    //LOGIN script
-    $$(".login_page").click('click', function(e){
-            $$("#login_page").css("display", "block");
-    });
-</script>
-
-
-<script>    //PSWD RECOVER script
-    $$(".password_recover_page").click('click', function(e){
-            $$("#password_recover_page").css("display", "block");
-    });
-</script>
-<script>
-
-
-</script>
-
-<script>    //PSWD CHANGE script
-    $$(".password_change_page").click('click', function(e){
-            $$("#password_change_page").css("display", "block");
-    });
-</script>
-
-<script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
-<script>
-    $$(".incident_page").click('click', function(e){
-            initIncident();
-            $$("#incident_page").css("display", "block");
-    });
-</script>
-
-<script src="$path/static/js/intro.js"></script>            <!--INTRO script-->
-<script>
-    $$(".intro_page").click('click', function(e){
-            $$("#intro_page").css("display", "block");
-    });
-</script>
-
-<script src="$path/static/js/canvasjs-1.2.1/canvasjs.js"></script> <!--PROFILE script-->
-<script src="$path/static/js/profile.js"></script>
-<script>
-    $$(".profile_page").click('click', function(e){
-            $$("#profile_page").css("display", "block");
-            initProfile();
-    });
-</script>
-
-<script src="$path/static/js/pwpolicy.js"></script>  <!-- POLICY script -->
-<script>
-    // Extracted JS files to allow easier parallel development.
-    // This is the dedicated script for the password policy view
-    // JS is loaded from the above file.
-    // If you want to use templates from webpy,
-    // extract a method that grabs them here and call it from a script in the external JS file.
-    // Variables from Python can be sent back as return values.
-    // Use $$() for jqueries
-
-    $$(".policy_page").click('click', function(e){
-            $$("#policy_page").css("display", "block");
-            initPolicy();
-    });
-
+    //used in POLICY
     function getUserID() {
         /*ID is preset inside HTML code*/
         console.log("found id user_id");
         return user_id; // This value is set server-side and appears to client as hardcoded.
     }
-</script>
-
-<script src="$path/static/js/mootools-core-1.4.5-full-compat.js"></script>
-<script src="$path/static/js/mootools-more-1.4.0.1.js"></script>
-<script src="$path/static/js/score.js"></script>   <!-- JS extracted here -->
-<script>
-    // This is the common script for all registered user views.
-    // JS is loaded from the above file.
-    // If you want to use templates from webpy,
-    // extract a method that grabs them here and call it from a script in the external JS file.
-    // Variables from Python can be sent back as return values.
-
-    $$(".score_page").click('click', function(e){
-            $$("#score_page").css("display", "block");
-            initScore();
-    });
-
+    //used in SCORE
     function getUsername() {
         /*ID is preset inside HTML code*/
         console.log("found user $username()");
         return "$username()"; // This value is set server-side and appears to client as hardcoded.
     }
 </script>
+<script src="/static/js/spa.js"></script>
 </body>
 </html>
