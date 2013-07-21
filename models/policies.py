@@ -71,15 +71,21 @@ class policies_model:
         :param user_id: user_id of user to get policies for
         :param latest: flag limits to only getting the latest set of policies
         """
-
+        results_list = []
         restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=$user_id) ' if latest else ''
-        return db.query(
+        res = db.query(
             'SELECT * FROM policies '
             'LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id '
             'LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id '
             'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.id '
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 54', vars=locals())
+        for row in res:
+            tmp = {}
+            for key, value in row.iteritems():
+                tmp[key] = str(value)
+            results_list.append(tmp)
+        return results_list
 
     @classmethod
     def policies_equal(cls, policy1, policy2):
