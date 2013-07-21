@@ -25,6 +25,8 @@ class score_rest:
         return json.dumps(score_model.get_scores(context.user_id()))
 
 
+# OBSOLETE
+# This seems to make simulation calls that are long outdated
 class multiple_score:
     def POST(self):
         web.header('Content-Type', 'application/json')

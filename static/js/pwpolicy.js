@@ -588,7 +588,12 @@ $('#aut_num').change(function(){
 
     for (var i = 0; i < this.value; i++) {  // use i+1, because indices in form start from 1
         var s = $("<select class=\"target\" id=\"authentication" + (i+1) + "\" name=\"authentication" + (i+1) + "\" />");
-        for(var val in options) {
+
+        // Was previously for(var val in options)
+        // It returned further values beyond the array items.
+        // Probably these are the default attributes of a (dynamically created) object
+        for(var val = 0; val < options.length; val++) {
+            console.log(val);
             if (val == 0) {
                 $("<option value=\"\" disabled selected>" + options[val] + "</option>").appendTo(s);
             } else {

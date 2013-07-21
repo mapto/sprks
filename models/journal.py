@@ -30,13 +30,19 @@ class records:
         last_policy_sync = db.query('SELECT date FROM policies WHERE user_id=$self.user_id '
                                     'ORDER BY date DESC LIMIT 1', vars=locals())
 
-        last_event_sync = db.query('SELECT date FROM journal WHERE user_id=$self.user_id AND committed=true '
+        last_event_sync = db.query('SELECT date FROM journal WHERE user_id=$self.user_id AND committed=1 '
                                    'ORDER BY date DESC LIMIT 1', vars=locals())
 
-        if len(last_event_sync) > 0 and last_event_sync[0].date > last_policy_sync[0].date:
-            return last_event_sync[0].date
+        # Query responses are iterators. As a result every time last_policy_sync[0] is called, it pops that item.
+        # Next time last_policy_sync[0] is called, the response is different. Using local variables to work around this.
+        policy_date = last_policy_sync[0].date
 
-        return last_policy_sync[0].date
+        if len(last_event_sync) > 0:
+            event_date = last_event_sync[0].date
+            if event_date > policy_date:
+                return event_date
+
+        return policy_date
 
     def __next_sync(self, last_sync_date):
         """

@@ -190,10 +190,9 @@ class score_model:
         return msg
 
     def multiple_score(self, policies):
-        post_data = policies
         policy_costs_risks = []
         sim = simulation()
-        for policy_entry in post_data:
+        for policy_entry in policies:
             result_entry = {}
             for key in policy_entry:
                 if key == "data":

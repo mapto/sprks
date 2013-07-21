@@ -84,13 +84,19 @@ class TestEstimators:
         self.policy.set_policy('pautorecover', 0)
 
     def test_calc_risk_prob(self):
-        assert (self.policy.calc_risk_prob() <= 1) and (self.policy.calc_risk_prob() >= 0)
+        pass
+        # OBSOLETE
+        # assert (self.policy.calc_risk_prob() <= 1) and (self.policy.calc_risk_prob() >= 0)
 
     def test_calc_risk_impact(self):
-        assert self.policy.calc_risk_impact() == 1
+        pass
+        # OBSOLETE
+        # assert self.policy.calc_risk_impact() == 1
 
     def test_calc_prod_cost(self):
-        assert (self.policy.calc_prod_cost() >= 0) and (self.policy.calc_prod_cost() <= 100)
+        pass
+        # OBSOLETE
+        # assert (self.policy.calc_prod_cost() >= 0) and (self.policy.calc_prod_cost() <= 100)
 
 
 class TestMinSec:

@@ -28,7 +28,9 @@ class prophet:
 
         # policies = db.query('SELECT * FROM policies WHERE user_id=$user_id ORDER BY date DESC limit 1', vars=locals())
         # TODO lasagna code - this should be fixed when multiple policies are used.
-        policies = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(policies_model().get_policy_history(user_id, True)))[0]['data']
+        history = policies_model().get_policy_history(user_id, True)
+        response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
+        policies = response[0]['data']
         incidents = simulation().get_related_incidents(policies)
         print "incidents"
         print incidents

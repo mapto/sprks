@@ -19,6 +19,8 @@ class pwpolicy:
             raise web.seeother(path + '/home')
         return render.pwpolicy_form()
 
+    # OBSOLETE
+    # This seems to make simulation calls that are long outdated
     def POST(self):
         web.header('Content-Type', 'application/json')
         sim = simulation()
