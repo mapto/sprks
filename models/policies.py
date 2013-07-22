@@ -91,9 +91,7 @@ class policies_model:
     def policies_equal(cls, policy1, policy2):
         skipped = ["user_id", "bio_id", "pw_id", "pass_id", "date", "employee", "device", "location", "id_policy"]
         for key in policy1:
-            if key in skipped:
-                continue
-            if policy1[key] != policy2[key]:
+            if key not in skipped and policy1[key] != policy2[key]:
                 return False
 
         return True

@@ -32,6 +32,5 @@ class incident_rest:
         #  Regardless how it works, the simulation should appear to the outside as one model that takes a policy and returns an incident
         # This should be a simulation call.
         last_policy = prev_policies[0]
-        #print classifier_sklearn().predict_data(last_policy)[0]
-        # return classifier_sklearn().predict_data(last_policy)[0]
-        return simulation().get_incident(last_policy)
+        incident = simulation().get_related_incidents(last_policy)[0]
+        return model.get_incident(incident)['name']
