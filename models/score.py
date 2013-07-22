@@ -98,6 +98,7 @@ class score_model:
         risk_value = 0.0
         cost_value = 0.0
         scores_1, scores_2 = itertools.tee(your_score)
+        # searchs best risk for current user
         for row in scores_1:
             if row.score_type == 1:
                 if row.userid == usrid:
@@ -107,6 +108,7 @@ class score_model:
                     break
                 else:
                     rank_risk += 1
+        #searches best cost for current user
         for row in scores_2:
             if row.score_type == 2:
                 if row.userid == usrid:
@@ -158,32 +160,32 @@ class score_model:
 
         if len(all_scores) > 0:
 
-            b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = cls.find_best_USER(
+            b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = score_model().find_best_USER(
                 length, id_user, scores_1)
-            c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = cls.check_closest_competitor(length,
+            c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = score_model().check_closest_competitor(length,
                                                                                                          id_user,
                                                                                                          scores_2)
-            b_risk, b_risk_when, b_pc, b_pc_when = cls.find_best(scores_3)
+            b_risk, b_risk_when, b_pc, b_pc_when = score_model().find_best(scores_3)
 
-            avg_risk, avg_pc = cls.find_avg(scores_4)
+            avg_risk, avg_pc = score_model().find_avg(scores_4)
 
             msg = {
             "b_u_risk": str(b_u_risk),
-            "b_u_risk_date": str(b_u_risk_date.date()),
+            "b_u_risk_date": str(b_u_risk_date),
             "b_u_risk_rank": b_u_risk_rank,
             "b_u_cost": str(b_u_cost),
-            "b_u_cost_date": str(b_u_cost_date.date()),
+            "b_u_cost_date": str(b_u_cost_date),
             "b_u_cost_rank": b_u_cost_rank,
             "c_risk": str(c_risk),
-            "c_risk_when": str(c_risk_when.date()),
+            "c_risk_when": str(c_risk_when),
             "c_risk_rank": c_risk_rank,
             "c_pc": str(c_pc),
-            "c_pc_when": str(c_pc_when.date()),
+            "c_pc_when": str(c_pc_when),
             "c_pc_rank": c_pc_rank,
             "b_risk": str(b_risk),
-            "b_risk_when": str(b_risk_when.date()),
+            "b_risk_when": str(b_risk_when),
             "b_pc": str(b_pc),
-            "b_pc_when": str(b_pc_when.date()),
+            "b_pc_when": str(b_pc_when),
             "avg_risk": str(avg_risk),
             "avg_pc": str(avg_pc)
             }

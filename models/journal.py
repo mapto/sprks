@@ -37,6 +37,8 @@ class records:
         # Next time last_policy_sync[0] is called, the response is different. Using local variables to work around this.
         policy_date = last_policy_sync[0].date
 
+
+        #CANT COMPARE DATETIME AND DATE!!!
         if len(last_event_sync) > 0:
             event_date = last_event_sync[0].date
             if event_date > policy_date:
@@ -54,6 +56,9 @@ class records:
 
         next_due_event_date = self.__next_due_event_date()
 
+        """
+        Cant compare datetime.datetime and datetime.date!!!
+        """
         if next_due_event_date is not None and next_due_event_date <= next_due_policy_date:
             return next_due_event_date, True
 

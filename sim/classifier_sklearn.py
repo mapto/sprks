@@ -62,8 +62,8 @@ class classifier_sklearn:
                             self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
                             cPickle.dump(self.incidents_models[risk][employee][location][device], f)
                         else:
-                            self.incidents_models[risk][employee][location][device] = cPickle.load(f)
-                            #self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
+                            #self.incidents_models[risk][employee][location][device] = cPickle.load(f)
+                            self.incidents_models[risk][employee][location][device] = self.train_classifier(risk, employee, location, device, limit, general)
             # self.incidents_models[risk] = svm.SVR().fit(train_data, train_result)
 
         # print self.risks

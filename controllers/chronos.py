@@ -37,7 +37,7 @@ class chronos:
         if corrected_sync_date.day == 1:
             if policy_update is None:
                 # Expecting a policy update, but not found.
-                corrected_sync_date -= timedelta(days=1)
+                #corrected_sync_date -= timedelta(days=1)
                 # event_accept will always be false (backtracking one day before the next earliest sync point)
                 event_accept = False
             else:

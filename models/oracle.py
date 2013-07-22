@@ -32,13 +32,17 @@ class prophet:
         response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
         policies = response[0]['data']
         incidents = simulation().get_related_incidents(policies)
-        print "incidents"
-        print incidents
         prophecy = []
+        max_risk = 0
+        max_cost = 0
         for incident_id in incidents:
             current_incident = incident.get_incident(incident_id)
             print "current incident"
             print current_incident
+            if current_incident['risk'] > max_risk:
+                max_risk = current_incident['risk']
+            if current_incident['cost'] > max_cost:
+                max_cost = current_incident['cost']
             daily_prob = cls.daily_prob(current_incident['risk'])
             incident_cost = current_incident['cost']*company.max_incident_cost
             for i in range(0, 31):
@@ -49,7 +53,8 @@ class prophet:
                         'incident_id': incident_id,
                         'cost': cls.randomize_cost(incident_cost)
                     })
-
+        prophet().insert_score(user_id, 1, max_risk, base_date)
+        prophet().insert_score(user_id, 2, max_cost, base_date)
         return prophecy
 
     @classmethod
@@ -70,6 +75,9 @@ class prophet:
         """
         offset = (random.random() - 0.5) * 0.4
         return cost * (1 + offset)
+
+    def insert_score(self, user_id, score_type, score_value, date):
+        db.insert('scores', userid=user_id, score_type=score_type, score_value=score_value, date=date)
 
 if __name__ == "__main__":
     print prophet().daily_prob(0.5)

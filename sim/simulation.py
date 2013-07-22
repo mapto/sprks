@@ -149,7 +149,6 @@ class simulation:
                "precovery": 1, "pdata": 0, "bdata": 1} )
         :param policy: policy
         """
-        print policy
         return self.classifier.predict_data(policy)
 
 if __name__ == "__main__":
