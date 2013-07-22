@@ -336,7 +336,9 @@ function submit_change() { // need different event handling, to capture any chan
     var request = $.ajax({
         url: "/api/chronos/sync",
         type: "POST",
-        async: false,
+        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
+        // E.g. what happens if the user changes screens too often
+        async: true,
         data: JSON.stringify(msg),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

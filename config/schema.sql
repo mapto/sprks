@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `password_recovery` (
 --
 
 CREATE TABLE IF NOT EXISTS `policies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_policy` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `location` varchar(45) NOT NULL,
   `employee` varchar(45) NOT NULL,
@@ -133,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `score_type` int(11) NOT NULL,
   `score_value` decimal(5,2) NOT NULL,
   `date` date NOT NULL,
-  `rank` int(11) NOT NULL,
   PRIMARY KEY (`idscores`),
   KEY `userid_idx` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
