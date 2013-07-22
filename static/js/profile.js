@@ -21,7 +21,7 @@ function initProfile() {
     row.append(date);
     for (var j in json[0]) {
         var attrName = j; //e.g. pdict
-        if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
+        if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
             var col = $('<td></td>').addClass('profileTd profileTh').text(attrName);
             row.append(col);
         }
@@ -38,7 +38,7 @@ function initProfile() {
         for (var k in obj) {
             var attrName = k; //e.g. pdict
             var attrValue = obj[k]; //e.g. 1
-            if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
+            if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
                 if (i < 1) { //if it's first row
                     var col = $('<td></td>').addClass('profileTd').text(attrValue);
                     row.append(col);//add all policy values
