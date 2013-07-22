@@ -51,7 +51,10 @@ function initProfile() {
                 }
             }
         }
-        table.append(row);
+        
+        if(row.text()!=''){
+            table.append(row);
+        }
         prev_obj = json[i];
     }
 
