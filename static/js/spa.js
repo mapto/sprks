@@ -6,9 +6,14 @@
  * To change this template use File | Settings | File Templates.
  */
 
+    if(getUserID() > 0) {
+        $(".main-body").css("display", "block");
+        $("#intro_page").css("display", "block");
+    }else{
+        $(".main-body").css("display", "block");
+        $("#home_page").css("display", "block");
+    }
 
-    $(".main-body").css("display", "block");
-    $("#home_page").css("display", "block");
 
 
     $('a').click('click', function(){

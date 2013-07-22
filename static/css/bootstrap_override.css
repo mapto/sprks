@@ -451,11 +451,13 @@ label {
 /* Bubble with interview
 ------------------------------------------ */
 .interviewee {
+    z-index: -2;
     position: fixed;
     bottom: 75px;
-    height: 100px;
-    width: 60px;
-    right: 30px;
+    min-height:100px;
+    min-width:60px;
+    height:20%;
+    width: 5%;
     padding: 5px;
     float: right;
     background-image: url(../img/pt1307_stick_figure_standing_normal.png);
@@ -478,26 +480,31 @@ label {
 }
 
 #interview1 {
-    right: 30px;
+    right: 40%;
+    left:55%;
 }
 
 #interview2 {
-    right: 105px;
+    right:47.5%;
+    left:47.5%;
+
 }
 
 #interview3 {
-    right: 180px;
+    left: 40%;
+    right:55%;
 }
 
 .quote {
-    z-index: 3000;
+    z-index: -2;
     display: none;
     border-radius: 10%;
-    width: 300px;
+    width: auto;
     padding: 15px;
     position: fixed;
-    bottom: 188px;
-    right: 10px;
+    bottom: 200px;
+    left:35%;
+    right: 35%;
     float: left;
 
     color: #0e0e0e;
@@ -524,15 +531,15 @@ label {
 }
 
 #quote1:after {
-    right: 60px;
+    right: 15%;
 }
 
 #quote2:after {
-    right: 130px;
+    right: 38%;
 }
 
 #quote3:after {
-    right: 190px;
+    right: 67%;
 }
 
 /*PROFILE page*/
