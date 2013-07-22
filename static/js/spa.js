@@ -5,52 +5,29 @@
  * Time: 10:52
  * To change this template use File | Settings | File Templates.
  */
+
+
+    $(".main-body").css("display", "block");
     $("#home_page").css("display", "block");
 
-    //REGISTER script
-    $(".register_page").click('click', function(e){
-            $("#register_page").css("display", "block");
+
+    $('a').click('click', function(){
+       var page = $(this).attr('class');
+       if((page.substr(page.length-4))==='page'){ //check if the link clicked if a page button
+            hideOtherPages(page);
+            $("#"+page).css("display", "block");
+            if(page==='policy_page'){initPolicy();}
+            if(page==='incident_page'){initIncident();}
+            if(page==='profile_page'){initProfile();}
+            if(page==='score_page'){initScore();}
+       }
     });
 
-    //LOGIN script
-    $(".login_page").click('click', function(e){
-            $("#login_page").css("display", "block");
-    });
+    function hideOtherPages(page_name){
+        $(".pages").each(function(){
+            if($(this).attr('id')!==page_name){
+                $(this).css("display", "none");
+            }
+        });
+    }
 
-    //PSWD RECOVER script
-    $(".password_recover_page").click('click', function(e){
-            $("#password_recover_page").css("display", "block");
-    });
-
-    //PSWD CHANGE script
-    $(".password_change_page").click('click', function(e){
-            $("#password_change_page").css("display", "block");
-    });
-
-    //INCIDENT script
-    $(".incident_page").click('click', function(e){
-            initIncident();
-            $("#incident_page").css("display", "block");
-    });
-
-    //INTRO script
-    $(".intro_page").click('click', function(e){
-            $("#intro_page").css("display", "block");
-    });
-
-    //PROFILE script
-    $(".profile_page").click('click', function(e){
-            $("#profile_page").css("display", "block");
-            initProfile();
-    });
-
-    //POLICY script
-    $(".policy_page").click('click', function(e){
-            $("#policy_page").css("display", "block");
-            initPolicy();
-    });
-    //SCORE script
-    $(".score_page").click('click', function(e){
-            $("#score_page").css("display", "block");
-            initScore();
-    });
