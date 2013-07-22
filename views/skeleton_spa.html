@@ -16,7 +16,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="link home_page"><a>sprks</a></div>
+            <div class="link"><a class="home_page">sprks</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
                     <a class="password_change_page">Change Password</a> | </a><a href="$path/login_spa?action=logout">Logout $username()</a>
@@ -32,11 +32,11 @@
 $if user_id() > 0:
     <div class="menu">
         <!-- these paths need to be absolute, because password policy is not in the same (appearance) directory as others -->
-        <div class="intro_page"><a>Story </a></div>
-        <div class="policy_page"><a>Policy</a></div>
-        <div class="profile_page"><a>Profile</a></div>
-        <div class="score_page"><a>Scores</a></div>
-        <div class="incident_page"><a>Incident</a></div>
+        <div><a class="intro_page">Story </a></div>
+        <div><a class="policy_page">Policy</a></div>
+        <div><a class="profile_page">Profile</a></div>
+        <div><a class="score_page">Scores</a></div>
+        <div><a class="incident_page">Incident</a></div>
     </div>
 
     <div class="risk-menu">
