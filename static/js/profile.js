@@ -51,7 +51,7 @@ function initProfile() {
                 }
             }
         }
-        
+
         if(row.text()!=''){
             table.append(row);
         }

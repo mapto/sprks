@@ -20,7 +20,16 @@
             if(page==='incident_page'){initIncident();}
             if(page==='profile_page'){initProfile();}
             if(page==='score_page'){initScore();}
+
+            $(".main-body").css("display", "block");
        }
+    });
+
+    $("#close_btn").click('click', function(){
+        $(".main-body").css("display", "none");
+        $(".pages").each(function(){
+            $(this).css("display", "none");
+        });
     });
 
     function hideOtherPages(page_name){

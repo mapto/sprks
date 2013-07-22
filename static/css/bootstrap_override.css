@@ -650,5 +650,24 @@ label {
 .pages{
     display:none;
 }
+#close_btn{
+    float:right;
+    display: block;
+    background-color: #750000;
+    color: #a7a7a7;
+    margin: 0.9em;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    box-shadow: 0px 1px 8px #aaa, inset 1px 1px 3px #C10000;
+}
+#close_btn:hover{
+    cursor:pointer;
+    background-color: #950000;
+    box-shadow: 0px 1px 8px #aaa, inset 1px 1px 3px #C23456;
+}
 
 
