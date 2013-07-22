@@ -10,6 +10,7 @@ from localsys.storage import path
 from models.users import users_model
 from models.policies import policies_model
 from libraries.utils import hash_utils
+from models.oracle import prophet
 
 render = web.template.render('views/', globals=render_globals)
 
@@ -83,7 +84,8 @@ class account:
                 users_model.session_login(user_id)
             web.ctx.status = '201 Created'
             policies_model.populate_policies(user_id, start_date)
-
+            prophet().insert_score(user_id, 1, 1, start_date)
+            prophet().insert_score(user_id, 2, 1, start_date)
             return json.dumps(
                 {
                     'success': True,
