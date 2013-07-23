@@ -26,7 +26,7 @@ class classifier_sklearn:
         self.incidents_models = {}
         self.risks = []
         check_classifier = True
-        f = open('static/data/classifier-models.pkl','rb')
+        f = open('static/data/classifier-models.txt','rb')
         self.incidents_models = cPickle.load(f)
         f.close()
 
@@ -49,7 +49,7 @@ class classifier_sklearn:
         """
         print "Generating models..."
 
-        f = open('static/data/classifier-models.pkl', 'wb')
+        f = open('static/data/classifier-models.txt', 'wb')
 
         models = {}
 
@@ -243,12 +243,12 @@ if __name__ == "__main__":
     # result = model.generate_samples({})
 
     # test_data = genfromtxt('../static/data/pw-test-data.csv', delimiter=',')
-    test_data = [0,0,0,4,0,1,3,1,0]
+    #test_data = [0,0,0,4,0,1,3,1,0]
     # classifier_sklearn.generate_training_set()
     # classifier_sklearn.generate_models()
-    classifier_sklearn.train()
+    #classifier_sklearn.train()
     #test_data = policy_model.get_default()
-    model = classifier_sklearn()
+    #model = classifier_sklearn()
     #filename = 'static/data/pw-train-generated-risk-bruteforce.csv'
     #data = numpy.genfromtxt(filename, delimiter=',')
     #print data
@@ -257,5 +257,5 @@ if __name__ == "__main__":
     #print test_data
     #print policy_model.policy2datapoint(test_data)
     #print "classes:"
-    print model.predict_datapoint(test_data)
-
+    #print model.predict_datapoint(test_data)
+    classifier_sklearn.train()
