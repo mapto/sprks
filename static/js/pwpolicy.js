@@ -638,3 +638,18 @@ function hide_policies(){ //hide all policies
         $(this).css("display","none");
     })
 }
+
+
+$(function(){
+    $('#employee').buttonset();
+    $('#location').buttonset();
+    $('#device').buttonset();
+
+    $('#plen').buttonset();
+    $('#psets').buttonset();
+    $('#pdict').buttonset();
+    $('#phist').buttonset();
+    $('#prenew').buttonset();
+    $('#pattempts').buttonset();
+    $('#precovery').buttonset();
+})
