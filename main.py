@@ -31,8 +31,8 @@ import controllers.pwpolicy
 import controllers.spa
 import controllers.user_spa
 urls = (
-        storage.path + '', controllers.home.home,
-        storage.path + '/', controllers.home.home,
+        storage.path + '', controllers.spa.spa,
+        storage.path + '/', controllers.spa.spa,
         storage.path + '/home', controllers.home.home,
         storage.path + '/login', controllers.user.account,
         storage.path + '/register', controllers.user.register,
