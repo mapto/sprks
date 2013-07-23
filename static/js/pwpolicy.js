@@ -339,7 +339,6 @@ function submit_change() { // need different event handling, to capture any chan
         msg.date = strDate;
         msg.policyUpdate = policyUpdate;
         msg.newCosts = calculate_cost_from_calendar();
-        msg.silentMode = false;
     }
     msg.initPolicy = true;
     console.log(msg);
