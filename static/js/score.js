@@ -10,7 +10,10 @@ function initScore(){
     send_request(); //request scores, write them to score_obj global variable
     console.log(score_obj);
     //create accordion score representation
-    new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
+    //new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
+    $('#accordion').accordion({
+        icons: null
+    });
     climbLadder("risk");
     climbLadder("cost");
     $("#avg_risk").text(score_obj.avg_risk);

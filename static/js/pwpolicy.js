@@ -319,6 +319,7 @@ function display_contextualized_policy(contextualized) {
 function update_policy(policy) {
     console.log('erase policyUpdate array to rewrite it');
     policyUpdate = [];
+    statusReady();
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
@@ -338,10 +339,10 @@ function submit_change() { // need different event handling, to capture any chan
         msg.date = strDate;
         msg.policyUpdate = policyUpdate;
         msg.newCosts = calculate_cost_from_calendar();
-        msg.silentMode = false;
     }
     msg.initPolicy = true;
     console.log(msg);
+    statusUpdating();
     var request = $.ajax({
         url: "/api/chronos/sync",
         type: "POST",
@@ -636,3 +637,18 @@ function hide_policies(){ //hide all policies
         $(this).css("display","none");
     })
 }
+
+
+$(function(){
+    $('#employee').buttonset();
+    $('#location').buttonset();
+    $('#device').buttonset();
+
+    $('#plen').buttonset();
+    $('#psets').buttonset();
+    $('#pdict').buttonset();
+    $('#phist').buttonset();
+    $('#prenew').buttonset();
+    $('#pattempts').buttonset();
+    $('#precovery').buttonset();
+})
