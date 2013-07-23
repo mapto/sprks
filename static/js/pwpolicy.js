@@ -319,6 +319,7 @@ function display_contextualized_policy(contextualized) {
 function update_policy(policy) {
     console.log('erase policyUpdate array to rewrite it');
     policyUpdate = [];
+    statusReady();
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
@@ -342,6 +343,7 @@ function submit_change() { // need different event handling, to capture any chan
     }
     msg.initPolicy = true;
     console.log(msg);
+    statusUpdating();
     var request = $.ajax({
         url: "/api/chronos/sync",
         type: "POST",
