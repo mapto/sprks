@@ -700,6 +700,8 @@ $if user_id() > 0:
         <div class="navbar-inner">
             <div class="container-fluid">
                 <h4 style="margin-left:220px;">
+                    <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
+                    <span data-bind="text: statusbar_status"></span>
                 </h4>
             </div>
         </div>
@@ -737,6 +739,7 @@ $if user_id() > 0:
 <script src="$path/static/js/pwpolicy.js"></script>  <!-- POLICY script -->
 <script src="$path/static/js/mootools-core-1.4.5-full-compat.js"></script>
 <script src="$path/static/js/mootools-more-1.4.0.1.js"></script>
+<script src="$path/static/js/statusbar.js"></script>
 <script src="$path/static/js/score.js"></script>   <!-- SCORE script -->
 <script> // USER MANAGEMENT script
 function initUserForms(){
@@ -754,7 +757,9 @@ function initUserForms(){
         pswd_recover_messages: ko.observableArray(),
         pswd_change_password: ko.observable(),
         pswd_change_passwordConfirm: ko.observable(),
-        pswd_change_messages: ko.observableArray()
+        pswd_change_messages: ko.observableArray(),
+        statusbar_status: ko.observable(),
+        statusbar_image: ko.observable()
     };
 
     ko.applyBindings(formModel);
