@@ -3,7 +3,6 @@ __author__ = 'Daniyar'
 import itertools
 from localsys.storage import db
 import math
-import json
 from sim.simulation import simulation
 
 
@@ -170,24 +169,24 @@ class score_model:
             avg_risk, avg_pc = score_model().find_avg(scores_4)
 
             msg = {
-            "b_u_risk": str(b_u_risk),
-            "b_u_risk_date": str(b_u_risk_date),
-            "b_u_risk_rank": b_u_risk_rank,
-            "b_u_cost": str(b_u_cost),
-            "b_u_cost_date": str(b_u_cost_date),
-            "b_u_cost_rank": b_u_cost_rank,
-            "c_risk": str(c_risk),
-            "c_risk_when": str(c_risk_when),
-            "c_risk_rank": c_risk_rank,
-            "c_pc": str(c_pc),
-            "c_pc_when": str(c_pc_when),
-            "c_pc_rank": c_pc_rank,
-            "b_risk": str(b_risk),
-            "b_risk_when": str(b_risk_when),
-            "b_pc": str(b_pc),
-            "b_pc_when": str(b_pc_when),
-            "avg_risk": str(avg_risk),
-            "avg_pc": str(avg_pc)
+                "b_u_risk": str(b_u_risk),
+                "b_u_risk_date": str(b_u_risk_date),
+                "b_u_risk_rank": b_u_risk_rank,
+                "b_u_cost": str(b_u_cost),
+                "b_u_cost_date": str(b_u_cost_date),
+                "b_u_cost_rank": b_u_cost_rank,
+                "c_risk": str(c_risk),
+                "c_risk_when": str(c_risk_when),
+                "c_risk_rank": c_risk_rank,
+                "c_pc": str(c_pc),
+                "c_pc_when": str(c_pc_when),
+                "c_pc_rank": c_pc_rank,
+                "b_risk": str(b_risk),
+                "b_risk_when": str(b_risk_when),
+                "b_pc": str(b_pc),
+                "b_pc_when": str(b_pc_when),
+                "avg_risk": str(avg_risk),
+                "avg_pc": str(avg_pc)
             }
         return msg
 
