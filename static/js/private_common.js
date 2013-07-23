@@ -77,6 +77,7 @@ function initFrame () {
             check_events();
             if(window.date==window.nextSyncStr) {
                 alert("Changes submitted");
+                $('#pause').click();
                 window.first_date = new Date(window.date);
                 window.nextSync = window.first_date;
                 window.nextSync.setMonth(window.nextSync.getMonth()+2);
