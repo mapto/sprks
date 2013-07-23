@@ -220,6 +220,7 @@ function check_events() {
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
                 alert("Event #"+tmp_event[j].incdt_id+" happend!");
+                submit_change();
             })
 
         }
