@@ -235,7 +235,9 @@ class classifier_sklearn:
         train_data = data[:, 0:limit] # first several columns represent the data dimension
         train_result = data[:, limit] # result columns are ones after data dimensions
 
-        return svm.SVC(kernel='rbf').fit(train_data, train_result)
+        # for explanation of the following parameters please see
+        # http://scikit-learn.org/stable/modules/svm.html#tips-on-practical-use
+        return svm.SVC(kernel='rbf', cache_size=1000, C=0.9).fit(train_data, train_result)
 
 if __name__ == "__main__":
     # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
