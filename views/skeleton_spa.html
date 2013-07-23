@@ -22,7 +22,7 @@
             <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a class="password_change_page">Change Password</a> | </a><a href="$path/login_spa?action=logout">Logout $username()</a>
+                    <a href="$path/login_spa?action=logout">Logout $username()</a>
                 $else:
                     <a class="login_page">Login</a>
                 <!-- button to show/hide login pane? -->
@@ -217,8 +217,9 @@ $if user_id() > 0:
             </div>
 
             <div class="pages" id="password_change_page">
-                <!--Password Change-->
-                <!--def with: user_id, token) -->
+
+                <h1>Settings</h1>
+
                 <form id="passwordChangeForm">
                     <fieldset>
                         <legend>Set your new password</legend>
@@ -619,6 +620,8 @@ $if user_id() > 0:
 
             <div class="pages" id="profile_page">
                 <h1>Profile</h1>
+
+                <a class="password_change_page" href="#">User Settings</a>
 
                 <div>Now displays attribute names and values in a way that they are required, but it doesn't make much
                     sense for the

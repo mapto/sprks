@@ -5,7 +5,7 @@ $('#registerForm').submit(function (e) {
     if (formModel.register_password() === formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
         $.ajax({
             type: 'PUT',
-            url: '$path/api/user_spa/account/' + formModel.register_username(),
+            url: 'api/user_spa/account/' + formModel.register_username(),
             dataType: 'json',
             data: JSON.stringify({
                 password: formModel.register_password(),
@@ -56,7 +56,7 @@ $('#passwordRecoveryForm').submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: '$path/api/user_spa/password/' + formModel.pswd_recover_username(),
+        url: 'api/user_spa/password/' + formModel.pswd_recover_username(),
         dataType: 'json',
         data: JSON.stringify({
             uid_type: 'username'
@@ -77,7 +77,7 @@ $('#passwordChangeForm').submit(function (e) {
     if (formModel.pswd_change_password() === formModel.pswd_change_passwordConfirm()) {
         $.ajax({
             type: 'PUT',
-            url: '$path/api/user_spa/password/' + user_id,
+            url: 'api/user_spa/password/' + user_id,
             dataType: 'json',
             data: JSON.stringify({
                 password: formModel.pswd_change_password(),
@@ -94,7 +94,6 @@ $('#passwordChangeForm').submit(function (e) {
                         console.log('changed pswd successfully');
                         formModel.pswd_change_password('');
                         formModel.pswd_change_passwordConfirm('');
-                        window.location = ("/spa");
                     }
                 }
             }
@@ -108,7 +107,7 @@ function passwordRecover(token){
         if (token !== '') {
             $.ajax({
                 type: 'GET',
-                url: '$path/api/user_spa/password/'+token,
+                url: 'api/user_spa/password/'+token,
                 statusCode: {
                     500: function () {
                         $("#password_recover_page").css("display", "block");
