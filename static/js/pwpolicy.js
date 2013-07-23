@@ -9,7 +9,7 @@
 var pwpolicy;
 
 function initPolicy() {
-
+    console.log('initPolicy called');
 
     submit_change();// request policy from server and write to pwpolicy var
 
@@ -58,15 +58,11 @@ function initPolicy() {
   ]
 }
 
+    console.log('starting to initialize sync date ')
 
-    window.calendar = test_calendar;
-    window.date = $('#time').text();
-    window.first_date = new Date(window.date);
-    window.nextSync = window.first_date;
-    window.nextSync.setMonth(window.nextSync.getMonth()+2);
-    window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
-    window.id_elem = 'plen';
+
+    console.log(window.date);
+    console.log(window.nextSyncStr);
     //submit_change();
    // $('.target').change(submit_change);
     //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
@@ -94,6 +90,17 @@ function initPolicy() {
 
     //summarize_policy(pwpolicy); //update policy summary for user
 
+}
+
+function setSyncDate() {
+    window.calendar = test_calendar;
+    //window.date = $('#time').text();
+    window.first_date = new Date(window.date);
+    window.nextSync = window.first_date;
+    window.nextSync.setMonth(window.nextSync.getMonth()+2);
+    window.nextSync.setDate(1);
+    window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
+    window.id_elem = 'plen';
 }
 
 /****************UNCOMMENT if policy is initialised in a separate request
@@ -316,6 +323,8 @@ function update_policy(policy) {
     console.log(policy);
     $('#pause').click();
     $('#time').text(policy['date']);
+    window.date = $('#time').text();
+    setSyncDate();
     console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
     display_contextualized_policy(policy['policy'][0]);

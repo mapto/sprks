@@ -63,7 +63,7 @@ function initFrame () {
         //window.open("/incident","_self")
         if(window.timer1!=null) pauseInterval();
         window.timer1 = setInterval(function(){
-
+        //window.date = $('#time').text();
             var tmp = new Date(window.date);
             var addHours = 24;
             var addDays = 1;
