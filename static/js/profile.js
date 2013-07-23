@@ -30,30 +30,57 @@ function initProfile() {
 
     //fill table:
     var prev_obj = '';
+    var row = [];
+    var date=[];
+    var col = [];
+    var tmp;
+
     for (var i in json) {
         var obj = json[i];
-        var row = $('<tr></tr>').addClass('profileTr');
-        var date = $('<td></td>').addClass('profileTd_date').text(obj['date']);
-        row.append(date);
+        col[i] = {};
+        row [i] = $('<tr></tr>').addClass('profileTr'+i);
+        date [i] = $('<td></td>').addClass('profileTd_date').text(obj['date']);
+        row [i].append(date[i]);
         for (var k in obj) {
             var attrName = k; //e.g. pdict
             var attrValue = obj[k]; //e.g. 1
             if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
                 if (i < 1) { //if it's first row
-                    var col = $('<td></td>').addClass('profileTd').text(attrValue);
-                    row.append(col);//add all policy values
+                    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(attrValue);
+                    row [i].append(col[i][attrName]);//add all policy values
                 } else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
-                    var col = $('<td></td>').addClass('profileTd').text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
-                    row.append(col); //add value column only if value have changed
+                    if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
+                        col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
+                    }else{
+                        col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(obj[k]);
+                    }
+                    row [i].append(col[i][attrName]); //add value column only if value have changed
                 } else {
-                    var col = $('<td></td>').addClass('profileTd').text('');
-                    row.append(col); //add empty column if no changes
+                    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');
+                    row [i].append(col[i][attrName]); //add empty column if no changes
                 }
             }
         }
 
-        if(row.text()!=''){
-            table.append(row);
+        if(row[i].text()!=''){ //check if the row contains anything
+            if(row[i].text().substring(10).match(/\d+/g)){ //exclude date, check if the rest row contains number values( such as for plen, etc.)
+                var empty_row = $('<tr></tr>').addClass('profileTr profileTh');
+                for (var x=0; x<13;x++){
+                    empty_row.append($('<td></td>').addClass('profileTd profileTh').text(''));
+                }
+
+                table.append(empty_row);
+
+                //table.append(row[i]);
+                //tmp=i;
+            }else{                                      //if row contains only environmental variables (location/employee/device
+
+                row[i]
+
+
+
+            }
+        table.append(row[i]);
         }
         prev_obj = json[i];
     }
