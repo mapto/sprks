@@ -36,6 +36,7 @@
         $(".pages").each(function(){
             $(this).css("display", "none");
         });
+        $("#background_map").css("display", "block");
     });
 
     function hideOtherPages(page_name){
