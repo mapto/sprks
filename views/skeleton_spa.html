@@ -6,20 +6,23 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="$path/static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css"/>
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
 
 </head>
 <body style="background-color: #F2F2F2">
+
 <header>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="link"><a class="home_page">sprks</a></div>
+            <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a class="password_change_page">Change Password</a> | </a><a href="$path/login_spa?action=logout">Logout $username()</a>
+                    <a href="$path/login_spa?action=logout">Logout $username()</a>
                 $else:
                     <a class="login_page">Login</a>
                 <!-- button to show/hide login pane? -->
@@ -68,10 +71,16 @@ $if user_id() > 0:
     </div>
 
 <article class="container-fluid">
+
+
+
     <!-- MAP begin-->
-    <div id="background_map"></div>
+                <div id="background_map"></div>
 
                 <div class="interviewee" id="interview1">Susie</div>
+                <div class="interviewee" id="interview2">Kevin</div>
+                <div class="interviewee" id="interview3">Iza</div>
+
                 <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main
                     problem I have with my job is that IT support is terrible. It used to be the case that the department was in the
                     same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A
@@ -80,8 +89,6 @@ $if user_id() > 0:
                     everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the
                     latest round of password changes has locked me out of his email account.
                 </div>
-
-                <div class="interviewee" id="interview2">Kevin</div>
                 <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been
                     re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are
                     no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get
@@ -90,8 +97,6 @@ $if user_id() > 0:
                     at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the
                     building fixing computers and stuff and the atmosphere really has changed.
                 </div>
-
-                <div class="interviewee" id="interview3">Iza</div>
                 <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds
                     fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I
                     suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have
@@ -140,7 +145,7 @@ $if user_id() > 0:
                         license</a>. The <a href="https://github.com/mapto/sprks">development process</a> is accessible on
                     GitHub.</p>
 
-                <p>The website is best experienced with the <a href="www.google.com/chrome/">Chrome Browser</a>.</p>
+                <p>The website is tested to work with the <a href="www.google.com/chrome/">Chrome Browser</a>.</p>
             </div>
 
             <div class="pages" id="register_page">
@@ -212,8 +217,9 @@ $if user_id() > 0:
             </div>
 
             <div class="pages" id="password_change_page">
-                <!--Password Change-->
-                <!--def with: user_id, token) -->
+
+                <h1>Settings</h1>
+
                 <form id="passwordChangeForm">
                     <fieldset>
                         <legend>Set your new password</legend>
@@ -255,368 +261,382 @@ $if user_id() > 0:
             </div>
 
             <div class="pages" id="policy_page">
-                <!--Policy-->
-                <h1>Policy</h1>
-                <form id="policy_form" name="input" method="post" action="$path/add"> <!-- service specified in action must use relative path -->
-<!--                <p id="time">2014-1-25</p> -->
-                <div class="company" id="employee">
+            <!--Policy-->
+            <h1>Policy</h1>
+
+            <form id="policy_form" name="input" method="post" action="$path/add">
+            <!-- service specified in action must use relative path -->
+            <!--                <p id="time">2014-1-25</p> -->
+            <div class="company" id="employee">
                 <label><h4>Choose employee types</h4></label><br/>
-                    <input type="checkbox"
-                           name="executives"
-                           id="executives"
-                           class="target"
-                           value="executives"/>
-                    <label for="executives">executives</label><br/><br/>
-                    <input type="checkbox"
-                           name="desk"
-                           id="desk"
-                           class="target"
-                           value="desk"/>
-                    <label for="desk">desk</label><br/><br/>
-                    <input type="checkbox"
-                           name="road"
-                           id="road"
-                           class="target"
-                           value="road"/>
-                    <label for="road">road</label><br/><br/>
-                </div>
+                <input type="checkbox"
+                       name="executives"
+                       id="executives"
+                       class="target"
+                       value="executives"/>
+                <label for="executives">executives</label>
+                <input type="checkbox" name="desk" id="desk" class="target"
+                       value="desk"/>
+                <label for="desk">desk</label>
+                <input type="checkbox"
+                       name="road"
+                       id="road"
+                       class="target"
+                       value="road"/>
+                <label for="road">road</label>
+            </div>
 
-                <div class="company" id="location">
+            <div class="company" id="location">
                 <label><h4>Choose location types</h4></label><br/>
-                    <input type="checkbox"
-                           name="office"
-                           id="office"
-                           class="target"
-                           value="office"/>
-                    <label for="office">office</label><br/><br/>
-                    <input type="checkbox"
-                           name="public"
-                           id="public"
-                           class="target"
-                           value="public"/>
-                    <label for="public">public</label><br/><br/>
-                    <input type="checkbox"
-                           name="home"
-                           id="home"
-                           class="target"
-                           value="home"/>
-                    <label for="home">home</label><br/><br/>
-                </div>
+                <input type="checkbox"
+                       name="office"
+                       id="office"
+                       class="target"
+                       value="office"/>
+                <label for="office">office</label>
+                <input type="checkbox"
+                       name="public"
+                       id="public"
+                       class="target"
+                       value="public"/>
+                <label for="public">public</label>
+                <input type="checkbox"
+                       name="home"
+                       id="home"
+                       class="target"
+                       value="home"/>
+                <label for="home">home</label>
+            </div>
 
-                <div class="company" id="device">
+            <div class="company" id="device">
                 <label><h4>Choose device types</h4></label><br/>
-                    <input type="checkbox"
-                           name="desktop"
-                           id="desktop"
-                           class="target"
-                           value="desktop"/>
-                    <label for="desktop">desktop</label><br/><br/>
-                    <input type="checkbox"
-                           name="laptop"
-                           id="laptop"
-                           class="target"
-                           value="laptop"/>
-                    <label for="laptop">laptop</label><br/><br/>
-                    <input type="checkbox"
-                           name="phone"
-                           id="phone"
-                           class="target"
-                           value="phone"/>
-                    <label for="phone">phone</label><br/><br/>
-                </div>
+                <input type="checkbox"
+                       name="desktop"
+                       id="desktop"
+                       class="target"
+                       value="desktop"/>
+                <label for="desktop">desktop</label>
+                <input type="checkbox"
+                       name="laptop"
+                       id="laptop"
+                       class="target"
+                       value="laptop"/>
+                <label for="laptop">laptop</label>
+                <input type="checkbox"
+                       name="phone"
+                       id="phone"
+                       class="target"
+                       value="phone"/>
+                <label for="phone">phone</label>
+            </div>
 
-                <label><h4>Please select the number of authentication mechanisms: </h4></label><br>
+            <br><br><br><br><br><br><br>
+            <label><h4>Number of authentication mechanisms: </h4></label><br>
 
-                <select class="target authentication" id="aut_num" name="aut_num">
-                   <option value="" disabled selected>number</option>
-                   <option value="0">0</option>
-                   <option value="1">1</option>
-                   <option value="2">2</option>
-                 </select>
-
-                 <div class="aut" id="aut1"></div>
-                 <div class="aut" id="aut2"></div>
-
-                <!--BIOMETRIC POLICY BEGIN-->
-                <div class=" policy policy0" id="biometric_policy">
-                    <h4>Biometric</h4>
-                    <select class="target" id="biometric" name="biometric">
-                        <option value="1">fingerprint</option>
-                        <option value="2">iris scan</option>
-                    </select>
-                </div>
-                <!--BIOMETRIC POLICY END-->
-
-                <!--PASSFACES POLICY BEGIN-->
-                <div class=" policy policy1" id="passfaces_policy">
-                    <h4>Passfaces/swipe</h4>
-                    <select class="target"  id="passfaces" name="passfaces">
-                        <option value="1">passfaces</option>
-                        <option value="2">swipe-lock</option>
-                    </select>
-                </div>
-                <!--PASSFACES POLICY END-->
-
-                <!--PASSWORD POLICY BEGIN-->
-                <div class=" policy policy2" id="password_policy">
-                <h4>Password Policy</h4>
-                <p>
-                    $if user_id():
-                        <input type="hidden" value=$:user_id() name="userid" id="pswdid" placeholder="ID">
-                    $else:
-                        <input type="hidden" name="userid" id="pswdid" placeholder="ID">
-                </p>
-
-                <p class="qn" id="plen">
-                    <label><b>Password length (value of the shortest permitted password):</b></label>
-                    <br/>
-                    <input type="radio"
-                           name="plen"
-                           id="len0"
-                           class="target"
-                           value="0"
-                           checked="checked"/>
-                    <label for="len0">none</label>
-                    <br/>
-                    <input type="radio"
-                           name="plen"
-                           id="len6"
-                           class="target"
-                           value="6"/>
-                    <label for="len6">minimum 6 characters</label>
-                    <br/>
-                    <input type="radio"
-                           name="plen"
-                           id="len8"
-                           class="target"
-                           value="8"/>
-                    <label for="len8">minimum 8 characters</label>
-                    <br/>
-                    <input type="radio"
-                           name="plen"
-                           id="len10"
-                           class="target"
-                           value="10"/>
-                    <label for="len10">minimum 10 characters</label>
-                    <br/>
-                    <input type="radio"
-                           name="plen"
-                           id="len12"
-                           class="target"
-                           value="12"/>
-                    <label for="len12">minimum 12 characters</label>
-                    <br/><br/>
-
-                <div class="graph" id="graph_plen"></div>
+            <select class="target authentication" id="aut_num" name="aut_num">
+                <option value="" disabled selected>number</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
 
 
-                <p class="qn" id="psets">
-                    <label><b>Number of symbol sets that must be used in password:</b></label>
-                    <br/>
-                    <input type="radio"
-                           name="psets"
-                           id="sets1"
-                           class="target"
-                           value="1"
-                           checked="checked"/>
-                    <label for="sets1">any</label>
-                    <br/>
-                    <input type="radio"
-                           name="psets"
-                           id="sets2"
-                           class="target"
-                           value="2"/>
-                    <label for="sets2">at least 2</label>
-                    <br/>
-                    <input type="radio"
-                           name="psets"
-                           id="sets3"
-                           class="target"
-                           value="3"/>
-                    <label for="sets2">at least 3</label>
-                    <br/>
-                    <input type="radio"
-                           name="psets"
-                           id="sets4"
-                           class="target"
-                           value="4"/>
-                    <label for="sets4">at least 4</label>
-                    <br/><br/>
 
-                <div class="graph" id="graph_psets"></div>
-                </p>
+            <div class="aut" id="aut1"></div>
+            <div class="aut" id="aut2"></div>
 
-                <p class="qn" id="pdict">
-                    <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
-                    <input type="checkbox"
-                           name="pdict"
-                           id="dic"
-                           class="target"
-                           value="1"/>
-                    <label for="dic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
+            <!--BIOMETRIC POLICY BEGIN-->
+            <div class=" policy policy0" id="biometric_policy">
+                <h4>Biometric</h4>
+                <select class="target" id="biometric" name="biometric">
+                    <option value="0">none</option>
+                    <option value="1">fingerprint</option>
+                    <option value="2">iris scan</option>
+                </select>
+            </div>
+            <!--BIOMETRIC POLICY END-->
 
-                <div class="graph" id="graph_pdict"></div>
-                </p>
+            <!--PASSFACES POLICY BEGIN-->
+            <div class=" policy policy1" id="passfaces_policy">
+                <h4>Passfaces/swipe</h4>
+                <select class="target" id="passfaces" name="passfaces">
+                    <option value="0">none</option>
+                    <option value="1">passfaces</option>
+                    <option value="2">swipe-lock</option>
+                </select>
+            </div>
+            <!--PASSFACES POLICY END-->
 
-                <p class="qn" id="phist">
-                    <label><b>Password history checking mechanism:</b></label>
-                    <br/>
-                    <input type="radio"
-                           name="phist"
-                           id="hist0"
-                           class="target"
-                           value="0"
-                           checked="checked"/>
-                    <label for="hist0">none</label>
-                    <br/>
-                    <input type="radio"
-                           name="phist"
-                           id="hist1"
-                           class="target"
-                           value="1"/>
-                    <label for="hist1">minimum check (1 past password, exact match) </label>
-                    <br/>
-                    <input type="radio"
-                           name="phist"
-                           id="hist2"
-                           class="target"
-                           value="2"/>
-                    <label for="hist2">strict check (3 past passwords, string distance of 1) </label>
-                    <br/>
-                    <input type="radio"
-                           name="phist"
-                           id="hist3"
-                           class="target"
-                           value="3"/>
-                    <label for="hist3">extreme check (10 past passwords, string distance of 2)</label>
-                    <br/><br/>
-                    <label>* string distance: how many letters are needed to be changed to obtain the same password<br/></label>
-                    <br/>
+            <!--PASSWORD POLICY BEGIN-->
+            <div class=" policy policy2" id="password_policy">
+            <h4>Password Policy</h4>
 
-                <div class="graph" id="graph_phist"></div>
-                </p>
+            <p>
+                $if user_id():
+                    <input type="hidden" value=$:user_id() name="userid" id="pswdid" placeholder="ID">
+                $else:
+                    <input type="hidden" name="userid" id="pswdid" placeholder="ID">
+            </p>
 
-                <p class="qn" id="prenew">
-                    <label><b>When the system asks user to renew passwords:</b></label>
-                    <br/>
-                    <input type="radio"
-                           name="prenew"
-                           id="renew0"
-                           class="target"
-                           value="0"
-                           checked="checked"/>
-                    <label for="renew0">never renew the password</label>
-                    <br/>
-                    <input type="radio"
-                           name="prenew"
-                           id="renew1"
-                           class="target"
-                           value="1"/>
-                    <label for="renew1">annual renewal</label>
-                    <br/>
-                    <input type="radio"
-                           name="prenew"
-                           id="renew2"
-                           class="target"
-                           value="2"/>
-                    <label for="renew2">renew quarterly</label>
-                    <br/>
-                    <input type="radio"
-                           name="prenew"
-                           id="renew3"
-                           class="target"
-                           value="3"/>
-                    <label for="renew3">renew monthly</label>
-                    <br/><br/>
+            <p class="qn" id="plen">
+                <label><b>Minimum Password Length:</b></label>
+                <br/>
+                <input type="radio"
+                       name="plen"
+                       id="len0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="len0">No Restriction</label>
+                <input type="radio"
+                       name="plen"
+                       id="len6"
+                       class="target"
+                       value="6"/>
+                <label for="len6">6 characters</label>
+                <input type="radio"
+                       name="plen"
+                       id="len8"
+                       class="target"
+                       value="8"/>
+                <label for="len8">8 characters</label>
+                <input type="radio"
+                       name="plen"
+                       id="len10"
+                       class="target"
+                       value="10"/>
+                <label for="len10">10 characters</label>
+                <input type="radio"
+                       name="plen"
+                       id="len12"
+                       class="target"
+                       value="12"/>
+                <label for="len12">12 characters</label>
 
-                <div class="graph" id="graph_prenew"></div>
-                </p>
+            <br><br>
+            <div class="graph" id="graph_plen"></div>
 
-                <p class="qn" id="pattempts">
-                    <label><b>Number of wrong password attempts:</b></label>
-                    <br/>
-                    <input type="radio"
-                           name="pattempts"
-                           id="attempts0"
-                           class="target"
-                           value="0"
-                           checked="checked"/>
-                    <label for="attempts0">no limit to attempts</label>
-                    <br/>
-                    <input type="radio"
-                           name="pattempts"
-                           id="attempts1"
-                           class="target"
-                           value="1"/>
-                    <label for="attempts1">10 login attempts</label>
-                    <br/>
-                    <input type="radio"
-                           name="pattempts"
-                           id="attempts2"
-                           class="target"
-                           value="2"/>
-                    <label for="attempts2">3 login attempts</label>
-                    <br/><br/>
 
-                <div class="graph" id="graph_pattempts"></div>
-                </p>
-
-                <p class="qn" id="precovery">
-                    <label><b>Password recovery options:</b></label>
-                    <br/>
-                    <input type="radio"
-                           name="precovery"
-                           id="recovery0"
-                           class="target"
-                           value="0"
-                           checked="checked"/>
-                    <label for="recovery0">second e-mail for recovery letter</label>
-                    <br/>
-                    <input type="radio"
-                           name="precovery"
-                           id="recovery1"
-                           class="target"
-                           value="1"/>
-                    <label for="recovery1">secret question</label>
-                    <br/>
-                    <input type="radio"
-                           name="precovery"
-                           id="recovery2"
-                           class="target"
-                           value="2"/>
-                    <label for="recovery2">transaction questions</label>
-                    <br/>
+            <p class="qn" id="psets">
+                <label><b>Number of symbol sets that must be used in password:</b></label><br>
+                <input type="radio"
+                       name="psets"
+                       id="sets1"
+                       class="target"
+                       value="1"
+                       checked="checked"/>
+                <label for="sets1">any</label>
+                <input type="radio"
+                       name="psets"
+                       id="sets2"
+                       class="target"
+                       value="2"/>
+                <label for="sets2">at least 2</label>
+                <input type="radio"
+                       name="psets"
+                       id="sets3"
+                       class="target"
+                       value="3"/>
+                <label for="sets2">at least 3</label>
+                <input type="radio"
+                       name="psets"
+                       id="sets4"
+                       class="target"
+                       value="4"/>
+                <label for="sets4">at least 4</label>
                 <br/><br/>
-                <div class="graph" id="graph_precovery"></div>
-                </p>
-                </div>
 
-                <div>
+            <div class="graph" id="graph_psets"></div>
+            </p>
+
+            <p class="qn" id="pdict">
+                <label><b>Passwords are checked whether they match a dictionary:</b></label><br>
+                <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
+                <input type="checkbox"
+                       name="pdict"
+                       id="dic"
+                       class="target"
+                       value="1"/>
+                <label for="dic"><b>Dictionary check</b></label><br/><br/>
+
+            <div class="graph" id="graph_pdict"></div>
+            </p>
+
+            <p class="qn" id="phist">
+                <label><b>Password history checking mechanism:</b></label>
+                <br/>
+                <input type="radio"
+                       name="phist"
+                       id="hist0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="hist0">none</label>
+                <input type="radio"
+                       name="phist"
+                       id="hist1"
+                       class="target"
+                       value="1"/>
+                <label for="hist1">minimum (1 past password, exact match) </label>
+                <input type="radio"
+                       name="phist"
+                       id="hist2"
+                       class="target"
+                       value="2"/>
+                <label for="hist2">strict (3 past passwords, string distance of 1) </label>
+                <input type="radio"
+                       name="phist"
+                       id="hist3"
+                       class="target"
+                       value="3"/>
+                <label for="hist3">extreme (10 past passwords, string distance of 2)</label>
+                <br/><br/>
+                <label>* string distance: how many letters are needed to be changed to obtain the same
+                    password<br/></label>
+                <br/>
+
+            <div class="graph" id="graph_phist"></div>
+            </p>
+
+            <p class="qn" id="prenew">
+                <label><b>When the system asks user to renew passwords:</b></label>
+                <br/>
+                <input type="radio"
+                       name="prenew"
+                       id="renew0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="renew0">never renew the password</label>
+                <input type="radio"
+                       name="prenew"
+                       id="renew1"
+                       class="target"
+                       value="1"/>
+                <label for="renew1">annual renewal</label>
+                <input type="radio"
+                       name="prenew"
+                       id="renew2"
+                       class="target"
+                       value="2"/>
+                <label for="renew2">renew quarterly</label>
+                <input type="radio"
+                       name="prenew"
+                       id="renew3"
+                       class="target"
+                       value="3"/>
+                <label for="renew3">renew monthly</label>
+                <br/><br/>
+
+            <div class="graph" id="graph_prenew"></div>
+            </p>
+
+            <p class="qn" id="pattempts">
+                <label><b>Number of wrong password attempts:</b></label>
+                <br/>
+                <input type="radio"
+                       name="pattempts"
+                       id="attempts0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="attempts0">Unlimited</label>
+                <input type="radio"
+                       name="pattempts"
+                       id="attempts1"
+                       class="target"
+                       value="1"/>
+                <label for="attempts1">10</label>
+                <input type="radio"
+                       name="pattempts"
+                       id="attempts2"
+                       class="target"
+                       value="2"/>
+                <label for="attempts2">3</label>
+                <br/><br/>
+
+            <div class="graph" id="graph_pattempts"></div>
+            </p>
+
+            <p class="qn" id="precovery">
+                <label><b>Password recovery options:</b></label>
+                <br/>
+                <input type="radio"
+                       name="precovery"
+                       id="recovery0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="recovery0">second e-mail for recovery letter</label>
+                <input type="radio"
+                       name="precovery"
+                       id="recovery1"
+                       class="target"
+                       value="1"/>
+                <label for="recovery1">secret question</label>
+                <input type="radio"
+                       name="precovery"
+                       id="recovery2"
+                       class="target"
+                       value="2"/>
+                <label for="recovery2">transaction questions</label>
+                <br/><br/>
+
+            <div class="graph" id="graph_precovery"></div>
+            </p>
+            </div>
+
+            <div>
                 <input type="button" name="apply" id="apply" value="Apply">
-                </div>
+            </div>
 
-                </form>
-                <!--PASSWORD POLICY END-->
+            </form>
+            <!--PASSWORD POLICY END-->
             </div>
 
             <div class="pages" id="incident_page">
                 <!--Incident-->
-                    <div class="description">
+                <div class="description">
                     <h1>Incident</h1> <br>
-                    <p><h4>Policy: </h4><div class="incident_box" id="description"></div></p>
-                    <p><h4>Incident: </h4><div class="incident_box" id="event"></div></p>
-                    <p><h4>Consequences: </h4><div class="incident_box" id="consequences"></div></p>
-                    <p><h4>Risk: </h4> <div class="incident_box" id="risk"></div>
-                    <p><h4>productivity cost: </h4> <div class="incident_box" id="cost"></div></p>
+
+                    <p><h4>Policy: </h4>
+
+                    <div class="incident_box" id="description"></div>
+                    </p>
+                    <p><h4>Incident: </h4>
+
+                    <div class="incident_box" id="event"></div>
+                    </p>
+                    <p><h4>Consequences: </h4>
+
+                    <div class="incident_box" id="consequences"></div>
+                    </p>
+                    <p><h4>Risk: </h4>
+
+                    <div class="incident_box" id="risk"></div>
+                    <p><h4>productivity cost: </h4>
+
+                    <div class="incident_box" id="cost"></div>
+                    </p>
                 </div>
             </div>
 
             <div class="pages" id="profile_page">
+
+                <a class="password_change_page"><button><h4>User Settings</h4></button></a>
+                <br>
+                
                 <h1>Profile</h1>
-                <div>Now displays attribute names and values in a way that they are required, but it doesn't make much sense for the
-                    player what does each attribute name mean or how to interpret its value. Possible improvement: can extract labels
+
+
+
+                <div>Now displays attribute names and values in a way that they are required, but it doesn't make much
+                    sense for the
+                    player what does each attribute name mean or how to interpret its value. Possible improvement: can
+                    extract labels
                     and value interpretations from pwpolicy_form.html, but not sure if it's possible to do
-                </div><br>
+                </div>
+                <br>
 
                 <div id="chartContainer"></div>
                 <div id="profile_table">
@@ -626,8 +646,10 @@ $if user_id() > 0:
 
             <div class="pages" id="score_page">
                 <h1>Scores</h1>
+
                 <div id="accordion">
                     <h2>Risk</h2>
+
                     <div class="content">
                         <div class="span11 text-center rank">
                             <div class="ranking second" id="r_second">
@@ -648,6 +670,7 @@ $if user_id() > 0:
                         </div>
                     </div>
                     <h2>Productivity cost</h2>
+
                     <div class="content">
                         <div class="span11 text-center rank">
                             <div class="ranking second" id="c_second">
@@ -668,6 +691,7 @@ $if user_id() > 0:
                         </div>
                     </div>
                     <h2>Average</h2>
+
                     <div class="content">
                         <div class="span11 text-center rank">
                             <h4 class="text-left avg">
@@ -695,11 +719,36 @@ $if user_id() > 0:
         <div class="navbar-inner">
             <div class="container-fluid">
                 <h4 style="margin-left:220px;">
+                    <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
+                    <span data-bind="text: statusbar_status"></span>
                 </h4>
             </div>
         </div>
     </div>
 </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="$path/static/js/private_common.js"></script>      <!--MAIN script-->
 <script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
@@ -707,9 +756,10 @@ $if user_id() > 0:
 <script src="$path/static/js/canvasjs-1.2.1/canvasjs.js"></script> <!--PROFILE script-->
 <script src="$path/static/js/profile.js"></script>
 <script src="$path/static/js/pwpolicy.js"></script>  <!-- POLICY script -->
-<script src="$path/static/js/mootools-core-1.4.5-full-compat.js"></script>
-<script src="$path/static/js/mootools-more-1.4.0.1.js"></script>
+<script src="$path/static/js/statusbar.js"></script>
+<script src="$path/static/js/user.js"></script>
 <script src="$path/static/js/score.js"></script>   <!-- SCORE script -->
+
 <script> // USER MANAGEMENT script
 function initUserForms(){
 
@@ -726,145 +776,15 @@ function initUserForms(){
         pswd_recover_messages: ko.observableArray(),
         pswd_change_password: ko.observable(),
         pswd_change_passwordConfirm: ko.observable(),
-        pswd_change_messages: ko.observableArray()
+        pswd_change_messages: ko.observableArray(),
+        statusbar_status: ko.observable(),
+        statusbar_image: ko.observable()
     };
 
     ko.applyBindings(formModel);
 
-    $$('#registerForm').submit(function (e) {
-        e.preventDefault();
-        if (formModel.register_password() === formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
-            $$.ajax({
-                type: 'PUT',
-                url: '$path/api/user_spa/account/' + formModel.register_username(),
-                dataType: 'json',
-                data: JSON.stringify({
-                    password: formModel.register_password(),
-                    email: formModel.register_email(),
-                    autologin: true
-                }),
-                statusCode: {
-                    500: function () {
-                        formModel.register_messages(['Server error']);
-                    },
-                    200: function (response) {
-                        formModel.register_messages(response.messages);
-                    },
-                    201: function(response) {
-                        window.location = ("/spa");
-                    }
-                }
-            });
-        } else {
-            formModel.register_messages(["Passwords don't match"]);
-        }
-    });
-
-    $$('#loginForm').submit(function (e) {
-        e.preventDefault();
-        $$.ajax({
-            type: 'POST',
-            url: '/api/user_spa/account',
-            dataType: 'json',
-            beforeSend: function (xhr){
-                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.login_username() + ':' + formModel.login_password()));
-            },
-            statusCode: {
-                500: function () {
-                    formModel.login_messages(['Server error']);
-                },
-                200: function (response) {
-                    if (response.success === true){
-                        window.location = ("/spa");
-                    }
-                    formModel.login_messages(response.messages);
-                }
-            }
-        });
-    });
-
-    $$('#passwordRecoveryForm').submit(function (e) {
-        e.preventDefault();
-        $$.ajax({
-            type: 'POST',
-            url: '$path/api/user_spa/password/' + formModel.pswd_recover_username(),
-            dataType: 'json',
-            data: JSON.stringify({
-                uid_type: 'username'
-            }),
-            statusCode: {
-                500: function () {
-                    formModel.pswd_recover_messages(['Server error']);
-                },
-                200: function (response) {
-                    formModel.pswd_recover_messages(response.messages);
-                }
-            }
-        });
-    });
-
-    $$('#passwordChangeForm').submit(function (e) {
-        e.preventDefault();
-        if (formModel.pswd_change_password() === formModel.pswd_change_passwordConfirm()) {
-            $$.ajax({
-                type: 'PUT',
-                url: '$path/api/user_spa/password/'+user_id,
-                dataType: 'json',
-                data: JSON.stringify({
-                    password: formModel.pswd_change_password(),
-                    token: '',
-                    autologin: true
-                }),
-                statusCode: {
-                    500: function () {
-                        formModel.pswd_change_messages(['Server error']);
-                    },
-                    200: function (response) {
-                        formModel.pswd_change_messages(response.messages);
-                        if (response.success === true){
-                            console.log('changed pswd successfully');
-                            formModel.pswd_change_password('');
-                            formModel.pswd_change_passwordConfirm('');
-                            window.location = ("/spa");
-                        }
-                    }
-                }
-            });
-        } else {
-            formModel.pswd_change_messages(["Passwords don't match"]);
-        }
-    });
 }
 
-function passwordRecover(token){
-        if (token !== '') {
-            $$.ajax({
-                type: 'GET',
-                url: '$path/api/user_spa/password/'+token,
-                statusCode: {
-                    500: function () {
-                        $$("#password_recover_page").css("display", "block");
-                        formModel.pswd_recover_messages(['Server error']);
-                    },
-                    200: function (response) {
-                        response = $$.parseJSON(response);
-
-                        user_id = response.user_id;
-
-                        if(response.success === true){
-                            $$("#password_change_page").css("display", "block");
-                            formModel.pswd_change_messages(response.messages);
-                        }else if(response.success === false){
-                            $$("#password_recover_page").css("display", "block");
-                            formModel.pswd_recover_messages(response.messages);
-                        }
-                    }
-                }
-            });
-        }
-}
-</script>
-<script>
     var title;
     var token = document.location.hash.substr(7);
     var user_id = $:user_id();
@@ -872,11 +792,6 @@ function passwordRecover(token){
     passwordRecover(token);
 
     initUserForms();
-    // This is the common script for all registered user views.
-    // JS is loaded from the above file.
-    // If you want to use templates from webpy,
-    // extract a method that grabs them here and call it from a script in the external JS file.
-    // Variables from Python can be sent back as return values.
 
     initFrame();    //no care for document ready as below
     //$$(document).ready(initFrame); // register callback to function from external JS file;
@@ -894,6 +809,6 @@ function passwordRecover(token){
         return "$username()"; // This value is set server-side and appears to client as hardcoded.
     }
 </script>
-<script src="/static/js/spa.js"></script>
+<script src="$path/static/js/spa.js"></script>
 </body>
 </html>

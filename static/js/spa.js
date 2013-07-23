@@ -20,10 +20,11 @@
        var page = $(this).attr('class');
        if((page.substr(page.length-4))==='page'){ //check if the link clicked if a page button
             hideOtherPages(page);
+
             $("#"+page).css("display", "block");
             if(page==='policy_page'){initPolicy();}
             if(page==='incident_page'){initIncident();}
-            if(page==='profile_page'){initProfile();}
+            if(page==='profile_page'){clearProfile();initProfile();}
             if(page==='score_page'){initScore();}
 
             $(".main-body").css("display", "block");
@@ -44,4 +45,12 @@
             }
         });
     }
+
+    function clearProfile(){
+        $(".profile_table").each(function(){    //clear table
+           this.remove();
+        });
+        $('#chartContainer').html='';           //clear graph
+    }
+
 

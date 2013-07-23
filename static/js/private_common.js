@@ -77,6 +77,7 @@ function initFrame () {
             check_events();
             if(window.date==window.nextSyncStr) {
                 alert("Changes submitted");
+                $('#pause').click();
                 window.first_date = new Date(window.date);
                 window.nextSync = window.first_date;
                 window.nextSync.setMonth(window.nextSync.getMonth()+2);
@@ -256,15 +257,15 @@ function null_unused_policy(policy){
      policies_array.policyDelta[policy]={};
 }
 //write policyUpdate array on apply btn press
-$("#apply").click(function(){
-    if(!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
+$("#apply").click(function () {
+    if (!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
         || $.isEmptyObject(policies_array.employee)
         || $.isEmptyObject(policies_array.location)
-        || $.isEmptyObject(policies_array.device)){
+        || $.isEmptyObject(policies_array.device)) {
         alert('Failed to apply policy. You have to check at least one of the employees, locations and devices');
-    }else if(!policies_array.policyDelta){
+    } else if (!policies_array.policyDelta) {
         alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms');
-    }else{
+    } else {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
         policies_array = {};

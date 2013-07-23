@@ -10,7 +10,10 @@ function initScore(){
     send_request(); //request scores, write them to score_obj global variable
     console.log(score_obj);
     //create accordion score representation
-    new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
+    //new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
+    $('#accordion').accordion({
+        icons: null
+    });
     climbLadder("risk");
     climbLadder("cost");
     $("#avg_risk").text(score_obj.avg_risk);
@@ -129,20 +132,22 @@ function getScore(user, type) {
 //congratulations popup (if a user is first
 function congratulate_first(){
     var text = '';
-    if( getOwnRisk().value == getBestRisk().value || getOwnCost().value == getBestCost().value){
+    if( getOwnRisk().value === getBestRisk().value || getOwnCost().value === getBestCost().value){
        text = 'Congratulations, you got the best';
-     if( getOwnRisk().value == getBestRisk().value){
+     if( getOwnRisk().value === getBestRisk().value){
        text = text+ ' Risk';
      }
-     if (getOwnCost().value == getBestCost().value){
-       if(getOwnRisk().value == getBestRisk().value){text = text+' and';}
+     if (getOwnCost().value === getBestCost().value){
+       if(getOwnRisk().value === getBestRisk().value){text = text+' and';}
        text = text+ ' Cost';
      }
+
+     $("#congratulate").text(text);
+     $("#congratulate").show();
+     $('#congratulate').delay(2500).fadeOut();
     }
 
-    $("#congratulate").text(text);
-    $("#congratulate").show();
-    $('#congratulate').delay(2500).fadeOut();
+
 }
 
 
