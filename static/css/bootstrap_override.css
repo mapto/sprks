@@ -482,17 +482,19 @@ label {
 #interview1 {
     right: 40%;
     left:55%;
+    bottom:40%;
 }
 
 #interview2 {
     right:47.5%;
     left:47.5%;
-
+    bottom:55%;
 }
 
 #interview3 {
     left: 40%;
     right:55%;
+    bottom:40%;
 }
 
 .quote {
@@ -502,7 +504,7 @@ label {
     width: auto;
     padding: 15px;
     position: fixed;
-    bottom: 200px;
+    bottom: 70%;
     left:35%;
     right: 35%;
     float: left;
@@ -527,19 +529,19 @@ label {
     width: 0;
     border-width: 15px 15px 0;
     border-style: solid;
-    border-color: #ccc transparent;
+    border-color: #333333 transparent;
 }
 
 #quote1:after {
-    right: 15%;
+    right: 20%;
 }
 
 #quote2:after {
-    right: 38%;
+    right: 45%;
 }
 
 #quote3:after {
-    right: 67%;
+    right: 70%;
 }
 
 /*PROFILE page*/
@@ -677,14 +679,24 @@ label {
     box-shadow: 0px 1px 8px #aaa, inset 1px 1px 3px #C23456;
 }
 
- #background_map {
+ #background_map{
+
     position:fixed;
+     left:10%;
+     right:1%;
+     top:5%;
+     bottom:1%;
     z-index: -100;
-    height:100%;
-    width:100%;
+    height:94%;
+    width:89%;
+    float: none;
     background-image: url(../img/map.svg);
-    background-size:100%;
+
+    background-size: 100%;
     background-repeat: no-repeat;
+    background-position: bottom;
+
+
+
+    text-align: center;
 }
-
-

@@ -12,6 +12,7 @@
 
 </head>
 <body style="background-color: #F2F2F2">
+
 <header>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -68,10 +69,16 @@ $if user_id() > 0:
     </div>
 
 <article class="container-fluid">
+
+
+
     <!-- MAP begin-->
-    <div id="background_map"></div>
+                <div id="background_map"></div>
 
                 <div class="interviewee" id="interview1">Susie</div>
+                <div class="interviewee" id="interview2">Kevin</div>
+                <div class="interviewee" id="interview3">Iza</div>
+
                 <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main
                     problem I have with my job is that IT support is terrible. It used to be the case that the department was in the
                     same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A
@@ -80,8 +87,6 @@ $if user_id() > 0:
                     everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the
                     latest round of password changes has locked me out of his email account.
                 </div>
-
-                <div class="interviewee" id="interview2">Kevin</div>
                 <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been
                     re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are
                     no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get
@@ -90,8 +95,6 @@ $if user_id() > 0:
                     at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the
                     building fixing computers and stuff and the atmosphere really has changed.
                 </div>
-
-                <div class="interviewee" id="interview3">Iza</div>
                 <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds
                     fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I
                     suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have
@@ -341,6 +344,7 @@ $if user_id() > 0:
                 <div class=" policy policy0" id="biometric_policy">
                     <h4>Biometric</h4>
                     <select class="target" id="biometric" name="biometric">
+                        <option value="0">none</option>
                         <option value="1">fingerprint</option>
                         <option value="2">iris scan</option>
                     </select>
@@ -351,6 +355,7 @@ $if user_id() > 0:
                 <div class=" policy policy1" id="passfaces_policy">
                     <h4>Passfaces/swipe</h4>
                     <select class="target"  id="passfaces" name="passfaces">
+                        <option value="0">none</option>
                         <option value="1">passfaces</option>
                         <option value="2">swipe-lock</option>
                     </select>
@@ -700,6 +705,29 @@ $if user_id() > 0:
         </div>
     </div>
 </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script src="$path/static/js/private_common.js"></script>      <!--MAIN script-->
 <script src="$path/static/js/incident.js"></script>         <!--INCIDENT script-->
