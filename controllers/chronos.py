@@ -33,6 +33,7 @@ class chronos:
 
         # corrected_sync_date backtracks if client submits invalid date.
         corrected_sync_date, event_accept = journal.validate_sync_date(client_date)
+        #corrected_sync_date, event_accept = client_date, True
 
         if corrected_sync_date.day == 1:
             if policy_update is None:
@@ -57,9 +58,7 @@ class chronos:
             'date': corrected_sync_date.isoformat(),
             'policyAccept': policy_accept,
             'eventAccept': event_accept,
-            'calendar': [
-                journal.get_calendar(corrected_sync_date)
-            ]
+            'calendar': journal.get_calendar(corrected_sync_date)
         }
 
         if payload.get('initPolicy', False):

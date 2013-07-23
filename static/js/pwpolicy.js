@@ -93,7 +93,7 @@ function initPolicy() {
 }
 
 function setSyncDate() {
-    window.calendar = test_calendar;
+    //window.calendar = test_calendar;
     //window.date = $('#time').text();
     window.first_date = new Date(window.date);
     window.nextSync = window.first_date;
@@ -211,9 +211,11 @@ function calculate_cost_from_calendar() {
 }
 
 function check_events() {
-    var tmp_events_calendar = window.calendar.calendar;
+    var tmp_events_calendar = window.calendar;
     $(tmp_events_calendar).each(function(i) {
-        if(tmp_events_calendar[i].date == window.date)
+        var conv_date = new Date(tmp_events_calendar[i].date);
+        var str_date = conv_date.getFullYear()+'-'+(conv_date.getMonth()+1)+'-'+conv_date.getDate();
+        if(str_date == window.date)
         {
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
@@ -324,6 +326,7 @@ function update_policy(policy) {
     $('#pause').click();
     $('#time').text(policy['date']);
     window.date = $('#time').text();
+    window.calendar = policy['calendar'];
     setSyncDate();
     console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized

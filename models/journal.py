@@ -138,7 +138,8 @@ class records:
         # Converts calendar dictionary into array
         for date, agenda in sorted(calendar.iteritems()):
             calendar_array.append(agenda)
-
+        print "calendar"
+        print calendar_array
         return calendar_array
 
     def validate_sync_date(self, client_date):
