@@ -20,7 +20,7 @@ $('#registerForm').submit(function (e) {
                     formModel.register_messages(response.messages);
                 },
                 201: function (response) {
-                    window.location = ("/spa");
+                    window.location = ("/");
                 }
             }
         });
@@ -44,7 +44,7 @@ $('#loginForm').submit(function (e) {
             },
             200: function (response) {
                 if (response.success === true) {
-                    window.location = ("/spa");
+                    window.location = ("/");
                 }
                 formModel.login_messages(response.messages);
             }

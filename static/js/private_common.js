@@ -32,7 +32,7 @@ function initFrame () {
     manageScoreButton();
     manageIncidentButton();
 
-    highlightActiveButton();
+
 
 
     send = function () {
@@ -72,7 +72,12 @@ function initFrame () {
             tmp.setHours(tmp.getHours()+addHours);
 
             var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();
-            $('#time').text(new_date);
+
+            var day_to_display = tmp.getDate(); if(day_to_display<10){day_to_display = '0'+day_to_display;}
+            var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
+            var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
+
+            $('#time').text(date_to_display);
             window.date = new_date;
             check_events();
             if(window.date==window.nextSyncStr) {
@@ -158,29 +163,37 @@ function manageIncidentButton() {
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
-    switch (document.title) {
-        case "Scores":
+    switch (title) {
+        case "score":
             css_class = "score";
             break;
-        case "Introduction":
-            css_class = "story";
+        case "intro":
+            css_class = "intro";
             break;
-        case "Profile":
+        case "profile":
             css_class = "profile";
             break;
-        case "Incident":
+        case "incident":
             css_class = "incident";
             break;
-        case "Policy":
+        case "policy":
             css_class = "policy";
             break;
         default:
             css_class = "";
     }
 
-    $("." + css_class + "_page" + " a").css("background-color", "#C10000");
-    $("." + css_class + "_page" + " a").css("color", "#fff");
-    $("." + css_class + "_page" + " a").css("cursor", "default");
+    $('.intro_page').removeAttr('style');
+    $('.score_page').removeAttr('style');
+    $('.profile_page').removeAttr('style');
+    $('.incident_page').removeAttr('style');
+    $('.policy_page').removeAttr('style');
+
+    $("." + css_class + "_page").css("background-color", "#C10000");
+    $("." + css_class + "_page").css("color", "#fff");
+    $("." + css_class + "_page").css("cursor", "default");
+
+
 }
 
 
