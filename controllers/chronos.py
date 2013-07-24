@@ -4,7 +4,6 @@ from localsys.environment import context
 from libraries.utils import date_utils
 from models.policies import policies_model
 from models.journal import records
-from datetime import timedelta
 from models.oracle import prophet
 
 
