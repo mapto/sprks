@@ -339,11 +339,11 @@ function submit_change() { // need different event handling, to capture any chan
     var msg = {};
 
     if(policyUpdate.length>0){
-    var strDate = $('#time').text();
-        msg.date = strDate;
+
         msg.policyUpdate = policyUpdate;
         msg.newCosts = calculate_cost_from_calendar();
     }
+    msg.date = $('#time').text();
     msg.initPolicy = true;
     console.log(msg);
     statusUpdating();

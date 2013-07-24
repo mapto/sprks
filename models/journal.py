@@ -149,11 +149,19 @@ class records:
         recalculation should be performed.
         """
         last_sync_date = self.__last_sync()
+
+        print 'last sync date' + last_sync_date.isoformat()
+        print 'client date' + client_date.isoformat()
         if client_date <= last_sync_date:
             # Client behind the last sync date.
+            print 'client date <= last sync date'
             return last_sync_date, False
 
+
         next_sync_date, event_accept = self.__next_sync(last_sync_date)
+
+        print 'next sync date' + next_sync_date.isoformat()
+
         if client_date >= next_sync_date:
             # Client is ahead of the next predicted sync date.
             corrected_sync_date = next_sync_date
