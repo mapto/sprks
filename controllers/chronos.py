@@ -41,6 +41,10 @@ class chronos:
         if corrected_sync_date.day == 1:
             policy_accept = True
             if policy_update is None:
+                # Expecting a policy update, but not found.
+                #corrected_sync_date -= timedelta(days=1)
+                # event_accept will always be false (backtracking one day before the next earliest sync point)
+                event_accept = False
                 # Expecting a policy update, but not found. Uses previous policy.
                 policies_model.commit_same_policy(corrected_sync_date)
             else:
@@ -64,4 +68,66 @@ class chronos:
         if payload.get('initPolicy', False):
             response['policy'] = policies_model.get_policies_list(context.user_id())
 
+        return json.dumps(response)
+
+class event_handler:
+    def POST(self):
+        payload = json.loads(web.data())
+        client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
+        if context.user_id() == 0:
+            return json.dumps({
+                'success': False,
+                'messages': ['Unauthorized']
+            })
+        journal = records(context.user_id())
+        journal.commit_history(client_date)
+        return "OK"
+
+class policy_update_handler:
+    def POST(self):
+        payload = json.loads(web.data())
+        client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
+        if context.user_id() == 0:
+            return json.dumps({
+                'success': False,
+                'messages': ['Unauthorized']
+            })
+        policy_update = payload.get('policyUpdate')
+        print "client day"
+        print client_date.day
+        if client_date.day == 1:
+            policies_model.commit_policy_update(policy_update, client_date)
+        else:
+            return json.dumps({
+                'success': False,
+                'messages': ['Commits are only allowed at the end of month']
+            })
+        journal = records(context.user_id())
+        journal.clear_prophecy(client_date)
+        prophecy = prophet.prophesize(context.user_id(), client_date)
+        journal.record_prophecy(prophecy)
+        response = {
+            'date': client_date.isoformat(),
+            'policyAccept': True,
+            'eventAccept': False,
+            'calendar': journal.get_calendar(client_date)
+        }
+        return json.dumps(response)
+
+class resume_game:
+    def POST(self):
+        if context.user_id() == 0:
+            return json.dumps({
+                'success': False,
+                'messages': ['Unauthorized']
+            })
+        journal = records(context.user_id())
+        client_date = journal.get_last_sync()
+        response = {
+            'date': client_date.isoformat(),
+            'policyAccept': True,
+            'eventAccept': False,
+            'calendar': journal.get_calendar(client_date),
+            'policy': policies_model.get_policies_list(context.user_id())
+        }
         return json.dumps(response)

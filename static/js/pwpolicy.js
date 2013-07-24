@@ -11,7 +11,7 @@ var pwpolicy;
 function initPolicy() {
     console.log('initPolicy called');
 
-    submit_change();// request policy from server and write to pwpolicy var
+    get_polies();// request policy from server and write to pwpolicy var
 
 
 
@@ -224,11 +224,8 @@ function check_events() {
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
                 alert("Event #"+tmp_event[j].incdt_id+" happend!");
-
-                    submit_change();
-
+                submit_event(str_date);
             })
-
                 $('.incident_page').click();
 
         }
@@ -236,6 +233,27 @@ function check_events() {
     })
 
 }
+
+function submit_event(date){
+        msg = {};
+        msg['date'] = date;
+        var request = $.ajax({
+        url: "/api/chronos/event",
+        type: "POST",
+        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
+        // E.g. what happens if the user changes screens too often
+        async: true,
+        data: JSON.stringify(msg),
+        contentType: "application/json; charset=utf-8",
+        dataType: "text",
+        success: function (response) {
+            //
+        },
+        error: function (response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    }
 
 function get_factors(policy) {
     var factors = [];
@@ -347,9 +365,9 @@ function update_policy(policy) {
     window.calendar = policy['calendar'];
 
     setSyncDate();
-    console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
+    //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
-    display_contextualized_policy(policy['policy'][0]);
+    //display_contextualized_policy(policy['policy'][0]);
 }
 
 function submit_change() { // need different event handling, to capture any change
@@ -359,13 +377,13 @@ function submit_change() { // need different event handling, to capture any chan
     };
     if(policyUpdate.length>0){
         msg.policyUpdate = policyUpdate;
-        msg.newCosts = calculate_cost_from_calendar();
+        //msg.newCosts = calculate_cost_from_calendar();
     }
     msg.initPolicy = true;
     console.log(msg);
     statusUpdating();
     var request = $.ajax({
-        url: "/api/chronos/sync",
+        url: "/api/chronos/update",
         type: "POST",
         // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
         // E.g. what happens if the user changes screens too often
@@ -374,6 +392,37 @@ function submit_change() { // need different event handling, to capture any chan
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: update_policy,
+        error: function (response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+}
+
+function get_polies() {
+    statusUpdating();
+    var request = $.ajax({
+        url: "/api/chronos/resume",
+        type: "POST",
+        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
+        // E.g. what happens if the user changes screens too often
+        async: true,
+        data: "",
+        contentType: "application/json; charset=utf-8",
+        dataType: "text",
+        success: function(policy) {
+                policyUpdate = [];
+                statusReady();
+                console.log('response from server:');
+                console.log(policy);
+                var parsed_policy = JSON.parse(policy);
+                $('#pause').click();
+                $('#time').text(parsed_policy['date']);
+                window.date = $('#time').text();
+                window.calendar = parsed_policy['calendar'];
+                setSyncDate();
+                display_contextualized_policy(parsed_policy['policy'][0]);
+        },
         error: function (response) {
             console.log("fail: " + response.responseText);
         }
@@ -421,7 +470,7 @@ function submit_change_mul(){
     $(".qn").each(function(i) { //iteration accross questions
         var id_tmp =  $(this).attr('id');
 
-        msgs = msgs.concat(get_range(new_policy, id_tmp));
+        //msgs = msgs.concat(get_range(new_policy, id_tmp));
     });
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
     // console.log(msgs.concat(get_range(new_policy, "plen")));
@@ -442,8 +491,6 @@ function submit_change_mul(){
     return false;
 
 }
-
-
 
 /*
 function submit_change() { // old version, which submits all the values even not changed ones
