@@ -6,11 +6,16 @@
  * To change this template use File | Settings | File Templates.
  */
 var json;
+var policy_history;
+var graph_data;
 function initProfile() {
 
-    get_profile(); //history values in json format from serverside (policy_history.py) by ajax call written to json var
-        console.log(json);
-    createGraph(date, cost, risk, json);
+    get_profile(); //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
+    console.log(json);
+    console.log(policy_history);
+    console.log(graph_data);
+
+    createGraph(graph_data);
 
     //create table dynamically:
     var table = $('<table></table>').addClass('profile_table');
@@ -19,7 +24,7 @@ function initProfile() {
     var row = $('<tr></tr>').addClass('profileTr');
     var date = $('<td></td>').addClass('profileTd_date profileTh').text("date");
     row.append(date);
-    for (var j in json[0]) {
+    for (var j in policy_history[0]) {
         var attrName = j; //e.g. pdict
         if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
             var col = $('<td></td>').addClass('profileTd profileTh').text(attrName);
@@ -35,8 +40,8 @@ function initProfile() {
     var col = [];
     var tmp;
 
-    for (var i in json) {
-        var obj = json[i];
+    for (var i in policy_history) {
+        var obj = policy_history[i];
         col[i] = {};
         row [i] = $('<tr></tr>').addClass('profileTr'+i);
         date [i] = $('<td></td>').addClass('profileTd_date').text(obj['date']);
@@ -82,7 +87,7 @@ function initProfile() {
             }
         table.append(row[i]);
         }
-        prev_obj = json[i];
+        prev_obj = policy_history[i];
     }
 
     $('#profile_table').append(table);
@@ -97,6 +102,8 @@ function get_profile(){
         async:false,
         success : function(data) {
             json = JSON.parse(data);
+            policy_history = JSON.parse(json['policy_history']);
+            graph_data = JSON.parse(json['graph_data']);
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
@@ -107,30 +114,20 @@ function get_profile(){
 
 
 
-function createGraph(date, cost, risk, data) {
-    dps1_1 = [];
-    dps2_1 = [];
+function createGraph(data) {
+    var dps_risk = []; //data points for risk
+    var dps_cost = []; //data points cost
     for (var k in data) {
-        tmpRisk = {label: data[k].date, y: data[k].risk};
-        tmpCost = {label: data[k].date, y: data[k].cost};
-        dps1_1.push(tmpRisk);
-        dps2_1.push(tmpCost);
+        if(data[k].score_type==='1'){
+            tmpRisk = {label: data[k].date, y: parseFloat(data[k].score_value)};
+            dps_risk.push(tmpRisk);
+        }
+        if(data[k].score_type==='2'){
+            tmpCost = {label: data[k].date, y: parseFloat(data[k].score_value)};
+            dps_cost.push(tmpCost);
+        }
     }
 
-    var dps1 = [
-        {label: date, y: risk},
-        {label: date, y: risk + 0.1} ,
-        {label: date, y: risk - 0.2},
-        {label: date, y: risk},
-        {label: date, y: risk}
-    ]; //dataPoints – line 1
-    var dps2 = [
-        {label: date, y: cost},
-        {label: date, y: cost + 0.4} ,
-        {label: date, y: cost + 0.1},
-        {label: date, y: cost + 0.6},
-        {label: date, y: cost}
-    ]; //dataPoints. – line 2
     var chart = new CanvasJS.Chart("chartContainer", {
         title: {
             text: "Progress"
@@ -142,12 +139,13 @@ function createGraph(date, cost, risk, data) {
             title: "Units"
         },
 
-        // begin data for 2 line graphs. Note dps1 and dps2 are
-        //defined above as a json object. See http://www.w3schools.com/json/
         data: [
-
-            { type: "line", color: "#369ead", name: "Productivity cost($ million) ", showInLegend: true, dataPoints: dps2_1}, //blue
-            { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true, dataPoints: dps1_1} //red
+            { type: "line", color: "#369ead", name: "Productivity cost($ million) ", showInLegend: true,
+              dataPoints: dps_cost
+            }, //blue
+            { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true,
+              dataPoints: dps_risk
+            } //red  [{label:'bla', y:5}]
         ]
         // end of data for 2 line graphs
 
