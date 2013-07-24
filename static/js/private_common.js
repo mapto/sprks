@@ -92,6 +92,8 @@ function initFrame () {
     pauseInterval = function() {
         clearInterval(window.timer1);
     }
+
+
     //function for sending request on play btn press
    // $('#play').click(send);
 

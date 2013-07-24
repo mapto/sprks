@@ -13,7 +13,7 @@ class records:
         """
         Sets all events before the specified date to be committed.
         """
-        result = db.update('journal', committed=1, where="date<$date&&user_id=$self.user_id", vars=locals())
+        result = db.update('journal', committed=1, where="date<=$date&&user_id=$self.user_id", vars=locals())
         return result
 
     def clear_prophecy(self, date):
@@ -45,6 +45,9 @@ class records:
                 return event_date
 
         return policy_date
+
+    def get_last_sync(self):
+        return self.__last_sync()
 
     def __next_sync(self, last_sync_date):
         """
