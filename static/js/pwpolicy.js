@@ -90,6 +90,9 @@ function initPolicy() {
 
     //summarize_policy(pwpolicy); //update policy summary for user
 
+    // defined in graphs.js
+    $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
+
 }
 
 function setSyncDate() {
@@ -217,11 +220,16 @@ function check_events() {
         var str_date = conv_date.getFullYear()+'-'+(conv_date.getMonth()+1)+'-'+conv_date.getDate();
         if(str_date == window.date)
         {
+            $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
                 alert("Event #"+tmp_event[j].incdt_id+" happend!");
-                submit_change();
+
+                    submit_change();
+
             })
+
+                $('.incident_page').click();
 
         }
 
@@ -329,6 +337,7 @@ function update_policy(policy) {
     $('#time').text(policy['date']);
     window.date = $('#time').text();
     window.calendar = policy['calendar'];
+
     setSyncDate();
     console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
@@ -337,7 +346,6 @@ function update_policy(policy) {
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {};
-
     if(policyUpdate.length>0){
 
         msg.policyUpdate = policyUpdate;
@@ -363,6 +371,70 @@ function submit_change() { // need different event handling, to capture any chan
     });
     return false;
 }
+
+function submit_change_mul(){
+    var msgs = [];
+    var new_policy = {};
+    var msg = {};
+    var risk = [];
+    var cost = [];
+    var ids = [];
+
+    msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
+
+    new_policy.plen=$('input[name="plen"]:checked').val();
+    new_policy.psets=$('input[name="psets"]:checked').val();
+    if($('input[name="pdict"]:checked').val()==null)
+    {
+        new_policy.pdict = 0;
+    }
+    else
+    {
+        new_policy.pdict = 1;
+    }
+    if($('input[name="precovery"]:checked').val()==null)
+    {
+        new_policy.precovery = 0;
+    }
+    else
+    {
+        new_policy.precovery = 1;
+    }
+    //new_policy.pdict=$('input[name="pdict"]:checked').val();
+    new_policy.phist=$('input[name="phist"]:checked').val();
+    new_policy.prenew=$('input[name="prenew"]:checked').val();
+    new_policy.pattempts=$('input[name="pattempts"]:checked').val();
+    //new_policy.precovery=$('input[name="precovery"]:checked').val();
+    msg.data=JSON.stringify(new_policy);
+
+    msgs.push(msg);
+
+    $(".qn").each(function(i) { //iteration accross questions
+        var id_tmp =  $(this).attr('id');
+
+        msgs = msgs.concat(get_range(new_policy, id_tmp));
+    });
+//    msgs = msgs.concat(get_range(new_policy, msg.id));
+    // console.log(msgs.concat(get_range(new_policy, "plen")));
+    var request = $.ajax({
+        url: "/score/multiple",
+        type: "POST",
+        async : false,
+        data : JSON.stringify(msgs),
+        contentType : "application/json; charset=utf-8",
+        dataType : "json",
+        success : function(policy_costs_risks) {
+            initialize_graphs(policy_costs_risks);
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+        });
+    return false;
+
+}
+
+
 
 /*
 function submit_change() { // old version, which submits all the values even not changed ones

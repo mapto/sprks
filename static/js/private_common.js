@@ -72,7 +72,12 @@ function initFrame () {
             tmp.setHours(tmp.getHours()+addHours);
 
             var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();
-            $('#time').text(new_date);
+
+            var day_to_display = tmp.getDate(); if(day_to_display<10){day_to_display = '0'+day_to_display;}
+            var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
+            var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
+
+            $('#time').text(date_to_display);
             window.date = new_date;
             check_events();
             if(window.date==window.nextSyncStr) {

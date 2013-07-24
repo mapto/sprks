@@ -36,9 +36,11 @@ function get_incident_data(name) {
         url: get_filename(name), //function specified in incident.html
         type: "GET",
         success : function(incident) {
+            incident = JSON.parse(incident);
             $(".incident_box").each(function(){
                 $(this).text(incident[ ($(this).attr('id')) ]);
             });
+
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
