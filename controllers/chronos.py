@@ -20,7 +20,11 @@ class chronos:
 
         policy_accept = False
 
-        client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
+        try:
+            client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
+        except ValueError:
+            client_date = date_utils.iso8601_to_date('2014-01-06')
+
         policy_update = payload.get('policyUpdate')
 
         if context.user_id() == 0:

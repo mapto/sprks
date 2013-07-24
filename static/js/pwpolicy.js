@@ -345,13 +345,14 @@ function update_policy(policy) {
 }
 
 function submit_change() { // need different event handling, to capture any change
-    var msg = {};
+    var msg = {
+        date: $('#time').text(),
+        policyUpdate: []
+    };
     if(policyUpdate.length>0){
-
         msg.policyUpdate = policyUpdate;
         msg.newCosts = calculate_cost_from_calendar();
     }
-    msg.date = $('#time').text();
     msg.initPolicy = true;
     console.log(msg);
     statusUpdating();
