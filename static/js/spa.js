@@ -26,7 +26,10 @@
             $("#"+page).css("display", "block");
             if(page==='policy_page'){initPolicy();}
             if(page==='incident_page'){initIncident();}
-            if(page==='profile_page'){clearProfile();initProfile();}
+            if(page==='profile_page'){
+                clearProfile();
+                initProfile();
+            }
             if(page==='score_page'){initScore();}
 
             title = page.substr(0,page.length-5);
@@ -40,7 +43,6 @@
         $(".pages").each(function(){
             $(this).css("display", "none");
         });
-        $("#background_map").css("display", "block");
     });
 
     function hideOtherPages(page_name){
@@ -55,7 +57,8 @@
         $(".profile_table").each(function(){    //clear table
            this.remove();
         });
-        $('#chartContainer').html='';           //clear graph
+        $('#chartContainer').empty();           //clear graph
+
     }
 
 
