@@ -49,11 +49,11 @@ function initProfile() {
                     col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(attrValue);
                     row [i].append(col[i][attrName]);//add all policy values
                 } else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
-                    if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
-                        col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
-                    }else{
+                    //if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
+                    //    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
+                    //}else{
                         col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(obj[k]);
-                    }
+                    //}
                     row [i].append(col[i][attrName]); //add value column only if value have changed
                 } else {
                     col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');

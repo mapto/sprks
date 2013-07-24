@@ -258,30 +258,37 @@ function update_password_form(policy) {
     var plen = policy["plen"];
     console.log("found plen " + plen);
     $("#len" + plen).prop("checked", true);
+    $("#len" + plen).change();
 
     // TODO: implement (copy from other place) other pwpolicy items
     /*preset pswd sets value*/
     console.log("found sets " + policy["psets"]);
     $("#sets" + policy["psets"]).prop('checked', true);
+    $("#sets" + policy["psets"]).change();
 
     /*preset pswd dictionary value*/
     console.log("found " + (policy["pdict"] ? "use" : "no") + " dict");
     $("#dic").prop('checked', policy["pdict"] == 1);
+    $("#dic").change();
 
     console.log("found phist difficulty " + policy["phist"]);
     $("#hist" + policy["phist"]).prop('checked', true);
+    $("#hist" + policy["phist"]).change();
 
     console.log("found renew " + policy["prenew"]);
     $("#renew" + policy["prenew"]).prop('checked', true);
+    $("#renew" + policy["prenew"]).change();
 
     /*preset pswd attempts number check (yes/no)*/
     /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
     console.log("found attempts " + policy["pattempts"]);
     $("#attempts" + policy["pattempts"]).prop('checked', true);
+    $("#attempts" + policy["pattempts"]).change();
 
     /*preset pswd recovery option*/
     console.log("found precovery " + policy["precovery"]);
     $("#recovery" + policy["precovery"]).prop('checked', true);
+    $("#recovery" + policy["precovery"]).change();
 }
 
 function update_biometric_form(policy) {
@@ -322,6 +329,7 @@ function display_contextualized_policy(contextualized) {
 
         // dynamically compose name of function and call it
         var fname = "update_" + factors[i] + "_form";  // compose function name
+        console.log(fname);
         window[fname](contextualized); // call function fname with parameter contextualized
     }
 
