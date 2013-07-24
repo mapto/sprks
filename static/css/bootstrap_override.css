@@ -70,10 +70,10 @@ body {
 }
 .main-body{
     display:none;
+    position:absolute;
     z-index:10;
-    position:relative;
     width:100%;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2em;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
     color: #847f7f
@@ -94,7 +94,7 @@ label {
 }
 
 .time_controls {
-    width: 15%;
+    width: 14%;
     position: fixed;
     right: 1%;
     top: 60px;
