@@ -40,15 +40,13 @@ class chronos:
         #corrected_sync_date, event_accept = client_date, True
 
         if corrected_sync_date.day == 1:
+            policy_accept = True
             if policy_update is None:
-                # Expecting a policy update, but not found.
-                #corrected_sync_date -= timedelta(days=1)
-                # event_accept will always be false (backtracking one day before the next earliest sync point)
-                event_accept = False
+                # Expecting a policy update, but not found. Uses previous policy.
+                policies_model.commit_same_policy(corrected_sync_date)
             else:
                 policies_model.commit_policy_update(policy_update, corrected_sync_date)
-                policy_accept = True
-
+                
         journal.commit_history(corrected_sync_date)
 
         if event_accept or policy_accept:

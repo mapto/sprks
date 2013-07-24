@@ -153,6 +153,18 @@ class policies_model:
         policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(merged_policy), date)
         print "done"
 
+    @classmethod
+    def commit_same_policy(cls, date):
+        """
+        Gets the latest policy set from the server and duplicates them for the specified date.
+        """
+        print "getting latest policy from db..."
+        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
+        print "done"
+        print "inserting into table"
+        policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(latest_policy), date)
+        print "done"
+
     def parse_policy(self, policyUpdate):
         """
         Converts client-submitted policyUpdate changes to proprietary nested object format.
