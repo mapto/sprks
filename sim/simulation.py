@@ -2,6 +2,7 @@ from __future__ import division # make division floating, not integer: http://st
 
 from estimator_sklearn_tree import estimator_sklearn_tree
 from classifier_sklearn import classifier_sklearn
+from models.incident import incident
 
 """
 for policy specification see ranges variable in https://github.com/mapto/sprks/blob/master/models/pw_policy.py
@@ -16,21 +17,19 @@ class simulation:
         TODO: This class does not take care of partial policies
         :param policies: A dictionary of policies being explicitly set
         """
-        self.classifier = classifier_sklearn()
+        self.classifier = classifier_sklearn("classifier")
+        self.estimator = classifier_sklearn("estimator")
 
-    #        self.estimator = estimator_simple()
 
-
-    #OBSOLETE. risks are now derived from incidents
     def calc_risk_prob(self, policy):
-        #risk = self.estimator.get_risk_prob(self.dict)
-        risk = self.classifier.predict_data(policy)
-        value = risk[1]  # 0 - name, 1 - risk
-        # Extreme precision is not needed outside of simulation
-        return round(value, 2)
+        """ Returns the risk probability for this policy
+            Notice that there are actually two different machine learning algotithms
+            Incidents are identified with classification and risks are calculated with regression
+        """
+        return self.estimator.predict_data(policy)
 
     def calc_risk_impact(self):
-    #        impact = self.estimator.get_risk_impact(self.dict)
+        # impact = self.estimator.get_risk_impact(self.dict)
         # Extreme precision is not needed outside of simulation
         return 1
         # return round(1, 2)
@@ -70,9 +69,9 @@ class simulation:
 
         return (gen_norm + mem_norm + entry_norm) / 3.0
 
-    #OBSOLETE
     def calc_prod_cost(self, policy):
         """ To ensure consistency across system, keep values in the [0, 1] range
+            This is the (explicit) model for productivity cost estimation
         """
         #cost = self.estimator.get_prod_cost(self.dict)
         # cost = self.classifier.predict(self.dict)[1]
