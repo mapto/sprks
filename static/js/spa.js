@@ -9,6 +9,8 @@
     if(getUserID() > 0) {
         $(".main-body").css("display", "block");
         $("#intro_page").css("display", "block");
+        title = 'intro';
+        highlightActiveButton();
     }else{
         $(".main-body").css("display", "block");
         $("#home_page").css("display", "block");
@@ -27,6 +29,8 @@
             if(page==='profile_page'){clearProfile();initProfile();}
             if(page==='score_page'){initScore();}
 
+            title = page.substr(0,page.length-5);
+            highlightActiveButton();
             $(".main-body").css("display", "block");
        }
     });
