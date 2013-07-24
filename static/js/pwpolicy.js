@@ -221,12 +221,9 @@ function check_events() {
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
                 alert("Event #"+tmp_event[j].incdt_id+" happend!");
-                if(policyUpdate.length>0){
+
                     submit_change();
-                }else{
-                    policyUpdate = window.policy;
-                    submit_change();
-                }
+
             })
 
                 $('.incident_page').click();
@@ -337,7 +334,7 @@ function update_policy(policy) {
     $('#time').text(policy['date']);
     window.date = $('#time').text();
     window.calendar = policy['calendar'];
-    window.policy = policy['policy'];
+
     setSyncDate();
     console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
