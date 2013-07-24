@@ -217,11 +217,19 @@ function check_events() {
         var str_date = conv_date.getFullYear()+'-'+(conv_date.getMonth()+1)+'-'+conv_date.getDate();
         if(str_date == window.date)
         {
+            $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
                 alert("Event #"+tmp_event[j].incdt_id+" happend!");
-                submit_change();
+                if(policyUpdate.length>0){
+                    submit_change();
+                }else{
+                    policyUpdate = window.policy;
+                    submit_change();
+                }
             })
+
+                $('.incident_page').click();
 
         }
 
@@ -329,6 +337,7 @@ function update_policy(policy) {
     $('#time').text(policy['date']);
     window.date = $('#time').text();
     window.calendar = policy['calendar'];
+    window.policy = policy['policy'];
     setSyncDate();
     console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
@@ -337,13 +346,13 @@ function update_policy(policy) {
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {};
-
     if(policyUpdate.length>0){
-    var strDate = $('#time').text();
-        msg.date = strDate;
         msg.policyUpdate = policyUpdate;
         msg.newCosts = calculate_cost_from_calendar();
     }
+
+    var strDate = $('#time').text();
+        msg.date = strDate;
     msg.initPolicy = true;
     console.log(msg);
     statusUpdating();
