@@ -51,8 +51,7 @@ class chronos:
         if event_accept or policy_accept:
             journal.clear_prophecy(corrected_sync_date)
             prophecy = prophet.prophesize(context.user_id(), corrected_sync_date)
-            print "prophecy"
-            print prophecy
+            print "prophecy " + prophecy
             journal.record_prophecy(prophecy)
 
         response = {
