@@ -33,7 +33,12 @@ class policies_model:
         :policy: The policy to read password policy parameters from
         Returns a tuple of password policy items. All other parameters are ignored.
         """
-        result = [policy["bdata"], policy["pdata"]]
+        tmp_policy = deepcopy(policy)
+        if not 'bdata' in policy:
+            tmp_policy['bdata'] = 0
+        if not 'pdata' in policy:
+            tmp_policy['pdata'] = 0
+        result = [tmp_policy["bdata"], tmp_policy["pdata"]]
         result.extend(pw_policy_model.policy2datapoint(policy))
         return result
 
