@@ -91,7 +91,8 @@ function initPolicy() {
     //summarize_policy(pwpolicy); //update policy summary for user
 
     // defined in graphs.js
-//    $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
+    // TODO should not handle the system event, because it is being used in automatic calls as well.
+    // $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
 
 }
 
@@ -599,7 +600,7 @@ function get_range(policy, id) {
 
     });
     return msgs;
-}*/
+}
 
 function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
 //    console.log(policy_costs_risks);
