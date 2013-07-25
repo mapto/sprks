@@ -692,3 +692,11 @@ label {
      display:none;
 }
 
+.device_img{
+    display: block;
+    position: relative;
+    left: -1em;
+    top: 1.5em;
+    height: 3em;
+    width: 3em;
+}

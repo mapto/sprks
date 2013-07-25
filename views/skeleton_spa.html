@@ -5,8 +5,8 @@
     <title>Sprks</title>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
-    <link rel="stylesheet" href="$path/static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css"/>
+    <link rel="stylesheet" href="$path/static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
@@ -72,37 +72,44 @@ $if user_id() > 0:
 
 <article class="container-fluid">
 
-
-
     <!-- MAP begin-->
-                <div class="interviewee" id="interview1">Susie</div>
-                <div class="interviewee" id="interview2">Kevin</div>
-                <div class="interviewee" id="interview3">Iza</div>
+    <div class="interviewee" id="interview1">
+        Susie
+        <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" />
+    </div>
+    <div class="interviewee" id="interview2">
+        Kevin
+        <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" />
+    </div>
+    <div class="interviewee" id="interview3">
+        Iza
+        <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" />
+    </div>
 
-                <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main
-                    problem I have with my job is that IT support is terrible. It used to be the case that the department was in the
-                    same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A
-                    bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half
-                    the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and
-                    everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the
-                    latest round of password changes has locked me out of his email account.
-                </div>
-                <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been
-                    re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are
-                    no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get
-                    treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows
-                    each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are
-                    at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the
-                    building fixing computers and stuff and the atmosphere really has changed.
-                </div>
-                <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds
-                    fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I
-                    suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have
-                    on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks
-                    to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be
-                    working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new
-                    team and that makes work go a little easier.
-                </div>
+    <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main
+        problem I have with my job is that IT support is terrible. It used to be the case that the department was in the
+        same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A
+        bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half
+        the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and
+        everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the
+        latest round of password changes has locked me out of his email account.
+    </div>
+    <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been
+        re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are
+        no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get
+        treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows
+        each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are
+        at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the
+        building fixing computers and stuff and the atmosphere really has changed.
+    </div>
+    <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds
+        fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I
+        suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have
+        on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks
+        to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be
+        working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new
+        team and that makes work go a little easier.
+    </div>
     <!-- MAP end-->
 
 
@@ -782,7 +789,10 @@ function initUserForms(){
         pswd_change_passwordConfirm: ko.observable(),
         pswd_change_messages: ko.observableArray(),
         statusbar_status: ko.observable(),
-        statusbar_image: ko.observable()
+        statusbar_image: ko.observable(),
+        interviewee1_device_image: ko.observable(),
+        interviewee2_device_image: ko.observable(),
+        interviewee3_device_image: ko.observable()
     };
 
     ko.applyBindings(formModel);
@@ -812,6 +822,7 @@ function initUserForms(){
         console.log("found user $username()");
         return "$username()"; // This value is set server-side and appears to client as hardcoded.
     }
+
 </script>
 <script src="$path/static/js/spa.js"></script>
 </body>

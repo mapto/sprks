@@ -46,3 +46,10 @@
         place_at('interview3', 'office');
 
     }
+
+
+$(function(){
+    formModel.interviewee1_device_image('static/img/laptop.png');
+    formModel.interviewee2_device_image('static/img/desktop.png');
+    formModel.interviewee3_device_image('static/img/iphone.png');
+})
