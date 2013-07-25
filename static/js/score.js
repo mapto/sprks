@@ -12,6 +12,7 @@ function initScore(){
     //create accordion score representation
     //new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
     $('#accordion').accordion({
+        heightStyle: "content",
         icons: null
     });
     climbLadder("risk");
