@@ -43,8 +43,7 @@
 
 
     function give_device(div_id, device){
-        var device_img = 'static/img/'+device+'.png';
-        //formModel[div_id+'_device_image']('static/img/'+device+'.png');
+        formModel[div_id+'_device_image']('static/img/'+device+'.png');
     }
 
 
@@ -76,5 +75,5 @@
 $(function(){
     formModel.interviewee1_device_image('static/img/laptop.png');
     formModel.interviewee2_device_image('static/img/desktop.png');
-    formModel.interviewee3_device_image('static/img/iphone.png');
+    formModel.interviewee3_device_image('static/img/phone.png');
 })
