@@ -91,10 +91,8 @@ function initFrame () {
                 submit_change();
             }
             //script for interactive characters
+                UpdateCharacters();
 
-                placeAtOffice('interview1'); //specified in charachters.js
-                placeAtOffice('interview2');
-                placeAtOffice('interview3');
             },interval);
         return false;
     }
