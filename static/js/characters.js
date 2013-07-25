@@ -5,24 +5,24 @@
  * Time: 10:35 AM
  * To change this template use File | Settings | File Templates.
  */
-//function for moving characters (class interviewee, ids:interview1,interview2,interview3)
+//function for moving characters (class interviewee, ids:interviewee1,interviewee2,interviewee3)
 
     var coordinates = {};
-    coordinates.interview1 = {}; //Susie
-    coordinates.interview2 = {}; //Kevin
-    coordinates.interview3 = {}; //Iza
+    coordinates.interviewee1 = {}; //Susie
+    coordinates.interviewee2 = {}; //Kevin
+    coordinates.interviewee3 = {}; //Iza
 
-    coordinates.interview1.home = [40, 55, 55];
-    coordinates.interview1.public = [55, 40, 20];
-    coordinates.interview1.office = [15, 80, 20];
+    coordinates.interviewee1.home = [40, 55, 55];
+    coordinates.interviewee1.public = [55, 40, 20];
+    coordinates.interviewee1.office = [15, 80, 20];
 
-    coordinates.interview2.home = [47.5, 47.5, 55];
-    coordinates.interview2.public = [62.5, 32.5, 20];
-    coordinates.interview2.office = [22.5, 72.5, 20];
+    coordinates.interviewee2.home = [47.5, 47.5, 55];
+    coordinates.interviewee2.public = [62.5, 32.5, 20];
+    coordinates.interviewee2.office = [22.5, 72.5, 20];
 
-    coordinates.interview3.home = [55, 40, 55];
-    coordinates.interview3.public = [70, 25, 20];
-    coordinates.interview3.office = [30, 65, 20];
+    coordinates.interviewee3.home = [55, 40, 55];
+    coordinates.interviewee3.public = [70, 25, 20];
+    coordinates.interviewee3.office = [30, 65, 20];
 
 
     function placeDiv(div_id, l_pos, r_pos, b_pos) {
@@ -40,7 +40,16 @@
         placeDiv('quote'+div_id.substr(div_id.length-1),l-12.5,r+12.5,b+18);  //update position of his speech bubble
     }
 
-    function UpdateCharacters(date){ //data: interview1 - location, device; interview2 - loc, dev; interview3 - loc, dev
+
+
+    function give_device(div_id, device){
+        var device_img = 'static/img/'+device+'.png';
+        //formModel[div_id+'_device_image']('static/img/'+device+'.png');
+    }
+
+
+
+    function UpdateCharacters(date){ //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
 
         var request = $.ajax({
             url: "/api/characters",
@@ -52,7 +61,8 @@
             success: function (data) {
                 console.log(data);
                 $.each(data, function(key,value) {
-                    place_at(key, value);       //e.g.: place_at('interview2', 'office');
+                    place_at(key, value[0]);       //e.g.: place_at('interviewee2', 'office');
+                    give_device(key, value[1]);    //e.g.: give_device('interviewee1, 'phone');
                 });
             },
             error: function (response) {

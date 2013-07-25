@@ -15,9 +15,9 @@ class characters:
         print location_distribution
         locations = json.dumps(
             {
-                'interview1': 'office',
-                'interview2': 'public',
-                'interview3': 'home',
+                'interviewee1': ['office','phone'],
+                'interviewee2': ['public','laptop'],
+                'interviewee3': ['home','desktop']
             }
         )
         return locations

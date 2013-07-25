@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#interview1").on('click', function (e) {
+    $("#interviewee1").on('click', function (e) {
         if ($("#quote1").css("display") == "block") {
             $("#quote1").css("display", "none");
         } else {
@@ -11,7 +11,7 @@ $(document).ready(function () {
         }
 
     });
-    $("#interview2").on('click', function (e) {
+    $("#interviewee2").on('click', function (e) {
         if ($("#quote2").css("display") == "block") {
             $("#quote2").css("display", "none");
         } else {
@@ -21,7 +21,7 @@ $(document).ready(function () {
             e.stopPropagation();
         }
     });
-    $("#interview3").on('click', function (e) {
+    $("#interviewee3").on('click', function (e) {
         if ($("#quote3").css("display") == "block") {
             $("#quote3").css("display", "none");
         } else {
