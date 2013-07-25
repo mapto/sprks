@@ -30,6 +30,7 @@ import controllers.pwpolicy
 
 import controllers.spa
 import controllers.user_spa
+import controllers.characters
 urls = (
         storage.path + '', controllers.spa.spa,
         storage.path + '/', controllers.spa.spa,
@@ -66,6 +67,7 @@ urls = (
         storage.path + '/api/user_spa/account', controllers.user_spa.account,
         storage.path + '/api/user_spa/password(/?)(.+)', controllers.user_spa.password,
         storage.path + '/password_spa', controllers.user_spa.password,
+        storage.path + '/api/characters', controllers.characters.characters
 )
 
 app = web.application(urls, globals(), autoreload=False)
