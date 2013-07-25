@@ -482,19 +482,19 @@ label {
     color: #000;
 }
 
-#interview1 { /*Susie*/
+#interviewee1 { /*Susie*/
     left:40%;
     right:55%;
     bottom:55%;
 }
 
-#interview2 { /*Kevin*/
+#interviewee2 { /*Kevin*/
     left:47.5%;
     right:47.5%;
     bottom:55%;
 }
 
-#interview3 { /*Iza*/
+#interviewee3 { /*Iza*/
     left: 55%;
     right:40%;
     bottom:55%;
