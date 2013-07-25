@@ -8,9 +8,9 @@
 //function for moving characters (class interviewee, ids:interview1,interview2,interview3)
 
     var coordinates = {};
-    coordinates.interview1 = {};
-    coordinates.interview2 = {};
-    coordinates.interview3 = {};
+    coordinates.interview1 = {}; //Susie
+    coordinates.interview2 = {}; //Kevin
+    coordinates.interview3 = {}; //Iza
 
     coordinates.interview1.home = [40, 55, 55];
     coordinates.interview1.public = [55, 40, 20];
@@ -40,11 +40,26 @@
         placeDiv('quote'+div_id.substr(div_id.length-1),l-12.5,r+12.5,b+18);  //update position of his speech bubble
     }
 
-    function UpdateCharacters(data){ //data: interview1 - location, device; interview2 - loc, dev; interview3 - loc, dev
-        place_at('interview2', 'office');
-        place_at('interview1', 'office');
-        place_at('interview3', 'office');
+    function UpdateCharacters(date){ //data: interview1 - location, device; interview2 - loc, dev; interview3 - loc, dev
 
+        var request = $.ajax({
+            url: "/api/characters",
+            type: "GET",
+            async: false,
+            data: JSON.stringify(date),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $.each(data, function(key,value) {
+                    place_at(key, value);       //e.g.: place_at('interview2', 'office');
+                });
+            },
+            error: function (response) {
+                console.log("fail: " + response.responseText);
+            }
+        });
+        return false;
     }
 
 

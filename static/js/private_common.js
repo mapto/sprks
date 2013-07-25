@@ -91,7 +91,7 @@ function initFrame () {
                 submit_change();
             }
             //script for interactive characters
-                UpdateCharacters();
+            UpdateCharacters($("#time").text()); //specified in characters.js
 
             },interval);
         return false;
