@@ -90,6 +90,11 @@ function initFrame () {
                 window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
                 submit_change();
             }
+            //script for interactive characters
+
+                placeAtOffice('interview1'); //specified in charachters.js
+                placeAtOffice('interview2');
+                placeAtOffice('interview3');
             },interval);
         return false;
     }
