@@ -90,6 +90,9 @@ function initFrame () {
                 window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
                 submit_change();
             }
+            //script for interactive characters
+                UpdateCharacters();
+
             },interval);
         return false;
     }

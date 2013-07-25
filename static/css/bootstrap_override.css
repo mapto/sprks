@@ -459,7 +459,7 @@ label {
     bottom: 75px;
     min-height:100px;
     min-width:60px;
-    height:20%;
+    height:16%;
     width: 5%;
     padding: 5px;
     float: right;
@@ -482,31 +482,31 @@ label {
     color: #000;
 }
 
-#interview1 {
-    right: 40%;
-    left:55%;
-    bottom:40%;
-}
-
-#interview2 {
-    right:47.5%;
-    left:47.5%;
+#interview1 { /*Susie*/
+    left:40%;
+    right:55%;
     bottom:55%;
 }
 
-#interview3 {
-    left: 40%;
-    right:55%;
-    bottom:40%;
+#interview2 { /*Kevin*/
+    left:47.5%;
+    right:47.5%;
+    bottom:55%;
+}
+
+#interview3 { /*Iza*/
+    left: 55%;
+    right:40%;
+    bottom:55%;
 }
 
 .quote {
     z-index: 0;
     display: none;
     border-radius: 10%;
-    width: auto;
+    width:28%;
     padding: 15px;
-    position: fixed;
+    position: absolute;
     bottom: 70%;
     left:35%;
     right: 35%;
@@ -523,11 +523,28 @@ label {
     font-size: 16px;
 }
 
+#quote1{
+    left:27.5%;
+    right:67.5%;
+    bottom:73%;
+}
+#quote2{
+    left:35%;
+    right:60%;
+    bottom:73%;
+}
+#quote3{
+    left: 42.5%;
+    right: 52.5%;
+    bottom:73%;
+}
+
 /* creates triangle */
 .quote:after {
     content: "";
     display: block; /* reduce the damage in FF3.0 */
     position: absolute;
+    right: 45%;
     bottom: -15px;
     width: 0;
     border-width: 15px 15px 0;
@@ -535,17 +552,6 @@ label {
     border-color: #333333 transparent;
 }
 
-#quote1:after {
-    right: 20%;
-}
-
-#quote2:after {
-    right: 45%;
-}
-
-#quote3:after {
-    right: 70%;
-}
 
 /*PROFILE page*/
 /*Graph*******/
@@ -686,3 +692,11 @@ label {
      display:none;
 }
 
+.device_img{
+    display: block;
+    position: relative;
+    left: -1em;
+    top: 1.5em;
+    height: 3em;
+    width: 3em;
+}
