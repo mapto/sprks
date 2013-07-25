@@ -32,7 +32,7 @@ function initFrame () {
     manageScoreButton();
     manageIncidentButton();
 
-    highlightActiveButton();
+
 
 
     send = function () {
@@ -97,6 +97,8 @@ function initFrame () {
     pauseInterval = function() {
         clearInterval(window.timer1);
     }
+
+
     //function for sending request on play btn press
    // $('#play').click(send);
 
@@ -161,29 +163,37 @@ function manageIncidentButton() {
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
-    switch (document.title) {
-        case "Scores":
+    switch (title) {
+        case "score":
             css_class = "score";
             break;
-        case "Introduction":
-            css_class = "story";
+        case "intro":
+            css_class = "intro";
             break;
-        case "Profile":
+        case "profile":
             css_class = "profile";
             break;
-        case "Incident":
+        case "incident":
             css_class = "incident";
             break;
-        case "Policy":
+        case "policy":
             css_class = "policy";
             break;
         default:
             css_class = "";
     }
 
-    $("." + css_class + "_page" + " a").css("background-color", "#C10000");
-    $("." + css_class + "_page" + " a").css("color", "#fff");
-    $("." + css_class + "_page" + " a").css("cursor", "default");
+    $('.intro_page').removeAttr('style');
+    $('.score_page').removeAttr('style');
+    $('.profile_page').removeAttr('style');
+    $('.incident_page').removeAttr('style');
+    $('.policy_page').removeAttr('style');
+
+    $("." + css_class + "_page").css("background-color", "#C10000");
+    $("." + css_class + "_page").css("color", "#fff");
+    $("." + css_class + "_page").css("cursor", "default");
+
+
 }
 
 

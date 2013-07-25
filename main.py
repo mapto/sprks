@@ -49,6 +49,9 @@ urls = (
         storage.path + '/api/user/account', controllers.user.account,
         storage.path + '/api/user/password(/?)(.+)', controllers.user.password,
         storage.path + '/api/chronos/sync', controllers.chronos.chronos,
+        storage.path + '/api/chronos/update', controllers.chronos.policy_update_handler,
+        storage.path + '/api/chronos/event', controllers.chronos.event_handler,
+        storage.path + '/api/chronos/resume', controllers.chronos.resume_game,
 
         #REST
         storage.path + '/score_rest', controllers.score.score_rest,
