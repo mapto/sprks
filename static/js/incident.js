@@ -35,8 +35,8 @@ function get_incident_data(name) {
     var request = jQuery.ajax({
         url: get_filename(name), //function specified in incident.html
         type: "GET",
-        success : function(incident) {
-            incident = JSON.parse(incident);
+        success : function(incident_post) {
+            incident = JSON.parse(incident_post);
             $(".incident_box").each(function(){
                 $(this).text(incident[ ($(this).attr('id')) ]);
             });

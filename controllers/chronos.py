@@ -93,8 +93,6 @@ class policy_update_handler:
                 'messages': ['Unauthorized']
             })
         policy_update = payload.get('policyUpdate')
-        print "client day"
-        print client_date.day
         if client_date.day == 1:
             policies_model.commit_policy_update(policy_update, client_date)
         else:
@@ -125,7 +123,7 @@ class resume_game:
         client_date = journal.get_last_sync()
         response = {
             'date': client_date.isoformat(),
-            'policyAccept': True,
+            'policyAccept': False,
             'eventAccept': False,
             'calendar': journal.get_calendar(client_date),
             'policy': policies_model.get_policies_list(context.user_id())

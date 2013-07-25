@@ -53,8 +53,8 @@ class prophet:
                         'incident_id': incident_id,
                         'cost': cls.randomize_cost(incident_cost)
                     })
-        prophet().insert_score(user_id, 1, max_risk, base_date)
-        prophet().insert_score(user_id, 2, max_cost, base_date)
+        prophet().insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
+        prophet().insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
         return prophecy
 
     @classmethod
