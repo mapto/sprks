@@ -25,7 +25,9 @@ class incident:
 
 class incident_rest:
 
-    def GET(self):
+    def GET(self, a='', id=0):
+        if id != 0:
+            return model.get_incident(ident=id)
         prev_policies = policies_model.get_policy_history(context.user_id(), latest=True)
         # TODO here taking only the first one. should actually handle all 27 (3x3x3) of them
         # Controllers (and the server as a whole) should not know about the way data is predicted.

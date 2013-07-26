@@ -10,17 +10,17 @@ var incident;
 function initIncident() {
 //    window.timer1 = setInterval(function(){alert("Hello")},5000);
 
-    get_incident_name();
+    //get_incident_name();
 }
 
 function get_filename(incident_name) {
     return '/static/incidents/' + incident_name + '.json';
 }
 
-function get_incident_name() {
+function get_incident_name(incident_id) {
     statusUpdating();
     $.ajax({
-        url: "/incident_rest", //function specified in incident.html
+        url: "/incident_rest/"+incident_id, //function specified in incident.html
         type: "GET",
         success: get_incident_data,
         error: function (response) {
@@ -55,6 +55,6 @@ function get_incident_data(name) {
 
 function display_event(incident_id, cost){
     // Handles trigger for when certain event occurs.
-    get_incident_name();
+    get_incident_name(incident_id);
     $("#monetary_cost").text(cost);
 }

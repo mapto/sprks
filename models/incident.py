@@ -23,7 +23,6 @@ class incident:
             f.close()
             # print data["name"] + " " + str(data["id"])
 
-
     @classmethod
     def get_incident(cls, ident='1', typ='any'): # if type not specified, search
         """
@@ -36,16 +35,23 @@ class incident:
 
         if typ == "any": # search and return the first one found
             for risk in incident.incidents.keys():
-                if ident in incident.incidents[risk]:
+
+                try:
+                    return (incident.incidents[risk])[ident]
+                except KeyError:
+                    print incident.incidents[risk]
+                    print 'fail, ident=' + ident
+                # if ident in incident.incidents[risk]:
+
                     # print "found: " + "[" + str(id) + "] in class " + risk + " ->" + str(incident.incidents[risk][id]['name']) +  " " + str(incident.incidents[risk][id]['risk'])
 
-                    return incident.incidents[risk][ident]
+
         else:
             return incident.incidents[typ][ident]
 
     #OBSOLETE
     @classmethod
-    def get_incident_by_name(self, name='infrequent_use'): # if type not specified, search
+    def get_incident_by_name(cls, name='infrequent_use'): # if type not specified, search
         ref = 'static/incidents/' + name + '.json'
         f = open(ref)
         data = json.load(f)
