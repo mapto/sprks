@@ -1,6 +1,7 @@
 __author__ = 'Zhanelya'
 import json
 import web
+from datetime import date
 from libraries.utils import date_utils
 from models.company import company
 
@@ -17,14 +18,28 @@ class characters:
 
         payload = json.loads(web.data())
         client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
+        start_date = date_utils.iso8601_to_date('2014-01-06')
 
-        location_distribution = company().get_location_distribution()
+        days_delta = (client_date - start_date).days
+        location = []
+
+        if (days_delta % 10) <= 1:                      # mod <= 1
+            location = ['home', 'home', 'home']         # location [interviewee1, interviewee2, interviewee3]
+        else:
+            if (days_delta % 10) <= 6:                  # 1 < mod <= 6
+                location = ['office', 'office', 'office']
+            else:                                       # mod > 6
+                location = ['public', 'public', 'public']
+
+        #may be used later for getting the appropriate time distribution (now being hardcoded):
+        #location_distribution = company().get_location_distribution()
+
 
         locations_devices = json.dumps(
             {
-                'interviewee1': ['office','phone'],
-                'interviewee2': ['public','laptop'],
-                'interviewee3': ['home','desktop']
+                'interviewee1': [location[0],'phone'],
+                'interviewee2': [location[1],'laptop'],
+                'interviewee3': [location[2],'desktop']
             }
         )
         return locations_devices
