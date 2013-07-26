@@ -40,13 +40,9 @@
         placeDiv('quote'+div_id.substr(div_id.length-1),l-12.5,r+12.5,b+18);  //update position of his speech bubble
     }
 
-
-
     function give_device(div_id, device){
         formModel[div_id+'_device_image']('static/img/'+device+'.png');
     }
-
-
 
     function UpdateCharacters(date){ //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
         msg = {};
@@ -70,7 +66,6 @@
         });
         return false;
     }
-
 
 $(function(){
     formModel.interviewee1_device_image('static/img/laptop.png');

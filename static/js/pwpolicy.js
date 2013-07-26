@@ -101,9 +101,9 @@ function setSyncDate() {
     //window.date = $('#time').text();
     window.first_date = new Date(window.date);
     window.nextSync = window.first_date;
-    window.nextSync.setMonth(window.nextSync.getMonth()+2);
+    window.nextSync.setMonth(window.nextSync.getMonth()+1);
     window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
+    window.nextSyncStr = window.nextSync.getFullYear()+'-'+(window.nextSync.getMonth()+1)+'-'+window.nextSync.getDate();
     window.id_elem = 'plen';
 }
 
