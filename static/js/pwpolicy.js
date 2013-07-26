@@ -362,8 +362,8 @@ function update_policy(policy) {
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
-    $('#time').text(policy['date']);
-    window.date = $('#time').text();
+    $('#time').text(time_visualiser(policy['date']));
+    window.date = time_parser($('#time').text());
     window.calendar = policy['calendar'];
 
     setSyncDate();
@@ -374,7 +374,7 @@ function update_policy(policy) {
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {
-        date: $('#time').text(),
+        date: time_parser($('#time').text()),
         policyUpdate: []
     };
     if(policyUpdate.length>0){
@@ -419,8 +419,8 @@ function get_polies() {
                 console.log(policy);
                 var parsed_policy = JSON.parse(policy);
                 $('#pause').click();
-                $('#time').text(parsed_policy['date']);
-                window.date = $('#time').text();
+                $('#time').text(time_visualiser(parsed_policy['date']));
+                window.date = time_parser($('#time').text());
                 window.calendar = parsed_policy['calendar'];
                 setSyncDate();
                 display_contextualized_policy(parsed_policy['policy'][0]);
