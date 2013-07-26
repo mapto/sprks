@@ -12,7 +12,7 @@ class characters:
 
         #function needs to take date as an argument from ajax call and return a pair location-device for each of the 3 employees
         location_distribution = company().get_location_distribution()
-        print location_distribution
+        
         locations = json.dumps(
             {
                 'interviewee1': ['office','phone'],
