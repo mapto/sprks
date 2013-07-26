@@ -225,6 +225,7 @@ function check_events() {
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
                 alert("Event #"+tmp_event[j].incdt_id+" happend!");
+                display_event(tmp_event[j].incdt_id, tmp_event[j].cost);
                 submit_event(str_date);
             })
                 $('.incident_page').click();
