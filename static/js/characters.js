@@ -49,16 +49,17 @@
 
 
     function UpdateCharacters(date){ //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
-
+        msg = {};
+        msg['date'] = date;
         var request = $.ajax({
             url: "/api/characters",
-            type: "GET",
+            type: "POST",
             async: false,
-            data: JSON.stringify(date),
+            data: JSON.stringify(msg),
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            dataType: "text",
             success: function (data) {
-                $.each(data, function(key,value) {
+                $.each(JSON.parse(data), function(key,value) {
                     place_at(key, value[0]);       //e.g.: place_at('interviewee2', 'office');
                     give_device(key, value[1]);    //e.g.: give_device('interviewee1, 'phone');
                 });
