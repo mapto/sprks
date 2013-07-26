@@ -31,6 +31,10 @@ class score_model:
         users_cost = []
         risk_values = []
         cost_values = []
+        contender_id_prev_risk = 1
+        contender_id_next_risk = 1
+        contender_id_prev_cost = 1
+        contender_id_next_cost = 1
         scores_1, scores_2 = itertools.tee(your_score)
         for row in scores_1:
             if row.score_type == 1:
@@ -48,10 +52,12 @@ class score_model:
                                 u_rank_risk += 1
                                 prev_value_risk = row.score_value
                                 prev_value_risk_date = row.date
+                                contender_id_prev_risk = row.userid
                     else:
                         if not row.userid in users_risk:
                             next_value_risk = row.score_value
                             next_value_risk_date = row.date
+                            contender_id_next_risk = row.userid
                             break
         checked = False
         for row in scores_2:
@@ -70,10 +76,12 @@ class score_model:
                                 u_rank_cost += 1
                                 prev_value_cost = row.score_value
                                 prev_value_cost_date = row.date
+                                contender_id_prev_cost = row.userid
                     else:
                         if not row.userid in users_cost:
                             next_value_cost = row.score_value
                             next_value_cost_date = row.date
+                            contender_id_next_cost = row.userid
                             break
         u_rank_risk -= risk_values.count(float(value_risk))
         u_rank_cost -= cost_values.count(float(value_cost))
@@ -96,40 +104,79 @@ class score_model:
             closest_score_risk = prev_value_risk
             closest_ranking_risk = prev_risk_rank
             closest_date_risk = prev_value_risk_date
+            contender_id_risk = contender_id_prev_cost
         else:
             closest_score_risk = next_value_risk
             closest_ranking_risk = next_risk_rank
             closest_date_risk = next_value_risk_date
+            contender_id_risk = contender_id_next_risk
         if math.fabs(float(value_cost) - float(prev_value_cost)) <= math.fabs(
                         float(next_value_cost) - float(value_cost)):
             closest_score_cost = prev_value_cost
             closest_ranking_cost = prev_cost_rank
             closest_date_cost = prev_value_cost_date
+            contender_id_cost = contender_id_prev_cost
         else:
             closest_score_cost = next_value_cost
             closest_ranking_cost = next_cost_rank
             closest_date_cost = next_value_cost_date
+            contender_id_cost = contender_id_next_cost
 
-        return value_risk, date_risk, value_cost, date_cost, u_rank_risk, u_rank_cost, closest_score_risk, \
-               closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
+        value_risk_cost = db.select('scores', where="date=$date_risk&&score_type=2&&userid=$usrid", vars=locals())[0].score_value
+        value_cost_risk = db.select('scores', where="date=$date_cost&&score_type=1&&userid=$usrid", vars=locals())[0].score_value
+        value_risk_cost_contender = db.select('scores', where="date=$closest_date_risk&&score_type=2&&userid=$contender_id_risk", vars=locals())[0].score_value
+        value_cost_risk_contender = db.select('scores', where="date=$closest_date_cost&&score_type=1&&userid=$contender_id_cost", vars=locals())[0].score_value
+        print "risk user"
+        print value_risk
+        print "risk for cost user"
+        print value_risk_cost
+        print "cost user"
+        print value_cost
+        print "cost for risk user"
+        print value_cost_risk
+        print "risk contender"
+        print closest_score_risk
+        print "risk for cost cont"
+        print value_risk_cost_contender
+        print "cost cont"
+        print closest_score_cost
+        print "cost for risk cont"
+        print value_cost_risk_contender
+        return value_risk, value_risk_cost, date_risk, value_cost, value_cost_risk, date_cost, u_rank_risk, u_rank_cost, closest_score_risk, value_risk_cost_contender, \
+               closest_ranking_risk, closest_date_risk, closest_score_cost, value_cost_risk_contender, closest_ranking_cost, closest_date_cost
 
     def find_best(self, scores):
         date_risk = "N/A"
         value_risk = 0.0
         date_cost = "N/A"
         value_cost = 0.0
+        id_risk = 1
+        id_cost = 1
         scores_1, scores_2 = itertools.tee(scores)
         for row in scores_1:
             if row.score_type == 1:
                 date_risk = row.date
                 value_risk = row.score_value
+                id_risk = row.userid
                 break
         for row in scores_2:
             if row.score_type == 2:
                 date_cost = row.date
                 value_cost = row.score_value
+                id_cost = row.userid
                 break
-        return value_risk, date_risk, value_cost, date_cost
+
+        value_risk_cost = db.select('scores', where="date=$date_risk&&userid=$id_risk&&score_type=2", vars=locals())[0].score_value
+        value_cost_risk = db.select('scores', where="date=$date_cost&&userid=$id_cost&&score_type=1", vars=locals())[0].score_value
+        print "best risk"
+        print value_risk
+        print "best risk for cost"
+        print value_risk_cost
+        print "best cost"
+        print value_cost
+        print "best cost for risk"
+        print value_cost_risk
+        return value_risk, value_risk_cost, date_risk, value_cost, value_cost_risk, date_cost
 
     def find_avg(self):
         average_risk = db.query("SELECT AVG(score_value)as avg FROM scores WHERE score_type =1;")[0]
@@ -144,28 +191,35 @@ class score_model:
         scores_1, scores_2, scores_3, scores_4 = itertools.tee(all_scores, 4)
 
         if len(all_scores) > 0:
-            b_u_risk, b_u_risk_date, b_u_cost, b_u_cost_date, b_u_risk_rank, b_u_cost_rank, c_risk, c_risk_rank, \
-            c_risk_when, c_pc, c_pc_rank, c_pc_when = score_model().check_closest_competitor(id_user, scores_2)
-            b_risk, b_risk_when, b_pc, b_pc_when = score_model().find_best(scores_3)
+            b_u_risk, b_u_risk_cost, b_u_risk_date, b_u_cost, b_u_cost_risk, b_u_cost_date, b_u_risk_rank, b_u_cost_rank,\
+            c_risk, c_risk_cost, c_risk_rank, c_risk_when, c_pc, c_pc_risk, c_pc_rank, c_pc_when = \
+                score_model().check_closest_competitor(id_user, scores_2)
+            b_risk, b_risk_cost, b_risk_when, b_pc, b_pc_risk, b_pc_when = score_model().find_best(scores_3)
 
             avg_risk, avg_pc = score_model().find_avg()
 
             msg = {
                 "b_u_risk": str(b_u_risk),
+                "b_u_risk_cost": str(b_u_risk_cost),
                 "b_u_risk_date": str(b_u_risk_date),
                 "b_u_risk_rank": b_u_risk_rank,
                 "b_u_cost": str(b_u_cost),
+                "b_u_cost_risk": str(b_u_cost_risk),
                 "b_u_cost_date": str(b_u_cost_date),
                 "b_u_cost_rank": b_u_cost_rank,
                 "c_risk": str(c_risk),
+                "c_risk_cost": str(c_risk_cost),
                 "c_risk_when": str(c_risk_when),
                 "c_risk_rank": c_risk_rank,
                 "c_pc": str(c_pc),
+                "c_pc_risk": str(c_pc_risk),
                 "c_pc_when": str(c_pc_when),
                 "c_pc_rank": c_pc_rank,
                 "b_risk": str(b_risk),
+                "b_risk_cost": str(b_risk_cost),
                 "b_risk_when": str(b_risk_when),
                 "b_pc": str(b_pc),
+                "b_pc_risk": str(b_pc_risk),
                 "b_pc_when": str(b_pc_when),
                 "avg_risk": str(avg_risk),
                 "avg_pc": str(avg_pc)

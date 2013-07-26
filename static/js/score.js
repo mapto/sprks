@@ -67,7 +67,7 @@ function putOnLadder(ladder, step, name) {
     // score contains "value", "rank" and "when"
     // ladder is "risk" or "cost"
     score = getScore(name, ladder);
-    $("#" + ladder + "_s" + step).text(name + ', ' + score["value"]);
+    $("#" + ladder + "_s" + step).text(name + ', ' + score["value"] + ', ' + score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
     $("#" + ladder + "_w" + step).text(score["when"]);
 
@@ -96,28 +96,28 @@ function getScore(user, type) {
 
 // These values are set server-side and appear to client as json.
     function getOwnRisk() {
-        return {"value": score_obj.b_u_risk, "rank": score_obj.b_u_risk_rank, "when": score_obj.b_u_risk_date};
+        return {"value": score_obj.b_u_risk, "rank": score_obj.b_u_risk_rank, "when": score_obj.b_u_risk_date, "value_2": score_obj.b_u_risk_cost};
     }
     function getOwnCost() {
-        return {"value": score_obj.b_u_cost, "rank": score_obj.b_u_cost_rank, "when": score_obj.b_u_cost_date};
+        return {"value": score_obj.b_u_cost, "rank": score_obj.b_u_cost_rank, "when": score_obj.b_u_cost_date, "value_2": score_obj.b_u_cost_risk};
     }
     function getContenderRisk() {
-        return {"value": score_obj.c_risk, "rank": score_obj.c_risk_rank, "when": score_obj.c_risk_when};
+        return {"value": score_obj.c_risk, "rank": score_obj.c_risk_rank, "when": score_obj.c_risk_when, "value_2": score_obj.c_risk_cost};
     }
     function getContenderCost() {
-        return {"value": score_obj.c_pc, "rank": score_obj.c_pc_rank, "when": score_obj.c_pc_when};
+        return {"value": score_obj.c_pc, "rank": score_obj.c_pc_rank, "when": score_obj.c_pc_when, "value_2": score_obj.c_pc_risk};
     }
     function getBestRisk() {
-        return {"value": score_obj.b_risk, "rank": 1, "when": score_obj.b_risk_when};
+        return {"value": score_obj.b_risk, "rank": 1, "when": score_obj.b_risk_when, "value_2": score_obj.b_risk_cost};
     }
     function getBestCost() {
-        return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when};
+        return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when, "value_2":score_obj.b_pc_risk};
     }
     function getAverageRisk() {
-        return {"value": score_obj.avg_risk, "rank": "", "when": ""};
+        return {"value": score_obj.avg_risk, "rank": "", "when": "", "value_2": ""};
     }
     function getAverageCost() {
-        return {"value": score_obj.avg_pc, "rank": "", "when": ""};
+        return {"value": score_obj.avg_pc, "rank": "", "when": "", "value_2": ""};
     }
 
 
