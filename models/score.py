@@ -59,6 +59,10 @@ class score_model:
                             next_value_risk_date = row.date
                             contender_id_next_risk = row.userid
                             break
+        print "contender id next risk"
+        print contender_id_next_risk
+        print "contender id prev risk"
+        print contender_id_prev_risk
         checked = False
         for row in scores_2:
             if row.score_type == 2:
@@ -101,11 +105,13 @@ class score_model:
             next_cost_rank = u_rank_cost + 1
         if math.fabs(float(value_risk) - float(prev_value_risk)) <= math.fabs(
                         float(next_value_risk) - float(value_risk)):
+            print "first cond"
             closest_score_risk = prev_value_risk
             closest_ranking_risk = prev_risk_rank
             closest_date_risk = prev_value_risk_date
-            contender_id_risk = contender_id_prev_cost
+            contender_id_risk = contender_id_prev_risk
         else:
+            print "second cond"
             closest_score_risk = next_value_risk
             closest_ranking_risk = next_risk_rank
             closest_date_risk = next_value_risk_date
@@ -122,6 +128,8 @@ class score_model:
             closest_date_cost = next_value_cost_date
             contender_id_cost = contender_id_next_cost
 
+        print contender_id_risk
+        print closest_date_risk
         value_risk_cost = db.select('scores', where="date=$date_risk&&score_type=2&&userid=$usrid", vars=locals())[0].score_value
         value_cost_risk = db.select('scores', where="date=$date_cost&&score_type=1&&userid=$usrid", vars=locals())[0].score_value
         value_risk_cost_contender = db.select('scores', where="date=$closest_date_risk&&score_type=2&&userid=$contender_id_risk", vars=locals())[0].score_value
