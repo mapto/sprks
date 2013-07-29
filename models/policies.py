@@ -84,7 +84,7 @@ class policies_model:
             'LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id '
             'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.id '
             'WHERE policies.user_id=$user_id ' + restrict_latest +
-            'ORDER BY policies.date DESC LIMIT 54', vars=locals())
+            'ORDER BY policies.date DESC LIMIT 324', vars=locals())
             # Why are policies limited to 54? Shouldn't they be 27 (3x3x3)?
 
         for row in res:
