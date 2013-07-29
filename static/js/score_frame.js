@@ -25,8 +25,8 @@ function get_score_frame(){
                         cost = this.score_value;
                     }
                 });
-                $('#risk_menu').text(risk);
-                $('#cost_menu').text(cost);
+                $('#risk_menu').text(verboseScore(risk));
+                $('#cost_menu').text(verboseScore(cost));
                 if($('#risk_menu').text()||$('#cost_menu').text()){
                     $('.risk-menu').css('display', 'block');
                     console.log('found data for score_frame');
