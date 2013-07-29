@@ -9,6 +9,9 @@ class incident:
     incidents = {} # will contain {"bruteforce": []}"
     singleton = None
 
+    def __init__(self):
+        self.read_files()
+
     @classmethod
     def read_files(cls):
         for ref in glob.glob('static/incidents/*.json'):
@@ -20,6 +23,7 @@ class incident:
                 incident.incidents[risk_type] = {}
 
             incident.incidents[risk_type][data["id"]] = data
+            print "files read"
             f.close()
             # print data["name"] + " " + str(data["id"])
 
@@ -31,16 +35,25 @@ class incident:
         :param typ: if risk that this incident is associated is known, specify it. Otherwise it will search all of them
         """
         if not incident.incidents:
+            print "reading files"
             incident.read_files()
-
+        print "finished testing"
         if typ == "any": # search and return the first one found
+            print "type is any"
+            print incident.incidents
             for risk in incident.incidents.keys():
-
+                print "getting risk"
                 try:
-                    return (incident.incidents[risk])[ident]
+                    print "getting incidents"
+                    print incident.incidents[risk]
+                    print "ident"
+                    print ident
+                    inc = incident.incidents[risk].get(ident)
+                    if inc != None:
+                        return incident.incidents[risk].get(ident)
                 except KeyError:
                     print incident.incidents[risk]
-                    print 'fail, ident=' + ident
+                    print 'fail, ident=' + str(ident)
                 # if ident in incident.incidents[risk]:
 
                     # print "found: " + "[" + str(id) + "] in class " + risk + " ->" + str(incident.incidents[risk][id]['name']) +  " " + str(incident.incidents[risk][id]['risk'])
@@ -86,3 +99,7 @@ class incident:
 
     def get_risk(self):
         return self.data['risk']
+
+if __name__ == "__main__":
+    #incident.read_files()
+    print incident.get_incident(5)

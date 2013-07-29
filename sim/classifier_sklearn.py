@@ -193,6 +193,8 @@ class classifier_sklearn:
                         # data is returned as an array of numpy.float64, we need integers so we could use them as incident indices
                         # event = incident(cls[0].astype(int64))
                         # risk = event.get_risk()
+                        print "class"
+                        print cls
                         event = incident.get_incident(cls)
                         my_list.append({'id': event['id'], 'risk': event['risk']})
                         #risks_list.append(event["id"])
