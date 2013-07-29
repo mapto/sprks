@@ -82,7 +82,7 @@ function initFrame () {
             manageScoreButton();
             check_events();
             if(window.date==window.nextSyncStr) {
-                alert("Changes submitted");
+                manage_toast_alert("Changes submitted");
                 $('#pause').click();
                 window.first_date = new Date(window.date);
                 window.nextSync = window.first_date;
@@ -295,9 +295,9 @@ $("#apply").click(function () {
         || $.isEmptyObject(policies_array.employee)
         || $.isEmptyObject(policies_array.location)
         || $.isEmptyObject(policies_array.device)) {
-        alert('Failed to apply policy. You have to check at least one of the employees, locations and devices');
+        manage_toast_alert('Failed to apply policy. You have to check at least one of the employees, locations and devices',3000);
     } else if (!policies_array.policyDelta) {
-        alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms');
+        manage_toast_alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms',3000);
     } else {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
@@ -307,7 +307,7 @@ $("#apply").click(function () {
         $("#authentication2").remove();
         hide_policies();
         console.log(policyUpdate);
-        alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue')
+        manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',3000);
     }
 });
 
