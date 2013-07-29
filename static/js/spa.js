@@ -19,7 +19,6 @@
     }
 
 
-
     $('a').click('click', function(){
        var page = $(this).attr('class');
        if((page.substr(page.length-4))==='page'){ //check if the link clicked if a page button
