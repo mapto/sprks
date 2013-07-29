@@ -87,7 +87,7 @@ function getInitPolicy(){
 /* deprecated methos for getting initial policy
 function getInitPolicy(){
     var request = jQuery.ajax({
-        url: "/pwpolicy_rest", //function specified in incident.html
+        url: "/pwpolicy_rest",
         type: "GET",
         async:false,
         success : function(data) {

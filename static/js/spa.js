@@ -52,9 +52,7 @@ $("#close_btn").click('click', function(){
 
 $(function () {
 
-
     resume();
-    alert('resume');
 
     if (getUserID() > 0) {
         $(".main-body").css("display", "block");
