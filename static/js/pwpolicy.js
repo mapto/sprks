@@ -318,7 +318,7 @@ function update_policy(policy) {
 
     manageScoreButton();
     get_score_frame();
-    
+
     setSyncDate();
     //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
