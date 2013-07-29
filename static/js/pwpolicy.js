@@ -360,6 +360,7 @@ function resume() {
             console.log('response from server:' + policy);
             $('#pause').click();
             $('#time').text(time_visualiser(policy['date']));
+            manageScoreButton();
             window.date = time_parser($('#time').text());
             window.calendar = policy['calendar'];
             setSyncDate();
