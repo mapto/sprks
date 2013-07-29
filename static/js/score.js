@@ -69,7 +69,7 @@ function putOnLadder(ladder, step, name) {
     score = getScore(name, ladder);
     $("#" + ladder + "_s" + step).text(name + ', ' + score["value"] + ', ' + score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
-    $("#" + ladder + "_w" + step).text(score["when"]);
+    $("#" + ladder + "_w" + step).text(time_visualiser(score["when"], true));
 
 }
 

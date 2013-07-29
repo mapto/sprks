@@ -31,14 +31,15 @@ function cast_month(month){
     }
 }
 
-function time_visualiser(date){
+function time_visualiser(date, show_year){
     //converts from "YYYY-MM-DD" to "D Month YYYY"
     if (date != "") {
             var d1 = new Date(date);
             if (d1 == null) {
                 console.log('Date Invalid.');
             }else{
-                var date_array = d1.getDate().toString()+ ' '+ cast_month((d1.getMonth()+1).toString())+' ' + d1.getFullYear().toString();
+                var year = show_year ? d1.getFullYear().toString() : "";
+                var date_array = d1.getDate().toString()+ ' '+ cast_month((d1.getMonth()+1).toString())+' ' + year;
                 var string_date = date_array;
             }
     }

@@ -71,7 +71,7 @@ function initFrame () {
             var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
             var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
 
-            $('#time').text(time_visualiser(date_to_display));
+            $('#time').text(time_visualiser(date_to_display, true));
             window.date = new_date;
             manageScoreButton();
             check_events();

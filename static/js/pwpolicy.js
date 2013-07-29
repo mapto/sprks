@@ -312,7 +312,7 @@ function update_policy(policy) {
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
-    $('#time').text(time_visualiser(policy['date']));
+    $('#time').text(time_visualiser(policy['date'], true));
     window.date = time_parser($('#time').text());
     window.calendar = policy['calendar'];
 
@@ -359,7 +359,7 @@ function resume() {
             statusReady();
             console.log('response from server:' + policy);
             $('#pause').click();
-            $('#time').text(time_visualiser(policy['date']));
+            $('#time').text(time_visualiser(policy['date'], true));
             manageScoreButton();
             window.date = time_parser($('#time').text());
             window.calendar = policy['calendar'];

@@ -44,7 +44,7 @@ function initProfile() {
         var obj = policy_history[i];
         col[i] = {};
         row [i] = $('<tr></tr>').addClass('profileTr'+i);
-        date [i] = $('<td></td>').addClass('profileTd_date').text(obj['date']);
+        date [i] = $('<td></td>').addClass('profileTd_date').text(time_visualiser(obj['date'], false));
         row [i].append(date[i]);
         for (var k in obj) {
             var attrName = k; //e.g. pdict
@@ -118,11 +118,11 @@ function createGraph(data) {
     var dps_cost = []; //data points cost
     for (var k in data) {
         if(data[k].score_type==='1'){
-            tmpRisk = {label: data[k].date, y: parseFloat(data[k].score_value)};
+            tmpRisk = {label: time_visualiser(data[k].date, true), y: parseFloat(data[k].score_value)};
             dps_risk.push(tmpRisk);
         }
         if(data[k].score_type==='2'){
-            tmpCost = {label: data[k].date, y: parseFloat(data[k].score_value)};
+            tmpCost = {label: time_visualiser(data[k].date, true), y: parseFloat(data[k].score_value)};
             dps_cost.push(tmpCost);
         }
     }
