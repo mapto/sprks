@@ -1,12 +1,9 @@
-// All methods related to user management
-
 $('#registerForm').submit(function (e) {
     e.preventDefault();
     if (formModel.register_password() === formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
         $.ajax({
             type: 'PUT',
             url: 'api/user_spa/account/' + formModel.register_username(),
-            dataType: 'json',
             data: JSON.stringify({
                 password: formModel.register_password(),
                 email: formModel.register_email(),
@@ -34,7 +31,6 @@ $('#loginForm').submit(function (e) {
     $.ajax({
         type: 'POST',
         url: '/api/user_spa/account',
-        dataType: 'json',
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(formModel.login_username() + ':' + formModel.login_password()));
         },
@@ -57,7 +53,6 @@ $('#passwordRecoveryForm').submit(function (e) {
     $.ajax({
         type: 'POST',
         url: 'api/user_spa/password/' + formModel.pswd_recover_username(),
-        dataType: 'json',
         data: JSON.stringify({
             uid_type: 'username'
         }),
@@ -78,7 +73,6 @@ $('#passwordChangeForm').submit(function (e) {
         $.ajax({
             type: 'PUT',
             url: 'api/user_spa/password/' + user_id,
-            dataType: 'json',
             data: JSON.stringify({
                 password: formModel.pswd_change_password(),
                 token: '',
@@ -104,29 +98,29 @@ $('#passwordChangeForm').submit(function (e) {
 });
 
 function passwordRecover(token){
-        if (token !== '') {
-            $.ajax({
-                type: 'GET',
-                url: 'api/user_spa/password/'+token,
-                statusCode: {
-                    500: function () {
+    if (token !== '') {
+        $.ajax({
+            type: 'GET',
+            url: 'api/user_spa/password/'+token,
+            statusCode: {
+                500: function () {
+                    $("#password_recover_page").css("display", "block");
+                    formModel.pswd_recover_messages(['Server error']);
+                },
+                200: function (response) {
+                    response = $.parseJSON(response);
+
+                    user_id = response.user_id;
+
+                    if(response.success === true){
+                        $("#password_change_page").css("display", "block");
+                        formModel.pswd_change_messages(response.messages);
+                    }else if(response.success === false){
                         $("#password_recover_page").css("display", "block");
-                        formModel.pswd_recover_messages(['Server error']);
-                    },
-                    200: function (response) {
-                        response = $.parseJSON(response);
-
-                        user_id = response.user_id;
-
-                        if(response.success === true){
-                            $("#password_change_page").css("display", "block");
-                            formModel.pswd_change_messages(response.messages);
-                        }else if(response.success === false){
-                            $("#password_recover_page").css("display", "block");
-                            formModel.pswd_recover_messages(response.messages);
-                        }
+                        formModel.pswd_recover_messages(response.messages);
                     }
                 }
-            });
-        }
+            }
+        });
+    }
 }

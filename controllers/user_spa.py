@@ -116,11 +116,13 @@ class password:
         for rendering page: a = 0, token = 0
         for sending message: a = '/', token = token written to DB for password recovery
         """
-        print(token)
+
+        web.header('Content-Type', 'application/json')
+
         if token == 0:                      #render page
             return render.skeleton_spa()
         else:                               #return message to ajax call for password recovery
-            user_id = users_model().password_recovery_user(token)
+            user_id = users_model.password_recovery_user(token)
 
             if user_id > 0:
                 users_model.session_login(user_id)

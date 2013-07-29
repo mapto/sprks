@@ -78,6 +78,3 @@ class prophet:
 
     def insert_score(self, user_id, score_type, score_value, date):
         db.insert('scores', userid=user_id, score_type=score_type, score_value=score_value, date=date)
-
-if __name__ == "__main__":
-    print prophet().daily_prob(0.5)
