@@ -10,6 +10,18 @@ class incident:
     singleton = None
 
     @classmethod
+    def get_most_probable(cls, incidents):
+        """ Compares all incidents in the list and returns the most probable one.
+            Please make sure to have objects, not only ids when making the call
+            :param incidents: a list of incident objects
+        """
+        max = incidents[0]
+        for next in incidents:
+            if max['risk'] < next['risk']:
+                max = next
+        return max
+
+    @classmethod
     def read_files(cls):
         for ref in glob.glob('static/incidents/*.json'):
             f = open(ref)
@@ -23,8 +35,9 @@ class incident:
             f.close()
             # print data["name"] + " " + str(data["id"])
 
+
     @classmethod
-    def get_incident(cls, ident='1', typ='any'):
+    def get_incident(cls, ident='1', typ='any'): # if type not specified, search
         """
         Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
         Used by both sim and incident controller. type(ident) may be either 'int', 'unicode', or 'string'.
@@ -38,7 +51,6 @@ class incident:
             incident.read_files()
 
         if typ == "any": # search and return the first one found
-
             for risk in incident.incidents.keys():
 
                 try:
@@ -61,7 +73,7 @@ class incident:
 
     #OBSOLETE
     @classmethod
-    def get_incident_by_name(cls, name='infrequent_use'): # if type not specified, search
+    def get_incident_by_name(self, name='default'): # if type not specified, search
         ref = 'static/incidents/' + name + '.json'
         f = open(ref)
         data = json.load(f)
@@ -70,7 +82,10 @@ class incident:
         ident = data["id"]
         typ = data["type"]
 
-        return incident.incidents[typ][ident]
+        if not incident.incidents:
+            incident.read_files()
+
+        return incident.incidents[str(typ)][ident]
 
     # the following list of getters and setters might be incomplete
     def get_description(self):

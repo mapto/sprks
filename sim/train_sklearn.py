@@ -10,6 +10,7 @@ from models.company import company
 from models.policies import policies_model as policy_model
 from sim.classifier_sklearn import classifier_sklearn
 from models.incident import incident
+from models.simulation import simulation as sim_model
 
 
 class train_sklearn:
@@ -25,8 +26,8 @@ class train_sklearn:
         self.generate_db()
 
     def generate_db(self):
-        ordered_context = ['employee', 'location', 'device'] # has same elements as context, but is ordered the same way as database
-        ordered_policy = ['bdata', 'pdata', 'plen', 'psets', 'pdict', 'phist', 'prenew', 'pattempts', 'precovery']
+        ordered_context = sim_model.ordered_context
+        ordered_policy = sim_model.ordered_policy
         classifier = classifier_sklearn()
         with open('config/risks-test.sql', 'w') as f:
             f.write("DELETE FROM `risks` WHERE 1")

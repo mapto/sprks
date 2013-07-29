@@ -11,7 +11,7 @@ class policies_model:
     This class takes care of all policies that do not have dedicated models (currently all except pw_policies)
     It should provide the same features to be used from modules that require a policy
     """
-    non_pw_ranges = {"bdata": [0, 1], "pdata": [0, 1]}
+    non_pw_ranges = {"bdata": [0, 1, 2], "pdata": [0, 1, 2]}
     non_pw_default = {"bdata": 0, "pdata": 0}
 
     @classmethod
@@ -85,6 +85,8 @@ class policies_model:
             'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.id '
             'WHERE policies.user_id=$user_id ' + restrict_latest +
             'ORDER BY policies.date DESC LIMIT 54', vars=locals())
+            # Why are policies limited to 54? Shouldn't they be 27 (3x3x3)?
+
         for row in res:
             tmp = {}
             for key, value in row.iteritems():
