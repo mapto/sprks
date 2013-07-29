@@ -24,27 +24,37 @@ class incident:
             # print data["name"] + " " + str(data["id"])
 
     @classmethod
-    def get_incident(cls, ident='1', typ='any'): # if type not specified, search
+    def get_incident(cls, ident='1', typ='any'):
         """
         Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
+        Used by both sim and incident controller. type(ident) may be either 'int', 'unicode', or 'string'.
+        If type not specified, search all.
+
         :param ident: The incident id. This must be present in the static/incidents files
         :param typ: if risk that this incident is associated is known, specify it. Otherwise it will search all of them
         """
+
         if not incident.incidents:
             incident.read_files()
 
         if typ == "any": # search and return the first one found
+
             for risk in incident.incidents.keys():
 
                 try:
-                    return (incident.incidents[risk])[ident]
+                    print incident.incidents[risk][int(ident)]
+                    print 'returning'
+                    return incident.incidents[risk][int(ident)]
                 except KeyError:
                     print incident.incidents[risk]
-                    print 'fail, ident=' + ident
+                    print 'fail, ident=' + str(ident)
+                except ValueError:
+                    return 'Identifier should be a number'
                 # if ident in incident.incidents[risk]:
 
                     # print "found: " + "[" + str(id) + "] in class " + risk + " ->" + str(incident.incidents[risk][id]['name']) +  " " + str(incident.incidents[risk][id]['risk'])
 
+                print 'Not found'
 
         else:
             return incident.incidents[typ][ident]

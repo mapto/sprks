@@ -70,6 +70,7 @@ class chronos:
 
         return json.dumps(response)
 
+
 class event_handler:
     def POST(self):
         payload = json.loads(web.data())
@@ -82,6 +83,7 @@ class event_handler:
         journal = records(context.user_id())
         journal.commit_history(client_date)
         return "OK"
+
 
 class policy_update_handler:
     def POST(self):
@@ -111,6 +113,7 @@ class policy_update_handler:
             'calendar': journal.get_calendar(client_date)
         }
         return json.dumps(response)
+
 
 class resume_game:
     def POST(self):
