@@ -11,54 +11,7 @@ var pwpolicy;
 function initPolicy() {
     console.log('initPolicy called');
 
-    get_polies();// request policy from server and write to pwpolicy var
-
-
-    test_calendar = {
-  'date': '2014-01-14' ,
-        'policyAccept':'true',
-        'interventionAccept':'true',
-  'calendar': [
-    {
-      'date': '2014/1/20',
-      'events': [
-        {
-        'incdt_id': 5,
-        'cost': 2000
-        }
-      ]
-    },
-    {
-      'date': '2014/1/21',
-      'events': []
-    },
-    {
-      'date': '2014/2/5',
-       'events': [
-        {
-          'incdt_id': 1,
-          'cost': 7000000
-        },
-        {
-          'incdt_id': 4,
-          'cost': 5000
-        }
-      ]
-    },
-    {
-      'date': '2014/2/7',
-      'events': [
-        {
-          'incdt_id': 8,
-          'cost': 1000
-        }
-      ]
-    }
-  ]
-}
-
     console.log('starting to initialize sync date ')
-
 
     console.log(window.date);
     console.log(window.nextSyncStr);
@@ -97,8 +50,6 @@ function initPolicy() {
 }
 
 function setSyncDate() {
-    //window.calendar = test_calendar;
-    //window.date = $('#time').text();
     window.first_date = new Date(window.date);
     window.nextSync = window.first_date;
     window.nextSync.setMonth(window.nextSync.getMonth()+1);
@@ -356,7 +307,6 @@ function display_contextualized_policy(contextualized) {
 }
 
 function update_policy(policy) {
-    console.log('erase policyUpdate array to rewrite it');
     policyUpdate = [];
     statusReady();
     console.log('response from server:');
@@ -387,12 +337,7 @@ function submit_change() { // need different event handling, to capture any chan
     var request = $.ajax({
         url: "/api/chronos/update",
         type: "POST",
-        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
-        // E.g. what happens if the user changes screens too often
-        async: true,
         data: JSON.stringify(msg),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
         success: update_policy,
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -401,29 +346,21 @@ function submit_change() { // need different event handling, to capture any chan
     return false;
 }
 
-function get_polies() {
+function resume() {
     statusUpdating();
     var request = $.ajax({
         url: "/api/chronos/resume",
-        type: "POST",
-        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
-        // E.g. what happens if the user changes screens too often
-        async: true,
-        data: "",
-        contentType: "application/json; charset=utf-8",
-        dataType: "text",
+        type: "GET",
         success: function(policy) {
-                policyUpdate = [];
-                statusReady();
-                console.log('response from server:');
-                console.log(policy);
-                var parsed_policy = JSON.parse(policy);
-                $('#pause').click();
-                $('#time').text(time_visualiser(parsed_policy['date']));
-                window.date = time_parser($('#time').text());
-                window.calendar = parsed_policy['calendar'];
-                setSyncDate();
-                display_contextualized_policy(parsed_policy['policy'][0]);
+            policyUpdate = [];
+            statusReady();
+            console.log('response from server:' + policy);
+            $('#pause').click();
+            $('#time').text(time_visualiser(policy['date']));
+            window.date = time_parser($('#time').text());
+            window.calendar = policy['calendar'];
+            setSyncDate();
+            display_contextualized_policy(policy['policy'][0]);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -431,10 +368,6 @@ function get_polies() {
     });
     return false;
 }
-
-/*
-  function submit_change_mul() was moved do graphs.js
- */
 
 /*
 function submit_change_mul(){
