@@ -10,6 +10,9 @@ class simulation:
     ordered_context = ['employee', 'location', 'device'] # has same elements as context, but is ordered the same way as database
     ordered_policy = ['bdata', 'pdata', 'plen', 'psets', 'pdict', 'phist', 'prenew', 'pattempts', 'precovery']
 
+    def __init__(self):
+        self.predictor = classifier_sklearn()
+
     def get(self, policy, context, risk):
         query = "SELECT `name` FROM `risks` WHERE"
         query = query + "`risk_type` = '" + risk + "'"
@@ -39,7 +42,7 @@ class simulation:
 
         if len(response) == 0:
             datapoint = policies_model.policy2datapoint(policy)
-            result = classifier_sklearn().predict_single_datapoint(datapoint, context, [risk])
+            result = self.predictor.predict_single_datapoint(datapoint, context, [risk])
             self.set(policy, context, risk, result['name'], result['risk'])
         else:
             result = incident.get_incident_by_name(response[0].name)
@@ -76,7 +79,7 @@ class simulation:
             for employee in context['employees']:
                 for location in context['locations']:
                     for device in context['devices']:
-                        single_context = {'employee': 'executives', 'location': 'office', 'device': 'phone'}
+                        single_context = {'employee': employee, 'location': location, 'device': device}
                         response = self.update(policy, single_context, next_risk)
                         my_list.append(response)
                         #risks_list.append(event["id"])

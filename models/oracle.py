@@ -1,5 +1,5 @@
 from models.journal import records
-from sim.simulation import simulation
+from models.simulation import simulation as sim_model
 from localsys.storage import db
 from models.incident import incident
 from models.company import company
@@ -31,14 +31,13 @@ class prophet:
         history = policies_model().get_policy_history(user_id, True)
         response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
         policies = response[0]['data']
-        incidents = simulation().get_related_incidents(policies)
+        incidents = sim_model().request(policies)
         prophecy = []
         max_risk = 0
         max_cost = 0
-        for incident_id in incidents:
-            current_incident = incident.get_incident(incident_id)
-            print "current incident"
-            print current_incident
+        for current_incident in incidents:
+            # print "current incident"
+            # print current_incident
             if current_incident['risk'] > max_risk:
                 max_risk = current_incident['risk']
             if current_incident['cost'] > max_cost:
@@ -50,7 +49,7 @@ class prophet:
                 if rand < daily_prob:
                     prophecy.append({
                         'date': (base_date + timedelta(days=i)).isoformat(),
-                        'incident_id': incident_id,
+                        'incident_id': current_incident['id'],
                         'cost': cls.randomize_cost(incident_cost)
                     })
         prophet().insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)

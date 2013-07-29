@@ -1,10 +1,9 @@
-from __future__ import division # make division floating, not integer: http://stackoverflow.com/questions/1267869/how-can-i-force-division-to-be-floating-point-in-python
-
 from estimator_sklearn_tree import estimator_sklearn_tree
 from classifier_sklearn import classifier_sklearn
 
 """
-for policy specification see ranges variable in https://github.com/mapto/sprks/blob/master/models/pw_policy.py
+for policy specification see ranges variable in
+https://github.com/mapto/sprks/blob/master/models/pw_policy.py and policies.py
 """
 
 
@@ -83,6 +82,7 @@ class simulation:
         # Extreme precision is not needed outside of simulation
         return round(cost, 2)
 
+    # OBSOLETE: use get_related_incidents instead as each policy determines one incident per risk
     def get_incident(self, policy):
         """ The public interface to get
         """
@@ -91,14 +91,15 @@ class simulation:
         return value
 
 
-    def get_related_incidents(self, policy):
+    def get_related_incidents(self, policy, context = {}):
         """
         Returns incidents for a particular policy. Accepts full policy (i.e smth like {"plen": 12, "psets": 1, "pdict": 1,
                "phist": 1, "prenew": 1, "pattempts": 2,
                "precovery": 1, "pdata": 0, "bdata": 1} )
         :param policy: policy
         """
-        return self.classifier.predict_data(policy)
+        result = self.classifier.predict_data(policy, context)
+        return result
 
 if __name__ == "__main__":
     default = {"plen": 12, "psets": 1, "pdict": 1,

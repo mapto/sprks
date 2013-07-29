@@ -4,7 +4,7 @@ import numpy
 
 
 class company:
-    employee_types = ['executives', 'desk', 'road']
+    employee_types = ['executives', 'desk', 'road'] # 'desk' == 'white-collar', 'road' == 'blue-collar'
     location_types = ['office', 'public', 'home']
     device_types = ['desktop', 'laptop', 'phone']
 
