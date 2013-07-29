@@ -11,7 +11,6 @@ function get_score_frame(){
     var request = jQuery.ajax({
         url: "/api/score_frame", //function specified in incident.html
         type: "GET",
-        async:false,
         success : function(data) {
             if(data){
                 data = JSON.parse(data);
