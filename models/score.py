@@ -10,9 +10,9 @@ class score_model:
     def check_closest_competitor(self, usrid, your_score):
         value_risk = 0.0
         value_cost = 0.0
-        prev_value_risk = 1.0
+        prev_value_risk = 2.0
         prev_value_cost = 1.0
-        next_value_risk = 1.0
+        next_value_risk = 2.0
         next_value_cost = 1.0
         prev_risk_rank = 0
         next_risk_rank = 0
@@ -47,18 +47,19 @@ class score_model:
                     if not checked:
                         if not row.userid in users_risk:
                             if not float(row.score_value) in risk_values:
-                                users_risk.append(row.userid)
                                 risk_values.append(float(row.score_value))
                                 u_rank_risk += 1
                                 prev_value_risk = row.score_value
                                 prev_value_risk_date = row.date
                                 contender_id_prev_risk = row.userid
+                            users_risk.append(row.userid)
                     else:
                         if not row.userid in users_risk:
                             next_value_risk = row.score_value
                             next_value_risk_date = row.date
                             contender_id_next_risk = row.userid
                             break
+        print users_risk
         print "contender id next risk"
         print contender_id_next_risk
         print "contender id prev risk"
@@ -103,6 +104,10 @@ class score_model:
             next_cost_rank = u_rank_cost
         else:
             next_cost_rank = u_rank_cost + 1
+        if prev_value_risk == value_risk:
+            prev_risk_rank = u_rank_risk
+        if prev_value_cost == value_cost:
+            prev_cost_rank = u_rank_cost
         if math.fabs(float(value_risk) - float(prev_value_risk)) <= math.fabs(
                         float(next_value_risk) - float(value_risk)):
             print "first cond"
