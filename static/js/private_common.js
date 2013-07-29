@@ -79,6 +79,7 @@ function initFrame () {
 
             $('#time').text(time_visualiser(date_to_display));
             window.date = new_date;
+            manageScoreButton();
             check_events();
             if(window.date==window.nextSyncStr) {
                 alert("Changes submitted");
@@ -144,31 +145,21 @@ function initFrame () {
 // Decides whether to show score button
 // If different elements of the interface need to show up in later turns,
 // this could be done here
-function manageScoreButton() {
-    if (false) { // originally tests for isFirstTurn() TODO
-        console.log('$content.date equal to start date. Don\'t show score.');
-        $(".score").css("display", "none");
-    } else {
-        console.log('$content.date not equal to start date. Show score.');
-        $(".score").css("display", "block");
-    }
-}
 
 
-/* ATTEMPT TO CHANGE manage Score btn
 function manageScoreButton() {
-    console.log(time_parser($('#time').text()));
     if(time_parser($('#time').text())){
-    if (time_parser($('#time').text())=== '2014-1-6') { // originally tests for isFirstTurn() TODO
-        console.log('date equal to start date. Don\'t show score.');
-        $(".score_page").css("display", "none");
-    } else {
-        console.log('date not equal to start date. Show score.');
-        $(".score_page").css("display", "block");
-    }
+        var cur_date_greater = (new Date(time_parser($('#time').text())) - new Date('2014-2-1'));
+        if(cur_date_greater<0){
+                console.log('less than 1 month passed. Score is not yet calculated, hide button');
+                $(".score_page").css("display", "none");
+        } else {
+                console.log('>=1 month passed. Score is calculated, show button.');
+                $(".score_page").css("display", "block");
         }
+    }
 }
-*/
+
 
 
 
@@ -181,12 +172,13 @@ function manageIncidentButton() {
 }
 
 // highlight active button(scores/story/policy)
+
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
     switch (title) {
         case "score":
-            css_class = "score";
+            if($(".score_page").css("display")=== "block"){ css_class = "score";}
             break;
         case "intro":
             css_class = "intro";
@@ -215,7 +207,7 @@ function highlightActiveButton() {
 
 function deactivateButtons(){
     $('.intro_page').removeAttr('style');
-    $('.score_page').removeAttr('style');
+    if($(".score_page").css("display")=== "block"){$('.score_page').removeAttr('style');}
     $('.profile_page').removeAttr('style');
     $('.incident_page').removeAttr('style');
     $('.policy_page').removeAttr('style');

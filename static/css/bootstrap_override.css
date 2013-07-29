@@ -325,7 +325,7 @@ label {
     cursor:pointer;
 }
 
-.score_page {
+.menu a .score_page {
     display: none;
 }
 
