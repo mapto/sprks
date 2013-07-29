@@ -45,8 +45,6 @@ class characters:
         """
 
         mod = (days_delta % 100)/float(100)
-        print days_delta
-        print mod
         locations = [None] * 3
         devices = [None] * 3
 
