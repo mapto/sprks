@@ -73,6 +73,8 @@ class chronos:
 
 class event_handler:
     def POST(self):
+        web.header('Content-Type', 'application/json')
+
         payload = json.loads(web.data())
         client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
         if context.user_id() == 0:
@@ -87,6 +89,8 @@ class event_handler:
 
 class policy_update_handler:
     def POST(self):
+        web.header('Content-Type', 'application/json')
+
         payload = json.loads(web.data())
         client_date = date_utils.iso8601_to_date(payload.get('date', '2014-01-06'))
         if context.user_id() == 0:
@@ -116,7 +120,9 @@ class policy_update_handler:
 
 
 class resume_game:
-    def POST(self):
+    def GET(self):
+        web.header('Content-Type', 'application/json')
+
         if context.user_id() == 0:
             return json.dumps({
                 'success': False,
@@ -131,4 +137,5 @@ class resume_game:
             'calendar': journal.get_calendar(client_date),
             'policy': policies_model.get_policies_list(context.user_id())
         }
+
         return json.dumps(response)
