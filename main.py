@@ -19,26 +19,18 @@ if __name__ == "__main__":
     storage.path = ''
 
 import web
-import controllers.home
-import controllers.user
-import controllers.intro
 import controllers.score
 import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 import controllers.pwpolicy
-
 import controllers.spa
 import controllers.user_spa
 import controllers.characters
+
 urls = (
         storage.path + '', controllers.spa.spa,
         storage.path + '/', controllers.spa.spa,
-        storage.path + '/home', controllers.home.home,
-        storage.path + '/login', controllers.user.account,
-        storage.path + '/register', controllers.user.register,
-        storage.path + '/password', controllers.user.password,
-        storage.path + '/intro', controllers.intro.intro,
         storage.path + '/score', controllers.score.score,
         storage.path + '/score/multiple', controllers.score.multiple_score,
         storage.path + '/history', controllers.policy_history.history,
@@ -46,9 +38,6 @@ urls = (
         storage.path + '/policy/password', controllers.pwpolicy.pwpolicy,
 
         # APIs
-        storage.path + '/api/user/account(/?)(.+)', controllers.user.account,
-        storage.path + '/api/user/account', controllers.user.account,
-        storage.path + '/api/user/password(/?)(.+)', controllers.user.password,
         storage.path + '/api/chronos/sync', controllers.chronos.chronos,
         storage.path + '/api/chronos/update', controllers.chronos.policy_update_handler,
         storage.path + '/api/chronos/event', controllers.chronos.event_handler,
@@ -61,7 +50,6 @@ urls = (
         storage.path + '/history_rest', controllers.policy_history.history_rest,
 
         #SPA
-        storage.path + '/spa', controllers.spa.spa,
         storage.path + '/login_spa', controllers.user_spa.account,
         #SPA API
         storage.path + '/api/user_spa/account(/?)(.+)', controllers.user_spa.account,

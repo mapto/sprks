@@ -160,18 +160,18 @@ $if user_id() > 0:
                     <fieldset>
                         <legend>Register</legend>
                         <div class="row-fluid">
-                            <div><input data-bind="value: register_username" type="text" placeholder="Username" required/></div>
+                            <input data-bind="value: register_username" type="text" placeholder="Username" required/>
                         </div>
                         <div class="row-fluid">
-                            <div><input data-bind="value: register_password" type="password" placeholder="Password" required/></div>
+                            <input data-bind="value: register_password" type="password" placeholder="Password" required/>
                         </div>
                         <div class="row-fluid">
-                            <div><input data-bind="value: register_passwordConfirm" type="password" placeholder="Confirm your password"
-                                        required/></div>
+                            <input data-bind="value: register_passwordConfirm" type="password" placeholder="Confirm your password"
+                                        required/>
                         </div>
                         <div class="row-fluid">
                             <br>
-                            <div><input data-bind="value: register_email" type="email" placeholder="Email" required></div>
+                            <input data-bind="value: register_email" type="email" placeholder="Email" required>
                         </div>
                         <input class="login_btn" type="submit" value="Register"><br>
                         <ul data-bind="foreach: register_messages">

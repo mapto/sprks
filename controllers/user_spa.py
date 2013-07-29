@@ -14,6 +14,7 @@ from models.oracle import prophet
 
 render = web.template.render('views/', globals=render_globals)
 
+
 class account:
     """
     Handles login, and REST API for login/registration.
@@ -27,7 +28,7 @@ class account:
         if web.input().get('action', '') == 'logout':
             users_model.session_login(0)
 
-        raise web.seeother(path + '/spa')
+        raise web.seeother(path + '/')
 
     def POST(self):
         """
