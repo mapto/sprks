@@ -11,6 +11,8 @@
         $("#intro_page").css("display", "block");
         title = 'intro';
         highlightActiveButton();
+
+        get_score_frame();
     }else{
         $(".main-body").css("display", "block");
         $("#home_page").css("display", "block");
@@ -35,6 +37,8 @@
             title = page.substr(0,page.length-5);
             highlightActiveButton();
             $(".main-body").css("display", "block");
+
+           get_score_frame();
        }
     });
 
