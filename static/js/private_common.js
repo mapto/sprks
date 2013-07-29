@@ -28,12 +28,8 @@ function initFrame () {
         }
     });
 
-
     manageScoreButton();
     manageIncidentButton();
-
-
-
 
     send = function () {
         $("#curr_date").text('to be defined by server');
@@ -41,9 +37,7 @@ function initFrame () {
         var request = $.ajax({
             url: "/forward",
             type: "POST",
-            async: false,
             data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (curr_date) {
                 console.log("success: " + JSON.stringify(curr_date));
@@ -58,12 +52,12 @@ function initFrame () {
         return false;
     }
 
-    startTimer = function(interval) {
+    startTimer = function (interval) {
         console.log("timer started");
         //window.open("/incident","_self")
-        if(window.timer1!=null) pauseInterval();
-        window.timer1 = setInterval(function(){
-        //window.date = $('#time').text();
+        if (window.timer1 != null) pauseInterval();
+        window.timer1 = setInterval(function () {
+            //window.date = $('#time').text();
             var tmp = new Date(window.date);
             var addHours = 24;
             var addDays = 1;
@@ -310,4 +304,3 @@ $("#apply").click(function () {
         manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',3000);
     }
 });
-

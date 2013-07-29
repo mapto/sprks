@@ -8,8 +8,8 @@
 function get_score_frame(){
     var risk;
     var cost;
-    var request = jQuery.ajax({
-        url: "/api/score_frame", //function specified in incident.html
+    var request = $.ajax({
+        url: "/api/score_frame",
         type: "GET",
         success : function(data) {
             if(data){
