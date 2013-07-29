@@ -16,7 +16,7 @@ function cast_month(month){
         'July' : '7',
         'August' : '8',
         'September' : '9',
-        'october' : '10',
+        'October' : '10',
         'November' : '11',
         'December' : '12'
     };

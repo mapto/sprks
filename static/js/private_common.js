@@ -246,9 +246,10 @@ $('.target').bind("change", function(){
        if (!policies_array.policyDelta){        //initialize dictionary if doesn't exist
            policies_array.policyDelta={};
        }
-       if(attribute=='biometric_policy' || attribute=='passfaces_policy'){
-           policies_array.policyDelta[attribute.replace('_policy','')] = {};
-           policies_array.policyDelta[attribute.replace('_policy','')][attribute.substring(0,1)+'data'] = $(this).val();
+       //console.log($('#'+attribute).parent().attr('id'));      //can be biometric_policy or passsfaces_policy or password_policy
+       if($('#'+attribute).parent().attr('id')=='biometric_policy' || $('#'+attribute).parent().attr('id')=='passfaces_policy'){
+           policies_array.policyDelta[$('#'+attribute).parent().attr('id').replace('_policy','')] = {};
+           policies_array.policyDelta[$('#'+attribute).parent().attr('id').replace('_policy','')][$('#'+attribute).parent().attr('id').substring(0,1)+'data'] = $(this).val();
        }else{
            if(!policies_array.policyDelta.pwpolicy){
            policies_array.policyDelta.pwpolicy={};

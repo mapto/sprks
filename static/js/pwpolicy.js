@@ -14,7 +14,6 @@ function initPolicy() {
     get_polies();// request policy from server and write to pwpolicy var
 
 
-
     test_calendar = {
   'date': '2014-01-14' ,
         'policyAccept':'true',
@@ -93,6 +92,7 @@ function initPolicy() {
     // defined in graphs.js
     // TODO should not handle the system event, because it is being used in automatic calls as well.
     // $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
+    //submit_change_mul();
 
 }
 
@@ -432,6 +432,11 @@ function get_polies() {
     return false;
 }
 
+/*
+  function submit_change_mul() was moved do graphs.js
+ */
+
+/*
 function submit_change_mul(){
     var msgs = [];
     var new_policy = {};
@@ -439,9 +444,6 @@ function submit_change_mul(){
     var risk = [];
     var cost = [];
     var ids = [];
-/*
-  function submit_change_mul() was moved do graphs.js
- */
 
     msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
 
@@ -496,6 +498,9 @@ function submit_change_mul(){
     return false;
 
 }
+*/
+
+
 
 /*
 function submit_change() { // old version, which submits all the values even not changed ones
