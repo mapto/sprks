@@ -17,3 +17,10 @@ $(function(){
     formModel.statusbar_image('static/img/check.png')
     formModel.statusbar_status('Ready.')
 })
+
+function manage_toast_alert(text, delay){
+    $("#toast").text(text);
+    $("#toast").show();
+    $('#toast').delay(delay).fadeOut();
+
+}
