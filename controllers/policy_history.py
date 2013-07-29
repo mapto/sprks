@@ -42,3 +42,23 @@ class history_rest:
 
         if history:
             return history
+
+class score_frame:
+    """
+    Provides data for a risk and cost scores in the bottom left corner
+    (different from the score page as the latter takes only best values)
+    Is similar to graph_data for the profile page
+    """
+    def GET(self):
+        #get the latest risk and cost
+        userid = context.user_id()
+        scores = db.select('scores', where='userid=$userid', order="date DESC", limit=2, vars=locals())
+        scores_result = []
+        for row in scores:
+            tmp = {}
+            for key, value in row.iteritems():
+                tmp[key] = str(value)
+            scores_result.append(tmp)
+
+        if scores_result:
+            return json.dumps(scores_result)

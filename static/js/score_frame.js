@@ -9,12 +9,12 @@ function get_score_frame(){
     var risk;
     var cost;
     var request = jQuery.ajax({
-        url: "/history_rest", //function specified in incident.html
+        url: "/api/score_frame", //function specified in incident.html
         type: "GET",
         async:false,
         success : function(data) {
             if(data){
-                data = JSON.parse(JSON.parse(data)['graph_data']);
+                data = JSON.parse(data);
                 var score_frame = []
                 score_frame.push(data[data.length-1]);
                 score_frame.push(data[data.length-2]);
