@@ -301,6 +301,6 @@ $("#apply").click(function () {
         $("#authentication2").remove();
         hide_policies();
         console.log(policyUpdate);
-        manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',3000);
+        manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',5000);
     }
 });
