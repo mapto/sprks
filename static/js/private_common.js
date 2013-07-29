@@ -154,6 +154,24 @@ function manageScoreButton() {
     }
 }
 
+
+/* ATTEMPT TO CHANGE manage Score btn
+function manageScoreButton() {
+    console.log(time_parser($('#time').text()));
+    if(time_parser($('#time').text())){
+    if (time_parser($('#time').text())=== '2014-1-6') { // originally tests for isFirstTurn() TODO
+        console.log('date equal to start date. Don\'t show score.');
+        $(".score_page").css("display", "none");
+    } else {
+        console.log('date not equal to start date. Show score.');
+        $(".score_page").css("display", "block");
+    }
+        }
+}
+*/
+
+
+
 function manageIncidentButton() {
 /*
     var value = isFirstTurn() ? "none" : "block";
@@ -186,17 +204,21 @@ function highlightActiveButton() {
             css_class = "";
     }
 
-    $('.intro_page').removeAttr('style');
-    $('.score_page').removeAttr('style');
-    $('.profile_page').removeAttr('style');
-    $('.incident_page').removeAttr('style');
-    $('.policy_page').removeAttr('style');
+    deactivateButtons();
 
     $("." + css_class + "_page").css("background-color", "#C10000");
     $("." + css_class + "_page").css("color", "#fff");
     $("." + css_class + "_page").css("cursor", "default");
 
 
+}
+
+function deactivateButtons(){
+    $('.intro_page').removeAttr('style');
+    $('.score_page').removeAttr('style');
+    $('.profile_page').removeAttr('style');
+    $('.incident_page').removeAttr('style');
+    $('.policy_page').removeAttr('style');
 }
 
 

@@ -46,6 +46,7 @@
         $(".pages").each(function(){
             $(this).css("display", "none");
         });
+        deactivateButtons();
     });
 
     function hideOtherPages(page_name){
