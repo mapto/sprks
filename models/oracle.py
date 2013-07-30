@@ -75,5 +75,4 @@ class prophet:
         offset = (random.random() - 0.5) * 0.4
         return cost * (1 + offset)
 
-    def insert_score(self, user_id, score_type, score_value, date):
-        db.insert('scores', userid=user_id, score_type=score_type, score_value=score_value, date=date)
+

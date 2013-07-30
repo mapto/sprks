@@ -2,12 +2,9 @@ __author__ = 'mruskov'
 
 import web
 import json
-from localsys.environment import render
 from localsys.environment import context
 from models.incident import incident as model
-from localsys.storage import path
 from models.policies import policies_model
-from sim.simulation import simulation
 from models.simulation import simulation as sim_model
 
 
@@ -34,5 +31,5 @@ class incident_rest:
                 "locations": [policy['location']],
                 "devices":[policy['device']]}
             related = sim_model().request(policy, policy_context)
-            max = model.get_most_probable(related)
-        return max['name']
+            most_probable = model.get_most_probable(related)
+        return most_probable['name']

@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css"/>
-    <link rel="stylesheet" href="$path/static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <script src="static/js/url.min.js"></script>
 
 </head>
 <body style="background-color: #F2F2F2">
@@ -22,7 +23,7 @@
             <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a href="$path/login_spa?action=logout">Logout $username()</a>
+                    <a href="?action=logout">Logout $username()</a>
                 $else:
                     <a class="login_page">Login</a>
                 <!-- button to show/hide login pane? -->
@@ -209,7 +210,6 @@ $if user_id() > 0:
             </div>
 
              <div class="pages" id="password_recover_page">
-                <!--Password recovery-->
                 <form id="passwordRecoveryForm">
                     <fieldset>
                         <legend>Password Recovery</legend>
@@ -774,6 +774,7 @@ function initUserForms(){
         pswd_change_password: ko.observable(),
         pswd_change_passwordConfirm: ko.observable(),
         pswd_change_messages: ko.observableArray(),
+        pswd_token: ko.observable(),
         statusbar_status: ko.observable(),
         statusbar_image: ko.observable(),
         interviewee1_device_image: ko.observable(),
@@ -786,15 +787,11 @@ function initUserForms(){
 }
 
     var title;
-    var token = document.location.hash.substr(7);
     var user_id = $:user_id();
-
-    passwordRecover(token);
 
     initUserForms();
 
-    initFrame();    //no care for document ready as below
-    //$$(document).ready(initFrame); // register callback to function from external JS file;
+    initFrame();
 
     //used in POLICY
     function getUserID() {

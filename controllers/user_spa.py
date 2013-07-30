@@ -1,34 +1,20 @@
 __author__ = 'Zhanelya'
-#copied from controllers.user with some minor changes
 
 import json
 import web
 
 from localsys.environment import *
 
-from localsys.storage import path
 from models.users import users_model
 from models.policies import policies_model
 from libraries.utils import hash_utils
-from models.oracle import prophet
-
-render = web.template.render('views/', globals=render_globals)
+from models.score import score_model
 
 
 class account:
     """
     Handles login, and REST API for login/registration.
     """
-
-    def GET(self):
-        """
-        If action parameter is specified =='logout', logs out user. Else displays login screen
-        """
-
-        if web.input().get('action', '') == 'logout':
-            users_model.session_login(0)
-
-        raise web.seeother(path + '/')
 
     def POST(self):
         """
@@ -85,8 +71,8 @@ class account:
                 users_model.session_login(user_id)
             web.ctx.status = '201 Created'
             policies_model.populate_policies(user_id, start_date)
-            prophet().insert_score(user_id, 1, 1, start_date)
-            prophet().insert_score(user_id, 2, 1, start_date)
+            score_model.insert_score(user_id, 1, 1, start_date)
+            score_model.insert_score(user_id, 2, 1, start_date)
             return json.dumps(
                 {
                     'success': True,
@@ -107,48 +93,12 @@ class password:
     Handles password management
     """
 
-    def GET(self, a=0, token=0):
-        """
-        Handles password recovery from link sent by email
-        First loads the page with (0,0),
-        then handles the request and logs in user with ('/', token)
-
-        for rendering page: a = 0, token = 0
-        for sending message: a = '/', token = token written to DB for password recovery
-        """
-
-        web.header('Content-Type', 'application/json')
-
-        if token == 0:                      #render page
-            return render.skeleton_spa()
-        else:                               #return message to ajax call for password recovery
-            user_id = users_model.password_recovery_user(token)
-
-            if user_id > 0:
-                users_model.session_login(user_id)
-                return json.dumps(
-                    {
-                        'success': True,
-                        'user_id': user_id,
-                        'messages': ['Please change your password']
-                    }
-                )
-            else:
-                return json.dumps(
-                    {
-                        'success': False,
-                        'user_id': user_id,
-                        'messages': ['User does not exist']
-                    }
-                )
-
-    def PUT(self, a, arg1=0):
+    def PUT(self, arg1=0):
         """
         Changes password for specified user_id
         """
 
         user_id = int(arg1)
-        print(user_id)
         payload = json.loads(web.data())
         user_model = users_model()
 
@@ -227,7 +177,7 @@ class password:
             web.config.smtp_password = 'sprks123456789'
             web.config.smtp_starttls = True
             web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
-                         'http://' + web.ctx.host + web.ctx.homepath + '/password_spa#token=' + token)
+                         'http://' + web.ctx.host + web.ctx.homepath + '/#password_change_page?token=' + token)
             return json.dumps(
                 {
                     'success': True,

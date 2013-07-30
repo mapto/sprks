@@ -1,8 +1,6 @@
 __author__ = 'zhanelya'
 
 from localsys.environment import context
-from localsys.environment import render
-from localsys.storage import path
 from models.score import score_model
 from models.policies import policies_model
 import json

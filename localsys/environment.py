@@ -1,8 +1,6 @@
-import web
 import datetime
 from models.users import users_model
 from web import ctx
-from localsys import storage
 
 
 class context:
@@ -51,21 +49,3 @@ class context:
 
 
 start_date = datetime.date(2014, 1, 6)
-
-
-def get_start_time():
-    """
-    :deprecated: Use globals['start_date'] instead
-    """
-    return start_date
-
-
-render_globals = {
-    'datetime': datetime,
-    'get_start_time': get_start_time,
-    'user_id': context.user_id,
-    'username': context.username,
-    'path': storage.path
-}
-
-render = web.template.render('views/', base='skeleton', globals=render_globals)

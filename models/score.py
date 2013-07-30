@@ -263,3 +263,7 @@ class score_model:
             # print('return cost '+ policy_costs_risks)
 
         return policy_costs_risks
+
+    @classmethod
+    def insert_score(self, user_id, score_type, score_value, date):
+        db.insert('scores', userid=user_id, score_type=score_type, score_value=score_value, date=date)
