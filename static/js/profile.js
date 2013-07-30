@@ -99,7 +99,6 @@ function get_profile(){
     var request = jQuery.ajax({
         url: "/history_rest",
         type: "GET",
-        async:false,
         success : function(data) {
             json = JSON.parse(data);
             policy_history = JSON.parse(json['policy_history']);
