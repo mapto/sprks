@@ -1,3 +1,4 @@
+<!-- OBSOLETE, partially replaced by skeleton_spa -->
 $var title: Policy
 <h1>Policy</h1>
 <form id="policy_form" name="input" method="post" action="$path/add"> <!-- service specified in action must use relative path -->
@@ -366,7 +367,7 @@ $var title: Policy
 
     function getUserID() {
         /*ID is preset inside HTML code*/
-        console.log("found id $:user_id()");
+        //console.log("found id $:user_id()");
         return $user_id(); // This value is set server-side and appears to client as hardcoded.
     }
 

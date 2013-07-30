@@ -1,49 +1,32 @@
-/**
- * Created with PyCharm.
- * User: Zhanelya
- * Date: 02.07.13
- * Time: 15:19
- * To change this template use File | Settings | File Templates.
- */
-
 var incident;
-function initIncident(){
-//    window.timer1 = setInterval(function(){alert("Hello")},5000);
-
-    get_incident_name();
+function initIncident() {
+    //get_incident_data();
 }
 
-function get_filename(incident_name){
-        var filename = '/static/incidents/'+incident_name+'.json';
-        return filename;
-    }
-
-function get_incident_name(){
-    var request = jQuery.ajax({
-        url: "/incident_rest", //function specified in incident.html
+function get_incident_data(incident_id) {
+    statusUpdating();
+    $.ajax({
+        url: "/incident_rest/"+incident_id,
         type: "GET",
-        async:false,
-        success : get_incident_data,
-        error: function(response) {
-            console.log("fail: " + response.responseText);
-        }
-    });
-    return false;
-}
-
-function get_incident_data(name) {
-    var request = jQuery.ajax({
-        url: get_filename(name), //function specified in incident.html
-        type: "GET",
-        success : function(incident) {
-            $(".incident_box").each(function(){
+        success: function (incident) {
+            statusReady();
+            $(".incident_box").each(function () {
                 $(this).text(incident[ ($(this).attr('id')) ]);
             });
+
+            $('#quote1').text(incident['description']);
+            $('#quote2').text(incident['description']);
+            $('#quote3').text(incident['description']);
         },
-        error: function(response) {
+        error: function (response) {
             console.log("fail: " + response.responseText);
         }
     });
     return false;
+}
 
+function display_event(incident_id, cost){
+    // Handles trigger for when certain event occurs.
+    get_incident_data(incident_id);
+    $("#monetary_cost").text(cost);
 }

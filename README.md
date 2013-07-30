@@ -8,4 +8,4 @@ This is the website of the SPRKS project. It is an exploratory simulation game f
 
 SPRKS is being developed at UCL Information Security Research Group and is supported by Intel and IBM.
 
-Check out the [wiki page](https://github.com/mapto/sprks/wiki) for more details. A nightly-build [demo](http://orpheus.cs.ucl.ac.uk) is also available.
+Check out the [wiki page](https://github.com/mapto/sprks/wiki) for more details. A usable [demo](http://orpheus.cs.ucl.ac.uk) is also available.

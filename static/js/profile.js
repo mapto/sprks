@@ -6,11 +6,16 @@
  * To change this template use File | Settings | File Templates.
  */
 var json;
+var policy_history;
+var graph_data;
 function initProfile() {
 
-    get_profile(); //history values in json format from serverside (policy_history.py) by ajax call written to json var
+    get_profile(); //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
     console.log(json);
-    createGraph(date, cost, risk, json);
+    console.log(policy_history);
+    console.log(graph_data);
+
+    createGraph(graph_data);
 
     //create table dynamically:
     var table = $('<table></table>').addClass('profile_table');
@@ -19,9 +24,9 @@ function initProfile() {
     var row = $('<tr></tr>').addClass('profileTr');
     var date = $('<td></td>').addClass('profileTd_date profileTh').text("date");
     row.append(date);
-    for (var j in json[0]) {
+    for (var j in policy_history[0]) {
         var attrName = j; //e.g. pdict
-        if (attrName !== 'date' && attrName !== 'idpolicy' && attrName !== 'userid' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
+        if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
             var col = $('<td></td>').addClass('profileTd profileTh').text(attrName);
             row.append(col);
         }
@@ -30,29 +35,59 @@ function initProfile() {
 
     //fill table:
     var prev_obj = '';
-    for (var i in json) {
-        var obj = json[i];
-        var row = $('<tr></tr>').addClass('profileTr');
-        var date = $('<td></td>').addClass('profileTd_date').text(obj['date']);
-        row.append(date);
+    var row = [];
+    var date=[];
+    var col = [];
+    var tmp;
+
+    for (var i in policy_history) {
+        var obj = policy_history[i];
+        col[i] = {};
+        row [i] = $('<tr></tr>').addClass('profileTr'+i);
+        date [i] = $('<td></td>').addClass('profileTd_date').text(time_visualiser(obj['date'], false));
+        row [i].append(date[i]);
         for (var k in obj) {
             var attrName = k; //e.g. pdict
             var attrValue = obj[k]; //e.g. 1
-            if (attrName !== 'date' && attrName !== 'idpolicy' && attrName !== 'userid' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
+            if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
                 if (i < 1) { //if it's first row
-                    var col = $('<td></td>').addClass('profileTd').text(attrValue);
-                    row.append(col);//add all policy values
+                    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(attrValue);
+                    row [i].append(col[i][attrName]);//add all policy values
                 } else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
-                    var col = $('<td></td>').addClass('profileTd').text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
-                    row.append(col); //add value column only if value have changed
+                    //if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
+                    //    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
+                    //}else{
+                        col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(obj[k]);
+                    //}
+                    row [i].append(col[i][attrName]); //add value column only if value have changed
                 } else {
-                    var col = $('<td></td>').addClass('profileTd').text('');
-                    row.append(col); //add empty column if no changes
+                    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');
+                    row [i].append(col[i][attrName]); //add empty column if no changes
                 }
             }
         }
-        table.append(row);
-        prev_obj = json[i];
+
+        if(row[i].text()!=''){ //check if the row contains anything
+            if(row[i].text().substring(10).match(/\d+/g)){ //exclude date, check if the rest row contains number values( such as for plen, etc.)
+                var empty_row = $('<tr></tr>').addClass('profileTr profileTh');
+                for (var x=0; x<13;x++){
+                    empty_row.append($('<td></td>').addClass('profileTd profileTh').text(''));
+                }
+
+                table.append(empty_row);
+
+                //table.append(row[i]);
+                //tmp=i;
+            }else{                                      //if row contains only environmental variables (location/employee/device
+
+                row[i]
+
+
+
+            }
+        table.append(row[i]);
+        }
+        prev_obj = policy_history[i];
     }
 
     $('#profile_table').append(table);
@@ -62,11 +97,12 @@ function initProfile() {
 
 function get_profile(){
     var request = jQuery.ajax({
-        url: "/history_rest", //function specified in incident.html
+        url: "/history_rest",
         type: "GET",
-        async:false,
         success : function(data) {
             json = JSON.parse(data);
+            policy_history = JSON.parse(json['policy_history']);
+            graph_data = JSON.parse(json['graph_data']);
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
@@ -77,30 +113,20 @@ function get_profile(){
 
 
 
-function createGraph(date, cost, risk, data) {
-    dps1_1 = [];
-    dps2_1 = [];
+function createGraph(data) {
+    var dps_risk = []; //data points for risk
+    var dps_cost = []; //data points cost
     for (var k in data) {
-        tmpRisk = {label: data[k].date, y: data[k].risk};
-        tmpCost = {label: data[k].date, y: data[k].cost};
-        dps1_1.push(tmpRisk);
-        dps2_1.push(tmpCost);
+        if(data[k].score_type==='1'){
+            tmpRisk = {label: time_visualiser(data[k].date, true), y: parseFloat(data[k].score_value)};
+            dps_risk.push(tmpRisk);
+        }
+        if(data[k].score_type==='2'){
+            tmpCost = {label: time_visualiser(data[k].date, true), y: parseFloat(data[k].score_value)};
+            dps_cost.push(tmpCost);
+        }
     }
 
-    var dps1 = [
-        {label: date, y: risk},
-        {label: date, y: risk + 0.1} ,
-        {label: date, y: risk - 0.2},
-        {label: date, y: risk},
-        {label: date, y: risk}
-    ]; //dataPoints – line 1
-    var dps2 = [
-        {label: date, y: cost},
-        {label: date, y: cost + 0.4} ,
-        {label: date, y: cost + 0.1},
-        {label: date, y: cost + 0.6},
-        {label: date, y: cost}
-    ]; //dataPoints. – line 2
     var chart = new CanvasJS.Chart("chartContainer", {
         title: {
             text: "Progress"
@@ -112,12 +138,13 @@ function createGraph(date, cost, risk, data) {
             title: "Units"
         },
 
-        // begin data for 2 line graphs. Note dps1 and dps2 are
-        //defined above as a json object. See http://www.w3schools.com/json/
         data: [
-
-            { type: "line", color: "#369ead", name: "Productivity cost($ million) ", showInLegend: true, dataPoints: dps2_1}, //blue
-            { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true, dataPoints: dps1_1} //red
+            { type: "line", color: "#369ead", name: "Productivity cost($ million) ", showInLegend: true,
+              dataPoints: dps_cost
+            }, //blue
+            { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true,
+              dataPoints: dps_risk
+            } //red  [{label:'bla', y:5}]
         ]
         // end of data for 2 line graphs
 

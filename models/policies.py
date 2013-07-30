@@ -11,7 +11,7 @@ class policies_model:
     This class takes care of all policies that do not have dedicated models (currently all except pw_policies)
     It should provide the same features to be used from modules that require a policy
     """
-    non_pw_ranges = {"bdata": [0, 1], "pdata": [0, 1]}
+    non_pw_ranges = {"bdata": [0, 1, 2], "pdata": [0, 1, 2]}
     non_pw_default = {"bdata": 0, "pdata": 0}
 
     @classmethod
@@ -33,7 +33,12 @@ class policies_model:
         :policy: The policy to read password policy parameters from
         Returns a tuple of password policy items. All other parameters are ignored.
         """
-        result = [policy["bdata"], policy["pdata"]]
+        tmp_policy = deepcopy(policy)
+        if not 'bdata' in policy:
+            tmp_policy['bdata'] = 0
+        if not 'pdata' in policy:
+            tmp_policy['pdata'] = 0
+        result = [tmp_policy["bdata"], tmp_policy["pdata"]]
         result.extend(pw_policy_model.policy2datapoint(policy))
         return result
 
@@ -71,23 +76,29 @@ class policies_model:
         :param user_id: user_id of user to get policies for
         :param latest: flag limits to only getting the latest set of policies
         """
-
+        results_list = []
         restrict_latest = 'AND policies.date=(SELECT MAX(date) FROM policies WHERE user_id=$user_id) ' if latest else ''
-        return db.query(
+        res = db.query(
             'SELECT * FROM policies '
             'LEFT OUTER JOIN biometrics ON policies.bio_id = biometrics.id '
             'LEFT OUTER JOIN passfaces ON policies.pass_id = passfaces.id '
             'LEFT OUTER JOIN pw_policy ON policies.pw_id = pw_policy.id '
             'WHERE policies.user_id=$user_id ' + restrict_latest +
-            'ORDER BY policies.date DESC LIMIT 54', vars=locals())
+            'ORDER BY policies.date DESC LIMIT 324', vars=locals())
+            # Why are policies limited to 54? Shouldn't they be 27 (3x3x3)?
+
+        for row in res:
+            tmp = {}
+            for key, value in row.iteritems():
+                tmp[key] = str(value)
+            results_list.append(tmp)
+        return results_list
 
     @classmethod
     def policies_equal(cls, policy1, policy2):
         skipped = ["user_id", "bio_id", "pw_id", "pass_id", "date", "employee", "device", "location", "id_policy"]
         for key in policy1:
-            if key in skipped:
-                continue
-            if policy1[key] != policy2[key]:
+            if key not in skipped and policy1[key] != policy2[key]:
                 return False
 
         return True
@@ -149,9 +160,22 @@ class policies_model:
         policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(merged_policy), date)
         print "done"
 
+    @classmethod
+    def commit_same_policy(cls, date):
+        """
+        Gets the latest policy set from the server and duplicates them for the specified date.
+        """
+        print "getting latest policy from db..."
+        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
+        print "done"
+        print "inserting into table"
+        policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(latest_policy), date)
+        print "done"
+
     def parse_policy(self, policyUpdate):
         """
         Converts client-submitted policyUpdate changes to proprietary nested object format.
+        :param policyUpdate: policy updates from client
         """
         policies = {}
         for update in policyUpdate:
@@ -174,8 +198,8 @@ class policies_model:
 
     def iter_to_nested_obj(self, res):
         """
-        Merges two policies
-        :param res:
+        Converts iterator returned from SQL query into nested object
+        :param res: iterator
         """
         policy = {}
         for policies in res:
@@ -206,7 +230,7 @@ class policies_model:
 
     def merge_policies(self, updated_policy, old_policy):
         """
-        converts nested object into list of dictionaries
+        Merges old policy from database with updated policy from client into one nested object
         :param updated_policy:
         :param old_policy:
         """
@@ -225,8 +249,9 @@ class policies_model:
 
     def nested_obj_to_list_of_dict(self, policies):
         """
-        Checks if password mechanism is used or not
-        :param policies:
+        Converts nested object (e.g {'executive: {'home': {'phone': {...}}}'} ) into a list of dictionary:
+        [{'employee':'executives', 'location': 'home', 'device': 'phone',...}]
+        :param policies: nested object that represent policy
         """
         #tmp_obj = {}
         policies_list = []
@@ -251,10 +276,8 @@ class policies_model:
 
     def check_default(self, policy):
         """
-        Checks if any values have been entered in the policy at all.
-        The name is confusing. This is not the default policy, as specified in this model.
-        :policy: a presumed policy, if not set, it contains 0s
-        Returns 0 if the given policy is not set
+        Checks if password mechanism is used or not
+        :param policies: password policy
         """
 
         # pdict = policy['pdict']

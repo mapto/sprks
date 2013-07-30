@@ -4,9 +4,9 @@ import numpy
 
 
 class company:
-    employee_types = {'executives', 'desk', 'road'}
-    location_types = {'office', 'public', 'home'}
-    device_types = {'desktop', 'laptop', 'phone'}
+    employee_types = ['executives', 'desk', 'road'] # 'desk' == 'white-collar', 'road' == 'blue-collar'
+    location_types = ['office', 'public', 'home']
+    device_types = ['desktop', 'laptop', 'phone']
 
     employees_count = 2 * pow(10, 5)
     max_incident_cost = employees_count * pow(10, 3)
@@ -28,18 +28,20 @@ class company:
     def get_user_distribution(self):
         return self.distribution
 
-    def get_location_distribution(self):
-        return self.employees2locations.dot(self.distribution)
+    def get_location_distribution(self, employee="any"):
+        if employee == "any":
+            return self.employees2locations.dot(self.distribution)
+        else:
+            index = self.employee_types.index(employee)
+            return self.employees2locations[:,index]
 
-    def get_device_distribution(self):
-        return self.employees2devices.dot(self.distribution)
-    """
-    def add_policy(self,policy_name, policy):
-        self.systems[policy_name] = policy
+    def get_device_distribution(self, employee="any"):
+        if employee == "any":
+            return self.employees2devices.dot(self.distribution)
+        else:
+            index = self.employee_types.index(employee)
+            return self.employees2devices[:,index]
 
-    def get_systems(self):
-        return self.systems
-    """
     def set_support(self, support):
         pass
 
@@ -51,3 +53,5 @@ if __name__ == "__main__":
     print str(co.employee_types) + " " + str(co.get_user_distribution())
     print str(co.location_types) + " " + str(co.get_location_distribution())
     print str(co.device_types) + " " + str(co.get_device_distribution())
+    print co.get_location_distribution("executives")
+    print co.get_location_distribution("desk")

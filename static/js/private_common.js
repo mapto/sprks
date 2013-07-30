@@ -28,12 +28,8 @@ function initFrame () {
         }
     });
 
-
     manageScoreButton();
     manageIncidentButton();
-
-    highlightActiveButton();
-
 
     send = function () {
         $("#curr_date").text('to be defined by server');
@@ -41,9 +37,7 @@ function initFrame () {
         var request = $.ajax({
             url: "/forward",
             type: "POST",
-            async: false,
             data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (curr_date) {
                 console.log("success: " + JSON.stringify(curr_date));
@@ -58,12 +52,12 @@ function initFrame () {
         return false;
     }
 
-    startTimer = function(interval) {
+    startTimer = function (interval) {
         console.log("timer started");
         //window.open("/incident","_self")
-        if(window.timer1!=null) pauseInterval();
-        window.timer1 = setInterval(function(){
-
+        if (window.timer1 != null) pauseInterval();
+        window.timer1 = setInterval(function () {
+            //window.date = $('#time').text();
             var tmp = new Date(window.date);
             var addHours = 24;
             var addDays = 1;
@@ -72,11 +66,18 @@ function initFrame () {
             tmp.setHours(tmp.getHours()+addHours);
 
             var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();
-            $('#time').text(new_date);
+
+            var day_to_display = tmp.getDate(); if(day_to_display<10){day_to_display = '0'+day_to_display;}
+            var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
+            var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
+
+            $('#time').text(time_visualiser(date_to_display, true));
             window.date = new_date;
+            manageScoreButton();
             check_events();
             if(window.date==window.nextSyncStr) {
-                alert("Changes submitted");
+                manage_toast_alert("Changes submitted");
+                $('#pause').click();
                 window.first_date = new Date(window.date);
                 window.nextSync = window.first_date;
                 window.nextSync.setMonth(window.nextSync.getMonth()+2);
@@ -84,6 +85,9 @@ function initFrame () {
                 window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
                 submit_change();
             }
+            //script for interactive characters
+            UpdateCharacters(time_parser($("#time").text())); //specified in characters.js
+
             },interval);
         return false;
     }
@@ -91,6 +95,8 @@ function initFrame () {
     pauseInterval = function() {
         clearInterval(window.timer1);
     }
+
+
     //function for sending request on play btn press
    // $('#play').click(send);
 
@@ -133,15 +139,23 @@ function initFrame () {
 // Decides whether to show score button
 // If different elements of the interface need to show up in later turns,
 // this could be done here
+
+
 function manageScoreButton() {
-    if (false) { // originally tests for isFirstTurn() TODO
-        console.log('$content.date equal to start date. Don\'t show score.');
-        $(".score").css("display", "none");
-    } else {
-        console.log('$content.date not equal to start date. Show score.');
-        $(".score").css("display", "block");
+    if(time_parser($('#time').text())){
+        var cur_date_greater = (new Date(time_parser($('#time').text())) - new Date('2014-2-1'));
+        if(cur_date_greater<0){
+                console.log('less than 1 month passed. Score is not yet calculated, hide button');
+                $(".score_page").css("display", "none");
+        } else {
+                console.log('>=1 month passed. Score is calculated, show button.');
+                $(".score_page").css("display", "block");
+        }
     }
 }
+
+
+
 
 function manageIncidentButton() {
 /*
@@ -152,32 +166,45 @@ function manageIncidentButton() {
 }
 
 // highlight active button(scores/story/policy)
+
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
-    switch (document.title) {
-        case "Scores":
-            css_class = "score";
+    switch (title) {
+        case "score":
+            if($(".score_page").css("display")=== "block"){ css_class = "score";}
             break;
-        case "Introduction":
-            css_class = "story";
+        case "intro":
+            css_class = "intro";
             break;
-        case "Profile":
+        case "profile":
             css_class = "profile";
             break;
-        case "Incident":
+        case "incident":
             css_class = "incident";
             break;
-        case "Policy":
+        case "policy":
             css_class = "policy";
             break;
         default:
             css_class = "";
     }
 
-    $("." + css_class + "_page" + " a").css("background-color", "#C10000");
-    $("." + css_class + "_page" + " a").css("color", "#fff");
-    $("." + css_class + "_page" + " a").css("cursor", "default");
+    deactivateButtons();
+
+    $("." + css_class + "_page").css("background-color", "#C10000");
+    $("." + css_class + "_page").css("color", "#fff");
+    $("." + css_class + "_page").css("cursor", "default");
+
+
+}
+
+function deactivateButtons(){
+    $('.intro_page').removeAttr('style');
+    if($(".score_page").css("display")=== "block"){$('.score_page').removeAttr('style');}
+    $('.profile_page').removeAttr('style');
+    $('.incident_page').removeAttr('style');
+    $('.policy_page').removeAttr('style');
 }
 
 
@@ -227,9 +254,10 @@ $('.target').bind("change", function(){
        if (!policies_array.policyDelta){        //initialize dictionary if doesn't exist
            policies_array.policyDelta={};
        }
-       if(attribute=='biometric_policy' || attribute=='passfaces_policy'){
-           policies_array.policyDelta[attribute.replace('_policy','')] = {};
-           policies_array.policyDelta[attribute.replace('_policy','')][attribute.substring(0,1)+'data'] = $(this).val();
+       //console.log($('#'+attribute).parent().attr('id'));      //can be biometric_policy or passsfaces_policy or password_policy
+       if($('#'+attribute).parent().attr('id')=='biometric_policy' || $('#'+attribute).parent().attr('id')=='passfaces_policy'){
+           policies_array.policyDelta[$('#'+attribute).parent().attr('id').replace('_policy','')] = {};
+           policies_array.policyDelta[$('#'+attribute).parent().attr('id').replace('_policy','')][$('#'+attribute).parent().attr('id').substring(0,1)+'data'] = $(this).val();
        }else{
            if(!policies_array.policyDelta.pwpolicy){
            policies_array.policyDelta.pwpolicy={};
@@ -256,15 +284,15 @@ function null_unused_policy(policy){
      policies_array.policyDelta[policy]={};
 }
 //write policyUpdate array on apply btn press
-$("#apply").click(function(){
-    if(!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
+$("#apply").click(function () {
+    if (!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
         || $.isEmptyObject(policies_array.employee)
         || $.isEmptyObject(policies_array.location)
-        || $.isEmptyObject(policies_array.device)){
-        alert('Failed to apply policy. You have to check at least one of the employees, locations and devices');
-    }else if(!policies_array.policyDelta){
-        alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms');
-    }else{
+        || $.isEmptyObject(policies_array.device)) {
+        manage_toast_alert('Failed to apply policy. You have to check at least one of the employees, locations and devices',3000);
+    } else if (!policies_array.policyDelta) {
+        manage_toast_alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms',3000);
+    } else {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
         policies_array = {};
@@ -273,7 +301,6 @@ $("#apply").click(function(){
         $("#authentication2").remove();
         hide_policies();
         console.log(policyUpdate);
-        alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue')
+        manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',5000);
     }
 });
-

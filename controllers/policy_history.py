@@ -9,6 +9,7 @@ from localsys.storage import path
 from models.policies import policies_model
 from localsys.environment import context
 
+from localsys.storage import db
 
 class history:
     def GET(self):
@@ -20,6 +21,44 @@ class history:
 
 class history_rest:
     def GET(self):
+        #get policy history (used in table display on a Profile page)
         policy_history = policies_model.get_policy_history(context.user_id())
-        if policy_history:
-            return json.dumps(policy_history)
+
+        #get risks, costs for all months played by a user (used in graphs display on a Profile page)
+        userid = context.user_id()
+        scores = db.select('scores', where='userid=$userid', order="date ASC", vars=locals())
+        scores_result = []
+        for row in scores:
+            tmp = {}
+            for key, value in row.iteritems():
+                tmp[key] = str(value)
+            scores_result.append(tmp)
+        history = json.dumps(
+            {
+            'policy_history': json.dumps(policy_history),
+            'graph_data': json.dumps(scores_result)
+            }
+        )
+
+        if history:
+            return history
+
+class score_frame:
+    """
+    Provides data for a risk and cost scores in the bottom left corner
+    (different from the score page as the latter takes only best values)
+    Is similar to graph_data for the profile page
+    """
+    def GET(self):
+        #get the latest risk and cost
+        userid = context.user_id()
+        scores = db.select('scores', where='userid=$userid', order="date DESC", limit=2, vars=locals())
+        scores_result = []
+        for row in scores:
+            tmp = {}
+            for key, value in row.iteritems():
+                tmp[key] = str(value)
+            scores_result.append(tmp)
+
+        if scores_result:
+            return json.dumps(scores_result)

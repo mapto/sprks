@@ -10,7 +10,19 @@ class incident:
     singleton = None
 
     @classmethod
-    def read_files(self):
+    def get_most_probable(cls, incidents):
+        """ Compares all incidents in the list and returns the most probable one.
+            Please make sure to have objects, not only ids when making the call
+            :param incidents: a list of incident objects
+        """
+        max = incidents[0]
+        for next in incidents:
+            if max['risk'] < next['risk']:
+                max = next
+        return max
+
+    @classmethod
+    def read_files(cls):
         for ref in glob.glob('static/incidents/*.json'):
             f = open(ref)
             data = json.load(f)
@@ -28,23 +40,40 @@ class incident:
     def get_incident(cls, ident='1', typ='any'): # if type not specified, search
         """
         Factory method (http://en.wikipedia.org/wiki/Factory_method_pattern) for incidents
-        :ident: The incident id. This must be present in the static/incidents files
-        :typ: if you know the risk that this incident is associated, specify it here. Otherwise it will search all of them
+        Used by both sim and incident controller. type(ident) may be either 'int', 'unicode', or 'string'.
+        If type not specified, search all.
+
+        :param ident: The incident id. This must be present in the static/incidents files
+        :param typ: if risk that this incident is associated is known, specify it. Otherwise it will search all of them
         """
+
         if not incident.incidents:
             incident.read_files()
 
         if typ == "any": # search and return the first one found
             for risk in incident.incidents.keys():
-                if ident in incident.incidents[risk]:
+
+                try:
+                    print incident.incidents[risk][int(ident)]
+                    print 'returning'
+                    return incident.incidents[risk][int(ident)]
+                except KeyError:
+                    print incident.incidents[risk]
+                    print 'fail, ident=' + str(ident)
+                except ValueError:
+                    return 'Identifier should be a number'
+                # if ident in incident.incidents[risk]:
+
                     # print "found: " + "[" + str(id) + "] in class " + risk + " ->" + str(incident.incidents[risk][id]['name']) +  " " + str(incident.incidents[risk][id]['risk'])
 
-                    return incident.incidents[risk][ident]
+                print 'Not found'
+
         else:
             return incident.incidents[typ][ident]
 
+    #OBSOLETE
     @classmethod
-    def get_incident_by_name(self, name='infrequent_use'): # if type not specified, search
+    def get_incident_by_name(self, name='default'): # if type not specified, search
         ref = 'static/incidents/' + name + '.json'
         f = open(ref)
         data = json.load(f)
@@ -53,7 +82,10 @@ class incident:
         ident = data["id"]
         typ = data["type"]
 
-        return incident.incidents[typ][ident]
+        if not incident.incidents:
+            incident.read_files()
+
+        return incident.incidents[str(typ)][ident]
 
     # the following list of getters and setters might be incomplete
     def get_description(self):

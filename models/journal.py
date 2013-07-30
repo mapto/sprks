@@ -6,67 +6,6 @@ import datetime
 
 class records:
 
-    default_calendar = {
-  'date': 'YYYY-MM-DD',
-  'policyAccept': True,
-  'eventAccept': True,
-  'calendar': [
-    {
-      'date': '2014-01-20',
-      'events': [
-        {
-        'incdt_id': 5,
-        'cost': 2000
-        }
-      ]
-    },
-    {
-      'date': '2014-01-21',
-      'events': []
-    },
-    {
-      'date': '2014-02-05',
-       'events': [
-        {
-          'incdt_id': 1,
-          'cost': 7000000
-        },
-        {
-          'incdt_id': 4,
-          'cost': 5000
-        }
-      ]
-    },
-    {
-      'date': '2014-02-07',
-      'events': [
-        {
-          'incdt_id': 8,
-          'cost': 1000
-        }
-      ]
-    }
-  ],
-  'policy': [
-    {
-      'employee': ['executives', 'road'],
-      'location': ['office', 'home'],
-      'device': ['phone', 'desktop'],
-      'plen': 8,
-      'psets': 2,
-      'pdict': 0,
-      'phist': 1,
-      'prenew': 1,
-      'pattempts': 0,
-      'precovery': 1
-    },
-    {
-      'employee': 'executives',
-      'location': 'home',
-      'device': 'phone',
-    }]
-  }
-
     def __init__(self, user_id):
         self.user_id = user_id
 
@@ -74,7 +13,7 @@ class records:
         """
         Sets all events before the specified date to be committed.
         """
-        result = db.update('journal', committed=1, where="date<$date&&user_id=$self.user_id", vars=locals())
+        result = db.update('journal', committed=1, where="date<=$date&&user_id=$self.user_id", vars=locals())
         return result
 
     def clear_prophecy(self, date):
@@ -91,13 +30,24 @@ class records:
         last_policy_sync = db.query('SELECT date FROM policies WHERE user_id=$self.user_id '
                                     'ORDER BY date DESC LIMIT 1', vars=locals())
 
-        last_event_sync = db.query('SELECT date FROM journal WHERE user_id=$self.user_id AND committed=true '
+        last_event_sync = db.query('SELECT date FROM journal WHERE user_id=$self.user_id AND committed=1 '
                                    'ORDER BY date DESC LIMIT 1', vars=locals())
 
-        if len(last_event_sync) > 0 and last_event_sync[0].date > last_policy_sync[0].date:
-            return last_event_sync[0].date
+        # Query responses are iterators. As a result every time last_policy_sync[0] is called, it pops that item.
+        # Next time last_policy_sync[0] is called, the response is different. Using local variables to work around this.
+        policy_date = last_policy_sync[0].date
 
-        return last_policy_sync[0].date
+
+        #CANT COMPARE DATETIME AND DATE!!!
+        if len(last_event_sync) > 0:
+            event_date = last_event_sync[0].date
+            if event_date > policy_date:
+                return event_date
+
+        return policy_date
+
+    def get_last_sync(self):
+        return self.__last_sync()
 
     def __next_sync(self, last_sync_date):
         """
@@ -109,6 +59,9 @@ class records:
 
         next_due_event_date = self.__next_due_event_date()
 
+        """
+        Cant compare datetime.datetime and datetime.date!!!
+        """
         if next_due_event_date is not None and next_due_event_date <= next_due_policy_date:
             return next_due_event_date, True
 
@@ -150,7 +103,8 @@ class records:
             ...
         ]
         """
-        for event in prophecy.iteritems():
+        #for event in prophecy.iteritems():
+        for event in prophecy:
             event['user_id'] = self.user_id
             event['committed'] = 0
 
@@ -178,7 +132,7 @@ class records:
                     'date': event.date.isoformat(),
                     'events': []
                 }
-            calendar[event.date].events.append({
+            calendar[event.date]['events'].append({
                 'incdt_id': event.incident_id,
                 'cost': event.cost
             })
@@ -187,7 +141,8 @@ class records:
         # Converts calendar dictionary into array
         for date, agenda in sorted(calendar.iteritems()):
             calendar_array.append(agenda)
-
+        print "calendar"
+        print calendar_array
         return calendar_array
 
     def validate_sync_date(self, client_date):
@@ -197,11 +152,19 @@ class records:
         recalculation should be performed.
         """
         last_sync_date = self.__last_sync()
+
+        print 'last sync date' + last_sync_date.isoformat()
+        print 'client date' + client_date.isoformat()
         if client_date <= last_sync_date:
             # Client behind the last sync date.
+            print 'client date <= last sync date'
             return last_sync_date, False
 
+
         next_sync_date, event_accept = self.__next_sync(last_sync_date)
+
+        print 'next sync date' + next_sync_date.isoformat()
+
         if client_date >= next_sync_date:
             # Client is ahead of the next predicted sync date.
             corrected_sync_date = next_sync_date
@@ -210,3 +173,13 @@ class records:
             corrected_sync_date = client_date
 
         return corrected_sync_date, event_accept
+
+    def recent_events(self, sync_date, weeks=5):
+        """
+        Returns dictionary of recent events for current user, going backwords from specified sync_date.
+        Default timespan is 5 weeks.
+        """
+        # TODO currently just a stub
+        cutoff_date = sync_date - timedelta(days=weeks*7)
+        # perform query selecting only `date` and `incident_id`
+        return {}

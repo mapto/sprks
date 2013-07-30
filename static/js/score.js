@@ -10,7 +10,11 @@ function initScore(){
     send_request(); //request scores, write them to score_obj global variable
     console.log(score_obj);
     //create accordion score representation
-    new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
+    //new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
+    $('#accordion').accordion({
+        heightStyle: "content",
+        icons: null
+    });
     climbLadder("risk");
     climbLadder("cost");
     $("#avg_risk").text(score_obj.avg_risk);
@@ -63,9 +67,9 @@ function putOnLadder(ladder, step, name) {
     // score contains "value", "rank" and "when"
     // ladder is "risk" or "cost"
     score = getScore(name, ladder);
-    $("#" + ladder + "_s" + step).text(name + ', ' + score["value"]);
+    $("#" + ladder + "_s" + step).text(name + ', ' + score["value"] + ', ' + score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
-    $("#" + ladder + "_w" + step).text(score["when"]);
+    $("#" + ladder + "_w" + step).text(time_visualiser(score["when"], true));
 
 }
 
@@ -92,28 +96,28 @@ function getScore(user, type) {
 
 // These values are set server-side and appear to client as json.
     function getOwnRisk() {
-        return {"value": score_obj.b_u_risk, "rank": score_obj.b_u_risk_rank, "when": score_obj.b_u_risk_date};
+        return {"value": score_obj.b_u_risk, "rank": score_obj.b_u_risk_rank, "when": score_obj.b_u_risk_date, "value_2": score_obj.b_u_risk_cost};
     }
     function getOwnCost() {
-        return {"value": score_obj.b_u_cost, "rank": score_obj.b_u_cost_rank, "when": score_obj.b_u_cost_date};
+        return {"value": score_obj.b_u_cost, "rank": score_obj.b_u_cost_rank, "when": score_obj.b_u_cost_date, "value_2": score_obj.b_u_cost_risk};
     }
     function getContenderRisk() {
-        return {"value": score_obj.c_risk, "rank": score_obj.c_risk_rank, "when": score_obj.c_risk_when};
+        return {"value": score_obj.c_risk, "rank": score_obj.c_risk_rank, "when": score_obj.c_risk_when, "value_2": score_obj.c_risk_cost};
     }
     function getContenderCost() {
-        return {"value": score_obj.c_pc, "rank": score_obj.c_pc_rank, "when": score_obj.c_pc_when};
+        return {"value": score_obj.c_pc, "rank": score_obj.c_pc_rank, "when": score_obj.c_pc_when, "value_2": score_obj.c_pc_risk};
     }
     function getBestRisk() {
-        return {"value": score_obj.b_risk, "rank": 1, "when": score_obj.b_risk_when};
+        return {"value": score_obj.b_risk, "rank": 1, "when": score_obj.b_risk_when, "value_2": score_obj.b_risk_cost};
     }
     function getBestCost() {
-        return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when};
+        return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when, "value_2":score_obj.b_pc_risk};
     }
     function getAverageRisk() {
-        return {"value": score_obj.avg_risk, "rank": "", "when": ""};
+        return {"value": score_obj.avg_risk, "rank": "", "when": "", "value_2": ""};
     }
     function getAverageCost() {
-        return {"value": score_obj.avg_pc, "rank": "", "when": ""};
+        return {"value": score_obj.avg_pc, "rank": "", "when": "", "value_2": ""};
     }
 
 
@@ -129,20 +133,22 @@ function getScore(user, type) {
 //congratulations popup (if a user is first
 function congratulate_first(){
     var text = '';
-    if( getOwnRisk().value == getBestRisk().value || getOwnCost().value == getBestCost().value){
+    if( getOwnRisk().value === getBestRisk().value || getOwnCost().value === getBestCost().value){
        text = 'Congratulations, you got the best';
-     if( getOwnRisk().value == getBestRisk().value){
+     if( getOwnRisk().value === getBestRisk().value){
        text = text+ ' Risk';
      }
-     if (getOwnCost().value == getBestCost().value){
-       if(getOwnRisk().value == getBestRisk().value){text = text+' and';}
+     if (getOwnCost().value === getBestCost().value){
+       if(getOwnRisk().value === getBestRisk().value){text = text+' and';}
        text = text+ ' Cost';
      }
+
+     $("#congratulate").text(text);
+     $("#congratulate").show();
+     $('#congratulate').delay(2500).fadeOut();
     }
 
-    $("#congratulate").text(text);
-    $("#congratulate").show();
-    $('#congratulate').delay(2500).fadeOut();
+
 }
 
 

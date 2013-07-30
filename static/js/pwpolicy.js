@@ -9,64 +9,12 @@
 var pwpolicy;
 
 function initPolicy() {
+    console.log('initPolicy called');
 
+    console.log('starting to initialize sync date ')
 
-    submit_change();// request policy from server and write to pwpolicy var
-
-
-
-    test_calendar = {
-  'date': '2014-01-14' ,
-        'policyAccept':'true',
-        'interventionAccept':'true',
-  'calendar': [
-    {
-      'date': '2014/1/20',
-      'events': [
-        {
-        'incdt_id': 5,
-        'cost': 2000
-        }
-      ]
-    },
-    {
-      'date': '2014/1/21',
-      'events': []
-    },
-    {
-      'date': '2014/2/5',
-       'events': [
-        {
-          'incdt_id': 1,
-          'cost': 7000000
-        },
-        {
-          'incdt_id': 4,
-          'cost': 5000
-        }
-      ]
-    },
-    {
-      'date': '2014/2/7',
-      'events': [
-        {
-          'incdt_id': 8,
-          'cost': 1000
-        }
-      ]
-    }
-  ]
-}
-
-
-    window.calendar = test_calendar;
-    window.date = $('#time').text();
-    window.first_date = new Date(window.date);
-    window.nextSync = window.first_date;
-    window.nextSync.setMonth(window.nextSync.getMonth()+2);
-    window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
-    window.id_elem = 'plen';
+    console.log(window.date);
+    console.log(window.nextSyncStr);
     //submit_change();
    // $('.target').change(submit_change);
     //$('.target').change(submit_change_mul); //graphs are loaded if anything is changed
@@ -94,6 +42,20 @@ function initPolicy() {
 
     //summarize_policy(pwpolicy); //update policy summary for user
 
+    // defined in graphs.js
+    // TODO should not handle the system event, because it is being used in automatic calls as well.
+    // $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
+    //submit_change_mul();
+
+}
+
+function setSyncDate() {
+    window.first_date = new Date(window.date);
+    window.nextSync = window.first_date;
+    window.nextSync.setMonth(window.nextSync.getMonth()+1);
+    window.nextSync.setDate(1);
+    window.nextSyncStr = window.nextSync.getFullYear()+'-'+(window.nextSync.getMonth()+1)+'-'+window.nextSync.getDate();
+    window.id_elem = 'plen';
 }
 
 /****************UNCOMMENT if policy is initialised in a separate request
@@ -125,7 +87,7 @@ function getInitPolicy(){
 /* deprecated methos for getting initial policy
 function getInitPolicy(){
     var request = jQuery.ajax({
-        url: "/pwpolicy_rest", //function specified in incident.html
+        url: "/pwpolicy_rest",
         type: "GET",
         async:false,
         success : function(data) {
@@ -204,20 +166,47 @@ function calculate_cost_from_calendar() {
 }
 
 function check_events() {
-    var tmp_events_calendar = window.calendar.calendar;
+    var tmp_events_calendar = window.calendar;
     $(tmp_events_calendar).each(function(i) {
-        if(tmp_events_calendar[i].date == window.date)
+        var conv_date = new Date(tmp_events_calendar[i].date);
+        var str_date = conv_date.getFullYear()+'-'+(conv_date.getMonth()+1)+'-'+conv_date.getDate();
+        if(str_date == window.date)
         {
+            $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function(j){
-                alert("Event #"+tmp_event[j].incdt_id+" happend!");
+                //alert("Event #"+tmp_event[j].incdt_id+" happend!");
+                display_event(tmp_event[j].incdt_id, tmp_event[j].cost);
+                submit_event(str_date);
             })
+                $('.incident_page').click();
 
         }
 
     })
 
 }
+
+function submit_event(date){
+        msg = {};
+        msg['date'] = date;
+        var request = $.ajax({
+        url: "/api/chronos/event",
+        type: "POST",
+        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
+        // E.g. what happens if the user changes screens too often
+        async: true,
+        data: JSON.stringify(msg),
+        contentType: "application/json; charset=utf-8",
+        dataType: "text",
+        success: function (response) {
+            //
+        },
+        error: function (response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    }
 
 function get_factors(policy) {
     var factors = [];
@@ -240,30 +229,37 @@ function update_password_form(policy) {
     var plen = policy["plen"];
     console.log("found plen " + plen);
     $("#len" + plen).prop("checked", true);
+    $("#len" + plen).change();
 
     // TODO: implement (copy from other place) other pwpolicy items
     /*preset pswd sets value*/
     console.log("found sets " + policy["psets"]);
     $("#sets" + policy["psets"]).prop('checked', true);
+    $("#sets" + policy["psets"]).change();
 
     /*preset pswd dictionary value*/
     console.log("found " + (policy["pdict"] ? "use" : "no") + " dict");
     $("#dic").prop('checked', policy["pdict"] == 1);
+    $("#dic").change();
 
     console.log("found phist difficulty " + policy["phist"]);
     $("#hist" + policy["phist"]).prop('checked', true);
+    $("#hist" + policy["phist"]).change();
 
     console.log("found renew " + policy["prenew"]);
     $("#renew" + policy["prenew"]).prop('checked', true);
+    $("#renew" + policy["prenew"]).change();
 
     /*preset pswd attempts number check (yes/no)*/
     /* 0 - unlimited, 1 - limit of 10 attempts, 2 - limit of 3 attempts */
     console.log("found attempts " + policy["pattempts"]);
     $("#attempts" + policy["pattempts"]).prop('checked', true);
+    $("#attempts" + policy["pattempts"]).change();
 
     /*preset pswd recovery option*/
     console.log("found precovery " + policy["precovery"]);
     $("#recovery" + policy["precovery"]).prop('checked', true);
+    $("#recovery" + policy["precovery"]).change();
 }
 
 function update_biometric_form(policy) {
@@ -304,42 +300,47 @@ function display_contextualized_policy(contextualized) {
 
         // dynamically compose name of function and call it
         var fname = "update_" + factors[i] + "_form";  // compose function name
+        console.log(fname);
         window[fname](contextualized); // call function fname with parameter contextualized
     }
 
 }
 
 function update_policy(policy) {
-    console.log('erase policyUpdate array to rewrite it');
     policyUpdate = [];
+    statusReady();
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
-    $('#time').text(policy['date']);
-    console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
+    $('#time').text(time_visualiser(policy['date'], true));
+    window.date = time_parser($('#time').text());
+    window.calendar = policy['calendar'];
+
+    manageScoreButton();
+    get_score_frame();
+
+    setSyncDate();
+    //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
-    display_contextualized_policy(policy['policy'][0]);
+    //display_contextualized_policy(policy['policy'][0]);
 }
 
 function submit_change() { // need different event handling, to capture any change
-    var msg = {};
-
+    var msg = {
+        date: time_parser($('#time').text()),
+        policyUpdate: []
+    };
     if(policyUpdate.length>0){
-    var strDate = $('#time').text();
-        msg.date = strDate;
         msg.policyUpdate = policyUpdate;
-        msg.newCosts = calculate_cost_from_calendar();
-        msg.silentMode = false;
+        //msg.newCosts = calculate_cost_from_calendar();
     }
     msg.initPolicy = true;
     console.log(msg);
+    statusUpdating();
     var request = $.ajax({
-        url: "/api/chronos/sync",
+        url: "/api/chronos/update",
         type: "POST",
-        async: false,
         data: JSON.stringify(msg),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
         success: update_policy,
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -347,6 +348,96 @@ function submit_change() { // need different event handling, to capture any chan
     });
     return false;
 }
+
+function resume() {
+    statusUpdating();
+    var request = $.ajax({
+        url: "/api/chronos/resume",
+        type: "GET",
+        success: function(policy) {
+            policyUpdate = [];
+            statusReady();
+            console.log('response from server:' + policy);
+            $('#pause').click();
+            $('#time').text(time_visualiser(policy['date'], true));
+            manageScoreButton();
+            window.date = time_parser($('#time').text());
+            window.calendar = policy['calendar'];
+            setSyncDate();
+            display_contextualized_policy(policy['policy'][0]);
+        },
+        error: function (response) {
+            console.log("fail: " + response.responseText);
+        }
+    });
+    return false;
+}
+
+/*
+function submit_change_mul(){
+    var msgs = [];
+    var new_policy = {};
+    var msg = {};
+    var risk = [];
+    var cost = [];
+    var ids = [];
+
+    msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
+
+    new_policy.plen=$('input[name="plen"]:checked').val();
+    new_policy.psets=$('input[name="psets"]:checked').val();
+    if($('input[name="pdict"]:checked').val()==null)
+    {
+        new_policy.pdict = 0;
+    }
+    else
+    {
+        new_policy.pdict = 1;
+    }
+    if($('input[name="precovery"]:checked').val()==null)
+    {
+        new_policy.precovery = 0;
+    }
+    else
+    {
+        new_policy.precovery = 1;
+    }
+    //new_policy.pdict=$('input[name="pdict"]:checked').val();
+    new_policy.phist=$('input[name="phist"]:checked').val();
+    new_policy.prenew=$('input[name="prenew"]:checked').val();
+    new_policy.pattempts=$('input[name="pattempts"]:checked').val();
+    //new_policy.precovery=$('input[name="precovery"]:checked').val();
+    msg.data=JSON.stringify(new_policy);
+
+    msgs.push(msg);
+
+    $(".qn").each(function(i) { //iteration accross questions
+        var id_tmp =  $(this).attr('id');
+
+        //msgs = msgs.concat(get_range(new_policy, id_tmp));
+    });
+//    msgs = msgs.concat(get_range(new_policy, msg.id));
+    // console.log(msgs.concat(get_range(new_policy, "plen")));
+    var request = $.ajax({
+        url: "/score/multiple",
+        type: "POST",
+        async : false,
+        data : JSON.stringify(msgs),
+        contentType : "application/json; charset=utf-8",
+        dataType : "json",
+        success : function(policy_costs_risks) {
+            initialize_graphs(policy_costs_risks);
+        },
+        error: function(response) {
+            console.log("fail: " + response.responseText);
+        }
+        });
+    return false;
+
+}
+*/
+
+
 
 /*
 function submit_change() { // old version, which submits all the values even not changed ones
@@ -393,60 +484,6 @@ function submit_change() { // old version, which submits all the values even not
     return false;
 } //old version
 */
-
-/*function submit_change_mul() {
-    var msgs = [];
-    var new_policy = {};
-    var msg = {};
-    var risk = [];
-    var cost = [];
-    var ids = [];
-
-    msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
-
-    new_policy.plen=$('input[name="plen"]:checked').val();
-    new_policy.psets=$('input[name="psets"]:checked').val();
-    if($('input[name="pdict"]:checked').val()==null)
-    {
-        new_policy.pdict = 0;
-    }
-    else
-    {
-        new_policy.pdict = 1;
-    }
-    //new_policy.pdict=$('input[name="pdict"]:checked').val();
-    new_policy.precovery=$('input[name="precovery"]:checked').val();
-    new_policy.phist=$('input[name="phist"]:checked').val();
-    new_policy.prenew=$('input[name="prenew"]:checked').val();
-    new_policy.pattempts=$('input[name="pattempts"]:checked').val();
-    msg.data=JSON.stringify(new_policy);
-
-    msgs.push(msg);
-
-    $(".qn").each(function(i) { //iteration accross questions
-        var id_tmp =  $(this).attr('id');
-
-        msgs = msgs.concat(get_range(new_policy, id_tmp));
-    });
-//    msgs = msgs.concat(get_range(new_policy, msg.id));
-    // console.log(msgs.concat(get_range(new_policy, "plen")));
-    var request = $.ajax({
-        url: "/score/multiple",
-        type: "POST",
-        async : false,
-        data : JSON.stringify(msgs),
-        contentType : "application/json; charset=utf-8",
-        dataType : "json",
-        success : function(policy_costs_risks) {
-            visualize(policy_costs_risks);
-        },
-        error: function (response) {
-            console.log("fail: " + response.responseText);
-        }
-    });
-    return false;
-
-}
 
 send = function() { // need different event handling, to capture any change
 
@@ -506,7 +543,7 @@ function get_range(policy, id) {
 
     });
     return msgs;
-}*/
+}
 
 function visualize(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
 //    console.log(policy_costs_risks);
@@ -588,7 +625,12 @@ $('#aut_num').change(function(){
 
     for (var i = 0; i < this.value; i++) {  // use i+1, because indices in form start from 1
         var s = $("<select class=\"target\" id=\"authentication" + (i+1) + "\" name=\"authentication" + (i+1) + "\" />");
-        for(var val in options) {
+
+        // Was previously for(var val in options)
+        // It returned further values beyond the array items.
+        // Probably these are the default attributes of a (dynamically created) object
+        for(var val = 0; val < options.length; val++) {
+            console.log(val);
             if (val == 0) {
                 $("<option value=\"\" disabled selected>" + options[val] + "</option>").appendTo(s);
             } else {
@@ -603,7 +645,7 @@ $('#aut_num').change(function(){
 $(".aut").change(function(){
     if($('#aut_num').val()==2 && ($('#authentication1').val()==$('#authentication2').val())){ //ensure distinct selected options
         hide_policies();
-        alert('Please, select two distinct options or change the number of mechanisms');
+        manage_toast_alert('Please, select two distinct options or change the number of mechanisms');
     }else{
         display_policies();
     }
@@ -620,3 +662,18 @@ function hide_policies(){ //hide all policies
         $(this).css("display","none");
     })
 }
+
+
+$(function(){
+    $('#employee').buttonset();
+    $('#location').buttonset();
+    $('#device').buttonset();
+
+    $('#plen').buttonset();
+    $('#psets').buttonset();
+    $('#pdict').buttonset();
+    $('#phist').buttonset();
+    $('#prenew').buttonset();
+    $('#pattempts').buttonset();
+    $('#precovery').buttonset();
+})

@@ -133,7 +133,6 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `score_type` int(11) NOT NULL,
   `score_value` decimal(5,2) NOT NULL,
   `date` date NOT NULL,
-  `rank` int(11) NOT NULL,
   PRIMARY KEY (`idscores`),
   KEY `userid_idx` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -190,3 +189,27 @@ ALTER TABLE `scores`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- Table structure for table `risks`
+-- Is it better to have dedicated id and make the current key secondary?
+--
+
+CREATE TABLE IF NOT EXISTS `risks` (
+  `risk_type` varchar(11) NOT NULL,
+  `employee` varchar(11) NOT NULL,
+  `location` varchar(11) NOT NULL,
+  `device` varchar(11) NOT NULL,
+  `bdata` int(11) NOT NULL,
+  `pdata` int(11) NOT NULL,
+  `plen` int(11) NOT NULL,
+  `psets` int(11) NOT NULL,
+  `pdict` int(11) NOT NULL,
+  `phist` int(11) NOT NULL,
+  `prenew` int(11) NOT NULL,
+  `pattempts` int(11) NOT NULL,
+  `precovery` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `risk_prob` double NOT NULL,
+  PRIMARY KEY (`risk_type`, `employee`, `location`, `device`, `bdata`, `pdata`, `plen`, `psets`, `pdict`, `phist`, `prenew`, `pattempts`, `precovery`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

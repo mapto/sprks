@@ -1,3 +1,7 @@
+"""
+OBSOLETE
+"""
+
 import json
 import web
 import localsys
@@ -9,13 +13,14 @@ from models.pw_policy import pw_policy_model
 from models.score import score_model
 from localsys.environment import render
 
-
 class pwpolicy:
     def GET(self):
         if context.user_id() == 0:
             raise web.seeother(path + '/home')
         return render.pwpolicy_form()
 
+    # OBSOLETE
+    # This seems to make simulation calls that are long outdated
     def POST(self):
         web.header('Content-Type', 'application/json')
         sim = simulation()
