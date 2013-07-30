@@ -44,8 +44,8 @@ class score_frame:
         #get the latest risk and cost
 
         web.header('Content-Type', 'application/json')
-
-        scores = db.select('scores', where='userid=$context.user_id()', order="date DESC", limit=2, vars=locals())
+        userid = context.user_id()
+        scores = db.select('scores', where='userid=$userid', order="date DESC", limit=2, vars=locals())
         scores_result = []
         for row in scores:
             tmp = {}
