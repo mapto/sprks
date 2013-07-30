@@ -30,6 +30,11 @@
         d.style.left = (l_pos)+'%';
         d.style.right = (r_pos)+'%';
         d.style.bottom = (b_pos)+'%';
+
+        if($('#'+div_id).attr('id').substr(0,5)==='quote'){
+            var t_pos = 100-b_pos-20;
+            d.style.top = (t_pos)+'%';
+        }
     }
 
     function place_at(div_id, place){

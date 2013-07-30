@@ -145,10 +145,10 @@ function manageScoreButton() {
     if(time_parser($('#time').text())){
         var cur_date_greater = (new Date(time_parser($('#time').text())) - new Date('2014-2-1'));
         if(cur_date_greater<0){
-                console.log('less than 1 month passed. Score is not yet calculated, hide button');
+                //console.log('less than 1 month passed. Score is not yet calculated, hide button');
                 $(".score_page").css("display", "none");
         } else {
-                console.log('>=1 month passed. Score is calculated, show button.');
+                //console.log('>=1 month passed. Score is calculated, show button.');
                 $(".score_page").css("display", "block");
         }
     }
