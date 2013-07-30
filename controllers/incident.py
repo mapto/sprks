@@ -11,19 +11,6 @@ from sim.simulation import simulation
 from models.simulation import simulation as sim_model
 
 
-class incident:
-
-    def GET(self):
-
-        if context.user_id() > 0:  # if a user is logged in
-            return render.incident()
-        else:
-            raise web.seeother(path + '/home')
-
-    def POST(self):
-        raise web.seeother(path + '/policy/password')
-
-
 class incident_rest:
 
     def GET(self, a='', id=0):
