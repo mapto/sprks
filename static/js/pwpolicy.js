@@ -264,7 +264,7 @@ function update_policy(policy) {
     window.date = time_parser($('#time').text());
     window.calendar = policy['calendar'];
 
-    manageScoreButton();
+    manageScoreIncidentButtons();
     get_score_frame();
 
     setSyncDate();

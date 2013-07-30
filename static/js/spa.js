@@ -28,8 +28,8 @@ function initFrame () {
         }
     });
 
-    manageScoreButton();
-    manageIncidentButton();
+    manageScoreIncidentButtons();
+
 
     send = function () {
         $("#curr_date").text('to be defined by server');
@@ -42,8 +42,8 @@ function initFrame () {
             success: function (curr_date) {
                 console.log("success: " + JSON.stringify(curr_date));
                 $("#curr_date").text(curr_date[0].value);
-                manageScoreButton();
-                manageIncidentButton();
+                manageScoreIncidentButtons();
+
             },
             error: function (response) {
                 console.log("fail: " + response.responseText);
@@ -99,7 +99,7 @@ function initFrame () {
 // this could be done here
 
 
-function manageScoreButton() {
+function manageScoreIncidentButtons() {
     if(time_parser($('#time').text())){
         var cur_date_greater = (new Date(time_parser($('#time').text())) - new Date('2014-2-1'));
         if(cur_date_greater<0){
@@ -110,21 +110,11 @@ function manageScoreButton() {
                 $(".score_page").css("display", "block");
         }
     }
-}
 
-
-
-
-function manageIncidentButton() {
-/*
-    var value = isFirstTurn() ? "none" : "block";
-    console.log(".incident style is " + value);
-    $(".incident").css("display", value);
-*/
+     $(".incident_page").css("display", "none");
 }
 
 // highlight active button(scores/story/policy)
-
 function highlightActiveButton() {
     styles = {"background-color": "#C10000", "color": "#fff", "cursor": "default" };
 
@@ -139,7 +129,7 @@ function highlightActiveButton() {
             css_class = "profile";
             break;
         case "incident":
-            css_class = "incident";
+            if($(".incident_page").css("display")=== "block"){ css_class = "incident";}
             break;
         case "policy":
             css_class = "policy";
@@ -160,8 +150,8 @@ function highlightActiveButton() {
 function deactivateButtons(){
     $('.intro_page').removeAttr('style');
     if($(".score_page").css("display")=== "block"){$('.score_page').removeAttr('style');}
+    if($(".incident_page").css("display")=== "block"){$('.incident_page').removeAttr('style');}
     $('.profile_page').removeAttr('style');
-    $('.incident_page').removeAttr('style');
     $('.policy_page').removeAttr('style');
 }
 
@@ -305,7 +295,7 @@ $('a').click('click', function () {
             initPolicy();
         }
         if (page === 'incident_page') {
-            initIncident();
+
         }
         if (page === 'profile_page') {
             clearProfile();

@@ -93,7 +93,7 @@ function resume() {
             console.log('response from server:' + policy);
             $('#pause').click();
             $('#time').text(time_visualiser(policy['date'], true));
-            manageScoreButton();
+            manageScoreIncidentButtons();
             window.date = time_parser($('#time').text());
             window.calendar = policy['calendar'];
             setSyncDate();
@@ -128,7 +128,7 @@ startTimer = function (interval) {
 
             $('#time').text(time_visualiser(date_to_display, true));
             window.date = new_date;
-            manageScoreButton();
+            manageScoreIncidentButtons();
             check_events();
             if(window.date==window.nextSyncStr) {
                 manage_toast_alert("Changes submitted");
