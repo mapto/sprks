@@ -38,7 +38,7 @@ class account:
                 }
             )
 
-    def PUT(self, a, username=''):
+    def PUT(self, username=''):
         """
         Stores user details into database.
         And, if needed, populates tables for first-time user
@@ -76,7 +76,7 @@ class account:
             return json.dumps(
                 {
                     'success': True,
-                    'messages': ['User registered']
+                    'messages': ['Successfully registered.']
                 }
             )
         else:
@@ -170,24 +170,16 @@ class password:
                 }
             )
 
-        try:
-            web.config.smtp_server = 'smtp.gmail.com'
-            web.config.smtp_port = 587
-            web.config.smtp_username = 'sprkssuprt@gmail.com'
-            web.config.smtp_password = 'sprks123456789'
-            web.config.smtp_starttls = True
-            web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
-                         'http://' + web.ctx.host + web.ctx.homepath + '/#password_change_page?token=' + token)
-            return json.dumps(
-                {
-                    'success': True,
-                    'messages': ['Password recovery email sent']
-                }
-            )
-        except Exception:
-            return json.dumps(
-                {
-                    'success': False,
-                    'messages': ['Server error']
-                }
-            )
+        web.config.smtp_server = 'smtp.gmail.com'
+        web.config.smtp_port = 587
+        web.config.smtp_username = 'sprkssuprt@gmail.com'
+        web.config.smtp_password = 'sprks123456789'
+        web.config.smtp_starttls = True
+        web.sendmail('sprkssuprt@gmail.com', user_email, 'Password recovery',
+                     'http://' + web.ctx.host + web.ctx.homepath + '/#password_change_page?token=' + token)
+        return json.dumps(
+            {
+                'success': True,
+                'messages': ['Password recovery email sent']
+            }
+        )

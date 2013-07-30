@@ -3,9 +3,11 @@
  * User: Martin
  * Date: 7/30/13
  * Time: 3:07 PM
- * To change this template use File | Settings | File Templates.
+ * Manages the policy summary frame
  */
-function summarize_policy(policy){ //summary of the policy (right corner), called on any policy change
+
+//summary of the policy (right corner), called on any policy change
+function summarize_policy(policy){
     for (var key in policy){
         if(key==='employee'||key==='location'||key==='device'){
             $("#sum-"+key).text(policy[key]);

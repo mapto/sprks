@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css"/>
     <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
+
+    <!-- External JS libraries loaded here. Local scripts loaded at end of file -->
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <script src="static/js/canvasjs-1.2.1/canvasjs.js"></script>
     <script src="static/js/url.min.js"></script>
 
 </head>
@@ -23,7 +26,7 @@
             <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a href="login_spa?action=logout">Logout $username()</a>
+                    <a class="logout_page" href="?action=logout">Logout $username()</a>
                 $else:
                     <a class="login_page">Login</a>
                 <!-- button to show/hide login pane? -->
@@ -35,7 +38,6 @@
 
 $if user_id() > 0:
     <div class="menu">
-        <!-- these paths need to be absolute, because password policy is not in the same (appearance) directory as others -->
         <div><a class="intro_page">Story </a></div>
         <div><a class="policy_page">Policy</a></div>
         <div><a class="profile_page">Profile</a></div>
@@ -76,6 +78,8 @@ $if user_id() > 0:
 <article class="container-fluid">
     <div id="toast">Alerts go here</div>
     <!-- MAP begin-->
+
+    <div id="map">
     <div class="interviewee" id="interviewee1">
         Susie
         <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" />
@@ -112,6 +116,7 @@ $if user_id() > 0:
         to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be
         working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new
         team and that makes work go a little easier.
+    </div>
     </div>
     <!-- MAP end-->
 
@@ -271,7 +276,7 @@ $if user_id() > 0:
             <!--Policy-->
             <h1>Policy</h1>
 
-            <form id="policy_form" name="input" method="post" action="$path/add">
+            <form id="policy_form" name="input" method="post" action="add">
             <!-- service specified in action must use relative path -->
             <!--                <p id="time">2014-1-25</p> -->
             <div class="company" id="employee">
@@ -726,38 +731,36 @@ $if user_id() > 0:
 </article>
 
 <footer>
-    <div class="navbar navbar-fixed-bottom">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <h4 style="margin-left:220px;">
-                    <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
-                    <span data-bind="text: statusbar_status"></span>
-                </h4>
-            </div>
-        </div>
+    <div class="navbar navbar-fixed-bottom navbar-inner" id="statusBar">
+        <h4 style="margin-left:220px;">
+            <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
+            <span data-bind="text: statusbar_status"></span>
+        </h4>
     </div>
 </footer>
 
 
 
 
-<div id="#background_map"><object  data="/static/img/map.svg"></object></div>
-<script src="/static/js/policy_frame.js"></script>
-<script src="$path/static/js/time_visualiser.js"></script>
-<script src="$path/static/js/characters.js"></script>
-<script src="$path/static/js/incident.js"></script>
-<script src="$path/static/js/intro.js"></script>
-<script src="$path/static/js/canvasjs-1.2.1/canvasjs.js"></script>
-<script src="$path/static/js/profile.js"></script>
-<script src="$path/static/js/graphs.js"></script>
-<script src="$path/static/js/pwpolicy.js"></script>
-<script src="/static/js/timeline.js"></script>
-<script src="$path/static/js/spa.js"></script>
-<script src="$path/static/js/score_frame.js"></script>
-<script src="$path/static/js/statusbar.js"></script>
-<script src="$path/static/js/user.js"></script>
-<script src="$path/static/js/score.js"></script>
-<script src="$path/static/js/timeline.js"></script>
+<div id="#background_map"><object  data="static/img/map.svg"></object></div>
+
+<!-- Local scripts loaded here. External libraries loaded in document head -->
+<script src="static/js/policy_frame.js"></script>
+<script src="static/js/time_visualiser.js"></script>
+<script src="static/js/characters.js"></script>
+<script src="static/js/graphs.js"></script>
+<script src="static/js/timeline.js"></script>
+<script src="static/js/spa.js"></script>
+<script src="static/js/score_frame.js"></script>
+<script src="static/js/statusbar.js"></script>
+<script src="static/js/user.js"></script>
+
+<!-- Page-related scripts -->
+<script src="static/js/intro.js"></script>
+<script src="static/js/pwpolicy.js"></script>
+<script src="static/js/profile.js"></script>
+<script src="static/js/score.js"></script>
+<script src="static/js/incident.js"></script>
 <!-- SCORE script -->
 <script> // USER MANAGEMENT script
     var title;

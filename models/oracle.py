@@ -1,11 +1,9 @@
-from models.score import score_model
 from models.simulation import simulation as sim_model
-from localsys.storage import db
-from models.incident import incident
 from models.company import company
 import random
 from datetime import timedelta
 from models.policies import policies_model
+from models.score import score_model
 
 
 class prophet:

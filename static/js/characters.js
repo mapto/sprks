@@ -69,11 +69,10 @@
                 console.log("fail: " + response.responseText);
             }
         });
-        return false;
     }
 
 $(function(){
-    formModel.interviewee1_device_image('static/img/laptop.png');
-    formModel.interviewee2_device_image('static/img/desktop.png');
-    formModel.interviewee3_device_image('static/img/phone.png');
-})
+    intervieweeDeviceModel.interviewee1_device_image('static/img/laptop.png');
+    intervieweeDeviceModel.interviewee2_device_image('static/img/desktop.png');
+    intervieweeDeviceModel.interviewee3_device_image('static/img/phone.png');
+});

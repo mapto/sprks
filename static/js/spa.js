@@ -30,35 +30,6 @@ function initFrame () {
 
     manageScoreIncidentButtons();
 
-
-    send = function () {
-        $("#curr_date").text('to be defined by server');
-        var obj = {};
-        var request = $.ajax({
-            url: "/forward",
-            type: "POST",
-            data: JSON.stringify(obj),
-            dataType: "json",
-            success: function (curr_date) {
-                console.log("success: " + JSON.stringify(curr_date));
-                $("#curr_date").text(curr_date[0].value);
-                manageScoreIncidentButtons();
-
-            },
-            error: function (response) {
-                console.log("fail: " + response.responseText);
-            }
-        });
-        return false;
-    }
-
-
-
-
-    //function for sending request on play btn press
-   // $('#play').click(send);
-
-   // $('#play').click(startTimer);
     $('#pause').click(function() {
         $('.target').removeAttr('disabled');
         $('#apply').removeAttr('disabled');
@@ -75,20 +46,10 @@ function initFrame () {
     $('.target').change(function(){
         window.id_elem = $(this).closest($(".qn")).attr('id');
     })
-    //$('#time').text("test");
-    //opening incident window
     $('#play').click(function () {
         $('.target').attr('disabled', 'disabled');
         $('#apply').attr('disabled', 'disabled');
-       // submit_change();
         startTimer(3000);
-        //window.open("/incident","_self")
-        //var width = 1000;
-        //var height = 550;
-        //var left = (screen.width / 2) - (width / 2);
-        //var top = (screen.height / 2) - (height / 2);
-        //myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-        //myWindow.focus();
     });
 
     console.log("Private decoration initialized...");
@@ -110,8 +71,7 @@ function manageScoreIncidentButtons() {
                 $(".score_page").css("display", "block");
         }
     }
-
-     $(".incident_page").css("display", "none");
+    $(".incident_page").css("display", "none");
 }
 
 // highlight active button(scores/story/policy)
@@ -146,7 +106,6 @@ function highlightActiveButton() {
 
 
 }
-
 function deactivateButtons(){
     $('.intro_page').removeAttr('style');
     if($(".score_page").css("display")=== "block"){$('.score_page').removeAttr('style');}
@@ -154,10 +113,6 @@ function deactivateButtons(){
     $('.profile_page').removeAttr('style');
     $('.policy_page').removeAttr('style');
 }
-
-
-
-
 
 
 //time-control buttons active css
@@ -216,10 +171,6 @@ $('.target').bind("change", function(){
    //console.log(policies_array);
     summarize_policy(policies_array);
 });
-
-
-
-
 
 $('.aut').change(function(){ //if one of the names of mechanism to be used was changed
     if($('.authentication').val()>=1){
@@ -285,6 +236,8 @@ function clearProfile() {
 
 }
 
+
+/*****Display/hide pages *****/
 $('a').click('click', function () {
     var page = $(this).attr('class');
     if ((page.substr(page.length - 4)) === 'page') { //check if the link clicked if a page button
@@ -322,7 +275,7 @@ $("#close_btn").click('click', function(){
 });
 
 $(function () {
-    resume();
+    if(getUsername()){resume()};
 
     if (getUserID() > 0) {
         $(".main-body").css("display", "block");

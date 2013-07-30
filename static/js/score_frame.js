@@ -12,8 +12,7 @@ function get_score_frame(){
         url: "/api/score_frame",
         type: "GET",
         success : function(data) {
-            if(data){
-                data = JSON.parse(data);
+            if(data && data!=='None'){
                 var score_frame = []
                 score_frame.push(data[data.length-1]);
                 score_frame.push(data[data.length-2]);
