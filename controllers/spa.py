@@ -18,5 +18,3 @@ render = web.template.render('views/', globals=render_globals)
 class spa:
     def GET(self):
         return render.skeleton_spa()
-
-

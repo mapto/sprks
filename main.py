@@ -31,11 +31,7 @@ import controllers.characters
 urls = (
     storage.path + '', controllers.spa.spa,
     storage.path + '/', controllers.spa.spa,
-    storage.path + '/score', controllers.score.score,
     storage.path + '/score/multiple', controllers.score.multiple_score,
-    storage.path + '/history', controllers.policy_history.history,
-    storage.path + '/incident', controllers.incident.incident,
-    storage.path + '/policy/password', controllers.pwpolicy.pwpolicy,
 
     # APIs
     storage.path + '/api/chronos/sync', controllers.chronos.chronos,
