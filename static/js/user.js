@@ -125,12 +125,12 @@ $('#passwordChangeForm').submit(function (e) {
     }
 });
 
+$(function () {
 
+    if ($.url('?token') != null) {
 
-if ($.url('?token') != null) {
+        formModel.pswd_token($.url('?token'));
+        $("#password_change_page").css("display", "block");
 
-    formModel.pswd_token($.url('?token'));
-    $("#password_change_page").css("display", "block");
-
-
-}
+    }
+})

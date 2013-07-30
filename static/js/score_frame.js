@@ -13,7 +13,6 @@ function get_score_frame(){
         type: "GET",
         success : function(data) {
             if(data && data!=='None'){
-                data = JSON.parse(data);
                 var score_frame = []
                 score_frame.push(data[data.length-1]);
                 score_frame.push(data[data.length-2]);
