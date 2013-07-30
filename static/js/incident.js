@@ -1,7 +1,4 @@
 var incident;
-function initIncident() {
-    //get_incident_data();
-}
 
 function get_incident_data(incident_id) {
     statusUpdating();

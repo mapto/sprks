@@ -359,16 +359,7 @@ $("#close_btn").click('click', function(){
 });
 
 $(function () {
-
-    if ($.url('?token') != null) {
-
-        formModel.pswd_token($.url('?token'));
-        $("#password_change_page").css("display", "block");
-
-
-    } else {
-        resume();
-    }
+    resume();
 
     if (getUserID() > 0) {
         $(".main-body").css("display", "block");
