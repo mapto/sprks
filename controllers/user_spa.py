@@ -76,7 +76,7 @@ class account:
             return json.dumps(
                 {
                     'success': True,
-                    'messages': ['User registered']
+                    'messages': ['Successfully registered.']
                 }
             )
         else:

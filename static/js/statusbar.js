@@ -4,18 +4,18 @@ In all AJAX callbacks, run statusReady().
  */
 
 function statusUpdating(){
-    formModel.statusbar_image('static/img/ajax-loader.gif');
-    formModel.statusbar_status('Synchronising with server...')
+    statusBarModel.statusbar_image('static/img/ajax-loader.gif');
+    statusBarModel.statusbar_status('Synchronising with server...')
 }
 
 function statusReady(){
-    formModel.statusbar_image('static/img/check.png');
-    formModel.statusbar_status('Synchronization complete. Ready.')
+    statusBarModel.statusbar_image('static/img/check.png');
+    statusBarModel.statusbar_status('Synchronization complete. Ready.')
 }
 
 $(function(){
-    formModel.statusbar_image('static/img/check.png')
-    formModel.statusbar_status('Ready.')
+    statusBarModel.statusbar_image('static/img/check.png')
+    statusBarModel.statusbar_status('Ready.')
 })
 
 function manage_toast_alert(text, delay){
