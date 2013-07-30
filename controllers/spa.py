@@ -17,7 +17,6 @@ render = web.template.render('views/', globals=render_globals)
 class spa:
     def GET(self):
 
-        # get action to 1) recover password and 2) logout
         get_data = web.input()
 
         if get_data.get('action') == 'logout':

@@ -52,7 +52,49 @@ function initFrame () {
         return false;
     }
 
+    startTimer = function (interval) {
+        console.log("timer started");
+        //window.open("/incident","_self")
+        if (window.timer1 != null) pauseInterval();
+        window.timer1 = setInterval(function () {
+            //window.date = $('#time').text();
+            var tmp = new Date(window.date);
+            var addHours = 24;
+            var addDays = 1;
 
+            //tmp.setDate(tmp.getDate()+addDays);
+            tmp.setHours(tmp.getHours()+addHours);
+
+            var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();
+
+            var day_to_display = tmp.getDate(); if(day_to_display<10){day_to_display = '0'+day_to_display;}
+            var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
+            var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
+
+            $('#time').text(time_visualiser(date_to_display, true));
+            window.date = new_date;
+            manageScoreButton();
+            check_events();
+            if(window.date==window.nextSyncStr) {
+                manage_toast_alert("Changes submitted",1000);
+                $('#pause').click();
+                window.first_date = new Date(window.date);
+                window.nextSync = window.first_date;
+                window.nextSync.setMonth(window.nextSync.getMonth()+2);
+                window.nextSync.setDate(1);
+                window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
+                submit_change();
+            }
+            //script for interactive characters
+            UpdateCharacters(time_parser($("#time").text())); //specified in characters.js
+
+            },interval);
+        return false;
+    }
+
+    pauseInterval = function() {
+        clearInterval(window.timer1);
+    }
 
 
     //function for sending request on play btn press
@@ -224,22 +266,34 @@ $('.target').bind("change", function(){
        }
    }
    //console.log(policies_array);
+   summarize_policy(policies_array);
 });
 
 $('.aut').change(function(){ //if one of the names of mechanism to be used was changed
     if($('.authentication').val()>=1){
             var policy1 = $('.policy' +$("#authentication1").val()).attr('id');
+            //$('.policy' +$("#authentication1").val()).find('.target').change();
+            summarize_policy(policies_array);
             if($('.authentication').val()==2){
                 var policy2 = $('.policy' +$("#authentication2").val()).attr('id'); //if exists
+                //$('.policy' +$("#authentication2").val()).find('.target').change();
+                summarize_policy(policies_array);
             }
     }
+
     if(policy1!= 'biometric_policy' && policy2!= 'biometric_policy'){null_unused_policy('biometric');}
     if(policy1!= 'passfaces_policy' && policy2!= 'passfaces_policy'){null_unused_policy('passfaces');}
     if(policy1!= 'password_policy' && policy2!= 'password_policy'){null_unused_policy('pwpolicy');}
+    policy1 = '';
+    policy2 = '';
+
 });
 
 function null_unused_policy(policy){
+     console.log('null '+policy);
      policies_array.policyDelta[policy]={};
+
+     $('#sum-'+policy).text('');
 }
 //write policyUpdate array on apply btn press
 $("#apply").click(function () {
@@ -258,77 +312,8 @@ $("#apply").click(function () {
         $("#authentication1").remove();
         $("#authentication2").remove();
         hide_policies();
+        clear_policy_summary();
         console.log(policyUpdate);
         manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',5000);
     }
 });
-
-
-function hideOtherPages(page_name) {
-        $(".pages").each(function () {
-            if ($(this).attr('id') !== page_name) {
-                $(this).css("display", "none");
-            }
-        });
-    }
-
-function clearProfile() {
-    $(".profile_table").each(function () {    //clear table
-        this.remove();
-    });
-    $('#chartContainer').empty();           //clear graph
-
-}
-
-$('a').click('click', function () {
-    var page = $(this).attr('class');
-    if ((page.substr(page.length - 4)) === 'page') { //check if the link clicked if a page button
-        hideOtherPages(page);
-
-        $("#" + page).css("display", "block");
-        if (page === 'policy_page') {
-            initPolicy();
-        }
-        if (page === 'incident_page') {
-            initIncident();
-        }
-        if (page === 'profile_page') {
-            clearProfile();
-            initProfile();
-        }
-        if (page === 'score_page') {
-            initScore();
-        }
-
-        title = page.substr(0, page.length - 5);
-        highlightActiveButton();
-        $(".main-body").css("display", "block");
-
-        get_score_frame();
-    }
-});
-
-$("#close_btn").click('click', function(){
-    $(".main-body").css("display", "none");
-    $(".pages").each(function(){
-        $(this).css("display", "none");
-    });
-    deactivateButtons();
-});
-
-$(function () {
-    resume();
-
-    if (getUserID() > 0) {
-        $(".main-body").css("display", "block");
-        $("#intro_page").css("display", "block");
-        title = 'intro';
-        highlightActiveButton();
-
-        get_score_frame();
-    } else {
-        $(".main-body").css("display", "block");
-        $("#home_page").css("display", "block");
-    }
-
-})

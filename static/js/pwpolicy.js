@@ -6,6 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 /*wait until document is loaded*/
+//TODO need to fix how pdict for pwpolicy is passed/received from server; then check if summarize_policy works
+
+
+
 var pwpolicy;
 
 function initPolicy() {
@@ -104,13 +108,23 @@ function policyExists() {
         }
 }
 
-function summarize_policy(policy){ //not currently used
+function summarize_policy(policy){ //summary of the policy (right corner), called on any policy change
     for (var key in policy){
-        console.log(policy);
-      // NEED TO FIX PDICT UNDEFINED
-
-        if (policy[key]==''){alert('need to fix pdict');policy[key]=0;}
-        $("#sum-"+key).text(key+' '+policy[key]);
+        if(key==='employee'||key==='location'||key==='device'){
+            $("#sum-"+key).text(policy[key]);
+        }else if (key==='policyDelta'){
+            for (var k in policy[key]){
+                var plc = [];
+                for (var j in policy[key][k]){
+                    if (j==='plen'){
+                        if (policy[key][k][j]==='0'){plc = []; break;} //null password policy in summary if plen is set to '0'
+                    }
+                    plc.push(j+' '+policy[key][k][j]);
+                }
+                $("#sum-"+k).text(plc);
+            }
+        }
+        $('.policy-summary').show();
     }
 }
 
@@ -178,26 +192,26 @@ function get_factors(policy) {
 
 function update_password_form(policy) {
     var plen = policy["plen"];
-    console.log("found plen " + plen);
+    //console.log("found plen " + plen);
     $("#len" + plen).prop("checked", true);
     $("#len" + plen).change();
 
     // TODO: implement (copy from other place) other pwpolicy items
     /*preset pswd sets value*/
-    console.log("found sets " + policy["psets"]);
+    //console.log("found sets " + policy["psets"]);
     $("#sets" + policy["psets"]).prop('checked', true);
     $("#sets" + policy["psets"]).change();
 
     /*preset pswd dictionary value*/
-    console.log("found " + (policy["pdict"] ? "use" : "no") + " dict");
+    //console.log("found " + (policy["pdict"] ? "use" : "no") + " dict");
     $("#dic").prop('checked', policy["pdict"] == 1);
     $("#dic").change();
 
-    console.log("found phist difficulty " + policy["phist"]);
+    //console.log("found phist difficulty " + policy["phist"]);
     $("#hist" + policy["phist"]).prop('checked', true);
     $("#hist" + policy["phist"]).change();
 
-    console.log("found renew " + policy["prenew"]);
+    //console.log("found renew " + policy["prenew"]);
     $("#renew" + policy["prenew"]).prop('checked', true);
     $("#renew" + policy["prenew"]).change();
 
@@ -208,17 +222,20 @@ function update_password_form(policy) {
     $("#attempts" + policy["pattempts"]).change();
 
     /*preset pswd recovery option*/
-    console.log("found precovery " + policy["precovery"]);
+    //console.log("found precovery " + policy["precovery"]);
     $("#recovery" + policy["precovery"]).prop('checked', true);
     $("#recovery" + policy["precovery"]).change();
 }
 
 function update_biometric_form(policy) {
     $("#biometric").val(policy["bdata"]);
+    $("#biometric").change();
+
 }
 
 function update_passfaces_form(policy) {
     $("#passfaces").val(policy["pdata"]);
+    $("#passfaces").change();
 }
 
 function display_contextualized_policy(contextualized) {
@@ -542,7 +559,6 @@ $('#aut_num').change(function(){
         // It returned further values beyond the array items.
         // Probably these are the default attributes of a (dynamically created) object
         for(var val = 0; val < options.length; val++) {
-            console.log(val);
             if (val == 0) {
                 $("<option value=\"\" disabled selected>" + options[val] + "</option>").appendTo(s);
             } else {
@@ -557,7 +573,7 @@ $('#aut_num').change(function(){
 $(".aut").change(function(){
     if($('#aut_num').val()==2 && ($('#authentication1').val()==$('#authentication2').val())){ //ensure distinct selected options
         hide_policies();
-        manage_toast_alert('Please, select two distinct options or change the number of mechanisms');
+        manage_toast_alert('Please, select two distinct options or change the number of mechanisms',3000);
     }else{
         display_policies();
     }
@@ -572,9 +588,13 @@ function display_policies(){ //display selected policies only
 function hide_policies(){ //hide all policies
     $('.policy').each(function(){
         $(this).css("display","none");
-    })
+    });
 }
-
+function clear_policy_summary(){
+    $('.policy-summary-field').each(function(){
+        $(this).text('');
+    });
+}
 
 $(function(){
     $('#employee').buttonset();

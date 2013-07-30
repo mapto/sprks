@@ -96,3 +96,13 @@ $('#passwordChangeForm').submit(function (e) {
         formModel.pswd_change_messages(["Passwords don't match"]);
     }
 });
+
+
+
+if ($.url('?token') != null) {
+
+    formModel.pswd_token($.url('?token'));
+    $("#password_change_page").css("display", "block");
+
+
+}
