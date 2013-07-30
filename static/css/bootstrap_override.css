@@ -328,9 +328,8 @@ label {
 .menu a .score_page {
     display: none;
 }
-
-.incident_box {
-
+.menu a .incident_page {
+    display: none;
 }
 
 /*SCORES*/
