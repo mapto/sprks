@@ -38,7 +38,7 @@ class account:
                 }
             )
 
-    def PUT(self, a, username=''):
+    def PUT(self, username=''):
         """
         Stores user details into database.
         And, if needed, populates tables for first-time user

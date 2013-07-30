@@ -28,7 +28,7 @@ function initUserForms(){
 
 $('#registerForm').submit(function (e) {
     e.preventDefault();
-    if (formModel.register_password() === formModel.register_passwordConfirm()) { // What is this? "==" means want to compare 2 string to be similar, not identical
+    if (formModel.register_password() === formModel.register_passwordConfirm()) {
         $.ajax({
             type: 'PUT',
             url: 'api/user_spa/account/' + formModel.register_username(),
