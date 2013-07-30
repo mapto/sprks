@@ -20,12 +20,12 @@ class score_model:
         next_risk_rank = 0
         prev_cost_rank = 0
         next_cost_rank = 0
-        next_value_risk_date = "N/A"
-        prev_value_risk_date = "N/A"
-        prev_value_cost_date = "N/A"
-        next_value_cost_date = "N/A"
-        date_risk = "N/A"
-        date_cost = "N/A"
+        next_value_risk_date = "2014-01-06"
+        prev_value_risk_date = "2014-01-06"
+        prev_value_cost_date = "2014-01-06"
+        next_value_cost_date = "2014-01-06"
+        date_risk = "2014-01-06"
+        date_cost = "2014-01-06"
         checked = False
         u_rank_risk = 1
         u_rank_cost = 1
@@ -61,11 +61,6 @@ class score_model:
                             next_value_risk_date = row.date
                             contender_id_next_risk = row.userid
                             break
-        print users_risk
-        print "contender id next risk"
-        print contender_id_next_risk
-        print "contender id prev risk"
-        print contender_id_prev_risk
         checked = False
         for row in scores_2:
             if row.score_type == 2:
@@ -112,13 +107,11 @@ class score_model:
             prev_cost_rank = u_rank_cost
         if math.fabs(float(value_risk) - float(prev_value_risk)) <= math.fabs(
                         float(next_value_risk) - float(value_risk)):
-            print "first cond"
             closest_score_risk = prev_value_risk
             closest_ranking_risk = prev_risk_rank
             closest_date_risk = prev_value_risk_date
             contender_id_risk = contender_id_prev_risk
         else:
-            print "second cond"
             closest_score_risk = next_value_risk
             closest_ranking_risk = next_risk_rank
             closest_date_risk = next_value_risk_date
@@ -135,8 +128,6 @@ class score_model:
             closest_date_cost = next_value_cost_date
             contender_id_cost = contender_id_next_cost
 
-        print contender_id_risk
-        print closest_date_risk
         value_risk_cost = db.select('scores', where="date=$date_risk&&score_type=2&&userid=$usrid", vars=locals())[0].score_value
         value_cost_risk = db.select('scores', where="date=$date_cost&&score_type=1&&userid=$usrid", vars=locals())[0].score_value
         res1 = db.select('scores', where="date=$closest_date_risk&&score_type=2&&userid=$contender_id_risk", vars=locals())
@@ -145,22 +136,6 @@ class score_model:
         res2 = db.select('scores', where="date=$closest_date_cost&&score_type=1&&userid=$contender_id_cost", vars=locals())
         if len(res2) > 0:
             value_cost_risk_contender = res2[0].score_value
-        print "risk user"
-        print value_risk
-        print "risk for cost user"
-        print value_risk_cost
-        print "cost user"
-        print value_cost
-        print "cost for risk user"
-        print value_cost_risk
-        print "risk contender"
-        print closest_score_risk
-        print "risk for cost cont"
-        print value_risk_cost_contender
-        print "cost cont"
-        print closest_score_cost
-        print "cost for risk cont"
-        print value_cost_risk_contender
         return value_risk, value_risk_cost, date_risk, value_cost, value_cost_risk, date_cost, u_rank_risk, u_rank_cost, closest_score_risk, value_risk_cost_contender, \
                closest_ranking_risk, closest_date_risk, closest_score_cost, value_cost_risk_contender, closest_ranking_cost, closest_date_cost
 
@@ -187,14 +162,6 @@ class score_model:
 
         value_risk_cost = db.select('scores', where="date=$date_risk&&userid=$id_risk&&score_type=2", vars=locals())[0].score_value
         value_cost_risk = db.select('scores', where="date=$date_cost&&userid=$id_cost&&score_type=1", vars=locals())[0].score_value
-        print "best risk"
-        print value_risk
-        print "best risk for cost"
-        print value_risk_cost
-        print "best cost"
-        print value_cost
-        print "best cost for risk"
-        print value_cost_risk
         return value_risk, value_risk_cost, date_risk, value_cost, value_cost_risk, date_cost
 
     def find_avg(self):
