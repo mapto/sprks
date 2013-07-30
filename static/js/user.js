@@ -75,7 +75,7 @@ $('#passwordChangeForm').submit(function (e) {
             url: 'api/user_spa/password/' + user_id,
             data: JSON.stringify({
                 password: formModel.pswd_change_password(),
-                token: '',
+                token: $.url('?token'),
                 autologin: true
             }),
             statusCode: {
@@ -96,31 +96,3 @@ $('#passwordChangeForm').submit(function (e) {
         formModel.pswd_change_messages(["Passwords don't match"]);
     }
 });
-
-function passwordRecover(token){
-    if (token !== '') {
-        $.ajax({
-            type: 'GET',
-            url: 'api/user_spa/password/'+token,
-            statusCode: {
-                500: function () {
-                    $("#password_recover_page").css("display", "block");
-                    formModel.pswd_recover_messages(['Server error']);
-                },
-                200: function (response) {
-                    response = $.parseJSON(response);
-
-                    user_id = response.user_id;
-
-                    if(response.success === true){
-                        $("#password_change_page").css("display", "block");
-                        formModel.pswd_change_messages(response.messages);
-                    }else if(response.success === false){
-                        $("#password_recover_page").css("display", "block");
-                        formModel.pswd_recover_messages(response.messages);
-                    }
-                }
-            }
-        });
-    }
-}

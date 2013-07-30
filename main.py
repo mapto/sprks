@@ -48,9 +48,9 @@ urls = (
     #SPA
     storage.path + '/login_spa', controllers.user_spa.account,
     #SPA API
-    storage.path + '/api/user_spa/account(/?)(.+)', controllers.user_spa.account,
+    storage.path + '/api/user_spa/account/(.+)', controllers.user_spa.account,
     storage.path + '/api/user_spa/account', controllers.user_spa.account,
-    storage.path + '/api/user_spa/password(/?)(.+)', controllers.user_spa.password,
+    storage.path + '/api/user_spa/password/(.+)', controllers.user_spa.password,
     storage.path + '/password_spa', controllers.user_spa.password,
     storage.path + '/api/characters', controllers.characters.characters,
     storage.path + '/api/score_frame', controllers.policy_history.score_frame

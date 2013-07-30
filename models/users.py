@@ -136,7 +136,7 @@ class users_model:
             return ''
 
     @classmethod
-    def password_recovery_user(cls, token):
+    def password_recovery_user(cls, token=''):
         """
         Return user_id if password request ticket is valid. 0 otherwise.
         :param token:

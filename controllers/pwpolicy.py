@@ -4,14 +4,10 @@ OBSOLETE
 
 import json
 import web
-import localsys
-from sim.simulation import simulation
 from localsys.storage import db
 from localsys.storage import path
 from localsys.environment import context
 from models.pw_policy import pw_policy_model
-from models.score import score_model
-from localsys.environment import render
 
 
 class pwpolicy_rest:
