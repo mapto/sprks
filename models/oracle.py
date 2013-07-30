@@ -1,4 +1,4 @@
-from models.journal import records
+from models.score import score_model
 from models.simulation import simulation as sim_model
 from localsys.storage import db
 from models.incident import incident
@@ -52,8 +52,8 @@ class prophet:
                         'incident_id': current_incident['id'],
                         'cost': cls.randomize_cost(incident_cost)
                     })
-        prophet().insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
-        prophet().insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
+        score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
+        score_model.insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
         return prophecy
 
     @classmethod

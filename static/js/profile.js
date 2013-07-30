@@ -60,18 +60,20 @@ function get_profile(){
                     if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
                         if (i < 1) { //if it's first row
                             col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(attrValue);
-                            row [i].append(col[i][attrName]);//add all policy values
-                        } else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
+                            //row [i].append(col[i][attrName]);//add all policy values
+                        } //else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
+                         else
+                        {
                             //if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
                             //    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
                             //}else{
                                 col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(obj[k]);
                             //}
-                            row [i].append(col[i][attrName]); //add value column only if value have changed
-                        } else {
-                            col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');
+                            //row [i].append(col[i][attrName]); //add value column only if value have changed
+                        } //else {
+                           // col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');
                             row [i].append(col[i][attrName]); //add empty column if no changes
-                        }
+                        //}
                     }
                 }
                 if(row[i].text()!=''){ //check if the row contains anything

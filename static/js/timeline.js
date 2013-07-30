@@ -56,7 +56,7 @@ function submit_event(date){
             console.log("fail: " + response.responseText);
         }
     });
-    }
+}
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {
