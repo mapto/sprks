@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8"/>
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css"/>
     <link rel="stylesheet" href="static/css/bootstrap_override.css" type="text/css" media="screen" charset="utf-8"/>
+
+    <!-- External JS libraries loaded here. Local scripts loaded at end of file -->
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <script src="static/js/canvasjs-1.2.1/canvasjs.js"></script>
     <script src="static/js/url.min.js"></script>
 
 </head>
@@ -23,7 +26,7 @@
             <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
                 $if user_id() > 0:
-                    <a href="login_spa?action=logout">Logout $username()</a>
+                    <a class="logout_page" href="?action=logout">Logout $username()</a>
                 $else:
                     <a class="login_page">Login</a>
                 <!-- button to show/hide login pane? -->
@@ -35,7 +38,6 @@
 
 $if user_id() > 0:
     <div class="menu">
-        <!-- these paths need to be absolute, because password policy is not in the same (appearance) directory as others -->
         <div><a class="intro_page">Story </a></div>
         <div><a class="policy_page">Policy</a></div>
         <div><a class="profile_page">Profile</a></div>
@@ -741,23 +743,25 @@ $if user_id() > 0:
 
 
 
-<div id="#background_map"><object  data="/static/img/map.svg"></object></div>
+<div id="#background_map"><object  data="static/img/map.svg"></object></div>
+
+<!-- Local scripts loaded here. External libraries loaded in document head -->
 <script src="static/js/policy_frame.js"></script>
 <script src="static/js/time_visualiser.js"></script>
 <script src="static/js/characters.js"></script>
-<script src="static/js/incident.js"></script>
-<script src="static/js/intro.js"></script>
-<script src="static/js/canvasjs-1.2.1/canvasjs.js"></script>
-<script src="static/js/profile.js"></script>
 <script src="static/js/graphs.js"></script>
-<script src="static/js/pwpolicy.js"></script>
 <script src="static/js/timeline.js"></script>
 <script src="static/js/spa.js"></script>
 <script src="static/js/score_frame.js"></script>
 <script src="static/js/statusbar.js"></script>
 <script src="static/js/user.js"></script>
+
+<!-- Page-related scripts -->
+<script src="static/js/intro.js"></script>
+<script src="static/js/pwpolicy.js"></script>
+<script src="static/js/profile.js"></script>
 <script src="static/js/score.js"></script>
-<script src="static/js/timeline.js"></script>
+<script src="static/js/incident.js"></script>
 <!-- SCORE script -->
 <script> // USER MANAGEMENT script
     var title;
