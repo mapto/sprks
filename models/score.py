@@ -10,6 +10,8 @@ class score_model:
     def check_closest_competitor(self, usrid, your_score):
         value_risk = 0.0
         value_cost = 0.0
+        value_risk_cost_contender = 2.0
+        value_cost_risk_contender = 1.0
         prev_value_risk = 2.0
         prev_value_cost = 1.0
         next_value_risk = 2.0
@@ -137,8 +139,12 @@ class score_model:
         print closest_date_risk
         value_risk_cost = db.select('scores', where="date=$date_risk&&score_type=2&&userid=$usrid", vars=locals())[0].score_value
         value_cost_risk = db.select('scores', where="date=$date_cost&&score_type=1&&userid=$usrid", vars=locals())[0].score_value
-        value_risk_cost_contender = db.select('scores', where="date=$closest_date_risk&&score_type=2&&userid=$contender_id_risk", vars=locals())[0].score_value
-        value_cost_risk_contender = db.select('scores', where="date=$closest_date_cost&&score_type=1&&userid=$contender_id_cost", vars=locals())[0].score_value
+        res1 = db.select('scores', where="date=$closest_date_risk&&score_type=2&&userid=$contender_id_risk", vars=locals())
+        if len(res1) > 0:
+            value_risk_cost_contender = res1[0].score_value
+        res2 = db.select('scores', where="date=$closest_date_cost&&score_type=1&&userid=$contender_id_cost", vars=locals())
+        if len(res2) > 0:
+            value_cost_risk_contender = res2[0].score_value
         print "risk user"
         print value_risk
         print "risk for cost user"
