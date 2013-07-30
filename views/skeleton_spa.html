@@ -78,6 +78,8 @@ $if user_id() > 0:
 <article class="container-fluid">
     <div id="toast">Alerts go here</div>
     <!-- MAP begin-->
+
+    <div id="map">
     <div class="interviewee" id="interviewee1">
         Susie
         <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" />
@@ -114,6 +116,7 @@ $if user_id() > 0:
         to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be
         working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new
         team and that makes work go a little easier.
+    </div>
     </div>
     <!-- MAP end-->
 
@@ -728,15 +731,11 @@ $if user_id() > 0:
 </article>
 
 <footer>
-    <div class="navbar navbar-fixed-bottom">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <h4 style="margin-left:220px;">
-                    <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
-                    <span data-bind="text: statusbar_status"></span>
-                </h4>
-            </div>
-        </div>
+    <div class="navbar navbar-fixed-bottom navbar-inner" id="statusBar">
+        <h4 style="margin-left:220px;">
+            <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
+            <span data-bind="text: statusbar_status"></span>
+        </h4>
     </div>
 </footer>
 
