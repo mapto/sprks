@@ -322,7 +322,7 @@ $("#close_btn").click('click', function(){
 });
 
 $(function () {
-    resume();
+    if(getUsername()){resume()};
 
     if (getUserID() > 0) {
         $(".main-body").css("display", "block");
