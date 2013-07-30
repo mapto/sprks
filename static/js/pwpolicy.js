@@ -21,8 +21,6 @@ function initPolicy() {
 
     //$('#play').click(send) // the play message is not sent from here, but from render decoration (views/index-private.html)
 
-    var d = new Date();
-    var strDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + ", " + d.getHours() + ":" + d.getMinutes();
 
     //document.getElementById('curr_date').innerHTML = strDate;
 
@@ -49,14 +47,7 @@ function initPolicy() {
 
 }
 
-function setSyncDate() {
-    window.first_date = new Date(window.date);
-    window.nextSync = window.first_date;
-    window.nextSync.setMonth(window.nextSync.getMonth()+1);
-    window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear()+'-'+(window.nextSync.getMonth()+1)+'-'+window.nextSync.getDate();
-    window.id_elem = 'plen';
-}
+
 
 /****************UNCOMMENT if policy is initialised in a separate request
 function getInitPolicy(){
@@ -165,48 +156,8 @@ function calculate_cost_from_calendar() {
     return sum;
 }
 
-function check_events() {
-    var tmp_events_calendar = window.calendar;
-    $(tmp_events_calendar).each(function(i) {
-        var conv_date = new Date(tmp_events_calendar[i].date);
-        var str_date = conv_date.getFullYear()+'-'+(conv_date.getMonth()+1)+'-'+conv_date.getDate();
-        if(str_date == window.date)
-        {
-            $('#pause').click();
-            tmp_event = tmp_events_calendar[i].events
-            $(tmp_event).each(function(j){
-                //alert("Event #"+tmp_event[j].incdt_id+" happend!");
-                display_event(tmp_event[j].incdt_id, tmp_event[j].cost);
-                submit_event(str_date);
-            })
-                $('.incident_page').click();
 
-        }
 
-    })
-
-}
-
-function submit_event(date){
-        msg = {};
-        msg['date'] = date;
-        var request = $.ajax({
-        url: "/api/chronos/event",
-        type: "POST",
-        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
-        // E.g. what happens if the user changes screens too often
-        async: true,
-        data: JSON.stringify(msg),
-        contentType: "application/json; charset=utf-8",
-        dataType: "text",
-        success: function (response) {
-            //
-        },
-        error: function (response) {
-            console.log("fail: " + response.responseText);
-        }
-    });
-    }
 
 function get_factors(policy) {
     var factors = [];
@@ -325,53 +276,9 @@ function update_policy(policy) {
     //display_contextualized_policy(policy['policy'][0]);
 }
 
-function submit_change() { // need different event handling, to capture any change
-    var msg = {
-        date: time_parser($('#time').text()),
-        policyUpdate: []
-    };
-    if(policyUpdate.length>0){
-        msg.policyUpdate = policyUpdate;
-        //msg.newCosts = calculate_cost_from_calendar();
-    }
-    msg.initPolicy = true;
-    console.log(msg);
-    statusUpdating();
-    var request = $.ajax({
-        url: "/api/chronos/update",
-        type: "POST",
-        data: JSON.stringify(msg),
-        success: update_policy,
-        error: function (response) {
-            console.log("fail: " + response.responseText);
-        }
-    });
-    return false;
-}
 
-function resume() {
-    statusUpdating();
-    var request = $.ajax({
-        url: "/api/chronos/resume",
-        type: "GET",
-        success: function(policy) {
-            policyUpdate = [];
-            statusReady();
-            console.log('response from server:' + policy);
-            $('#pause').click();
-            $('#time').text(time_visualiser(policy['date'], true));
-            manageScoreButton();
-            window.date = time_parser($('#time').text());
-            window.calendar = policy['calendar'];
-            setSyncDate();
-            display_contextualized_policy(policy['policy'][0]);
-        },
-        error: function (response) {
-            console.log("fail: " + response.responseText);
-        }
-    });
-    return false;
-}
+
+
 
 /*
 function submit_change_mul(){
@@ -485,6 +392,11 @@ function submit_change() { // old version, which submits all the values even not
 } //old version
 */
 
+
+
+/***
+probably not used anymore
+ */
 send = function() { // need different event handling, to capture any change
 
     var obj = {};

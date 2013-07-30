@@ -52,49 +52,7 @@ function initFrame () {
         return false;
     }
 
-    startTimer = function (interval) {
-        console.log("timer started");
-        //window.open("/incident","_self")
-        if (window.timer1 != null) pauseInterval();
-        window.timer1 = setInterval(function () {
-            //window.date = $('#time').text();
-            var tmp = new Date(window.date);
-            var addHours = 24;
-            var addDays = 1;
 
-            //tmp.setDate(tmp.getDate()+addDays);
-            tmp.setHours(tmp.getHours()+addHours);
-
-            var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();
-
-            var day_to_display = tmp.getDate(); if(day_to_display<10){day_to_display = '0'+day_to_display;}
-            var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
-            var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
-
-            $('#time').text(time_visualiser(date_to_display, true));
-            window.date = new_date;
-            manageScoreButton();
-            check_events();
-            if(window.date==window.nextSyncStr) {
-                manage_toast_alert("Changes submitted");
-                $('#pause').click();
-                window.first_date = new Date(window.date);
-                window.nextSync = window.first_date;
-                window.nextSync.setMonth(window.nextSync.getMonth()+2);
-                window.nextSync.setDate(1);
-                window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
-                submit_change();
-            }
-            //script for interactive characters
-            UpdateCharacters(time_parser($("#time").text())); //specified in characters.js
-
-            },interval);
-        return false;
-    }
-
-    pauseInterval = function() {
-        clearInterval(window.timer1);
-    }
 
 
     //function for sending request on play btn press
