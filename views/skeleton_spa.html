@@ -759,39 +759,10 @@ $if user_id() > 0:
 <script src="$path/static/js/score.js"></script>
 <!-- SCORE script -->
 <script> // USER MANAGEMENT script
-function initUserForms(){
-
-    formModel = {
-        register_username: ko.observable(),
-        register_password: ko.observable(),
-        register_passwordConfirm: ko.observable(),
-        register_email: ko.observable(),
-        register_messages: ko.observableArray(),
-        login_username: ko.observable(),
-        login_password: ko.observable(),
-        login_messages: ko.observableArray(),
-        pswd_recover_username: ko.observable(),
-        pswd_recover_messages: ko.observableArray(),
-        pswd_change_password: ko.observable(),
-        pswd_change_passwordConfirm: ko.observable(),
-        pswd_change_messages: ko.observableArray(),
-        pswd_token: ko.observable(),
-        statusbar_status: ko.observable(),
-        statusbar_image: ko.observable(),
-        interviewee1_device_image: ko.observable(),
-        interviewee2_device_image: ko.observable(),
-        interviewee3_device_image: ko.observable()
-    };
-
-    ko.applyBindings(formModel);
-
-}
-
     var title;
     var user_id = $:user_id();
 
     initUserForms();
-
     initFrame();
 
     //used in POLICY
