@@ -1,3 +1,4 @@
+/********KEPT FOR REFERENCE AND LOST CODE ONLY**/
 /**
  * Created with PyCharm.
  * User: mruskov
@@ -290,9 +291,7 @@ $('.aut').change(function(){ //if one of the names of mechanism to be used was c
 });
 
 function null_unused_policy(policy){
-     console.log('null '+policy);
      policies_array.policyDelta[policy]={};
-
      $('#sum-'+policy).text('');
 }
 //write policyUpdate array on apply btn press

@@ -224,23 +224,38 @@ $('.target').bind("change", function(){
        }
    }
    //console.log(policies_array);
+    summarize_policy(policies_array);
 });
+
+
+
+
 
 $('.aut').change(function(){ //if one of the names of mechanism to be used was changed
     if($('.authentication').val()>=1){
             var policy1 = $('.policy' +$("#authentication1").val()).attr('id');
+            //$('.policy' +$("#authentication1").val()).find('.target').change();
+            summarize_policy(policies_array);
             if($('.authentication').val()==2){
                 var policy2 = $('.policy' +$("#authentication2").val()).attr('id'); //if exists
+                //$('.policy' +$("#authentication2").val()).find('.target').change();
+                summarize_policy(policies_array);
             }
     }
+
     if(policy1!= 'biometric_policy' && policy2!= 'biometric_policy'){null_unused_policy('biometric');}
     if(policy1!= 'passfaces_policy' && policy2!= 'passfaces_policy'){null_unused_policy('passfaces');}
     if(policy1!= 'password_policy' && policy2!= 'password_policy'){null_unused_policy('pwpolicy');}
+    policy1 = '';
+    policy2 = '';
+
 });
 
 function null_unused_policy(policy){
      policies_array.policyDelta[policy]={};
+     $('#sum-'+policy).text('');
 }
+
 //write policyUpdate array on apply btn press
 $("#apply").click(function () {
     if (!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
@@ -258,11 +273,11 @@ $("#apply").click(function () {
         $("#authentication1").remove();
         $("#authentication2").remove();
         hide_policies();
+        clear_policy_summary();
         console.log(policyUpdate);
         manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',5000);
     }
 });
-
 
 function hideOtherPages(page_name) {
         $(".pages").each(function () {
