@@ -56,9 +56,9 @@ function initFrame () {
 
 
     //function for sending request on play btn press
-   // $('#play').click(send);
 
-   // $('#play').click(startTimer);
+
+
     $('#pause').click(function() {
         $('.target').removeAttr('disabled');
         $('#apply').removeAttr('disabled');
@@ -75,20 +75,10 @@ function initFrame () {
     $('.target').change(function(){
         window.id_elem = $(this).closest($(".qn")).attr('id');
     })
-    //$('#time').text("test");
-    //opening incident window
     $('#play').click(function () {
         $('.target').attr('disabled', 'disabled');
         $('#apply').attr('disabled', 'disabled');
-       // submit_change();
         startTimer(3000);
-        //window.open("/incident","_self")
-        //var width = 1000;
-        //var height = 550;
-        //var left = (screen.width / 2) - (width / 2);
-        //var top = (screen.height / 2) - (height / 2);
-        //myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
-        //myWindow.focus();
     });
 
     console.log("Private decoration initialized...");
