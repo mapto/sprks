@@ -52,9 +52,7 @@ function UpdateCharacters(date) { //data: interviewee1 - location, device; inter
     var request = $.ajax({
         url: "/api/characters",
         type: "POST",
-        data: JSON.stringify({date: date}),
-        contentType: "application/json; charset=utf-8",
-        dataType: "application/json",
+        data: JSON.stringify({date:date}),
         success: function (data) {
             data_tmp = json.parse(data);
             $.each(data_tmp, function (key, value) {

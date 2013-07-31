@@ -20,12 +20,13 @@ class characters:
         # pair location-device for each of the 3 employees
         #considering the distributions from company.py
 
+        web.header('Content-Type', 'application/json')
+
         payload = json.loads(web.data())
         client_date = date_utils.iso8601_to_date(payload.get('date'))
         start_date = date_utils.iso8601_to_date('2014-01-06')
 
         days_delta = (client_date - start_date).days
-
         locations, devices = self.get_locations_devices(days_delta)
 
         locations_devices = json.dumps(
@@ -35,6 +36,7 @@ class characters:
                 'interviewee3': [locations[2],devices[2]]   # Iza (road)
             }
         )
+
         return locations_devices
 
     def get_locations_devices(self, days_delta):
