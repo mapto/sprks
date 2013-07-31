@@ -72,6 +72,8 @@ $('#loginForm').submit(function (e) {
                     authStatusModel.loggedin(true);
                 }
                 loginFormModel.login_messages(response.messages);
+                window.location='/'
+
             }
         }
     });

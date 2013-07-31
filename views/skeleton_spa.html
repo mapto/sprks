@@ -791,6 +791,11 @@
     var title;
     var user_id = $:user_id();
 
+    if(!user_id>0){
+        $$('.menu').css('display','none');
+        $$('.time_controls').css('display','none');
+
+    }
     //used in POLICY
     function getUserID() {
         /*ID is preset inside HTML code*/
