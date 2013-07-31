@@ -128,6 +128,7 @@ $('#passwordChangeForm').submit(function (e) {
 
 $('#logout-button').click(function(){
     loginModel.username('');
+    loginModel.userId('');
     loginModel.password('');
     toastr.info('Logging out...');
     $.ajax({
@@ -183,7 +184,8 @@ $(function () {
             $('#logout-button').show();
             $('#login-button').hide();
             resume();
-            $("#intro_page").css("display", "block");
+            $("#home_page").hide();
+            $("#intro_page").show();
             highlightActiveButton();
             get_score_frame();
         } else {
@@ -192,6 +194,7 @@ $(function () {
             $('#logout-button').hide();
             $('#login-button').show();
             $("#home_page").show();
+            $("#intro_page").hide();
         }
     });
 

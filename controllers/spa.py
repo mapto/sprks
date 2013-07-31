@@ -5,21 +5,17 @@ from localsys import storage
 import datetime
 from models.users import users_model
 
-render_globals = {
-    'datetime': datetime,
-    'user_id': context.user_id,
-    'username': context.username,
-    'path': storage.path,
-}
-render = web.template.render('views/', globals=render_globals)
-
 
 class spa:
+
     def GET(self):
 
-        get_data = web.input()
+        render_globals = {
+            'user_id': context.user_id,
+            'username': context.username
+        }
 
-        if get_data.get('action') == 'logout':
+        if web.input().get('action') == 'logout':
             users_model.session_login(0)
 
-        return render.skeleton_spa()
+        return web.template.render('views/', globals=render_globals).index()

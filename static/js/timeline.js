@@ -3,18 +3,10 @@ timelineModel = {
     nextSync: ko.observable(new Date(0))
 };
 
-function setSyncDate() {
-    window.nextSync = new Date(timelineModel.currentDate());
-    window.nextSync.setMonth(window.nextSync.getMonth() + 1);
-    window.nextSync.setDate(1);
-    window.id_elem = 'plen';
-}
-
 function check_events() {
     var tmp_events_calendar = window.calendar;
     $(tmp_events_calendar).each(function (i) {
-        var conv_date = new Date(tmp_events_calendar[i].date);
-        if (conv_date - timelineModel.currentDate() === 0) {
+        if (new Date(tmp_events_calendar[i].date) - timelineModel.currentDate() === 0) {
             $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function (j) {
@@ -48,7 +40,6 @@ function submit_change() { // need different event handling, to capture any chan
     };
     if (policyUpdate.length > 0) {
         msg.policyUpdate = policyUpdate;
-        //msg.newCosts = calculate_cost_from_calendar();
     }
     msg.initPolicy = true;
     console.log(msg);
@@ -62,12 +53,11 @@ function submit_change() { // need different event handling, to capture any chan
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }
 
 function resume() {
     statusUpdating();
-    var request = $.ajax({
+    $.ajax({
         url: "/api/chronos/resume",
         type: "GET",
         success: function (policy) {
@@ -76,14 +66,12 @@ function resume() {
             $('#pause').click();
             timelineModel.currentDate(new Date(policy['date']))
             window.calendar = policy['calendar'];
-            setSyncDate();
             display_contextualized_policy(policy['policy'][0]);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }
 
 startTimer = function (interval) {
@@ -110,7 +98,6 @@ startTimer = function (interval) {
         UpdateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate())); //specified in characters.js
 
     }, interval);
-    return false;
 }
 
 pauseInterval = function () {
@@ -121,14 +108,20 @@ $(function () {
     ko.applyBindings(timelineModel, document.getElementById('timeline'));
 
     timelineModel.currentDate.subscribe(function () {
+
+        window.nextSync = new Date(timelineModel.currentDate());
+        window.nextSync.setMonth(window.nextSync.getMonth() + 1);
+        window.nextSync.setDate(1);
+        window.id_elem = 'plen';
+
         if (timelineModel.currentDate - new Date('2014-2-1') < 0) {
             //console.log('less than 1 month passed. Score is not yet calculated, hide button');
-            $(".score_page").css("display", "none");
+            $(".score_page").hide();
         } else {
             //console.log('>=1 month passed. Score is calculated, show button.');
-            $(".score_page").css("display", "block");
+            $(".score_page").show();
         }
-        $(".incident_page").css("display", "none");
+        $(".incident_page").hide();
     })
 
 })

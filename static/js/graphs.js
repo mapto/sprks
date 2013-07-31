@@ -158,7 +158,6 @@ function display_graphs(graph_id, dps_risk, dps_cost) {
 
         chart.render();
 
-
     });
 
 }

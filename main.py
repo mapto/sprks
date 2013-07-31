@@ -23,9 +23,8 @@ import controllers.score
 import controllers.chronos
 import controllers.policy_history
 import controllers.incident
-import controllers.pwpolicy
 import controllers.spa
-import controllers.user_spa
+import controllers.user
 import controllers.characters
 
 urls = (
@@ -46,12 +45,12 @@ urls = (
     storage.path + '/history_rest', controllers.policy_history.history_rest,
 
     #SPA
-    storage.path + '/login_spa', controllers.user_spa.account,
+    storage.path + '/login_spa', controllers.user.account,
     #SPA API
-    storage.path + '/api/user_spa/account/(.+)', controllers.user_spa.account,
-    storage.path + '/api/user_spa/account', controllers.user_spa.account,
-    storage.path + '/api/user_spa/password/(.+)', controllers.user_spa.password,
-    storage.path + '/password_spa', controllers.user_spa.password,
+    storage.path + '/api/user_spa/account/(.+)', controllers.user.account,
+    storage.path + '/api/user_spa/account', controllers.user.account,
+    storage.path + '/api/user_spa/password/(.+)', controllers.user.password,
+    storage.path + '/password_spa', controllers.user.password,
     storage.path + '/api/characters', controllers.characters.characters,
     storage.path + '/api/score_frame', controllers.policy_history.score_frame
 )

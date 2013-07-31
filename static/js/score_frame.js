@@ -8,7 +8,7 @@
 function get_score_frame(){
     var risk;
     var cost;
-    var request = $.ajax({
+    $.ajax({
         url: "/api/score_frame",
         type: "GET",
         success : function(data) {
@@ -35,5 +35,4 @@ function get_score_frame(){
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }

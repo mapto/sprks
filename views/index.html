@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/1.3.1/css/toastr.min.css">
-    <link rel="stylesheet" href="static/css/bootstrap_override.css">
+    <link rel="stylesheet" href="static/css/custom.css">
 
     <!-- External JS libraries loaded here. Local scripts loaded at end of file -->
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
@@ -19,7 +19,7 @@
     <script src="static/js/url.min.js"></script>
 
 </head>
-<body style="background-color: #F2F2F2">
+<body>
 
 <header>
 <div class="navbar navbar-fixed-top">
@@ -79,43 +79,64 @@
     <!-- MAP begin-->
 
     <div id="map">
-    <div class="interviewee" id="interviewee1">
-        Susie
-        <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}"  src=""/>
-    </div>
-    <div class="interviewee" id="interviewee2">
-        Kevin
-        <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" src=""/>
-    </div>
-    <div class="interviewee" id="interviewee3">
-        Iza
-        <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" src=""/>
-    </div>
+        <div class="interviewee" id="interviewee1">
+            Susie
+            <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" src=""/>
+        </div>
+        <div class="interviewee" id="interviewee2">
+            Kevin
+            <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" src=""/>
+        </div>
+        <div class="interviewee" id="interviewee3">
+            Iza
+            <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" src=""/>
+        </div>
 
-    <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main
-        problem I have with my job is that IT support is terrible. It used to be the case that the department was in the
-        same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A
-        bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half
-        the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and
-        everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the
-        latest round of password changes has locked me out of his email account.
-    </div>
-    <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been
-        re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are
-        no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get
-        treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows
-        each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are
-        at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the
-        building fixing computers and stuff and the atmosphere really has changed.
-    </div>
-    <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds
-        fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I
-        suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have
-        on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks
-        to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be
-        working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new
-        team and that makes work go a little easier.
-    </div>
+        <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span>
+
+            <p>The main
+                problem I have with my job is that IT support is terrible. It used to be the case that the department
+                was in the
+                same building, and you knew you could walk in or call them up and speak to the same people you spoke to
+                last time. A
+                bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random
+                person half
+                the world away that doesn't know me from Adam. Not having that personal relationship makes things more
+                difficult and
+                everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure
+                and the
+                latest round of password changes has locked me out of his email account.</p>
+        </div>
+        <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span>
+
+            <p>I have been
+                re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy
+                but there are
+                no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so
+                we don’t get
+                treated like we did when I worked here properly. It doesn't help that with all the shuffling around
+                no-one knows
+                each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints
+                like we are
+                at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk
+                all over the
+                building fixing computers and stuff and the atmosphere really has changed.</p>
+        </div>
+        <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span>
+
+            <p>My job sounds
+                fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers
+                affected me? I
+                suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the
+                info I have
+                on our customers. It seemed to take ages to get any changes made to permissions but we have always had a
+                few tricks
+                to deal with that. The merger didn’t make that side of things worse, but for a while you never know who
+                you would be
+                working with from one week to the next. I am glad it has settled down now, I am starting to get friendly
+                with my new
+                team and that makes work go a little easier.</p>
+        </div>
     </div>
     <!-- MAP end-->
 
@@ -142,19 +163,18 @@
                     <li>Manage the incidents occurring under your security policy.</li>
                     <li>See how your policy compares to policies designed by others.</li>
                 </ul>
-                $if username() == '':
-                    <p>To start a game please:</p>.
-                    <div class="span11">
-                        <div class="span4 text-center main_btn"><a class="register_page">Register</a></div>
-                        <div class="span2 text-center"><h3>OR</h3></div>
-                        <div class="span4 text-center main_btn"><a class="login_page">Login</a></div>
-                    </div>
-                    <br/><br/><br/><br/>
+
+                <div class="span11">
+                    <div class="span4 text-center main_btn"><a class="register_page">Register</a></div>
+                    <div class="span4 text-center main_btn"><a class="login_page">Login</a></div>
+                </div>
+                <br/><br/><br/><br/>
 
                 <p>This is a work-in-progress demonstration. Project SPRKS is being developed at <a
                         href="http://sec.cs.ucl.ac.uk/">UCL Information Security Research Group</a> and is supported by
                     Intel and IBM. Code is open source under the <a href="http://opensource.org/licenses/MIT">MIT
-                        license</a>. The <a href="https://github.com/mapto/sprks">development process</a> is accessible on
+                        license</a>. The <a href="https://github.com/mapto/sprks">development process</a> is accessible
+                    on
                     GitHub.</p>
 
                 <p>The website is tested to work with the <a href="www.google.com/chrome/">Chrome Browser</a>.</p>
@@ -771,7 +791,7 @@
 
 <!-- Page-related scripts -->
 <script src="static/js/intro.js"></script>
-<script src="static/js/pwpolicy.js"></script>
+<script src="static/js/policy.js"></script>
 <script src="static/js/profile.js"></script>
 <script src="static/js/score.js"></script>
 <script src="static/js/incident.js"></script>
