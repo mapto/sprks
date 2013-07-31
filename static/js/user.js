@@ -1,49 +1,27 @@
-function initUserForms(){
-
 registerFormModel = {
-        register_username: ko.observable(),
-        register_password: ko.observable(),
-        register_passwordConfirm: ko.observable(),
-        register_email: ko.observable(),
-        register_messages: ko.observableArray()
-    };
-ko.applyBindings(registerFormModel, document.getElementById('registerForm'));
-
-passwordRecoverModel = {
-        pswd_recover_username: ko.observable(),
-        pswd_recover_messages: ko.observableArray()
-    };
-ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
+    register_username: ko.observable(),
+    register_password: ko.observable(),
+    register_passwordConfirm: ko.observable(),
+    register_email: ko.observable(),
+    register_messages: ko.observableArray()
+};
 
 loginFormModel = {
-        login_username: ko.observable(),
-        login_password: ko.observable(),
-        login_messages: ko.observableArray()
-    };
-ko.applyBindings(loginFormModel, document.getElementById('loginForm'));
+    login_username: ko.observable(),
+    login_password: ko.observable(),
+    login_messages: ko.observableArray()
+};
+passwordRecoverModel = {
+    pswd_recover_username: ko.observable(),
+    pswd_recover_messages: ko.observableArray()
+};
 
 passwordChangeModel = {
-        pswd_change_password: ko.observable(),
-        pswd_change_passwordConfirm: ko.observable(),
-        pswd_change_messages: ko.observableArray(),
-        pswd_token: ko.observable()
-    };
-ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
-
-statusBarModel = {
-        statusbar_status: ko.observable(),
-        statusbar_image: ko.observable()
-    };
-ko.applyBindings(statusBarModel, document.getElementById('statusBar'));
-
-intervieweeDeviceModel = {
-        interviewee1_device_image: ko.observable(),
-        interviewee2_device_image: ko.observable(),
-        interviewee3_device_image: ko.observable()
-    };
-ko.applyBindings(intervieweeDeviceModel, document.getElementById('map'));
-
-}
+    pswd_change_password: ko.observable(),
+    pswd_change_passwordConfirm: ko.observable(),
+    pswd_change_messages: ko.observableArray(),
+    pswd_token: ko.observable()
+};
 
 $('#registerForm').submit(function (e) {
     e.preventDefault();
@@ -130,7 +108,7 @@ $('#passwordChangeForm').submit(function (e) {
                     passwordChangeModel.pswd_change_messages(['Server error']);
                 },
                 200: function (response) {
-                    manage_toast_alert(response.messages,1000);
+                    toastr['success'](response.messages, 1000);
                     if (response.success === true) {
                         console.log('changed pswd successfully');
                         passwordChangeModel.pswd_change_password('');
@@ -145,6 +123,11 @@ $('#passwordChangeForm').submit(function (e) {
 });
 
 $(function () {
+
+    ko.applyBindings(registerFormModel, document.getElementById('registerForm'));
+    ko.applyBindings(loginFormModel, document.getElementById('loginForm'));
+    ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
+    ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
 
     if ($.url('?token') != null) {
 

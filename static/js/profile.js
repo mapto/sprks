@@ -1,26 +1,18 @@
-/**
- * Created with PyCharm.
- * User: Жанеля
- * Date: 25.06.13
- * Time: 16:27
- * To change this template use File | Settings | File Templates.
- */
 var json;
 var policy_history;
 var graph_data;
 function initProfile() {
 
-    get_profile(); //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
+    get_profile();
 
 }
 
-
-
-function get_profile(){
+function get_profile() {
+    //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
     var request = jQuery.ajax({
         url: "/history_rest",
         type: "GET",
-        success : function(data) {
+        success: function (data) {
             json = JSON.parse(data);
             policy_history = JSON.parse(json['policy_history']);
             graph_data = JSON.parse(json['graph_data']);
@@ -48,7 +40,7 @@ function get_profile(){
             //fill table:
             var prev_obj = '';
             var row = [];
-            var date=[];
+            var date = [];
             var col = [];
             var location_r = [];
             var device_r = [];
@@ -57,7 +49,7 @@ function get_profile(){
             for (var i in policy_history) {
                 var obj = policy_history[i];
                 col[i] = {};
-                row [i] = $('<tr></tr>').addClass('profileTr'+i);
+                row [i] = $('<tr></tr>').addClass('profileTr' + i);
                 date [i] = $('<td></td>').addClass('profileTd_date').text(time_visualiser(obj['date'], false));
                 row [i].append(date[i]);
                 location_r[i] = $('<td></td>').addClass('profileTd location'+i).text(obj['location']);
@@ -72,57 +64,54 @@ function get_profile(){
 
                     if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk' && attrName !== 'location' && attrName !== 'device' && attrName !== 'employee') { //do not show these fields
                         if (i < 1) { //if it's first row
-                            col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(attrValue);
+                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(attrValue);
                             //row [i].append(col[i][attrName]);//add all policy values
                         } //else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
-                         else
-                        {
+                        else {
                             //if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
                             //    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
                             //}else{
-                                col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(obj[k]);
+                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(obj[k]);
                             //}
                             //row [i].append(col[i][attrName]); //add value column only if value have changed
                         } //else {
-                           // col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');
-                            row [i].append(col[i][attrName]); //add empty column if no changes
+                        // col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('');
+                        row [i].append(col[i][attrName]); //add empty column if no changes
                         //}
                     }
                 }
-                if(row[i].text()!=''){ //check if the row contains anything
-                    if(row[i].text().substring(10).match(/\d+/g)){ //exclude date, check if the rest row contains number values( such as for plen, etc.)
+                if (row[i].text() != '') { //check if the row contains anything
+                    if (row[i].text().substring(10).match(/\d+/g)) { //exclude date, check if the rest row contains number values( such as for plen, etc.)
                         var empty_row = $('<tr></tr>').addClass('profileTr profileTh');
-                        for (var x=0; x<13;x++){
+                        for (var x = 0; x < 13; x++) {
                             empty_row.append($('<td></td>').addClass('profileTd profileTh').text(''));
                         }
                         table.append(empty_row);
-                    }else{                                      //if row contains only environmental variables (location/employee/device
+                    } else {                                      //if row contains only environmental variables (location/employee/device
                         row[i]
                     }
-                table.append(row[i]);
+                    table.append(row[i]);
                 }
                 prev_obj = policy_history[i];
             }
             $('#profile_table').append(table);
         },
-        error: function(response) {
+        error: function (response) {
             console.log("fail: " + response.responseText);
         }
     });
     return false;
 }
 
-
-
 function createGraph(data) {
     var dps_risk = []; //data points for risk
     var dps_cost = []; //data points cost
     for (var k in data) {
-        if(data[k].score_type==='1'){
+        if (data[k].score_type === '1') {
             tmpRisk = {label: time_visualiser(data[k].date, true), y: parseFloat(data[k].score_value)};
             dps_risk.push(tmpRisk);
         }
-        if(data[k].score_type==='2'){
+        if (data[k].score_type === '2') {
             tmpCost = {label: time_visualiser(data[k].date, true), y: parseFloat(data[k].score_value)};
             dps_cost.push(tmpCost);
         }
@@ -141,10 +130,10 @@ function createGraph(data) {
 
         data: [
             { type: "line", color: "#499249", name: "Productivity cost($ million) ", showInLegend: true,
-              dataPoints: dps_cost
+                dataPoints: dps_cost
             }, //blue
             { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true,
-              dataPoints: dps_risk
+                dataPoints: dps_risk
             } //red  [{label:'bla', y:5}]
         ]
         // end of data for 2 line graphs

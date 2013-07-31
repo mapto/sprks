@@ -389,7 +389,7 @@ label {
     background-image: linear-gradient(to bottom, #c0c0c0, #505050);
     background-repeat: repeat-x;
     border: 1px solid #d4d4d4;
-    height: 150px;
+
 }
 
 .first {
@@ -402,7 +402,7 @@ label {
     background-image: linear-gradient(to bottom, #ffcc00, #b8860b);
     background-repeat: repeat-x;
     border: 1px solid #ffba00;
-    height: 200px;
+
 }
 
 .third {
@@ -415,10 +415,11 @@ label {
     background-image: linear-gradient(to bottom, #cc7722, #8e5702);
     background-repeat: repeat-x;
     border: 1px solid #d28955;
-    height: 100px;
+
 }
 
 .scr {
+
     position: absolute;
     width: 100%;
     margin-top: -2.8em;
@@ -438,8 +439,7 @@ label {
 .rnk {
     position: absolute;
     width: 100%;
-    top: 45%;
-    bottom: 45%;
+    bottom: 0;
     color: #faf0e6;
     text-shadow: 2px 2px 5px #4c3c18;
     font-size: 30px;
@@ -449,7 +449,7 @@ label {
 .when {
     width: 100%;
     position: absolute;
-    bottom: 20px;
+    bottom: -20px;
     color: #000;
     text-shadow: 1px -1px 1px #847e72;
     font-size: 16px;

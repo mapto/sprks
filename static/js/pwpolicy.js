@@ -206,7 +206,7 @@ $('#aut_num').change(function(){
 $(".aut").change(function(){
     if($('#aut_num').val()==2 && ($('#authentication1').val()==$('#authentication2').val())){ //ensure distinct selected options
         hide_policies();
-        manage_toast_alert('Please, select two distinct options or change the number of mechanisms',3000);
+        toastr['error']('Please, select two distinct options or change the number of mechanisms.');
     }else{
         display_policies();
     }
