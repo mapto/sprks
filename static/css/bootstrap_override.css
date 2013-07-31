@@ -351,7 +351,13 @@ label {
 #accordion .content {
     padding-left: 15px;
     font-weight: bold;
-    background-color: #F4F5F5;
+    background-color: #fff;
+    background-image: -moz-linear-gradient(top, #fff, #c5c5c5);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#c5c5c5));
+    background-image: -webkit-linear-gradient(top, #fff, #c5c5c5);
+    background-image: -o-linear-gradient(top, #fff, #c5c5c5);
+    background-image: linear-gradient(to bottom, #fff, #c5c5c5);
+    background-repeat: repeat-x;
 }
 
 #accordion .content p {
