@@ -155,10 +155,10 @@ function getScore(user, type) {
         return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when, "value_2":score_obj.b_pc_risk};
     }
     function getAverageRisk() {
-        return {"value": score_obj.avg_risk, "rank": "", "when": "", "value_2": ""};
+        return {"value": parseFloat(score_obj.avg_risk).toFixed(2), "rank": "", "when": "", "value_2": parseFloat(score_obj.avg_pc).toFixed(2)};
     }
     function getAverageCost() {
-        return {"value": score_obj.avg_pc, "rank": "", "when": "", "value_2": ""};
+        return {"value": parseFloat(score_obj.avg_pc).toFixed(2), "rank": "", "when": "", "value_2": parseFloat(score_obj.avg_risk).toFixed(2)};
     }
 
 

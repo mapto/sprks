@@ -77,7 +77,7 @@ function initFrame () {
             manageScoreButton();
             check_events();
             if(window.date==window.nextSyncStr) {
-                manage_toast_alert("Changes submitted",1000);
+                toastr['info']("Changes submitted");
                 $('#pause').click();
                 window.first_date = new Date(window.date);
                 window.nextSync = window.first_date;
