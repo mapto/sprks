@@ -3,11 +3,9 @@ timelineModel = {
 };
 
 function setSyncDate() {
-    window.first_date = timelineModel.currentDate();
-    window.nextSync = window.first_date;
+    window.nextSync = new Date(timelineModel.currentDate());
     window.nextSync.setMonth(window.nextSync.getMonth() + 1);
     window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear() + '-' + (window.nextSync.getMonth() + 1) + '-' + window.nextSync.getDate();
     window.id_elem = 'plen';
 }
 
@@ -19,20 +17,17 @@ function check_events() {
             $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function (j) {
-                //alert("Event #"+tmp_event[j].incdt_id+" happend!");
                 display_event(tmp_event[j].incdt_id, tmp_event[j].cost);
                 submit_event(str_date);
             })
             $('.incident_page').click();
 
         }
-
     })
-
 }
 
 function submit_event(date) {
-    var request = $.ajax({
+    $.ajax({
         url: "/api/chronos/event",
         type: "POST",
         data: JSON.stringify({date: date}),
@@ -47,7 +42,7 @@ function submit_event(date) {
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {
-        date: $.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate),
+        date: $.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()),
         policyUpdate: []
     };
     if (policyUpdate.length > 0) {
@@ -95,23 +90,19 @@ startTimer = function (interval) {
     if (window.timer1 != null) pauseInterval();
     window.timer1 = setInterval(function () {
         var tmp = timelineModel.currentDate();
-        var addHours = 24;
-        var addDays = 1;
 
-        //tmp.setDate(tmp.getDate()+addDays);
-        tmp.setHours(tmp.getHours() + addHours);
+        tmp.setDate(tmp.getDate()+1);
 
         timelineModel.currentDate(tmp);
 
         check_events();
-        if ($.datepicker.formatDate($.datepicker.ISO_8601, tmp) == window.nextSyncStr) {
+        if (timelineModel.currentDate() - window.nextSync === 0) {
             toastr['success']("Changes submitted");
             $('#pause').click();
-            window.first_date = tmp;
-            window.nextSync = window.first_date;
+            window.nextSync = new Date(timelineModel.currentDate());
             window.nextSync.setMonth(window.nextSync.getMonth() + 2);
             window.nextSync.setDate(1);
-            window.nextSyncStr = window.nextSync.getFullYear() + '-' + window.nextSync.getMonth() + '-' + window.nextSync.getDate();
+
             submit_change();
         }
         //script for interactive characters
