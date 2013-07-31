@@ -13,15 +13,6 @@
 var pwpolicy;
 
 function initPolicy() {
-    console.log('initPolicy called');
-
-    console.log('starting to initialize sync date ')
-    console.log(window.date);
-    console.log(window.nextSyncStr);
-
-    console.log("Policy initialized...");
-
-    // defined in graphs.js
     // TODO should not handle the system event, because it is being used in automatic calls as well.
     // $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
 }

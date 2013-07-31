@@ -50,7 +50,7 @@ function get_profile() {
                 var obj = policy_history[i];
                 col[i] = {};
                 row [i] = $('<tr></tr>').addClass('profileTr' + i);
-                date [i] = $('<td></td>').addClass('profileTd_date').text($.datepicker.formatDate($.datepicker.ISO_8601, obj['date']));
+                date [i] = $('<td></td>').addClass('profileTd_date').text(format_date(new Date(obj['date'])));
                 row [i].append(date[i]);
                 location_r[i] = $('<td></td>').addClass('profileTd location'+i).text(obj['location']);
                 device_r[i] = $('<td></td>').addClass('profileTd device'+i).text(obj['device']);
@@ -107,13 +107,13 @@ function createGraph(data) {
     var dps_risk = []; //data points for risk
     var dps_cost = []; //data points cost
     for (var k in data) {
+
+        tmpValue = {label: format_date(new Date(data[k].date)), y: parseFloat(data[k].score_value)};
         if (data[k].score_type === '1') {
-            tmpRisk = {label: $.datepicker.formatDate($.datepicker.ISO_8601, data[k].date), y: parseFloat(data[k].score_value)};
-            dps_risk.push(tmpRisk);
+            dps_risk.push(tmpValue);
         }
         if (data[k].score_type === '2') {
-            tmpCost = {label: $.datepicker.formatDate($.datepicker.ISO_8601, data[k].date), y: parseFloat(data[k].score_value)};
-            dps_cost.push(tmpCost);
+            dps_cost.push(tmpValue);
         }
     }
 

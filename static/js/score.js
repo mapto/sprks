@@ -83,7 +83,7 @@ function putOnLadder(ladder, step, name) {
     $("#" + ladder + "_s" + step+"_v1").text(score["value"]);
     $("#" + ladder + "_s" + step+"_v2").text(score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
-    $("#" + ladder + "_w" + step).text($.datepicker.formatDate($.datepicker.ISO_8601, score["when"]));
+    $("#" + ladder + "_w" + step).text(format_date(new Date(score["when"])));
 
 
     //Styling ranking ladder

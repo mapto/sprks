@@ -73,7 +73,7 @@ function resume() {
             policyUpdate = [];
             statusReady();
             $('#pause').click();
-            timelineModel.currentDate($.datepicker.parseDate($.datepicker.ISO_8601, policy['date']))
+            timelineModel.currentDate(new Date(policy['date']))
             window.calendar = policy['calendar'];
             setSyncDate();
             display_contextualized_policy(policy['policy'][0]);
