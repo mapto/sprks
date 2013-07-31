@@ -47,6 +47,7 @@ $('#registerForm').submit(function (e) {
                 },
                 201: function (response) {
                     registerFormModel.register_messages(response.messages);
+                    window.location='/';
                 }
             }
         });
