@@ -7,11 +7,10 @@ registerFormModel = {
 };
 
 loginModel = {
-    username: ko.observable(),
-    userId: ko.observable(),
-    password: ko.observable(),
+    username: ko.observable(''),
+    userId: ko.observable(0),
+    password: ko.observable(''),
     messages: ko.observableArray(),
-    loggedin: ko.observable(false)
 };
 
 passwordRecoverModel = {
@@ -68,12 +67,10 @@ $('#loginForm').submit(function (e) {
                 loginModel.messages(['Server error']);
             },
             200: function (response) {
-                loginModel.messages(response.messages);
                 if (response.success === true) {
-                    loginModel.loggedin(true);
                     loginModel.username(response.username);
                     loginModel.userId(response.user_id);
-                    $('.main-body').hide();
+                    $('#login_page').hide();
                 }
             }
         }
@@ -138,7 +135,8 @@ $('#logout-button').click(function(){
         url: '/?action=logout',
         statusCode: {
             200: function () {
-                    loginModel.loggedin(false);
+                    loginModel.username('');
+                    loginModel.userId(0);
                 }
             }
     });
@@ -152,11 +150,9 @@ function check_loggedin() {
             200: function (response) {
                 toastr.clear();
                 if (response.success === true) {
-                    loginModel.loggedin(true);
                     loginModel.username(response.username);
                     loginModel.userId(response.user_id);
                 } else {
-                    loginModel.loggedin(false);
                     loginModel.username('');
                     loginModel.userId(0);
                 }
@@ -179,9 +175,9 @@ $(function () {
         $('span.username').text(username);
     })
 
-    loginModel.loggedin.subscribe(function (status) {
+    loginModel.userId.subscribe(function (userId) {
         toastr.clear();
-        if (status === true) {
+        if (userId > 0) {
             toastr.info('Logged in.');
             $('#controls').show();
             $('#logout-button').show();

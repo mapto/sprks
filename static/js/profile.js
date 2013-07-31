@@ -9,7 +9,7 @@ function initProfile() {
 
 function get_profile() {
     //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
-    var request = jQuery.ajax({
+    var request = $.ajax({
         url: "/history_rest",
         type: "GET",
         success: function (data) {
