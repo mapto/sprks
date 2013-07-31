@@ -103,13 +103,17 @@ function putOnLadder(ladder, step, name) {
     }
 
     //TODO appropriate color, is current schema intuitive enough?
-    if($('#'+ladder.substr(0,1)+'_first').css("height")==$('#'+ladder.substr(0,1)+'_second').css("height")){
-        $('#'+ladder.substr(0,1)+'_second').css("background-image", $('#'+ladder.substr(0,1)+'_first').css("background-image"));
-        $('#'+ladder.substr(0,1)+'_third').css("border", $('#'+ladder.substr(0,1)+'_second').css("border"));
+    if($('#'+ladder.substr(0,1)+'_first').css("height")!='0px'&&
+       $('#'+ladder.substr(0,1)+'_second').css("height")!='0px'&&
+       $('#'+ladder.substr(0,1)+'_first').css("height")==$('#'+ladder.substr(0,1)+'_second').css("height")){
+            $('#'+ladder.substr(0,1)+'_second').css("background-image", $('#'+ladder.substr(0,1)+'_first').css("background-image"));
+            $('#'+ladder.substr(0,1)+'_third').css("border", $('#'+ladder.substr(0,1)+'_second').css("border"));
     }
-    if($('#'+ladder.substr(0,1)+'_third').css("height")==$('#'+ladder.substr(0,1)+'_second').css("height")){
-        $('#'+ladder.substr(0,1)+'_third').css("background-image", $('#'+ladder.substr(0,1)+'_second').css("background-image"));
-        $('#'+ladder.substr(0,1)+'_third').css("border", $('#'+ladder.substr(0,1)+'_second').css("border"));
+    if($('#'+ladder.substr(0,1)+'_third').css("height")!='0px'&&
+       $('#'+ladder.substr(0,1)+'_second').css("height")!='0px'&&
+       $('#'+ladder.substr(0,1)+'_third').css("height")==$('#'+ladder.substr(0,1)+'_second').css("height")){
+            $('#'+ladder.substr(0,1)+'_third').css("background-image", $('#'+ladder.substr(0,1)+'_second').css("background-image"));
+            $('#'+ladder.substr(0,1)+'_third').css("border", $('#'+ladder.substr(0,1)+'_second').css("border"));
     }
 }
 
