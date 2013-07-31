@@ -68,17 +68,19 @@ body {
 .loginbox.main_body_container {
     max-width: 100%; /*central block for main info, use with loginbox class*/
 }
-.main-body{
-    display:none;
-    position:absolute;
-    z-index:10;
-    width:100%;
+
+.main-body {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.95);
     padding: 2em;
-    padding-bottom:4em;
+    padding-bottom: 4em;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
     color: #847f7f
 }
+
 label {
     display: block;
     margin-bottom: 5px;
@@ -110,7 +112,7 @@ label {
 }
 
 .time_controls ul {
-    margin-left:-1%;
+    margin-left: -1%;
 }
 
 .time_controls li {
@@ -136,8 +138,8 @@ label {
     transform: scale(1.5, 1.5);
 }
 
-.time_controls a:hover{
-    cursor:pointer;
+.time_controls a:hover {
+    cursor: pointer;
 }
 
 .icon-play {
@@ -157,10 +159,12 @@ label {
     color: #555;
     background-color: #fff;
 }
-.active a{
+
+.active a {
     background-color: #99958c;
 }
-.active a:hover{
+
+.active a:hover {
     background-color: #99958c;
 }
 
@@ -171,7 +175,7 @@ label {
 
 .risk-menu {
     display: none;
-    width:15%;
+    width: 15%;
     position: fixed;
     right: 0;
     left: 5px;
@@ -189,7 +193,7 @@ label {
     color: #555;
     text-align: center;
     font-weight: normal;
-    width:100%;
+    width: 100%;
     height: auto;
     line-height: 50px;
     border-radius: 3%;
@@ -198,24 +202,25 @@ label {
 
 .risk-menu li {
     display: block;
-    width:100%;
+    width: 100%;
     margin: 5px;
-    margin-left:0;
+    margin-left: 0;
 }
-.risk_menu-title-risk{
+
+.risk_menu-title-risk {
     color: #c24642;
 }
-.risk_menu-title-cost{
+
+.risk_menu-title-cost {
     color: #499249;
 }
 
-
 .policy-summary {
     display: none;
-    width:14%;
+    width: 14%;
     background-color: #f9f9f9;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
-    padding:10px;
+    padding: 10px;
     position: fixed;
     right: 1%;
     bottom: 52px;
@@ -223,7 +228,6 @@ label {
     margin-bottom: 10px;
     font-size: x-small;
 }
-
 
 .link {
     margin-right: 5px;
@@ -322,12 +326,13 @@ label {
     text-decoration: none;
     background-color: #fff;
     color: #000;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .menu a .score_page {
     display: none;
 }
+
 .menu a .incident_page {
     display: none;
 }
@@ -429,13 +434,14 @@ label {
     font-weight: bold;
 }
 
-.large-score{
-    font-size:22px;
+.large-score {
+    font-size: 22px;
 }
 
-.scr span{
-    margin:1%;
+.scr span {
+    margin: 1%;
 }
+
 .rnk {
     position: absolute;
     width: 100%;
@@ -469,9 +475,9 @@ label {
     z-index: 0;
     position: fixed;
     bottom: 75px;
-    min-height:100px;
-    min-width:60px;
-    height:16%;
+    min-height: 100px;
+    min-width: 60px;
+    height: 16%;
     width: 5%;
     padding: 5px;
     float: right;
@@ -494,37 +500,40 @@ label {
     color: #000;
 }
 
-#interviewee1 { /*Susie*/
-    left:40%;
-    right:55%;
-    bottom:55%;
+#interviewee1 {
+    /*Susie*/
+    left: 40%;
+    right: 55%;
+    bottom: 55%;
 }
 
-#interviewee2 { /*Kevin*/
-    left:47.5%;
-    right:47.5%;
-    bottom:55%;
+#interviewee2 {
+    /*Kevin*/
+    left: 47.5%;
+    right: 47.5%;
+    bottom: 55%;
 }
 
-#interviewee3 { /*Iza*/
+#interviewee3 {
+    /*Iza*/
     left: 55%;
-    right:40%;
-    bottom:55%;
+    right: 40%;
+    bottom: 55%;
 }
 
 .quote {
     z-index: 0;
     display: none;
     border-radius: 10%;
-    min-width:28%;
+    min-width: 28%;
     padding: 15px;
     position: fixed;
     bottom: 73%;
-    top:60px;
-    left:35%;
+    top: 60px;
+    left: 35%;
     right: 35%;
     float: left;
-    overflow:auto;
+    overflow: auto;
     color: #0e0e0e;
     background-color: rgba(250, 250, 250, 0.9);
     border: 1px solid #d4d4d4;
@@ -536,17 +545,19 @@ label {
     font-size: 16px;
 }
 
-#quote1{
-    left:27.5%;
-    right:67.5%;
+#quote1 {
+    left: 27.5%;
+    right: 67.5%;
 
 }
-#quote2{
-    left:35%;
-    right:60%;
+
+#quote2 {
+    left: 35%;
+    right: 60%;
 
 }
-#quote3{
+
+#quote3 {
     left: 42.5%;
     right: 52.5%;
 
@@ -564,7 +575,6 @@ label {
     border-style: solid;
     border-color: #333333 transparent;
 }
-
 
 /*PROFILE page*/
 /*Graph*******/
@@ -609,7 +619,7 @@ label {
 /***graphs*/
 .graph {
     float: left;
-    width:0;
+    width: 0;
     /*width: 30%;*/
     /*height: 190px;*/
     /*margin: 5px;*/
@@ -618,27 +628,27 @@ label {
 .qn {
     float: left;
     /*width: 65%;*/
-    width:100%;
+    width: 100%;
     text-align: left;
 }
 
 /*******SCORE page: congratulations popup */
-#congratulate{
+#congratulate {
     position: fixed;
-    top:25%;
-    left:35%;
-    width:30%;
-    height:45%;
+    top: 25%;
+    left: 35%;
+    width: 30%;
+    height: 45%;
     box-shadow: 0px 3px 20px #aaa, inset 0px 2px 3px #fff;
 
     text-align: center;
     vertical-align: middle;
     font-weight: bold;
-    font-size:17px;
-    padding:12px;
-    color:#000;
+    font-size: 17px;
+    padding: 12px;
+    color: #000;
 
-    background-size:100%;
+    background-size: 100%;
     background-image: url(/static/img/trophy-cup.jpg);
     background-repeat: no-repeat;
     /*
@@ -647,42 +657,45 @@ label {
     */
 }
 
-
 /*AUTENTICATION mechanisms*/
-#aut_num{
-    width:15%;
-}
-.aut
-{
-   display:inline-block;
-}
-.policy{
-    display:none;
-}
-#biometric{
-    width:15%;
-}
-.company{
-    width:30%;
-    margin-right:3%;
-    margin-bottom:2%;
-    float:left;
-}
-#apply{
-    display:inline-block;
-    width:15%;
-    height:40px;
-    margin:1%;
-    margin-left:0;
+#aut_num {
+    width: 15%;
 }
 
+.aut {
+    display: inline-block;
+}
+
+.policy {
+    display: none;
+}
+
+#biometric {
+    width: 15%;
+}
+
+.company {
+    width: 30%;
+    margin-right: 3%;
+    margin-bottom: 2%;
+    float: left;
+}
+
+#apply {
+    display: inline-block;
+    width: 15%;
+    height: 40px;
+    margin: 1%;
+    margin-left: 0;
+}
 
 /*********SPA********************************************************/
-.pages{
-    display:none;
+.pages {
+    display: none;
 }
-#close_btn{
-    float:right;
+
+#close_btn {
+    float: right;
     display: block;
     background-color: #750000;
     color: #a7a7a7;
@@ -695,17 +708,18 @@ label {
     border-radius: 50%;
     box-shadow: 0px 1px 8px #aaa, inset 1px 1px 3px #C10000;
 }
-#close_btn:hover{
-    cursor:pointer;
+
+#close_btn:hover {
+    cursor: pointer;
     background-color: #950000;
     box-shadow: 0px 1px 8px #aaa, inset 1px 1px 3px #C23456;
 }
 
- #background_map{
-     display:none;
+#background_map {
+    display: none;
 }
 
-.device_img{
+.device_img {
     display: block;
     position: relative;
     left: -1em;
@@ -714,31 +728,18 @@ label {
     width: 3em;
 }
 
-#toast{
-    display:none;
-    position:fixed;
-    width:30%;
-    left:50%;
-    margin-left: -15%;
-    top:40%;
-    z-index:999999;
-    text-align:center;
-    font-size:16px;
-    line-height: 22px;
-    font-weight:800;
-    background-color: #eeeeee;
-	padding: 10px 0 ;
-	opacity: .75;
-    box-shadow: 0px 3px 8px #000000, inset 0px 2px 3px #fff;
-
+.toast-message {
+    right: 12px;
+    bottom: 12px;
 }
 
-.policy-summary{
+.policy-summary {
     top: 200px;
     width: 13%;
     position: fixed;
-    overflow:auto;
+    overflow: auto;
 }
-.policy-summary-field{
-    font-size:14px;
+
+.policy-summary-field {
+    font-size: 14px;
 }
