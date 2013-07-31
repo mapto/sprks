@@ -667,17 +667,29 @@ $if user_id() > 0:
                     <div class="content">
                         <div class="span11 text-center rank">
                             <div class="ranking second" id="r_second">
-                                <div class="scr" id="risk_s2"></div>
+                                <div class="scr">
+                                    <span id="risk_s2"></span><br>
+                                    risk: <span class="risk_menu-title-risk large-score" id="risk_s2_v1"></span>
+                                    cost: <span class="risk_menu-title-cost" id="risk_s2_v2"></span>
+                                </div>
                                 <div class="rnk" id="risk_r2"></div>
                                 <div class="when" id="risk_w2"></div>
                             </div>
                             <div class="ranking first" id="r_first">
-                                <div class="scr" id="risk_s1"></div>
+                                <div class="scr">
+                                    <span id="risk_s1"></span><br>
+                                    risk: <span class="risk_menu-title-risk large-score" id="risk_s1_v1"></span>
+                                    cost: <span class="risk_menu-title-cost" id="risk_s1_v2"></span>
+                                </div>
                                 <div class="rnk" id="risk_r1">1</div>
                                 <div class="when" id="risk_w1"></div>
                             </div>
                             <div class="ranking third" id="r_third">
-                                <div class="scr" id="risk_s3"></div>
+                                <div class="scr">
+                                    <span id="risk_s3"></span><br>
+                                    risk: <span class="risk_menu-title-risk large-score" id="risk_s3_v1"></span>
+                                    cost: <span class="risk_menu-title-cost" id="risk_s3_v2"></span>
+                                </div>
                                 <div class="rnk" id="risk_r3"></div>
                                 <div class="when" id="risk_w3"></div>
                             </div>
@@ -688,17 +700,29 @@ $if user_id() > 0:
                     <div class="content">
                         <div class="span11 text-center rank">
                             <div class="ranking second" id="c_second">
-                                <div class="scr" id="cost_s2"></div>
+                                <div class="scr">
+                                    <span id="cost_s2"></span><br>
+                                    cost: <span class="risk_menu-title-cost large-score" id="cost_s2_v1"></span>
+                                    risk: <span class="risk_menu-title-risk" id="cost_s2_v2"></span>
+                                </div>
                                 <div class="rnk" id="cost_r2"></div>
                                 <div class="when" id="cost_w2"></div>
                             </div>
                             <div class="ranking first" id="c_first">
-                                <div class="scr" id="cost_s1"></div>
+                                <div class="scr">
+                                    <span id="cost_s1"></span><br>
+                                    cost: <span class="risk_menu-title-cost large-score" id="cost_s1_v1"></span>
+                                    risk: <span class="risk_menu-title-risk" id="cost_s1_v2"></span>
+                                </div>
                                 <div class="rnk" id="cost_r1">1</div>
                                 <div class="when" id="cost_w1"></div>
                             </div>
                             <div class="ranking third" id="c_third">
-                                <div class="scr" id="cost_s3"></div>
+                                <div class="scr">
+                                    <span id="cost_s3"></span><br>
+                                    cost: <span class="risk_menu-title-cost large-score" id="cost_s3_v1"></span>
+                                    risk: <span class="risk_menu-title-risk" id="cost_s3_v2"></span>
+                                </div>
                                 <div class="rnk" id="cost_r3"></div>
                                 <div class="when" id="cost_w3"></div>
                             </div>
@@ -711,11 +735,11 @@ $if user_id() > 0:
                             <h4 class="text-left avg">
                                 <div>
                                     <div class="span6">Risk</div>
-                                    <div class="span3" id="avg_risk">avg_risk</div>
+                                    <div class="span3 risk_menu-title-risk" id="avg_risk">avg_risk</div>
                                 </div>
                                 <div>
                                     <div class="span6">Productivity cost</div>
-                                    <div class="span3" id="avg_pc">avg_pc</div>
+                                    <div class="span3 risk_menu-title-cost" id="avg_pc">avg_pc</div>
                                 </div>
                             </h4>
                         </div>

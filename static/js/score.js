@@ -17,8 +17,8 @@ function initScore(){
     });
     climbLadder("risk");
     climbLadder("cost");
-    $("#avg_risk").text(score_obj.avg_risk);
-    $("#avg_pc").text(score_obj.avg_pc);
+    $("#avg_risk").text(parseFloat(score_obj.avg_risk).toFixed(2));
+    $("#avg_pc").text(parseFloat(score_obj.avg_pc).toFixed(2));
     console.log("Score initialized...");
     congratulate_first();
 }
@@ -67,7 +67,22 @@ function putOnLadder(ladder, step, name) {
     // score contains "value", "rank" and "when"
     // ladder is "risk" or "cost"
     score = getScore(name, ladder);
-    $("#" + ladder + "_s" + step).text(name + ', ' + score["value"] + ', ' + score["value_2"]);
+    console.log(name);
+    switch (name) {
+            case "Best":
+                $("#" + ladder + "_s" + step).text('anonymous (best) ,');
+                break;
+            case "Contender":
+                $("#" + ladder + "_s" + step).text('anonymous (contender) ,');
+                break;
+            case "Average":
+                $("#" + ladder + "_s" + step).text('anonymous (average) ,');
+                break;
+            default:
+                $("#" + ladder + "_s" + step).text(name+' (player) ,');
+        }
+    $("#" + ladder + "_s" + step+"_v1").text(score["value"]);
+    $("#" + ladder + "_s" + step+"_v2").text(score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
     $("#" + ladder + "_w" + step).text(time_visualiser(score["when"], true));
 
@@ -101,6 +116,7 @@ function getScore(user, type) {
     function getOwnCost() {
         return {"value": score_obj.b_u_cost, "rank": score_obj.b_u_cost_rank, "when": score_obj.b_u_cost_date, "value_2": score_obj.b_u_cost_risk};
     }
+
     function getContenderRisk() {
         return {"value": score_obj.c_risk, "rank": score_obj.c_risk_rank, "when": score_obj.c_risk_when, "value_2": score_obj.c_risk_cost};
     }

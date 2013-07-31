@@ -206,7 +206,7 @@ label {
     color: #c24642;
 }
 .risk_menu-title-cost{
-    color: #369ead;
+    color: #499249;
 }
 
 
@@ -415,13 +415,20 @@ label {
 .scr {
     position: absolute;
     width: 100%;
-    margin-top: -2.1em;
+    margin-top: -2.8em;
     color: #000;
-    text-shadow: 1px -1px 1px #847e72;
+    text-shadow: 1.5px -1.5px 0.9px #666666;
     font-size: 18px;
     font-weight: bold;
 }
 
+.large-score{
+    font-size:22px;
+}
+
+.scr span{
+    margin:1%;
+}
 .rnk {
     position: absolute;
     width: 100%;

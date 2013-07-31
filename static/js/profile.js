@@ -127,7 +127,7 @@ function createGraph(data) {
         },
 
         data: [
-            { type: "line", color: "#369ead", name: "Productivity cost($ million) ", showInLegend: true,
+            { type: "line", color: "#499249", name: "Productivity cost($ million) ", showInLegend: true,
               dataPoints: dps_cost
             }, //blue
             { type: "line", color: "#c24642", name: "Risk(%) ", showInLegend: true,

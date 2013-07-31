@@ -131,8 +131,8 @@ function display_graphs(graph_id, dps_risk, dps_cost) {
             // begin data for 2 line graphs. Note dps1 and dps2 are
             //defined above as a json object. See http://www.w3schools.com/json/
             data: [
-                { type: "line", name: "R", showInLegend: true, dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
-                { type: "line", name: "PC", showInLegend: true, dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
+                { type: "line", color: "#c24642", name: "R(%)", showInLegend: true, dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
+                { type: "line", color: "#499249", name: "PC($)", showInLegend: true, dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
             ]
             // end of data for 2 line graphs
 
