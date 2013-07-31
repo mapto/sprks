@@ -11,8 +11,7 @@
 var policyUpdate = [];
 var policies_array = {};
 
-
-function initFrame () {
+$(function(){
 
     if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
         $(".risk-menu").css("display", "none");
@@ -27,8 +26,6 @@ function initFrame () {
             $(".risk-menu").css("display", "block");
         }
     });
-
-    manageScoreIncidentButtons();
 
     $('#pause').click(function() {
         $('.target').removeAttr('disabled');
@@ -53,26 +50,11 @@ function initFrame () {
     });
 
     console.log("Private decoration initialized...");
-}
+});
 
 // Decides whether to show score button
 // If different elements of the interface need to show up in later turns,
 // this could be done here
-
-
-function manageScoreIncidentButtons() {
-    if(time_parser($('#time').text())){
-        var cur_date_greater = (new Date(time_parser($('#time').text())) - new Date('2014-2-1'));
-        if(cur_date_greater<0){
-                //console.log('less than 1 month passed. Score is not yet calculated, hide button');
-                $(".score_page").css("display", "none");
-        } else {
-                //console.log('>=1 month passed. Score is calculated, show button.');
-                $(".score_page").css("display", "block");
-        }
-    }
-    $(".incident_page").css("display", "none");
-}
 
 // highlight active button(scores/story/policy)
 function highlightActiveButton() {

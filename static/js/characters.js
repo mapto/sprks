@@ -49,12 +49,10 @@ function give_device(div_id, device) {
 }
 
 function UpdateCharacters(date) { //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
-    msg = {};
-    msg['date'] = date;
     var request = $.ajax({
         url: "/api/characters",
         type: "POST",
-        data: JSON.stringify(msg),
+        data: JSON.stringify({date: date}),
         contentType: "application/json; charset=utf-8",
         dataType: "application/json",
         success: function (data) {

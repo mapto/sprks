@@ -83,7 +83,7 @@ function putOnLadder(ladder, step, name) {
     $("#" + ladder + "_s" + step+"_v1").text(score["value"]);
     $("#" + ladder + "_s" + step+"_v2").text(score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
-    $("#" + ladder + "_w" + step).text(time_visualiser(score["when"], true));
+    $("#" + ladder + "_w" + step).text($.datepicker.formatDate($.datepicker.ISO_8601, score["when"]));
 
 
     //Styling ranking ladder
@@ -155,10 +155,10 @@ function getScore(user, type) {
         return {"value": score_obj.b_pc, "rank": 1, "when": score_obj.b_pc_when, "value_2":score_obj.b_pc_risk};
     }
     function getAverageRisk() {
-        return {"value": score_obj.avg_risk, "rank": "", "when": "", "value_2": ""};
+        return {"value": parseFloat(score_obj.avg_risk).toFixed(2), "rank": "", "when": "", "value_2": parseFloat(score_obj.avg_pc).toFixed(2)};
     }
     function getAverageCost() {
-        return {"value": score_obj.avg_pc, "rank": "", "when": "", "value_2": ""};
+        return {"value": parseFloat(score_obj.avg_pc).toFixed(2), "rank": "", "when": "", "value_2": parseFloat(score_obj.avg_risk).toFixed(2)};
     }
 
 
