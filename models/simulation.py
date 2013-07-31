@@ -4,6 +4,7 @@ from localsys.storage import db
 from models.policies import policies_model
 from models.incident import incident
 from sim.classifier_sklearn import classifier_sklearn
+from sim.classifier_sklearn import regression_sklearn
 from models.company import company
 
 class simulation:
@@ -11,10 +12,11 @@ class simulation:
     ordered_policy = ['bdata', 'pdata', 'plen', 'psets', 'pdict', 'phist', 'prenew', 'pattempts', 'precovery']
 
     def __init__(self):
-        self.predictor = classifier_sklearn()
+        self.classifier = classifier_sklearn()
+        self.regression = regression_sklearn()
 
     def get(self, policy, context, risk):
-        query = "SELECT `name` FROM `risks` WHERE"
+        query = "SELECT `name`, `risk_prob` FROM `risks` WHERE"
         query = query + "`risk_type` = '" + risk + "'"
         for next in simulation.ordered_context:
             query = query + " AND `" + next + "` = '" + context[next] + "'"
@@ -42,12 +44,21 @@ class simulation:
 
         if len(response) == 0:
             datapoint = policies_model.policy2datapoint(policy)
-            result = self.predictor.predict_single_datapoint(datapoint, context, [risk])
-            self.set(policy, context, risk, result['name'], result['risk'])
+            event = self.classifier.predict_single_datapoint(datapoint, context, [risk])
+            risk_value = self.regression.predict_single_datapoint(datapoint, context, [risk])
+            # print "estimate"
+            # print risk_value
+            self.set(policy, context, risk, event['name'], risk_value)
         else:
-            result = incident.get_incident_by_name(response[0].name)
+            row = response[0]
+            event = incident.get_incident_by_name(row.name)
+            risk_value = row.risk_prob
 
-        return result
+        event['risk'] = risk_value
+        # print "name and value"
+        # print event['name']
+        # print event['risk']
+        return event
 
 
     def request(self, policy, p_context = {}, risk = 'any'):

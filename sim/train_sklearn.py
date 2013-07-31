@@ -8,7 +8,7 @@ import csv
 import json
 from models.company import company
 from models.policies import policies_model as policy_model
-from sim.classifier_sklearn import classifier_sklearn
+from sim.classifier_sklearn import model_sklearn
 from models.incident import incident
 from models.simulation import simulation as sim_model
 
@@ -21,12 +21,16 @@ class train_sklearn:
            This model is a serialization of the trained/fitted model
            Currently the CSV training set in static/data/train-generated*.csv is a by-product, but is not really needed
         """
-        self.generate_training_set()
-        self.generate_models()
+        self.generate_training_set("classifier")
+        self.generate_models("classifier")
+
+        self.generate_training_set("regression")
+        self.generate_models("regression")
         # database does not need to be generated beforehand.
         # The simulation generates it dynamically (lazy initialization)
         # self.generate_db()
 
+    # OBSOLETE: Currently the database is filled runtime (lazy initialization)
     def generate_db(self):
         ordered_context = sim_model.ordered_context
         ordered_policy = sim_model.ordered_policy
@@ -89,17 +93,17 @@ class train_sklearn:
 
         return [partial_context]
 
-    def generate_models(self):
+    def generate_models(self, type = "classifier"):
         """ Train the SVM models from the CSV dataset
 
         """
-        print("Generating models...")
+        print("Generating " + type + " models...")
 
-        f = open('static/data/classifier-models.txt', 'wb')
+        f = open('static/data/' + type + '-models.txt', 'wb')
 
         models = {}
 
-        for risk in classifier_sklearn.risks_set:
+        for risk in model_sklearn.risks_set:
             if not risk in models.keys():
                 models[risk] = {}
             for employee in company.employee_types:
@@ -111,22 +115,24 @@ class train_sklearn:
                     for device in company.device_types:
                         if not device in models[risk][employee][location].keys():
                             models[risk][employee][location][device] = {}
-                        models[risk][employee][location][device] = self. train_classifier(risk, employee, location, device)
+                        models[risk][employee][location][device] =\
+                            self.train_engine(risk, employee, location, device, type=type)
 
         cPickle.dump(models, f)
         f.close()
-        print "Model generation completed..."
+        print "Model generation for " + type + " completed..."
 
 
-    def generate_training_set(self):
+    def generate_training_set(self, type = "classifier"):
         """
         Generalizes the incidents into a training set to be used by the implicit model.
         This assumes the types of risks
         """
 
         # this is iteration of incidents, values are specified in data
-        print "Generating training set..."
+        print "Generating " + type + " training set..."
         entries = {}
+        eng = engine.get_engine(type=type)
 
         # read incidents and generate training sets
         for ref in glob.glob('static/incidents/*.json'):
@@ -137,8 +143,9 @@ class train_sklearn:
             risk = incident["type"]
             policy = incident["policy"]
             cls = incident["id"]
+            value = incident["risk"]
 
-            print str(incident["name"]) + " " + str(cls) + " type: " + str(risk)
+            print str(incident["name"]) + " " + str(cls) + " type: " + str(risk) + " value: " + str(value)
 
             # for a policy that has undefined values this returns all possible combinations
             samples = self.enum_samples(policy)
@@ -146,7 +153,7 @@ class train_sklearn:
             # add classification last column
             for sample in samples:
                 data = policy_model.policy2datapoint(sample)
-                data.append(cls) # add last column with classification for printing in CSV
+                data.append(incident[eng.get_result_field()]) # add last column with classification for printing in CSV
 
                 if risk not in entries:
                     entries[risk] = []
@@ -156,16 +163,16 @@ class train_sklearn:
             for employee in company.employee_types:
                 for location in company.location_types:
                     for device in company.device_types:
-                        self.dump_training_set(entries, risk, employee, location, device)
+                        self.dump_training_set(entries, risk, employee, location, device, type=type)
 
-        print "Training set generation completed..."
+        print "Training set generation for " + type + " completed..."
 
-    def dump_training_set(self, entries, risk, employee, location, device):
+    def dump_training_set(self, entries, risk, employee, location, device, type="classifier"):
         #save the risk dictionary files
         context = employee + '-' + location + '-' + device
         tail = 'general' if risk == 'general' else risk + '-' + context
 
-        csv_name = 'static/data/train-generated-' + tail + '.csv'
+        csv_name = 'static/data/train-' + type + '-' + tail + '.csv'
         print csv_name
         writer = csv.writer(open(csv_name, 'w'))
         for row in entries[risk]:
@@ -198,18 +205,18 @@ class train_sklearn:
 
         return [partial_policy]
 
-    def load_csv_files(self, risk, employee, location, device):
+    def load_csv_files(self, risk, employee, location, device, type="classifier"):
         context = employee+'-'+location+'-'+device
-        general = numpy.genfromtxt('static/data/train-generated-general.csv', delimiter=',')
-        filenames = glob.glob('static/data/train-generated-'+risk+'-'+ context +'.csv')
+        general = numpy.genfromtxt('static/data/train-' + type + '-general.csv', delimiter=',')
+        filenames = glob.glob('static/data/train-' + type + '-'+risk+'-'+ context +'.csv')
 
         data = numpy.genfromtxt(filenames[0], delimiter=',')
         data = numpy.concatenate((data, general)) # add positive cases that need to contrast negative ones
 
         return data
 
-    def train_classifier(self, risk, employee, location, device):
-        data = self.load_csv_files(risk, employee, location, device)
+    def train_engine(self, risk, employee, location, device, type="classifier"):
+        data = self.load_csv_files(risk, employee, location, device, type=type)
         limit = len(policy_model.get_ranges())
 
         train_data = data[:, 0:limit] # first several columns represent the data dimension
@@ -217,8 +224,49 @@ class train_sklearn:
 
         # for explanation of the following parameters please see
         # http://scikit-learn.org/stable/modules/svm.html#tips-on-practical-use
-        return svm.SVC(kernel='rbf', cache_size=1000, C=0.9).fit(train_data, train_result)
+        params = {'kernel': 'rbf', 'cache_size': 1000, 'C': 0.9}
+        eng = engine.get_engine(type=type)
+        return eng.get_model(params).fit(train_data, train_result)
 
+class engine:
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def get_engine(type="classifier"):
+        if type == "regression":
+            result = regression_engine()
+        else:
+            result = classifier_engine()
+        return result
+
+    def get_model(self, params):
+        raise NotImplementedError
+
+    def get_result_field(self):
+        raise NotImplementedError
+
+class classifier_engine(engine):
+    def __init__(self):
+        self.type = "classifier"
+        engine.__init__(self)
+
+    def get_model(self, params):
+        return svm.SVC(**params)
+
+    def get_result_field(self):
+        return 'id'
+
+class regression_engine(engine):
+    def __init__(self):
+        self.type = "regression"
+        engine.__init__(self)
+
+    def get_model(self, params):
+        return svm.SVR(**params)
+
+    def get_result_field(self):
+        return 'risk'
 
 if __name__ == "__main__":
     # train_sklearn().train()

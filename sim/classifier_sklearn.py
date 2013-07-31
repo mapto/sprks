@@ -8,7 +8,7 @@ from models.incident import incident
 from models.policies import policies_model as policy_model
 
 
-class classifier_sklearn:
+class model_sklearn:
     risks_set = ["bruteforce", "stolen"] # this needs to be derived from actual incident json files
 
     def __init__(self):
@@ -22,7 +22,7 @@ class classifier_sklearn:
         self.incidents_models = {}
         self.risks = []
         check_classifier = True
-        f = open('static/data/classifier-models.txt','rb')
+        f = open('static/data/' + self.type + '-models.txt','rb')
         self.incidents_models = cPickle.load(f)
         f.close()
 
@@ -57,9 +57,7 @@ class classifier_sklearn:
         elif len(context['devices']) == 0:
             context['devices'] = company.device_types
 
-        risks_list = []
         tmp_list = {}
-
         # Iterates through classifier models to estimate class for different locations, workers and devices
         # Returns list of incidents
         for next_risk in risks:
@@ -67,21 +65,15 @@ class classifier_sklearn:
             for employee in context['employees']:
                 for location in context['locations']:
                     for device in context['devices']:
-                        models = self.incidents_models
-                        response = self.incidents_models[next_risk][employee][location][device].predict(datapoints)
-                        # Algorithm returns list of predictions.
-                        # Because of the dataset it contains only one element
-                        # data is returned as an array of numpy.float64, we need integers so we could use them as incident indices
-                        # event = incident(cls[0].astype(int64))
-                        # risk = event.get_risk()
-                        event = incident.get_incident(cls)
-                        my_list.append(event)
+                        next = self.get_prediction(datapoints, employee, location, device, next_risk)
+                        my_list.append(next)
                         #risks_list.append(event["id"])
             tmp_list[next_risk] = my_list
 
+        risks_list = []
         # Finds the incident with maximum risk probability per risk
         for next_risk in tmp_list: # for each risk type
-            max = incident.get_most_probable(tmp_list[next_risk])
+            max = self.get_best_match(tmp_list[next_risk])
             risks_list.append(max)
 
         return risks_list
@@ -95,20 +87,86 @@ class classifier_sklearn:
         :param p_context: The single environmental context of the policy,
                         make sure that it is a list featuring employee, location, device in that order
         """
-        incidents_list = []
+        responses_list = []
+        employee = context['employee']
+        location = context['location']
+        device = context['device']
 
         # Iterates through classifier models to estimate class for different locations, workers and devices
         # Returns list of incidents
         for next_risk in risks:
             my_list = []
-            response = self.incidents_models[next_risk][context['employee']][context['location']][context['device']].predict(datapoints)
-            # Model returns an array. For our problem it happens to have only one element
-            incidents_list.append(incident.get_incident(response[0]))
+            event = self.get_prediction(datapoints, employee, location, device, next_risk)
+            responses_list.append(event)
 
-        max = incident.get_most_probable(incidents_list)
+            #response = self.incidents_models[next_risk][context['employee']][context['location']][context['device']].predict(datapoints)
+            # Model returns an array. For our problem it happens to have only one element
+            # responses_list.append(incident.get_incident(response[0]))
+
+        # print "responses"
+        # print responses_list
+        max = self.get_best_match(responses_list)
 
         return max
         #return self.incidents_model.predict(data)
+
+    def get_best_match(self, list):
+        """ Compares all items in the list and returns the one with greatest probability
+        """
+        raise NotImplementedError
+
+    def get_prediction(self, datapoints, employee, location, device, next_risk):
+        """ This is simply the call to the engine since it could be different
+        """
+        raise NotImplementedError
+
+class classifier_sklearn(model_sklearn):
+    """ The classifier works with incidents returning the incident that's closest to the query
+    """
+    def __init__(self):
+        self.type = "classifier"
+        model_sklearn.__init__(self)
+
+    def get_best_match(self, list):
+        # print "classifier"
+        # print list
+        return incident.get_most_probable(list)
+
+    def get_prediction(self, datapoints, employee, location, device, next_risk):
+        response = self.incidents_models[next_risk][employee][location][device].predict(datapoints)
+        # Algorithm returns list of predictions.
+        # Because of the dataset it contains only one element
+        event = incident.get_incident(response[0])
+        return event
+
+class regression_sklearn(model_sklearn):
+    """ The regression works with risk values interpolating between the training set.
+    """
+    def __init__(self):
+        self.type = "regression"
+        model_sklearn.__init__(self)
+
+    def get_best_match(self, list):
+        if len(list) == 0:
+            raise RuntimeError("Empty list")
+        # print "regression"
+        # print list
+        return max(list)
+
+    def get_prediction(self, datapoints, employee, location, device, next_risk):
+        response = self.incidents_models[next_risk][employee][location][device].predict(datapoints)
+        result = response[0]
+        if result < 0:
+            result = 0
+        elif result > 1:
+            result = 1
+        # Algorithm returns list of predictions.
+        # Because of the dataset it contains only one element
+        # data is returned as an array of numpy.float64, we need integers so we could use them as incident indices
+        # event = incident(cls[0].astype(int64))
+        # risk = event.get_risk()
+        return result
+
 
 if __name__ == "__main__":
     # result = model.generate_samples({'prenew': 3, 'pattempts': 3, 'pdict': 0, 'psets': 2, 'phist': 4})
@@ -116,12 +174,12 @@ if __name__ == "__main__":
     # result = model.generate_samples({})
 
     #test_data = [0,0,0,4,0,1,3,1,0]
-    #test_data = policy_model.get_default()
-    #model = classifier_sklearn()
+    test_data = policy_model.get_default()
+    model = classifier_sklearn()
 
     #print "test data: "
     #print test_data
     #print policy_model.policy2datapoint(test_data)
     #print "classes:"
-    #print model.predict_datapoint(test_data)
+    print model.predict_datapoint(test_data)
     pass
