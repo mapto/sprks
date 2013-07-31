@@ -67,7 +67,6 @@ function putOnLadder(ladder, step, name) {
     // score contains "value", "rank" and "when"
     // ladder is "risk" or "cost"
     score = getScore(name, ladder);
-    console.log(name);
     switch (name) {
             case "Best":
                 $("#" + ladder + "_s" + step).text('anonymous (best) ,');
@@ -85,6 +84,24 @@ function putOnLadder(ladder, step, name) {
     $("#" + ladder + "_s" + step+"_v2").text(score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
     $("#" + ladder + "_w" + step).text(time_visualiser(score["when"], true));
+
+
+    //Styling ranking ladder
+    //appropriate height
+    if(step=='1'){
+        var height = 200/score["rank"];
+        $('#'+ladder.substr(0,1)+'_first').css("height", height+"px");
+        $('#'+ladder.substr(0,1)+'_first').css("min-height", "40px");
+    }else if(step=='2'){
+        var height = 200/score["rank"];
+        $('#'+ladder.substr(0,1)+'_second').css("height", height+"px");
+         $('#'+ladder.substr(0,1)+'_second').css("min-height", "40px");
+    }else if(step=='3'){
+        var height = 200/score["rank"];
+        $('#'+ladder.substr(0,1)+'_third').css("height", height+"px");
+         $('#'+ladder.substr(0,1)+'_third').css("min-height", "40px");
+    }
+    //TODO appropriate color
 
 }
 
