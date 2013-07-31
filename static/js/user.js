@@ -108,7 +108,7 @@ $('#passwordChangeForm').submit(function (e) {
                     passwordChangeModel.pswd_change_messages(['Server error']);
                 },
                 200: function (response) {
-                    manage_toast_alert(response.messages, 1000);
+                    toastr['success'](response.messages, 1000);
                     if (response.success === true) {
                         console.log('changed pswd successfully');
                         passwordChangeModel.pswd_change_password('');

@@ -203,9 +203,9 @@ $("#apply").click(function () {
         || $.isEmptyObject(policies_array.employee)
         || $.isEmptyObject(policies_array.location)
         || $.isEmptyObject(policies_array.device)) {
-        manage_toast_alert('Failed to apply policy. You have to check at least one of the employees, locations and devices',3000);
+        toastr['error']('Failed to apply policy. You have to check at least one of the employees, locations and devices');
     } else if (!policies_array.policyDelta) {
-        manage_toast_alert('Failed to apply policy. You have not chosen any number of the authentication mechanisms',3000);
+        toastr['error']('Failed to apply policy. You have not chosen any number of the authentication mechanisms');
     } else {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
@@ -216,7 +216,7 @@ $("#apply").click(function () {
         hide_policies();
         clear_policy_summary();
         console.log(policyUpdate);
-        manage_toast_alert('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue',5000);
+        toastr['info']('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue');
     }
 });
 
