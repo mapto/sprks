@@ -5,8 +5,8 @@
  * Time: 13:25
  * To change this template use File | Settings | File Templates.
  */
-function submit_change_mul() {
-    var msgs = [];
+function submit_alternatives_request() {
+    var msgs = {'context': {'employees': [], 'locations': [], 'devices': []}, 'data': []};
     var new_policy = {};
     var msg = {};
     var risk = [];
@@ -14,6 +14,27 @@ function submit_change_mul() {
     var ids = [];
 
     msg.id = $(this).closest($(".qn")).attr('id'); //get the id of a question with changed option
+
+    $("#employee").find('input').each(function() {
+        if ($(this).is(':checked')) {
+            var next = $(this).val();
+            msgs['context']['employees'].push(next);
+        }
+    });
+
+    $("#location").find('input').each(function() {
+        if ($(this).is(':checked')) {
+            var next = $(this).val();
+            msgs['context']['locations'].push(next);
+        }
+    });
+
+    $("#device").find('input').each(function() {
+        if ($(this).is(':checked')) {
+            var next = $(this).val();
+            msgs['context']['devices'].push(next);
+        }
+    });
 
     new_policy.bdata = $('select[name="bdata"]').find('option:selected').val();
     new_policy.pdata = $('select[name="pdata"]').find('option:selected').val();
@@ -38,7 +59,7 @@ function submit_change_mul() {
         console.log("new");
         console.log(new_policy);
 
-        msgs = msgs.concat(next);
+        msgs['data'] = msgs['data'].concat(next);
     });
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
     // console.log(msgs.concat(get_range(new_policy, "plen")));
@@ -119,20 +140,17 @@ function display_graphs(graph_id, dps_risk, dps_cost) {
 
 
         var chart = new CanvasJS.Chart(graph_id[$(this).closest($(".qn")).attr('id')], { //processing graph for each question
-            title: {
-                text: "Risc/cost"
-            },
-            axisX: {
-                title: $(this).closest($(".qn")).attr('id')
-            },
+            title: {},
+            axisX: {},
             axisY: {
-                title: "result"
+                minimum: 0.0,
+                maximum: 1.0
             },
             // begin data for 2 line graphs. Note dps1 and dps2 are
             //defined above as a json object. See http://www.w3schools.com/json/
             data: [
-                { type: "line", color: "#c24642", name: "R(%)", showInLegend: true, dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
-                { type: "line", color: "#499249", name: "PC($)", showInLegend: true, dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
+                { type: "line", color: "#c24642", name: "Risk", showInLegend: true, dataPoints: dps_risk[$(this).closest($(".qn")).attr('id')]},
+                { type: "line", color: "#499249", name: "Cost", showInLegend: true, dataPoints: dps_cost[$(this).closest($(".qn")).attr('id')]}
             ]
             // end of data for 2 line graphs
 

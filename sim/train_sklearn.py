@@ -23,7 +23,9 @@ class train_sklearn:
         """
         self.generate_training_set()
         self.generate_models()
-        self.generate_db()
+        # database does not need to be generated beforehand.
+        # The simulation generates it dynamically (lazy initialization)
+        # self.generate_db()
 
     def generate_db(self):
         ordered_context = sim_model.ordered_context
@@ -239,4 +241,5 @@ if __name__ == "__main__":
     print product
     """
     # print train_sklearn().enum_policy_contexts()
-    train_sklearn().generate_db()
+    # train_sklearn().generate_db()
+    train_sklearn().train()
