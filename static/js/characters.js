@@ -52,11 +52,10 @@ function UpdateCharacters(date) { //data: interviewee1 - location, device; inter
     var request = $.ajax({
         url: "/api/characters",
         type: "POST",
-        data: JSON.stringify({date: date}),
-        contentType: "application/json; charset=utf-8",
-        dataType: "application/json",
+        data: JSON.stringify({date:date}),
         success: function (data) {
-            $.each(data, function (key, value) {
+            data_tmp = json.parse(data);
+            $.each(data_tmp, function (key, value) {
                 place_at(key, value[0]);       //e.g.: place_at('interviewee2', 'office');
                 give_device(key, value[1]);    //e.g.: give_device('interviewee1, 'phone');
             });

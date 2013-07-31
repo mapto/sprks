@@ -239,9 +239,11 @@ $('.target').bind("change", function(){
        }
        if($(this).prop('checked')){
            policies_array[attribute] = policies_array[attribute].concat($(this).val());
+           console.log('cheked')
        }else{
-           var index = policies_array[attribute].indexOf($(this).val());
-           policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
+           //var index = policies_array[attribute].indexOf($(this).val());
+           //policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
+           policies_array[attribute] = [];
        }
    }else if(attribute=='policy_form'){ //if number of used mechanisms is changed
         //console.log($(this).val()+' policies'); //how many policies to be passed

@@ -124,8 +124,10 @@ $('.target').bind("change", function(){
        if($(this).prop('checked')){
            policies_array[attribute] = policies_array[attribute].concat($(this).val());
        }else{
+           //console.log('unchecked');
            var index = policies_array[attribute].indexOf($(this).val());
            policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
+           //policies_array[attribute] = [];
        }
    }else if(attribute=='policy_form'){ //if number of used mechanisms is changed
         //console.log($(this).val()+' policies'); //how many policies to be passed
@@ -147,7 +149,13 @@ $('.target').bind("change", function(){
            if(!policies_array.policyDelta.pwpolicy){
            policies_array.policyDelta.pwpolicy={};
            }
-           policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
+           if($(this).prop('checked')){
+                policies_array.policyDelta.pwpolicy[attribute] = $(this).val();      }else{
+               //var index = policies_array.policyDelta.pwpolicy[attribute].indexOf($(this).val());
+                policies_array.policyDelta.pwpolicy[attribute] = 0;
+
+       }
+           //policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
        }
    }
    //console.log(policies_array);
