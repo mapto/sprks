@@ -1,34 +1,29 @@
-/**
- * Created with PyCharm.
- * User: dkaliyev
- * Date: 30/07/2013
- * Time: 14:57
- * To change this template use File | Settings | File Templates.
- */
+timelineModel = {
+    currentDate: ko.observable(new Date(0))
+};
+
 function setSyncDate() {
-    window.first_date = new Date(window.date);
+    window.first_date = timelineModel.currentDate();
     window.nextSync = window.first_date;
-    window.nextSync.setMonth(window.nextSync.getMonth()+1);
+    window.nextSync.setMonth(window.nextSync.getMonth() + 1);
     window.nextSync.setDate(1);
-    window.nextSyncStr = window.nextSync.getFullYear()+'-'+(window.nextSync.getMonth()+1)+'-'+window.nextSync.getDate();
+    window.nextSyncStr = window.nextSync.getFullYear() + '-' + (window.nextSync.getMonth() + 1) + '-' + window.nextSync.getDate();
     window.id_elem = 'plen';
 }
 
 function check_events() {
     var tmp_events_calendar = window.calendar;
-    $(tmp_events_calendar).each(function(i) {
+    $(tmp_events_calendar).each(function (i) {
         var conv_date = new Date(tmp_events_calendar[i].date);
-        var str_date = conv_date.getFullYear()+'-'+(conv_date.getMonth()+1)+'-'+conv_date.getDate();
-        if(str_date == window.date)
-        {
+        if (conv_date - timelineModel.currentDate() === 0) {
             $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
-            $(tmp_event).each(function(j){
+            $(tmp_event).each(function (j) {
                 //alert("Event #"+tmp_event[j].incdt_id+" happend!");
                 display_event(tmp_event[j].incdt_id, tmp_event[j].cost);
                 submit_event(str_date);
             })
-                $('.incident_page').click();
+            $('.incident_page').click();
 
         }
 
@@ -36,34 +31,26 @@ function check_events() {
 
 }
 
-
-function submit_event(date){
-        msg = {};
-        msg['date'] = date;
-        var request = $.ajax({
+function submit_event(date) {
+    var request = $.ajax({
         url: "/api/chronos/event",
         type: "POST",
-        // Async was false, but want to avoid perceived freeze on client side. Any risks, related to that?
-        // E.g. what happens if the user changes screens too often
-        async: true,
-        data: JSON.stringify(msg),
-        contentType: "application/json; charset=utf-8",
-        dataType: "text",
+        data: JSON.stringify({date: date}),
         success: function (response) {
-            //
+            console.log("success: " + response.messages[0]);
         },
         error: function (response) {
-            console.log("fail: " + response.responseText);
+            console.log("fail: " + response.messages[0]);
         }
     });
 }
 
 function submit_change() { // need different event handling, to capture any change
     var msg = {
-        date: time_parser($('#time').text()),
+        date: $.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate),
         policyUpdate: []
     };
-    if(policyUpdate.length>0){
+    if (policyUpdate.length > 0) {
         msg.policyUpdate = policyUpdate;
         //msg.newCosts = calculate_cost_from_calendar();
     }
@@ -87,14 +74,11 @@ function resume() {
     var request = $.ajax({
         url: "/api/chronos/resume",
         type: "GET",
-        success: function(policy) {
+        success: function (policy) {
             policyUpdate = [];
             statusReady();
-            console.log('response from server:' + policy);
             $('#pause').click();
-            $('#time').text(time_visualiser(policy['date'], true));
-            manageScoreIncidentButtons();
-            window.date = time_parser($('#time').text());
+            timelineModel.currentDate($.datepicker.parseDate($.datepicker.ISO_8601, policy['date']))
             window.calendar = policy['calendar'];
             setSyncDate();
             display_contextualized_policy(policy['policy'][0]);
@@ -106,47 +90,57 @@ function resume() {
     return false;
 }
 
-
 startTimer = function (interval) {
-        console.log("timer started");
-        //window.open("/incident","_self")
-        if (window.timer1 != null) pauseInterval();
-        window.timer1 = setInterval(function () {
-            //window.date = $('#time').text();
-            var tmp = new Date(window.date);
-            var addHours = 24;
-            var addDays = 1;
+    console.log("timer started");
+    if (window.timer1 != null) pauseInterval();
+    window.timer1 = setInterval(function () {
+        var tmp = timelineModel.currentDate();
+        var addHours = 24;
+        var addDays = 1;
 
-            //tmp.setDate(tmp.getDate()+addDays);
-            tmp.setHours(tmp.getHours()+addHours);
+        //tmp.setDate(tmp.getDate()+addDays);
+        tmp.setHours(tmp.getHours() + addHours);
 
-            var new_date = tmp.getFullYear()+'-'+(tmp.getMonth()+1)+'-'+tmp.getDate();
+        timelineModel.currentDate(tmp);
 
-            var day_to_display = tmp.getDate(); if(day_to_display<10){day_to_display = '0'+day_to_display;}
-            var month_to_display = tmp.getMonth()+1; if(month_to_display<10){month_to_display = '0'+month_to_display;}
-            var date_to_display = tmp.getFullYear()+'-'+month_to_display+'-'+day_to_display;
+        check_events();
+        if ($.datepicker.formatDate($.datepicker.ISO_8601, tmp) == window.nextSyncStr) {
+            toastr['success']("Changes submitted");
+            $('#pause').click();
+            window.first_date = tmp;
+            window.nextSync = window.first_date;
+            window.nextSync.setMonth(window.nextSync.getMonth() + 2);
+            window.nextSync.setDate(1);
+            window.nextSyncStr = window.nextSync.getFullYear() + '-' + window.nextSync.getMonth() + '-' + window.nextSync.getDate();
+            submit_change();
+        }
+        //script for interactive characters
+        UpdateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate())); //specified in characters.js
 
-            $('#time').text(time_visualiser(date_to_display, true));
-            window.date = new_date;
-            manageScoreIncidentButtons();
-            check_events();
-            if(window.date==window.nextSyncStr) {
-                toastr['success']("Changes submitted");
-                $('#pause').click();
-                window.first_date = new Date(window.date);
-                window.nextSync = window.first_date;
-                window.nextSync.setMonth(window.nextSync.getMonth()+2);
-                window.nextSync.setDate(1);
-                window.nextSyncStr = window.nextSync.getFullYear()+'-'+window.nextSync.getMonth()+'-'+window.nextSync.getDate();
-                submit_change();
-            }
-            //script for interactive characters
-            UpdateCharacters(time_parser($("#time").text())); //specified in characters.js
-
-            },interval);
-        return false;
+    }, interval);
+    return false;
 }
 
-pauseInterval = function() {
+pauseInterval = function () {
     clearInterval(window.timer1);
+}
+
+$(function () {
+    ko.applyBindings(timelineModel, document.getElementById('timeline'));
+
+    timelineModel.currentDate.subscribe(function () {
+        if (timelineModel.currentDate - new Date('2014-2-1') < 0) {
+            //console.log('less than 1 month passed. Score is not yet calculated, hide button');
+            $(".score_page").css("display", "none");
+        } else {
+            //console.log('>=1 month passed. Score is calculated, show button.');
+            $(".score_page").css("display", "block");
+        }
+        $(".incident_page").css("display", "none");
+    })
+
+})
+
+function format_date(date) {
+    return $.datepicker.formatDate($.datepicker.RFC_1123, date)
 }

@@ -59,18 +59,18 @@ $if user_id() > 0:
     <div class="policy-summary">
 
         <h4 style = "color:#888888">Factors</h4>
-        <h5>employee:</h5><div class="policy-summary-field" id="sum-employee"></div>
-        <h5>location:</h5><div class="policy-summary-field" id="sum-location"></div>
-        <h5>device:</h5><div class="policy-summary-field" id="sum-device"></div>
+        <h5>Employee:</h5><div class="policy-summary-field" id="sum-employee"></div>
+        <h5>Location:</h5><div class="policy-summary-field" id="sum-location"></div>
+        <h5>Device:</h5><div class="policy-summary-field" id="sum-device"></div>
         <h4 style = "color:#888888">Policy summary</h4>
-        <h5>biometric:</h5><div class="policy-summary-field" id="sum-biometric"></div>
-        <h5>passfaces:</h5><div class="policy-summary-field" id="sum-passfaces"></div>
-        <h5>password:</h5><div class="policy-summary-field" id="sum-pwpolicy"></div>
+        <h5>Biometric:</h5><div class="policy-summary-field" id="sum-biometric"></div>
+        <h5>Passfaces:</h5><div class="policy-summary-field" id="sum-passfaces"></div>
+        <h5>Password:</h5><div class="policy-summary-field" id="sum-pwpolicy"></div>
         </h5>
     </div>
-    <div class="time_controls">
+    <div class="time_controls" id="timeline">
         <ul>
-            <h4><div id="time">Loading...</div></h4>
+            <h4><div id="time" data-bind="text: format_date(currentDate())"></div></h4>
             <li><a class="icon-play icon-large" id="play"></a></li>
             <li class="active"><a class="icon-pause icon-large" id="pause"></a></li>
             <li><a class="icon-forward" id="forward"></a></li>
@@ -78,7 +78,6 @@ $if user_id() > 0:
     </div>
 
 <article class="container-fluid">
-    <div id="toast">Alerts go here</div>
     <!-- MAP begin-->
 
     <div id="map">
@@ -771,11 +770,10 @@ $if user_id() > 0:
 <div id="#background_map"><object  data="static/img/map.svg"></object></div>
 
 <!-- Local scripts loaded here. External libraries loaded in document head -->
+<script src="static/js/timeline.js"></script>
 <script src="static/js/policy_frame.js"></script>
-<script src="static/js/time_visualiser.js"></script>
 <script src="static/js/characters.js"></script>
 <script src="static/js/graphs.js"></script>
-<script src="static/js/timeline.js"></script>
 <script src="static/js/spa.js"></script>
 <script src="static/js/score_frame.js"></script>
 <script src="static/js/status.js"></script>
@@ -791,8 +789,6 @@ $if user_id() > 0:
 <script> // USER MANAGEMENT script
     var title;
     var user_id = $:user_id();
-
-    initFrame();
 
     //used in POLICY
     function getUserID() {

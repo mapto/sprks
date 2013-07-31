@@ -159,11 +159,10 @@ function update_policy(policy) {
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
-    $('#time').text(time_visualiser(policy['date'], true));
-    window.date = time_parser($('#time').text());
+    timelineModel.currentDate($.datepicker.parseDate($.datepicker.ISO_8601, policy['date']))
+    window.date = $.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate);
     window.calendar = policy['calendar'];
 
-    manageScoreIncidentButtons();
     get_score_frame();
 
     setSyncDate();

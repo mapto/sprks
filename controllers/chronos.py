@@ -84,7 +84,10 @@ class event_handler:
             })
         journal = records(context.user_id())
         journal.commit_history(client_date)
-        return "OK"
+        return json.dumps({
+            'success': True,
+            'messages': ['Event committed']
+        })
 
 
 class policy_update_handler:

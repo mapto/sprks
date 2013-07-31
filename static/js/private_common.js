@@ -8,7 +8,7 @@
  * refactored so that calculations are not done both in Python and Javascript
  * In this case requested from the server and embedded in JS getters (Python, see html template) and calculated in client (JS, this file).
  *
- */
+ *
 var policyUpdate = [];
 var policies_array = {};
 
@@ -163,7 +163,7 @@ function manageIncidentButton() {
     var value = isFirstTurn() ? "none" : "block";
     console.log(".incident style is " + value);
     $(".incident").css("display", value);
-*/
+*
 }
 
 // highlight active button(scores/story/policy)
