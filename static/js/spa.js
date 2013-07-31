@@ -235,7 +235,7 @@ $('a').click('click', function () {
 
         $("#" + page).css("display", "block");
         if (page === 'policy_page') {
-            initPolicy();
+
         }
         if (page === 'incident_page') {
 
