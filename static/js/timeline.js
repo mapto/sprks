@@ -1,5 +1,6 @@
 timelineModel = {
-    currentDate: ko.observable(new Date(0))
+    currentDate: ko.observable(new Date(0)),
+    nextSync: ko.observable(new Date(0))
 };
 
 function setSyncDate() {

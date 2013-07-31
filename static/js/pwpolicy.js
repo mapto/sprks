@@ -1,21 +1,7 @@
-/**
- * Created with PyCharm.
- * User: mruskov
- * Date: 22/06/13
- * Time: 13:25
- * To change this template use File | Settings | File Templates.
- */
 /*wait until document is loaded*/
 //TODO need to fix how pdict for pwpolicy is passed/received from server; then check if summarize_policy works
 
-
-
 var pwpolicy;
-
-function initPolicy() {
-    // TODO should not handle the system event, because it is being used in automatic calls as well.
-    // $('.target').change(submit_change_mul); //graphs are loaded if anything is changed
-}
 
 function verboseScore(score) {
     if (score < 0.2) {

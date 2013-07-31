@@ -23,6 +23,10 @@ passwordChangeModel = {
     pswd_token: ko.observable()
 };
 
+authStatusModel = {
+    loggedin: ko.observable(false)
+};
+
 $('#registerForm').submit(function (e) {
     e.preventDefault();
     if (registerFormModel.register_password() === registerFormModel.register_passwordConfirm()) {
@@ -65,7 +69,7 @@ $('#loginForm').submit(function (e) {
             },
             200: function (response) {
                 if (response.success === true) {
-                    window.location = ("/");
+                    authStatusModel.loggedin(true);
                 }
                 loginFormModel.login_messages(response.messages);
             }
@@ -128,6 +132,12 @@ $(function () {
     ko.applyBindings(loginFormModel, document.getElementById('loginForm'));
     ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
     ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
+
+    authStatusModel.loggedin.subscribe(function(status){
+        if (status === true){
+            $('#controls').hide();
+        }
+    })
 
     if ($.url('?token') != null) {
 
