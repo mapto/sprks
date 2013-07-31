@@ -27,18 +27,15 @@
         <div class="container-fluid">
             <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
-                $if user_id() > 0:
-                    <a class="logout_page" href="?action=logout">Logout $username()</a>
-                $else:
-                    <a class="login_page">Login</a>
-                <!-- button to show/hide login pane? -->
+                <a id="logout-button" class="logout_page" style="display: none">Logout $username()</a>
+                <a id="login-button" class="login_page">Login</a>
             </div>
         </div>
     </div>
 </div>
 </header>
 
-<div id="controls" >
+<div id="controls" style="display: none">
     <div class="menu">
         <div><a class="intro_page">Story </a></div>
         <div><a class="policy_page">Policy</a></div>
@@ -168,21 +165,20 @@
                     <fieldset>
                         <legend>Register</legend>
                         <div class="row-fluid">
-                            <input data-bind="value: register_username" type="text" placeholder="Username" required/>
+                            <input data-bind="value: username" type="text" placeholder="Username" required/>
                         </div>
                         <div class="row-fluid">
-                            <input data-bind="value: register_password" type="password" placeholder="Password" required/>
+                            <input data-bind="value: password" type="password" placeholder="Password" required/>
                         </div>
                         <div class="row-fluid">
-                            <input data-bind="value: register_passwordConfirm" type="password" placeholder="Confirm your password"
+                            <input data-bind="value: passwordConfirm" type="password" placeholder="Confirm your password"
                                         required/>
                         </div>
                         <div class="row-fluid">
-                            <br>
-                            <input data-bind="value: register_email" type="email" placeholder="Email" required>
+                            <input data-bind="value: email" type="email" placeholder="Email" required>
                         </div>
                         <input class="login_btn" type="submit" value="Register"><br>
-                        <ul data-bind="foreach: register_messages">
+                        <ul data-bind="foreach: messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
                     </fieldset>
@@ -195,15 +191,15 @@
                         <legend>Login</legend>
                         <div class="row-fluid">
                             <div class="span7 ">
-                                <input data-bind="value: login_username" type="text" placeholder="Username" required/>
+                                <input data-bind="value: username" type="text" placeholder="Username" required/>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span7 ">
-                                <input data-bind="value: login_password" type="password" placeholder="Password" required/>
+                                <input data-bind="value: password" type="password" placeholder="Password" required/>
                             </div>
                         </div>
-                        <ul data-bind="foreach: login_messages">
+                        <ul data-bind="foreach: messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
                         <div class="row-fluid">
@@ -221,9 +217,9 @@
                     <fieldset>
                         <legend>Password Recovery</legend>
                         <p>You will be emailed a password reset link.</p>
-                        <input data-bind="value: pswd_recover_username" type="text" placeholder="Username" required>
+                        <input data-bind="value: username" type="text" placeholder="Username" required>
                         <input class="login_btn" type="submit" value="Request">
-                        <ul data-bind="foreach: pswd_recover_messages">
+                        <ul data-bind="foreach: messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
                     </fieldset>
@@ -237,10 +233,10 @@
                 <form id="passwordChangeForm">
                     <fieldset>
                         <legend>Set your new password</legend>
-                        <div><input data-bind="value: pswd_change_password" type="password" placeholder="Password" required></div>
-                        <div><input data-bind="value: pswd_change_passwordConfirm" type="password" placeholder="Confirm Password" required></div>
+                        <div><input data-bind="value: password" type="password" placeholder="Password" required></div>
+                        <div><input data-bind="value: passwordConfirm" type="password" placeholder="Confirm Password" required></div>
                         <input class="login_btn" type="submit" value="Change">
-                        <ul data-bind="foreach: pswd_change_messages">
+                        <ul data-bind="foreach: messages">
                             <li data-bind="text: $$data"></li>
                         </ul>
                     </fieldset>
@@ -282,7 +278,7 @@
             <!-- service specified in action must use relative path -->
             <!--                <p id="time">2014-1-25</p> -->
             <div class="company" id="employee">
-                <label><h4>Choose employee types</h4></label><br/>
+                <h4>Choose employee types</h4>
                 <input type="checkbox"
                        name="executives"
                        id="executives"
@@ -301,7 +297,7 @@
             </div>
 
             <div class="company" id="location">
-                <label><h4>Choose location types</h4></label><br/>
+                <h4>Choose location types</h4>
                 <input type="checkbox"
                        name="office"
                        id="office"
@@ -344,8 +340,8 @@
                 <label for="phone">phone</label>
             </div>
 
-            <br><br><br><br><br><br><br>
-            <label><h4>Number of authentication mechanisms: </h4></label><br>
+            <br><br><br><br><br><br>
+            <h4>Number of authentication mechanisms: </h4>
 
             <select class="target authentication" id="aut_num" name="aut_num">
                 <option value="" disabled selected>number</option>
@@ -396,7 +392,7 @@
                     <input type="hidden" name="userid" id="pswdid" placeholder="ID">
             </p>
 
-            <p class="qn" id="plen">
+            <div class="qn" id="plen">
                 <label><b>Minimum Password Length:</b></label>
                 <br/>
                 <input type="radio"
@@ -433,9 +429,9 @@
 
             <br><br>
             <div class="graph" id="graph_plen"></div>
+            </div>
 
-
-            <p class="qn" id="psets">
+            <div class="qn" id="psets">
                 <label><b>Number of symbol sets that must be used in password:</b></label><br>
                 <input type="radio"
                        name="psets"
@@ -465,9 +461,9 @@
                 <br/><br/>
 
             <div class="graph" id="graph_psets"></div>
-            </p>
+            </div>
 
-            <p class="qn" id="pdict">
+            <div class="qn" id="pdict">
                 <label><b>Passwords are checked whether they match a dictionary:</b></label><br>
                 <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
                 <input type="checkbox"
@@ -478,9 +474,9 @@
                 <label for="dic"><b>Dictionary check</b></label><br/><br/>
 
             <div class="graph" id="graph_pdict"></div>
-            </p>
+            </div>
 
-            <p class="qn" id="phist">
+            <div class="qn" id="phist">
                 <label><b>Password history checking mechanism:</b></label>
                 <br/>
                 <input type="radio"
@@ -514,9 +510,9 @@
                 <br/>
 
             <div class="graph" id="graph_phist"></div>
-            </p>
+            </div>
 
-            <p class="qn" id="prenew">
+            <div class="qn" id="prenew">
                 <label><b>When the system asks user to renew passwords:</b></label>
                 <br/>
                 <input type="radio"
@@ -547,9 +543,9 @@
                 <br/><br/>
 
             <div class="graph" id="graph_prenew"></div>
-            </p>
+            </div>
 
-            <p class="qn" id="pattempts">
+            <div class="qn" id="pattempts">
                 <label><b>Number of wrong password attempts:</b></label>
                 <br/>
                 <input type="radio"
@@ -574,9 +570,9 @@
                 <br/><br/>
 
             <div class="graph" id="graph_pattempts"></div>
-            </p>
+            </div>
 
-            <p class="qn" id="precovery">
+            <div class="qn" id="precovery">
                 <label><b>Password recovery options:</b></label>
                 <br/>
                 <input type="radio"
@@ -601,7 +597,7 @@
                 <br/><br/>
 
             <div class="graph" id="graph_precovery"></div>
-            </p>
+            </div>
             </div>
 
             <div>
@@ -791,11 +787,6 @@
     var title;
     var user_id = $:user_id();
 
-    if(!user_id>0){
-        $$('.menu').css('display','none');
-        $$('.time_controls').css('display','none');
-
-    }
     //used in POLICY
     function getUserID() {
         /*ID is preset inside HTML code*/
