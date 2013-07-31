@@ -139,7 +139,7 @@ class password:
             }
         )
 
-    def POST(self, a, arg1=0):
+    def POST(self, arg1=0):
         """
         Creates password recovery request, taking argument as user_id (default) or username
         """
