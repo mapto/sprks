@@ -2,10 +2,9 @@ __author__ = 'zhanelya'
 
 from localsys.environment import context
 from models.score import score_model
-from models.policies import policies_model
 import json
 import web
-from sim.simulation import simulation
+from models.simulation import simulation
 
 
 class score_rest:
@@ -22,16 +21,17 @@ class multiple_score:
         post_data = json.loads(web.data())
         policy_costs_risks = []
 
-        last_policy = policies_model().get_policy_history(context.user_id())
-        for policy_entry in post_data:
+        # last_policy = policies_model().get_policy_history(context.user_id())
+        policy_context = post_data['context']
+        for policy_entry in post_data['data']:
             result_entry = {}
             for key, value in policy_entry.iteritems():
                 if key == "data":
                     next_policy = json.loads(value)
                 else:
                     result_entry[key] = value
-            result_entry["risk"] = sim.calc_risk_prob(next_policy)
-            result_entry["cost"] = sim.calc_prod_cost(next_policy)
+            result_entry["risk"] = sim.calc_risk_prob(next_policy, policy_context)
+            result_entry["cost"] = sim.calc_prod_cost(next_policy, policy_context)
             policy_costs_risks.append(result_entry)
 
         # print('return cost '+ policy_costs_risks)
