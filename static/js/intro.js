@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 
     $("#interviewee1").on('click', function (e) {
         if ($("#quote1").css("display") == "block") {

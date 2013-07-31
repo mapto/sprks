@@ -136,8 +136,7 @@ function update_policy(policy) {
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
-    timelineModel.currentDate($.datepicker.parseDate($.datepicker.ISO_8601, policy['date']))
-    window.date = $.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate);
+    timelineModel.currentDate(new Date(policy['date']));
     window.calendar = policy['calendar'];
 
     get_score_frame();

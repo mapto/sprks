@@ -8,6 +8,7 @@ registerFormModel = {
 
 loginModel = {
     username: ko.observable(),
+    userId: ko.observable(),
     password: ko.observable(),
     messages: ko.observableArray(),
     loggedin: ko.observable(false)
@@ -70,6 +71,8 @@ $('#loginForm').submit(function (e) {
                 loginModel.messages(response.messages);
                 if (response.success === true) {
                     loginModel.loggedin(true);
+                    loginModel.username(response.username);
+                    loginModel.userId(response.user_id);
                     $('.main-body').hide();
                 }
             }
@@ -127,6 +130,9 @@ $('#passwordChangeForm').submit(function (e) {
 });
 
 $('#logout-button').click(function(){
+    loginModel.username('');
+    loginModel.password('');
+    toastr.info('Logging out...');
     $.ajax({
         type: 'GET',
         url: '/?action=logout',
@@ -144,10 +150,15 @@ function check_loggedin() {
         url: '/api/user_spa/account',
         statusCode: {
             200: function (response) {
+                toastr.clear();
                 if (response.success === true) {
                     loginModel.loggedin(true);
+                    loginModel.username(response.username);
+                    loginModel.userId(response.user_id);
                 } else {
                     loginModel.loggedin(false);
+                    loginModel.username('');
+                    loginModel.userId(0);
                 }
             }
         }
@@ -156,22 +167,37 @@ function check_loggedin() {
 
 $(function () {
 
+    $("#home_page").show();
+    toastr.info('Loading...');
+
     ko.applyBindings(registerFormModel, document.getElementById('registerForm'));
     ko.applyBindings(loginModel, document.getElementById('loginForm'));
     ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
     ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
 
-    loginModel.loggedin.subscribe(function(status){
-        if (status === true){
+    loginModel.username.subscribe(function(username){
+        $('span.username').text(username);
+    })
+
+    loginModel.loggedin.subscribe(function (status) {
+        toastr.clear();
+        if (status === true) {
+            toastr.info('Logged in.');
             $('#controls').show();
             $('#logout-button').show();
             $('#login-button').hide();
+            resume();
+            $("#intro_page").css("display", "block");
+            highlightActiveButton();
+            get_score_frame();
         } else {
+            toastr.info('Logged out.');
             $('#controls').hide();
             $('#logout-button').hide();
             $('#login-button').show();
+            $("#home_page").show();
         }
-    })
+    });
 
     check_loggedin();
 
@@ -181,4 +207,4 @@ $(function () {
         $("#password_change_page").css("display", "block");
 
     }
-})
+});

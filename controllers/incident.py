@@ -10,7 +10,7 @@ from models.simulation import simulation as sim_model
 
 class incident_rest:
 
-    def GET(self, a='', id=0):
+    def GET(self, id=0):
         """
         If given ID, returns dump of incident details.
         TODO: Should probably return also incident context (employee, location, ...) details

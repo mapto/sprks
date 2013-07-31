@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <div class="link"><a class="home_page">SPRKS</a></div>
             <div class="link logout" class="text-right" id="logout">
-                <a id="logout-button" class="logout_page" style="display: none">Logout $username()</a>
+                <a id="logout-button" class="logout_page" style="display: none">Logout <span class="username"></span> </a>
                 <a id="login-button" class="login_page">Login</a>
             </div>
         </div>
@@ -81,15 +81,15 @@
     <div id="map">
     <div class="interviewee" id="interviewee1">
         Susie
-        <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" />
+        <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}"  src=""/>
     </div>
     <div class="interviewee" id="interviewee2">
         Kevin
-        <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" />
+        <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" src=""/>
     </div>
     <div class="interviewee" id="interviewee3">
         Iza
-        <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" />
+        <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" src=""/>
     </div>
 
     <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main
@@ -319,7 +319,7 @@
             </div>
 
             <div class="company" id="device">
-                <label><h4>Choose device types</h4></label><br/>
+                <h4>Choose device types</h4>
                 <input type="checkbox"
                        name="desktop"
                        id="desktop"
@@ -384,13 +384,6 @@
             <!--PASSWORD POLICY BEGIN-->
             <div class=" policy policy2" id="password_policy">
             <h4>Password Policy</h4>
-
-            <p>
-                $if user_id():
-                    <input type="hidden" value=$:user_id() name="userid" id="pswdid" placeholder="ID">
-                $else:
-                    <input type="hidden" name="userid" id="pswdid" placeholder="ID">
-            </p>
 
             <div class="qn" id="plen">
                 <label><b>Minimum Password Length:</b></label>

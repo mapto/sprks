@@ -41,7 +41,7 @@ urls = (
 
     #REST
     storage.path + '/score_rest', controllers.score.score_rest,
-    storage.path + '/incident_rest(/?)(.+)', controllers.incident.incident_rest,
+    storage.path + '/incident_rest/(.+)', controllers.incident.incident_rest,
     storage.path + '/incident_rest', controllers.incident.incident_rest,
     storage.path + '/history_rest', controllers.policy_history.history_rest,
 

@@ -263,20 +263,3 @@ $("#close_btn").click('click', function(){
     });
     deactivateButtons();
 });
-
-$(function () {
-    if(getUsername()){resume()};
-
-    if (getUserID() > 0) {
-        $(".main-body").css("display", "block");
-        $("#intro_page").css("display", "block");
-        title = 'intro';
-        highlightActiveButton();
-
-        get_score_frame();
-    } else {
-        $(".main-body").css("display", "block");
-        $("#home_page").css("display", "block");
-    }
-
-})

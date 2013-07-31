@@ -27,6 +27,8 @@ class account:
             return json.dumps(
                 {
                     'success': True,
+                    'user_id': context.user_id(),
+                    'username': context.username(),
                     'messages': ['Successful login']
                 }
             )

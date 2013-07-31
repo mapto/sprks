@@ -3,7 +3,7 @@ var incident;
 function get_incident_data(incident_id) {
     statusUpdating();
     $.ajax({
-        url: "/incident_rest/"+incident_id,
+        url: "incident_rest/"+incident_id,
         type: "GET",
         success: function (incident) {
             statusReady();
