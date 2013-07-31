@@ -34,9 +34,12 @@ function get_profile(){
             var row = $('<tr></tr>').addClass('profileTr');
             var date = $('<td></td>').addClass('profileTd_date profileTh').text("date");
             row.append(date);
+            row.append($('<td></td>').addClass('profileTd profileTh').text("employee"));
+            row.append($('<td></td>').addClass('profileTd profileTh').text("device"));
+            row.append($('<td></td>').addClass('profileTd profileTh').text("location"));
             for (var j in policy_history[0]) {
                 var attrName = j; //e.g. pdict
-                if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
+                if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk' && attrName !== 'location' && attrName !== 'device' && attrName !== 'employee') { //do not show these fields
                     var col = $('<td></td>').addClass('profileTd profileTh').text(attrName);
                     row.append(col);
                 }
@@ -47,6 +50,9 @@ function get_profile(){
             var row = [];
             var date=[];
             var col = [];
+            var location_r = [];
+            var device_r = [];
+            var employee_r = [];
             var tmp;
             for (var i in policy_history) {
                 var obj = policy_history[i];
@@ -54,10 +60,17 @@ function get_profile(){
                 row [i] = $('<tr></tr>').addClass('profileTr'+i);
                 date [i] = $('<td></td>').addClass('profileTd_date').text(time_visualiser(obj['date'], false));
                 row [i].append(date[i]);
+                location_r[i] = $('<td></td>').addClass('profileTd location'+i).text(obj['location']);
+                device_r[i] = $('<td></td>').addClass('profileTd device'+i).text(obj['device']);
+                employee_r[i] = $('<td></td>').addClass('profileTd employee'+i).text(obj['employee']);
+                row[i].append(employee_r[i]);
+                row[i].append(device_r[i]);
+                row[i].append(location_r[i]);
                 for (var k in obj) {
                     var attrName = k; //e.g. pdict
                     var attrValue = obj[k]; //e.g. 1
-                    if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk') { //do not show these fields
+
+                    if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk' && attrName !== 'location' && attrName !== 'device' && attrName !== 'employee') { //do not show these fields
                         if (i < 1) { //if it's first row
                             col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text(attrValue);
                             //row [i].append(col[i][attrName]);//add all policy values
