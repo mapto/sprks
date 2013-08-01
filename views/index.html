@@ -582,7 +582,7 @@
                 <label for="attempts2">3</label>
                 <br/><br/>
 
-            <div class="graph" id="graph_pattempts"></div>
+                <div class="graph" id="graph_pattempts"></div>
             </div>
 
             <div class="qn" id="precovery">
@@ -609,7 +609,7 @@
                 <label for="recovery2">transaction questions</label>
                 <br/><br/>
 
-            <div class="graph" id="graph_precovery"></div>
+                <div class="graph" id="graph_precovery"></div>
             </div>
             </div>
 
@@ -623,29 +623,24 @@
 
             <div class="pages" id="incident_page">
                 <!--Incident-->
-                <div class="description">
-                    <h1>Incident</h1> <br>
 
-                    <p><h4>Policy: </h4>
+                <h1>Incident</h1><br>
 
-                    <div class="incident_box" id="description"></div>
-                    </p>
-                    <p><h4>Incident: </h4>
+                <h4>Policy:</h4>
+                <div data-bind="text: description"></div>
 
-                    <div class="incident_box" id="event"></div>
-                    </p>
-                    <p><h4>Consequences: </h4>
+                <h4>Incident:</h4>
+                <div data-bind="text: event"></div>
 
-                    <div class="incident_box" id="consequences"></div>
-                    </p>
-                    <p><h4>Risk: </h4>
+                <h4>Consequences:</h4>
+                <div data-bind="text: consequences"></div>
 
-                    <div class="incident_box" id="risk"></div>
-                    <p><h4>Monetary Cost: </h4>
+                <h4>Risk:</h4>
+                <div data-bind="text: risk"></div>
 
-                    <div class="incident_box" id="monetary_cost"></div>
-                    </p>
-                </div>
+                <h4>Monetary Cost:</h4>
+                <div data-bind="text: monetaryCost"></div>
+
             </div>
 
             <div class="pages" id="profile_page">
