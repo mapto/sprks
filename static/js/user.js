@@ -58,7 +58,7 @@ $('#loginForm').submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: '/api/user/account',
+        url: 'api/user/account',
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(loginModel.username() + ':' + loginModel.password()));
         },
@@ -148,7 +148,7 @@ $('#logout-link').click(function(){
 function check_loggedin() {
     $.ajax({
         type: 'POST',
-        url: '/api/user/account',
+        url: 'api/user/account',
         statusCode: {
             200: function (response) {
                 toastr.clear();
@@ -178,11 +178,13 @@ $(function () {
         toastr.clear();
         if (userId > 0) {
             toastr.info('Logged in.');
+            resume();
+            retrieve_scores()
             $('#controls').show();
             $('#logout-link').show();
             $('#login-link').hide();
             $('span.username').text(loginModel.username());
-            resume();
+
             $("#home_page").hide();
             $("#intro_page").show();
             highlightActiveButton();
