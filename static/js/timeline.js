@@ -1,9 +1,10 @@
 timelineModel = {
     currentDate: ko.observable(new Date(0)),
-    nextSync: ko.observable(new Date(0))
+    nextSync: ko.observable(new Date(0)),
+    clock: ko.observable()
 };
 
-function check_events() {
+function checkEvents() {
     var tmp_events_calendar = window.calendar;
     $(tmp_events_calendar).each(function (i) {
         if (new Date(tmp_events_calendar[i].date) - timelineModel.currentDate() === 0) {
@@ -14,14 +15,13 @@ function check_events() {
                 submit_event($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()));
             })
             $('.incident_page').click();
-
         }
     })
 }
 
 function submit_event(date) {
     $.ajax({
-        url: "/api/chronos/event",
+        url: "api/chronos/event",
         type: "POST",
         data: JSON.stringify({date: date}),
         success: function (response) {
@@ -33,19 +33,19 @@ function submit_event(date) {
     });
 }
 
-function submit_change() { // need different event handling, to capture any change
+function submitPolicyDelta() { // need different event handling, to capture any change
     var msg = {
         date: $.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()),
-        policyUpdate: []
+        policyUpdate: [],
+        initPolicy: true
     };
     if (policyUpdate.length > 0) {
         msg.policyUpdate = policyUpdate;
     }
-    msg.initPolicy = true;
     console.log(msg);
     statusUpdating();
-    var request = $.ajax({
-        url: "/api/chronos/update",
+    $.ajax({
+        url: "api/chronos/update",
         type: "POST",
         data: JSON.stringify(msg),
         success: update_policy,
@@ -58,7 +58,7 @@ function submit_change() { // need different event handling, to capture any chan
 function resume() {
     statusUpdating();
     $.ajax({
-        url: "/api/chronos/resume",
+        url: "api/chronos/resume",
         type: "GET",
         success: function (policy) {
             policyUpdate = [];
@@ -74,44 +74,38 @@ function resume() {
     });
 }
 
-startTimer = function (interval) {
-    console.log("timer started");
-    if (window.timer1 != null) pauseInterval();
-    window.timer1 = setInterval(function () {
-        var tmp = timelineModel.currentDate();
+function startClock(interval) {
+    console.log("clock started");
+    if (timelineModel.clock() != undefined) pauseClock();
+    timelineModel.clock(setInterval(function () {
 
-        tmp.setDate(tmp.getDate()+1);
+        timelineModel.currentDate().setDate(timelineModel.currentDate().getDate()+1);
+        timelineModel.currentDate.valueHasMutated();
 
-        timelineModel.currentDate(tmp);
-
-        check_events();
-        if (timelineModel.currentDate() - window.nextSync === 0) {
-            toastr['success']("Changes submitted");
-            $('#pause').click();
-            window.nextSync = new Date(timelineModel.currentDate());
-            window.nextSync.setMonth(window.nextSync.getMonth() + 2);
-            window.nextSync.setDate(1);
-
-            submit_change();
-        }
-        //script for interactive characters
-        UpdateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate())); //specified in characters.js
-
-    }, interval);
+    }, interval));
 }
 
-pauseInterval = function () {
-    clearInterval(window.timer1);
+function pauseClock() {
+    clearInterval(timelineModel.clock());
 }
 
 $(function () {
+
     ko.applyBindings(timelineModel, document.getElementById('timeline'));
 
     timelineModel.currentDate.subscribe(function () {
 
-        window.nextSync = new Date(timelineModel.currentDate());
-        window.nextSync.setMonth(window.nextSync.getMonth() + 1);
-        window.nextSync.setDate(1);
+        if (timelineModel.currentDate() - timelineModel.nextSync() === 0) {
+            toastr['success']("Changes submitted");
+            $('#pause').click();
+            submitPolicyDelta();
+        }
+
+        timelineModel.nextSync(new Date(timelineModel.currentDate().getFullYear(), timelineModel.currentDate().getMonth()+1, 1));
+
+        checkEvents();
+        updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate())); //specified in characters.js
+
         window.id_elem = 'plen';
 
         if (timelineModel.currentDate - new Date('2014-2-1') < 0) {

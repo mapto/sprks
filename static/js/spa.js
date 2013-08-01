@@ -6,30 +6,29 @@ var policies_array = {};
 $(function(){
 
     if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
-        $(".risk-menu").css("display", "none");
+        $(".risk-menu").hide();
     } else {
-        $(".risk-menu").css("display", "block");
+        $(".risk-menu").show();
     }
 
     $(document).click(function () {
         if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
-            $(".risk-menu").css("display", "none");
+            $(".risk-menu").hide();
         } else {
-            $(".risk-menu").css("display", "block");
+            $(".risk-menu").show();
         }
     });
 
     $('#pause').click(function() {
         $('.target').removeAttr('disabled');
         $('#apply').removeAttr('disabled');
-        pauseInterval();
-
+        pauseClock();
     });
 
     $('#forward').click(function() {
         $('.target').attr('disabled', 'disabled');
         $('#apply').attr('disabled', 'disabled');
-        startTimer(500);
+        startClock(500);
     })
 
     $('.target').change(function(){
@@ -38,7 +37,7 @@ $(function(){
     $('#play').click(function () {
         $('.target').attr('disabled', 'disabled');
         $('#apply').attr('disabled', 'disabled');
-        startTimer(3000);
+        startClock(3000);
     });
 
     console.log("Private decoration initialized...");
@@ -150,13 +149,13 @@ $('a').click('click', function () {
 
         title = page.substr(0, page.length - 5);
         highlightActiveButton();
-        $(".main-body").css("display", "block");
+        $(".main-body").show();
 
         get_score_frame();
     }
 });
 
-$("#close_btn").click('click', function(){
+$("#close_btn").click(function(){
     $(".main-body").hide();
     $(".pages").hide();
     deactivateButtons();

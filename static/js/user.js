@@ -1,4 +1,4 @@
-registerFormModel = {
+registerModel = {
     username: ko.observable(),
     password: ko.observable(),
     passwordConfirm: ko.observable(),
@@ -10,7 +10,7 @@ loginModel = {
     username: ko.observable(''),
     userId: ko.observable(0),
     password: ko.observable(''),
-    messages: ko.observableArray(),
+    messages: ko.observableArray()
 };
 
 passwordRecoverModel = {
@@ -27,30 +27,30 @@ passwordChangeModel = {
 
 $('#registerForm').submit(function (e) {
     e.preventDefault();
-    if (registerFormModel.password() === registerFormModel.passwordConfirm()) {
+    if (registerModel.password() === registerModel.passwordConfirm()) {
         $.ajax({
             type: 'PUT',
-            url: 'api/user/account/' + registerFormModel.username(),
+            url: 'api/user/account/' + registerModel.username(),
             data: JSON.stringify({
-                password: registerFormModel.password(),
-                email: registerFormModel.email(),
+                password: registerModel.password(),
+                email: registerModel.email(),
                 autologin: true
             }),
             statusCode: {
                 500: function () {
-                    registerFormModel.messages(['Server error']);
+                    registerModel.messages(['Server error']);
                 },
                 200: function (response) {
-                    registerFormModel.messages(response.messages);
+                    registerModel.messages(response.messages);
                 },
                 201: function (response) {
                     window.location='/';
-                    registerFormModel.messages(response.messages);
+                    registerModel.messages(response.messages);
                 }
             }
         });
     } else {
-        registerFormModel.messages(["Passwords don't match"]);
+        registerModel.messages(["Passwords don't match"]);
     }
 });
 
@@ -71,7 +71,7 @@ $('#loginForm').submit(function (e) {
                     loginModel.username(response.username);
                     loginModel.userId(response.user_id);
                     $('#login_page').hide();
-                }else{
+                } else {
                     loginModel.messages(response.messages);
                 }
             }
@@ -169,7 +169,7 @@ $(function () {
     $("#home_page").show();
     toastr.info('Loading...');
 
-    ko.applyBindings(registerFormModel, document.getElementById('registerForm'));
+    ko.applyBindings(registerModel, document.getElementById('registerForm'));
     ko.applyBindings(loginModel, document.getElementById('loginForm'));
     ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
     ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
@@ -179,7 +179,7 @@ $(function () {
         if (userId > 0) {
             toastr.info('Logged in.');
             resume();
-            retrieve_scores()
+            retrieve_scores();
             $('#controls').show();
             $('#logout-link').show();
             $('#login-link').hide();

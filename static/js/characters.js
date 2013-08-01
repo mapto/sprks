@@ -1,4 +1,4 @@
-//function for moving characters (class interviewee, ids:interviewee1,interviewee2,interviewee3)
+/*function for moving characters (class interviewee, ids:interviewee1,interviewee2,interviewee3)*/
 
 intervieweeDeviceModel = {
     interviewee1_device_image: ko.observable(),
@@ -48,9 +48,9 @@ function give_device(div_id, device) {
     intervieweeDeviceModel[div_id + '_device_image']('static/img/' + device + '.png');
 }
 
-function UpdateCharacters(date) { //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
-    var request = $.ajax({
-        url: "/api/characters",
+function updateCharacters(date) { //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
+    $.ajax({
+        url: "api/characters",
         type: "POST",
         data: JSON.stringify({date:date}),
         success: function (data) {
