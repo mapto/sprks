@@ -9,6 +9,7 @@ from models.simulation import simulation
 
 class score_rest:
     def GET(self):
+        web.header('Content-Type', 'application/json')
         return json.dumps(score_model.get_scores(context.user_id()))
 
 

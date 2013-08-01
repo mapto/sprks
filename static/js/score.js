@@ -1,10 +1,3 @@
-/**
- * Created with PyCharm.
- * User: Жанеля
- * Date: 05.07.13
- * Time: 14:51
- * To change this template use File | Settings | File Templates.
- */
 var score_obj;
 function initScore(){
     send_request(); //request scores, write them to score_obj global variable
@@ -24,19 +17,16 @@ function initScore(){
 }
 
 function send_request(){
-    var request = jQuery.ajax({
+    $.ajax({
         url: "/score_rest",
         type: "GET",
-        async : false,
-
         success : function(score) {
-            score_obj = JSON.parse(score.toString());
+            score_obj = score.toString();
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }
 
 // Ladder is "risk" or "cost"
@@ -48,16 +38,16 @@ function climbLadder(ladder) {
     var best = getScore("Best", ladder);
 
     if (own["value"] == best["value"]) {
-        putOnLadder(ladder, 1, getUsername());
+        putOnLadder(ladder, 1, loginModel.username());
         putOnLadder(ladder, 2, "Contender");
         putOnLadder(ladder, 3, "Average");
     } else {  // own < best not possible
         putOnLadder(ladder, 1, "Best");
         if (own["value"] <= contender["value"]) {
-            putOnLadder(ladder, 2, getUsername());
+            putOnLadder(ladder, 2, loginModel.username());
             putOnLadder(ladder, 3, "Contender")
         } else {
-            putOnLadder(ladder, 3, getUsername());
+            putOnLadder(ladder, 3, loginModel.username());
             putOnLadder(ladder, 2, "Contender");
         }
     }
@@ -167,14 +157,6 @@ function getScore(user, type) {
 
 
 
-
-
-
-
-
-
-
-
 //congratulations popup (if a user is first
 function congratulate_first(){
     var text = '';
@@ -195,9 +177,3 @@ function congratulate_first(){
 
 
 }
-
-
-
-
-
-

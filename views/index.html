@@ -26,9 +26,9 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <div class="link"><a class="home_page">SPRKS</a></div>
-            <div class="link logout" class="text-right" id="logout">
-                <a id="logout-button" class="logout_page" style="display: none">Logout <span class="username"></span> </a>
-                <a id="login-button" class="login_page">Login</a>
+            <div class="link" id="login-links">
+                <a id="logout-link" class="logout_page" style="display: none">Logout <span class="username"></span> </a>
+                <a id="login-link" class="login_page">Login</a>
             </div>
         </div>
     </div>
@@ -177,7 +177,7 @@
                     on
                     GitHub.</p>
 
-                <p>The website is tested to work with the <a href="www.google.com/chrome/">Chrome Browser</a>.</p>
+                <p>The website is tested to work with the <a href="http://www.google.com/chrome/">Chrome Browser</a>.</p>
             </div>
 
             <div class="pages" id="register_page">
@@ -762,19 +762,16 @@
         </div>
     </div>
 
-
 </article>
 
 <footer>
     <div class="navbar navbar-fixed-bottom navbar-inner" id="statusBar">
         <h4 style="margin-left:220px;">
-            <img width="16px" height="16px" data-bind="attr:{src: statusbar_image}" />
+            <img width="16px" height="16px" src="" data-bind="attr:{src: statusbar_image}" />
             <span data-bind="text: statusbar_status"></span>
         </h4>
     </div>
 </footer>
-
-
 
 
 <div id="#background_map"><object  data="static/img/map.svg"></object></div>
@@ -796,23 +793,8 @@
 <script src="static/js/score.js"></script>
 <script src="static/js/incident.js"></script>
 <!-- SCORE script -->
-<script> // USER MANAGEMENT script
+<script>
     var title;
-    var user_id = $:user_id();
-
-    //used in POLICY
-    function getUserID() {
-        /*ID is preset inside HTML code*/
-        //console.log("found id " + user_id);
-        return user_id; // This value is set server-side and appears to client as hardcoded.
-    }
-    //used in SCORE
-    function getUsername() {
-        /*ID is preset inside HTML code*/
-        //console.log("found user $username()");
-        return "$username()"; // This value is set server-side and appears to client as hardcoded.
-    }
-
 </script>
 
 </body>
