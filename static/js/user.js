@@ -1,8 +1,8 @@
 registerModel = {
-    username: ko.observable(),
-    password: ko.observable(),
-    passwordConfirm: ko.observable(),
-    email: ko.observable(),
+    username: ko.observable(''),
+    password: ko.observable(''),
+    passwordConfirm: ko.observable(''),
+    email: ko.observable(''),
     messages: ko.observableArray()
 };
 
@@ -14,15 +14,15 @@ loginModel = {
 };
 
 passwordRecoverModel = {
-    username: ko.observable(),
+    username: ko.observable(''),
     messages: ko.observableArray()
 };
 
 passwordChangeModel = {
-    password: ko.observable(),
-    passwordConfirm: ko.observable(),
-    messages: ko.observableArray(),
-    token: ko.observable()
+    password: ko.observable(''),
+    passwordConfirm: ko.observable(''),
+    token: ko.observable(''),
+    messages: ko.observableArray()
 };
 
 $('#registerForm').submit(function (e) {
@@ -103,10 +103,10 @@ $('#passwordChangeForm').submit(function (e) {
     if (passwordChangeModel.password() === passwordChangeModel.passwordConfirm()) {
         $.ajax({
             type: 'PUT',
-            url: 'api/user/password/' + user_id,
+            url: 'api/user/password',
             data: JSON.stringify({
                 password: passwordChangeModel.password(),
-                token: $.url('?token'),
+                token: passwordChangeModel.token(),
                 autologin: true
             }),
             statusCode: {
@@ -205,7 +205,9 @@ $(function () {
     if ($.url('?token') != null) {
 
         passwordChangeModel.token($.url('?token'));
-        $("#password_change_page").css("display", "block");
+        // Cleans URL parameters
+        history.pushState({},'title', '/');
+        $("#password_change_page").show();
 
     }
 });

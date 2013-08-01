@@ -95,49 +95,48 @@ class password:
     Handles password management
     """
 
-    def PUT(self, arg1=0):
+    def PUT(self):
         """
         Changes password for specified user_id
         """
 
-        user_id = int(arg1)
         payload = json.loads(web.data())
         user_model = users_model()
 
         web.header('Content-Type', 'application/json')
 
-        if not (user_id > 0):
-            return json.dumps(
-                {
-                    'success': False,
-                    'messages': ['Invalid user_id specified']
-                }
-            )
-
-        if user_id == context.user_id() or user_id == user_model.password_recovery_user(payload.get('token', '')):
-            if user_model.update_password(user_id, payload['password']):
-                if payload.get('autologin', False) and context.user_id() != user_id:
-                    # Auto-login user whose password's changed.
-                    users_model.session_login(user_id)
+        if context.user_id() > 0:
+            user_id = context.user_id()
+        else:
+            token_user_id = user_model.password_recovery_user(payload.get('token', ''))
+            if token_user_id > 0:
+                user_id = token_user_id
+            else:
                 return json.dumps(
                     {
-                        'success': True,
-                        'messages': ['Password changed']
+                        'success': False,
+                        'messages': ['Unauthorized request']
                     }
                 )
+
+        if user_model.update_password(user_id, payload['password']):
+            if payload.get('autologin', False) and context.user_id() != user_id:
+                # Auto-login user whose password's changed.
+                users_model.session_login(user_id)
             return json.dumps(
                 {
-                    'success': False,
-                    'messages': ['Database error']
+                    'success': True,
+                    'messages': ['Password changed']
                 }
             )
-
         return json.dumps(
             {
                 'success': False,
-                'messages': ['Unauthorized request']
+                'messages': ['Database error']
             }
         )
+
+
 
     def POST(self, arg1=0):
         """
