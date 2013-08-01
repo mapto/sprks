@@ -12,15 +12,15 @@ function checkEvents() {
             $('#pause').click();
             tmp_event = tmp_events_calendar[i].events
             $(tmp_event).each(function (j) {
-                display_event(tmp_event[j].incdt_id, tmp_event[j].cost);
-                submit_event($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()));
+                displayEvent(tmp_event[j]);
+                submitEvent($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()));
             })
             $('.incident_page').click();
         }
     })
 }
 
-function submit_event(date) {
+function submitEvent(date) {
     $.ajax({
         url: "api/chronos/event",
         type: "POST",
