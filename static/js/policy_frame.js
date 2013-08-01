@@ -8,11 +8,6 @@
 
 //summary of the policy (right corner), called on any policy change
 function summarize_policy(policy){
-    console.log(policy.employee);
-    console.log(policy.location);
-    console.log(policy.device);
-    console.log(policy.policyDelta);
-    console.log('end');
     for (var key in policy){
         if(key==='employee'||key==='location'||key==='device'){
             $("#sum-"+key).text(policy[key]);
