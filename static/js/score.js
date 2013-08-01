@@ -1,10 +1,3 @@
-/**
- * Created with PyCharm.
- * User: Жанеля
- * Date: 05.07.13
- * Time: 14:51
- * To change this template use File | Settings | File Templates.
- */
 var score_obj;
 function initScore(){
     send_request(); //request scores, write them to score_obj global variable
@@ -24,19 +17,16 @@ function initScore(){
 }
 
 function send_request(){
-    var request = jQuery.ajax({
+    $.ajax({
         url: "/score_rest",
         type: "GET",
-        async : false,
-
         success : function(score) {
-            score_obj = JSON.parse(score.toString());
+            score_obj = score.toString();
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }
 
 // Ladder is "risk" or "cost"
@@ -167,14 +157,6 @@ function getScore(user, type) {
 
 
 
-
-
-
-
-
-
-
-
 //congratulations popup (if a user is first
 function congratulate_first(){
     var text = '';
@@ -195,9 +177,3 @@ function congratulate_first(){
 
 
 }
-
-
-
-
-
-
