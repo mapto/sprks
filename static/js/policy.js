@@ -3,6 +3,49 @@
 
 var pwpolicy;
 
+
+/* attempt to move to knockout, in process
+policyModel = {
+    aut_num_optionValues : ["0", "1", "2"],
+    aut_num_selectedOptionValue : ko.observable("0"),
+    aut_num1_optionValues : ["none", "biometric", "passfaces/swipe-lock", "passwords"],
+    aut_num1_selectedOptionValue : ko.observable("none"),
+    aut_num2_optionValues : ["none", "biometric", "passfaces/swipe-lock", "passwords"],
+    aut_num2_selectedOptionValue : ko.observable("none"),
+    employee_SelectedOptionValue : ko.observable(),
+    aut_num_function: function(option) {
+           if(option=='0'){
+                $("#aut_num1").hide();
+                $("#aut_num2").hide();
+                policyModel.aut_num1_selectedOptionValue("none");
+                policyModel.aut_num2_selectedOptionValue("none");
+                hide_policies();
+                //remove all options
+           }else if(option=='1'){
+                $("#aut_num1").show();
+                $("#aut_num2").hide();
+                policyModel.aut_num2_selectedOptionValue("none");
+           }else if(option=='2'){
+                $("#aut_num1").show();
+                $("#aut_num2").show();
+           }
+    },
+    aut_function: function(option1,option2){
+            if(option1==option2){
+                   console.log('equal');
+                if(option1=='none'){
+
+                }
+
+            }else if(option1=='passwords'){
+
+            }else{
+
+            }
+    }
+};
+ko.applyBindings(policyModel, document.getElementById('policy_form'));
+*/
 function verboseScore(score) {
     if (score < 0.2) {
         return "very low";
