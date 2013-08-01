@@ -21,8 +21,10 @@ class model_sklearn:
         """
         self.incidents_models = {}
         self.risks = []
-        check_classifier = True
-        f = open('static/data/' + self.type + '-models.txt', 'rb')
+        self.incidents_models = None
+
+    def load_file(self):
+        f = open('static/data/' + self.type + '-models.txt','rb')
         self.incidents_models = cPickle.load(f)
         f.close()
 
@@ -133,6 +135,9 @@ class classifier_sklearn(model_sklearn):
         return incident.get_most_probable(list)
 
     def get_prediction(self, datapoints, employee, location, device, next_risk):
+        if self.incidents_models is None:
+            self.load_file()
+
         response = self.incidents_models[next_risk][employee][location][device].predict(datapoints)
         # Algorithm returns list of predictions.
         # Because of the dataset it contains only one element
@@ -154,6 +159,9 @@ class regression_sklearn(model_sklearn):
         return max(list)
 
     def get_prediction(self, datapoints, employee, location, device, next_risk):
+        if self.incidents_models is None:
+            self.load_file()
+
         response = self.incidents_models[next_risk][employee][location][device].predict(datapoints)
         result = response[0]
         if result < 0:

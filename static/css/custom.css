@@ -622,16 +622,16 @@ label {
 /***graphs*/
 .graph {
     float: left;
-    width: 0;
-    /*width: 30%;*/
+    width: 30%;
+    height: 150px;
     /*height: 190px;*/
     /*margin: 5px;*/
 }
 
 .qn {
     float: left;
-    /*width: 65%;*/
-    width: 100%;
+    width: 65%;
+    height: 150px;
     text-align: left;
 }
 

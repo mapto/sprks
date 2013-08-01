@@ -219,6 +219,9 @@ $("#apply").click(function () {
         console.log(policyUpdate);
         toastr['info']('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue');
     }
+
+    submit_alternatives_request();
+
 });
 
 

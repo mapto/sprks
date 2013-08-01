@@ -105,7 +105,7 @@ function get_range(policy, id) {
     return msgs;
 }
 function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
-//    console.log(policy_costs_risks);
+    console.log(policy_costs_risks);
     var graph_id = {};
     dps_risk = {};
     dps_cost = {};
