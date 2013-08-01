@@ -1,7 +1,8 @@
 timelineModel = {
     currentDate: ko.observable(new Date(0)),
     nextSync: ko.observable(new Date(0)),
-    clock: ko.observable()
+    clock: ko.observable(),
+    clockSpeed: ko.observable()
 };
 
 function checkEvents() {
@@ -75,40 +76,53 @@ function resume() {
 }
 
 function startClock(interval) {
-    console.log("clock started");
-    if (timelineModel.clock() != undefined) pauseClock();
+    console.log("Clock started");
     timelineModel.clock(setInterval(function () {
-
         timelineModel.currentDate().setDate(timelineModel.currentDate().getDate()+1);
         timelineModel.currentDate.valueHasMutated();
-
     }, interval));
-}
-
-function pauseClock() {
-    clearInterval(timelineModel.clock());
 }
 
 $(function () {
 
     ko.applyBindings(timelineModel, document.getElementById('timeline'));
 
-    timelineModel.currentDate.subscribe(function () {
+    timelineModel.clockSpeed.subscribe(function(clockSpeed){
+        switch (clockSpeed){
+            case 0:
+                $('.target').removeAttr('disabled');
+                $('#apply').removeAttr('disabled');
+                clearInterval(timelineModel.clock());
+                break;
+            case 1:
+                $('.target').attr('disabled', 'disabled');
+                $('#apply').attr('disabled', 'disabled');
+                startClock(3000);
+                break;
+            case 2:
+                $('.target').attr('disabled', 'disabled');
+                $('#apply').attr('disabled', 'disabled');
+                startClock(500);
+                break;
+        }
+    });
 
-        if (timelineModel.currentDate() - timelineModel.nextSync() === 0) {
+    timelineModel.currentDate.subscribe(function (currentDate) {
+
+        if (currentDate - timelineModel.nextSync() === 0) {
             toastr['success']("Changes submitted");
             $('#pause').click();
             submitPolicyDelta();
         }
 
-        timelineModel.nextSync(new Date(timelineModel.currentDate().getFullYear(), timelineModel.currentDate().getMonth()+1, 1));
+        timelineModel.nextSync(new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 1));
 
         checkEvents();
-        updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate())); //specified in characters.js
+        updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, currentDate)); //specified in characters.js
 
         window.id_elem = 'plen';
 
-        if (timelineModel.currentDate - new Date('2014-2-1') < 0) {
+        if (currentDate - new Date('2014-2-1') < 0) {
             //console.log('less than 1 month passed. Score is not yet calculated, hide button');
             $(".score_page").hide();
         } else {
@@ -117,6 +131,8 @@ $(function () {
         }
         $(".incident_page").hide();
     })
+
+    timelineModel.clockSpeed(0);
 
 })
 

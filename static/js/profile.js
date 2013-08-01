@@ -2,9 +2,7 @@ var json;
 var policy_history;
 var graph_data;
 function initProfile() {
-
     get_profile();
-
 }
 
 function get_profile() {

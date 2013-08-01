@@ -20,25 +20,20 @@ $(function(){
     });
 
     $('#pause').click(function() {
-        $('.target').removeAttr('disabled');
-        $('#apply').removeAttr('disabled');
-        pauseClock();
+        timelineModel.clockSpeed(0);
+    });
+
+    $('#play').click(function () {
+        timelineModel.clockSpeed(1);
     });
 
     $('#forward').click(function() {
-        $('.target').attr('disabled', 'disabled');
-        $('#apply').attr('disabled', 'disabled');
-        startClock(500);
+        timelineModel.clockSpeed(2);
     })
 
     $('.target').change(function(){
         window.id_elem = $(this).closest($(".qn")).attr('id');
     })
-    $('#play').click(function () {
-        $('.target').attr('disabled', 'disabled');
-        $('#apply').attr('disabled', 'disabled');
-        startClock(3000);
-    });
 
     console.log("Private decoration initialized...");
 });
@@ -89,25 +84,6 @@ function deactivateButtons() {
     $('.profile_page').removeAttr('style');
     $('.policy_page').removeAttr('style');
 }
-
-
-//time-control buttons active css
-$('#play').click(function() {
-   $(this).parent().addClass('active');
-   $('#pause').parent().removeClass('active');
-   $('#forward').parent().removeClass('active');
-});
-$('#pause').click(function() {
-   $(this).parent().addClass('active');
-   $('#play').parent().removeClass('active');
-   $('#forward').parent().removeClass('active');
-});
-$('#forward').click(function() {
-   $(this).parent().addClass('active');
-   $('#play').parent().removeClass('active');
-   $('#pause').parent().removeClass('active');
-});
-
 
 function hideOtherPages(page_name) {
         $(".pages").each(function () {
