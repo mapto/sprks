@@ -32,27 +32,20 @@ urls = (
     storage.path + '/', controllers.spa.spa,
     storage.path + '/score/multiple', controllers.score.multiple_score,
 
-    # APIs
+    # API
+    storage.path + '/api/user/account/(.+)', controllers.user.account,
+    storage.path + '/api/user/account', controllers.user.account,
+    storage.path + '/api/user/password/(.+)', controllers.user.password,
     storage.path + '/api/chronos/sync', controllers.chronos.chronos,
     storage.path + '/api/chronos/update', controllers.chronos.policy_update_handler,
     storage.path + '/api/chronos/event', controllers.chronos.event_handler,
     storage.path + '/api/chronos/resume', controllers.chronos.resume_game,
-
-    #REST
-    storage.path + '/score_rest', controllers.score.score_rest,
-    storage.path + '/incident_rest/(.+)', controllers.incident.incident_rest,
-    storage.path + '/incident_rest', controllers.incident.incident_rest,
-    storage.path + '/history_rest', controllers.policy_history.history_rest,
-
-    #SPA
-    storage.path + '/login_spa', controllers.user.account,
-    #SPA API
-    storage.path + '/api/user_spa/account/(.+)', controllers.user.account,
-    storage.path + '/api/user_spa/account', controllers.user.account,
-    storage.path + '/api/user_spa/password/(.+)', controllers.user.password,
-    storage.path + '/password_spa', controllers.user.password,
     storage.path + '/api/characters', controllers.characters.characters,
-    storage.path + '/api/score_frame', controllers.policy_history.score_frame
+    storage.path + '/api/score_frame', controllers.policy_history.score_frame,
+    storage.path + '/api/score', controllers.score.score_rest,
+    storage.path + '/api/incident/(.+)', controllers.incident.incident_rest,
+    storage.path + '/api/incident', controllers.incident.incident_rest,
+    storage.path + '/api/history', controllers.policy_history.history_rest
 )
 
 app = web.application(urls, globals(), autoreload=False)

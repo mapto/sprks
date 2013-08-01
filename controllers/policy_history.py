@@ -5,12 +5,14 @@ import web
 
 from models.policies import policies_model
 from localsys.environment import context
-
 from localsys.storage import db
 
 
 class history_rest:
     def GET(self):
+
+        web.header('Content-Type', 'application/json')
+
         #get policy history (used in table display on a Profile page)
         policy_history = policies_model.get_policy_history(context.user_id())
 
@@ -41,11 +43,10 @@ class score_frame:
     Is similar to graph_data for the profile page
     """
     def GET(self):
-        #get the latest risk and cost
+        # get the latest risk and cost
 
         web.header('Content-Type', 'application/json')
-        userid = context.user_id()
-        scores = db.select('scores', where='userid=$userid', order="date DESC", limit=2, vars=locals())
+        scores = db.select('scores', where='userid=$context.user_id()', order="date DESC", limit=2, vars=locals())
         scores_result = []
         for row in scores:
             tmp = {}

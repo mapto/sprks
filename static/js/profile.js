@@ -10,10 +10,9 @@ function initProfile() {
 function get_profile() {
     //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
     var request = $.ajax({
-        url: "/history_rest",
+        url: "api/history",
         type: "GET",
-        success: function (data) {
-            json = JSON.parse(data);
+        success: function (json) {
             policy_history = JSON.parse(json['policy_history']);
             graph_data = JSON.parse(json['graph_data']);
 
@@ -100,7 +99,6 @@ function get_profile() {
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }
 
 function createGraph(data) {

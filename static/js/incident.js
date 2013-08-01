@@ -1,7 +1,7 @@
 function get_incident_data(incident_id) {
     statusUpdating();
     $.ajax({
-        url: "incident_rest/"+incident_id,
+        url: "api/incident/"+incident_id,
         type: "GET",
         success: function (incident) {
             statusReady();
@@ -17,7 +17,6 @@ function get_incident_data(incident_id) {
             console.log("fail: " + response.responseText);
         }
     });
-    return false;
 }
 
 function display_event(incident_id, cost){

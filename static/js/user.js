@@ -30,7 +30,7 @@ $('#registerForm').submit(function (e) {
     if (registerFormModel.password() === registerFormModel.passwordConfirm()) {
         $.ajax({
             type: 'PUT',
-            url: 'api/user_spa/account/' + registerFormModel.username(),
+            url: 'api/user/account/' + registerFormModel.username(),
             data: JSON.stringify({
                 password: registerFormModel.password(),
                 email: registerFormModel.email(),
@@ -58,7 +58,7 @@ $('#loginForm').submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: '/api/user_spa/account',
+        url: '/api/user/account',
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(loginModel.username() + ':' + loginModel.password()));
         },
@@ -81,7 +81,7 @@ $('#passwordRecoveryForm').submit(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'POST',
-        url: 'api/user_spa/password/' + passwordRecoverModel.username(),
+        url: 'api/user/password/' + passwordRecoverModel.username(),
         data: JSON.stringify({
             uid_type: 'username'
         }),
@@ -101,7 +101,7 @@ $('#passwordChangeForm').submit(function (e) {
     if (passwordChangeModel.password() === passwordChangeModel.passwordConfirm()) {
         $.ajax({
             type: 'PUT',
-            url: 'api/user_spa/password/' + user_id,
+            url: 'api/user/password/' + user_id,
             data: JSON.stringify({
                 password: passwordChangeModel.password(),
                 token: $.url('?token'),

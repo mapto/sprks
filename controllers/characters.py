@@ -29,15 +29,13 @@ class characters:
         days_delta = (client_date - start_date).days
         locations, devices = self.get_locations_devices(days_delta)
 
-        locations_devices = json.dumps(
+        return json.dumps(
             {
-                'interviewee1': [locations[0],devices[0]],  # Susie (executive)
-                'interviewee2': [locations[1],devices[1]],  # Kevin (desk)
-                'interviewee3': [locations[2],devices[2]]   # Iza (road)
+                'interviewee1': [locations[0], devices[0]], # Susie (executive)
+                'interviewee2': [locations[1], devices[1]], # Kevin (desk)
+                'interviewee3': [locations[2], devices[2]]   # Iza (road)
             }
         )
-
-        return locations_devices
 
     def get_locations_devices(self, days_delta):
         """

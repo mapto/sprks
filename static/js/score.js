@@ -18,7 +18,7 @@ function initScore(){
 
 function send_request(){
     $.ajax({
-        url: "/score_rest",
+        url: "api/score",
         type: "GET",
         success : function(score) {
             score_obj = score.toString();
