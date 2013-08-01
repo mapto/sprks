@@ -22,7 +22,7 @@ class model_sklearn:
         self.incidents_models = {}
         self.risks = []
         check_classifier = True
-        f = open('static/data/' + self.type + '-models.txt','rb')
+        f = open('static/data/' + self.type + '-models.txt', 'rb')
         self.incidents_models = cPickle.load(f)
         f.close()
 
