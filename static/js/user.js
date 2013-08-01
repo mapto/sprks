@@ -172,17 +172,14 @@ $(function () {
     ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
     ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
 
-    loginModel.username.subscribe(function(username){
-        $('span.username').text(username);
-    })
-
     loginModel.userId.subscribe(function (userId) {
         toastr.clear();
         if (userId > 0) {
             toastr.info('Logged in.');
             $('#controls').show();
-            $('#logout-button').show();
-            $('#login-button').hide();
+            $('#logout-link').show();
+            $('#login-link').hide();
+            $('span.username').text(loginModel.username());
             resume();
             $("#home_page").hide();
             $("#intro_page").show();
@@ -191,8 +188,9 @@ $(function () {
         } else {
             toastr.info('Logged out.');
             $('#controls').hide();
-            $('#logout-button').hide();
-            $('#login-button').show();
+            $('#logout-link').hide();
+            $('#login-link').show();
+            $('span.username').text('');
             $("#home_page").show();
             $("#intro_page").hide();
         }
