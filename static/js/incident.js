@@ -5,7 +5,10 @@ incidentModel = {
     consequences: ko.observable(''),
     riskType: ko.observable(''),
     risk: ko.observable(0),
-    monetaryCost: ko.observable(0)
+    monetaryCost: ko.observable(0),
+    employee: ko.observable(''),
+    location: ko.observable(''),
+    device: ko.observable('')
 }
 
 function getIncidentDetails(incident_id) {
@@ -23,9 +26,9 @@ function getIncidentDetails(incident_id) {
             incidentModel.riskType(incident.riskType);
             incidentModel.risk(incident.risk);
 
-            $('#quote1').text(incident.description);
-            $('#quote2').text(incident.description);
-            $('#quote3').text(incident.description);
+            charactersModel.quote1(incident.description);
+            charactersModel.quote2(incident.description);
+            charactersModel.quote3(incident.description);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -33,10 +36,13 @@ function getIncidentDetails(incident_id) {
     });
 }
 
-function display_event(incident_id, cost){
+function displayEvent(incident){
     // Handles trigger for when certain event occurs.
-    getIncidentDetails(incident_id);
-    incidentModel.monetaryCost(cost);
+    getIncidentDetails(incident.incdt_id);
+    incidentModel.monetaryCost(incident.cost);
+    incidentModel.employee(incident.employee);
+    incidentModel.location(incident.location);
+    incidentModel.device(incident.device);
     $(".incident_page").show();
     toastr.warning('Incident occurred!')
 }

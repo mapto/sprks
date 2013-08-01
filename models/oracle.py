@@ -14,6 +14,8 @@ class prophet:
         Events start from specified base_date, offset from 0 to 30 days.
         [
             {
+        :param user_id:
+        :param base_date:
                 'date': 'YYYY-MM-DD'
                 'incident_id': 1,
                 'cost': 5000000
@@ -38,7 +40,6 @@ class prophet:
             # print current_incident
             if current_incident['risk'] > max_risk:
                 max_risk = current_incident['risk']
-            if current_incident['cost'] > max_cost:
                 max_cost = current_incident['cost']
             daily_prob = cls.daily_prob(current_incident['risk'])
             incident_cost = current_incident['cost']*company.max_incident_cost
@@ -48,8 +49,12 @@ class prophet:
                     prophecy.append({
                         'date': (base_date + timedelta(days=i)).isoformat(),
                         'incident_id': current_incident['id'],
-                        'cost': cls.randomize_cost(incident_cost)
+                        'cost': cls.randomize_cost(incident_cost),
+                        'employee': current_incident.employee,
+                        'location': current_incident.location,
+                        'device': current_incident.device
                     })
+        # TODO currently productivity costs is being used as risk impact.
         score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
         score_model.insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
         return prophecy

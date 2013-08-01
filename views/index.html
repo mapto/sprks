@@ -68,9 +68,9 @@
     <div class="time_controls" id="timeline">
         <ul>
             <h4><div id="time" data-bind="text: format_date(currentDate())"></div></h4>
-            <li><a class="icon-play icon-large" id="play"></a></li>
-            <li class="active"><a class="icon-pause icon-large" id="pause"></a></li>
-            <li><a class="icon-forward" id="forward"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 1}"><a class="icon-play icon-large" id="play"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 0}"><a class="icon-pause icon-large" id="pause"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 2}"><a class="icon-forward" id="forward"></a></li>
         </ul>
     </div>
     </div>
@@ -81,61 +81,28 @@
     <div id="map">
         <div class="interviewee" id="interviewee1">
             Susie
-            <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" src=""/>
+            <img class="device_img" data-bind="attr:{src: interviewee1DeviceImage}" src=""/>
         </div>
         <div class="interviewee" id="interviewee2">
             Kevin
-            <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" src=""/>
+            <img class="device_img" data-bind="attr:{src: interviewee2DeviceImage}" src=""/>
         </div>
         <div class="interviewee" id="interviewee3">
             Iza
-            <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" src=""/>
+            <img class="device_img" data-bind="attr:{src: interviewee3DeviceImage}" src=""/>
         </div>
 
-        <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span>
-
-            <p>The main
-                problem I have with my job is that IT support is terrible. It used to be the case that the department
-                was in the
-                same building, and you knew you could walk in or call them up and speak to the same people you spoke to
-                last time. A
-                bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random
-                person half
-                the world away that doesn't know me from Adam. Not having that personal relationship makes things more
-                difficult and
-                everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure
-                and the
-                latest round of password changes has locked me out of his email account.</p>
+        <div class="quote" id="quote1" data-bind="visible: currentQuote() == 1">
+            <span class="profile">Susie Queue (32), PA to Department Head:</span>
+            <p data-bind="text: quote1"></p>
         </div>
-        <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span>
-
-            <p>I have been
-                re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy
-                but there are
-                no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so
-                we don’t get
-                treated like we did when I worked here properly. It doesn't help that with all the shuffling around
-                no-one knows
-                each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints
-                like we are
-                at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk
-                all over the
-                building fixing computers and stuff and the atmosphere really has changed.</p>
+        <div class="quote" id="quote2" data-bind="visible: currentQuote() == 2">
+            <span class="profile">Kevin Clark (38), Facilities Technician:</span>
+            <p data-bind="text: quote2"></p>
         </div>
-        <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span>
-
-            <p>My job sounds
-                fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers
-                affected me? I
-                suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the
-                info I have
-                on our customers. It seemed to take ages to get any changes made to permissions but we have always had a
-                few tricks
-                to deal with that. The merger didn’t make that side of things worse, but for a while you never know who
-                you would be
-                working with from one week to the next. I am glad it has settled down now, I am starting to get friendly
-                with my new
-                team and that makes work go a little easier.</p>
+        <div class="quote" id="quote3" data-bind="visible: currentQuote() == 3">
+            <span class="profile">Iza Henata (26), Client Account Manager:</span>
+            <p data-bind="text: quote3"></p>
         </div>
     </div>
     <!-- MAP end-->
@@ -659,6 +626,13 @@
                 <h4>Monetary Cost:</h4>
                 <div data-bind="text: monetaryCost"></div>
 
+                <h4>Context:</h4>
+                <div>
+                    <p>Employee: <span data-bind="text: employee"></span></p>
+                    <p>Location: <span data-bind="text: location"></span></p>
+                    <p>Device: <span data-bind="text: device"></span></p>
+                </div>
+
             </div>
 
             <div class="pages" id="profile_page">
@@ -800,7 +774,6 @@
 <script src="static/js/user.js"></script>
 
 <!-- Page-related scripts -->
-<script src="static/js/intro.js"></script>
 <script src="static/js/policy.js"></script>
 <script src="static/js/profile.js"></script>
 <script src="static/js/score.js"></script>

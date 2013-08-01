@@ -1,9 +1,13 @@
 /*function for moving characters (class interviewee, ids:interviewee1,interviewee2,interviewee3)*/
 
-intervieweeDeviceModel = {
-    interviewee1_device_image: ko.observable(),
-    interviewee2_device_image: ko.observable(),
-    interviewee3_device_image: ko.observable()
+charactersModel = {
+    currentQuote: ko.observable(0),
+    interviewee1DeviceImage: ko.observable(''),
+    interviewee2DeviceImage: ko.observable(''),
+    interviewee3DeviceImage: ko.observable(''),
+    quote1: ko.observable(''),
+    quote2: ko.observable(''),
+    quote3: ko.observable('')
 };
 
 var coordinates = {};
@@ -22,7 +26,6 @@ coordinates.interviewee2.office = [22.5, 72.5, 20];
 coordinates.interviewee3.home = [55, 40, 55];
 coordinates.interviewee3.public = [70, 25, 20];
 coordinates.interviewee3.office = [30, 65, 20];
-
 
 function placeDiv(div_id, l_pos, r_pos, b_pos) {
     var d = document.getElementById(div_id);
@@ -45,7 +48,7 @@ function place_at(div_id, place) {
 }
 
 function give_device(div_id, device) {
-    intervieweeDeviceModel[div_id + '_device_image']('static/img/' + device + '.png');
+    charactersModel[div_id + 'DeviceImage']('static/img/' + device + '.png');
 }
 
 function updateCharacters(date) { //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
@@ -65,11 +68,48 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
     });
 }
 
+$("#interviewee1").click(function () {
+    if (charactersModel.currentQuote() === 1) {
+        charactersModel.currentQuote(0);
+    } else {
+        charactersModel.currentQuote(1);
+    }
+});
+$("#interviewee2").click(function () {
+    if (charactersModel.currentQuote() === 2) {
+        charactersModel.currentQuote(0);
+    } else {
+        charactersModel.currentQuote(2);
+    }
+});
+$("#interviewee3").click(function () {
+    if (charactersModel.currentQuote() === 3) {
+        charactersModel.currentQuote(0);
+    } else {
+        charactersModel.currentQuote(3);
+    }
+});
+
+$(document).click(function (e) {
+    if (e.target.className !== 'interviewee') {
+        charactersModel.currentQuote(0);
+    }
+});
+
 $(function () {
 
-    ko.applyBindings(intervieweeDeviceModel, document.getElementById('map'));
+    var quotes = [
+    "The main problem I have with my job is that IT support is terrible. It used to be the case that the department was in the same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the latest round of password changes has locked me out of his email account.",
+    "I have been re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the building fixing computers and stuff and the atmosphere really has changed.",
+    "My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier."
+    ];
 
-    intervieweeDeviceModel.interviewee1_device_image('static/img/laptop.png');
-    intervieweeDeviceModel.interviewee2_device_image('static/img/desktop.png');
-    intervieweeDeviceModel.interviewee3_device_image('static/img/phone.png');
+    ko.applyBindings(charactersModel, document.getElementById('map'));
+
+    charactersModel.interviewee1DeviceImage('static/img/laptop.png');
+    charactersModel.interviewee2DeviceImage('static/img/desktop.png');
+    charactersModel.interviewee3DeviceImage('static/img/phone.png');
+    charactersModel.quote1(quotes[0]);
+    charactersModel.quote2(quotes[1]);
+    charactersModel.quote3(quotes[2]);
 });

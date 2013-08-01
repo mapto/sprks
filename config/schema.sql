@@ -44,12 +44,16 @@ insert into biometrics values(2,2);
 -- Table structure for table `journal`
 --
 
+
 CREATE TABLE IF NOT EXISTS `journal` (
   `user_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `incident_id` int(11) DEFAULT NULL,
   `cost` int(11) DEFAULT NULL,
   `committed` tinyint(1) NOT NULL,
+  `employee` varchar(11) DEFAULT NULL,
+  `location` varchar(11) DEFAULT NULL,
+  `device` varchar(11) DEFAULT NULL,
   KEY `user_id_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
