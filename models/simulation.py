@@ -91,7 +91,8 @@ class simulation:
                 for location in context['locations']:
                     for device in context['devices']:
                         single_context = {'employee': employee, 'location': location, 'device': device}
-                        response = self.update(policy, single_context, next_risk)
+                        next = self.update(policy, single_context, next_risk)
+                        response = dict(next.items() + single_context.items())
                         my_list.append(response)
                         #risks_list.append(event["id"])
             incidents[next_risk] = my_list
