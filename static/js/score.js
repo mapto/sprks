@@ -21,7 +21,7 @@ function retrieve_scores(){
         url: "api/score",
         type: "GET",
         success : function(score) {
-            score_obj = score.toString();
+            score_obj = score;
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
