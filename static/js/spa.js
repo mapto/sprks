@@ -19,18 +19,6 @@ $(function(){
         }
     });
 
-    $('#pause').click(function() {
-        timelineModel.clockSpeed(0);
-    });
-
-    $('#play').click(function () {
-        timelineModel.clockSpeed(1);
-    });
-
-    $('#forward').click(function() {
-        timelineModel.clockSpeed(2);
-    })
-
     $('.target').change(function(){
         window.id_elem = $(this).closest($(".qn")).attr('id');
     })
@@ -38,16 +26,14 @@ $(function(){
     console.log("Private decoration initialized...");
 });
 
-// Decides whether to show score button
-// If different elements of the interface need to show up in later turns,
-// this could be done here
-
 // highlight active button(scores/story/policy)
 function highlightActiveButton() {
 
     switch (title) {
         case "score":
-            if($(".score_page").css("display")=== "block"){ css_class = "score";}
+            if ($(".score_page").css("display") === "block") {
+                css_class = "score";
+            }
             break;
         case "intro":
             css_class = "intro";
@@ -56,7 +42,9 @@ function highlightActiveButton() {
             css_class = "profile";
             break;
         case "incident":
-            if($(".incident_page").css("display")=== "block"){ css_class = "incident";}
+            if ($(".incident_page").css("display") === "block") {
+                css_class = "incident";
+            }
             break;
         case "policy":
             css_class = "policy";
@@ -98,9 +86,7 @@ function clearProfile() {
         this.remove();
     });
     $('#chartContainer').empty();           //clear graph
-
 }
-
 
 /*****Display/hide pages *****/
 $('a').click('click', function () {
@@ -109,12 +95,6 @@ $('a').click('click', function () {
         hideOtherPages(page);
 
         $("#" + page).css("display", "block");
-        if (page === 'policy_page') {
-
-        }
-        if (page === 'incident_page') {
-
-        }
         if (page === 'profile_page') {
             clearProfile();
             initProfile();
