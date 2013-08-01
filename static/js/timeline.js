@@ -10,7 +10,7 @@ function checkEvents() {
     var tmp_events_calendar = timelineModel.calendar();
     $(tmp_events_calendar).each(function (i) {
         if (new Date(tmp_events_calendar[i].date) - timelineModel.currentDate() === 0) {
-            $('#pause').click();
+            timelineModel.clockSpeed(0);
             tmp_event = tmp_events_calendar[i].events;
             $(tmp_event).each(function (j) {
                 displayEvent(tmp_event[j]);
@@ -64,7 +64,7 @@ function resume() {
         type: "GET",
         success: function (policy) {
             statusReady();
-            $('#pause').click();
+            timelineModel.clockSpeed(0);
             timelineModel.currentDate(new Date(policy['date']));
             timelineModel.calendar(policy['calendar']);
             display_contextualized_policy(policy['policy'][0]);
@@ -123,7 +123,7 @@ $(function () {
 
         if (currentDate - timelineModel.nextSync() === 0) {
             toastr['success']("Changes submitted");
-            $('#pause').click();
+            timelineModel.clockSpeed(0);
             submitPolicyDelta();
         }
 
@@ -143,8 +143,6 @@ $(function () {
         }
         $(".incident_page").hide();
     });
-
-    timelineModel.clockSpeed(0);
 
 });
 

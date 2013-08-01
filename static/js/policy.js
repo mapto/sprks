@@ -116,7 +116,7 @@ function updatePolicy(policy) {
     statusReady();
     console.log('response from server:');
     console.log(policy);
-    $('#pause').click();
+    timelineModel.clockSpeed(0);
     timelineModel.currentDate(new Date(policy['date']));
     timelineModel.calendar(policy['calendar']);
     get_score_frame();
