@@ -626,6 +626,9 @@
 
                 <h1>Incident</h1><br>
 
+                <h4>Date of Incident:</h4>
+                <div data-bind="text: format_date(incidentDate())"></div>
+
                 <h4>Policy:</h4>
                 <div data-bind="text: description"></div>
 
@@ -634,6 +637,9 @@
 
                 <h4>Consequences:</h4>
                 <div data-bind="text: consequences"></div>
+
+                <h4>Risk Type:</h4>
+                <div data-bind="text: riskType"></div>
 
                 <h4>Risk:</h4>
                 <div data-bind="text: risk"></div>
