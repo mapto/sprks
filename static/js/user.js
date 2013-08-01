@@ -71,6 +71,8 @@ $('#loginForm').submit(function (e) {
                     loginModel.username(response.username);
                     loginModel.userId(response.user_id);
                     $('#login_page').hide();
+                }else{
+                    loginModel.messages(response.messages);
                 }
             }
         }
@@ -126,7 +128,7 @@ $('#passwordChangeForm').submit(function (e) {
     }
 });
 
-$('#logout-button').click(function(){
+$('#logout-link').click(function(){
     loginModel.username('');
     loginModel.userId('');
     loginModel.password('');
@@ -146,7 +148,7 @@ $('#logout-button').click(function(){
 function check_loggedin() {
     $.ajax({
         type: 'POST',
-        url: '/api/user_spa/account',
+        url: '/api/user/account',
         statusCode: {
             200: function (response) {
                 toastr.clear();
