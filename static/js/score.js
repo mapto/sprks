@@ -48,16 +48,16 @@ function climbLadder(ladder) {
     var best = getScore("Best", ladder);
 
     if (own["value"] == best["value"]) {
-        putOnLadder(ladder, 1, getUsername());
+        putOnLadder(ladder, 1, loginModel.username());
         putOnLadder(ladder, 2, "Contender");
         putOnLadder(ladder, 3, "Average");
     } else {  // own < best not possible
         putOnLadder(ladder, 1, "Best");
         if (own["value"] <= contender["value"]) {
-            putOnLadder(ladder, 2, getUsername());
+            putOnLadder(ladder, 2, loginModel.username());
             putOnLadder(ladder, 3, "Contender")
         } else {
-            putOnLadder(ladder, 3, getUsername());
+            putOnLadder(ladder, 3, loginModel.username());
             putOnLadder(ladder, 2, "Contender");
         }
     }
