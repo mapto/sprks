@@ -5,7 +5,10 @@ incidentModel = {
     consequences: ko.observable(''),
     riskType: ko.observable(''),
     risk: ko.observable(0),
-    monetaryCost: ko.observable(0)
+    monetaryCost: ko.observable(0),
+    employee: ko.observable(''),
+    location: ko.observable(''),
+    device: ko.observable('')
 }
 
 function getIncidentDetails(incident_id) {
@@ -33,10 +36,10 @@ function getIncidentDetails(incident_id) {
     });
 }
 
-function display_event(incident_id, cost){
+function displayEvent(incident){
     // Handles trigger for when certain event occurs.
-    getIncidentDetails(incident_id);
-    incidentModel.monetaryCost(cost);
+    getIncidentDetails(incident.incdt_id);
+    incidentModel.monetaryCost(incident.cost);
     $(".incident_page").show();
     toastr.warning('Incident occurred!')
 }

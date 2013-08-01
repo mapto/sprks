@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta charset="utf-8"/>
     <title>Sprks</title>
-
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/2.3.1/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/blitzer/jquery-ui.css">
@@ -24,17 +22,17 @@
 <body>
 
 <header>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <div class="link"><a class="home_page">SPRKS</a></div>
-                <div class="link" id="login-links">
-                    <a id="logout-link" class="logout_page" style="display: none">Logout <span class="username"></span> </a>
-                    <a id="login-link" class="login_page">Login</a>
-                </div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <div class="link"><a class="home_page">SPRKS</a></div>
+            <div class="link" id="login-links">
+                <a id="logout-link" class="logout_page" style="display: none">Logout <span class="username"></span> </a>
+                <a id="login-link" class="login_page">Login</a>
             </div>
         </div>
     </div>
+</div>
 </header>
 
 <div id="controls" style="display: none">
@@ -57,718 +55,720 @@
 
     <div class="policy-summary">
 
-        <h4 style="color:#888888">Factors</h4>
+        <h4 style = "color:#888888">Factors</h4>
         <h5>Employee:</h5><div class="policy-summary-field" id="sum-employee"></div>
         <h5>Location:</h5><div class="policy-summary-field" id="sum-location"></div>
         <h5>Device:</h5><div class="policy-summary-field" id="sum-device"></div>
-        <h4 style="color:#888888">Policy summary</h4>
+        <h4 style = "color:#888888">Policy summary</h4>
         <h5 class="sum-biometric sum-label">Biometric:</h5><div class="policy-summary-field" id="sum-biometric"></div>
         <h5 class="sum-passfaces sum-label">Passfaces:</h5><div class="policy-summary-field" id="sum-passfaces"></div>
         <h5 class="sum-pwpolicy sum-label">Password:</h5><div class="policy-summary-field" id="sum-pwpolicy"></div>
+        </h5>
     </div>
     <div class="time_controls" id="timeline">
         <ul>
             <h4><div id="time" data-bind="text: format_date(currentDate())"></div></h4>
-            <li><a class="icon-play icon-large" id="play"></a></li>
-            <li class="active"><a class="icon-pause icon-large" id="pause"></a></li>
-            <li><a class="icon-forward" id="forward"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 1}"><a class="icon-play icon-large" id="play"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 0}"><a class="icon-pause icon-large" id="pause"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 2}"><a class="icon-forward" id="forward"></a></li>
         </ul>
     </div>
-</div>
+    </div>
 
 <article class="container-fluid">
-<!-- MAP begin-->
+    <!-- MAP begin-->
 
-<div id="map">
-    <div class="interviewee" id="interviewee1">
-        Susie
-        <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" src=""/>
+    <div id="map">
+        <div class="interviewee" id="interviewee1">
+            Susie
+            <img class="device_img" id="interviewee1_device" data-bind="attr:{src: interviewee1_device_image}" src=""/>
+        </div>
+        <div class="interviewee" id="interviewee2">
+            Kevin
+            <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" src=""/>
+        </div>
+        <div class="interviewee" id="interviewee3">
+            Iza
+            <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" src=""/>
+        </div>
+
+        <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span>
+
+            <p>The main
+                problem I have with my job is that IT support is terrible. It used to be the case that the department
+                was in the
+                same building, and you knew you could walk in or call them up and speak to the same people you spoke to
+                last time. A
+                bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random
+                person half
+                the world away that doesn't know me from Adam. Not having that personal relationship makes things more
+                difficult and
+                everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure
+                and the
+                latest round of password changes has locked me out of his email account.</p>
+        </div>
+        <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span>
+
+            <p>I have been
+                re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy
+                but there are
+                no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so
+                we don’t get
+                treated like we did when I worked here properly. It doesn't help that with all the shuffling around
+                no-one knows
+                each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints
+                like we are
+                at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk
+                all over the
+                building fixing computers and stuff and the atmosphere really has changed.</p>
+        </div>
+        <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span>
+
+            <p>My job sounds
+                fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers
+                affected me? I
+                suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the
+                info I have
+                on our customers. It seemed to take ages to get any changes made to permissions but we have always had a
+                few tricks
+                to deal with that. The merger didn’t make that side of things worse, but for a while you never know who
+                you would be
+                working with from one week to the next. I am glad it has settled down now, I am starting to get friendly
+                with my new
+                team and that makes work go a little easier.</p>
+        </div>
     </div>
-    <div class="interviewee" id="interviewee2">
-        Kevin
-        <img class="device_img" id="interviewee2_device" data-bind="attr:{src: interviewee2_device_image}" src=""/>
-    </div>
-    <div class="interviewee" id="interviewee3">
-        Iza
-        <img class="device_img" id="interviewee3_device" data-bind="attr:{src: interviewee3_device_image}" src=""/>
-    </div>
-
-    <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span>
-
-        <p>The main
-            problem I have with my job is that IT support is terrible. It used to be the case that the department
-            was in the
-            same building, and you knew you could walk in or call them up and speak to the same people you spoke to
-            last time. A
-            bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random
-            person half
-            the world away that doesn't know me from Adam. Not having that personal relationship makes things more
-            difficult and
-            everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure
-            and the
-            latest round of password changes has locked me out of his email account.</p>
-    </div>
-    <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span>
-
-        <p>I have been
-            re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy
-            but there are
-            no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so
-            we don’t get
-            treated like we did when I worked here properly. It doesn't help that with all the shuffling around
-            no-one knows
-            each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints
-            like we are
-            at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk
-            all over the
-            building fixing computers and stuff and the atmosphere really has changed.</p>
-    </div>
-    <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span>
-
-        <p>My job sounds
-            fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers
-            affected me? I
-            suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the
-            info I have
-            on our customers. It seemed to take ages to get any changes made to permissions but we have always had a
-            few tricks
-            to deal with that. The merger didn’t make that side of things worse, but for a while you never know who
-            you would be
-            working with from one week to the next. I am glad it has settled down now, I am starting to get friendly
-            with my new
-            team and that makes work go a little easier.</p>
-    </div>
-</div>
-<!-- MAP end-->
+    <!-- MAP end-->
 
 
-<div class="row-fluid">
-<div class="offset2 span8 main-body">
-<div id="close_btn"><div class="icon-remove"></div></div>
-<div class="pages" id="home_page">
-    <!--Sprks-->
-    <h2>Security Policy Risk Simulator </h2>
-    <h5>An exploratory simulation game featuring the real-life complexities of corporate information
-        security.</h5>
-    <h5>Goal</h5>
+    <div class="row-fluid">
+        <div class="offset2 span8 main-body">
+            <div id="close_btn"><div class="icon-remove"></div></div>
+            <div class="pages" id="home_page">
+                <!--Sprks-->
+                <h2>Security Policy Risk Simulator </h2>
+                <h5>An exploratory simulation game featuring the real-life complexities of corporate information
+                    security.</h5>
+                <h5>Goal</h5>
 
-    <p>Your job is to balance low risk with low productivity costs. Become the best security manager in the
-        industry.</p>
-    <h5>How to play</h5>
-    <ul>
-        <li>You need to login or register in order to play.</li>
-        <li>When you enter the game, you are introduced to your new job - CISO at the energy company Global
-            Sparks.
-        </li>
-        <li>Design the company security policy, so that you keep both risks and productivity cost low.</li>
-        <li>Manage the incidents occurring under your security policy.</li>
-        <li>See how your policy compares to policies designed by others.</li>
-    </ul>
+                <p>Your job is to balance low risk with low productivity costs. Become the best security manager in the
+                    industry.</p>
+                <h5>How to play</h5>
+                <ul>
+                    <li>You need to login or register in order to play.</li>
+                    <li>When you enter the game, you are introduced to your new job - CISO at the energy company Global
+                        Sparks.
+                    </li>
+                    <li>Design the company security policy, so that you keep both risks and productivity cost low.</li>
+                    <li>Manage the incidents occurring under your security policy.</li>
+                    <li>See how your policy compares to policies designed by others.</li>
+                </ul>
 
-    <div class="span11">
-        <div class="span4 text-center main_btn"><a class="register_page">Register</a></div>
-        <div class="span4 text-center main_btn"><a class="login_page">Login</a></div>
-    </div>
-    <br/><br/><br/><br/>
+                <div class="span11">
+                    <div class="span4 text-center main_btn"><a class="register_page">Register</a></div>
+                    <div class="span4 text-center main_btn"><a class="login_page">Login</a></div>
+                </div>
+                <br/><br/><br/><br/>
 
-    <p>This is a work-in-progress demonstration. Project SPRKS is being developed at <a
-            href="http://sec.cs.ucl.ac.uk/">UCL Information Security Research Group</a> and is supported by
-        Intel and IBM. Code is open source under the <a href="http://opensource.org/licenses/MIT">MIT
-            license</a>. The <a href="https://github.com/mapto/sprks">development process</a> is accessible
-        on
-        GitHub.</p>
+                <p>This is a work-in-progress demonstration. Project SPRKS is being developed at <a
+                        href="http://sec.cs.ucl.ac.uk/">UCL Information Security Research Group</a> and is supported by
+                    Intel and IBM. Code is open source under the <a href="http://opensource.org/licenses/MIT">MIT
+                        license</a>. The <a href="https://github.com/mapto/sprks">development process</a> is accessible
+                    on
+                    GitHub.</p>
 
-    <p>The website is tested to work with the <a href="http://www.google.com/chrome/">Chrome Browser</a>.</p>
-</div>
-
-<div class="pages" id="register_page">
-    <form id="registerForm">
-        <fieldset>
-            <legend>Register</legend>
-            <div class="row-fluid">
-                <input data-bind="value: username" type="text" placeholder="Username" required/>
+                <p>The website is tested to work with the <a href="http://www.google.com/chrome/">Chrome Browser</a>.</p>
             </div>
-            <div class="row-fluid">
-                <input data-bind="value: password" type="password" placeholder="Password" required/>
-            </div>
-            <div class="row-fluid">
-                <input data-bind="value: passwordConfirm" type="password" placeholder="Confirm your password" required/>
-            </div>
-            <div class="row-fluid">
-                <input data-bind="value: email" type="email" placeholder="Email" required>
-            </div>
-            <input class="login_btn" type="submit" value="Register"><br>
-            <ul data-bind="foreach: messages">
-                <li data-bind="text: $$data"></li>
-            </ul>
-        </fieldset>
-    </form>
-</div>
 
-<div class="pages" id="login_page">
-    <form id="loginForm">
-        <fieldset>
-            <legend>Login</legend>
-            <div class="row-fluid">
-                <div class="span7 ">
-                    <input data-bind="value: username" type="text" placeholder="Username" required/>
+            <div class="pages" id="register_page">
+                <form id="registerForm">
+                    <fieldset>
+                        <legend>Register</legend>
+                        <div class="row-fluid">
+                            <input data-bind="value: username" type="text" placeholder="Username" required/>
+                        </div>
+                        <div class="row-fluid">
+                            <input data-bind="value: password" type="password" placeholder="Password" required/>
+                        </div>
+                        <div class="row-fluid">
+                            <input data-bind="value: passwordConfirm" type="password" placeholder="Confirm your password"
+                                        required/>
+                        </div>
+                        <div class="row-fluid">
+                            <input data-bind="value: email" type="email" placeholder="Email" required>
+                        </div>
+                        <input class="login_btn" type="submit" value="Register"><br>
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="pages" id="login_page">
+                <form id="loginForm">
+                    <fieldset>
+                        <legend>Login</legend>
+                        <div class="row-fluid">
+                            <div class="span7 ">
+                                <input data-bind="value: username" type="text" placeholder="Username" required/>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span7 ">
+                                <input data-bind="value: password" type="password" placeholder="Password" required/>
+                            </div>
+                        </div>
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                        <div class="row-fluid">
+                            <input class="login_btn" type="submit" value="Login">
+                            <br>
+                            <a class="password_recover_page">Recover Password</a> |
+                            <a class="register_page">Register</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+             <div class="pages" id="password_recover_page">
+                <form id="passwordRecoveryForm">
+                    <fieldset>
+                        <legend>Password Recovery</legend>
+                        <p>You will be emailed a password reset link.</p>
+                        <input data-bind="value: username" type="text" placeholder="Username" required>
+                        <input class="login_btn" type="submit" value="Request">
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="pages" id="password_change_page">
+
+                <h1>Settings</h1>
+
+                <form id="passwordChangeForm">
+                    <fieldset>
+                        <legend>Set your new password</legend>
+                        <div><input data-bind="value: password" type="password" placeholder="Password" required></div>
+                        <div><input data-bind="value: passwordConfirm" type="password" placeholder="Confirm Password" required></div>
+                        <input class="login_btn" type="submit" value="Change">
+                        <ul data-bind="foreach: messages">
+                            <li data-bind="text: $$data"></li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="pages" id="intro_page">
+                <!--Introduction-->
+                <h1>Your Company</h1>
+
+                <div class="description">
+                    <p>Global Sparks is an international energy company, currently headquartered in London, which has begun to expand
+                        its operations internationally. In line with this strategy it started buying local electricity suppliers in the
+                        US in the early 2000s, and built up a substantial group of companies, primarily located on the West Coast. This
+                        period of rapid expansion has left the company somewhat fragmented internally, and this has begun to cause
+                        problems in terms of both business and security. To deal with this issue it has been going through a process of
+                        consolidating its acquisitions into a single company. An unfortunate side effect of this process has been a
+                        recent wave of redundancies. Almost all IT Support staff have been dismissed, because Global Sparks decided to
+                        outsource this function to a company based in India. A period of growth has followed the consolidation, and the
+                        company has started to hire again, but mostly in the form of contractors (staff on limited-term contracts, and
+                        without health and pension benefits). Many of these contractors are former employees of the companies Global
+                        Sparks acquired, and who had been made redundant. You have been hired as part of this process as a permanent
+                        security manager, with a brief to ensure that the consolidated company has not inherited any security weaknesses
+                        from its disparate components. Immediately several issues have come to light, resulting from both the mergers
+                        and the fluid hiring situation.</p>
+
+                    <p>To aid you in your work please speak to one of the members of staff on the main map to get an idea of
+                        what the culture is like at Global Sparks:</p>
+
+
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span7 ">
-                    <input data-bind="value: password" type="password" placeholder="Password" required/>
-                </div>
+
+            <div class="pages" id="policy_page">
+            <!--Policy-->
+            <h1>Policy</h1>
+
+            <form id="policy_form" name="input" method="post" action="add">
+            <!-- service specified in action must use relative path -->
+            <!--                <p id="time">2014-1-25</p> -->
+            <div class="company" id="employee">
+                <h4>Choose employee types</h4>
+                <input type="checkbox"
+                       name="executives"
+                       id="executives"
+                       class="target"
+                       value="executives"/>
+                <label for="executives">executives</label>
+                <input type="checkbox" name="desk" id="desk" class="target"
+                       value="desk"/>
+                <label for="desk">desk</label>
+                <input type="checkbox"
+                       name="road"
+                       id="road"
+                       class="target"
+                       value="road"/>
+                <label for="road">road</label>
             </div>
-            <ul data-bind="foreach: messages">
-                <li data-bind="text: $$data"></li>
-            </ul>
-            <div class="row-fluid">
-                <input class="login_btn" type="submit" value="Login">
+
+            <div class="company" id="location">
+                <h4>Choose location types</h4>
+                <input type="checkbox"
+                       name="office"
+                       id="office"
+                       class="target"
+                       value="office"/>
+                <label for="office">office</label>
+                <input type="checkbox"
+                       name="public"
+                       id="public"
+                       class="target"
+                       value="public"/>
+                <label for="public">public</label>
+                <input type="checkbox"
+                       name="home"
+                       id="home"
+                       class="target"
+                       value="home"/>
+                <label for="home">home</label>
+            </div>
+
+            <div class="company" id="device">
+                <h4>Choose device types</h4>
+                <input type="checkbox"
+                       name="desktop"
+                       id="desktop"
+                       class="target"
+                       value="desktop"/>
+                <label for="desktop">desktop</label>
+                <input type="checkbox"
+                       name="laptop"
+                       id="laptop"
+                       class="target"
+                       value="laptop"/>
+                <label for="laptop">laptop</label>
+                <input type="checkbox"
+                       name="phone"
+                       id="phone"
+                       class="target"
+                       value="phone"/>
+                <label for="phone">phone</label>
+            </div>
+
+            <br><br><br><br><br><br>
+            <h4>Number of authentication mechanisms: </h4>
+
+            <select class="target authentication" id="aut_num" name="aut_num">
+                <option value="" disabled selected>number</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+
+
+
+            <div class="aut" id="aut1"></div>
+            <div class="aut" id="aut2"></div>
+
+                <!--BIOMETRIC POLICY BEGIN-->
+                <div class="policy policy0" id="biometric_policy">
+                  <h4>Biometric</h4>
+                  <p class="qn" id="bdata">
+                    <select class="target" id="biometric" name="bdata">
+                        <option value="0" id="bdata0">none</option>
+                        <option value="1" id="bdata1">fingerprint</option>
+                        <option value="2" id="bdata2">iris scan</option>
+                    </select>
+                  </p>
+                </div>
+                <!--BIOMETRIC POLICY END-->
+
+                <!--PASSFACES POLICY BEGIN-->
+                <div class="policy policy1" id="passfaces_policy">
+                  <h4>Passfaces/swipe</h4>
+                  <p class="qn" id="pdata">
+                    <select class="target" id="passfaces" name="pdata">
+                        <option value="0" id="pdata0">none</option>
+                        <option value="1" id="pdata1">passfaces</option>
+                        <option value="2" id="pdata2">swipe-lock</option>
+                    </select>
+                  </p>
+                </div>
+                <!--PASSFACES POLICY END-->
+
+            <!--PASSWORD POLICY BEGIN-->
+            <div class=" policy policy2" id="password_policy">
+            <h4>Password Policy</h4>
+
+            <div class="qn" id="plen">
+                <label><b>Minimum Password Length:</b></label>
+                <br/>
+                <input type="radio"
+                       name="plen"
+                       id="len0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="len0">No Restriction</label>
+                <input type="radio"
+                       name="plen"
+                       id="len6"
+                       class="target"
+                       value="6"/>
+                <label for="len6">6 characters</label>
+                <input type="radio"
+                       name="plen"
+                       id="len8"
+                       class="target"
+                       value="8"/>
+                <label for="len8">8 characters</label>
+                <input type="radio"
+                       name="plen"
+                       id="len10"
+                       class="target"
+                       value="10"/>
+                <label for="len10">10 characters</label>
+                <input type="radio"
+                       name="plen"
+                       id="len12"
+                       class="target"
+                       value="12"/>
+                <label for="len12">12 characters</label>
+
+            <br><br>
+            <div class="graph" id="graph_plen"></div>
+            </div>
+
+            <div class="qn" id="psets">
+                <label><b>Number of symbol sets that must be used in password:</b></label><br>
+                <input type="radio"
+                       name="psets"
+                       id="sets1"
+                       class="target"
+                       value="1"
+                       checked="checked"/>
+                <label for="sets1">any</label>
+                <input type="radio"
+                       name="psets"
+                       id="sets2"
+                       class="target"
+                       value="2"/>
+                <label for="sets2">at least 2</label>
+                <input type="radio"
+                       name="psets"
+                       id="sets3"
+                       class="target"
+                       value="3"/>
+                <label for="sets3">at least 3</label>
+                <input type="radio"
+                       name="psets"
+                       id="sets4"
+                       class="target"
+                       value="4"/>
+                <label for="sets4">at least 4</label>
+                <br/><br/>
+
+            <div class="graph" id="graph_psets"></div>
+            </div>
+
+            <div class="qn" id="pdict">
+                <label><b>Passwords are checked whether they match a dictionary:</b></label><br>
+                <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
+                <input type="checkbox"
+                       name="pdict"
+                       id="dic"
+                       class="target"
+                       value="1"/>
+                <label for="dic"><b>Dictionary check</b></label><br/><br/>
+
+            <div class="graph" id="graph_pdict"></div>
+            </div>
+
+            <div class="qn" id="phist">
+                <label><b>Password history checking mechanism:</b></label>
+                <br/>
+                <input type="radio"
+                       name="phist"
+                       id="hist0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="hist0">none</label>
+                <input type="radio"
+                       name="phist"
+                       id="hist1"
+                       class="target"
+                       value="1"/>
+                <label for="hist1">minimum (1 past password, exact match) </label>
+                <input type="radio"
+                       name="phist"
+                       id="hist2"
+                       class="target"
+                       value="2"/>
+                <label for="hist2">strict (3 past passwords, string distance of 1) </label>
+                <input type="radio"
+                       name="phist"
+                       id="hist3"
+                       class="target"
+                       value="3"/>
+                <label for="hist3">extreme (10 past passwords, string distance of 2)</label>
+                <br/><br/>
+                <label>* string distance: how many letters are needed to be changed to obtain the same
+                    password<br/></label>
+                <br/>
+
+            <div class="graph" id="graph_phist"></div>
+            </div>
+
+            <div class="qn" id="prenew">
+                <label><b>When the system asks user to renew passwords:</b></label>
+                <br/>
+                <input type="radio"
+                       name="prenew"
+                       id="renew0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="renew0">never renew the password</label>
+                <input type="radio"
+                       name="prenew"
+                       id="renew1"
+                       class="target"
+                       value="1"/>
+                <label for="renew1">annual renewal</label>
+                <input type="radio"
+                       name="prenew"
+                       id="renew2"
+                       class="target"
+                       value="2"/>
+                <label for="renew2">renew quarterly</label>
+                <input type="radio"
+                       name="prenew"
+                       id="renew3"
+                       class="target"
+                       value="3"/>
+                <label for="renew3">renew monthly</label>
+                <br/><br/>
+
+            <div class="graph" id="graph_prenew"></div>
+            </div>
+
+            <div class="qn" id="pattempts">
+                <label><b>Number of wrong password attempts:</b></label>
+                <br/>
+                <input type="radio"
+                       name="pattempts"
+                       id="attempts0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="attempts0">Unlimited</label>
+                <input type="radio"
+                       name="pattempts"
+                       id="attempts1"
+                       class="target"
+                       value="1"/>
+                <label for="attempts1">10</label>
+                <input type="radio"
+                       name="pattempts"
+                       id="attempts2"
+                       class="target"
+                       value="2"/>
+                <label for="attempts2">3</label>
+                <br/><br/>
+
+                <div class="graph" id="graph_pattempts"></div>
+            </div>
+
+            <div class="qn" id="precovery">
+                <label><b>Password recovery options:</b></label>
+                <br/>
+                <input type="radio"
+                       name="precovery"
+                       id="recovery0"
+                       class="target"
+                       value="0"
+                       checked="checked"/>
+                <label for="recovery0">second e-mail for recovery letter</label>
+                <input type="radio"
+                       name="precovery"
+                       id="recovery1"
+                       class="target"
+                       value="1"/>
+                <label for="recovery1">secret question</label>
+                <input type="radio"
+                       name="precovery"
+                       id="recovery2"
+                       class="target"
+                       value="2"/>
+                <label for="recovery2">transaction questions</label>
+                <br/><br/>
+
+                <div class="graph" id="graph_precovery"></div>
+            </div>
+            </div>
+
+            <div>
+                <input type="button" name="apply" id="apply" value="Apply">
+            </div>
+
+            </form>
+            <!--PASSWORD POLICY END-->
+            </div>
+
+            <div class="pages" id="incident_page">
+                <!--Incident-->
+
+                <h1>Incident</h1><br>
+
+                <h4>Date of Incident:</h4>
+                <div data-bind="text: format_date(incidentDate())"></div>
+
+                <h4>Policy:</h4>
+                <div data-bind="text: description"></div>
+
+                <h4>Incident:</h4>
+                <div data-bind="text: event"></div>
+
+                <h4>Consequences:</h4>
+                <div data-bind="text: consequences"></div>
+
+                <h4>Risk Type:</h4>
+                <div data-bind="text: riskType"></div>
+
+                <h4>Risk:</h4>
+                <div data-bind="text: risk"></div>
+
+                <h4>Monetary Cost:</h4>
+                <div data-bind="text: monetaryCost"></div>
+
+                <h4>Context:</h4>
+                <div>
+                    <p>Employee: <span data-bind="text: employee"></span></p>
+                    <p>Location: <span data-bind="text: location"></span></p>
+                    <p>Device: <span data-bind="text: device"></span></p>
+                </div>
+
+            </div>
+
+            <div class="pages" id="profile_page">
+
+                <a class="password_change_page"><button><h4>User Settings</h4></button></a>
                 <br>
-                <a class="password_recover_page">Recover Password</a> |
-                <a class="register_page">Register</a>
-            </div>
-        </fieldset>
-    </form>
-</div>
 
-<div class="pages" id="password_recover_page">
-    <form id="passwordRecoveryForm">
-        <fieldset>
-            <legend>Password Recovery</legend>
-            <p>You will be emailed a password reset link.</p>
-            <input data-bind="value: username" type="text" placeholder="Username" required>
-            <input class="login_btn" type="submit" value="Request">
-            <ul data-bind="foreach: messages">
-                <li data-bind="text: $$data"></li>
-            </ul>
-        </fieldset>
-    </form>
-</div>
+                <h1>Profile</h1>
 
-<div class="pages" id="password_change_page">
-
-    <h1>Settings</h1>
-
-    <form id="passwordChangeForm">
-        <fieldset>
-            <legend>Set your new password</legend>
-            <div><input data-bind="value: password" type="password" placeholder="Password" required></div>
-            <div><input data-bind="value: passwordConfirm" type="password" placeholder="Confirm Password" required></div>
-            <input class="login_btn" type="submit" value="Change">
-            <ul data-bind="foreach: messages">
-                <li data-bind="text: $$data"></li>
-            </ul>
-        </fieldset>
-    </form>
-</div>
-
-<div class="pages" id="intro_page">
-    <!--Introduction-->
-    <h1>Your Company</h1>
-
-    <div class="description">
-        <p>Global Sparks is an international energy company, currently headquartered in London, which has begun to expand
-            its operations internationally. In line with this strategy it started buying local electricity suppliers in the
-            US in the early 2000s, and built up a substantial group of companies, primarily located on the West Coast. This
-            period of rapid expansion has left the company somewhat fragmented internally, and this has begun to cause
-            problems in terms of both business and security. To deal with this issue it has been going through a process of
-            consolidating its acquisitions into a single company. An unfortunate side effect of this process has been a
-            recent wave of redundancies. Almost all IT Support staff have been dismissed, because Global Sparks decided to
-            outsource this function to a company based in India. A period of growth has followed the consolidation, and the
-            company has started to hire again, but mostly in the form of contractors (staff on limited-term contracts, and
-            without health and pension benefits). Many of these contractors are former employees of the companies Global
-            Sparks acquired, and who had been made redundant. You have been hired as part of this process as a permanent
-            security manager, with a brief to ensure that the consolidated company has not inherited any security weaknesses
-            from its disparate components. Immediately several issues have come to light, resulting from both the mergers
-            and the fluid hiring situation.</p>
-
-        <p>To aid you in your work please speak to one of the members of staff on the main map to get an idea of
-            what the culture is like at Global Sparks:</p>
-
-
-    </div>
-</div>
-
-<div class="pages" id="policy_page">
-<!--Policy-->
-<h1>Policy</h1>
-
-<form id="policy_form" name="input" method="post" action="add">
-<!-- service specified in action must use relative path -->
-<!--                <p id="time">2014-1-25</p> -->
-<div class="company" id="employee">
-    <h4>Choose employee types</h4>
-    <input type="checkbox"
-           name="executives"
-           id="executives"
-           class="target"
-           value="executives"/>
-    <label for="executives">executives</label>
-    <input type="checkbox" name="desk" id="desk" class="target"
-           value="desk"/>
-    <label for="desk">desk</label>
-    <input type="checkbox"
-           name="road"
-           id="road"
-           class="target"
-           value="road"/>
-    <label for="road">road</label>
-</div>
-
-<div class="company" id="location">
-    <h4>Choose location types</h4>
-    <input type="checkbox"
-           name="office"
-           id="office"
-           class="target"
-           value="office"/>
-    <label for="office">office</label>
-    <input type="checkbox"
-           name="public"
-           id="public"
-           class="target"
-           value="public"/>
-    <label for="public">public</label>
-    <input type="checkbox"
-           name="home"
-           id="home"
-           class="target"
-           value="home"/>
-    <label for="home">home</label>
-</div>
-
-<div class="company" id="device">
-    <h4>Choose device types</h4>
-    <input type="checkbox"
-           name="desktop"
-           id="desktop"
-           class="target"
-           value="desktop"/>
-    <label for="desktop">desktop</label>
-    <input type="checkbox"
-           name="laptop"
-           id="laptop"
-           class="target"
-           value="laptop"/>
-    <label for="laptop">laptop</label>
-    <input type="checkbox"
-           name="phone"
-           id="phone"
-           class="target"
-           value="phone"/>
-    <label for="phone">phone</label>
-</div>
-
-<br><br><br><br><br><br>
-<h4>Number of authentication mechanisms: </h4>
-
-<select class="target authentication" id="aut_num" name="aut_num">
-    <option value="" disabled selected>number</option>
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-</select>
-
-
-
-<div class="aut" id="aut1"></div>
-<div class="aut" id="aut2"></div>
-
-<!--BIOMETRIC POLICY BEGIN-->
-<div class="policy policy0" id="biometric_policy">
-    <h4>Biometric</h4>
-    <div class="qn" id="bdata">
-        <select class="target" id="biometric" name="bdata">
-            <option value="0" id="bdata0">none</option>
-            <option value="1" id="bdata1">fingerprint</option>
-            <option value="2" id="bdata2">iris scan</option>
-        </select>
-        <div class="graph" id="graph_bdata"></div>
-
-    </div>
-</div>
-<!--BIOMETRIC POLICY END-->
-
-<!--PASSFACES POLICY BEGIN-->
-<div class="policy policy1" id="passfaces_policy">
-    <h4>Passfaces/swipe</h4>
-    <div class="qn" id="pdata">
-        <select class="target" id="passfaces" name="pdata">
-            <option value="0" id="pdata0">none</option>
-            <option value="1" id="pdata1">passfaces</option>
-            <option value="2" id="pdata2">swipe-lock</option>
-        </select>
-        <div class="graph" id="graph_pdata"></div>
-    </div>
-</div>
-<!--PASSFACES POLICY END-->
-
-<!--PASSWORD POLICY BEGIN-->
-<div class=" policy policy2" id="password_policy">
-    <h4>Password Policy</h4>
-
-    <div class="qn" id="plen">
-        <label><b>Minimum Password Length:</b></label>
-        <br/>
-        <input type="radio"
-               name="plen"
-               id="len0"
-               class="target"
-               value="0"
-               checked="checked"/>
-        <label for="len0">No Restriction</label>
-        <input type="radio"
-               name="plen"
-               id="len6"
-               class="target"
-               value="6"/>
-        <label for="len6">6 characters</label>
-        <input type="radio"
-               name="plen"
-               id="len8"
-               class="target"
-               value="8"/>
-        <label for="len8">8 characters</label>
-        <input type="radio"
-               name="plen"
-               id="len10"
-               class="target"
-               value="10"/>
-        <label for="len10">10 characters</label>
-        <input type="radio"
-               name="plen"
-               id="len12"
-               class="target"
-               value="12"/>
-        <label for="len12">12 characters</label>
-        <br/><br/>
-    </div>
-    <div class="graph" id="graph_plen"></div>
-</div>
-
-<div>
-    <div class="qn" id="psets">
-        <label><b>Number of symbol sets that must be used in password:</b></label><br>
-        <input type="radio"
-               name="psets"
-               id="sets1"
-               class="target"
-               value="1"
-               checked="checked"/>
-        <label for="sets1">any</label>
-        <input type="radio"
-               name="psets"
-               id="sets2"
-               class="target"
-               value="2"/>
-        <label for="sets2">at least 2</label>
-        <input type="radio"
-               name="psets"
-               id="sets3"
-               class="target"
-               value="3"/>
-        <label for="sets3">at least 3</label>
-        <input type="radio"
-               name="psets"
-               id="sets4"
-               class="target"
-               value="4"/>
-        <label for="sets4">at least 4</label>
-        <br/><br/>
-    </div>
-    <div class="graph" id="graph_psets"></div>
-</div>
-
-<div>
-    <div class="qn" id="pdict">
-        <label><b>Passwords are checked whether they match a dictionary:</b></label><br>
-        <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
-        <input type="checkbox"
-               name="pdict"
-               id="dic"
-               class="target"
-               value="1"/>
-        <label for="dic"><b>Dictionary check</b></label><br/><br/>
-
-    </div>
-    <div class="graph" id="graph_pdict"></div>
-</div>
-
-<div>
-    <div class="qn" id="phist">
-        <label><b>Password history checking mechanism:</b></label>
-        <br/>
-        <input type="radio"
-               name="phist"
-               id="hist0"
-               class="target"
-               value="0"
-               checked="checked"/>
-        <label for="hist0">none</label>
-        <input type="radio"
-               name="phist"
-               id="hist1"
-               class="target"
-               value="1"/>
-        <label for="hist1">minimum (1 past password, exact match) </label>
-        <input type="radio"
-               name="phist"
-               id="hist2"
-               class="target"
-               value="2"/>
-        <label for="hist2">strict (3 past passwords, string distance of 1) </label>
-        <input type="radio"
-               name="phist"
-               id="hist3"
-               class="target"
-               value="3"/>
-        <label for="hist3">extreme (10 past passwords, string distance of 2)</label>
-        <br/><br/>
-        <label>* string distance: how many letters are needed to be changed to obtain the same
-            password<br/></label>
-        <br/>
-
-    </div>
-    <div class="graph" id="graph_phist"></div>
-</div>
-
-<div>
-    <div class="qn" id="prenew">
-        <label><b>When the system asks user to renew passwords:</b></label>
-        <br/>
-        <input type="radio"
-               name="prenew"
-               id="renew0"
-               class="target"
-               value="0"
-               checked="checked"/>
-        <label for="renew0">never renew the password</label>
-        <input type="radio"
-               name="prenew"
-               id="renew1"
-               class="target"
-               value="1"/>
-        <label for="renew1">annual renewal</label>
-        <input type="radio"
-               name="prenew"
-               id="renew2"
-               class="target"
-               value="2"/>
-        <label for="renew2">renew quarterly</label>
-        <input type="radio"
-               name="prenew"
-               id="renew3"
-               class="target"
-               value="3"/>
-        <label for="renew3">renew monthly</label>
-        <br/><br/>
-
-    </div>
-    <div class="graph" id="graph_prenew"></div>
-</div>
-
-<div>
-    <div class="qn" id="pattempts">
-        <label><b>Number of wrong password attempts:</b></label>
-        <br/>
-        <input type="radio"
-               name="pattempts"
-               id="attempts0"
-               class="target"
-               value="0"
-               checked="checked"/>
-        <label for="attempts0">Unlimited</label>
-        <input type="radio"
-               name="pattempts"
-               id="attempts1"
-               class="target"
-               value="1"/>
-        <label for="attempts1">10</label>
-        <input type="radio"
-               name="pattempts"
-               id="attempts2"
-               class="target"
-               value="2"/>
-        <label for="attempts2">3</label>
-        <br/><br/>
-    </div>
-
-    <div class="graph" id="graph_pattempts"></div>
-</div>
-
-<div>
-    <div class="qn" id="precovery">
-        <label><b>Password recovery options:</b></label>
-        <br/>
-        <input type="radio"
-               name="precovery"
-               id="recovery0"
-               class="target"
-               value="0"
-               checked="checked"/>
-        <label for="recovery0">second e-mail for recovery letter</label>
-        <input type="radio"
-               name="precovery"
-               id="recovery1"
-               class="target"
-               value="1"/>
-        <label for="recovery1">secret question</label>
-        <input type="radio"
-               name="precovery"
-               id="recovery2"
-               class="target"
-               value="2"/>
-        <label for="recovery2">transaction questions</label>
-        <br/><br/>
-
-    </div>
-    <div class="graph" id="graph_precovery"></div>
-</div>
-<!--PASSWORD POLICY END-->
-
-<input type="button" name="apply" id="apply" value="Apply">
-</form>
-
-</div>
-<!-- End of Policy page -->
-
-<div class="pages" id="incident_page">
-    <!--Incident-->
-    <div class="description">
-        <h1>Incident</h1> <br>
-
-        <h4>Policy: </h4>
-
-        <div class="incident_box" id="description"></div>
-        <h4>Incident: </h4>
-
-        <div class="incident_box" id="event"></div>
-        <h4>Consequences: </h4>
-
-        <div class="incident_box" id="consequences"></div>
-        <h4>Risk: </h4>
-
-        <div class="incident_box" id="risk"></div>
-        <h4>Monetary Cost: </h4>
-
-        <div class="incident_box" id="monetary_cost"></div>
-    </div>
-</div>
-
-<div class="pages" id="profile_page">
-
-    <a class="password_change_page"><button><h4>User Settings</h4></button></a>
-    <br>
-
-    <h1>Profile</h1>
-
-    <div>Now displays attribute names and values in a way that they are required, but it doesn't make much
-        sense for the
-        player what does each attribute name mean or how to interpret its value. Possible improvement: can
-        extract labels
-        and value interpretations from pwpolicy_form.html, but not sure if it's possible to do
-    </div>
-    <br>
-
-    <div id="chartContainer"></div>
-    <div id="profile_table">
-        <div id="changed_values"></div>
-    </div>
-</div>
-
-<div class="pages" id="score_page">
-    <h1>Scores</h1>
-
-    <div id="accordion">
-        <h2>Risk</h2>
-
-        <div class="content">
-            <div class="span11 text-center rank">
-                <div class="ranking second" id="r_second">
-                    <div class="scr">
-                        <span id="risk_s2"></span><br>
-                        risk: <span class="risk_menu-title-risk large-score" id="risk_s2_v1"></span>
-                        cost: <span class="risk_menu-title-cost" id="risk_s2_v2"></span>
-                    </div>
-                    <div class="rnk" id="risk_r2"></div>
-                    <div class="when" id="risk_w2"></div>
+                <div>Now displays attribute names and values in a way that they are required, but it doesn't make much
+                    sense for the
+                    player what does each attribute name mean or how to interpret its value. Possible improvement: can
+                    extract labels
+                    and value interpretations from pwpolicy_form.html, but not sure if it's possible to do
                 </div>
-                <div class="ranking first" id="r_first">
-                    <div class="scr">
-                        <span id="risk_s1"></span><br>
-                        risk: <span class="risk_menu-title-risk large-score" id="risk_s1_v1"></span>
-                        cost: <span class="risk_menu-title-cost" id="risk_s1_v2"></span>
-                    </div>
-                    <div class="rnk" id="risk_r1">1</div>
-                    <div class="when" id="risk_w1"></div>
-                </div>
-                <div class="ranking third" id="r_third">
-                    <div class="scr">
-                        <span id="risk_s3"></span><br>
-                        risk: <span class="risk_menu-title-risk large-score" id="risk_s3_v1"></span>
-                        cost: <span class="risk_menu-title-cost" id="risk_s3_v2"></span>
-                    </div>
-                    <div class="rnk" id="risk_r3"></div>
-                    <div class="when" id="risk_w3"></div>
+                <br>
+
+                <div id="chartContainer"></div>
+                <div id="profile_table">
+                    <div id="changed_values"></div>
                 </div>
             </div>
-        </div>
-        <h2>Productivity cost</h2>
 
-        <div class="content">
-            <div class="span11 text-center rank">
-                <div class="ranking second" id="c_second">
-                    <div class="scr">
-                        <span id="cost_s2"></span><br>
-                        cost: <span class="risk_menu-title-cost large-score" id="cost_s2_v1"></span>
-                        risk: <span class="risk_menu-title-risk" id="cost_s2_v2"></span>
-                    </div>
-                    <div class="rnk" id="cost_r2"></div>
-                    <div class="when" id="cost_w2"></div>
-                </div>
-                <div class="ranking first" id="c_first">
-                    <div class="scr">
-                        <span id="cost_s1"></span><br>
-                        cost: <span class="risk_menu-title-cost large-score" id="cost_s1_v1"></span>
-                        risk: <span class="risk_menu-title-risk" id="cost_s1_v2"></span>
-                    </div>
-                    <div class="rnk" id="cost_r1">1</div>
-                    <div class="when" id="cost_w1"></div>
-                </div>
-                <div class="ranking third" id="c_third">
-                    <div class="scr">
-                        <span id="cost_s3"></span><br>
-                        cost: <span class="risk_menu-title-cost large-score" id="cost_s3_v1"></span>
-                        risk: <span class="risk_menu-title-risk" id="cost_s3_v2"></span>
-                    </div>
-                    <div class="rnk" id="cost_r3"></div>
-                    <div class="when" id="cost_w3"></div>
-                </div>
-            </div>
-        </div>
-        <h2>Average</h2>
+            <div class="pages" id="score_page">
+                <h1>Scores</h1>
 
-        <div class="content">
-            <div class="span11 text-center rank">
-                <h4 class="text-left avg">
-                    <div>
-                        <div class="span6">Risk</div>
-                        <div class="span3 risk_menu-title-risk" id="avg_risk">avg_risk</div>
+                <div id="accordion">
+                    <h2>Risk</h2>
+
+                    <div class="content">
+                        <div class="span11 text-center rank">
+                            <div class="ranking second" id="r_second">
+                                <div class="scr">
+                                    <span id="risk_s2"></span><br>
+                                    risk: <span class="risk_menu-title-risk large-score" id="risk_s2_v1"></span>
+                                    cost: <span class="risk_menu-title-cost" id="risk_s2_v2"></span>
+                                </div>
+                                <div class="rnk" id="risk_r2"></div>
+                                <div class="when" id="risk_w2"></div>
+                            </div>
+                            <div class="ranking first" id="r_first">
+                                <div class="scr">
+                                    <span id="risk_s1"></span><br>
+                                    risk: <span class="risk_menu-title-risk large-score" id="risk_s1_v1"></span>
+                                    cost: <span class="risk_menu-title-cost" id="risk_s1_v2"></span>
+                                </div>
+                                <div class="rnk" id="risk_r1">1</div>
+                                <div class="when" id="risk_w1"></div>
+                            </div>
+                            <div class="ranking third" id="r_third">
+                                <div class="scr">
+                                    <span id="risk_s3"></span><br>
+                                    risk: <span class="risk_menu-title-risk large-score" id="risk_s3_v1"></span>
+                                    cost: <span class="risk_menu-title-cost" id="risk_s3_v2"></span>
+                                </div>
+                                <div class="rnk" id="risk_r3"></div>
+                                <div class="when" id="risk_w3"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="span6">Productivity cost</div>
-                        <div class="span3 risk_menu-title-cost" id="avg_pc">avg_pc</div>
+                    <h2>Productivity cost</h2>
+
+                    <div class="content">
+                        <div class="span11 text-center rank">
+                            <div class="ranking second" id="c_second">
+                                <div class="scr">
+                                    <span id="cost_s2"></span><br>
+                                    cost: <span class="risk_menu-title-cost large-score" id="cost_s2_v1"></span>
+                                    risk: <span class="risk_menu-title-risk" id="cost_s2_v2"></span>
+                                </div>
+                                <div class="rnk" id="cost_r2"></div>
+                                <div class="when" id="cost_w2"></div>
+                            </div>
+                            <div class="ranking first" id="c_first">
+                                <div class="scr">
+                                    <span id="cost_s1"></span><br>
+                                    cost: <span class="risk_menu-title-cost large-score" id="cost_s1_v1"></span>
+                                    risk: <span class="risk_menu-title-risk" id="cost_s1_v2"></span>
+                                </div>
+                                <div class="rnk" id="cost_r1">1</div>
+                                <div class="when" id="cost_w1"></div>
+                            </div>
+                            <div class="ranking third" id="c_third">
+                                <div class="scr">
+                                    <span id="cost_s3"></span><br>
+                                    cost: <span class="risk_menu-title-cost large-score" id="cost_s3_v1"></span>
+                                    risk: <span class="risk_menu-title-risk" id="cost_s3_v2"></span>
+                                </div>
+                                <div class="rnk" id="cost_r3"></div>
+                                <div class="when" id="cost_w3"></div>
+                            </div>
+                        </div>
                     </div>
-                </h4>
+                    <h2>Average</h2>
+
+                    <div class="content">
+                        <div class="span11 text-center rank">
+                            <h4 class="text-left avg">
+                                <div>
+                                    <div class="span6">Risk</div>
+                                    <div class="span3 risk_menu-title-risk" id="avg_risk">avg_risk</div>
+                                </div>
+                                <div>
+                                    <div class="span6">Productivity cost</div>
+                                    <div class="span3 risk_menu-title-cost" id="avg_pc">avg_pc</div>
+                                </div>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="congratulate" hidden></div>
             </div>
+
         </div>
     </div>
-    <div id="congratulate" hidden></div>
-</div>
-
-</div>
-</div>
 
 </article>
 

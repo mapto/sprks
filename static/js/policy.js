@@ -183,6 +183,7 @@ function clear_policy_summary(){
     });
 }
 
+// used for horizontal buttons styling
 $(function(){
     $('#employee').buttonset();
     $('#location').buttonset();
