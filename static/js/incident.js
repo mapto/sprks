@@ -40,6 +40,9 @@ function displayEvent(incident){
     // Handles trigger for when certain event occurs.
     getIncidentDetails(incident.incdt_id);
     incidentModel.monetaryCost(incident.cost);
+    incidentModel.employee(incident.employee);
+    incidentModel.location(incident.location);
+    incidentModel.device(incident.device);
     $(".incident_page").show();
     toastr.warning('Incident occurred!')
 }

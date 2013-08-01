@@ -28,6 +28,11 @@ class event_handler:
 
 class policy_update_handler:
     def POST(self):
+        """
+        Handles policy updates and returns calendar.
+
+        :return: JSON dump
+        """
         web.header('Content-Type', 'application/json')
 
         payload = json.loads(web.data())

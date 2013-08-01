@@ -21,7 +21,7 @@ $(function(){
 
     $('.target').change(function(){
         window.id_elem = $(this).closest($(".qn")).attr('id');
-    })
+    });
 
     console.log("Private decoration initialized...");
 });

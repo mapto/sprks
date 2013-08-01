@@ -111,14 +111,14 @@ function display_contextualized_policy(contextualized) {
 
 }
 
-function update_policy(policy) {
+function updatePolicy(policy) {
     policyUpdate = [];
     statusReady();
     console.log('response from server:');
     console.log(policy);
     $('#pause').click();
     timelineModel.currentDate(new Date(policy['date']));
-    window.calendar = policy['calendar'];
+    timelineModel.calendar(policy['calendar']);
     get_score_frame();
 
     //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);

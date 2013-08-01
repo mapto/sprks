@@ -2,19 +2,20 @@ timelineModel = {
     currentDate: ko.observable(new Date(0)),
     nextSync: ko.observable(new Date(0)),
     clock: ko.observable(),
-    clockSpeed: ko.observable()
+    clockSpeed: ko.observable(),
+    calendar: ko.observable()
 };
 
 function checkEvents() {
-    var tmp_events_calendar = window.calendar;
+    var tmp_events_calendar = timelineModel.calendar();
     $(tmp_events_calendar).each(function (i) {
         if (new Date(tmp_events_calendar[i].date) - timelineModel.currentDate() === 0) {
             $('#pause').click();
-            tmp_event = tmp_events_calendar[i].events
+            tmp_event = tmp_events_calendar[i].events;
             $(tmp_event).each(function (j) {
                 displayEvent(tmp_event[j]);
                 submitEvent($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()));
-            })
+            });
             $('.incident_page').click();
         }
     })
@@ -49,7 +50,7 @@ function submitPolicyDelta() { // need different event handling, to capture any 
         url: "api/chronos/update",
         type: "POST",
         data: JSON.stringify(msg),
-        success: update_policy,
+        success: updatePolicy,
         error: function (response) {
             console.log("fail: " + response.responseText);
         }
@@ -62,11 +63,10 @@ function resume() {
         url: "api/chronos/resume",
         type: "GET",
         success: function (policy) {
-            policyUpdate = [];
             statusReady();
             $('#pause').click();
-            timelineModel.currentDate(new Date(policy['date']))
-            window.calendar = policy['calendar'];
+            timelineModel.currentDate(new Date(policy['date']));
+            timelineModel.calendar(policy['calendar']);
             display_contextualized_policy(policy['policy'][0]);
         },
         error: function (response) {
@@ -127,7 +127,7 @@ $(function () {
             submitPolicyDelta();
         }
 
-        timelineModel.nextSync(new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 1));
+        timelineModel.nextSync(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
 
         checkEvents();
         updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, currentDate)); //specified in characters.js
@@ -142,11 +142,11 @@ $(function () {
             $(".score_page").show();
         }
         $(".incident_page").hide();
-    })
+    });
 
     timelineModel.clockSpeed(0);
 
-})
+});
 
 function format_date(date) {
     return $.datepicker.formatDate($.datepicker.RFC_1123, date)
