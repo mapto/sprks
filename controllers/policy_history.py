@@ -45,8 +45,9 @@ class score_frame:
     def GET(self):
         # get the latest risk and cost
 
+        user_id = context.user_id()
         web.header('Content-Type', 'application/json')
-        scores = db.select('scores', where='userid=$context.user_id()', order="date DESC", limit=2, vars=locals())
+        scores = db.select('scores', where='userid=$user_id', order="date DESC", limit=2, vars=locals())
         scores_result = []
         for row in scores:
             tmp = {}
