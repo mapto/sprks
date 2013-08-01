@@ -1,4 +1,7 @@
 // Global and init scripts for whole SPA
+pageModel = {
+    currentPage: ko.observable('')
+}
 
 var policyUpdate = [];
 var policies_array = {};
@@ -116,3 +119,7 @@ $("#close_btn").click(function(){
     $(".pages").hide();
     deactivateButtons();
 });
+
+$(function(){
+    ko.applyBindings(pageModel, document.getElementById('menu'));
+})

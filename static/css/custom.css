@@ -299,14 +299,14 @@ label {
     text-decoration: none;
 }
 
-.menu {
+#menu {
     position: fixed;
     left: 11px;
     top: 64px;
     width: 15%;
 }
 
-.menu a {
+#menu a {
     position: relative;
     display: block;
     margin: 10px;
@@ -323,18 +323,18 @@ label {
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
 
-.menu a:hover {
+#menu a:hover {
     text-decoration: none;
     background-color: #fff;
     color: #000;
     cursor: pointer;
 }
 
-.menu a .score_page {
+#menu a .score_page {
     display: none;
 }
 
-.menu a .incident_page {
+#menu a .incident_page {
     display: none;
 }
 
@@ -343,7 +343,7 @@ label {
     margin: 20px 0 0;
 }
 
-#accordion H2 {
+#accordion h2 {
     background: #750000;
     color: white;
     cursor: pointer;
