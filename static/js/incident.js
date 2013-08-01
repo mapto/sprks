@@ -26,9 +26,9 @@ function getIncidentDetails(incident_id) {
             incidentModel.riskType(incident.riskType);
             incidentModel.risk(incident.risk);
 
-            $('#quote1').text(incident.description);
-            $('#quote2').text(incident.description);
-            $('#quote3').text(incident.description);
+            charactersModel.quote1(incident.description);
+            charactersModel.quote2(incident.description);
+            charactersModel.quote3(incident.description);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);

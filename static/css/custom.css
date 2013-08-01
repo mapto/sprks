@@ -524,7 +524,7 @@ label {
 
 .quote {
     z-index: 0;
-    display: none;
+    display: block;
     border-radius: 10%;
     min-width: 28%;
     padding: 15px;
