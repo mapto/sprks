@@ -746,3 +746,8 @@ label {
 .policy-summary-field {
     font-size: 14px;
 }
+.sum-biometric,
+.sum-passfaces,
+.sum-pwpolicy{
+    display:none;
+}
