@@ -165,11 +165,6 @@ $(function () {
     $("#home_page").show();
     toastr.info('Loading...');
 
-    ko.applyBindings(registerModel, document.getElementById('registerForm'));
-    ko.applyBindings(loginModel, document.getElementById('loginForm'));
-    ko.applyBindings(passwordRecoverModel, document.getElementById('passwordRecoveryForm'));
-    ko.applyBindings(passwordChangeModel, document.getElementById('passwordChangeForm'));
-
     loginModel.userId.subscribe(function (userId) {
         toastr.clear();
         if (userId > 0) {
@@ -182,8 +177,7 @@ $(function () {
             $('span.username').text(loginModel.username());
             $("#home_page").hide();
             $("#intro_page").show();
-            highlightActiveButton();
-            get_score_frame();
+            updateScoreFrame();
         } else {
             toastr.info('Logged out.');
             $('#controls').hide();

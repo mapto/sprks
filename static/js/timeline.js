@@ -97,8 +97,6 @@ $('#forward').click(function() {
 
 $(function () {
 
-    ko.applyBindings(timelineModel, document.getElementById('timeline'));
-
     timelineModel.clockSpeed.subscribe(function(clockSpeed){
         switch (clockSpeed){
             case 0:

@@ -37,11 +37,11 @@
 
 <div id="controls" style="display: none">
     <div class="menu" id="menu">
-        <div><a class="intro_page">Story</a></div>
-        <div><a class="policy_page">Policy</a></div>
-        <div><a class="profile_page">Profile</a></div>
-        <div><a class="score_page">Scores</a></div>
-        <div><a class="incident_page">Incident</a></div>
+        <div><a class="intro_page" data-bind="css: {'active-page-link': currentPage() === 'intro_page'}">Story</a></div>
+        <div><a class="policy_page" data-bind="css: {'active-page-link': currentPage() === 'policy_page'}">Policy</a></div>
+        <div><a class="profile_page" data-bind="css: {'active-page-link': currentPage() === 'profile_page'}">Profile</a></div>
+        <div><a class="score_page" data-bind="css: {'active-page-link': currentPage() === 'score_page'}">Scores</a></div>
+        <div><a class="incident_page" data-bind="css: {'active-page-link': currentPage() === 'incident_page'}">Incident</a></div>
     </div>
 
 
@@ -65,7 +65,7 @@
         <h5 class="sum-pwpolicy sum-label">Password:</h5><div class="policy-summary-field" id="sum-pwpolicy"></div>
         </h5>
     </div>
-    <div class="time_controls" id="timeline">
+    <div class="time_controls" data-bind="with: timeline">
         <ul>
             <h4><div id="time" data-bind="text: format_date(currentDate())"></div></h4>
             <li data-bind="css: {active: clockSpeed() == 1}"><a class="icon-play icon-large" id="play"></a></li>
@@ -78,7 +78,7 @@
 <article class="container-fluid">
     <!-- MAP begin-->
 
-    <div id="map">
+    <div data-bind="with: map">
         <div class="interviewee" id="interviewee1">
             Susie
             <img class="device_img" data-bind="attr:{src: interviewee1DeviceImage}" src=""/>
@@ -111,7 +111,7 @@
     <div class="row-fluid">
         <div class="offset2 span8" id="main-body">
             <div id="close_btn"><div class="icon-remove"></div></div>
-            <div class="pages" id="home_page">
+            <div class="pages" id="home_page" data-bind="visible: currentPage() === 'home_page'">
                 <!--Sprks-->
                 <h2>Security Policy Risk Simulator </h2>
                 <h5>An exploratory simulation game featuring the real-life complexities of corporate information
@@ -147,7 +147,7 @@
                 <p>The website is tested to work with the <a href="http://www.google.com/chrome/">Chrome Browser</a>.</p>
             </div>
 
-            <div class="pages" id="register_page">
+            <div class="pages" id="register_page" data-bind="with: register, visible: currentPage() === 'register_page'">
                 <form id="registerForm">
                     <fieldset>
                         <legend>Register</legend>
@@ -169,17 +169,17 @@
                 </form>
             </div>
 
-            <div class="pages" id="login_page">
+            <div class="pages" id="login_page" data-bind="with: login, visible: currentPage() === 'login_page'">
                 <form id="loginForm">
                     <fieldset>
                         <legend>Login</legend>
                         <div class="row-fluid">
-                            <div class="span7 ">
+                            <div class="span7">
                                 <input data-bind="value: username" type="text" placeholder="Username" required/>
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span7 ">
+                            <div class="span7">
                                 <input data-bind="value: password" type="password" placeholder="Password" required/>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                 </form>
             </div>
 
-             <div class="pages" id="password_recover_page">
+             <div class="pages" id="password_recover_page" data-bind="with: passwordRecover, visible: currentPage() === 'password_recover_page'">
                 <form id="passwordRecoveryForm">
                     <fieldset>
                         <legend>Password Recovery</legend>
@@ -204,7 +204,7 @@
                 </form>
             </div>
 
-            <div class="pages" id="password_change_page">
+            <div class="pages" id="password_change_page" data-bind="with: passwordChange, visible: currentPage() === 'pasword_change_page'">
 
                 <h1>Settings</h1>
 
@@ -218,7 +218,7 @@
                 </form>
             </div>
 
-            <div class="pages" id="intro_page">
+            <div class="pages" id="intro_page" data-bind="visible: currentPage() === 'intro_page'">
                 <!--Introduction-->
                 <h1>Your Company</h1>
 
@@ -244,7 +244,7 @@
                 </div>
             </div>
 
-            <div class="pages" id="policy_page">
+            <div class="pages" id="policy_page" data-bind="visible: currentPage() === 'policy_page'">
             <!--Policy-->
             <h1>Policy</h1>
 
@@ -589,7 +589,7 @@
             <!--PASSWORD POLICY END-->
             </div>
 
-            <div class="pages" id="incident_page">
+            <div class="pages" id="incident_page" data-bind="with: incident, visible: currentPage() === 'pasword_change_page'">
                 <!--Incident-->
 
                 <h1>Incident</h1><br>
@@ -624,7 +624,7 @@
 
             </div>
 
-            <div class="pages" id="profile_page">
+            <div class="pages" id="profile_page" data-bind="visible: currentPage() === 'profile_page'">
 
                 <a class="password_change_page"><button><h4>User Settings</h4></button></a>
                 <br>
@@ -645,7 +645,7 @@
                 </div>
             </div>
 
-            <div class="pages" id="score_page">
+            <div class="pages" id="score_page" data-bind="visible: currentPage() === 'pasword_change_page'">
                 <h1>Scores</h1>
 
                 <div id="accordion">
@@ -741,7 +741,7 @@
 </article>
 
 <footer>
-    <div class="navbar navbar-fixed-bottom navbar-inner" id="statusBar">
+    <div class="navbar navbar-fixed-bottom navbar-inner" data-bind="with: statusBar">
         <h4 style="margin-left:220px;">
             <img width="16px" height="16px" src="" data-bind="attr:{src: statusbar_image}" />
             <span data-bind="text: statusbar_status"></span>
@@ -757,7 +757,7 @@
 <script src="static/js/policy_frame.js"></script>
 <script src="static/js/characters.js"></script>
 <script src="static/js/graphs.js"></script>
-<script src="static/js/spa.js"></script>
+
 <script src="static/js/score_frame.js"></script>
 <script src="static/js/status.js"></script>
 <script src="static/js/user.js"></script>
@@ -768,6 +768,8 @@
 <script src="static/js/score.js"></script>
 <script src="static/js/incident.js"></script>
 <!-- SCORE script -->
+
+<script src="static/js/spa.js"></script>
 <script>
     var title;
 </script>

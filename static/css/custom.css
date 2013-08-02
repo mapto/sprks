@@ -67,7 +67,6 @@ body {
 }
 
 #main-body {
-    display: none;
     position: absolute;
     z-index: 10;
     width: 100%;
@@ -684,14 +683,11 @@ label {
 }
 
 /*********SPA********************************************************/
-.pages {
-    display: none;
-}
 
 .active-page-link {
-    background-color: #C10000;
-    color: #fff;
-    cursor: default;
+    background-color: #C10000 !important;
+    color: #fff !important;
+    cursor: default !important;
 }
 
 #close_btn {

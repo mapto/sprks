@@ -46,7 +46,3 @@ function displayEvent(incident){
     $(".incident_page").show();
     toastr.warning('Incident occurred!')
 }
-
-$(function(){
-    ko.applyBindings(incidentModel, document.getElementById('incident_page'))
-})

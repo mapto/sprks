@@ -104,8 +104,6 @@ $(function () {
     "My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier."
     ];
 
-    ko.applyBindings(charactersModel, document.getElementById('map'));
-
     charactersModel.interviewee1DeviceImage('static/img/laptop.png');
     charactersModel.interviewee2DeviceImage('static/img/desktop.png');
     charactersModel.interviewee3DeviceImage('static/img/phone.png');

@@ -16,8 +16,8 @@ toastr.options = {
 }
 
 statusBarModel = {
-    statusbar_status: ko.observable(),
-    statusbar_image: ko.observable()
+    statusbar_status: ko.observable('Ready.'),
+    statusbar_image: ko.observable('static/img/check.png')
 };
 
 function statusUpdating() {
@@ -29,11 +29,3 @@ function statusReady() {
     statusBarModel.statusbar_image('static/img/check.png');
     statusBarModel.statusbar_status('Synchronization complete. Ready.')
 }
-
-$(function () {
-
-    ko.applyBindings(statusBarModel, document.getElementById('statusBar'));
-
-    statusBarModel.statusbar_image('static/img/check.png')
-    statusBarModel.statusbar_status('Ready.')
-})

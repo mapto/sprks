@@ -1,12 +1,20 @@
 // Global and init scripts for whole SPA
 pageModel = {
-    currentPage: ko.observable('')
-}
+    currentPage: ko.observable(''),
+    timeline: timelineModel,
+    statusBar: statusBarModel,
+    map: charactersModel,
+    register: registerModel,
+    login: loginModel,
+    passwordChange: passwordChangeModel,
+    passwordRecover: passwordRecoverModel,
+    incident: incidentModel
+};
 
 var policyUpdate = [];
 var policies_array = {};
 
-$(function(){
+$(function () {
 
     if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
         $(".risk-menu").hide();
@@ -29,61 +37,6 @@ $(function(){
     console.log("Private decoration initialized...");
 });
 
-// highlight active button(scores/story/policy)
-function highlightActiveButton() {
-
-    switch (title) {
-        case "score":
-            if ($(".score_page").css("display") === "block") {
-                css_class = "score";
-            }
-            break;
-        case "intro":
-            css_class = "intro";
-            break;
-        case "profile":
-            css_class = "profile";
-            break;
-        case "incident":
-            if ($(".incident_page").css("display") === "block") {
-                css_class = "incident";
-            }
-            break;
-        case "policy":
-            css_class = "policy";
-            break;
-        default:
-            css_class = "";
-    }
-
-    deactivateButtons();
-
-    $("." + css_class + "_page").css("background-color", "#C10000");
-    $("." + css_class + "_page").css("color", "#fff");
-    $("." + css_class + "_page").css("cursor", "default");
-
-}
-
-function deactivateButtons() {
-    $('.intro_page').removeAttr('style');
-    if ($(".score_page").css("display") === "block") {
-        $('.score_page').removeAttr('style');
-    }
-    if ($(".incident_page").css("display") === "block") {
-        $('.incident_page').removeAttr('style');
-    }
-    $('.profile_page').removeAttr('style');
-    $('.policy_page').removeAttr('style');
-}
-
-function hideOtherPages(page_name) {
-        $(".pages").each(function () {
-            if ($(this).attr('id') !== page_name) {
-                $(this).css("display", "none");
-            }
-        });
-    }
-
 function clearProfile() {
     $(".profile_table").each(function () {    //clear table
         this.remove();
@@ -91,26 +44,11 @@ function clearProfile() {
     $('#chartContainer').empty();           //clear graph
 }
 
-/*****Display/hide pages *****/
 $('a').click('click', function () {
     var page = $(this).attr('class');
     if ((page.substr(page.length - 4)) === 'page') { //check if the link clicked if a page button
-        hideOtherPages(page);
 
-        $("#" + page).css("display", "block");
-        if (page === 'profile_page') {
-            clearProfile();
-            initProfile();
-        }
-        if (page === 'score_page') {
-            initScore();
-        }
-
-        title = page.substr(0, page.length - 5);
-        highlightActiveButton();
-        $(".main-body").show();
-
-        get_score_frame();
+        pageModel.currentPage(page);
     }
 });
 
@@ -120,34 +58,45 @@ $("#close_btn").click(function(){
 });
 
 $(function(){
-    ko.applyBindings(pageModel, document.getElementById('menu'));
+$(".main-body").show();
+    ko.applyBindings(pageModel);
 
-    pageModel.currentPage.subscribe(function(currentPage){
-       switch (currentPage){
-           case '':
-               $(".main-body").hide();
-               $(".pages").hide();
-               break;
-           case 'home_page':
-               break;
-           case 'register_page':
-               break;
-           case 'login_page':
-               break;
-           case 'password_recover_page':
-               break;
-           case 'password_change_page':
-               break;
-           case 'intro_page':
-               break;
-           case 'policy_page':
-               break;
-           case 'incident_page':
-               break;
-           case 'profile_page':
-               break;
-           case 'score_page':
-               break;
-       }
+    pageModel.currentPage.subscribe(function (currentPage) {
+        $(".main-body").show();
+        switch (currentPage) {
+            case '':
+                $(".main-body").hide();
+                $(".pages").hide();
+                break;
+            case 'home_page':
+                break;
+            case 'register_page':
+                break;
+            case 'login_page':
+                break;
+            case 'password_recover_page':
+                break;
+            case 'password_change_page':
+                break;
+            case 'intro_page':
+                break;
+            case 'policy_page':
+                break;
+            case 'incident_page':
+                if ($(".incident_page").css("display") === "block") {
+                    css_class = "incident";
+                }
+                break;
+            case 'profile_page':
+                clearProfile();
+                initProfile();
+                break;
+            case 'score_page':
+                initScore();
+                if ($(".score_page").css("display") === "block") {
+                    css_class = "score";
+                }
+                break;
+        }
     });
 });

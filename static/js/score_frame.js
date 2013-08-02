@@ -5,11 +5,11 @@
  * Time: 10:27 AM
  * To change this template use File | Settings | File Templates.
  */
-function get_score_frame(){
+function updateScoreFrame(){
     var risk;
     var cost;
     $.ajax({
-        url: "/api/score_frame",
+        url: "api/score_frame",
         type: "GET",
         success : function(data) {
             if(data && data!=='None'){
