@@ -14,6 +14,7 @@ function initScore(){
     $("#avg_pc").text(parseFloat(score_obj.avg_pc).toFixed(2));
     console.log("Score initialized...");
     congratulate_first();
+
 }
 
 function retrieve_scores(){
