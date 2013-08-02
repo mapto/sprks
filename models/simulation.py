@@ -90,7 +90,7 @@ class simulation:
             for employee in context['employees']:
                 for location in context['locations']:
                     for device in context['devices']:
-                        single_context = {'employee': employee, 'location': location, 'device': device}
+                        single_context = {u'employee': employee, u'location': location, u'device': device}
                         next = self.update(policy, single_context, next_risk)
                         response = dict(next.items() + single_context.items())
                         my_list.append(response)

@@ -134,7 +134,10 @@ class records:
                 }
             calendar[event.date]['events'].append({
                 'incdt_id': event.incident_id,
-                'cost': event.cost
+                'cost': event.cost,
+                'employee': event.employee,
+                'location': event.location,
+                'device': event.device
             })
 
         calendar_array = []
