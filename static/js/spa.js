@@ -4,7 +4,7 @@ pageModel = {
     currentRisk: ko.observable(''),
     currentCost: ko.observable(''),
     timeline: timelineModel,
-    statusBar: statusBarModel,
+    status: statusModel,
     map: charactersModel,
     register: registerModel,
     login: loginModel,

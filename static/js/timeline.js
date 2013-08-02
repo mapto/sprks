@@ -16,7 +16,7 @@ function checkEvents() {
                 displayEvent(tmp_event[j]);
                 submitEvent($.datepicker.formatDate($.datepicker.ISO_8601, timelineModel.currentDate()));
             });
-            $('.incident_page').click();
+            pageModel.currentPage('incident_page');
         }
     })
 }

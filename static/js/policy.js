@@ -1,5 +1,5 @@
 /*wait until document is loaded*/
-//TODO need to fix how pdict for pwpolicy is passed/received from server; then check if summarize_policy works
+//TODO need to fix how pdict for pwpolicy is passed/received from server; then check if summarizePolicy works
 
 var pwpolicy;
 
@@ -212,12 +212,12 @@ $(".aut").change(function(){
 function display_policies(){ //display selected policies only
     hide_policies();
 
-    $('.policy' +$("#authentication1").val()).css("display","block");
-    $('.policy' +$("#authentication2").val()).css("display","block");
+    $('.policy' +$("#authentication1").val()).show();
+    $('.policy' +$("#authentication2").val()).show();
 }
 function hide_policies(){ //hide all policies
     $('.policy').each(function(){
-        $(this).css("display","none");
+        $(this).hide();
     });
 }
 function clear_policy_summary(){
@@ -264,7 +264,7 @@ $("#apply").click(function () {
         toastr['info']('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue');
     }
 
-    submit_alternatives_request();
+    submitAlternativesRequest();
 
 });
 
@@ -273,11 +273,11 @@ $('.aut').change(function(){ //if one of the names of mechanism to be used was c
     if($('.authentication').val()>=1){
             var policy1 = $('.policy' +$("#authentication1").val()).attr('id');
             //$('.policy' +$("#authentication1").val()).find('.target').change();
-            summarize_policy(policies_array);
+            summarizePolicy(policies_array);
             if($('.authentication').val()==2){
                 var policy2 = $('.policy' +$("#authentication2").val()).attr('id'); //if exists
                 //$('.policy' +$("#authentication2").val()).find('.target').change();
-                summarize_policy(policies_array);
+                summarizePolicy(policies_array);
             }
     }
 
@@ -341,5 +341,5 @@ $('.target').bind("change", function () {
         }
     }
     //console.log(policies_array);
-    summarize_policy(policies_array);
+    summarizePolicy(policies_array);
 });

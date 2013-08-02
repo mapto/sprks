@@ -5,7 +5,7 @@
  * Time: 13:25
  * To change this template use File | Settings | File Templates.
  */
-function submit_alternatives_request() {
+function submitAlternativesRequest() {
     var msgs = {'context': {'employees': [], 'locations': [], 'devices': []}, 'data': []};
     var new_policy = {};
     var msg = {};

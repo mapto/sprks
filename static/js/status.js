@@ -15,17 +15,17 @@ toastr.options = {
   "extendedTimeOut": 3000
 };
 
-statusBarModel = {
-    statusbar_status: ko.observable('Ready.'),
-    statusbar_image: ko.observable('static/img/check.png')
+statusModel = {
+    statusMessage: ko.observable('Ready.'),
+    imagePath: ko.observable('static/img/check.png')
 };
 
 function statusUpdating() {
-    statusBarModel.statusbar_image('static/img/ajax-loader.gif');
-    statusBarModel.statusbar_status('Synchronising with server...')
+    statusModel.imagePath('static/img/ajax-loader.gif');
+    statusModel.statusMessage('Synchronising with server...')
 }
 
 function statusReady() {
-    statusBarModel.statusbar_image('static/img/check.png');
-    statusBarModel.statusbar_status('Synchronization complete. Ready.')
+    statusModel.imagePath('static/img/check.png');
+    statusModel.statusMessage('Synchronization complete. Ready.')
 }

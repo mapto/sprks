@@ -39,15 +39,15 @@ function placeDiv(div_id, l_pos, r_pos, b_pos) {
     }
 }
 
-function place_at(div_id, place) {
+function placeAt(div_id, place) {
     var l = coordinates[div_id][place][0];
     var r = coordinates[div_id][place][1];
     var b = coordinates[div_id][place][2];
-    placeDiv(div_id, l, r, b);                                        //update charachter position
+    placeDiv(div_id, l, r, b);                                        //update character position
     placeDiv('quote' + div_id.substr(div_id.length - 1), l - 12.5, r + 12.5, b + 18);  //update position of his speech bubble
 }
 
-function give_device(div_id, device) {
+function giveDevice(div_id, device) {
     charactersModel[div_id + 'DeviceImage']('static/img/' + device + '.png');
 }
 
@@ -58,8 +58,8 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
         data: JSON.stringify({date:date}),
         success: function (data) {
             $.each(data, function (key, value) {
-                place_at(key, value[0]);       //e.g.: place_at('interviewee2', 'office');
-                give_device(key, value[1]);    //e.g.: give_device('interviewee1, 'phone');
+                placeAt(key, value[0]);       //e.g.: placeAt('interviewee2', 'office');
+                giveDevice(key, value[1]);    //e.g.: giveDevice('interviewee1, 'phone');
             });
         },
         error: function (response) {

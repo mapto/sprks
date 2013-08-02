@@ -7,7 +7,7 @@
  */
 
 //summary of the policy (right corner), called on any policy change
-function summarize_policy(policy){
+function summarizePolicy(policy){
     for (var key in policy){
         if(key==='employee'||key==='location'||key==='device'){
             $("#sum-"+key).text(policy[key]);

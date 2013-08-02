@@ -22,7 +22,7 @@ registerModel = {
                     },
                     201: function (response) {
                         toastr.success(response.messages[0]);
-                        check_loggedin();
+                        checkAuth();
                     }
                 }
             });
@@ -106,7 +106,7 @@ passwordChangeModel = {
                             console.log('changed pswd successfully');
                             passwordChangeModel.password('');
                             passwordChangeModel.passwordConfirm('');
-                            check_loggedin();
+                            checkAuth();
                         }
                     }
                 }
@@ -117,7 +117,7 @@ passwordChangeModel = {
     }
 };
 
-function check_loggedin() {
+function checkAuth() {
     $.ajax({
         type: 'POST',
         url: 'api/user/account',
@@ -169,7 +169,7 @@ $(function () {
     });
 
     if ($.url('?token') == null) {
-        check_loggedin();
+        checkAuth();
     } else {
         toastr.clear();
         passwordChangeModel.token($.url('?token'));
