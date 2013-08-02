@@ -115,12 +115,39 @@ $('a').click('click', function () {
 });
 
 $("#close_btn").click(function(){
-    $(".main-body").hide();
-    $(".pages").hide();
     deactivateButtons();
     pageModel.currentPage('');
 });
 
 $(function(){
     ko.applyBindings(pageModel, document.getElementById('menu'));
-})
+
+    pageModel.currentPage.subscribe(function(currentPage){
+       switch (currentPage){
+           case '':
+               $(".main-body").hide();
+               $(".pages").hide();
+               break;
+           case 'home_page':
+               break;
+           case 'register_page':
+               break;
+           case 'login_page':
+               break;
+           case 'password_recover_page':
+               break;
+           case 'password_change_page':
+               break;
+           case 'intro_page':
+               break;
+           case 'policy_page':
+               break;
+           case 'incident_page':
+               break;
+           case 'profile_page':
+               break;
+           case 'score_page':
+               break;
+       }
+    });
+});

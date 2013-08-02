@@ -2,27 +2,23 @@ registerModel = {
     username: ko.observable(''),
     password: ko.observable(''),
     passwordConfirm: ko.observable(''),
-    email: ko.observable(''),
-    messages: ko.observableArray()
+    email: ko.observable('')
 };
 
 loginModel = {
     username: ko.observable(''),
     userId: ko.observable(0),
-    password: ko.observable(''),
-    messages: ko.observableArray()
+    password: ko.observable('')
 };
 
 passwordRecoverModel = {
-    username: ko.observable(''),
-    messages: ko.observableArray()
+    username: ko.observable('')
 };
 
 passwordChangeModel = {
     password: ko.observable(''),
     passwordConfirm: ko.observable(''),
-    token: ko.observable(''),
-    messages: ko.observableArray()
+    token: ko.observable('')
 };
 
 $('#registerForm').submit(function (e) {
@@ -38,19 +34,19 @@ $('#registerForm').submit(function (e) {
             }),
             statusCode: {
                 500: function () {
-                    registerModel.messages(['Server error']);
+                    toastr.error('Server error');
                 },
                 200: function (response) {
-                    registerModel.messages(response.messages);
+                    toastr.info(response.messages[0]);
                 },
                 201: function (response) {
-                    window.location='/';
-                    registerModel.messages(response.messages);
+                    toastr.success(response.messages[0]);
+                    check_loggedin();
                 }
             }
         });
     } else {
-        registerModel.messages(["Passwords don't match"]);
+        toastr.error("Passwords don't match");
     }
 });
 
@@ -64,7 +60,7 @@ $('#loginForm').submit(function (e) {
         },
         statusCode: {
             500: function () {
-                loginModel.messages(['Server error']);
+                toastr.error('Server error');
             },
             200: function (response) {
                 if (response.success === true) {
@@ -72,7 +68,7 @@ $('#loginForm').submit(function (e) {
                     loginModel.userId(response.user_id);
                     $('#login_page').hide();
                 } else {
-                    loginModel.messages(response.messages);
+                    toastr.error(response.messages[0]);
                 }
             }
         }
@@ -89,7 +85,7 @@ $('#passwordRecoveryForm').submit(function (e) {
         }),
         statusCode: {
             500: function () {
-                passwordRecoverModel.messages(['Server error']);
+                toastr.error('Server error');
             },
             200: function (response) {
                 toastr.info(response.messages[0])
@@ -119,12 +115,13 @@ $('#passwordChangeForm').submit(function (e) {
                         console.log('changed pswd successfully');
                         passwordChangeModel.password('');
                         passwordChangeModel.passwordConfirm('');
+                        check_loggedin();
                     }
                 }
             }
         });
     } else {
-        passwordChangeModel.messages(["Passwords don't match"]);
+        toastr.error("Passwords don't match");
     }
 });
 
@@ -151,7 +148,6 @@ function check_loggedin() {
         url: 'api/user/account',
         statusCode: {
             200: function (response) {
-                toastr.clear();
                 if (response.success === true) {
                     loginModel.username(response.username);
                     loginModel.userId(response.user_id);
@@ -199,14 +195,15 @@ $(function () {
         }
     });
 
-    if ($.url('?token') != null) {
+    if ($.url('?token') == null) {
+        check_loggedin();
+    } else {
+        toastr.clear();
         passwordChangeModel.token($.url('?token'));
         // Cleans URL parameters
-        history.pushState({},'title', '/');
+        history.pushState({}, 'title', '/');
         $("#home_page").hide();
         $("#password_change_page").show();
     }
-
-    check_loggedin();
 
 });

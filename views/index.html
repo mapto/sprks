@@ -109,7 +109,7 @@
 
 
     <div class="row-fluid">
-        <div class="offset2 span8 main-body">
+        <div class="offset2 span8" id="main-body">
             <div id="close_btn"><div class="icon-remove"></div></div>
             <div class="pages" id="home_page">
                 <!--Sprks-->
@@ -164,10 +164,7 @@
                         <div class="row-fluid">
                             <input data-bind="value: email" type="email" placeholder="Email" required>
                         </div>
-                        <input class="login_btn" type="submit" value="Register"><br>
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
-                        </ul>
+                        <input class="login_btn" type="submit" value="Register">
                     </fieldset>
                 </form>
             </div>
@@ -186,9 +183,6 @@
                                 <input data-bind="value: password" type="password" placeholder="Password" required/>
                             </div>
                         </div>
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
-                        </ul>
                         <div class="row-fluid">
                             <input class="login_btn" type="submit" value="Login">
                             <br>
@@ -206,9 +200,6 @@
                         <p>You will be emailed a password reset link.</p>
                         <input data-bind="value: username" type="text" placeholder="Username" required>
                         <input class="login_btn" type="submit" value="Request">
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
-                        </ul>
                     </fieldset>
                 </form>
             </div>
@@ -219,13 +210,10 @@
 
                 <form id="passwordChangeForm">
                     <fieldset>
-                        <legend>Set your new password</legend>
+                        <legend>Set a new password</legend>
                         <div><input data-bind="value: password" type="password" placeholder="Password" required></div>
                         <div><input data-bind="value: passwordConfirm" type="password" placeholder="Confirm Password" required></div>
                         <input class="login_btn" type="submit" value="Change">
-                        <ul data-bind="foreach: messages">
-                            <li data-bind="text: $$data"></li>
-                        </ul>
                     </fieldset>
                 </form>
             </div>
@@ -252,7 +240,6 @@
 
                     <p>To aid you in your work please speak to one of the members of staff on the main map to get an idea of
                         what the culture is like at Global Sparks:</p>
-
 
                 </div>
             </div>
@@ -344,9 +331,6 @@
 
 
 
-
-
-
             <h4>Number of authentication mechanisms: </h4>
 
             <select class="target authentication" id="aut_num" name="aut_num">
@@ -355,8 +339,6 @@
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
-
-
 
             <div class="aut" id="aut1"></div>
             <div class="aut" id="aut2"></div>

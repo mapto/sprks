@@ -120,6 +120,7 @@ class password:
                 )
 
         if user_model.update_password(user_id, payload['password']):
+            # TODO if token used, invalidate token
             if payload.get('autologin', False) and context.user_id() != user_id:
                 # Auto-login user whose password's changed.
                 users_model.session_login(user_id)
