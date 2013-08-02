@@ -1,5 +1,5 @@
 incidentModel = {
-    incidentDate: ko.observable(new Date(0)),
+    incidentDate: ko.observable(),
     description: ko.observable(''),
     event: ko.observable(''),
     consequences: ko.observable(''),

@@ -36,12 +36,12 @@
 </header>
 
 <div id="controls" style="display: none">
-    <div class="menu" id="menu">
+    <div id="menu">
         <div><a data-bind="css: {'active-page-link': currentPage() === 'intro_page'}, click: function(){currentPage('intro_page')}">Story</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'policy_page'}, click: function(){currentPage('policy_page')}">Policy</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'profile_page'}, click: function(){currentPage('profile_page')}">Profile</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>
-        <div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}">Incident</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}, visible: incident.incidentDate()">Incident</a></div>
     </div>
 
 
@@ -654,7 +654,7 @@
                 </div>
             </div>
 
-            <div data-bind="visible: currentPage() === 'scores_page'">
+            <div data-bind="visible: currentPage() === 'score_page'">
                 <h1>Scores</h1>
 
                 <div id="accordion">
