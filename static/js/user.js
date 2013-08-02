@@ -52,6 +52,7 @@ $('#registerForm').submit(function (e) {
 
 $('#loginForm').submit(function (e) {
     e.preventDefault();
+    alert('hi');
     $.ajax({
         type: 'POST',
         url: 'api/user/account',
@@ -169,6 +170,7 @@ $(function () {
         toastr.clear();
         if (userId > 0) {
             toastr.info('Logged in.');
+            pageModel.currentPage('intro_page');
             resume();
             retrieve_scores();
             $('#controls').show();
@@ -180,6 +182,7 @@ $(function () {
             updateScoreFrame();
         } else {
             toastr.info('Logged out.');
+            pageModel.currentPage('home_page');
             $('#controls').hide();
             $('#logout-link').hide();
             $('#login-link').show();
@@ -196,8 +199,7 @@ $(function () {
         passwordChangeModel.token($.url('?token'));
         // Cleans URL parameters
         history.pushState({}, 'title', '/');
-        $("#home_page").hide();
-        $("#password_change_page").show();
+        pageModel.currentPage('password_change_page')
     }
 
 });

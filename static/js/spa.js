@@ -1,6 +1,6 @@
 // Global and init scripts for whole SPA
 pageModel = {
-    currentPage: ko.observable(''),
+    currentPage: ko.observable('home_page'),
     timeline: timelineModel,
     statusBar: statusBarModel,
     map: charactersModel,
@@ -53,7 +53,6 @@ $('a').click('click', function () {
 });
 
 $("#close_btn").click(function(){
-    deactivateButtons();
     pageModel.currentPage('');
 });
 
@@ -62,11 +61,10 @@ $(".main-body").show();
     ko.applyBindings(pageModel);
 
     pageModel.currentPage.subscribe(function (currentPage) {
-        $(".main-body").show();
+        $("#main-body").show();
         switch (currentPage) {
             case '':
-                $(".main-body").hide();
-                $(".pages").hide();
+                $("#main-body").hide();
                 break;
             case 'home_page':
                 break;

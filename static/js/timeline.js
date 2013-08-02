@@ -2,7 +2,7 @@ timelineModel = {
     currentDate: ko.observable(new Date(0)),
     nextSync: ko.observable(new Date(0)),
     clock: ko.observable(),
-    clockSpeed: ko.observable(),
+    clockSpeed: ko.observable(0),
     calendar: ko.observable()
 };
 

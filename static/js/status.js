@@ -13,7 +13,7 @@ toastr.options = {
   "fadeOut": 1000,
   "timeOut": 3000,
   "extendedTimeOut": 3000
-}
+};
 
 statusBarModel = {
     statusbar_status: ko.observable('Ready.'),
