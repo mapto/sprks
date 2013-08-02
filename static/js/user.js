@@ -154,7 +154,6 @@ $(function () {
         });
     });
 
-    $("#home_page").show();
     toastr.info('Loading...');
 
     loginModel.userId.subscribe(function (userId) {
@@ -163,13 +162,9 @@ $(function () {
             toastr.info('Logged in.');
             pageModel.currentPage('intro_page');
             resume();
-            retrieve_scores();
-            $('span.username').text(loginModel.username());
-            updateScoreFrame();
         } else {
             toastr.info('Logged out.');
             pageModel.currentPage('home_page');
-            $('span.username').text('');
         }
     });
 

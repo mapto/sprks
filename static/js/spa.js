@@ -48,24 +48,6 @@ $(function(){
 
     pageModel.currentPage.subscribe(function (currentPage) {
         switch (currentPage) {
-            case '':
-                break;
-            case 'home_page':
-                break;
-            case 'register_page':
-                break;
-            case 'login_page':
-                break;
-            case 'password_recover_page':
-                break;
-            case 'password_change_page':
-                break;
-            case 'intro_page':
-                break;
-            case 'policy_page':
-                break;
-            case 'incident_page':
-                break;
             case 'profile_page':
                 clearProfile();
                 get_profile();

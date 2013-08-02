@@ -1,6 +1,6 @@
 var score_obj;
 function initScore(){
-    retrieve_scores(); //request scores, write them to score_obj global variable
+    retrieveScores(); //request scores, write them to score_obj global variable
     console.log(score_obj);
     //create accordion score representation
     //new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
@@ -17,7 +17,7 @@ function initScore(){
 
 }
 
-function retrieve_scores(){
+function retrieveScores(){
     $.ajax({
         url: "api/score",
         type: "GET",

@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <div class="link"><a data-bind="click: function(){currentPage('home_page')}">SPRKS</a></div>
             <div class="link" id="login-links">
-                <a id="logout-link" data-bind="visible: login.userId() !== 0">Logout <span class="username"></span> </a>
+                <a id="logout-link" data-bind="visible: login.userId() !== 0">Logout <span data-bind="text: login.username()"></span> </a>
                 <a id="login-link" data-bind="visible: login.userId() === 0, click: function(){currentPage('login_page')}">Login</a>
             </div>
         </div>
@@ -590,7 +590,7 @@
             </div>
 
             <div>
-                <input type="button" name="apply" id="apply" value="Apply">
+                <input type="button" class="btn" name="apply" id="apply" value="Apply" data-bind="enable: timeline.clockSpeed() === 0">
             </div>
 
             </form>

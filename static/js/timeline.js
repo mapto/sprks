@@ -73,34 +73,31 @@ function resume() {
             console.log("fail: " + response.responseText);
         }
     });
+    retrieveScores();
+    updateScoreFrame();
 }
 
 function startClock(interval) {
     console.log("Clock started");
     timelineModel.clock(setInterval(function () {
-        timelineModel.currentDate().setDate(timelineModel.currentDate().getDate()+1);
+        timelineModel.currentDate().setDate(timelineModel.currentDate().getDate() + 1);
         timelineModel.currentDate.valueHasMutated();
     }, interval));
 }
 
-
 $(function () {
 
-    timelineModel.clockSpeed.subscribe(function(clockSpeed){
-        switch (clockSpeed){
+    timelineModel.clockSpeed.subscribe(function (clockSpeed) {
+        $('.target').attr('disabled', 'disabled');
+        switch (clockSpeed) {
             case 0:
                 $('.target').removeAttr('disabled');
-                $('#apply').removeAttr('disabled');
                 clearInterval(timelineModel.clock());
                 break;
             case 1:
-                $('.target').attr('disabled', 'disabled');
-                $('#apply').attr('disabled', 'disabled');
                 startClock(3000);
                 break;
             case 2:
-                $('.target').attr('disabled', 'disabled');
-                $('#apply').attr('disabled', 'disabled');
                 startClock(500);
                 break;
         }
