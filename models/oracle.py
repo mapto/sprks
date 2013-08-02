@@ -50,9 +50,9 @@ class prophet:
                         'date': (base_date + timedelta(days=i)).isoformat(),
                         'incident_id': current_incident['id'],
                         'cost': cls.randomize_cost(incident_cost),
-                        'employee': current_incident.employee,
-                        'location': current_incident.location,
-                        'device': current_incident.device
+                        'employee': current_incident['employee'],
+                        'location': current_incident['location'],
+                        'device': current_incident['device']
                     })
         # TODO currently productivity costs is being used as risk impact.
         score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)

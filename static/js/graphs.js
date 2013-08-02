@@ -52,13 +52,14 @@ function submit_alternatives_request() {
     $(".qn").each(function (i) { //iteration accross questions
         var id_tmp = $(this).attr('id');
         next = get_range(new_policy, id_tmp);
+        /*
         console.log("id");
         console.log(id_tmp);
         console.log("next");
         console.log(next);
         console.log("new");
         console.log(new_policy);
-
+        */
         msgs['data'] = msgs['data'].concat(next);
     });
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
@@ -114,6 +115,7 @@ function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdi
         dps_risk[$(this).closest($(".qn")).attr('id')] = [];//initializing dps
         dps_cost[$(this).closest($(".qn")).attr('id')] = [];//initializing dps
         graph_id[$(this).closest($(".qn")).attr('id')] = "graph_" + [$(this).closest($(".qn")).attr('id')]; //assigning graph ids like graph_id.plen = "graph_plen"
+        console.log(graph_id);
     });
 
     $(policy_costs_risks).each(function (i) {
