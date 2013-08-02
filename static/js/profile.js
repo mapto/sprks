@@ -45,7 +45,23 @@ function get_profile() {
                 col[i] = {};
                 row [i] = $('<tr></tr>').addClass('profileTr' + i);
                 date [i] = $('<td></td>').addClass('profileTd_date').text(format_date(new Date(obj['date'])));
-                row [i].append(date[i]);
+
+                var empty_row = $('<tr></tr>').addClass('profileTr profileTh');
+                        for (var x = 0; x < 13; x++) {
+                            empty_row.append($('<td></td>').addClass('profileTd profileTh').text(''));
+                }
+                if(date[i-1]){
+                    if(date[i].text()===date[i-1].text()){
+                        row [i].append($('<td></td>').addClass('profileTd_date').text(''));
+                    }else{
+                        row [i].append(date[i]);
+                        table.append(empty_row);
+                    }
+                }else{
+                    row [i].append(date[i]);
+                    table.append(empty_row);
+                }
+
                 location_r[i] = $('<td></td>').addClass('profileTd location'+i).text(obj['location']);
                 device_r[i] = $('<td></td>').addClass('profileTd device'+i).text(obj['device']);
                 employee_r[i] = $('<td></td>').addClass('profileTd employee'+i).text(obj['employee']);
@@ -65,7 +81,9 @@ function get_profile() {
                             //if (attrName !== 'employee' && attrName !== 'location' && attrName !== 'device' ){
                             //    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
                             //}else{
+
                             col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(obj[k]);
+
                             //}
                             //row [i].append(col[i][attrName]); //add value column only if value have changed
                         } //else {
@@ -75,12 +93,12 @@ function get_profile() {
                     }
                 }
                 if (row[i].text() != '') { //check if the row contains anything
-                    if (row[i].text().substring(10).match(/\d+/g)) { //exclude date, check if the rest row contains number values( such as for plen, etc.)
+                    if (row[i].text().substring(15).match(/\d+/g)) { //exclude date, check if the rest row contains number values( such as for plen, etc.)
                         var empty_row = $('<tr></tr>').addClass('profileTr profileTh');
                         for (var x = 0; x < 13; x++) {
                             empty_row.append($('<td></td>').addClass('profileTd profileTh').text(''));
                         }
-                        table.append(empty_row);
+                        //table.append(empty_row);
                     } else {                                      //if row contains only environmental variables (location/employee/device
                         row[i]
                     }
