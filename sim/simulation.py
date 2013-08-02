@@ -1,5 +1,4 @@
-from estimator_sklearn_tree import estimator_sklearn_tree
-from classifier_sklearn import classifier_sklearn
+from sim.model_sklearn import classifier_sklearn
 
 """
 for policy specification see ranges variable in

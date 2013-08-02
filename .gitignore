@@ -1,6 +1,7 @@
 .idea
 .metadata
 static/data/*.pdf
+static/data/*.pkl
 
 *.py[cod]
 

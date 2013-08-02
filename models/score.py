@@ -3,8 +3,6 @@ __author__ = 'Daniyar'
 import itertools
 from localsys.storage import db
 import math
-from sim.simulation import simulation
-
 
 class score_model:
     def check_closest_competitor(self, usrid, your_score):

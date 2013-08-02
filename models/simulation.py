@@ -3,8 +3,8 @@ __author__ = 'mruskov'
 from localsys.storage import db
 from models.policies import policies_model
 from models.incident import incident
-from sim.classifier_sklearn import classifier_sklearn
-from sim.classifier_sklearn import regression_sklearn
+from sim.model_sklearn import classifier_sklearn
+from sim.model_sklearn import regression_sklearn
 from models.company import company
 
 class simulation:

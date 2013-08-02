@@ -1,57 +1,43 @@
 __author__ = 'mruskov'
 
 from sklearn import svm
+from sklearn import __version__ as sklearn_ver
 import cPickle
 import numpy
 import glob
 import csv
 import json
+import os
 from models.company import company
 from models.policies import policies_model as policy_model
-from sim.classifier_sklearn import model_sklearn
-from models.incident import incident
-from models.simulation import simulation as sim_model
+from sim.model_sklearn import model_sklearn
 
 
 class train_sklearn:
-    def train(self):
+    types = ["classifier", "regression"]
+
+    def update(self):
+        for next in self.types:
+            if not os.path.exists('static/data/' + next  + '-models-' + sklearn_ver + '.pkl'):
+                self.train(next)
+        self.cleanup()
+
+    def train(self, type="classifier"):
         """This is the main method creating the implicit model, based on the provided incidents
            It takes the incidents in static/incidents/*,json as input
-           and generates static/data/classifier-models.pkl as output.
+           and generates static/data/*-models-*.pkl as output.
            This model is a serialization of the trained/fitted model
            Currently the CSV training set in static/data/train-generated*.csv is a by-product, but is not really needed
         """
-        self.generate_training_set("classifier")
-        self.generate_models("classifier")
-
-        self.generate_training_set("regression")
-        self.generate_models("regression")
+        self.generate_training_set(type)
+        self.generate_models(type)
         # database does not need to be generated beforehand.
         # The simulation generates it dynamically (lazy initialization)
         # self.generate_db()
 
-    # OBSOLETE: Currently the database is filled runtime (lazy initialization)
-    def generate_db(self):
-        ordered_context = sim_model.ordered_context
-        ordered_policy = sim_model.ordered_policy
-        classifier = classifier_sklearn()
-        with open('config/risks-test.sql', 'w') as f:
-            f.write("DELETE FROM `risks` WHERE 1")
-            for risk in classifier_sklearn.risks_set:
-                for context in self.enum_policy_contexts():
-                    for policy in self.enum_samples():
-                        all = classifier_sklearn().predict_data(policy, self.single2plural(context))
-                        cls = incident.get_most_probable(all)
-                        f.write("INSERT INTO `risks` "
-                            # "(`risk_type`, `employee`, `location`, `device`, `bdata`, `pdata`, `plen`, `psets`, `pdict`, `phist`, `prenew`, `pattempts`, `precovery`, `cls`, `risk_prob`) "
-                            "VALUES "
-                            "('" + risk)
-                        for next in ordered_context:
-                            f.write(", '" + context[next] + "'")
-                        for next in ordered_policy:
-                            f.write(", '" + str(policy[next]) + "'")
-                        f.write(", " + str(cls['id']) + "', '" + str(cls['risk']) + "');\n")
-                print '.'
+    def cleanup(self):
+        for ref in glob.glob('static/data/train-*.csv'):
+            os.remove(ref)
 
     def single2plural(self, context):
         """ Weird, but here only one of the 27 contexts is considered,
@@ -99,7 +85,7 @@ class train_sklearn:
         """
         print("Generating " + type + " models...")
 
-        f = open('static/data/' + type + '-models.txt', 'wb')
+        f = open('static/data/' + type + '-models-' + sklearn_ver + '.pkl', 'wb')
 
         models = {}
 
@@ -224,7 +210,7 @@ class train_sklearn:
 
         # for explanation of the following parameters please see
         # http://scikit-learn.org/stable/modules/svm.html#tips-on-practical-use
-        params = {'kernel': 'rbf', 'cache_size': 1000, 'C': 0.9}
+        params = {'kernel': 'rbf', 'cache_size': 1000, 'C': 0.2, 'gamma': 0.5}
         eng = engine.get_engine(type=type)
         return eng.get_model(params).fit(train_data, train_result)
 
@@ -291,3 +277,4 @@ if __name__ == "__main__":
     # print train_sklearn().enum_policy_contexts()
     # train_sklearn().generate_db()
     train_sklearn().train()
+    #train_sklearn().cleanup()

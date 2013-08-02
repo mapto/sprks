@@ -27,6 +27,10 @@ import controllers.spa
 import controllers.user
 import controllers.characters
 
+from sim.train_sklearn import train_sklearn
+
+train_sklearn().update()
+
 urls = (
     storage.path + '', controllers.spa.spa,
     storage.path + '/', controllers.spa.spa,
