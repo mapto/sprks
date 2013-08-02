@@ -165,8 +165,6 @@ $(function () {
             resume();
             retrieve_scores();
             $('#controls').show();
-            $('#logout-link').show();
-            $('#login-link').hide();
             $('span.username').text(loginModel.username());
             $("#home_page").hide();
             $("#intro_page").show();
@@ -175,8 +173,6 @@ $(function () {
             toastr.info('Logged out.');
             pageModel.currentPage('home_page');
             $('#controls').hide();
-            $('#logout-link').hide();
-            $('#login-link').show();
             $('span.username').text('');
             $("#home_page").show();
             $("#intro_page").hide();
