@@ -67,7 +67,7 @@ function resume() {
             timelineModel.clockSpeed(0);
             timelineModel.currentDate(new Date(policy['date']));
             timelineModel.calendar(policy['calendar']);
-            display_contextualized_policy(policy['policy'][0]);
+            displayContextualizedPolicy(policy['policy'][0]);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -120,15 +120,6 @@ $(function () {
         updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, currentDate)); //specified in characters.js
 
         window.id_elem = 'plen';
-
-        if (currentDate - new Date('2014-2-1') < 0) {
-            //console.log('less than 1 month passed. Score is not yet calculated, hide button');
-            $(".score_page").hide();
-        } else {
-            //console.log('>=1 month passed. Score is calculated, show button.');
-            $(".score_page").show();
-        }
-        $(".incident_page").hide();
     });
 
 });

@@ -40,7 +40,7 @@
         <div><a data-bind="css: {'active-page-link': currentPage() === 'intro_page'}, click: function(){currentPage('intro_page')}">Story</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'policy_page'}, click: function(){currentPage('policy_page')}">Policy</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'profile_page'}, click: function(){currentPage('profile_page')}">Profile</a></div>
-        <div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}, visible: timeline.currentDate() - new Date('2014-2-1') > 0">Scores</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}, visible: incident.incidentDate()">Incident</a></div>
     </div>
 

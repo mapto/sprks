@@ -122,7 +122,7 @@ function update_passfaces_form(policy) {
     $("#passfaces").change();
 }
 
-function display_contextualized_policy(contextualized) {
+function displayContextualizedPolicy(contextualized) {
     var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
 
     emp = contextualized['employee'];
@@ -166,7 +166,7 @@ function updatePolicy(policy) {
 
     //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
     // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
-    //display_contextualized_policy(policy['policy'][0]);
+    //displayContextualizedPolicy(policy['policy'][0]);
 }
 
 //3 different authentication mechanisms
