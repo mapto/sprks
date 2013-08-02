@@ -35,7 +35,7 @@ urls = (
     # API
     storage.path + '/api/user/account/(.+)', controllers.user.account,
     storage.path + '/api/user/account', controllers.user.account,
-    storage.path + '/api/user/password', controllers.user.account,
+    storage.path + '/api/user/password', controllers.user.password,
     storage.path + '/api/user/password/(.+)', controllers.user.password,
     storage.path + '/api/chronos/update', controllers.chronos.policy_update_handler,
     storage.path + '/api/chronos/event', controllers.chronos.event_handler,
