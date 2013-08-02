@@ -730,6 +730,8 @@ label {
 
 .policy-summary {
     top: 200px;
+    right:2.5%;
+    left:85%;
     width:12.5%;
     position: fixed;
     overflow: auto;
