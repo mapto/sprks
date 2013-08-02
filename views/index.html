@@ -25,10 +25,10 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="link"><a class="home_page">SPRKS</a></div>
+            <div class="link"><a data-bind="click: function(){currentPage('home_page')}" class="home_page">SPRKS</a></div>
             <div class="link" id="login-links">
                 <a id="logout-link" class="logout_page" style="display: none">Logout <span class="username"></span> </a>
-                <a id="login-link" class="login_page">Login</a>
+                <a id="login-link" data-bind="click: function(){currentPage('login_page')}" class="login_page">Login</a>
             </div>
         </div>
     </div>
@@ -138,8 +138,8 @@
                 </ul>
 
                 <div class="span11">
-                    <div class="span4 text-center main_btn"><a class="register_page">Register</a></div>
-                    <div class="span4 text-center main_btn"><a class="login_page">Login</a></div>
+                    <div class="span4 text-center main_btn"><a data-bind="click: function(){currentPage('register_page')}" class="register_page">Register</a></div>
+                    <div class="span4 text-center main_btn"><a data-bind="click: function(){currentPage('login_page')}" class="login_page">Login</a></div>
                 </div>
                 <br/><br/><br/><br/>
 
