@@ -37,11 +37,11 @@
 
 <div id="controls" style="display: none">
     <div class="menu" id="menu">
-        <div><a class="intro_page" data-bind="css: {'active-page-link': currentPage() === 'intro_page'}">Story</a></div>
-        <div><a class="policy_page" data-bind="css: {'active-page-link': currentPage() === 'policy_page'}">Policy</a></div>
-        <div><a class="profile_page" data-bind="css: {'active-page-link': currentPage() === 'profile_page'}">Profile</a></div>
-        <div><a class="score_page" data-bind="css: {'active-page-link': currentPage() === 'score_page'}">Scores</a></div>
-        <div><a class="incident_page" data-bind="css: {'active-page-link': currentPage() === 'incident_page'}">Incident</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'intro_page'}, click: function(){currentPage('intro_page')}">Story</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'policy_page'}, click: function(){currentPage('policy_page')}">Policy</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'profile_page'}, click: function(){currentPage('profile_page')}">Profile</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}">Incident</a></div>
     </div>
 
 
@@ -117,7 +117,7 @@
     <div class="row-fluid">
         <div class="offset2 span8" id="main-body">
             <div id="close_btn" data-bind="click: function(){pageModel.currentPage('')}"><div class="icon-remove"></div></div>
-            <div class="pages" id="home_page" data-bind="visible: currentPage() === 'home_page'">
+            <div data-bind="visible: currentPage() === 'home_page'">
                 <!--Sprks-->
                 <h2>Security Policy Risk Simulator </h2>
                 <h5>An exploratory simulation game featuring the real-life complexities of corporate information
@@ -153,7 +153,7 @@
                 <p>The website is tested to work with the <a href="http://www.google.com/chrome/">Chrome Browser</a>.</p>
             </div>
 
-            <div class="pages" id="register_page" data-bind="with: register, visible: currentPage() === 'register_page'">
+            <div data-bind="with: register, visible: currentPage() === 'register_page'">
                 <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Register</legend>
@@ -175,7 +175,7 @@
                 </form>
             </div>
 
-            <div class="pages" data-bind="with: login, visible: currentPage() === 'login_page'">
+            <div data-bind="with: login, visible: currentPage() === 'login_page'">
                 <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Login</legend>
@@ -199,7 +199,7 @@
                 </form>
             </div>
 
-             <div class="pages" data-bind="with: passwordRecover, visible: currentPage() === 'password_recover_page'">
+             <div data-bind="with: passwordRecover, visible: currentPage() === 'password_recover_page'">
                 <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Password Recovery</legend>
@@ -210,7 +210,7 @@
                 </form>
             </div>
 
-            <div class="pages" data-bind="with: passwordChange, visible: currentPage() === 'password_change_page'">
+            <div data-bind="with: passwordChange, visible: currentPage() === 'password_change_page'">
 
                 <h1>Settings</h1>
 
@@ -224,7 +224,7 @@
                 </form>
             </div>
 
-            <div class="pages" data-bind="visible: currentPage() === 'intro_page'">
+            <div data-bind="visible: currentPage() === 'intro_page'">
                 <!--Introduction-->
                 <h1>Your Company</h1>
 
@@ -250,7 +250,7 @@
                 </div>
             </div>
 
-            <div class="pages" data-bind="visible: currentPage() === 'policy_page'">
+            <div data-bind="visible: currentPage() === 'policy_page'">
             <!--Policy-->
             <h1>Policy</h1>
 
@@ -597,7 +597,7 @@
             <!--PASSWORD POLICY END-->
             </div>
 
-            <div class="pages" data-bind="with: incident, visible: currentPage() === 'pasword_change_page'">
+            <div data-bind="with: incident, visible: currentPage() === 'incident_page'">
                 <!--Incident-->
 
                 <h1>Incident</h1><br>
@@ -632,7 +632,7 @@
 
             </div>
 
-            <div class="pages" data-bind="visible: currentPage() === 'profile_page'">
+            <div data-bind="visible: currentPage() === 'profile_page'">
 
                 <a data-bind="click: function(){pageModel.currentPage('password_change_page')}">
                     <button class="btn">User Settings</button></a>
@@ -654,7 +654,7 @@
                 </div>
             </div>
 
-            <div class="pages" id="score_page" data-bind="visible: currentPage() === 'pasword_change_page'">
+            <div data-bind="visible: currentPage() === 'scores_page'">
                 <h1>Scores</h1>
 
                 <div id="accordion">

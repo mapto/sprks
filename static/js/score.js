@@ -1,5 +1,6 @@
 var score_obj;
 function initScore(){
+    alert('hihi');
     retrieve_scores(); //request scores, write them to score_obj global variable
     console.log(score_obj);
     //create accordion score representation

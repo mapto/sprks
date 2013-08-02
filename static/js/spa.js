@@ -43,14 +43,6 @@ function clearProfile() {
     $('#chartContainer').empty();           //clear graph
 }
 
-$('a').click('click', function () {
-    var page = $(this).attr('class');
-    if ((page.substr(page.length - 4)) === 'page') { //check if the link clicked if a page button
-
-        pageModel.currentPage(page);
-    }
-});
-
 $(function(){
 $(".main-body").show();
     ko.applyBindings(pageModel);
@@ -76,9 +68,6 @@ $(".main-body").show();
             case 'policy_page':
                 break;
             case 'incident_page':
-                if ($(".incident_page").css("display") === "block") {
-                    css_class = "incident";
-                }
                 break;
             case 'profile_page':
                 clearProfile();
@@ -86,9 +75,6 @@ $(".main-body").show();
                 break;
             case 'score_page':
                 initScore();
-                if ($(".score_page").css("display") === "block") {
-                    css_class = "score";
-                }
                 break;
         }
     });
