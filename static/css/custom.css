@@ -66,11 +66,7 @@ body {
     cursor: pointer;
 }
 
-.loginbox.main_body_container {
-    max-width: 100%; /*central block for main info, use with loginbox class*/
-}
-
-.main-body {
+#main-body {
     display: none;
     position: absolute;
     z-index: 10;
@@ -292,11 +288,6 @@ label {
 .login_btn:hover {
     color: #555;
     background-color: #fff;
-}
-
-.loginbox a:hover {
-    color: #555;
-    text-decoration: none;
 }
 
 #menu {
@@ -695,6 +686,12 @@ label {
 /*********SPA********************************************************/
 .pages {
     display: none;
+}
+
+.active-page-link {
+    background-color: #C10000;
+    color: #fff;
+    cursor: default;
 }
 
 #close_btn {
