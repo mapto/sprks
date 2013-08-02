@@ -118,6 +118,7 @@ $("#close_btn").click(function(){
     $(".main-body").hide();
     $(".pages").hide();
     deactivateButtons();
+    pageModel.currentPage('');
 });
 
 $(function(){

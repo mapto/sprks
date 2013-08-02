@@ -92,7 +92,7 @@ $('#passwordRecoveryForm').submit(function (e) {
                 passwordRecoverModel.messages(['Server error']);
             },
             200: function (response) {
-                passwordRecoverModel.messages(response.messages);
+                toastr.info(response.messages[0])
             }
         }
     });
@@ -114,7 +114,7 @@ $('#passwordChangeForm').submit(function (e) {
                     toastr.error('Server Error');
                 },
                 200: function (response) {
-                    toastr.success(response.messages);
+                    toastr.success(response.messages[0]);
                     if (response.success === true) {
                         console.log('changed pswd successfully');
                         passwordChangeModel.password('');
@@ -184,7 +184,6 @@ $(function () {
             $('#logout-link').show();
             $('#login-link').hide();
             $('span.username').text(loginModel.username());
-
             $("#home_page").hide();
             $("#intro_page").show();
             highlightActiveButton();
@@ -200,14 +199,14 @@ $(function () {
         }
     });
 
-    check_loggedin();
-
     if ($.url('?token') != null) {
-
         passwordChangeModel.token($.url('?token'));
         // Cleans URL parameters
         history.pushState({},'title', '/');
+        $("#home_page").hide();
         $("#password_change_page").show();
-
     }
+
+    check_loggedin();
+
 });
