@@ -111,10 +111,10 @@ $('#passwordChangeForm').submit(function (e) {
             }),
             statusCode: {
                 500: function () {
-                    passwordChangeModel.messages(['Server error']);
+                    toastr.error('Server Error');
                 },
                 200: function (response) {
-                    toastr['success'](response.messages, 1000);
+                    toastr.success(response.messages);
                     if (response.success === true) {
                         console.log('changed pswd successfully');
                         passwordChangeModel.password('');
