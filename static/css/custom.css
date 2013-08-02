@@ -169,7 +169,6 @@ label {
 }
 
 .risk-menu {
-    display: none;
     width: 15%;
     position: fixed;
     right: 0;

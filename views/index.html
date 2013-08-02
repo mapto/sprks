@@ -35,7 +35,7 @@
 </div>
 </header>
 
-<div id="controls" data-bind="visible: login.userId()">
+<div data-bind="visible: login.userId()">
     <div id="menu">
         <div><a data-bind="css: {'active-page-link': currentPage() === 'intro_page'}, click: function(){currentPage('intro_page')}">Story</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'policy_page'}, click: function(){currentPage('policy_page')}">Policy</a></div>
@@ -45,10 +45,10 @@
     </div>
 
 
-    <div class="risk-menu">
+    <div class="risk-menu" data-bind="visible: currentRisk() || currentCost()">
         <ul>
-            <li class="risk_menu-title-risk">Risk:<br/><span class="score-value" id="risk_menu"></span></li>
-            <li class="risk_menu-title-cost">Cost:<br/><span class="score-value" id="cost_menu"></span></li>
+            <li class="risk_menu-title-risk">Risk:<br/><span class="score-value" data-bind="text: currentRisk()"></span></li>
+            <li class="risk_menu-title-cost">Cost:<br/><span class="score-value" data-bind="text: currentCost()"></span></li>
         </ul>
     </div>
 
