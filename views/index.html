@@ -35,7 +35,7 @@
 </div>
 </header>
 
-<div id="controls" style="display: none">
+<div id="controls" data-bind="visible: login.userId()">
     <div id="menu">
         <div><a data-bind="css: {'active-page-link': currentPage() === 'intro_page'}, click: function(){currentPage('intro_page')}">Story</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'policy_page'}, click: function(){currentPage('policy_page')}">Policy</a></div>

@@ -44,7 +44,6 @@ function clearProfile() {
 }
 
 $(function(){
-$(".main-body").show();
     ko.applyBindings(pageModel);
 
     pageModel.currentPage.subscribe(function (currentPage) {
@@ -69,7 +68,7 @@ $(".main-body").show();
                 break;
             case 'profile_page':
                 clearProfile();
-                initProfile();
+                get_profile();
                 break;
             case 'score_page':
                 initScore();

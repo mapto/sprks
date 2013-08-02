@@ -164,18 +164,12 @@ $(function () {
             pageModel.currentPage('intro_page');
             resume();
             retrieve_scores();
-            $('#controls').show();
             $('span.username').text(loginModel.username());
-            $("#home_page").hide();
-            $("#intro_page").show();
             updateScoreFrame();
         } else {
             toastr.info('Logged out.');
             pageModel.currentPage('home_page');
-            $('#controls').hide();
             $('span.username').text('');
-            $("#home_page").show();
-            $("#intro_page").hide();
         }
     });
 

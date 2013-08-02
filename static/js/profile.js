@@ -1,13 +1,10 @@
 var json;
 var policy_history;
 var graph_data;
-function initProfile() {
-    get_profile();
-}
 
 function get_profile() {
     //history values in json format from serverside (policy_history.py) by ajax call written to policy_history var
-    var request = $.ajax({
+    $.ajax({
         url: "api/history",
         type: "GET",
         success: function (json) {
