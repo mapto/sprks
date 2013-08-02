@@ -105,7 +105,11 @@ $(function () {
 
     timelineModel.currentDate.subscribe(function (currentDate) {
 
-        if (currentDate - timelineModel.nextSync() === 0) {
+        // if (currentDate - timelineModel.nextSync() === 0) {
+        // Because of timezone mismatch nextSync is not used (see above line for the nextSync version)
+        // This could be a problem if the frequency of synchrnonisaton changes.
+        // getDate() returns day of month
+        if (currentDate.getDate() == 1 && currentDate.getMonth() == timelineModel.nextSync().getMonth()) {
             toastr['success']("Changes submitted");
             timelineModel.clockSpeed(0);
             submitPolicyDelta();
