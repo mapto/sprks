@@ -23,7 +23,7 @@ function getIncidentDetails(incident_id) {
             incidentModel.description(incident.description);
             incidentModel.event(incident.event);
             incidentModel.consequences(incident.consequences);
-            incidentModel.riskType(incident.riskType);
+            incidentModel.riskType(incident.type);
             incidentModel.risk(incident.risk);
 
             charactersModel.quote1(incident.description);
