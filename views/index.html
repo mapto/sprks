@@ -115,7 +115,7 @@
 
 
     <div class="row-fluid">
-        <div class="offset2 span8" id="main-body">
+        <div class="offset2 span8" id="main-body" data-bind="visible: currentPage()">
             <div id="close_btn" data-bind="click: function(){pageModel.currentPage('')}"><div class="icon-remove"></div></div>
             <div data-bind="visible: currentPage() === 'home_page'">
                 <!--Sprks-->

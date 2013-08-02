@@ -48,10 +48,8 @@ $(".main-body").show();
     ko.applyBindings(pageModel);
 
     pageModel.currentPage.subscribe(function (currentPage) {
-        $("#main-body").show();
         switch (currentPage) {
             case '':
-                $("#main-body").hide();
                 break;
             case 'home_page':
                 break;
