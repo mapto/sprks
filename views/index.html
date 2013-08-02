@@ -186,8 +186,8 @@
                         <div class="row-fluid">
                             <input class="login_btn" type="submit" value="Login">
                             <br>
-                            <a class="password_recover_page">Recover Password</a> |
-                            <a class="register_page">Register</a>
+                            <a data-bind="click: function(){pageModel.currentPage('password_recover_page')}">Recover Password</a> |
+                            <a data-bind="click: function(){pageModel.currentPage('register_page')}">Register</a>
                         </div>
                     </fieldset>
                 </form>

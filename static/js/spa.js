@@ -15,7 +15,6 @@ var policyUpdate = [];
 var policies_array = {};
 
 $(function () {
-
     if ($("#risk_menu").text() == '' || $("#cost_menu").text() == '') {
         $(".risk-menu").hide();
     } else {

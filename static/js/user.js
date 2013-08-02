@@ -21,128 +21,6 @@ passwordChangeModel = {
     token: ko.observable('')
 };
 
-$('#registerForm').submit(function (e) {
-    e.preventDefault();
-    if (registerModel.password() === registerModel.passwordConfirm()) {
-        $.ajax({
-            type: 'PUT',
-            url: 'api/user/account/' + registerModel.username(),
-            data: JSON.stringify({
-                password: registerModel.password(),
-                email: registerModel.email(),
-                autologin: true
-            }),
-            statusCode: {
-                500: function () {
-                    toastr.error('Server error');
-                },
-                200: function (response) {
-                    toastr.info(response.messages[0]);
-                },
-                201: function (response) {
-                    toastr.success(response.messages[0]);
-                    check_loggedin();
-                }
-            }
-        });
-    } else {
-        toastr.error("Passwords don't match");
-    }
-});
-
-$('#loginForm').submit(function (e) {
-    e.preventDefault();
-    alert('hi');
-    $.ajax({
-        type: 'POST',
-        url: 'api/user/account',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(loginModel.username() + ':' + loginModel.password()));
-        },
-        statusCode: {
-            500: function () {
-                toastr.error('Server error');
-            },
-            200: function (response) {
-                if (response.success === true) {
-                    loginModel.username(response.username);
-                    loginModel.userId(response.user_id);
-                    $('#login_page').hide();
-                } else {
-                    toastr.error(response.messages[0]);
-                }
-            }
-        }
-    });
-});
-
-$('#passwordRecoveryForm').submit(function (e) {
-    e.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: 'api/user/password/' + passwordRecoverModel.username(),
-        data: JSON.stringify({
-            uid_type: 'username'
-        }),
-        statusCode: {
-            500: function () {
-                toastr.error('Server error');
-            },
-            200: function (response) {
-                toastr.info(response.messages[0])
-            }
-        }
-    });
-});
-
-$('#passwordChangeForm').submit(function (e) {
-    e.preventDefault();
-    if (passwordChangeModel.password() === passwordChangeModel.passwordConfirm()) {
-        $.ajax({
-            type: 'PUT',
-            url: 'api/user/password',
-            data: JSON.stringify({
-                password: passwordChangeModel.password(),
-                token: passwordChangeModel.token(),
-                autologin: true
-            }),
-            statusCode: {
-                500: function () {
-                    toastr.error('Server Error');
-                },
-                200: function (response) {
-                    toastr.success(response.messages[0]);
-                    if (response.success === true) {
-                        console.log('changed pswd successfully');
-                        passwordChangeModel.password('');
-                        passwordChangeModel.passwordConfirm('');
-                        check_loggedin();
-                    }
-                }
-            }
-        });
-    } else {
-        toastr.error("Passwords don't match");
-    }
-});
-
-$('#logout-link').click(function(){
-    loginModel.username('');
-    loginModel.userId('');
-    loginModel.password('');
-    toastr.info('Logging out...');
-    $.ajax({
-        type: 'GET',
-        url: '/?action=logout',
-        statusCode: {
-            200: function () {
-                    loginModel.username('');
-                    loginModel.userId(0);
-                }
-            }
-    });
-});
-
 function check_loggedin() {
     $.ajax({
         type: 'POST',
@@ -162,6 +40,128 @@ function check_loggedin() {
 }
 
 $(function () {
+
+
+    $('#registerForm').submit(function (e) {
+        e.preventDefault();
+        if (registerModel.password() === registerModel.passwordConfirm()) {
+            $.ajax({
+                type: 'PUT',
+                url: 'api/user/account/' + registerModel.username(),
+                data: JSON.stringify({
+                    password: registerModel.password(),
+                    email: registerModel.email(),
+                    autologin: true
+                }),
+                statusCode: {
+                    500: function () {
+                        toastr.error('Server error');
+                    },
+                    200: function (response) {
+                        toastr.info(response.messages[0]);
+                    },
+                    201: function (response) {
+                        toastr.success(response.messages[0]);
+                        check_loggedin();
+                    }
+                }
+            });
+        } else {
+            toastr.error("Passwords don't match");
+        }
+    });
+
+    $('#loginForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'api/user/account',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Basic ' + btoa(loginModel.username() + ':' + loginModel.password()));
+            },
+            statusCode: {
+                500: function () {
+                    toastr.error('Server error');
+                },
+                200: function (response) {
+                    if (response.success === true) {
+                        loginModel.username(response.username);
+                        loginModel.userId(response.user_id);
+                        $('#login_page').hide();
+                    } else {
+                        toastr.error(response.messages[0]);
+                    }
+                }
+            }
+        });
+    });
+
+    $('#passwordRecoveryForm').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'api/user/password/' + passwordRecoverModel.username(),
+            data: JSON.stringify({
+                uid_type: 'username'
+            }),
+            statusCode: {
+                500: function () {
+                    toastr.error('Server error');
+                },
+                200: function (response) {
+                    toastr.info(response.messages[0])
+                }
+            }
+        });
+    });
+
+    $('#passwordChangeForm').submit(function (e) {
+        e.preventDefault();
+        if (passwordChangeModel.password() === passwordChangeModel.passwordConfirm()) {
+            $.ajax({
+                type: 'PUT',
+                url: 'api/user/password',
+                data: JSON.stringify({
+                    password: passwordChangeModel.password(),
+                    token: passwordChangeModel.token(),
+                    autologin: true
+                }),
+                statusCode: {
+                    500: function () {
+                        toastr.error('Server Error');
+                    },
+                    200: function (response) {
+                        toastr.success(response.messages[0]);
+                        if (response.success === true) {
+                            console.log('changed pswd successfully');
+                            passwordChangeModel.password('');
+                            passwordChangeModel.passwordConfirm('');
+                            check_loggedin();
+                        }
+                    }
+                }
+            });
+        } else {
+            toastr.error("Passwords don't match");
+        }
+    });
+
+    $('#logout-link').click(function () {
+        loginModel.username('');
+        loginModel.userId('');
+        loginModel.password('');
+        toastr.info('Logging out...');
+        $.ajax({
+            type: 'GET',
+            url: '/?action=logout',
+            statusCode: {
+                200: function () {
+                    loginModel.username('');
+                    loginModel.userId(0);
+                }
+            }
+        });
+    });
 
     $("#home_page").show();
     toastr.info('Loading...');
