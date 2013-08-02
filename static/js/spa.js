@@ -51,10 +51,6 @@ $('a').click('click', function () {
     }
 });
 
-$("#close_btn").click(function(){
-    pageModel.currentPage('');
-});
-
 $(function(){
 $(".main-body").show();
     ko.applyBindings(pageModel);

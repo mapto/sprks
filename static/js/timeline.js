@@ -83,17 +83,6 @@ function startClock(interval) {
     }, interval));
 }
 
-$('#pause').click(function() {
-    timelineModel.clockSpeed(0);
-});
-
-$('#play').click(function () {
-    timelineModel.clockSpeed(1);
-});
-
-$('#forward').click(function() {
-    timelineModel.clockSpeed(2);
-});
 
 $(function () {
 

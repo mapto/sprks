@@ -68,9 +68,15 @@
     <div class="time_controls" data-bind="with: timeline">
         <ul>
             <h4><div id="time" data-bind="text: format_date(currentDate())"></div></h4>
-            <li data-bind="css: {active: clockSpeed() == 1}"><a class="icon-play icon-large" id="play"></a></li>
-            <li data-bind="css: {active: clockSpeed() == 0}"><a class="icon-pause icon-large" id="pause"></a></li>
-            <li data-bind="css: {active: clockSpeed() == 2}"><a class="icon-forward" id="forward"></a></li>
+            <li data-bind="css: {active: clockSpeed() == 1}">
+                <a class="icon-play icon-large" id="play" data-bind="click: function(){timelineModel.clockSpeed(1)}"></a>
+            </li>
+            <li data-bind="css: {active: clockSpeed() == 0}">
+                <a class="icon-pause icon-large" id="pause" data-bind="click: function(){timelineModel.clockSpeed(0)}"></a>
+            </li>
+            <li data-bind="css: {active: clockSpeed() == 2}">
+                <a class="icon-forward" id="forward" data-bind="click: function(){timelineModel.clockSpeed(2)}"></a>
+            </li>
         </ul>
     </div>
     </div>
@@ -110,7 +116,7 @@
 
     <div class="row-fluid">
         <div class="offset2 span8" id="main-body">
-            <div id="close_btn"><div class="icon-remove"></div></div>
+            <div id="close_btn" data-bind="click: function(){pageModel.currentPage('')}"><div class="icon-remove"></div></div>
             <div class="pages" id="home_page" data-bind="visible: currentPage() === 'home_page'">
                 <!--Sprks-->
                 <h2>Security Policy Risk Simulator </h2>
@@ -148,7 +154,7 @@
             </div>
 
             <div class="pages" id="register_page" data-bind="with: register, visible: currentPage() === 'register_page'">
-                <form id="registerForm" data-bind="submit: submit">
+                <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Register</legend>
                         <div class="row-fluid">
@@ -169,8 +175,8 @@
                 </form>
             </div>
 
-            <div class="pages" id="login_page" data-bind="with: login, visible: currentPage() === 'login_page'">
-                <form id="loginForm" data-bind="submit: submit">
+            <div class="pages" data-bind="with: login, visible: currentPage() === 'login_page'">
+                <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Login</legend>
                         <div class="row-fluid">
@@ -193,8 +199,8 @@
                 </form>
             </div>
 
-             <div class="pages" id="password_recover_page" data-bind="with: passwordRecover, visible: currentPage() === 'password_recover_page'">
-                <form id="passwordRecoveryForm" data-bind="submit: submit">
+             <div class="pages" data-bind="with: passwordRecover, visible: currentPage() === 'password_recover_page'">
+                <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Password Recovery</legend>
                         <p>You will be emailed a password reset link.</p>
@@ -204,11 +210,11 @@
                 </form>
             </div>
 
-            <div class="pages" id="password_change_page" data-bind="with: passwordChange, visible: currentPage() === 'pasword_change_page'">
+            <div class="pages" data-bind="with: passwordChange, visible: currentPage() === 'password_change_page'">
 
                 <h1>Settings</h1>
 
-                <form id="passwordChangeForm" data-bind="submit: submit">
+                <form data-bind="submit: submit">
                     <fieldset>
                         <legend>Set a new password</legend>
                         <div><input data-bind="value: password" type="password" placeholder="Password" required></div>
@@ -218,7 +224,7 @@
                 </form>
             </div>
 
-            <div class="pages" id="intro_page" data-bind="visible: currentPage() === 'intro_page'">
+            <div class="pages" data-bind="visible: currentPage() === 'intro_page'">
                 <!--Introduction-->
                 <h1>Your Company</h1>
 
@@ -244,7 +250,7 @@
                 </div>
             </div>
 
-            <div class="pages" id="policy_page" data-bind="visible: currentPage() === 'policy_page'">
+            <div class="pages" data-bind="visible: currentPage() === 'policy_page'">
             <!--Policy-->
             <h1>Policy</h1>
 
@@ -591,7 +597,7 @@
             <!--PASSWORD POLICY END-->
             </div>
 
-            <div class="pages" id="incident_page" data-bind="with: incident, visible: currentPage() === 'pasword_change_page'">
+            <div class="pages" data-bind="with: incident, visible: currentPage() === 'pasword_change_page'">
                 <!--Incident-->
 
                 <h1>Incident</h1><br>
@@ -626,9 +632,10 @@
 
             </div>
 
-            <div class="pages" id="profile_page" data-bind="visible: currentPage() === 'profile_page'">
+            <div class="pages" data-bind="visible: currentPage() === 'profile_page'">
 
-                <a class="password_change_page"><button><h4>User Settings</h4></button></a>
+                <a data-bind="click: function(){pageModel.currentPage('password_change_page')}">
+                    <button class="btn">User Settings</button></a>
                 <br>
 
                 <h1>Profile</h1>
