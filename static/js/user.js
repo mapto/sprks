@@ -2,48 +2,8 @@ registerModel = {
     username: ko.observable(''),
     password: ko.observable(''),
     passwordConfirm: ko.observable(''),
-    email: ko.observable('')
-};
-
-loginModel = {
-    username: ko.observable(''),
-    userId: ko.observable(0),
-    password: ko.observable('')
-};
-
-passwordRecoverModel = {
-    username: ko.observable('')
-};
-
-passwordChangeModel = {
-    password: ko.observable(''),
-    passwordConfirm: ko.observable(''),
-    token: ko.observable('')
-};
-
-function check_loggedin() {
-    $.ajax({
-        type: 'POST',
-        url: 'api/user/account',
-        statusCode: {
-            200: function (response) {
-                if (response.success === true) {
-                    loginModel.username(response.username);
-                    loginModel.userId(response.user_id);
-                } else {
-                    loginModel.username('');
-                    loginModel.userId(0);
-                }
-            }
-        }
-    });
-}
-
-$(function () {
-
-
-    $('#registerForm').submit(function (e) {
-        e.preventDefault();
+    email: ko.observable(''),
+    submit: function(){
         if (registerModel.password() === registerModel.passwordConfirm()) {
             $.ajax({
                 type: 'PUT',
@@ -69,10 +29,14 @@ $(function () {
         } else {
             toastr.error("Passwords don't match");
         }
-    });
+    }
+};
 
-    $('#loginForm').submit(function (e) {
-        e.preventDefault();
+loginModel = {
+    username: ko.observable(''),
+    userId: ko.observable(0),
+    password: ko.observable(''),
+    submit: function(){
         $.ajax({
             type: 'POST',
             url: 'api/user/account',
@@ -94,10 +58,12 @@ $(function () {
                 }
             }
         });
-    });
+    }
+};
 
-    $('#passwordRecoveryForm').submit(function (e) {
-        e.preventDefault();
+passwordRecoverModel = {
+    username: ko.observable(''),
+    submit: function(){
         $.ajax({
             type: 'POST',
             url: 'api/user/password/' + passwordRecoverModel.username(),
@@ -113,10 +79,14 @@ $(function () {
                 }
             }
         });
-    });
+    }
+};
 
-    $('#passwordChangeForm').submit(function (e) {
-        e.preventDefault();
+passwordChangeModel = {
+    password: ko.observable(''),
+    passwordConfirm: ko.observable(''),
+    token: ko.observable(''),
+    submit: function(){
         if (passwordChangeModel.password() === passwordChangeModel.passwordConfirm()) {
             $.ajax({
                 type: 'PUT',
@@ -144,7 +114,28 @@ $(function () {
         } else {
             toastr.error("Passwords don't match");
         }
+    }
+};
+
+function check_loggedin() {
+    $.ajax({
+        type: 'POST',
+        url: 'api/user/account',
+        statusCode: {
+            200: function (response) {
+                if (response.success === true) {
+                    loginModel.username(response.username);
+                    loginModel.userId(response.user_id);
+                } else {
+                    loginModel.username('');
+                    loginModel.userId(0);
+                }
+            }
+        }
     });
+}
+
+$(function () {
 
     $('#logout-link').click(function () {
         loginModel.username('');

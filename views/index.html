@@ -148,7 +148,7 @@
             </div>
 
             <div class="pages" id="register_page" data-bind="with: register, visible: currentPage() === 'register_page'">
-                <form id="registerForm">
+                <form id="registerForm" data-bind="submit: submit">
                     <fieldset>
                         <legend>Register</legend>
                         <div class="row-fluid">
@@ -170,7 +170,7 @@
             </div>
 
             <div class="pages" id="login_page" data-bind="with: login, visible: currentPage() === 'login_page'">
-                <form id="loginForm">
+                <form id="loginForm" data-bind="submit: submit">
                     <fieldset>
                         <legend>Login</legend>
                         <div class="row-fluid">
@@ -194,7 +194,7 @@
             </div>
 
              <div class="pages" id="password_recover_page" data-bind="with: passwordRecover, visible: currentPage() === 'password_recover_page'">
-                <form id="passwordRecoveryForm">
+                <form id="passwordRecoveryForm" data-bind="submit: submit">
                     <fieldset>
                         <legend>Password Recovery</legend>
                         <p>You will be emailed a password reset link.</p>
@@ -208,7 +208,7 @@
 
                 <h1>Settings</h1>
 
-                <form id="passwordChangeForm">
+                <form id="passwordChangeForm" data-bind="submit: submit">
                     <fieldset>
                         <legend>Set a new password</legend>
                         <div><input data-bind="value: password" type="password" placeholder="Password" required></div>
