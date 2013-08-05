@@ -61,20 +61,23 @@ function putOnLadder(ladder, step, name) {
     switch (name) {
             case "Best":
                 $("#" + ladder + "_s" + step).text('anonymous (best) ,');
+                $("#" + ladder + "_w" + step).text(format_date(new Date(score["when"])));
                 break;
             case "Contender":
                 $("#" + ladder + "_s" + step).text('anonymous (contender) ,');
+                $("#" + ladder + "_w" + step).text(format_date(new Date(score["when"])));
                 break;
             case "Average":
                 $("#" + ladder + "_s" + step).text('anonymous (average) ,');
                 break;
             default:
                 $("#" + ladder + "_s" + step).text(name+' (player) ,');
+                $("#" + ladder + "_w" + step).text(format_date(new Date(score["when"])));
         }
     $("#" + ladder + "_s" + step+"_v1").text(score["value"]);
     $("#" + ladder + "_s" + step+"_v2").text(score["value_2"]);
     $("#" + ladder + "_r" + step).text(score["rank"]);
-    $("#" + ladder + "_w" + step).text(format_date(new Date(score["when"])));
+
 
 
     //Styling ranking ladder
