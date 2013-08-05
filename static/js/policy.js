@@ -88,6 +88,8 @@ function update_password_form(policy) {
     $("#len" + plen).change();
 
     /*preset pswd sets value*/
+    $("#sets" + 1).prop('checked', true);
+    $("#sets" + 1).change();
     $("#sets" + policy["psets"]).prop('checked', true);
     $("#sets" + policy["psets"]).change();
 
@@ -162,6 +164,10 @@ function updatePolicy(policy) {
     timelineModel.clockSpeed(0);
     timelineModel.currentDate(new Date(policy['date']));
     timelineModel.calendar(policy['calendar']);
+    displayContextualizedPolicy(window.last_found);
+    update_password_form(window.last_found);
+    update_biometric_form(window.last_found);
+    update_passfaces_form(window.last_found);
     updateScoreFrame();
 
     //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
@@ -310,6 +316,25 @@ $('.target').bind("change", function () {
             policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
             //policies_array[attribute] = [];
         }
+        //console.log('test');
+        //console.log(policies_array['employee'][0]);
+        //console.log(policies_array['location']);
+        if (policies_array['location']!= undefined && policies_array['employee']!=undefined && policies_array['device']!=undefined)
+        {
+            if (policies_array['employee'].length!=0 && policies_array['location'].length!=0 && policies_array['device'].length!=0)
+            {
+                 var policy = find_policy(policies_array['employee'][0], policies_array['location'][0], policies_array['device'][0]);
+                 //console.log('')
+                 if(policy != {})
+                 {
+                  //displayContextualizedPolicy(window.last_found);
+                  update_password_form(window.last_found);
+                 update_biometric_form(window.last_found);
+                 update_passfaces_form(window.last_found);}
+             }
+        }
+        //update_password_form(policy);
+       //
     } else if (attribute == 'policy_form') { //if number of used mechanisms is changed
         //console.log($(this).val()+' policies'); //how many policies to be passed
         if (!policies_array.policyDelta) {        //initialize dictionary if doesn't exist
@@ -340,6 +365,24 @@ $('.target').bind("change", function () {
             //policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
         }
     }
-    //console.log(policies_array);
+    console.log('policy updated');
+    console.log(policies_array);
     summarizePolicy(policies_array);
 });
+
+function find_policy(employee, location, device) {
+    var tmp = {};
+    console.log('looking for policy:' + employee + ' ' + location + ' ' + device);
+    $(window.currentPolicy).each(function (policy_ind) {;
+        console.log('current policy');
+        console.log(window.currentPolicy[policy_ind]);
+        if (window.currentPolicy[policy_ind]['employee'] == employee && window.currentPolicy[policy_ind]['location'] == location && window.currentPolicy[policy_ind]['device'] == device)
+        {
+            console.log('policy found');
+            console.log(window.currentPolicy[policy_ind]);
+            tmp = window.currentPolicy[policy_ind];
+            window.last_found = window.currentPolicy[policy_ind];
+            return tmp;
+        }
+    });
+}

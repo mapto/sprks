@@ -67,6 +67,7 @@ function resume() {
             timelineModel.clockSpeed(0);
             timelineModel.currentDate(new Date(policy['date']));
             timelineModel.calendar(policy['calendar']);
+            window.currentPolicy = policy['policy'];
             displayContextualizedPolicy(policy['policy'][0]);
         },
         error: function (response) {
