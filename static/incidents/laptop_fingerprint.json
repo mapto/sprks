@@ -1,0 +1,15 @@
+{"id": 18, "name": "laptop_fingerprint", "type": "general",
+    "context": {
+        "device": ["laptop"]
+    },
+    "policy": {
+        "bdata": 1
+    },
+    "description": "You require employees to use fingerprint scanners on their laptops",
+    "event": "Laptops have these fingerprint scanners built-in",
+    "consequences": "This is quite secure system. The only problem remains when someone looses their fingers",
+    "risk": 0.01,
+    "cost": 0.1,
+    "direct-cost": 0.1,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.2}

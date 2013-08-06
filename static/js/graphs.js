@@ -163,3 +163,131 @@ function display_graphs(graph_id, dps_risk, dps_cost) {
     });
 
 }
+
+var data = [
+    {label: "no restriction" , risk: .99, cost: .01},
+    {label: "min 6 chars" , risk: .6 , cost: .2 },
+    {label: "min 8 chars" , risk: .3 , cost: .3 },
+    {label: "min 10 chars", risk: .3 , cost: .5 },
+    {label: "min 12 chars", risk: .7 , cost: .8 }
+];
+
+function select(i) {
+    d3.select("svg").remove()
+    drawD3chart(data, i);
+}
+
+function clearD3chart() {
+    var vis = d3.select("#myChart").rem
+        .append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+
+}
+
+function drawD3chart(data, selected) {
+    var yLabels = ["very low", "low", "average", "high", "very high"],
+    margin = {top: 10, right: 50, bottom: 30, left: 40},
+    w = 400,
+    h = 200,
+    y = d3.scale.linear().domain([0, 1]).range([0 + margin.bottom, h - margin.top]),
+    x = d3.scale.linear().domain([0, data.length-1]).range([0 + margin.left, w - margin.right]);
+
+    var vis = d3.select("#myChart")
+        .append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+
+    var chart = vis.append("svg:g")
+        .attr("transform", "translate(0, " + h + ")"); // 200 is height
+
+    var riskLine = d3.svg.line()
+        .x(function(d,i) { return x(i); })
+        .y(function(d) { return -1 * y(d.risk); })
+
+    var costLine = d3.svg.line()
+        .x(function(d,i) { return x(i); })
+        .y(function(d) { return -1 * y(d.cost); })
+
+    chart.append("svg:path")
+        .attr("d", riskLine(data))
+        .attr("class", "risk-line");
+
+    chart.append("svg:path")
+        .attr("d", costLine(data))
+        .attr("class", "cost-line");
+
+     chart.selectAll(".cost-node")
+        .data(data)
+        .enter().append("svg:circle")
+        .attr("class", "cost-node")
+        .attr("cx", function(d,i) { return x(i); })
+        .attr("cy", function(d,i) { return -1 * y(d.cost); })
+        .attr("r", function(d,i) { return i == selected ? 6 : 3})
+        .attr("title", function(d,i){ return y(d.risk);})
+        .on("click", function(d,i){ select(i);})
+
+     chart.selectAll(".risk-node")
+        .data(data)
+        .enter().append("svg:circle")
+        .attr("class", "risk-node")
+        .attr("cx", function(d,i) { return x(i); })
+        .attr("cy", function(d,i) { return -1 * y(d.risk); })
+        .attr("r", function(d,i) { return i == selected ? 6 : 3})
+        .attr("title", function(d,i){ y(d.risk);})
+        .on("click", function(d,i){ select(i);})
+
+   // x axis
+    chart.append("svg:line")
+        .attr("x1", x(0))
+        .attr("y1", -1 * y(0))
+        .attr("x2", x(data.length - 1))
+        .attr("y2", -1 * y(0))
+
+    // y axis
+    chart.append("svg:line")
+        .attr("x1", x(0))
+        .attr("y1", -1 * y(0))
+        .attr("x2", x(0))
+        .attr("y2", -1 * y(1))
+
+    chart.selectAll(".xLabel")
+        .data(x.ticks(data.length))
+        .enter().append("svg:text")
+        .attr("class", "xLabel option")
+        .text(function(d) { return data[d].label })
+        .attr("x", function(d) { return x(d) })
+        .attr("y", 0)
+        .attr("text-anchor", "middle")
+        .on("click", function(d,i){ select(i);})
+        .attr("font-weight", function(d,i) { return i == selected ? "bold" : "normal"})
+
+    chart.selectAll(".yLabel")
+        .data(y.ticks(6))
+        .enter().append("svg:text")
+        .attr("class", "yLabel")
+        .text(String)
+        .attr("x", 0)
+        .attr("y", function(d) { return -1 * y(d) })
+        .attr("text-anchor", "right")
+        .attr("dy", 4)
+
+    chart.selectAll(".xTicks")
+        .data(x.ticks(data.length))
+        .enter().append("svg:line")
+        .attr("class", "xTicks")
+        .attr("x1", function(d) { return x(d); })
+        .attr("y1", -1 * y(0))
+        .attr("x2", function(d) { return x(d); })
+        .attr("y2", -1 * y(-0.05))
+
+    chart.selectAll(".yTicks")
+        .data(y.ticks(4))
+        .enter().append("svg:line")
+        .attr("class", "yTicks")
+        .attr("y1", function(d) { return -1 * y(d); })
+        .attr("x1", x(-0.05))
+        .attr("y2", function(d) { return -1 * y(d); })
+        .attr("x2", x(0))
+
+}
