@@ -269,10 +269,10 @@ $("#apply").click(function () {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
         policies_array = {};
-        $("#policy_form")[0].reset();
-        $("#authentication1").remove();
-        $("#authentication2").remove();
-        hide_policies();
+        //$("#policy_form")[0].reset();
+        //$("#authentication1").remove();
+        //$("#authentication2").remove();
+        //hide_policies();
         clear_policy_summary();
         console.log(policyUpdate);
         toastr['info']('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue');
