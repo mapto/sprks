@@ -126,7 +126,8 @@ function update_passfaces_form(policy) {
 
 function displayContextualizedPolicy(contextualized) {
     var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
-
+    console.log('calling displayContex');
+    console.log(contextualized);
     emp = contextualized['employee'];
     $("#" + emp).prop('checked', true);
     $("#" + emp).change();
@@ -145,6 +146,8 @@ function displayContextualizedPolicy(contextualized) {
     $("#aut_num").val(factors.length);
     $("#aut_num").change(); // have to do it manually, previous line doesn't call it
 
+    console.log('reached line');
+    //console.log('length ' + factors.length);
     for (var i = 0; (i < factors.length) && (i < 2); i++) {
         $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
         $("#authentication" + (i+1)).change();
@@ -164,10 +167,10 @@ function updatePolicy(policy) {
     timelineModel.clockSpeed(0);
     timelineModel.currentDate(new Date(policy['date']));
     timelineModel.calendar(policy['calendar']);
-    displayContextualizedPolicy(window.last_found);
-    update_password_form(window.last_found);
-    update_biometric_form(window.last_found);
-    update_passfaces_form(window.last_found);
+    //displayContextualizedPolicy(window.last_found);
+    //update_password_form(window.last_found);
+    //update_biometric_form(window.last_found);
+    //update_passfaces_form(window.last_found);
     updateScoreFrame();
 
     //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
@@ -254,8 +257,13 @@ $("#apply").click(function () {
         || $.isEmptyObject(policies_array.employee)
         || $.isEmptyObject(policies_array.location)
         || $.isEmptyObject(policies_array.device)) {
-        toastr['error']('Failed to apply policy. You have to check at least one of the employees, locations and devices');
-    } else if (!policies_array.policyDelta) {
+        policies_array.employee = ['executives', 'desk', 'road'];
+        policies_array.location = ['office', 'public', 'home'];
+        policies_array.device = ['desktop', 'laptop', 'phone'];
+        //policyUpdate = policyUpdate.concat(policies_array);
+        toastr['info']('You have not chosen any location, employee or device. All options will be selected');
+    }
+    if (!policies_array.policyDelta) {
         toastr['error']('Failed to apply policy. You have not chosen any number of the authentication mechanisms');
     } else {
         policyUpdate = policyUpdate.concat(policies_array);
@@ -329,8 +337,11 @@ $('.target').bind("change", function () {
                  {
                   //displayContextualizedPolicy(window.last_found);
                   update_password_form(window.last_found);
-                 update_biometric_form(window.last_found);
-                 update_passfaces_form(window.last_found);}
+                  update_biometric_form(window.last_found);
+                  update_passfaces_form(window.last_found);
+                      console.log('');
+                  }
+
              }
         }
         //update_password_form(policy);
@@ -365,7 +376,7 @@ $('.target').bind("change", function () {
             //policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
         }
     }
-    console.log('policy updated');
+    console.log('target changed by ' + attribute);
     console.log(policies_array);
     summarizePolicy(policies_array);
 });
