@@ -229,58 +229,6 @@
             <div data-bind="visible: currentPage() === 'intro_page'">
                 <!--Introduction-->
                 <h1>Your Company</h1>
-                <style>
-   path {
-        stroke-width: 2;
-        fill: none;
-    }
-
-    .risk-line {
-        stroke: red;
-    }
-
-    .cost-line {
-        stroke: green;
-    }
-
-    .risk-node {
-        fill: red;
-        cursor: pointer;
-    }
-
-    .cost-node {
-        fill: green;
-        cursor: pointer;
-    }
-
-    line {
-        stroke: black;
-        stroke-width: 1;
-    }
-
-    text {
-        font-family: Arial;
-        font-size: 9pt;
-    }
-
-    .option {
-        cursor: pointer;
-    }
-
-    #myChart {
-        width: 400px;
-        height: 200px;
-    }
-
-                </style>
-                <!--
-                <canvas id="myChart" width="400" height="200"></canvas>
-                -->
-                <div id="myChart"></div>
-<script src="static/js/graphs.js"></script>
-                <script>
-                    drawD3chart(data, 3);
-                </script>
                 <div class="description">
                     <p>Global Sparks is an international energy company, currently headquartered in London, which has begun to expand
                         its operations internationally. In line with this strategy it started buying local electricity suppliers in the

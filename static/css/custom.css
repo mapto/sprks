@@ -744,3 +744,63 @@ label {
 .sum-pwpolicy{
     display:none;
 }
+
+/* D3 style start */
+   path {
+        stroke-width: 2;
+        fill: none;
+   }
+
+   .highlight {
+/*    fill: #99958c;*/
+/*       fill: #a7a7a7;*/
+       fill: lightgrey;
+       display: inline;
+   }
+
+   .buttons {
+       display: none;
+   }
+
+   .risk-line {
+        stroke: red;
+   }
+
+   .cost-line {
+        stroke: green;
+   }
+
+   .risk-node {
+        fill: #c24642;
+        cursor: pointer;
+   }
+
+   .cost-node {
+        fill: #499249;
+        cursor: pointer;
+   }
+
+   line {
+        stroke: black;
+        stroke-width: 1;
+   }
+
+   text {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;;
+        font-size: 10pt;
+   }
+
+   .option {
+        cursor: pointer;
+   }
+
+   .xTicks {
+        stroke: lightgrey;
+   }
+/*
+   #myChart {
+        width: 400px;
+        height: 200px;
+   }
+*/
+/* D3 style end */

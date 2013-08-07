@@ -29,6 +29,7 @@ import controllers.characters
 
 from sim.train_sklearn import train_sklearn
 
+# Create training model file for simulation if doesn't exist.
 train_sklearn().update()
 
 urls = (

@@ -173,7 +173,8 @@ var data = [
 ];
 
 function select(i) {
-    d3.select("svg").remove()
+    d3.select("svg").remove();
+//    console.log("selected " + i);
     drawD3chart(data, i);
 }
 
@@ -184,16 +185,18 @@ function clearD3chart() {
         .attr("height", h)
 
 }
-
-function drawD3chart(data, selected) {
+/*
+function lineChart(root, data, selected) {
     var yLabels = ["very low", "low", "average", "high", "very high"],
     margin = {top: 10, right: 50, bottom: 30, left: 40},
     w = 400,
-    h = 200,
+    h = 300,
     y = d3.scale.linear().domain([0, 1]).range([0 + margin.bottom, h - margin.top]),
-    x = d3.scale.linear().domain([0, data.length-1]).range([0 + margin.left, w - margin.right]);
+    x = d3.scale.linear().domain([0, data.length]).range([0 + margin.left, w - margin.right]);
 
-    var vis = d3.select("#myChart")
+    console.log(selected + " " + x(selected) + " " + y(selected));
+
+    var vis = d3.select(root)
         .append("svg:svg")
         .attr("width", w)
         .attr("height", h)
@@ -208,6 +211,13 @@ function drawD3chart(data, selected) {
     var costLine = d3.svg.line()
         .x(function(d,i) { return x(i); })
         .y(function(d) { return -1 * y(d.cost); })
+
+    chart.append("svg:rect")
+        .attr("x", x(selected) - 40)
+        .attr("y", -1 * (h - margin.top))
+        .attr("width", 80)
+        .attr("height", h - margin.top)
+        .attr("class", "highlight");
 
     chart.append("svg:path")
         .attr("d", riskLine(data))
@@ -290,4 +300,115 @@ function drawD3chart(data, selected) {
         .attr("y2", function(d) { return -1 * y(d); })
         .attr("x2", x(0))
 
+}
+*/
+function drawD3chart(root, data, selection) {
+    barChart(root, data, selection);
+}
+
+function barChart(root, data, selection) {
+    // from: http://hdnrnzk.me/2012/07/04/creating-a-bar-graph-using-d3js/
+//    var scale = ["very low", "low", "average", "high", "very high"],
+    var scale = ["low", "average", "high"];
+    var vis = d3.select(root);
+    var margin = {top: 20, right: 10, bottom: 20, left: 90},
+    items = data.length,
+    w = vis.width,
+    h = vis.height,
+    inner_w = w - margin.left - margin.right,
+    bar_height = (h - margin.top - margin.bottom) / items,
+    y = d3.scale.linear().domain([0, items]).range([0 + margin.top, h - margin.bottom]),
+    x = d3.scale.linear().domain([0, 1]).range([0 + margin.left, w - margin.right]);
+
+    vis.append("svg:svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    var bg = vis.append("svg:g")
+        .attr("class", "background");
+
+    var chart = vis.append("svg:g");
+//        .attr("transform", "translate(100, 10)");
+
+    bg.selectAll(".xTicks")
+        .data(x.ticks(6))
+        .enter().append("svg:line")
+        .attr("class", "xTicks")
+        .attr("x1", function(d,i) {return x(d) ; })
+        .attr("y1", y(0))
+        .attr("x2", function(d,i) { return x(d); })
+        .attr("y2", y(items - 1/3));
+
+    bg.selectAll(".buttons")
+        .data(data)
+        .enter().append("svg:rect")
+        .attr("x", 0)
+        .attr("y", function(d,i) { return y(i) - 4; })
+        .attr("width", w)
+        .attr("height", bar_height)
+        .attr("class", function(d,i) { return i == selection ? "highlight" : "buttons";} )
+        .on("click", function(d,i){ select(i);});
+
+    bg.selectAll(".xLabel")
+        .data(x.ticks(scale.length))
+        .enter().append("svg:text")
+        .attr("class", "xLabel")
+        .text(function(d,i) { return scale[i] })
+        .attr("x", function(d,i) { return x(d) - 5 * (i - 1);}) //i * ((inner_w)/ scale.length) + 25})
+        .attr("y", margin.top / 2)
+        .attr("text-anchor", "middle");
+
+    bg.append("svg:text")
+       .text("risk")
+       .attr("x", x(1/3))
+       .attr("y", h - margin.bottom + 6)
+       .attr("class", "risk-node")
+       .attr("text-anchor", "middle");
+
+    bg.append("svg:text")
+       .text("cost")
+       .attr("x", x(2/3))
+       .attr("y", h - margin.bottom + 6)
+       .attr("class", "cost-node")
+       .attr("text-anchor", "middle");
+
+/*
+    chart.append("svg:rect")
+        .attr("x", 0)
+        .attr("y", y(selection) - 3)
+        .attr("width", w)
+        .attr("height", bar_height)
+        .attr("class", "highlight");
+*/
+    chart.selectAll(".ylabel")
+      .data(data)
+      .enter().append("svg:text")
+      .attr("x", 0 )
+      .attr("y", function(d,i){ return y(i + 1/6); } )
+//      .attr("dx", margin.left * 2/3)
+      .attr("dy", bar_height / 3 )
+      .attr("text-anchor", "start")
+      .text(function(d,i){ return d.label } )
+      .attr("class", "option")
+      .on("click", function(d,i){ select(i);});
+
+    chart.selectAll(".risk-node")
+       .data(data)
+       .enter().append("svg:rect")
+       .attr("x", x(0))
+       .attr("y", function(d, i) { return y(i + 0/3); })
+       .attr("width", function(d) { return x(d.risk) - x(0); })
+       .attr("height", bar_height * 1/3)
+       .attr("class", "risk-node")
+       .on("click", function(d,i){ select(i);});
+
+    chart.selectAll(".cost-node")
+       .data(data)
+       .enter().append("svg:rect")
+       .attr("x", x(0))
+       .attr("y", function(d, i) { return y(i + 1/3); })
+       .attr("width", function(d) { return x(d.cost) - x(0); })
+       .attr("height", bar_height * 1/3)
+       .attr("class", "cost-node")
+       .on("click", function(d,i){ select(i);});
 }
