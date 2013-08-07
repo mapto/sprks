@@ -150,7 +150,8 @@ class policies_model:
         updated_policy = policies_model().parse_policy(policy_update)
         print "done"
         print "getting latest policy from db..."
-        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
+        latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id(), True))
+        print latest_policy
         print "done"
         print "merging policies..."
         merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
