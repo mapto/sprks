@@ -4,6 +4,10 @@ body {
     background-color: #F2F2F2;
 }
 
+a:hover{
+    cursor:pointer;
+}
+
 .navbar-inner {
     background-color: #C10000;
     background-image: -moz-linear-gradient(top, #C10000, #750000);
