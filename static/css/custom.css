@@ -601,12 +601,14 @@ label {
 }
 
 .profileTd_date {
+    vertical-align: top;
     width: 10%;
     padding: 0.5%;
     padding-left: 0.5%;
 }
 
 .profileTh {
+    vertical-align: top;
     font-weight: bold;
 }
 

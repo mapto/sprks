@@ -24,7 +24,7 @@ function summarizePolicy(policy){
                     if (j==='bdata'){
                         if (policy[key][k][j]==='0'){plc.push('policy disabled'); break;}  //let user know that policy is disabled if value of pass data is 0
                     }
-                    plc.push(j+' '+policy[key][k][j]);
+                    plc.push(' '+j+': '+interpret_policy_value(j,policy[key][k][j]));
                 }
                 $("#sum-"+k).text(plc);
                 $('.sum-label').each(function(){                            //iterate through policies labels

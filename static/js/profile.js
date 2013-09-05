@@ -26,7 +26,7 @@ function get_profile() {
             for (var j in policy_history[0]) {
                 var attrName = j; //e.g. pdict
                 if (attrName !== 'date' && attrName !== 'id_policy'  && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk' && attrName !== 'location' && attrName !== 'device' && attrName !== 'employee') { //do not show these fields
-                    var col = $('<td></td>').addClass('profileTd profileTh').text(attrName);
+                    var col = $('<td></td>').addClass('profileTd profileTh').text(interpret_policy_label(attrName));
                     row.append(col);
                 }
             }
@@ -74,7 +74,7 @@ function get_profile() {
 
                     if (attrName !== 'date' && attrName !== 'id_policy' && attrName !== 'id'  && attrName !== 'pw_id'  && attrName !== 'bio_id' && attrName !== 'pass_id' && attrName !== 'user_id' && attrName !== 'cost' && attrName !== 'risk' && attrName !== 'location' && attrName !== 'device' && attrName !== 'employee') { //do not show these fields
                         if (i < 1) { //if it's first row
-                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(attrValue);
+                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(interpret_policy_value(attrName,attrValue));
                             //row [i].append(col[i][attrName]);//add all policy values
                         } //else if (i > 0 && (obj[k] !== prev_obj[k])) { //if it's second row
                         else {
@@ -82,7 +82,7 @@ function get_profile() {
                             //    col[i][attrName] = $('<td></td>').addClass('profileTd '+attrName+i).text('changed from ' + prev_obj[k] + ' to ' + obj[k]);
                             //}else{
 
-                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(obj[k]);
+                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(interpret_policy_value(attrName,obj[k]));
 
                             //}
                             //row [i].append(col[i][attrName]); //add value column only if value have changed

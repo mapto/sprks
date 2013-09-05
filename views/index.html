@@ -350,7 +350,7 @@
 
                 <!--BIOMETRIC POLICY BEGIN-->
                 <div class="policy policy0" id="biometric_policy">
-                  <h4>Biometric</h4>
+                  <h4>Biometric (bdata)</h4>
                   <p class="qn" id="bdata">
                     <select class="target" id="biometric" name="bdata">
                         <option value="0" id="bdata0">none</option>
@@ -364,7 +364,7 @@
 
                 <!--PASSFACES POLICY BEGIN-->
                 <div class="policy policy1" id="passfaces_policy">
-                  <h4>Passfaces/swipe</h4>
+                  <h4>Passfaces/swipe (pdata)</h4>
                   <p class="qn" id="pdata">
                     <select class="target" id="passfaces" name="pdata">
                         <option value="0" id="pdata0">none</option>
@@ -381,7 +381,7 @@
             <h4>Password Policy</h4>
 
             <div class="qn" id="plen">
-                <label><b>Minimum Password Length:</b></label>
+                <label><b>Minimum Password Length (plen):</b></label>
                 <br/>
                 <input type="radio"
                        name="plen"
@@ -420,7 +420,7 @@
             </div>
 
             <div class="qn" id="psets">
-                <label><b>Number of symbol sets that must be used in password:</b></label><br>
+                <label><b>Number of symbol sets that must be used in password (psets):</b></label><br>
                 <input type="radio"
                        name="psets"
                        id="sets1"
@@ -452,7 +452,7 @@
             </div>
 
             <div class="qn" id="pdict">
-                <label><b>Passwords are checked whether they match a dictionary:</b></label><br>
+                <label><b>Passwords are checked whether they match a dictionary (pdict):</b></label><br>
                 <input type='hidden' value='0' name='pdict'> <!-- method for posting unchecked checkboxes-->
                 <input type="checkbox"
                        name="pdict"
@@ -465,7 +465,7 @@
             </div>
 
             <div class="qn" id="phist">
-                <label><b>Password history checking mechanism:</b></label>
+                <label><b>Password history checking mechanism (phist):</b></label>
                 <br/>
                 <input type="radio"
                        name="phist"
@@ -501,7 +501,7 @@
             </div>
 
             <div class="qn" id="prenew">
-                <label><b>When the system asks user to renew passwords:</b></label>
+                <label><b>When the system asks user to renew passwords (prenew):</b></label>
                 <br/>
                 <input type="radio"
                        name="prenew"
@@ -534,7 +534,7 @@
             </div>
 
             <div class="qn" id="pattempts">
-                <label><b>Number of wrong password attempts:</b></label>
+                <label><b>Number of wrong password attempts (pattempts):</b></label>
                 <br/>
                 <input type="radio"
                        name="pattempts"
@@ -561,7 +561,7 @@
             </div>
 
             <div class="qn" id="precovery">
-                <label><b>Password recovery options:</b></label>
+                <label><b>Password recovery options (precovery):</b></label>
                 <br/>
                 <input type="radio"
                        name="precovery"
@@ -761,6 +761,7 @@
 <div id="#background_map"><object  data="static/img/map.svg"></object></div>
 
 <!-- Local scripts loaded here. External libraries loaded in document head -->
+<script src="/static/js/policy_interpretor.js"></script>
 <script src="static/js/timeline.js"></script>
 <script src="static/js/policy_frame.js"></script>
 <script src="static/js/characters.js"></script>
