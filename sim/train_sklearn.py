@@ -8,6 +8,7 @@ import glob
 import csv
 import json
 import os
+from localsys import storage
 from models.company import company
 from models.policies import policies_model as policy_model
 from sim.model_sklearn import model_sklearn
@@ -20,24 +21,33 @@ class train_sklearn:
         for next in self.types:
             if not os.path.exists('static/data/' + next  + '-models-' + sklearn_ver + '.pkl'):
                 self.train(next)
-        self.cleanup()
 
-    def train(self, type="classifier"):
+    def train(self):
         """This is the main method creating the implicit model, based on the provided incidents
            It takes the incidents in static/incidents/*,json as input
            and generates static/data/*-models-*.pkl as output.
            This model is a serialization of the trained/fitted model
            Currently the CSV training set in static/data/train-generated*.csv is a by-product, but is not really needed
         """
-        self.generate_training_set(type)
-        self.generate_models(type)
+        for type in self.types:
+            self.generate_training_set(type)
+            self.generate_models(type)
+
         # database does not need to be generated beforehand.
         # The simulation generates it dynamically (lazy initialization)
-        # self.generate_db()
+        # Still previous database should better be dropped to avoid inconsistencies
+        self.clean()
 
-    def cleanup(self):
+    def clean(self):
+        self.clean_db()
+        self.clean_files()
+
+    def clean_files(self):
         for ref in glob.glob('static/data/train-*.csv'):
             os.remove(ref)
+
+    def clean_db(self):
+        storage.db.query("DELETE FROM `risks` WHERE 1")
 
     def single2plural(self, context):
         """ Weird, but here only one of the 27 contexts is considered,
