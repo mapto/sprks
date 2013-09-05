@@ -246,6 +246,14 @@ class policies_model:
                         else:
                             for key, value in updated_policy[employee][location][device][policy].iteritems():
                                 tmp_policy[employee][location][device][policy][key] = value
+                                if key == 'plen' and value == '0':
+                                    tmp_policy[employee][location][device]['pwpolicy']['psets'] = 1
+                                    tmp_policy[employee][location][device]['pwpolicy']['pdict'] = 0
+                                    tmp_policy[employee][location][device]['pwpolicy']['phist'] = 0
+                                    tmp_policy[employee][location][device]['pwpolicy']['prenew'] = 0
+                                    tmp_policy[employee][location][device]['pwpolicy']['pattempts'] = 0
+                                    tmp_policy[employee][location][device]['pwpolicy']['precovery'] = 0
+                                    break
         return tmp_policy
 
     def nested_obj_to_list_of_dict(self, policies):

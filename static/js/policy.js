@@ -306,6 +306,11 @@ $('.aut').change(function(){ //if one of the names of mechanism to be used was c
 function null_unused_policy(policy){
      policies_array.policyDelta[policy]={};
      $('#sum-'+policy).text('');
+     if($('#aut_num').val()=='0'){
+        policies_array.policyDelta.pwpolicy.plen= '0';
+        policies_array.policyDelta.biometric.bdata= '0';
+        policies_array.policyDelta.passfaces.pdata= '0';
+     }
 }
 
 
