@@ -168,10 +168,10 @@ label {
 }
 
 .disabled_controls a{
-    background-color: #c0c0c0;
+    background-color: #e6e1cb;
 }
 .disabled_controls a:hover{
-    background-color: #c0c0c0;
+    background-color: #e6e1cb;
     cursor:default;
 }
 
