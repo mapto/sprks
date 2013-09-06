@@ -41,6 +41,9 @@ $(function(){
                 clearProfile();
                 get_profile();
                 break;
+            case 'policy_page':
+                submitAlternativesRequest();
+                break;
             case 'score_page':
                 initScore();
                 break;

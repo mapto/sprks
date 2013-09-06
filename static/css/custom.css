@@ -625,7 +625,7 @@ label {
 .qn {
     float: left;
     width: 65%;
-    height: 150px;
+/*    height: 150px;*/
     text-align: left;
 }
 
@@ -668,7 +668,7 @@ label {
 }
 
 #biometric {
-    width: 15%;
+    width: 25%;
 }
 
 .company {
@@ -678,12 +678,14 @@ label {
     float: left;
 }
 
+/* The apply button in the policy page */
 #apply {
     display: inline-block;
-    width: 15%;
+    width: 20%;
     height: 40px;
     margin: 1%;
     margin-left: 0;
+    margin-right: 80%;
 }
 
 /*********SPA********************************************************/
@@ -811,9 +813,3 @@ label {
 */
 /* D3 style end */
 
-/* The apply button in the policy page */
-#apply {
-    width: 20%;
-    margin-left: 40%;
-    margin-right: 40%;
-}

@@ -179,7 +179,7 @@ function select(i) {
 }
 
 function clearD3chart() {
-    var vis = d3.select("#myChart").rem
+    var vis = d3.select("#myChart").remove()
         .append("svg:svg")
         .attr("width", w)
         .attr("height", h)

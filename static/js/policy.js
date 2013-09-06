@@ -278,7 +278,7 @@ $("#apply").click(function () {
         toastr['info']('Policy saved. All the changes will be applied in the end of the month. Once you have finished updating the policies, please press the play button to continue');
     }
 
-    //submitAlternativesRequest();
+    submitAlternativesRequest();
 
 });
 
