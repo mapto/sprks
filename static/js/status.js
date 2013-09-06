@@ -23,9 +23,11 @@ statusModel = {
 function statusUpdating() {
     statusModel.imagePath('static/img/ajax-loader.gif');
     statusModel.statusMessage('Synchronising with server...')
+    $(".time_controls").addClass('disabled_controls');
 }
 
 function statusReady() {
     statusModel.imagePath('static/img/check.png');
     statusModel.statusMessage('Synchronization complete. Ready.')
+    $(".time_controls").removeClass('disabled_controls');
 }

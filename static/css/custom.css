@@ -167,6 +167,14 @@ label {
     background-color: #99958c;
 }
 
+.disabled_controls a{
+    background-color: #c0c0c0;
+}
+.disabled_controls a:hover{
+    background-color: #c0c0c0;
+    cursor:default;
+}
+
 .score-value {
     font-size: x-large;
     font-weight: bolder;

@@ -91,18 +91,23 @@ $(function () {
 
     timelineModel.clockSpeed.subscribe(function (clockSpeed) {
         $('.target').attr('disabled', 'disabled');
-        switch (clockSpeed) {
-            case 0:
-                $('.target').removeAttr('disabled');
-                clearInterval(timelineModel.clock());
-                break;
-            case 1:
-                startClock(3000);
-                break;
-            case 2:
-                startClock(500);
-                break;
+        if(statusModel.imagePath()=='static/img/check.png'){
+                switch (clockSpeed) {
+                case 0:
+                    $('.target').removeAttr('disabled');
+                    clearInterval(timelineModel.clock());
+                    break;
+                case 1:
+                    startClock(3000);
+                    break;
+                case 2:
+                    startClock(500);
+                    break;
+                }
+        }else{
+            toastr.warning('Synchronisation in process!')
         }
+
     });
 
     timelineModel.currentDate.subscribe(function (currentDate) {
