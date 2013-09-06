@@ -177,12 +177,29 @@ class records:
 
         return corrected_sync_date, event_accept
 
-    def recent_events(self, sync_date, weeks=5):
+    def get_recent_events(self):
+        return self.__recent_events()
+
+    def __recent_events(self):
         """
-        Returns dictionary of recent events for current user, going backwords from specified sync_date.
-        Default timespan is 5 weeks.
+        Returns the latest event for current user, ordering them by date and choosing the committed events only.
         """
-        # TODO currently just a stub
-        cutoff_date = sync_date - timedelta(days=weeks*7)
-        # perform query selecting only `date` and `incident_id`
-        return {}
+
+        events_list = []
+        #restrict to events which have already happened
+        restrict_committed = 'AND journal.committed=1 '
+        #restrict to the latest event
+        restrict_latest = 'LIMIT 20'
+
+        result = db.query(
+            'SELECT * FROM journal '
+            'WHERE journal.user_id=$self.user_id ' + restrict_committed +
+            'ORDER BY journal.date DESC ' + restrict_latest, vars=locals())
+
+        for row in result:
+            tmp = {}
+            for key, value in row.iteritems():
+                tmp[key] = str(value)
+            events_list.append(tmp)
+        return events_list
+

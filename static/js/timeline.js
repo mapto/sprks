@@ -69,6 +69,7 @@ function resume() {
             timelineModel.calendar(policy['calendar']);
             window.currentPolicy = policy['policy'];
             displayContextualizedPolicy(policy['policy'][0]);
+            get_recent_events();
         },
         error: function (response) {
             console.log("fail: " + response.responseText);

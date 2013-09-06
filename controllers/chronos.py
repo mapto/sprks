@@ -83,3 +83,14 @@ class resume_game:
         }
 
         return json.dumps(response)
+
+class recent_events:
+    def GET(self):
+        journal = records(context.user_id())
+        result = journal.get_recent_events()
+
+        #return only one (latest) happened event from the array of recent events
+        try:
+            return json.dumps(result[0])
+        except:
+            return json.dumps(result)

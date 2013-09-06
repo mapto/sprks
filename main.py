@@ -50,7 +50,8 @@ urls = (
     storage.path + '/api/score', controllers.score.score_rest,
     storage.path + '/api/incident/(.+)', controllers.incident.incident_rest,
     storage.path + '/api/incident', controllers.incident.incident_rest,
-    storage.path + '/api/history', controllers.policy_history.history_rest
+    storage.path + '/api/history', controllers.policy_history.history_rest,
+    storage.path + '/api/recent_events', controllers.chronos.recent_events
 )
 
 app = web.application(urls, globals(), autoreload=False)

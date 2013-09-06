@@ -292,6 +292,7 @@ label {
 }
 
 #menu {
+    z-index:2000;
     position: fixed;
     left: 11px;
     top: 64px;
