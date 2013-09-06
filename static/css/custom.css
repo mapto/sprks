@@ -810,3 +810,10 @@ label {
    }
 */
 /* D3 style end */
+
+/* The apply button in the policy page */
+#apply {
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}

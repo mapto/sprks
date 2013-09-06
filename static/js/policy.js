@@ -275,7 +275,7 @@ $("#apply").click(function () {
         //hide_policies();
         clear_policy_summary();
         console.log(policyUpdate);
-        toastr['info']('Policy saved. All the changes will be applied in the end of the term. Once you have finished updating the policies, please press the play button to continue');
+        toastr['info']('Policy saved. All the changes will be applied in the end of the month. Once you have finished updating the policies, please press the play button to continue');
     }
 
     //submitAlternativesRequest();
