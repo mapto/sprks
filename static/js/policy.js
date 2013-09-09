@@ -179,7 +179,10 @@ function updatePolicy(policy) {
 }
 
 //3 different authentication mechanisms
-$('#aut_num').change(function(){
+    $('#aut_num').change(autNumChangeFunction);
+
+
+    function autNumChangeFunction(){
     $("#authentication1").remove();
     $("#authentication2").remove();
     hide_policies();
@@ -191,7 +194,7 @@ $('#aut_num').change(function(){
                    'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
 
-    for (var i = 0; i < this.value; i++) {  // use i+1, because indices in form start from 1
+    for (var i = 0; i < $('#aut_num').val(); i++) {  // use i+1, because indices in form start from 1
         var s = $("<select class=\"target\" id=\"authentication" + (i+1) + "\" name=\"authentication" + (i+1) + "\" />");
 
         // Was previously for(var val in options)
@@ -208,7 +211,7 @@ $('#aut_num').change(function(){
         //create second options set
     }
 
-});
+};
 $(".aut").change(function(){
     if($('#aut_num').val()==2 && ($('#authentication1').val()==$('#authentication2').val())){ //ensure distinct selected options
         hide_policies();
@@ -353,15 +356,21 @@ $('.target').bind("change", function () {
                   update_biometric_form(window.last_found);
                   update_passfaces_form(window.last_found);
                       console.log('');
-
-                      hide_policies();
+                      //piece of code for displaying the correspondong number and names of mechanisms
+                      //accompanied with options for them
                       var mechanisms = get_factors(window.last_found);
+                      var mechanisms_names = {"biometric": 0, "passfaces": 1, "password": 2};
+                      $("#aut_num").val(mechanisms.length);
+                      autNumChangeFunction();
+                      for (var i = 0; (i < mechanisms.length) && (i < 2); i++) {
+                            $("#authentication" + (i+1)).val(mechanisms_names[mechanisms[i]]);
+                      }
+                      hide_policies();
                       for (var k in mechanisms){
                             $('#'+mechanisms[k]+'_policy').show();    //display only active policies for the current combination of emp-dev-locn
                       }
-
+                      //////////ended
                   }
-
              }
         }
         //update_password_form(policy);
