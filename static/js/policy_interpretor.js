@@ -130,6 +130,8 @@ function interpret_policy_value(label,value){
                     return 'secret qn';
                 case '2':
                     return 'transaction qn';
+                case '3':
+                    return 'not applicable';
                 default:
                     return 'undefined';
             }
