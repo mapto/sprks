@@ -353,6 +353,13 @@ $('.target').bind("change", function () {
                   update_biometric_form(window.last_found);
                   update_passfaces_form(window.last_found);
                       console.log('');
+
+                      hide_policies();
+                      var mechanisms = get_factors(window.last_found);
+                      for (var k in mechanisms){
+                            $('#'+mechanisms[k]+'_policy').show();    //display only active policies for the current combination of emp-dev-locn
+                      }
+
                   }
 
              }
