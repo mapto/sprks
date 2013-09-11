@@ -12,7 +12,10 @@ charactersModel = {
     interviewee3DeviceImage: ko.observable('static/img/phone.png'),
     quote1: ko.observable(''),
     quote2: ko.observable(''),
-    quote3: ko.observable('')
+    quote3: ko.observable(''),
+    interviewee1Location: ko.observable(''),
+    interviewee2Location: ko.observable(''),
+    interviewee3Location: ko.observable('')
 };
 
 var coordinates = {};
@@ -65,6 +68,8 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
             $.each(data, function (key, value) {
                 placeAt(key, value[0]);       //e.g.: placeAt('interviewee2', 'office');
                 giveDevice(key, value[1]);    //e.g.: giveDevice('interviewee1, 'phone');
+                //TODO there should the quotes of characters be updated depending on type, current locn & device
+                charactersModel[key + 'Location'](value[0]);
             });
         },
         error: function (response) {
