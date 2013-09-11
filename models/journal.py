@@ -182,14 +182,15 @@ class records:
 
     def __recent_events(self):
         """
-        Returns the latest event for current user, ordering them by date and choosing the committed events only.
+        Returns the latest events for current user, ordering them by date and choosing the committed events only.
         """
 
         events_list = []
         #restrict to events which have already happened
         restrict_committed = 'AND journal.committed=1 '
-        #restrict to the latest event
-        restrict_latest = 'LIMIT 20'
+        #restrict to the latest events
+        #assuming that max 1 event/day can happen and there are max 31 days in 1 month
+        restrict_latest = 'LIMIT 31'
 
         result = db.query(
             'SELECT * FROM journal '

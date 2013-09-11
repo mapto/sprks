@@ -89,8 +89,5 @@ class recent_events:
         journal = records(context.user_id())
         result = journal.get_recent_events()
 
-        #return only one (latest) happened event from the array of recent events
-        try:
-            return json.dumps(result[0])
-        except:
-            return json.dumps(result)
+        #return at most 31 latest happened events from the journal table
+        return json.dumps(result)
