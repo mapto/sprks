@@ -18,14 +18,13 @@ function getIncidentDetails(incident_id) {
         type: "GET",
         success: function (incident) {
             statusReady();
-
-            incidentModel.incidentDate(new Date(timelineModel.currentDate()));
             incidentModel.description(incident.description);
             incidentModel.event(incident.event);
             incidentModel.consequences(incident.consequences);
             incidentModel.riskType(incident.type);
             incidentModel.risk(incident.risk);
 
+            //should be handled by characters script depending on combination of employee type, location and device
             charactersModel.quote1(incident.description);
             charactersModel.quote2(incident.description);
             charactersModel.quote3(incident.description);
@@ -39,6 +38,7 @@ function getIncidentDetails(incident_id) {
 function displayEvent(incident){
     // Handles trigger for when certain event occurs.
     getIncidentDetails(incident.incdt_id);
+    incidentModel.incidentDate(new Date(timelineModel.currentDate()));
     incidentModel.monetaryCost(incident.cost);
     incidentModel.employee(incident.employee);
     incidentModel.location(incident.location);
@@ -57,80 +57,29 @@ function get_recent_events(){
             if(events.length>2){
                 events = JSON.parse(events);
                 var event = events[0];
-
-                //request for handling the incident page resuming on login
-                $.ajax({
-                url: "api/incident/"+event.incident_id,
-                type: "GET",
-                success: function (incident) {
-                    statusReady();
-                    incidentModel.incidentDate(new Date(event.date));
-                    incidentModel.description(incident.description);
-                    incidentModel.event(incident.event);
-                    incidentModel.consequences(incident.consequences);
-                    incidentModel.riskType(incident.type);
-                    incidentModel.risk(incident.risk);
-
-                    incidentModel.monetaryCost(event.cost);
-                    incidentModel.employee(event.employee);
-                    incidentModel.location(event.location);
-                    incidentModel.device(event.device);
-
-                    charactersModel.quote1(incident.description); //executive
-                    charactersModel.quote2(incident.description); //road
-                    charactersModel.quote3(incident.description); //desk
-                },
-                error: function (response) {
-                    console.log("fail: " + response.responseText);
-                }
-                });
-
-                //assign quotes to characters from a range of events depending on a kind of employee, its location, device
-                    var charSet= ['executives','desk','road'];
-                    var flag = {};flag.executives = 0;flag.road = 0;flag.desk = 0; //flag for allowing only a unique initialisation of a quote
-                    for (var k in events){
-                        for (var j in charSet){
-                            var i = parseFloat(j)+1;
-                            //assign event for each character's quote
-                            if((flag[charSet[j]]<1) && (events[k].employee==charSet[j])){
-                               if(events[k].device + '.png'== (charactersModel['interviewee'+i+ 'DeviceImage']()).replace("static/img/","") ){
-                                   if(events[k].location == charactersModel['interviewee'+i+ 'Location']()){
-                                        $.ajax({
-                                        url: "api/incident/"+events[k].incident_id,
-                                        type: "GET",
-                                        success: function (incidnt) {
-                                            incidentModel.description(incidnt.description);
-                                            charactersModel['quote'+i](incidnt.description); //executive, road or desk
-                                        },
-                                        error: function (response) {
-                                            console.log("fail: " + response.responseText);
-                                        }
-                                        });
-                                       
-                                        flag[charSet[j]]=1;
-                                   }
-                               }
-                            }
-                        }
-                    }
-                //////end of characters handling event
+                incidentModel.incidentDate(new Date(event.date));
+                incidentModel.monetaryCost(event.cost);
+                incidentModel.employee(event.employee);
+                incidentModel.location(event.location);
+                incidentModel.device(event.device);
+                getIncidentDetails(event.incident_id);
 
             }else{
                 statusReady();
-                    incidentModel.incidentDate('');
-                    incidentModel.description('');
-                    incidentModel.event('');
-                    incidentModel.consequences('');
-                    incidentModel.riskType('');
-                    incidentModel.risk('');
-                    incidentModel.monetaryCost('');
-                    incidentModel.employee('');
-                    incidentModel.location('');
-                    incidentModel.device('');
+                incidentModel.incidentDate('');
+                incidentModel.description('');
+                incidentModel.event('');
+                incidentModel.consequences('');
+                incidentModel.riskType('');
+                incidentModel.risk('');
+                incidentModel.monetaryCost('');
+                incidentModel.employee('');
+                incidentModel.location('');
+                incidentModel.device('');
 
-                    charactersModel.quote1(quotes[0]);
-                    charactersModel.quote2(quotes[1]);
-                    charactersModel.quote3(quotes[2]);
+                charactersModel.quote1(quotes[0]);
+                charactersModel.quote2(quotes[1]);
+                charactersModel.quote3(quotes[2]);
             }
         },
         error: function (response) {

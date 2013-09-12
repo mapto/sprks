@@ -68,8 +68,35 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
             $.each(data, function (key, value) {
                 placeAt(key, value[0]);       //e.g.: placeAt('interviewee2', 'office');
                 giveDevice(key, value[1]);    //e.g.: giveDevice('interviewee1, 'phone');
-                //TODO there should the quotes of characters be updated depending on type, current locn & device
-                charactersModel[key + 'Location'](value[0]);
+                charactersModel[key + 'Location'](value[0]); //e.g. charactersModel.interviewee1Location(office)
+
+                var charSet= ['executives','desk','road'];
+                for (var k in timelineModel.calendar()){
+                    var event = timelineModel.calendar()[k]['events'];
+                    for (var ev in event){
+                        for (var em in charSet){
+                            var i = parseFloat(em)+1;
+                            //assign event for each character's quote from the calendar
+                            if((event[ev].employee==charSet[em])){
+                               if(event[ev].device + '.png'== (charactersModel['interviewee'+i+ 'DeviceImage']()).replace("static/img/","") ){
+                                   if(event[ev].location == charactersModel['interviewee'+i+ 'Location']()){
+                                        $.ajax({
+                                        url: "api/incident/"+event[ev].incdt_id,
+                                        type: "GET",
+                                        success: function (incidnt) {
+                                            charactersModel['quote'+i](incidnt.description); //executive, road or desk
+                                            $('#interviewee'+i).click();
+                                        },
+                                        error: function (response) {
+                                            console.log("fail: " + response.responseText);
+                                        }
+                                        });
+                                   }
+                               }
+                            }
+                        }
+                    }
+                }
             });
         },
         error: function (response) {
