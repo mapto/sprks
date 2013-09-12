@@ -1,4 +1,4 @@
-{"id": 18, "name": "laptop_fingerprint", "type": "general",
+{"id": 18, "name": "laptop_fingerprint", "type": "stolen",
     "context": {
         "device": ["laptop"]
     },
@@ -6,9 +6,9 @@
         "bdata": 1
     },
     "description": "You require employees to use fingerprint scanners on their laptops",
-    "event": "Laptops have these fingerprint scanners built-in",
-    "consequences": "This is quite secure system. The only problem remains when someone looses their fingers",
-    "risk": 0.01,
+    "event": "While difficult to hack, fingerprints are surprisingly easy to take off, mold and cast.",
+    "consequences": "It becomes a matter of someone with the right skills to get sufficiently motivated to attack your company",
+    "risk": 0.65,
     "cost": 0.1,
     "direct-cost": 0.1,
     "risk-modifier": -0.01,

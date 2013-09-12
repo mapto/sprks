@@ -12,6 +12,14 @@ class pw_policy_model:
               "pattempts": [0, 1, 2],
               "precovery": [0, 1, 2]}
 
+    bounds = {"plen": [0, 6, 12], # 0 means disabled
+              "psets": [1, 4],
+              "pdict": [0, 1], # categorical, thus same as range
+              "phist": [1, 4],
+              "prenew": [0, 3],
+              "pattempts": [0, 1, 2], # categorical, thus same as range
+              "precovery": [0, 1, 2]} # categorical, thus same as range
+
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
                "precovery": 1}

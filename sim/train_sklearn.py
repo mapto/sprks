@@ -22,21 +22,20 @@ class train_sklearn:
             if not os.path.exists('static/data/' + next  + '-models-' + sklearn_ver + '.pkl'):
                 self.train(next)
 
-    def train(self):
+    def train(self, type = "classifier"):
         """This is the main method creating the implicit model, based on the provided incidents
            It takes the incidents in static/incidents/*,json as input
            and generates static/data/*-models-*.pkl as output.
            This model is a serialization of the trained/fitted model
            Currently the CSV training set in static/data/train-generated*.csv is a by-product, but is not really needed
         """
-        for type in self.types:
-            self.generate_training_set(type)
-            self.generate_models(type)
+        self.generate_training_set(type)
+        self.generate_models(type)
 
         # database does not need to be generated beforehand.
         # The simulation generates it dynamically (lazy initialization)
         # Still previous database should better be dropped to avoid inconsistencies
-        self.clean()
+        # self.clean()
 
     def clean(self):
         self.clean_db()
@@ -171,9 +170,7 @@ class train_sklearn:
         csv_name = 'static/data/train-' + type + '-' + tail + '.csv'
         print csv_name
         writer = csv.writer(open(csv_name, 'w'))
-        for row in entries[risk]:
-            print row
-            writer.writerow(row)
+        writer.writerows(entries[risk])
 
     def enum_samples(self, partial_policy = {}, start_index = 0):
         """
@@ -184,14 +181,14 @@ class train_sklearn:
         :start_index: Used to manage progress to avoid repetitions
         """
         list = [] # policies
-        indexedOptions = policy_model.get_ranges().keys()
+        indexedOptions = policy_model.get_bounds().keys()
 
         for i in range(start_index, len(indexedOptions)): # search for first
             policy = indexedOptions[i]
 
         # for policy in indexedOptions:
             if not policy in partial_policy:
-                for value in policy_model.get_ranges()[policy]:
+                for value in policy_model.get_bounds()[policy]:
                     new_partial = partial_policy.copy()
                     new_partial[policy] = value
                     complete_new = self.enum_samples(new_partial, start_index=i)
@@ -286,5 +283,7 @@ if __name__ == "__main__":
     """
     # print train_sklearn().enum_policy_contexts()
     # train_sklearn().generate_db()
-    train_sklearn().train()
+    model = train_sklearn()
+    model.train("classifier")
+    model.train("regression")
     #train_sklearn().cleanup()
