@@ -219,6 +219,7 @@ $(".aut").change(function(){
     }else{
         display_policies();
     }
+    submitAlternativesRequest();
 })
 
 function display_policies(){ //display selected policies only
