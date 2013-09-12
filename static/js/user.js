@@ -147,6 +147,7 @@ $(function () {
             url: '/?action=logout',
             statusCode: {
                 200: function () {
+                    resetPolicyForm();
                     loginModel.username('');
                     loginModel.userId(0);
                 }

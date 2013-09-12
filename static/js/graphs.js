@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 function submitAlternativesRequest() {
+    statusUpdating();
     var msgs = {'context': {'employees': [], 'locations': [], 'devices': []}, 'data': []};
     var new_policy = {};
     var msg = {};
@@ -72,6 +73,7 @@ function submitAlternativesRequest() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (policy_costs_risks) {
+            statusReady();
             initialize_graphs(policy_costs_risks);
         },
         error: function (response) {
@@ -136,8 +138,9 @@ function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdi
 }
 
 function display_graphs(graph_id, dps_risk, dps_cost) {
-
-
+    $('.graph').each(function(){
+        $('#'+this.getAttribute('id')).empty();
+    });
     $(".qn").each(function (i) {
 
 

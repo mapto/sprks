@@ -253,7 +253,15 @@ $(function(){
     $('#precovery').buttonset();
 })
 
-
+function resetPolicyForm(){
+        policies_array = {};
+        $("#policy_form")[0].reset();
+        $("#authentication1").remove();
+        $("#authentication2").remove();
+        hide_policies();
+        clear_policy_summary();
+        $('#chartContainer').empty();
+}
 //write policyUpdate array on apply btn press
 $("#apply").click(function () {
     if (!policies_array.employee || !policies_array.location || !policies_array.device //if no employee/locn/device
@@ -271,18 +279,10 @@ $("#apply").click(function () {
     } else {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
-        policies_array = {};
-        //$("#policy_form")[0].reset();
-        //$("#authentication1").remove();
-        //$("#authentication2").remove();
-        //hide_policies();
-        clear_policy_summary();
+        resetPolicyForm();
         console.log(policyUpdate);
         toastr['info']('Policy saved. All the changes will be applied in the end of the month. Once you have finished updating the policies, please press the play button to continue');
     }
-
-    submitAlternativesRequest();
-
 });
 
 
@@ -408,6 +408,7 @@ $('.target').bind("change", function () {
     console.log('target changed by ' + attribute);
     console.log(policies_array);
     summarizePolicy(policies_array);
+    submitAlternativesRequest();
 });
 
 function find_policy(employee, location, device) {
