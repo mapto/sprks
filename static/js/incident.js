@@ -58,37 +58,6 @@ function get_recent_events(){
                 events = JSON.parse(events);
                 var event = events[0];
 
-                //TODO assign quotes to characters from a range of events depending on a kind of employee, its location, device
-                    //now the latest happened event is assigned to all employees no matter of their type, location or device
-                    //assign event for a character1's quote
-                    var charSet= ['executives','desk','road'];
-                    var flag = {};flag.executives = 0;flag.road = 0;flag.desk = 0; //flag for allowing only a unique initialisation of a quote
-                    for (var k in events){
-                        console.log(events[k]);
-                        for (var j in charSet){
-                            var i = parseFloat(j)+1;
-                            //assign event for each character's quote
-                            if((flag[charSet[j]]<1) && (events[k].employee==charSet[j])){
-                               if(events[k].device + '.png'== (charactersModel['interviewee'+i+ 'DeviceImage']()).replace("static/img/","") ){
-                                   if(events[k].location == charactersModel['interviewee'+i+ 'Location']()){
-                                        $.ajax({
-                                        url: "api/incident/"+events[k].incident_id,
-                                        type: "GET",
-                                        success: function (incidnt) {
-                                            incidentModel.description(incidnt.description);
-                                            charactersModel['quote'+i](incidnt.description); //executive, road or desk
-                                        },
-                                        error: function (response) {
-                                            console.log("fail: " + response.responseText);
-                                        }
-                                        });
-                                   }
-                               }
-                            }
-                        }
-                    }
-                //////end of characters handling event
-
                 //request for handling the incident page resuming on login
                 $.ajax({
                 url: "api/incident/"+event.incident_id,
@@ -107,7 +76,6 @@ function get_recent_events(){
                     incidentModel.location(event.location);
                     incidentModel.device(event.device);
 
-                    //these 3 lines to be removed once the quotes proper assignment (above) is implemented
                     charactersModel.quote1(incident.description); //executive
                     charactersModel.quote2(incident.description); //road
                     charactersModel.quote3(incident.description); //desk
@@ -116,6 +84,36 @@ function get_recent_events(){
                     console.log("fail: " + response.responseText);
                 }
                 });
+
+                //assign quotes to characters from a range of events depending on a kind of employee, its location, device
+                    var charSet= ['executives','desk','road'];
+                    var flag = {};flag.executives = 0;flag.road = 0;flag.desk = 0; //flag for allowing only a unique initialisation of a quote
+                    for (var k in events){
+                        for (var j in charSet){
+                            var i = parseFloat(j)+1;
+                            //assign event for each character's quote
+                            if((flag[charSet[j]]<1) && (events[k].employee==charSet[j])){
+                               if(events[k].device + '.png'== (charactersModel['interviewee'+i+ 'DeviceImage']()).replace("static/img/","") ){
+                                   if(events[k].location == charactersModel['interviewee'+i+ 'Location']()){
+                                        $.ajax({
+                                        url: "api/incident/"+events[k].incident_id,
+                                        type: "GET",
+                                        success: function (incidnt) {
+                                            incidentModel.description(incidnt.description);
+                                            charactersModel['quote'+i](incidnt.description); //executive, road or desk
+                                        },
+                                        error: function (response) {
+                                            console.log("fail: " + response.responseText);
+                                        }
+                                        });
+                                       
+                                        flag[charSet[j]]=1;
+                                   }
+                               }
+                            }
+                        }
+                    }
+                //////end of characters handling event
 
             }else{
                 statusReady();
