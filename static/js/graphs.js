@@ -77,6 +77,7 @@ function submitAlternativesRequest() {
             initialize_graphs(policy_costs_risks);
         },
         error: function (response) {
+            statusReady();
             console.log("fail: " + response.responseText);
         }
     });
