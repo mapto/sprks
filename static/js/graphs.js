@@ -5,6 +5,7 @@
  * Time: 13:25
  * To change this template use File | Settings | File Templates.
  */
+var requests = [];
 function submitAlternativesRequest() {
     statusUpdating();
     var msgs = {'context': {'employees': [], 'locations': [], 'devices': []}, 'data': []};
@@ -65,6 +66,12 @@ function submitAlternativesRequest() {
     });
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
     // console.log(msgs.concat(get_range(new_policy, "plen")));
+
+    //cancel any pending multiple/score requests before sending a new one
+    for(var i = 0; i < requests.length; i++){
+        requests[i].abort();
+    }
+
     var request = $.ajax({
         url: "/score/multiple",
         type: "POST",
@@ -81,6 +88,11 @@ function submitAlternativesRequest() {
             console.log("fail: " + response.responseText);
         }
     });
+    //introduced an array of multiple/score requests
+    //so that before te new one is sent,
+    //all the rest, which are pending, would be aborted
+    requests.push(request);
+
     return false;
 
 }
