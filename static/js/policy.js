@@ -262,6 +262,9 @@ function resetPolicyForm(){
         hide_policies();
         clear_policy_summary();
         $('#chartContainer').empty();
+        for(var i = 0; i < requests.length; i++){
+            requests[i].abort();
+        }
 }
 //write policyUpdate array on apply btn press
 $("#apply").click(function () {
@@ -319,9 +322,13 @@ function null_unused_policy(policy){
 
      $('#sum-'+policy).text('');
      if($('#aut_num').val()=='0'){
-        policies_array.policyDelta.pwpolicy.plen= '0';
-        policies_array.policyDelta.biometric.bdata= '0';
-        policies_array.policyDelta.passfaces.pdata= '0';
+        if(!policies_array.policyDelta){policies_array.policyDelta = {};}
+        if(!policies_array.policyDelta.pwpolicy){policies_array.policyDelta.pwpolicy = {};}
+        if(!policies_array.policyDelta.biometric){policies_array.policyDelta.biometric = {};}
+        if(!policies_array.policyDelta.passfaces){policies_array.policyDelta.passfaces = {};}
+        policies_array.policyDelta.pwpolicy.plen = '0';
+        policies_array.policyDelta.biometric.bdata = '0';
+        policies_array.policyDelta.passfaces.pdata = '0';
      }
 }
 
