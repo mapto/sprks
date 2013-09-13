@@ -42,7 +42,7 @@ $(function(){
                 get_profile();
                 break;
             case 'policy_page':
-                submitAlternativesRequest();
+                //submitAlternativesRequest(); //commented out, as it is called anyways by retrieving of the stored policy
                 break;
             case 'score_page':
                 initScore();
