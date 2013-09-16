@@ -171,6 +171,7 @@ function updatePolicy(policy) {
     //update_password_form(window.last_found);
     //update_biometric_form(window.last_found);
     //update_passfaces_form(window.last_found);
+    resume();
     updateScoreFrame();
 
     //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
