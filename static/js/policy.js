@@ -1,51 +1,6 @@
 /*wait until document is loaded*/
-//TODO need to fix how pdict for pwpolicy is passed/received from server; then check if summarizePolicy works
-
 var pwpolicy;
 
-/* attempt to move to knockout, in process
-policyModel = {
-    aut_num_optionValues : ["0", "1", "2"],
-    aut_num_selectedOptionValue : ko.observable("0"),
-    aut_num1_optionValues : ["none", "biometric", "passfaces", "password"],
-    aut_num1_selectedOptionValue : ko.observable("none"),
-    aut_num2_optionValues : ["none", "biometric", "passfaces", "password"],
-    aut_num2_selectedOptionValue : ko.observable("none"),
-    employee_SelectedOptionValue : ko.observable(),
-    aut_num_function: function(option) {
-           if(option=='0'){
-                $("#aut_num1").hide();
-                $("#aut_num2").hide();
-                policyModel.aut_num1_selectedOptionValue("none");
-                policyModel.aut_num2_selectedOptionValue("none");
-                hide_policies();
-                //remove all options
-           }else if(option=='1'){
-                $("#aut_num1").show();
-                $("#aut_num2").hide();
-                policyModel.aut_num2_selectedOptionValue("none");
-           }else if(option=='2'){
-                $("#aut_num1").show();
-                $("#aut_num2").show();
-           }
-    },
-    aut_function: function(option1,option2){
-            if(option1=='none'&&option2=='none'){
-                   hide_policies();
-            }else if(option1==option2 && option1!='none'){
-                   toastr['error']('Please, select two distinct options or change the number of mechanisms.');
-                   policyModel.aut_num1_selectedOptionValue("none");
-                   policyModel.aut_num2_selectedOptionValue("none");
-                   hide_policies();
-            }else{
-                hide_policies();
-                $("#"+option1+"_policy").show();
-                $("#"+option2+"_policy").show();
-            }
-    }
-};
-ko.applyBindings(policyModel, document.getElementById('policy_form'));
-*/
 function verboseScore(score) {
     if (score < 0.2) {
         return "very low";
@@ -167,16 +122,8 @@ function updatePolicy(policy) {
     timelineModel.clockSpeed(0);
     timelineModel.currentDate(new Date(policy['date']));
     timelineModel.calendar(policy['calendar']);
-    //displayContextualizedPolicy(window.last_found);
-    //update_password_form(window.last_found);
-    //update_biometric_form(window.last_found);
-    //update_passfaces_form(window.last_found);
     resume();
     updateScoreFrame();
-
-    //console.log(policy['policy'][0]['employee'] + " " + policy['policy'][0]['location'] + " " + policy['policy'][0]['device']);
-    // TODO: store all policies so that when user changes context (employee, location, device) checkboxes, different policies are visualized
-    //displayContextualizedPolicy(policy['policy'][0]);
 }
 
 //3 different authentication mechanisms
@@ -344,28 +291,21 @@ $('.target').bind("change", function () {
         if ($(this).prop('checked')) {
             policies_array[attribute] = policies_array[attribute].concat($(this).val());
         } else {
-            //console.log('unchecked');
             var index = policies_array[attribute].indexOf($(this).val());
             policies_array[attribute].splice(index, 1); //remove item from list if a checkbox has been unchecked
-            //policies_array[attribute] = [];
         }
-        //console.log('test');
-        //console.log(policies_array['employee'][0]);
-        //console.log(policies_array['location']);
         if (policies_array['location']!= undefined && policies_array['employee']!=undefined && policies_array['device']!=undefined)
         {
             if (policies_array['employee'].length!=0 && policies_array['location'].length!=0 && policies_array['device'].length!=0)
             {
                  var policy = find_policy(policies_array['employee'][0], policies_array['location'][0], policies_array['device'][0]);
-                 //console.log('')
                  if(policy != {})
                  {
-                  //displayContextualizedPolicy(window.last_found);
                   update_password_form(window.last_found);
                   update_biometric_form(window.last_found);
                   update_passfaces_form(window.last_found);
                       console.log('');
-                      //piece of code for displaying the correspondong number and names of mechanisms
+                      //piece of code for displaying the corresponding number and names of mechanisms
                       //accompanied with options for them
                       var mechanisms = get_factors(window.last_found);
                       var mechanisms_names = {"biometric": 0, "passfaces": 1, "password": 2};
@@ -382,10 +322,7 @@ $('.target').bind("change", function () {
                   }
              }
         }
-        //update_password_form(policy);
-       //
     } else if (attribute == 'policy_form') { //if number of used mechanisms is changed
-        //console.log($(this).val()+' policies'); //how many policies to be passed
         if (!policies_array.policyDelta) {        //initialize dictionary if doesn't exist
             policies_array.policyDelta = {};
         }
@@ -407,11 +344,9 @@ $('.target').bind("change", function () {
             if ($(this).prop('checked')) {
                 policies_array.policyDelta.pwpolicy[attribute] = $(this).val();
             } else {
-                //var index = policies_array.policyDelta.pwpolicy[attribute].indexOf($(this).val());
                 policies_array.policyDelta.pwpolicy[attribute] = 0;
 
             }
-            //policies_array.policyDelta.pwpolicy[attribute] = $(this).val();//write pwpolicy
         }
     }
     console.log('target changed by ' + attribute);
