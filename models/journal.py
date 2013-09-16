@@ -20,6 +20,8 @@ class records:
         """
         Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
+        #TODO only prophecies with corresponding context variables(employee,location,device) for the given date should be deleted from journal,
+        #i.e. not all prophecies
         db.query('DELETE FROM journal WHERE user_id=$self.user_id AND committed=false AND date>=$date', vars=locals())
 
     def __last_sync(self):

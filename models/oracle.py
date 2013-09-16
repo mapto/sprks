@@ -28,9 +28,23 @@ class prophet:
 
         # policies = db.query('SELECT * FROM policies WHERE user_id=$user_id ORDER BY date DESC limit 1', vars=locals())
         # TODO lasagna code - this should be fixed when multiple policies are used.
+        #now takes only first policy from the response for a request of incidents
+        #and requests incidents for all possible combination of context(em.loc.dev.) with the same policy
         history = policies_model().get_policy_history(user_id, True)
         response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
         policies = response[0]['data']
+
+        ### not sure if this code will work
+        """
+        incidents_array = []
+        for policy in response:
+            p = policy['data']
+            p_context = {'employees': [p['employee']], 'locations': [p['location']], 'devices': [p['device']]}
+            p_incidents = sim_model().request(p, p_context)
+            incidents_array.append(p_incidents)
+        """
+        ###developing in process
+
         incidents = sim_model().request(policies)
         prophecy = []
         max_risk = 0
