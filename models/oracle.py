@@ -33,38 +33,40 @@ class prophet:
         history = policies_model().get_policy_history(user_id, True)
         response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
 
+        #policies = response[0]['data']
+        #incidents = sim_model().request(policies)
+
         #Taking to consideration policy context for events prediction
-        incidents_array = []
+        prophecy = []
+        max_risk = 0
+        max_cost = 0
         for policy in response:
             p = policy['data']
             p_context = {'employees': [p['employee']], 'locations': [p['location']], 'devices': [p['device']]}
             p_incidents = sim_model().request(p, p_context)
-            incidents_array.append(p_incidents)
 
-        #policies = response[0]['data']
-        #incidents = sim_model().request(policies)
-        prophecy = []
-        max_risk = 0
-        max_cost = 0
-        for current_incident in incidents_array: #previously incidents were used (no consideration of context)
-            # print "current incident"
-            # print current_incident
-            if current_incident['risk'] > max_risk:
-                max_risk = current_incident['risk']
-                max_cost = current_incident['cost']
-            daily_prob = cls.daily_prob(current_incident['risk'])
-            incident_cost = current_incident['cost']*company.max_incident_cost
-            for i in range(0, 31):
-                rand = random.random()
-                if rand < daily_prob:
-                    prophecy.append({
-                        'date': (base_date + timedelta(days=i)).isoformat(),
-                        'incident_id': current_incident['id'],
-                        'cost': cls.randomize_cost(incident_cost),
-                        'employee': current_incident['employee'],
-                        'location': current_incident['location'],
-                        'device': current_incident['device']
-                    })
+            for current_incident in p_incidents: #previously 'incidents' variable was used (no consideration of context)
+                print "current incident"
+                print current_incident
+                if current_incident['risk'] > max_risk:
+                    max_risk = current_incident['risk']
+                    max_cost = current_incident['cost']
+                daily_prob = cls.daily_prob(current_incident['risk'])
+                incident_cost = current_incident['cost']*company.max_incident_cost
+                for i in range(0, 31):
+                    rand = random.random()
+                    if rand < daily_prob:
+                        prophecy.append({
+                            'date': (base_date + timedelta(days=i)).isoformat(),
+                            'incident_id': current_incident['id'],
+                            'cost': cls.randomize_cost(incident_cost),
+                            'employee': current_incident['employee'],
+                            'location': current_incident['location'],
+                            'device': current_incident['device']
+                        })
+                print 'prophecy'
+                print prophecy
+                print ''
         # TODO currently productivity costs is being used as risk impact.
         score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
         score_model.insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
