@@ -92,7 +92,6 @@ class simulation:
                     for device in context['devices']:
                         single_context = {u'employee': employee, u'location': location, u'device': device}
                         next = self.update(policy, single_context, next_risk)
-                        #TODO BUG is somewhere in next = self.update, as it is the one hat returns irrelevant list of incidents
                         response = dict(next.items() + single_context.items())
                         my_list.append(response)
                         #risks_list.append(event["id"])
