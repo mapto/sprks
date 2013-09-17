@@ -2,6 +2,7 @@ from datetime import date
 from localsys.storage import db
 from datetime import timedelta
 import datetime
+from policies import policies_model
 
 
 class records:
@@ -16,13 +17,18 @@ class records:
         result = db.update('journal', committed=1, where="date<=$date&&user_id=$self.user_id", vars=locals())
         return result
 
-    def clear_prophecy(self, date):
+    def clear_prophecy(self, date, policy_update):
         """
         Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
-        #TODO only prophecies with corresponding context variables(employee,location,device) for the given date should be deleted from journal,
-        #i.e. not all prophecies
-        db.query('DELETE FROM journal WHERE user_id=$self.user_id AND committed=false AND date>=$date', vars=locals())
+        policy_update = policies_model().nested_obj_to_list_of_dict(policies_model().parse_policy(policy_update))
+        print policy_update
+        for policy in policy_update:
+            employee = policy['data']['employee']
+            location = policy['data']['location']
+            device = policy['data']['device']
+            p_context = 'AND employee=$employee AND location=$location AND device=$device'
+            db.query('DELETE FROM journal WHERE user_id=$self.user_id AND committed=false AND date>=$date '+p_context, vars=locals())
 
     def __last_sync(self):
         """

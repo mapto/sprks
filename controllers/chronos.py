@@ -51,7 +51,7 @@ class policy_update_handler:
                 'messages': ['Commits are only allowed at the end of month']
             })
         journal = records(context.user_id())
-        journal.clear_prophecy(client_date)
+        journal.clear_prophecy(client_date, policy_update)
         prophecy = prophet.prophesize(context.user_id(), client_date)
         journal.record_prophecy(prophecy)
         response = {
