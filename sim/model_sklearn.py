@@ -94,12 +94,11 @@ class model_sklearn:
         employee = context['employee']
         location = context['location']
         device = context['device']
-        #TODO sth wrong here with context
-
         # Iterates through classifier models to estimate class for different locations, workers and devices
         # Returns list of incidents
         for next_risk in risks:
             my_list = []
+            #TODO sth wrong here with prediction of events
             event = self.get_prediction(datapoints, employee, location, device, next_risk)
             responses_list.append(event)
 

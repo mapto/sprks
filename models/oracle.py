@@ -32,24 +32,21 @@ class prophet:
         #and requests incidents for all possible combination of context(em.loc.dev.) with the same policy
         history = policies_model().get_policy_history(user_id, True)
         response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
-        policies = response[0]['data']
 
-        ### not sure if this code will work
-        """
+        #Taking to consideration policy context for events prediction
         incidents_array = []
         for policy in response:
             p = policy['data']
             p_context = {'employees': [p['employee']], 'locations': [p['location']], 'devices': [p['device']]}
             p_incidents = sim_model().request(p, p_context)
             incidents_array.append(p_incidents)
-        """
-        ###developing in process
 
-        incidents = sim_model().request(policies)
+        #policies = response[0]['data']
+        #incidents = sim_model().request(policies)
         prophecy = []
         max_risk = 0
         max_cost = 0
-        for current_incident in incidents:
+        for current_incident in incidents_array: #previously incidents were used (no consideration of context)
             # print "current incident"
             # print current_incident
             if current_incident['risk'] > max_risk:

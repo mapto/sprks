@@ -22,7 +22,6 @@ class records:
         Clears uncommitted entries in the journal for specified user_id on or after the specified date. Returns None.
         """
         policy_update = policies_model().nested_obj_to_list_of_dict(policies_model().parse_policy(policy_update))
-        print policy_update
         for policy in policy_update:
             employee = policy['data']['employee']
             location = policy['data']['location']
