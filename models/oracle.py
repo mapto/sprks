@@ -46,8 +46,6 @@ class prophet:
             p_incidents = sim_model().request(p, p_context)
 
             for current_incident in p_incidents: #previously 'incidents' variable was used (no consideration of context)
-                print "current incident"
-                print current_incident
                 if current_incident['risk'] > max_risk:
                     max_risk = current_incident['risk']
                     max_cost = current_incident['cost']
@@ -64,9 +62,6 @@ class prophet:
                             'location': current_incident['location'],
                             'device': current_incident['device']
                         })
-                print 'prophecy'
-                print prophecy
-                print ''
         # TODO currently productivity costs is being used as risk impact.
         score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
         score_model.insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
