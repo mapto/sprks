@@ -83,6 +83,7 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
                                         $.ajax({
                                         url: "api/incident/"+event[ev].incdt_id,
                                         type: "GET",
+                                        async:false, //had to set to async:false, as if it is async, em and i variable keep incrementing while the request is sent
                                         success: function (incidnt) {
                                             charactersModel['quote'+i](incidnt.description); //executive, road or desk
                                             $('#interviewee'+i).click();
