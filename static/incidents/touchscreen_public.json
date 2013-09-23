@@ -1,15 +1,13 @@
 {"id": 17, "name": "touchscreen_public", "type": "stolen",
     "context": {
         "device": ["phone"],
-        "location": ["public"]
+        "location": ["public", "home"]
     },
     "policy": {
         "plen": 8,
         "psets": 1,
         "phist": 1,
-        "prenew": 1,
-        "pattempts": 0,
-        "precovery": 1
+        "pattempts": 0
     },
     "description": "You ask people to use passwords on their touchscreen devices.",
     "event": "It becomes very easy for random people to observe passwords as your employees type them.",

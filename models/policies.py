@@ -13,7 +13,8 @@ class policies_model:
     """
     non_pw_ranges = {"bdata": [0, 1, 2], "pdata": [0, 1, 2]}
     non_pw_bounds = non_pw_ranges # for categorical data each value defines the bounds
-    non_pw_default = {"bdata": 0, "pdata": 0}
+    non_pw_default = {"bdata": 0, "pdata": 0} # default values are used to set initial policy
+    non_pw_neutral = non_pw_default # neutral values are the ones that are expected to minimally affect cost and risk
 
     @classmethod
     def get_bounds(cls):
@@ -31,6 +32,12 @@ class policies_model:
     def get_default(cls):
         result = pw_policy_model.default.copy()
         result.update(policies_model.non_pw_default)
+        return result
+
+    @classmethod
+    def get_neutral(cls):
+        result = pw_policy_model.neutral.copy()
+        result.update(policies_model.non_pw_neutral)
         return result
 
     @staticmethod

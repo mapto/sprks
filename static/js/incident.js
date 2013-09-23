@@ -37,7 +37,11 @@ function getIncidentDetails(incident_id) {
 
 function displayEvent(incident){
     // Handles trigger for when certain event occurs.
+    // console.log("incident arrived: ");
+    // console.log(incident);
     getIncidentDetails(incident.incdt_id);
+    // console.log("incident expanded: ");
+    // console.log(incident);
     incidentModel.incidentDate(new Date(timelineModel.currentDate()));
     incidentModel.monetaryCost(incident.cost);
     incidentModel.employee(incident.employee);

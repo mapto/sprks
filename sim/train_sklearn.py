@@ -35,7 +35,7 @@ class train_sklearn:
         # database does not need to be generated beforehand.
         # The simulation generates it dynamically (lazy initialization)
         # Still previous database should better be dropped to avoid inconsistencies
-        # self.clean()
+        self.clean()
 
     def clean(self):
         self.clean_db()
@@ -115,7 +115,7 @@ class train_sklearn:
 
         cPickle.dump(models, f)
         f.close()
-        print "Model generation for " + type + " completed..."
+        print "Model generation for " + type + " completed."
 
 
     def generate_training_set(self, type = "classifier"):
@@ -160,7 +160,7 @@ class train_sklearn:
                     for device in company.device_types:
                         self.dump_training_set(entries, risk, employee, location, device, type=type)
 
-        print "Training set generation for " + type + " completed..."
+        print "Training set generation for " + type + " completed."
 
     def dump_training_set(self, entries, risk, employee, location, device, type="classifier"):
         #save the risk dictionary files
@@ -169,7 +169,7 @@ class train_sklearn:
 
         csv_name = 'static/data/train-' + type + '-' + tail + '.csv'
         print csv_name
-        writer = csv.writer(open(csv_name, 'w'))
+        writer = csv.writer(open(csv_name, 'wb'))
         writer.writerows(entries[risk])
 
     def enum_samples(self, partial_policy = {}, start_index = 0):
@@ -208,6 +208,31 @@ class train_sklearn:
 
         return data
 
+    def weight(self, raw_data):
+        """
+        Numerical machine learning methods do not differentiate between different dimensions.
+        Thus a weighting is needed to adjust the data space to make better fitting possible.
+
+        This is dependent on the actual dimensions of data.
+        Thus it'd better be defined in models/policies.py
+        Consider the code here as work-in-progress
+        """
+        infinity = 1000
+        weights = [lambda x: infinity * x,  # bdata
+                   lambda x: infinity * x,  # pdata
+                   lambda x: 100 + x if x != 0 else x,  # plen
+                   lambda x: 10 * x,        # psets
+                   lambda x: infinity * x,  # pdict
+                   lambda x: 10 * x,        # phist
+                   lambda x: 5 * x,         # prenew
+                   lambda x: infinity * x,  # pattempts
+                   lambda x: infinity * x]  # precovery
+
+        # weigthed_data = [weights[i] * raw_data[i,:] for i in range(raw_data.shape[0])]
+
+        # return weigthed_data
+        return 0 # TODO: recover above lines
+
     def train_engine(self, risk, employee, location, device, type="classifier"):
         data = self.load_csv_files(risk, employee, location, device, type=type)
         limit = len(policy_model.get_ranges())
@@ -215,10 +240,15 @@ class train_sklearn:
         train_data = data[:, 0:limit] # first several columns represent the data dimension
         train_result = data[:, limit] # result columns are ones after data dimensions
 
+        # TODO: implement weighting
+        # weighted_train_data = self.weight(train_data)
+
         # for explanation of the following parameters please see
         # http://scikit-learn.org/stable/modules/svm.html#tips-on-practical-use
         params = {'kernel': 'rbf', 'cache_size': 1000, 'C': 0.2, 'gamma': 0.5}
         eng = engine.get_engine(type=type)
+        # TODO: implement weighting
+        # return eng.get_model(params).fit(weighted_train_data, train_result)
         return eng.get_model(params).fit(train_data, train_result)
 
 class engine:
@@ -262,7 +292,6 @@ class regression_engine(engine):
         return 'risk'
 
 if __name__ == "__main__":
-    # train_sklearn().train()
     """
     result = train_sklearn().enum_samples({})
     for next in result:
@@ -287,3 +316,4 @@ if __name__ == "__main__":
     model.train("classifier")
     model.train("regression")
     #train_sklearn().cleanup()
+    

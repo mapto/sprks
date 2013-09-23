@@ -1,4 +1,7 @@
 {"id": 5, "name": "easy_secure", "type": "general",
+    "context": {
+        "device": ["desktop", "laptop"]
+    },
     "policy": {
         "pdata": 0,
         "bdata": 0,

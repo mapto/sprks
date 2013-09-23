@@ -1,0 +1,16 @@
+{"id": 10, "name": "double_nonpass", "type": "general",
+    "context": {
+    },
+    "policy": {
+        "bdata": 1,
+        "pdata": 2,
+        "plen": 0
+    },
+    "description": "You require employees to have a biometric and visual authentication on their devices",
+    "event": "Two-factor authentication of two difficult to hack paradigms makes your authentication mechanism difficult to break.",
+    "consequences": "Your company is rather safe, but breaking in is always possible.",
+    "risk": 0.05,
+    "cost": 0.1,
+    "direct-cost": 0.1,
+    "risk-modifier": -0.01,
+    "cost-modifier": 0.2}

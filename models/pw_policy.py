@@ -4,6 +4,8 @@ from localsys.storage import db
 
 class pw_policy_model:
 
+    # Notice that the values provided here are for password policy only.
+    # Values for other policies are available in models\policies.py
     ranges = {"plen": [0, 6, 8, 10, 12],
               "psets": [1, 2, 3, 4],
               "pdict": [0, 1],
@@ -22,6 +24,10 @@ class pw_policy_model:
 
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
+               "precovery": 1}
+
+    neutral = {"plen": 8, "psets": 2, "pdict": 1,
+               "phist": 2, "prenew": 1, "pattempts": 1,
                "precovery": 1}
 
     @staticmethod
@@ -44,22 +50,18 @@ class pw_policy_model:
         """
         return db.query(db_helper.update_helper.stringify('pw_policy', where, values), vars=locals())
 
+    # This method belongs to policies, not to pw_policy
+    # However, it seems that it is never used
     @classmethod
     def latest_policy(self, user_id):
         policy = {
             'location': "",
             'employee': "",
             'device': "",
-            'bdata': "",
-            'pdata': "",
-            'plen': 8,
-            'psets': 2,
-            'pdict': 0,
-            'phist': 1,
-            'prenew': 1,
-            'pattempts': 0,
-            'precovery': 1,
-        }
+            'bdata': "", # why are these strings and not numbers?
+            'pdata': ""}
+        policy.update(self.default)
+
         db_policy_all = db.select('policies', where="user_id=$user_id", order="date DESC", vars=locals())
         if len(db_policy_all) > 0:
             db_policy = db_policy_all[0]

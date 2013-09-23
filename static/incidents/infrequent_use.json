@@ -1,4 +1,9 @@
 {"id": 6, "name": "infrequent_use", "type": "bruteforce",
+    "context": {
+        "employee": ["desk"],
+        "location": ["home", "public"]
+    },
+
     "policy": {
         "pdata": 0,
         "bdata": 0,

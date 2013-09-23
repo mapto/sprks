@@ -54,12 +54,12 @@ class incident:
             for risk in incident.incidents.keys():
 
                 try:
-                    print incident.incidents[risk][int(ident)]
-                    print 'returning'
+                    # print incident.incidents[risk][int(ident)]
+                    # print 'returning'
                     return incident.incidents[risk][int(ident)]
                 except KeyError:
-                    print incident.incidents[risk]
-                    print 'fail, ident=' + str(ident)
+                    # print incident.incidents[risk]
+                    print 'fail, ident=' + str(ident) + ' risk=' + risk
                 except ValueError:
                     return 'Identifier should be a number'
                 # if ident in incident.incidents[risk]:
