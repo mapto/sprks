@@ -62,6 +62,9 @@ class prophet:
                             'location': current_incident['location'],
                             'device': current_incident['device']
                         })
+                        #TODO add a check if one incident per day is generated,
+                        # check if there are no duplicate incidents in prophecy
+
         # TODO currently productivity costs is being used as risk impact.
         score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
         score_model.insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
