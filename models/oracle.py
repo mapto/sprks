@@ -54,16 +54,19 @@ class prophet:
                 for i in range(0, 31):
                     rand = random.random()
                     if rand < daily_prob:
-                        prophecy.append({
-                            'date': (base_date + timedelta(days=i)).isoformat(),
-                            'incident_id': current_incident['id'],
-                            'cost': cls.randomize_cost(incident_cost),
-                            'employee': current_incident['employee'],
-                            'location': current_incident['location'],
-                            'device': current_incident['device']
-                        })
-                        #TODO add a check if one incident per day is generated,
-                        # check if there are no duplicate incidents in prophecy
+                        #TODO add a check if one incident per day is generated (date is different for each event)
+                        # for event in prophecy:
+                        #   if (base_date + timedelta(days=i)).isoformat()) != event['date']:
+                        #TODO check if there are no duplicate incidents in prophecy
+                        #       if current_incident['id'] != event['incident_id']:
+                                    prophecy.append({
+                                        'date': (base_date + timedelta(days=i)).isoformat(),
+                                        'incident_id': current_incident['id'],
+                                        'cost': cls.randomize_cost(incident_cost),
+                                        'employee': current_incident['employee'],
+                                        'location': current_incident['location'],
+                                        'device': current_incident['device']
+                                    })
 
         # TODO currently productivity costs is being used as risk impact.
         score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
