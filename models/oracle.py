@@ -28,13 +28,8 @@ class prophet:
 
         # policies = db.query('SELECT * FROM policies WHERE user_id=$user_id ORDER BY date DESC limit 1', vars=locals())
         # TODO lasagna code - this should be fixed when multiple policies are used.
-        #now takes only first policy from the response for a request of incidents
-        #and requests incidents for all possible combination of context(em.loc.dev.) with the same policy
         history = policies_model().get_policy_history(user_id, True)
         response = policies_model().nested_obj_to_list_of_dict(policies_model().iter_to_nested_obj(history))
-
-        #policies = response[0]['data']
-        #incidents = sim_model().request(policies)
 
         #Taking to consideration policy context for events prediction
         prophecy = []
@@ -45,7 +40,7 @@ class prophet:
             p_context = {'employees': [p['employee']], 'locations': [p['location']], 'devices': [p['device']]}
             p_incidents = sim_model().request(p, p_context)
 
-            for current_incident in p_incidents: #previously 'incidents' variable was used (no consideration of context)
+            for current_incident in p_incidents:
                 if current_incident['risk'] > max_risk:
                     max_risk = current_incident['risk']
                     max_cost = current_incident['cost']
@@ -57,18 +52,25 @@ class prophet:
                         if len(prophecy) > 0:
                             for event in prophecy:
                                 #check if one incident per day is generated (date is different for each event)
-                                #check if there are no duplicate incidents in prophecy
-                                if ((base_date + timedelta(days=i)).isoformat()) == event['date'] or current_incident['id'] == event['incident_id']:
+                                if ((base_date + timedelta(days=i)).isoformat()) == event['date']:
                                     break
-                                if (prophecy.index(event)+1) == len(prophecy):
-                                    prophecy.append({
-                                        'date': (base_date + timedelta(days=i)).isoformat(),
-                                        'incident_id': current_incident['id'],
-                                        'cost': cls.randomize_cost(incident_cost),
-                                        'employee': current_incident['employee'],
-                                        'location': current_incident['location'],
-                                        'device': current_incident['device']
-                                    })
+                                else:
+                                    #check if there are no duplicate incidents in prophecy
+                                    if current_incident['id'] == event['incident_id']\
+                                            and current_incident['employee'] == event['employee']\
+                                            and current_incident['location'] == event['location']\
+                                            and current_incident['device'] == event['device']:
+                                        break
+                                    else:
+                                        if (prophecy.index(event)+1) == len(prophecy):
+                                            prophecy.append({
+                                                'date': (base_date + timedelta(days=i)).isoformat(),
+                                                'incident_id': current_incident['id'],
+                                                'cost': cls.randomize_cost(incident_cost),
+                                                'employee': current_incident['employee'],
+                                                'location': current_incident['location'],
+                                                'device': current_incident['device']
+                                            })
                         else:
                             prophecy.append({
                                 'date': (base_date + timedelta(days=i)).isoformat(),

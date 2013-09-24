@@ -282,7 +282,7 @@ function null_unused_policy(policy){
 
 
 //populate policies_array onchange of inputs
-$('.target').bind("click", function () {
+$('.target').bind("change", function () {
     var attribute = $(this).parent().attr('id'); //can be empployee/device/location/biometric/passfaces/plen/psets/etc.
     if (attribute == 'employee' || attribute == 'location' || attribute == 'device') {   //write employee/location/device
         if (!policies_array[attribute]) {          //if doesn't exist, initialize array
