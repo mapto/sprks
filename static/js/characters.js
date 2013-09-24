@@ -59,6 +59,10 @@ function giveDevice(div_id, device) {
     charactersModel[div_id + 'DeviceImage']('static/img/' + device + '.png');
 }
 
+//flag to avoid characters saying events several times a day:
+var events_flag = [];
+//flag to avoid characters telling about the same events:
+var char_flag = {'executives':0,'desk':0,'road':0};
 function updateCharacters(date) { //data: interviewee1 - location, device; interviewee2 - loc, dev; interviewee3 - loc, dev
     $.ajax({
         url: "api/characters",
@@ -80,18 +84,24 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
                             if((event[ev].employee==charSet[em])){
                                if(event[ev].device + '.png'== (charactersModel['interviewee'+i+ 'DeviceImage']()).replace("static/img/","") ){
                                    if(event[ev].location == charactersModel['interviewee'+i+ 'Location']()){
-                                        $.ajax({
-                                        url: "api/incident/"+event[ev].incdt_id,
-                                        type: "GET",
-                                        async:false, //had to set to async:false, as if it is async, em and i variable keep incrementing while the request is sent
-                                        success: function (incidnt) {
-                                            charactersModel['quote'+i](incidnt.description); //executive, road or desk
-                                            $('#interviewee'+i).click();
-                                        },
-                                        error: function (response) {
-                                            console.log("fail: " + response.responseText);
-                                        }
-                                        });
+                                       if (char_flag[event[ev].employee]!=1 && jQuery.inArray(k, events_flag)<0 ){
+                                       //char_flag is for limiting amount of events per character to 1 for 1 tick of timer, events_flag is to avoid the same events to be quoted several times
+
+                                           char_flag[event[ev].employee]=1;
+                                           events_flag.push(k);
+                                           $.ajax({
+                                            url: "api/incident/"+event[ev].incdt_id,
+                                            type: "GET",
+                                            async:false, //had to set to async:false, as if it is async, em and i variable keep incrementing while the request is sent
+                                            success: function (incidnt) {
+                                                charactersModel['quote'+i](incidnt.description); //executive, road or desk
+                                                $('#interviewee'+i).click();
+                                            },
+                                            error: function (response) {
+                                                console.log("fail: " + response.responseText);
+                                            }
+                                            });
+                                       }
                                    }
                                }
                             }
