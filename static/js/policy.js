@@ -213,6 +213,8 @@ function resetPolicyForm(){
         for(var i = 0; i < requests.length; i++){
             requests[i].abort();
         }
+        events_flag = [];
+        char_flag = {'executives':0,'desk':0,'road':0}
 }
 //write policyUpdate array on apply btn press
 $("#apply").click(function () {
