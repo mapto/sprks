@@ -120,12 +120,14 @@ $(function () {
             toastr['success']("Changes submitted");
             timelineModel.clockSpeed(0);
             submitPolicyDelta();
+            events_flag = [];
         }
 
         timelineModel.nextSync(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
 
         checkEvents();
         updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, currentDate)); //specified in characters.js
+        char_flag = {'executives':0,'desk':0,'road':0};
 
         window.id_elem = 'plen';
     });
