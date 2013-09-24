@@ -50,15 +50,17 @@ class prophet:
                     max_risk = current_incident['risk']
                     max_cost = current_incident['cost']
                 daily_prob = cls.daily_prob(current_incident['risk'])
-                incident_cost = current_incident['cost']*company.max_incident_cost
+                incident_cost = current_incident['cost'] * company.max_incident_cost
                 for i in range(0, 31):
                     rand = random.random()
                     if rand < daily_prob:
-                        #TODO add a check if one incident per day is generated (date is different for each event)
-                        # for event in prophecy:
-                        #   if (base_date + timedelta(days=i)).isoformat()) != event['date']:
-                        #TODO check if there are no duplicate incidents in prophecy
-                        #       if current_incident['id'] != event['incident_id']:
+                        if len(prophecy) > 0:
+                            for event in prophecy:
+                                #check if one incident per day is generated (date is different for each event)
+                                #check if there are no duplicate incidents in prophecy
+                                if ((base_date + timedelta(days=i)).isoformat()) == event['date'] or current_incident['id'] == event['incident_id']:
+                                    break
+                                if (prophecy.index(event)+1) == len(prophecy):
                                     prophecy.append({
                                         'date': (base_date + timedelta(days=i)).isoformat(),
                                         'incident_id': current_incident['id'],
@@ -67,10 +69,19 @@ class prophet:
                                         'location': current_incident['location'],
                                         'device': current_incident['device']
                                     })
+                        else:
+                            prophecy.append({
+                                'date': (base_date + timedelta(days=i)).isoformat(),
+                                'incident_id': current_incident['id'],
+                                'cost': cls.randomize_cost(incident_cost),
+                                'employee': current_incident['employee'],
+                                'location': current_incident['location'],
+                                'device': current_incident['device']
+                            })
 
         # TODO currently productivity costs is being used as risk impact.
-        score_model.insert_score(user_id, 1, (max_risk*4 + max_cost)/5.0, base_date)
-        score_model.insert_score(user_id, 2, (max_cost*4 + max_risk)/5.0, base_date)
+        score_model.insert_score(user_id, 1, (max_risk * 4 + max_cost) / 5.0, base_date)
+        score_model.insert_score(user_id, 2, (max_cost * 4 + max_risk) / 5.0, base_date)
         return prophecy
 
     @classmethod
@@ -82,7 +93,7 @@ class prophet:
         monthly_prob = P(x>=1) = 1 - P(x=0)
         P(x=0) = (1-p)^30
         """
-        return 1 - (1-monthly_prob)**(1.0/30)
+        return 1 - (1 - monthly_prob) ** (1.0 / 30)
 
     @classmethod
     def randomize_cost(cls, cost):
