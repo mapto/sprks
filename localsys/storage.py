@@ -19,7 +19,7 @@ except ImportError, AttributeError:
     db = web.database(
         dbn='mysql',
         user='root',
-        pw='1234',
+        pw='0210',
         db='sprks',
         host='127.0.0.1',
         port=3306
