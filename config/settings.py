@@ -10,6 +10,7 @@ A user-customized version of this file should be placed in the root directory (s
 dbuser = 'root'
 dbpw = '0210'
 
+
 # default values if left unset
 # dbname = 'sprks'
 # host = 'localhost'
