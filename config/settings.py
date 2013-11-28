@@ -8,8 +8,7 @@ A user-customized version of this file should be placed in the root directory (s
 
 # database credentials
 dbuser = 'root'
-dbpw = '0210'
-
+dbpw = '1234'
 
 # default values if left unset
 # dbname = 'sprks'
