@@ -10,10 +10,11 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
     #if (context.user_id()):
     #    user_id = context.user_id()
     #else:
-    user_id = 1  # set to 0 for real game
+    user_id = 4  # set to 0 for real game
 
     policy = policies_model.get_policies_list(user_id)
-
+    for p in policy:
+        print p
     employee_types = ['executives','executives','executives',
                       'desk','desk','desk',
                       'road','road','road']
@@ -33,10 +34,13 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
 
     behaviour_types = ['secure', 'productive', 'social']
     location_types = ['office', 'public', 'home']
+    policy_complexity = ['complex', 'medium', 'easy']
 
     def __init__(self):
         self.behaviours2employees = numpy.genfromtxt('static/data/gtd_model/behaviours2employees.csv', delimiter=',') # columns - behaviours, # rows - employees
         self.locations2employees = numpy.genfromtxt('static/data/gtd_model/locations2employees.csv', delimiter=',') # columns - locations, # rows - employees
+        self.pc_modifier_complexity2behaviour = numpy.genfromtxt('static/data/gtd_model/pc_modifier_complexity2behaviour.csv', delimiter=',') #columns - complexity, #rows - behaviours
+        self.r_modifier_complexity2behaviour = numpy.genfromtxt('static/data/gtd_model/r_modifier_complexity2behaviour.csv', delimiter=',') #columns - complexity, #rows - behaviours
 
     def get_policy_complexity(self, policy):
         complexity = 'easy'
@@ -47,17 +51,41 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         return complexity
 
     def get_goal_task_differentiation(self):
-        for p in self.policy:
-            policy_employee = p['employee']
-            policy_location = p['location']
-            policy_complexity = self.get_policy_complexity(p)
-            for employee in self.employees:
+        total_pc_modifier = 0;
+        total_r_modifier = 0;
+
+        for p in self.policy:                       #for each policy applied by a player
+            p_employee = p['employee']
+            p_location = p['location']
+            p_complexity = self.get_policy_complexity(p)
+            for employee in self.employees:         #for each possible employee (9 positions)
                 employee_type = self.employee_types[self.employees.index(employee)]
-                if employee_type == policy_employee:
+                if employee_type == p_employee:
                     print employee
-                    print policy_location
-                    print policy_complexity
-                    print self.get_possible_behaviours2locations(employee,policy_location)
+                    print p_location
+                    print p_complexity
+                    possible_behaviours2locations = self.get_possible_behaviours2locations(employee, p_location)
+
+                    pc_modifiers = deepcopy(self.pc_modifier_complexity2behaviour)
+                    r_modifiers = deepcopy(self.r_modifier_complexity2behaviour)
+                    i = self.policy_complexity.index(p_complexity)
+                    pc_modifier = [float(pc_modifiers[0][i]), float(pc_modifiers[1][i]), float(pc_modifiers[2][i])] #modifiers over behaviours
+                    r_modifier = [float(r_modifiers[0][i]), float(r_modifiers[1][i]), float(r_modifiers[2][i])] #modifiers over behaviours
+
+                    pc_modifier = sum(possible_behaviours2locations.dot(pc_modifier))  #dot product provides pc_modifiers over different locations, which are then summed up
+                    r_modifier = sum(possible_behaviours2locations.dot(r_modifier))    #dot product provides r_modifiers over different locations, which are then summed up
+
+                    print pc_modifier
+                    print r_modifier
+                    print('\n')
+
+                    total_pc_modifier = total_pc_modifier + pc_modifier
+                    total_r_modifier = total_r_modifier + r_modifier
+
+        print ("\nTOTAL Risk and PCost modifiers")
+        print total_pc_modifier
+        print total_r_modifier
+
         return 0
 
     def get_locations_from_policy(self, employee, location, locations2employee): # if the policy is defined, say for office only, then assign the rest to 0
