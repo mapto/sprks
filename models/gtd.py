@@ -1,6 +1,12 @@
+"""
+Goal Task Differentiation Model
+This Model represents how different complexity of a policy set by a user during the game
+affects the behaviour of employees. Location distribution for the employees is also considered
+"""
 __author__ = 'ZHANELYA'
 
 import numpy
+from scipy.sparse import vstack
 from copy import copy, deepcopy
 from models.policies import policies_model
 from localsys.environment import context
@@ -10,7 +16,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
     #if (context.user_id()):
     #    user_id = context.user_id()
     #else:
-    user_id = 4  # set to 0 for real game
+    user_id = 3  # set to 0 for real game
 
     policy = policies_model.get_policies_list(user_id)
     for p in policy:
@@ -51,15 +57,17 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         return complexity
 
     def get_goal_task_differentiation(self):
-        total_pc_modifier = 0;
-        total_r_modifier = 0;
+        total_pc_modifier = 0
+        total_r_modifier = 0
 
-        for p in self.policy:                       #for each policy applied by a player
-            p_employee = p['employee']
-            p_location = p['location']
-            p_complexity = self.get_policy_complexity(p)
-            for employee in self.employees:         #for each possible employee (9 positions)
-                employee_type = self.employee_types[self.employees.index(employee)]
+        output = numpy.array(["employee","location","pswd_complexity",0,0])
+
+        for employee in self.employees:                 #for each possible employee (9 positions)
+            employee_type = self.employee_types[self.employees.index(employee)]
+            for p in self.policy:                       #for each policy applied by a player (9 for each employee type out of 27)
+                p_employee = p['employee']
+                p_location = p['location']
+                p_complexity = self.get_policy_complexity(p)
                 if employee_type == p_employee:
                     print employee
                     print p_location
@@ -79,14 +87,19 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
                     print r_modifier
                     print('\n')
 
+                    output = numpy.vstack([output, [employee,p_location,p_complexity,pc_modifier,r_modifier]])
+
                     total_pc_modifier = total_pc_modifier + pc_modifier
                     total_r_modifier = total_r_modifier + r_modifier
 
-        print ("\nTOTAL Risk and PCost modifiers")
+        print ("\nTOTAL PCost modifier")
         print total_pc_modifier
+        print ("\nTOTAL Risk modifier")
         print total_r_modifier
 
-        return 0
+        output = numpy.vstack([output, ["total","total","total",total_pc_modifier,total_r_modifier]])
+        numpy.savetxt('static/data/gtd_model/tests/test'+str(self.user_id)+'.csv', output, fmt='%s')
+        return ('\n')
 
     def get_locations_from_policy(self, employee, location, locations2employee): # if the policy is defined, say for office only, then assign the rest to 0
         if 'office' not in location:
