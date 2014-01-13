@@ -17,7 +17,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
     #    user_id = context.user_id()
     #else:
     #    user_id = 0
-    user_id = 3
+    user_id = 10
 
     policy = policies_model.get_policies_list(user_id)
     for p in policy:
