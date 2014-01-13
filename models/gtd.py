@@ -13,10 +13,11 @@ from localsys.environment import context
 
 
 class goal_task_differentiation: #needs to be called in the end of each term (month) after the policies set by a user have been updated in DB
-    #if (context.user_id()):
+    #if context.user_id():
     #    user_id = context.user_id()
     #else:
-    user_id = 3  # set to 0 for real game
+    #    user_id = 0
+    user_id = 3
 
     policy = policies_model.get_policies_list(user_id)
     for p in policy:
@@ -80,24 +81,24 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
                     pc_modifier = [float(pc_modifiers[0][i]), float(pc_modifiers[1][i]), float(pc_modifiers[2][i])] #modifiers over behaviours
                     r_modifier = [float(r_modifiers[0][i]), float(r_modifiers[1][i]), float(r_modifiers[2][i])] #modifiers over behaviours
 
-                    pc_modifier = sum(possible_behaviours2locations.dot(pc_modifier))  #dot product provides pc_modifiers over different locations, which are then summed up
                     r_modifier = sum(possible_behaviours2locations.dot(r_modifier))    #dot product provides r_modifiers over different locations, which are then summed up
+                    pc_modifier = sum(possible_behaviours2locations.dot(pc_modifier))  #dot product provides pc_modifiers over different locations, which are then summed up
 
-                    print pc_modifier
                     print r_modifier
+                    print pc_modifier
                     print('\n')
 
-                    output = numpy.vstack([output, [employee,p_location,p_complexity,pc_modifier,r_modifier]])
+                    output = numpy.vstack([output, [employee,p_location,p_complexity,r_modifier,pc_modifier]])
 
-                    total_pc_modifier = total_pc_modifier + pc_modifier
                     total_r_modifier = total_r_modifier + r_modifier
+                    total_pc_modifier = total_pc_modifier + pc_modifier
 
         print ("\nTOTAL PCost modifier")
         print total_pc_modifier
         print ("\nTOTAL Risk modifier")
         print total_r_modifier
 
-        output = numpy.vstack([output, ["total","total","total",total_pc_modifier,total_r_modifier]])
+        output = numpy.vstack([output, ["total","total","total",total_r_modifier,total_pc_modifier]])
         numpy.savetxt('static/data/gtd_model/tests/test'+str(self.user_id)+'.csv', output, fmt='%s')
         return ('\n')
 

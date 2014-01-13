@@ -10,7 +10,8 @@ pageModel = {
     login: loginModel,
     passwordChange: passwordChangeModel,
     passwordRecover: passwordRecoverModel,
-    incident: incidentModel
+    incident: incidentModel,
+    report: reportModel
 };
 
 var policyUpdate = [];

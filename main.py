@@ -26,6 +26,7 @@ import controllers.incident
 import controllers.spa
 import controllers.user
 import controllers.characters
+import controllers.gtd_report
 
 from sim.train_sklearn import train_sklearn
 
@@ -51,7 +52,8 @@ urls = (
     storage.path + '/api/incident/(.+)', controllers.incident.incident_rest,
     storage.path + '/api/incident', controllers.incident.incident_rest,
     storage.path + '/api/history', controllers.policy_history.history_rest,
-    storage.path + '/api/recent_events', controllers.chronos.recent_events
+    storage.path + '/api/recent_events', controllers.chronos.recent_events,
+    storage.path + '/api/gtd_report', controllers.gtd_report.report
 )
 
 app = web.application(urls, globals(), autoreload=False)
