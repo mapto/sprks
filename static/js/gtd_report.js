@@ -12,15 +12,12 @@ reportModel = {
 };
 
 function getReport() {
+    clearReport();
     $.ajax({
         url: "api/gtd_report",
         type: "GET",
         success: function (report) {
             report = JSON.parse(report);
-
-            for(i=0;i<report['policy'].length;i=i+1){
-                reportModel.policy.push(report['policy'][i]);
-            }
 
             for(i=0;i<report['employees'].length;i=i+1){
                 reportModel.employees.push({employee: get_full_name(report['employees'][i]['employee']),
@@ -29,8 +26,11 @@ function getReport() {
             }
             reportModel.total({risk:report['total']['risk'],p_cost:report['total']['p_cost']});
 
-            pageModel.currentPage("report_page");
-
+            //policy report, uncomment if necessary
+            /*
+            for(i=0;i<report['policy'].length;i=i+1){
+                reportModel.policy.push(report['policy'][i]);
+            }
             for (var key in reportModel.policy()[0]){
                 $("#policies").append("<div class=\"span1\" id=\"policy_header\"> "+ key +" </div>");
             }
@@ -41,19 +41,50 @@ function getReport() {
                 }
                 $("#policies").append("</div>");
             }
+            */
 
             for (i=0; i<reportModel.employees().length; i=i+1){
-                $("#employees").append("<div id=\"employees\""+i+">"+reportModel.employees()[i]['employee']+"</div>");
-                $("#employees_risk").append("<div id=\"employees_risk\""+i+">"+reportModel.employees()[i]['risk']+"</div>");
-                $("#employees_cost").append("<div id=\"employees_cost\""+i+">"+reportModel.employees()[i]['p_cost']+"</div>");
+                $("#employees").append("<div id=\"employees"+i+"\">"+reportModel.employees()[i]['employee']+"</div>");
+                $("#employees_risk").append("<div id=\"employees_risk"+i+"\">"+reportModel.employees()[i]['risk']+"</div>");
+                $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"+get_m_ranges(reportModel.employees()[i]['risk']));
+                $("#employees_cost").append("<div id=\"employees_cost"+i+"\">"+reportModel.employees()[i]['p_cost']+"</div>");
+                $("#employees_cost"+i).addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.employees()[i]['p_cost']));
             }
             $("#totalrisk").html(reportModel.total()['risk']);
             $("#totalcost").html(reportModel.total()['p_cost']);
+            $("#totalrisk").addClass("modifiers_range m_risk mr_"+get_m_ranges(reportModel.total()['risk']));
+            $("#totalcost").addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.total()['p_cost']));
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
         }
     });
+}
+
+function clearReport(){
+    reportModel.total('');
+    reportModel.employees([]);
+    $("#employees").children().remove();
+    $("#employees_risk").children().remove();
+    $("#employees_cost").children().remove();
+}
+
+function get_m_ranges(modifier){ //TODO adjust values for modifier
+    if(modifier ==0){
+        return 0;
+    }else if(modifier<=0.02){
+        return 2;
+    }else if(modifier<=0.04){
+        return 4;
+    }else if(modifier<=0.06){
+        return 6;
+    }else if(modifier<=0.08){
+        return 8;
+    }else if(modifier<=0.10){
+        return 10;
+    }else{
+        return 10;
+    }
 }
 
 function get_full_name(abbreviation){

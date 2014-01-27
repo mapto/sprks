@@ -821,3 +821,30 @@ label {
 */
 /* D3 style end */
 
+.modifiers_range{
+    margin:3.1px;
+    height:16px;
+}
+.m_risk{
+    background: -webkit-gradient(linear, left top, right top, from(#9d0d09), to(#ffdab9));
+    background: -webkit-linear-gradient(left, #ffdab9, #9d0d09);
+}
+.m_cost{
+    background: -webkit-gradient(linear, left top, right top, from(#cef592), to(#d0f0c0));
+    background: -webkit-linear-gradient(left, #cef592, #013220);
+}
+.mr_10{
+    width:80%;
+}
+.mr_8{
+    width:64%;
+}
+.mr_6{
+    width:48%;
+}
+.mr_4{
+    width:32%;
+}
+.mr_2{
+    width:16%;
+}

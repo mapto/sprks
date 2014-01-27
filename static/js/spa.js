@@ -48,6 +48,8 @@ $(function(){
             case 'score_page':
                 initScore();
                 break;
+            case 'report_page':
+                getReport();
         }
     });
 });
