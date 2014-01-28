@@ -51,7 +51,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             complexity = 'complex'
         elif int(policy['plen'])>6 or int(policy['psets'])>1 or int(policy['pdict'])==1 or int(policy['phist'])==2 or int(policy['prenew'])==1:
             complexity = 'medium'
-        #complexity = 'easy'/'complex'/'medium' for testing extreme cases
+        #complexity = 'easy'#/'complex'/'medium' for testing of extreme cases
         return complexity
 
     def get_goal_task_differentiation(self):
@@ -147,7 +147,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             return possible_behaviours2locations                       # columns - possible behaviours, # rows - locations for employee
 
 if __name__ == "__main__":
-    gtd = goal_task_differentiation(1)
+    gtd = goal_task_differentiation(3)
     print str("behaviours\n" + str(gtd.behaviours2employees) + "\n")
     print str("locations\n" + str(gtd.locations2employees) + "\n")
     print( gtd.get_goal_task_differentiation())
