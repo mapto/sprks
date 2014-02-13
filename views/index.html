@@ -42,7 +42,7 @@
         <div><a data-bind="css: {'active-page-link': currentPage() === 'profile_page'}, click: function(){currentPage('profile_page')}">Profile</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}, visible: incident.incidentDate()">Incident</a></div>
-        <div><a data-bind="css: {'active-page-link': currentPage() === 'report_page'}, click: function(){currentPage('report_page')}, visible: report.total()">Report</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'report_page'}, click: function(){currentPage('report_page')}">Report</a></div>
     </div>
 
 
@@ -583,8 +583,8 @@
             <div data-bind="with: report, visible: currentPage() === 'report_page'">
                 <h1>Report</h1><br>
                 <div hidden data-bind="text: total"></div>
-                <!--<h4>Policies</h4>-->
-                <div class="span11" id ="policies" style="margin-bottom:10px">
+                <h4>Policies</h4>
+                <div class="span11" id ="policies" style="margin-bottom:10px;overflow:auto;margin-top: 10px;">
                 </div>
                 <h4>Behaviour of the employees</h4>
                 <div class="span11">

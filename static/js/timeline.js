@@ -55,6 +55,7 @@ function submitPolicyDelta() { // need different event handling, to capture any 
             console.log("fail: " + response.responseText);
         }
     });
+    getReport();
 }
 
 function resume() {
@@ -76,6 +77,7 @@ function resume() {
         }
     });
     retrieveScores();
+    getReport();
     updateScoreFrame();
 }
 

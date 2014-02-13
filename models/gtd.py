@@ -51,7 +51,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             complexity = 'complex'
         elif int(policy['plen'])>6 or int(policy['psets'])>1 or int(policy['pdict'])==1 or int(policy['phist'])==2 or int(policy['prenew'])==1:
             complexity = 'medium'
-        #complexity = 'easy'#/'complex'/'medium' for testing of extreme cases
+        #complexity = 'complex'#/'complex'/'medium' for testing of extreme cases
         return complexity
 
     def get_goal_task_differentiation(self):

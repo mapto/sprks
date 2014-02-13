@@ -12,9 +12,8 @@ class report:
         gtd_instance = gtd(context.user_id())
         risk_cost = gtd_instance.get_goal_task_differentiation()
 
-        #report = {"policy":[], "employees":[], "total":{}}
-        #report['policy'] = policies_model.get_policies_list(context.user_id())
-        report = {"employees":[], "total":{}}
+        report = {"policy":[], "employees":[], "total":{}}
+        report['policy'] = policies_model.get_policies_list(context.user_id())
         report['employees'] = risk_cost['employees']
         report['total'] = risk_cost['total']
         return json.dumps(report)

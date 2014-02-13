@@ -31,6 +31,12 @@ function interpret_policy_label(label){
             return 'pswd recovery';
         case 'prenew':
             return 'pswd renewal';
+        case 'location':
+            return 'location';
+        case 'device':
+            return 'device';
+        case 'employee':
+            return 'employee';
         default:
             return 'undefined';
     }
