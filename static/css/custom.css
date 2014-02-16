@@ -833,6 +833,10 @@ label {
     background: -webkit-gradient(linear, left top, right top, from(#cef592), to(#d0f0c0));
     background: -webkit-linear-gradient(left, #cef592, #013220);
 }
+.modifiers_total{
+    margin:3.1px;
+    height:30px;
+}
 .mr_10{
     width:80%;
 }

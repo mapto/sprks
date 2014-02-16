@@ -8,7 +8,9 @@
 reportModel = {
    policy: ko.observableArray(),
    employees: ko.observableArray(),
-   total: ko.observable()
+   total: ko.observable(),
+   e_risks: ko.observableArray(),
+   e_costs: ko.observableArray()
 };
 
 function getReport() {
@@ -22,6 +24,8 @@ function getReport() {
                 reportModel.employees.push({employee: get_full_name(report['employees'][i]['employee'])+' ('+get_employee_type(report['employees'][i]['employee'])+')',
                                             risk: report['employees'][i]['risk'].toFixed(2),
                                             p_cost: parseFloat(report['employees'][i]['p_cost'].toFixed(2))});
+                reportModel.e_risks.push(-report['employees'][i]['risk'].toFixed(2))
+                reportModel.e_costs.push(parseFloat(report['employees'][i]['p_cost'].toFixed(2)))
             }
             reportModel.total({risk:report['total']['risk'],p_cost:report['total']['p_cost']});
 
@@ -78,14 +82,15 @@ function getReport() {
             for (i=0; i<reportModel.employees().length; i=i+1){
                 $("#employees").append("<div id=\"employees"+i+"\">"+reportModel.employees()[i]['employee']+"</div>");
                 $("#employees_risk").append("<div id=\"employees_risk"+i+"\">"+reportModel.employees()[i]['risk']+"</div>");
-                $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"+get_m_ranges(reportModel.employees()[i]['risk']));
+                $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"+get_m_ranges(reportModel.employees()[i]['risk'], reportModel.e_risks()));
+                //risk value is negated to make it positive for calculation of ranges image, the value remains negative
                 $("#employees_cost").append("<div id=\"employees_cost"+i+"\">"+reportModel.employees()[i]['p_cost']+"</div>");
-                $("#employees_cost"+i).addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.employees()[i]['p_cost']));
+                $("#employees_cost"+i).addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.employees()[i]['p_cost'], reportModel.e_costs()));
             }
-            $("#totalrisk").html(reportModel.total()['risk']);
-            $("#totalcost").html(reportModel.total()['p_cost']);
-            $("#totalrisk").addClass("modifiers_range m_risk mr_"+get_m_ranges(reportModel.total()['risk']));
-            $("#totalcost").addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.total()['p_cost']));
+            $("#totalrisk").html(reportModel.total()['risk'].toFixed(2));
+            $("#totalcost").html(reportModel.total()['p_cost'].toFixed(2));
+            $("#totalrisk").addClass("modifiers_total m_risk mr_"+get_m_ranges_total(-reportModel.total()['risk']));
+            $("#totalcost").addClass("modifiers_total m_cost mr_"+get_m_ranges_total(reportModel.total()['p_cost']));
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -104,7 +109,7 @@ function clearReport(){
     $("#employees_cost").children().remove();
 }
 
-function get_m_ranges(modifier){ //TODO adjust values for modifier
+function get_m_ranges(modifier, vals){ //TODO adjust values for modifier
     if(modifier ==0){
         return 0;
     }else if(modifier<=0.02){
@@ -116,6 +121,24 @@ function get_m_ranges(modifier){ //TODO adjust values for modifier
     }else if(modifier<=0.08){
         return 8;
     }else if(modifier<=0.10){
+        return 10;
+    }else{
+        return 10;
+    }
+}
+
+function get_m_ranges_total(modifier, vals){ //TODO adjust values for modifier
+    if(modifier ==0){
+        return 0;
+    }else if(modifier<=0.2){
+        return 2;
+    }else if(modifier<=0.4){
+        return 4;
+    }else if(modifier<=0.6){
+        return 6;
+    }else if(modifier<=0.8){
+        return 8;
+    }else if(modifier<=1){
         return 10;
     }else{
         return 10;

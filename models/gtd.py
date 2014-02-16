@@ -54,16 +54,23 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         #complexity = 'complex'#/'complex'/'medium' for testing of extreme cases
         return complexity
 
-    def get_goal_task_differentiation(self):
+    def get_goal_task_differentiation(self, empl_tps=employee_types,empls = employees):
         total_pc_modifier = 0
         total_r_modifier = 0
 
+        #comment out once set up front end link
+        #empl_tps = ['executives','desk','road']
+        #empls = [ 'padh', 'cam', 'ft']
+
+        empl_tps = ['executives','executives','executives']
+        empls = [ 'padh', 'som', 'bdd']
+        #
         output = numpy.array(["employee","location","pswd_complexity",0,0])
         report = {"employees":[], "total":{}}
         report['employees'] = []
 
-        for employee in self.employees:                 #for each possible employee (9 positions)
-            employee_type = self.employee_types[self.employees.index(employee)]
+        for employee in empls:                 #for each possible employee (9 positions)
+            employee_type = empl_tps[empls.index(employee)]
             for p in self.policy:                       #for each policy applied by a player (9 for each employee type out of 27)
                 p_employee = p['employee']
                 p_location = p['location']
