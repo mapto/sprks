@@ -2,10 +2,9 @@ __author__ = 'ZHANELYA'
 
 import json
 from models.gtd import goal_task_differentiation as gtd
-# from models.gtd.goal_task_differentiation import get_goal_task_differentiation as gtd
 from localsys.environment import context
 from models.policies import policies_model
-#from gtd.
+from localsys.storage import db
 
 class report:
     def GET(self):

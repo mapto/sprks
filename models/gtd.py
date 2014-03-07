@@ -51,7 +51,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             complexity = 'complex'
         elif int(policy['plen'])>6 or int(policy['psets'])>1 or int(policy['pdict'])==1 or int(policy['phist'])==2 or int(policy['prenew'])==1:
             complexity = 'medium'
-        #complexity = 'complex'#/'complex'/'medium' for testing of extreme cases
+        #complexity = 'easy'#/'complex'/'medium' for testing of extreme cases
         return complexity
 
     def get_goal_task_differentiation(self, empl_tps=employee_types,empls = employees):
@@ -62,12 +62,18 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         #empl_tps = ['executives','desk','road']
         #empls = [ 'padh', 'cam', 'ft']
 
-        empl_tps = ['executives','executives','executives']
-        empls = [ 'padh', 'som', 'bdd']
+        #empl_tps = ['executives','executives','executives']
+        #empls = [ 'padh', 'som', 'bdd']
         #
+        empl_tps = self.employee_types
+        empls = self.employees
+
         output = numpy.array(["employee","location","pswd_complexity",0,0])
         report = {"employees":[], "total":{}}
         report['employees'] = []
+
+        empl_num = len(empls)
+        total_possible_empl_num = 9
 
         for employee in empls:                 #for each possible employee (9 positions)
             employee_type = empl_tps[empls.index(employee)]
@@ -110,12 +116,8 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
                     if flag==0:
                         report['employees'].append({"employee":employee, "risk":r_modifier, "p_cost":pc_modifier})
 
-        report['total']['risk'] = total_r_modifier
+        report['total']['risk'] = total_r_modifier*total_possible_empl_num/empl_num
         report['total']['p_cost'] = total_pc_modifier
-        print ("\nTOTAL PCost modifier")
-        print total_pc_modifier
-        print ("\nTOTAL Risk modifier")
-        print total_r_modifier
 
         output = numpy.vstack([output, ["total","total","total",total_r_modifier,total_pc_modifier]])
         numpy.savetxt('static/data/gtd_model/tests/test'+str(self.user_id)+'.csv', output, fmt='%s')
@@ -154,7 +156,8 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             return possible_behaviours2locations                       # columns - possible behaviours, # rows - locations for employee
 
 if __name__ == "__main__":
-    gtd = goal_task_differentiation(3)
+    print "hi"
+    gtd = goal_task_differentiation(1)
     print str("behaviours\n" + str(gtd.behaviours2employees) + "\n")
     print str("locations\n" + str(gtd.locations2employees) + "\n")
-    print( gtd.get_goal_task_differentiation())
+    print( gtd.get_goal_task_differentiation(gtd.self.employee_types,gtd.self.employees))
