@@ -49,7 +49,7 @@ $(function(){
                 initScore();
                 break;
             case 'report_page':
-                getReport();
+                getReport(reportModel.employees_number());
         }
     });
 });

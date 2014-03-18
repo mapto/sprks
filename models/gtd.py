@@ -54,25 +54,29 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         #complexity = 'easy'#/'complex'/'medium' for testing of extreme cases
         return complexity
 
-    def get_goal_task_differentiation(self, empl_tps=employee_types,empls = employees):
+    def get_goal_task_differentiation(self, empl_num):
         total_pc_modifier = 0
         total_r_modifier = 0
-
-        #comment out once set up front end link
-        #empl_tps = ['executives','desk','road']
-        #empls = [ 'padh', 'cam', 'ft']
-
-        #empl_tps = ['executives','executives','executives']
-        #empls = [ 'padh', 'som', 'bdd']
-        #
-        empl_tps = self.employee_types
-        empls = self.employees
-
+        print empl_num
+        if empl_num == 1:
+            empl_tps = ['executives']
+            empls = [ 'padh']
+        elif empl_num == 3:
+            empl_tps = ['executives','desk','road']
+            empls = [ 'padh', 'cam', 'ft']
+        elif empl_num == 9:
+            empl_tps = ['executives','executives','executives',
+                      'desk','desk','desk',
+                      'road','road','road']
+            empls = [ 'padh', 'som', 'bdd',
+                  'cam', 'rm', 'pm',
+                  'ft', 'sc', 'sm']
         output = numpy.array(["employee","location","pswd_complexity",0,0])
         report = {"employees":[], "total":{}}
         report['employees'] = []
+        print empls
+        print empl_tps
 
-        empl_num = len(empls)
         total_possible_empl_num = 9
 
         for employee in empls:                 #for each possible employee (9 positions)
@@ -156,8 +160,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             return possible_behaviours2locations                       # columns - possible behaviours, # rows - locations for employee
 
 if __name__ == "__main__":
-    print "hi"
     gtd = goal_task_differentiation(1)
     print str("behaviours\n" + str(gtd.behaviours2employees) + "\n")
     print str("locations\n" + str(gtd.locations2employees) + "\n")
-    print( gtd.get_goal_task_differentiation(gtd.self.employee_types,gtd.self.employees))
+    print( gtd.get_goal_task_differentiation(gtd.employee_types,gtd.employees))
