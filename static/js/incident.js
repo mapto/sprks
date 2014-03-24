@@ -25,9 +25,10 @@ function getIncidentDetails(incident_id) {
             incidentModel.risk(incident.risk);
 
             //should be handled by characters script depending on combination of employee type, location and device
-            charactersModel.quote1(incident.description);
-            charactersModel.quote2(incident.description);
-            charactersModel.quote3(incident.description);
+            //commented out incidents
+            //charactersModel.quote1(incident.description);
+            //charactersModel.quote2(incident.description);
+            //charactersModel.quote3(incident.description);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);

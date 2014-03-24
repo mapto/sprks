@@ -7,6 +7,7 @@ timelineModel = {
 };
 
 function checkEvents() {
+    /* //commented out incidents
     var tmp_events_calendar = timelineModel.calendar();
     $(tmp_events_calendar).each(function (i) {
         if (new Date(tmp_events_calendar[i].date) - timelineModel.currentDate() === 0) {
@@ -19,6 +20,7 @@ function checkEvents() {
             pageModel.currentPage('incident_page');
         }
     })
+    */
 }
 
 function submitEvent(date) {
@@ -77,7 +79,6 @@ function resume() {
         }
     });
     retrieveScores();
-    getReport();
     updateScoreFrame();
 }
 
@@ -130,7 +131,6 @@ $(function () {
         checkEvents();
         updateCharacters($.datepicker.formatDate($.datepicker.ISO_8601, currentDate)); //specified in characters.js
         char_flag = {'executives':0,'desk':0,'road':0};
-
         window.id_elem = 'plen';
     });
 

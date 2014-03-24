@@ -11,7 +11,7 @@ function get_profile() {
             policy_history = JSON.parse(json['policy_history']);
             graph_data = JSON.parse(json['graph_data']);
 
-            createGraph(graph_data);
+            //createGraph(graph_data);
 
             //create table dynamically:
             var table = $('<table></table>').addClass('profile_table');

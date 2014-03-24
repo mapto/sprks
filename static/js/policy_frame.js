@@ -39,6 +39,6 @@ function summarizePolicy(policy){
                 });
             }
         }
-        $('.policy-summary').show();
+        //$('.policy-summary').show();
     }
 }

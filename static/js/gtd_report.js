@@ -48,12 +48,14 @@ function getReport(employees_number) {
                 var table = $('<table></table>').addClass('profile_table');
                 //provide column names:
                 var row = $('<tr></tr>').addClass('profileTr');
-                row.append($('<td></td>').addClass('profileTd profileTh').text("employee"));
-                row.append($('<td></td>').addClass('profileTd profileTh').text("device"));
-                row.append($('<td></td>').addClass('profileTd profileTh').text("location"));
+                row.append($('<td><image style="width:45%" title="employee" src="static/img/policy_icons/employee.png"></image></td>').addClass('profileTd profileTh'));
+                row.append($('<td><image style="width:45%" title="location" src="static/img/policy_icons/location.png"></image></td>').addClass('profileTd profileTh'));
+                row.append($('<td><image style="width:45%" title="device" src="static/img/policy_icons/device.png"></image></td>').addClass('profileTd profileTh'));
                 for (var key in reportModel.policy()[0]) {
-                    if (key !== 'location' && key !== 'device' && key !== 'employee') { //do not show these fields
-                        var col = $('<td></td>').addClass('profileTd profileTh').text(interpret_policy_label(key));
+                    if (key !== 'location' && key !== 'device' && key !== 'employee' && key !== 'bdata' && key !== 'pdata') { //do not show these fields
+                        //var col = $('<td></td>').addClass('profileTd profileTh').text(get_policy_icons(key));
+                        var col = $('<td><image style="width:45%" title="'+interpret_policy_label(key)+'" src="static/img/policy_icons/'+key+'.png"></image></td>').addClass('profileTd profileTh');
+
                         row.append(col);
                     }
                 }
@@ -69,9 +71,12 @@ function getReport(employees_number) {
                     var obj = reportModel.policy()[i];
                     col[i] = {};
                     row [i] = $('<tr></tr>').addClass('profileTr' + i);
-                    location_r[i] = $('<td></td>').addClass('profileTd location'+i).text(obj['location']);
-                    device_r[i] = $('<td></td>').addClass('profileTd device'+i).text(obj['device']);
-                    employee_r[i] = $('<td></td>').addClass('profileTd employee'+i).text(obj['employee']);
+                    var location_img = "static/img/"+obj['location']+".png";
+                    location_r[i] = $('<td><image style="width:45%" title="'+obj['location']+'" src="'+location_img+'"></image></td>').addClass('profileTd location'+i);
+                    var device_img = "static/img/"+obj['device']+".png";
+                    device_r[i] = $('<td><image style="width:45%" title="'+obj['device']+'" src="'+device_img+'"></image></td>').addClass('profileTd device'+i);
+                    var employee_img = "static/img/"+obj['employee']+".png";
+                    employee_r[i] = $('<td><image style="width:45%" title="'+obj['employee']+'" src="'+employee_img+'"></image></td>').addClass('profileTd employee'+i);
                     row[i].append(employee_r[i]);
                     row[i].append(device_r[i]);
                     row[i].append(location_r[i]);
@@ -79,8 +84,16 @@ function getReport(employees_number) {
                         var attrName = k; //e.g. pdict
                         var attrValue = obj[k]; //e.g. 1
 
-                        if (attrName !== 'location' && attrName !== 'device' && attrName !== 'employee') { //do not show these fields
-                            col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(interpret_policy_value(attrName,attrValue));
+                        if (attrName !== 'location' && attrName !== 'device' && attrName !== 'employee' && attrName !== 'bdata' && attrName !== 'pdata') { //do not show these fields
+                            if(attrName=='pdict'){
+                                if(attrValue==1){
+                                    col[i][attrName] = $('<td><image style="width:45%" title="set" src="static/img/policy_icons/check.png"></image></td>').addClass('profileTd ' + attrName + i);
+                                }else if(attrValue==0){
+                                    col[i][attrName] = $('<td><image style="width:45%" title="none" src="static/img/policy_icons/cross.png"></image></td>').addClass('profileTd ' + attrName + i);
+                                }
+                            }else{
+                                col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(interpret_policy_value(attrName,attrValue));
+                            }
                             row [i].append(col[i][attrName]);
                         }
                     }
@@ -89,11 +102,25 @@ function getReport(employees_number) {
                     }
                 }
                 $('#policies').append(table);
-
+                var scale = "<div class='scale_container'>"+
+                                "<div class='scale_label'>0</div>" +
+                                "<div class='scale_label'>Low</div>" +
+                                "<div class='scale_label'>Medium</div>" +
+                                "<div class='scale_label'>High</div>" +
+                                "<div class='scale_label'>Extreme</div>" +
+                                "<div class='scale'>|</div>" +
+                                "<div class='scale'>|</div>" +
+                                "<div class='scale'>|</div>" +
+                                "<div class='scale'>|</div>" +
+                                "<div class='scale'>|</div>" +
+                            "</div><br/>";
+                $("#employees").append("<div class='scale_container' style='margin-top:12%;'></div>");
+                $("#employees_risk").append(scale);
+                $("#employees_cost").append(scale);
                 for (i=0; i<reportModel.employees().length; i=i+1){
                     $("#employees").append("<div id=\"employees"+i+"\">"+reportModel.employees()[i]['employee']+"</div>");
                     $("#employees_risk").append("<div id=\"employees_risk"+i+"\">"+reportModel.employees()[i]['risk']+"</div>");
-                    $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"+get_m_ranges(reportModel.employees()[i]['risk'], reportModel.e_risks()));
+                    $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"+get_m_ranges(-reportModel.employees()[i]['risk'], reportModel.e_risks()));
                     //risk value is negated to make it positive for calculation of ranges image, the value remains negative
                     $("#employees_cost").append("<div id=\"employees_cost"+i+"\">"+reportModel.employees()[i]['p_cost']+"</div>");
                     $("#employees_cost"+i).addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.employees()[i]['p_cost'], reportModel.e_costs()));
@@ -121,25 +148,25 @@ function clearReport(){
     $("#employees_cost").children().remove();
 }
 
-function get_m_ranges(modifier, vals){ //TODO adjust values for modifier
+function get_m_ranges(modifier, vals){
+    console.log(vals);
+    var max = Math.max.apply(Math, vals);
     if(modifier ==0){
         return 0;
-    }else if(modifier<=0.02){
+    }else if(modifier<=0.2*max){
         return 2;
-    }else if(modifier<=0.04){
+    }else if(modifier<=0.4*max){
         return 4;
-    }else if(modifier<=0.06){
+    }else if(modifier<=0.6*max){
         return 6;
-    }else if(modifier<=0.08){
+    }else if(modifier<=0.8*max){
         return 8;
-    }else if(modifier<=0.10){
-        return 10;
     }else{
         return 10;
     }
 }
 
-function get_m_ranges_total(modifier, vals){ //TODO adjust values for modifier
+function get_m_ranges_total(modifier, vals){
     if(modifier ==0){
         return 0;
     }else if(modifier<=0.2){

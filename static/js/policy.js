@@ -122,6 +122,7 @@ function updatePolicy(policy) {
     timelineModel.clockSpeed(0);
     timelineModel.currentDate(new Date(policy['date']));
     timelineModel.calendar(policy['calendar']);
+    pageModel.currentPage('report_page');
     resume();
     updateScoreFrame();
 }
@@ -138,8 +139,8 @@ function updatePolicy(policy) {
     //    <option value="" disabled selected>number</option>
 
     var options = ['none set',  // need to do -1 to get the rest of the values
-                   'biometric',   //value:0
-                   'passfaces/swipe-lock',                  //value:1
+                   '-', //'biometric',   //value:0
+                   '-', //'passfaces/swipe-lock',                  //value:1
                    'passwords'];                            //value:2
 
     for (var i = 0; i < $('#aut_num').val(); i++) {  // use i+1, because indices in form start from 1

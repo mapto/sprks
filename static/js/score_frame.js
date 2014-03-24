@@ -9,11 +9,13 @@ function updateScoreFrame() {
                 score_frame.push(data[data.length - 1]);
                 score_frame.push(data[data.length - 2]);
                 $(score_frame).each(function () {
+                    /*
                     if (this.score_type === '1') {
                         pageModel.currentRisk(verboseScore(this.score_value));
                     } else if (this.score_type === '2') {
                         pageModel.currentCost(verboseScore(this.score_value));
                     }
+                    */
                 });
             }
         },

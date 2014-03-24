@@ -483,7 +483,6 @@ label {
     width: 5%;
     padding: 5px;
     float: right;
-    background-image: url(../img/pt1307_stick_figure_standing_normal.png);
     /*
     image source:
     http://www.google.co.uk/imgres?start=239&client=opera&channel=suggest&biw=1091&bih=558&tbm=isch&tbnid=oFnLPBTrCJB2HM:&imgrefurl=http://www.123rf.com/photo_3074816_stick-man-with-arms-up-and-target-head--vector.html&docid=xA5FGUEZcKaxqM&imgurl=http://us.cdn3.123rf.com/168nwm/cole123rf/cole123rf0804/cole123rf080400284/2930913-stick-man-or-figure-standing-on-red-target--vector.jpg&w=150&h=168&ei=zIDJUaiFKKi90QWnsoCICQ&zoom=1&ved=1t:3588,r:51,s:200,i:157&iact=rc&page=18&tbnh=134&tbnw=120&ndsp=15&tx=78&ty=59#imgdii=oFnLPBTrCJB2HM%3A%3BJ9fEF1n39KtPnM%3BoFnLPBTrCJB2HM%3A
@@ -507,6 +506,7 @@ label {
     left: 40%;
     right: 55%;
     bottom: 55%;
+    background-image: url(../img/executives.png);
 }
 
 #interviewee2 {
@@ -514,6 +514,7 @@ label {
     left: 47.5%;
     right: 47.5%;
     bottom: 55%;
+    background-image: url(../img/road.png);
 }
 
 #interviewee3 {
@@ -521,6 +522,7 @@ label {
     left: 55%;
     right: 40%;
     bottom: 55%;
+    background-image: url(../img/desk.png);
 }
 
 .quote {
@@ -617,10 +619,10 @@ label {
 }
 
 .profileTh {
+    min-width:50px;
     vertical-align: top;
     font-weight: bold;
 }
-
 /*PWPOLICY page***/
 /***graphs*/
 .graph {
@@ -820,7 +822,6 @@ label {
    }
 */
 /* D3 style end */
-
 .modifiers_range{
     margin:3.1px;
     height:16px;
@@ -851,6 +852,26 @@ label {
 }
 .mr_2{
     width:16%;
+}
+.scale_container{
+    display:block;
+    margin-top:10%;
+    height:40px;
+}
+.scale_label{
+    float:left;
+    width:20%;
+    text-align:left;
+    margin-bottom:-5%;
+    /* Rotate div */
+    transform:rotate(310deg);
+    -ms-transform:rotate(310deg); /* IE 9 */
+    -webkit-transform:rotate(310deg); /* Opera, Chrome, and Safari */
+}
+.scale{
+    float:left;
+    width:20%;
+    text-align:left;
 }
 .employees_num{
     width: 14%;

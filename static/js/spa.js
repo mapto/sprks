@@ -46,7 +46,7 @@ $(function(){
                 submitAlternativesRequest();
                 break;
             case 'score_page':
-                initScore();
+                //initScore();
                 break;
             case 'report_page':
                 getReport(reportModel.employees_number());

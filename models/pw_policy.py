@@ -22,10 +22,15 @@ class pw_policy_model:
               "pattempts": [0, 1, 2], # categorical, thus same as range
               "precovery": [0, 1, 2]} # categorical, thus same as range
 
+    default = {"plen": 0, "psets": 1, "pdict": 0,
+               "phist": 0, "prenew": 0, "pattempts": 0,
+               "precovery": 0}
+    """
+    #used to be default
     default = {"plen": 8, "psets": 2, "pdict": 0,
                "phist": 1, "prenew": 1, "pattempts": 0,
                "precovery": 1}
-
+    """
     neutral = {"plen": 8, "psets": 2, "pdict": 1,
                "phist": 2, "prenew": 1, "pattempts": 1,
                "precovery": 1}

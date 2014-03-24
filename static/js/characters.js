@@ -73,7 +73,7 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
                 placeAt(key, value[0]);       //e.g.: placeAt('interviewee2', 'office');
                 giveDevice(key, value[1]);    //e.g.: giveDevice('interviewee1, 'phone');
                 charactersModel[key + 'Location'](value[0]); //e.g. charactersModel.interviewee1Location(office)
-
+                /* //commented out incidents
                 var charSet= ['executives','desk','road'];
                 for (var k in timelineModel.calendar()){
                     var event = timelineModel.calendar()[k]['events'];
@@ -108,6 +108,7 @@ function updateCharacters(date) { //data: interviewee1 - location, device; inter
                         }
                     }
                 }
+                */
             });
         },
         error: function (response) {

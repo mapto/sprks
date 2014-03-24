@@ -40,22 +40,22 @@
         <div><a data-bind="css: {'active-page-link': currentPage() === 'intro_page'}, click: function(){currentPage('intro_page')}">Story</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'policy_page'}, click: function(){currentPage('policy_page')}">Policy</a></div>
         <div><a data-bind="css: {'active-page-link': currentPage() === 'profile_page'}, click: function(){currentPage('profile_page')}">Profile</a></div>
-        <div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>
-        <div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}, visible: incident.incidentDate()">Incident</a></div>
+        <!--<div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>-->
+        <!--<div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}, visible: incident.incidentDate()">Incident</a></div>-->
         <div><a data-bind="css: {'active-page-link': currentPage() === 'report_page'}, click: function(){currentPage('report_page')}">Report</a></div>
     </div>
 
 
+   <!--
     <div class="risk-menu" data-bind="visible: currentRisk() || currentCost()">
         <ul>
             <li class="risk_menu-title-risk">Risk:<br/><span class="score-value" data-bind="text: currentRisk()"></span></li>
             <li class="risk_menu-title-cost">Cost:<br/><span class="score-value" data-bind="text: currentCost()"></span></li>
         </ul>
     </div>
+   -->
 
-
-    <div class="policy-summary">
-
+    <div class="policy-summary" diplay:none>
         <h4 style = "color:#888888">Factors</h4>
         <h5>Employee:</h5><div class="policy-summary-field" id="sum-employee"></div>
         <h5>Location:</h5><div class="policy-summary-field" id="sum-location"></div>
@@ -66,6 +66,7 @@
         <h5 class="sum-pwpolicy sum-label">Password:</h5><div class="policy-summary-field" id="sum-pwpolicy"></div>
         </h5>
     </div>
+
     <div class="time_controls" data-bind="with: timeline">
         <ul>
             <h4><div id="time" data-bind="text: format_date(currentDate())"></div></h4>
@@ -134,6 +135,7 @@
                         Sparks.
                     </li>
                     <li>Design the company security policy, so that you keep both risks and productivity cost low.</li>
+                    <li>See and analyse a monthly report on employees behaviour to help you to adjust security policy.</li>
                     <li>Manage the incidents occurring under your security policy.</li>
                     <li>See how your policy compares to policies designed by others.</li>
                 </ul>
@@ -244,7 +246,7 @@
                         from its disparate components. Immediately several issues have come to light, resulting from both the mergers
                         and the fluid hiring situation.</p>
 
-                    <p>To aid you in your work please speak to one of the members of staff on the main map to get an idea of
+                    <p>To aid you in your work please close the company description and speak to one of the members of staff on the main map to get an idea of
                         what the culture is like at Global Sparks:</p>
 
                 </div>
@@ -326,13 +328,16 @@
                 <option value="" disabled selected>number</option>
                 <option value="0">0</option>
                 <option value="1">1</option>
+                <!--
                 <option value="2">2</option>
+                -->
             </select>
 
             <div class="aut" id="aut1"></div>
             <div class="aut" id="aut2"></div>
 
                 <!--BIOMETRIC POLICY BEGIN-->
+                <!--
                 <div class="policy policy0" id="biometric_policy">
                   <h4>Biometric (bdata)</h4>
                   <div class="qn" id="bdata">
@@ -344,9 +349,11 @@
                   </div>
                   <div class="graph" id="graph_bdata"></div>
                 </div>
+                -->
                 <!--BIOMETRIC POLICY END-->
 
                 <!--PASSFACES POLICY BEGIN-->
+                <!--
                 <div class="policy policy1" id="passfaces_policy">
                   <h4>Passfaces/swipe (pdata)</h4>
                   <div class="qn" id="pdata">
@@ -358,6 +365,7 @@
                   </div>
                   <div class="graph" id="graph_pdata"></div>
                 </div>
+                -->
                 <!--PASSFACES POLICY END-->
 
             <!--PASSWORD POLICY BEGIN-->
@@ -582,6 +590,7 @@
             <div class="employees_num">Employees number: <span id="employees_num" data-bind="text: reportModel.employees_number"></span></div>
             <div data-bind="with: report, visible: currentPage() === 'report_page'">
                 <h1>Report</h1><br>
+                <h5>Please hover over the icon to see its meaning.</h5>
                 <div hidden data-bind="text: total"></div>
                 <div class="span11"><h4>Policies</h4></div>
                 <div class="span11" id ="policies" style="margin-bottom:10px;overflow:auto;margin-top: 10px;">
@@ -589,31 +598,33 @@
                 <div class="span11"><h4>Impact of the employees behaviour on R&PC:</h4></div>
                 <div class="span11">
                     <div class="span5"><h5>Employee</h5></div>
-                    <div class="span3"><h5>&#8595; Risk</h5></div> <!-- Reduced R -->
+                    <div class="span3" style="margin-right:40px"><h5>&#8595; Risk</h5></div> <!-- Reduced R -->
                     <div class="span3"><h5>&#8593; Productivity Cost</h5></div> <!-- Increased PC -->
                 </div>
                 <div class="span11">
                     <div class="span5" id="employees">
                     </div>
-                    <div class="span3" id="employees_risk">
+                    <div class="span3" id="employees_risk" style="margin-right:40px;">
                     </div>
                     <div class="span3" id="employees_cost">
                     </div>
                 </div>
                 <div class="span11" style="margin-top:10px">
                     <div class="span5"><h4>Total:</h4></div>
-                    <div class="span3"> <h5>Risk</h5></div>
+                    <div class="span3" style="margin-right:40px"> <h5>Risk</h5></div>
                     <div class="span3"> <h5>Productivity Cost</h5></div>
                 </div>
                 <div class="span11" style="margin-top:10px">
                     <div class="span5"></div>
-                    <div class="span3"> <div id="totalrisk"></div> </div>
+                    <div class="span3"  style="margin-right:40px;"> <div id="totalrisk"></div> </div>
                     <div class="span3"> <div id="totalcost"></div> </div>
                 </div>
             </div>
 
+            <!--Incident-->
+            <!--
             <div data-bind="with: incident, visible: currentPage() === 'incident_page'">
-                <!--Incident-->
+
 
                 <h1>Incident</h1><br>
 
@@ -646,6 +657,7 @@
                 </div>
 
             </div>
+            -->
 
             <div data-bind="visible: currentPage() === 'profile_page'">
 
@@ -655,16 +667,17 @@
 
                 <h1>Profile</h1>
 
-                <div>To see the policy options which have been changed during the game to achieve the current progress, please check the table below the graph.
+                <div>To see the policy options which have been changed during the game to achieve the current progress, please check the table below.
                 </div>
                 <br>
 
-                <div id="chartContainer"></div>
+                <!--<div id="chartContainer"></div>-->
                 <div id="profile_table">
                     <div id="changed_values"></div>
                 </div>
             </div>
 
+            <!--
             <div data-bind="visible: currentPage() === 'score_page'">
                 <h1>Scores</h1>
 
@@ -754,7 +767,7 @@
                 </div>
                 <div id="congratulate" hidden></div>
             </div>
-
+            -->
         </div>
     </div>
 
