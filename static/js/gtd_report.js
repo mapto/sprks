@@ -149,7 +149,6 @@ function clearReport(){
 }
 
 function get_m_ranges(modifier, vals){
-    console.log(vals);
     var max = Math.max.apply(Math, vals);
     if(modifier ==0){
         return 0;
