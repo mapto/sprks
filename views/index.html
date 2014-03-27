@@ -43,6 +43,7 @@
         <!--<div><a data-bind="css: {'active-page-link': currentPage() === 'score_page'}, click: function(){currentPage('score_page')}">Scores</a></div>-->
         <!--<div><a data-bind="css: {'active-page-link': currentPage() === 'incident_page'}, click: function(){currentPage('incident_page')}, visible: incident.incidentDate()">Incident</a></div>-->
         <div><a data-bind="css: {'active-page-link': currentPage() === 'report_page'}, click: function(){currentPage('report_page')}">Report</a></div>
+        <div><a data-bind="css: {'active-page-link': currentPage() === 'help_page'}, click: function(){currentPage('help_page')}">How to play</a></div>
     </div>
 
 
@@ -54,6 +55,7 @@
         </ul>
     </div>
    -->
+    <div class="employees_num">Employees number: <span id="employees_num" data-bind="text: reportModel.employees_number"></span></div>
 
     <div class="policy-summary" diplay:none>
         <h4 style = "color:#888888">Factors</h4>
@@ -136,8 +138,8 @@
                     </li>
                     <li>Design the company security policy, so that you keep both risks and productivity cost low.</li>
                     <li>See and analyse a monthly report on employees behaviour to help you to adjust security policy.</li>
-                    <li>Manage the incidents occurring under your security policy.</li>
-                    <li>See how your policy compares to policies designed by others.</li>
+                    <!--<li>Manage the incidents occurring under your security policy.</li>
+                    <li>See how your policy compares to policies designed by others.</li>-->
                 </ul>
 
                 <div class="span11">
@@ -227,6 +229,27 @@
                 </form>
             </div>
 
+             <div data-bind="visible: currentPage() === 'help_page'">
+
+                <h1>How to play</h1>
+                <h5>Activities</h5>
+                <ul>
+                    <li>When you enter the game, you are introduced to your new job - CISO at the energy company Global
+                        Sparks. (Story)</li>
+                    <li>To aid you in your work please speak to one of the members of staff (click on one of the stick figures) on the main map<br/>
+                        to get an idea of what the culture is like at Global Sparks. (Main map)</li>
+                    <li>Design the company security policy, so that you keep both risks and productivity cost low. (Policy)</li>
+                    <li>See and analyse a monthly report on employees behaviour to help you to adjust security policy. (Report)</li>
+                </ul>
+                <h5>Controls</h5>
+                <ul>
+                    <li>To navigate through the game, use the menu buttons (Story, Policy, Profile, Report).</li>
+                    <li>To get more information about the employees, please close this dialogue (by pressing the red cross) and click on one of the stick figures on the main map.</li>
+                    <li>You can pause the game or choose between two different speeds of the game flow in the top right corner.</li>
+                    <li>You can see the number of employees in the top right corner as well.</li>
+                </ul>
+            </div>
+
             <div data-bind="visible: currentPage() === 'intro_page'">
                 <!--Introduction-->
                 <h1>Your Company</h1>
@@ -246,8 +269,8 @@
                         from its disparate components. Immediately several issues have come to light, resulting from both the mergers
                         and the fluid hiring situation.</p>
 
-                    <p>To aid you in your work please close the company description and speak to one of the members of staff on the main map to get an idea of
-                        what the culture is like at Global Sparks:</p>
+                    <p><h5 style="color:red">To aid you in your work please close the company description and speak to one of the members of staff<br/>
+                    (click on one of the stick figures) on the main map to get an idea of what the culture is like at Global Sparks:</h5></p>
 
                 </div>
             </div>
@@ -255,7 +278,8 @@
             <div data-bind="visible: currentPage() === 'policy_page'">
             <!--Policy-->
             <h1>Policy</h1>
-
+            <h5>Please set a new policy for your employees and hit apply button once you have finished</h5>
+            <h5>You can see the affects of your policy in the report that will be produced at the end of the month.</h5>
             <form id="policy_form" name="input" method="post" action="add">
             <!-- service specified in action must use relative path -->
             <!--                <p id="time">2014-1-25</p> -->
@@ -587,11 +611,11 @@
             </form>
             <!--PASSWORD POLICY END-->
             </div>
-            <div class="employees_num">Employees number: <span id="employees_num" data-bind="text: reportModel.employees_number"></span></div>
             <div data-bind="with: report, visible: currentPage() === 'report_page'">
-                <h1>Report</h1><br>
+                <h1>Report</h1>
                 <h4 id="report_error" style='color:red'></h4>
-                <h5>Please hover over the icons to see their meaning.</h5>
+                <h5>This page summarizes the policy that was previously set and the affects that it had on the company.</h5>
+                <h5>Please hover over the icons for a couple of seconds to see their meaning.</h5>
                 <div hidden data-bind="text: total"></div>
                 <div class="span11"><h4>Policies</h4></div>
                 <div class="span11" id ="policies" style="margin-bottom:10px;overflow:auto;margin-top: 10px;">
@@ -619,6 +643,11 @@
                     <div class="span5" id="total_container"></div>
                     <div class="span3" id ="total_risk_container" style="margin-right:40px;"></div>
                     <div class="span3" id ="total_cost_container"></div>
+                </div>
+                <div class="span11" style="margin-top:10px">
+                    <div class="span5"></div>
+                    <div class="span3"style="margin-right:40px;">(Risk Probability)</div>
+                    <div class="span3">(The higher the Productivity Cost is, the lower is the overall Productivity of the company)</div>
                 </div>
             </div>
 

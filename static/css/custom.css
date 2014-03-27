@@ -905,3 +905,13 @@ label {
     border: solid 1px #b0b0b0;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
 }
+
+.executive{
+    color:#9d0000;
+}
+.desk{
+    color:#c99735;
+}
+.road{
+    color:#5e5e5e;
+}

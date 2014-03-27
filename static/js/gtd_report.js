@@ -136,15 +136,16 @@ function get_employee_type(position){
 
 function getReport(employees_number) {
     if(employees_number){
-        clearReport();
         $.ajax({
             url: "api/gtd_report",
             type: "POST",
             data: JSON.stringify({employees_number:employees_number}),
             success: function (report) {
+                clearReport();
                 report = JSON.parse(report);
                 for(i=0;i<report['employees'].length;i=i+1){
-                    reportModel.employees.push({employee: get_full_name(report['employees'][i]['employee'])+' ('+get_employee_type(report['employees'][i]['employee'])+')',
+                    var employee_type = get_employee_type(report['employees'][i]['employee']);
+                    reportModel.employees.push({employee: '<span class="'+employee_type+'">'+get_full_name(report['employees'][i]['employee'])+'('+employee_type+'</span>)',
                                                 risk: report['employees'][i]['risk'].toFixed(2),
                                                 p_cost: parseFloat(report['employees'][i]['p_cost'].toFixed(2))});
                     reportModel.e_risks.push(-report['employees'][i]['risk'].toFixed(2))
@@ -187,8 +188,8 @@ function getReport(employees_number) {
                     var employee_img = "static/img/"+obj['employee']+".png";
                     employee_r[i] = $('<td><image style="width:45%" title="'+obj['employee']+'" src="'+employee_img+'"></image></td>').addClass('profileTd employee'+i);
                     row[i].append(employee_r[i]);
-                    row[i].append(device_r[i]);
                     row[i].append(location_r[i]);
+                    row[i].append(device_r[i]);
                     for (var k in obj) {
                         var attrName = k; //e.g. pdict
                         var attrValue = obj[k]; //e.g. 1
@@ -235,7 +236,7 @@ function getReport(employees_number) {
                                 "<div class='scale total'>|</div>" +
                                 "<div class='scale total'>|</div>" +
                                 "<div class='scale total'>|</div>" +
-                            "</div><br/>";
+                            "</div><div>(%)</div><br/>";
                 $("#employees").append("<div class='scale_container' style='margin-top:12%;'></div>");
                 $("#employees_risk").append(scale);
                 $("#employees_cost").append(scale);
@@ -259,11 +260,13 @@ function getReport(employees_number) {
                 $("#totalcost").addClass("modifiers_total m_cost mr_"+get_m_ranges_total(reportModel.total()['p_cost']));
             },
             error: function (response) {
+                clearReport();
                 console.log("fail: " + response.responseText);
                 $('#report_error').append("<div>No report available</div>");
             }
         });
     }else{
+        clearReport();
         $('#report_error').append("<div>No report available</div>");
     }
 }

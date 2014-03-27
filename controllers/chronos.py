@@ -74,12 +74,23 @@ class resume_game:
             })
         journal = records(context.user_id())
         client_date = journal.get_last_sync()
+
+        start_date = date_utils.iso8601_to_date('2014-01-06')
+        days_delta = (client_date - start_date).days
+        if days_delta >= 176:         #6 months have passed (July, 1)
+            employees_number = 9
+        elif days_delta >= 85:        #3 months have passed (April, 1)
+            employees_number = 3
+        else:
+            employees_number = 1
+
         response = {
             'date': client_date.isoformat(),
             'policyAccept': False,
             'eventAccept': False,
             'calendar': journal.get_calendar(client_date),
-            'policy': policies_model.get_policies_list(context.user_id())
+            'policy': policies_model.get_policies_list(context.user_id()),
+            'employees_number': employees_number
         }
 
         return json.dumps(response)

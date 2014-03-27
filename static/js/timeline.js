@@ -57,7 +57,6 @@ function submitPolicyDelta() { // need different event handling, to capture any 
             console.log("fail: " + response.responseText);
         }
     });
-    getReport();
 }
 
 function resume() {
@@ -73,6 +72,7 @@ function resume() {
             window.currentPolicy = policy['policy'];
             displayContextualizedPolicy(policy['policy'][0]);
             get_recent_events();
+            reportModel.employees_number(policy['employees_number']);
         },
         error: function (response) {
             console.log("fail: " + response.responseText);
@@ -101,9 +101,11 @@ $(function () {
                     clearInterval(timelineModel.clock());
                     break;
                 case 1:
+                    clearInterval(timelineModel.clock());
                     startClock(3000);
                     break;
                 case 2:
+                    clearInterval(timelineModel.clock());
                     startClock(500);
                     break;
                 }
