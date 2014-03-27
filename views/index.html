@@ -590,7 +590,8 @@
             <div class="employees_num">Employees number: <span id="employees_num" data-bind="text: reportModel.employees_number"></span></div>
             <div data-bind="with: report, visible: currentPage() === 'report_page'">
                 <h1>Report</h1><br>
-                <h5>Please hover over the icon to see its meaning.</h5>
+                <h4 id="report_error" style='color:red'></h4>
+                <h5>Please hover over the icons to see their meaning.</h5>
                 <div hidden data-bind="text: total"></div>
                 <div class="span11"><h4>Policies</h4></div>
                 <div class="span11" id ="policies" style="margin-bottom:10px;overflow:auto;margin-top: 10px;">
@@ -615,9 +616,9 @@
                     <div class="span3"> <h5>Productivity Cost</h5></div>
                 </div>
                 <div class="span11" style="margin-top:10px">
-                    <div class="span5"></div>
-                    <div class="span3"  style="margin-right:40px;"> <div id="totalrisk"></div> </div>
-                    <div class="span3"> <div id="totalcost"></div> </div>
+                    <div class="span5" id="total_container"></div>
+                    <div class="span3" id ="total_risk_container" style="margin-right:40px;"></div>
+                    <div class="span3" id ="total_cost_container"></div>
                 </div>
             </div>
 

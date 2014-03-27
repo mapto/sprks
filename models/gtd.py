@@ -40,27 +40,26 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         self.locations2employees = numpy.genfromtxt('static/data/gtd_model/locations2employees.csv', delimiter=',') # columns - locations, # rows - employees
         self.pc_modifier_complexity2behaviour = numpy.genfromtxt('static/data/gtd_model/pc_modifier_complexity2behaviour.csv', delimiter=',') #columns - complexity, #rows - behaviours
         self.r_modifier_complexity2behaviour = numpy.genfromtxt('static/data/gtd_model/r_modifier_complexity2behaviour.csv', delimiter=',') #columns - complexity, #rows - behaviours
-
         self.policy = policies_model.get_policies_list(self.user_id)
-        for p in self.policy:
-            print p
 
     def get_policy_complexity(self, policy):
-        complexity = 'easy'
+        complexity = 'none'
         if int(policy['plen'])>10 or int(policy['psets'])>3 or int(policy['phist'])>2 or int(policy['prenew'])>1:        # see pw_policy.py model for the reference
             complexity = 'complex'
         elif int(policy['plen'])>6 or int(policy['psets'])>1 or int(policy['pdict'])==1 or int(policy['phist'])==2 or int(policy['prenew'])==1:
             complexity = 'medium'
+        elif int(policy['plen'])>0:
+            complexity = 'easy'
         #complexity = 'easy'#/'complex'/'medium' for testing of extreme cases
         return complexity
 
     def get_goal_task_differentiation(self, empl_num):
+        total_possible_empl_num = 9
         total_pc_modifier = 0
         total_r_modifier = 0
-        print empl_num
         if empl_num == 1:
             empl_tps = ['executives']
-            empls = [ 'padh']
+            empls = [ 'som']
         elif empl_num == 3:
             empl_tps = ['executives','desk','road']
             empls = [ 'padh', 'cam', 'ft']
@@ -74,10 +73,6 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         output = numpy.array(["employee","location","pswd_complexity",0,0])
         report = {"employees":[], "total":{}}
         report['employees'] = []
-        print empls
-        print empl_tps
-
-        total_possible_empl_num = 9
 
         for employee in empls:                 #for each possible employee (9 positions)
             employee_type = empl_tps[empls.index(employee)]
@@ -86,23 +81,20 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
                 p_location = p['location']
                 p_complexity = self.get_policy_complexity(p)
                 if employee_type == p_employee:
-                    #print employee
-                    #print p_location
-                    #print p_complexity
                     possible_behaviours2locations = self.get_possible_behaviours2locations(employee, p_location)
 
                     pc_modifiers = deepcopy(self.pc_modifier_complexity2behaviour)
                     r_modifiers = deepcopy(self.r_modifier_complexity2behaviour)
-                    i = self.policy_complexity.index(p_complexity)
-                    pc_modifier = [float(pc_modifiers[0][i]), float(pc_modifiers[1][i]), float(pc_modifiers[2][i])] #modifiers over behaviours
-                    r_modifier = [float(r_modifiers[0][i]), float(r_modifiers[1][i]), float(r_modifiers[2][i])] #modifiers over behaviours
+                    if p_complexity=='none':
+                        pc_modifier = [0,0,0]
+                        r_modifier = [0,0,0]
+                    else:
+                        i = self.policy_complexity.index(p_complexity)
+                        pc_modifier = [float(pc_modifiers[0][i]), float(pc_modifiers[1][i]), float(pc_modifiers[2][i])] #modifiers over behaviours
+                        r_modifier = [float(r_modifiers[0][i]), float(r_modifiers[1][i]), float(r_modifiers[2][i])] #modifiers over behaviours
 
                     r_modifier = sum(possible_behaviours2locations.dot(r_modifier))    #dot product provides r_modifiers over different locations, which are then summed up
                     pc_modifier = sum(possible_behaviours2locations.dot(pc_modifier))  #dot product provides pc_modifiers over different locations, which are then summed up
-
-                    #print r_modifier
-                    #print pc_modifier
-                    #print('\n')
 
                     output = numpy.vstack([output, [employee,p_location,p_complexity,r_modifier,pc_modifier]])
 
@@ -116,13 +108,10 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
                             rep['risk'] = rep['risk']+r_modifier
                             rep['p_cost'] = rep['p_cost']+pc_modifier
                             break
-                            #print employee +' '+rep['employee']
                     if flag==0:
                         report['employees'].append({"employee":employee, "risk":r_modifier, "p_cost":pc_modifier})
-
         report['total']['risk'] = total_r_modifier*total_possible_empl_num/empl_num
         report['total']['p_cost'] = total_pc_modifier
-
         output = numpy.vstack([output, ["total","total","total",total_r_modifier,total_pc_modifier]])
         numpy.savetxt('static/data/gtd_model/tests/test'+str(self.user_id)+'.csv', output, fmt='%s')
 
@@ -163,4 +152,4 @@ if __name__ == "__main__":
     gtd = goal_task_differentiation(1)
     print str("behaviours\n" + str(gtd.behaviours2employees) + "\n")
     print str("locations\n" + str(gtd.locations2employees) + "\n")
-    print( gtd.get_goal_task_differentiation(gtd.employee_types,gtd.employees))
+    print( gtd.get_goal_task_differentiation(3))
