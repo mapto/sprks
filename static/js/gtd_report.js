@@ -19,7 +19,7 @@ $(function(){
     });
 });
 
-//To dynemically change the number of employees, call:
+//For testing purposes: in order to dynamically change the number of employees, call:
 // reportModel.employees_number(1)
 
 function clearReport(){
@@ -37,6 +37,7 @@ function clearReport(){
 
 }
 
+//get appropriate class name for the scale of policy impact
 function get_m_ranges(modifier, vals){
     var max = Math.max.apply(Math, vals);
     if(modifier ==0){
@@ -54,6 +55,7 @@ function get_m_ranges(modifier, vals){
     }
 }
 
+//get appropriate class name for the scale of total risk and cost
 function get_m_ranges_total(modifier, vals){
     if(modifier ==0){
         return 0;
