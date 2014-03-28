@@ -121,7 +121,7 @@ function get_profile() {
 }
 
 function createGraph(data) {
-    console.log('Generating profile graphs...');
+    //console.log('Generating profile graphs...');
     var dps_risk = []; //data points for risk
     var dps_cost = []; //data points cost
     for (var k in data) {

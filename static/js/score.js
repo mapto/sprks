@@ -1,7 +1,6 @@
 var score_obj;
 function initScore(){
     retrieveScores(); //request scores, write them to score_obj global variable
-    console.log(score_obj);
     //create accordion score representation
     //new Fx.Accordion(accordion, '#accordion h2', '#accordion .content');
     $('#accordion').accordion({
@@ -32,7 +31,6 @@ function retrieveScores(){
 
 // Ladder is "risk" or "cost"
 function climbLadder(ladder) {
-    console.log("entered climb");
     // scores:
     var own = getScore("Own", ladder);
     var contender = getScore("Contender", ladder);

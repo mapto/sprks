@@ -54,25 +54,15 @@ function submitAlternativesRequest() {
     $(".qn").each(function (i) { //iteration accross questions
         var id_tmp = $(this).attr('id');
         next = get_range(new_policy, id_tmp);
-        /*
-        console.log("id");
-        console.log(id_tmp);
-        console.log("next");
-        console.log(next);
-        console.log("new");
-        console.log(new_policy);
-        */
         msgs['data'] = msgs['data'].concat(next);
     });
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
-    // console.log(msgs.concat(get_range(new_policy, "plen")));
-
     //cancel any pending multiple/score requests before sending a new one
     for(var i = 0; i < requests.length; i++){
-        requests[i].abort();
+        //requests[i].abort();
     }
 
-    var request = $.ajax({
+    /*var request = $.ajax({
         url: "/score/multiple",
         type: "POST",
         async: true,
@@ -88,10 +78,11 @@ function submitAlternativesRequest() {
             console.log("fail: " + response.responseText);
         }
     });
+    */
     //introduced an array of multiple/score requests
     //so that before te new one is sent,
     //all the rest, which are pending, would be aborted
-    requests.push(request);
+    //requests.push(request);
 
     return false;
 
@@ -121,7 +112,6 @@ function get_range(policy, id) {
     return msgs;
 }
 function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdict, etc.
-    console.log(policy_costs_risks);
     var graph_id = {};
     dps_risk = {};
     dps_cost = {};
@@ -130,7 +120,6 @@ function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdi
         dps_risk[$(this).closest($(".qn")).attr('id')] = [];//initializing dps
         dps_cost[$(this).closest($(".qn")).attr('id')] = [];//initializing dps
         graph_id[$(this).closest($(".qn")).attr('id')] = "graph_" + [$(this).closest($(".qn")).attr('id')]; //assigning graph ids like graph_id.plen = "graph_plen"
-        console.log(graph_id);
     });
 
     $(policy_costs_risks).each(function (i) {
@@ -142,7 +131,7 @@ function initialize_graphs(policy_costs_risks) { //id examples: plen, psets, pdi
             dps_cost[new_string].push(tmpCost);
         }
     });
-    console.log("Initializing graphs details(ids, risks, costs)...");
+    //console.log("Initializing graphs details(ids, risks, costs)...");
 //    console.log(graph_id);
 //    console.log(dps_risk);
 //    console.log(dps_cost);

@@ -81,8 +81,6 @@ function update_passfaces_form(policy) {
 
 function displayContextualizedPolicy(contextualized) {
     var factorIdx = {"biometric": 0, "passfaces": 1, "password": 2};
-    console.log('calling displayContex');
-    console.log(contextualized);
     emp = contextualized['employee'];
     $("#" + emp).prop('checked', true);
     $("#" + emp).change();
@@ -100,9 +98,6 @@ function displayContextualizedPolicy(contextualized) {
 
     $("#aut_num").val(factors.length);
     $("#aut_num").change(); // have to do it manually, previous line doesn't call it
-
-    console.log('reached line');
-    //console.log('length ' + factors.length);
     for (var i = 0; (i < factors.length) && (i < 2); i++) {
         $("#authentication" + (i+1)).val(factorIdx[factors[i]]);
         $("#authentication" + (i+1)).change();
@@ -117,8 +112,8 @@ function displayContextualizedPolicy(contextualized) {
 function updatePolicy(policy) {
     policyUpdate = [];
     statusReady();
-    console.log('response from server:');
-    console.log(policy);
+    //console.log('response from server:');
+    //console.log(policy);
     timelineModel.clockSpeed(0);
     timelineModel.currentDate(new Date(policy['date']));
     timelineModel.calendar(policy['calendar']);
@@ -212,7 +207,7 @@ function resetPolicyForm(){
         clear_policy_summary();
         $('#chartContainer').empty();
         for(var i = 0; i < requests.length; i++){
-            requests[i].abort();
+            //requests[i].abort();
         }
         events_flag = [];
         char_flag = {'executives':0,'desk':0,'road':0}
@@ -235,7 +230,7 @@ $("#apply").click(function () {
         policyUpdate = policyUpdate.concat(policies_array);
         //reset policies form
         resetPolicyForm();
-        console.log(policyUpdate);
+        //console.log(policyUpdate);
         toastr['info']('Policy saved. All the changes will be applied in the end of the month. Once you have finished updating the policies, please press the play button to continue');
     }
 });
@@ -307,7 +302,7 @@ $('.target').bind("change", function () {
                   update_password_form(window.last_found);
                   update_biometric_form(window.last_found);
                   update_passfaces_form(window.last_found);
-                      console.log('');
+                      //console.log('');
                       //piece of code for displaying the corresponding number and names of mechanisms
                       //accompanied with options for them
                       var mechanisms = get_factors(window.last_found);
@@ -352,22 +347,22 @@ $('.target').bind("change", function () {
             }
         }
     }
-    console.log('target changed by ' + attribute);
-    console.log(policies_array);
+    //console.log('target changed by ' + attribute);
+    //console.log(policies_array);
     summarizePolicy(policies_array);
     submitAlternativesRequest();
 });
 
 function find_policy(employee, location, device) {
     var tmp = {};
-    console.log('looking for policy:' + employee + ' ' + location + ' ' + device);
+    //console.log('looking for policy:' + employee + ' ' + location + ' ' + device);
     $(window.currentPolicy).each(function (policy_ind) {;
-        console.log('current policy');
-        console.log(window.currentPolicy[policy_ind]);
+        //console.log('current policy');
+        //console.log(window.currentPolicy[policy_ind]);
         if (window.currentPolicy[policy_ind]['employee'] == employee && window.currentPolicy[policy_ind]['location'] == location && window.currentPolicy[policy_ind]['device'] == device)
         {
-            console.log('policy found');
-            console.log(window.currentPolicy[policy_ind]);
+            //console.log('policy found');
+            //console.log(window.currentPolicy[policy_ind]);
             tmp = window.currentPolicy[policy_ind];
             window.last_found = window.currentPolicy[policy_ind];
             return tmp;
