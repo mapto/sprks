@@ -16,6 +16,18 @@ reportModel = {
 $(function(){
     reportModel.employees_number.subscribe(function (employees_number) {
         getReport(employees_number);
+
+        $(".interviewee").hide();
+        if(employees_number==1){
+            $("#som").parent().show();
+        }else if(employees_number==3){
+            $("#som").parent().show();
+            $("#ft").parent().show();
+            $("#cam").parent().show();
+        }else{
+            $(".interviewee").show();
+        }
+
     });
 });
 

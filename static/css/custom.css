@@ -8,6 +8,19 @@ a:hover{
     cursor:pointer;
 }
 
+.bgmap{
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background-size:100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../img/bgmap.png);
+}
 .navbar-inner {
     background-color: #C10000;
     background-image: -moz-linear-gradient(top, #C10000, #750000);
@@ -477,16 +490,13 @@ label {
     z-index: 0;
     position: fixed;
     bottom: 75px;
-    min-height: 150px;
-    min-width: 60px;
-    height: 16%;
+    min-height: 100px;
+    min-width: 40px;
+    height: 10%;
     width: 5%;
     padding: 5px;
     float: right;
-    /*
-    image source:
-    http://www.google.co.uk/imgres?start=239&client=opera&channel=suggest&biw=1091&bih=558&tbm=isch&tbnid=oFnLPBTrCJB2HM:&imgrefurl=http://www.123rf.com/photo_3074816_stick-man-with-arms-up-and-target-head--vector.html&docid=xA5FGUEZcKaxqM&imgurl=http://us.cdn3.123rf.com/168nwm/cole123rf/cole123rf0804/cole123rf080400284/2930913-stick-man-or-figure-standing-on-red-target--vector.jpg&w=150&h=168&ei=zIDJUaiFKKi90QWnsoCICQ&zoom=1&ved=1t:3588,r:51,s:200,i:157&iact=rc&page=18&tbnh=134&tbnw=120&ndsp=15&tx=78&ty=59#imgdii=oFnLPBTrCJB2HM%3A%3BJ9fEF1n39KtPnM%3BoFnLPBTrCJB2HM%3A
-    */
+
     background-size: 90%;
     background-repeat: no-repeat;
     background-position: bottom;
@@ -502,10 +512,10 @@ label {
 }
 
 #interviewee1 {
-    /*Susie*/
+    /*Andrew*/
     left: 40%;
     right: 55%;
-    bottom: 55%;
+    bottom: 53%;
     background-image: url(../img/executives.png);
 }
 
@@ -513,7 +523,7 @@ label {
     /*Kevin*/
     left: 47.5%;
     right: 47.5%;
-    bottom: 55%;
+    bottom: 53%;
     background-image: url(../img/road.png);
 }
 
@@ -521,10 +531,55 @@ label {
     /*Iza*/
     left: 55%;
     right: 40%;
-    bottom: 55%;
+    bottom: 53%;
     background-image: url(../img/desk.png);
 }
+#interviewee4 {
+    /*Susie*/
+    left: 36%;
+    right: 59%;
+    bottom: 63%;
+    background-image: url(../img/executives.png);
+}
 
+#interviewee5 {
+    /**/
+    left: 43.5%;
+    right: 43.5%;
+    bottom: 63%;
+    background-image: url(../img/road.png);
+}
+
+#interviewee6 {
+    /**/
+    left: 51%;
+    right: 44%;
+    bottom: 63%;
+    background-image: url(../img/desk.png);
+}
+#interviewee7 {
+    /*Andrew*/
+    left: 40%;
+    right: 55%;
+    bottom: 73%;
+    background-image: url(../img/executives.png);
+}
+
+#interviewee8 {
+    /*Kevin*/
+    left: 47.5%;
+    right: 47.5%;
+    bottom: 73%;
+    background-image: url(../img/road.png);
+}
+
+#interviewee9 {
+    /*Iza*/
+    left: 55%;
+    right: 40%;
+    bottom: 73%;
+    background-image: url(../img/desk.png);
+}
 .quote {
     z-index: 2001;
     display: block;
@@ -562,22 +617,26 @@ label {
 }
 
 #quote3 {
-    left: 42.5%;
-    right: 52.5%;
+    left: 41.5%;
+    right: 53.5%;
+
+}
+#quote4 {
+    left: 26.5%;
+    right: 68.5%;
 
 }
 
-/* creates triangle */
-.quote:after {
-    content: "";
-    display: block; /* reduce the damage in FF3.0 */
-    position: absolute;
-    right: 45%;
-    bottom: -15%;
-    width: 0;
-    border-width: 15px 15px 0;
-    border-style: solid;
-    border-color: #333333 transparent;
+#quote5 {
+    left: 34%;
+    right: 61%;
+
+}
+
+#quote6 {
+    left: 42.5%;
+    right: 52.5%;
+
 }
 
 /*PROFILE page*/
@@ -734,10 +793,10 @@ label {
 .device_img {
     display: block;
     position: relative;
-    left: -1em;
+    left: 0em;
     top: 1.5em;
-    height: 3em;
-    width: 3em;
+    height: 2em;
+    width: 2em;
 }
 
 .toast-message {

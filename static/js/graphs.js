@@ -7,7 +7,7 @@
  */
 var requests = [];
 function submitAlternativesRequest() {
-    statusUpdating();
+    //statusUpdating();
     var msgs = {'context': {'employees': [], 'locations': [], 'devices': []}, 'data': []};
     var new_policy = {};
     var msg = {};

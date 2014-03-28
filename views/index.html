@@ -57,7 +57,7 @@
    -->
     <div class="employees_num">Employees number: <span id="employees_num" data-bind="text: reportModel.employees_number"></span></div>
 
-    <div class="policy-summary" diplay:none>
+    <div class="policy-summary" display:none>
         <h4 style = "color:#888888">Factors</h4>
         <h5>Employee:</h5><div class="policy-summary-field" id="sum-employee"></div>
         <h5>Location:</h5><div class="policy-summary-field" id="sum-location"></div>
@@ -87,23 +87,53 @@
 
 <article class="container-fluid">
     <!-- MAP begin-->
-
+    <div class="bgmap"></div>
     <div data-bind="with: map">
         <div class="interviewee" id="interviewee1">
-            Susie
+            Andrew
             <img class="device_img" data-bind="attr:{src: interviewee1DeviceImage}" src=""/>
+            <div id="som"></div>
         </div>
         <div class="interviewee" id="interviewee2">
             Kevin
             <img class="device_img" data-bind="attr:{src: interviewee2DeviceImage}" src=""/>
+            <div id="ft"></div>
         </div>
         <div class="interviewee" id="interviewee3">
             Iza
             <img class="device_img" data-bind="attr:{src: interviewee3DeviceImage}" src=""/>
+            <div id="cam"></div>
+        </div>
+        <div class="interviewee" id="interviewee4">Susie
+            <img class="device_img" data-bind="attr:{src: interviewee4DeviceImage}" src=""/>
+            <div id="padh"></div>
+        </div>
+        <div class="interviewee" id="interviewee5">Richard
+            <img class="device_img" data-bind="attr:{src: interviewee5DeviceImage}" src=""/>
+            <div id="sc"></div>
+        </div>
+        <div class="interviewee" id="interviewee6">Helen
+            <img class="device_img" data-bind="attr:{src: interviewee6DeviceImage}" src=""/>
+            <div id="rm"></div>
+        </div>
+        <div class="interviewee" id="interviewee7">
+            Karine
+            <img class="device_img" data-bind="attr:{src: interviewee7DeviceImage}" src=""/>
+            <div id="bdd"></div>
+        </div>
+        <div class="interviewee" id="interviewee8">
+            Drake
+            <img class="device_img" data-bind="attr:{src: interviewee8DeviceImage}" src=""/>
+            <div id="sm"></div>
+        </div>
+        <div class="interviewee" id="interviewee9">
+            Hue
+            <img class="device_img" data-bind="attr:{src: interviewee9DeviceImage}" src=""/>
+            <div id="pm"></div>
         </div>
 
         <div class="quote" id="quote1" data-bind="visible: currentQuote() == 1">
-            <span class="profile">Susie Queue (32), PA to Department Head  <br/>(executive worker):</span>
+            <span class="profile">Andrew Smith (40), Senior Operations Manager (executive worker):</span>
             <p data-bind="text: quote1"></p>
         </div>
         <div class="quote" id="quote2" data-bind="visible: currentQuote() == 2">
@@ -113,6 +143,30 @@
         <div class="quote" id="quote3" data-bind="visible: currentQuote() == 3">
             <span class="profile">Iza Henata (26), Client Account Manager  <br/>(desk worker):</span>
             <p data-bind="text: quote3"></p>
+        </div>
+        <div class="quote" id="quote4" data-bind="visible: currentQuote() == 4">
+            <span class="profile">Susie Queue (32), PA to Department Head  <br/>(executive worker):</span>
+            <p data-bind="text: quote4"></p>
+        </div>
+        <div class="quote" id="quote5" data-bind="visible: currentQuote() == 5">
+            <span class="profile">Richard Holmes (30), Sales Consultant <br/>(road worker):</span>
+            <p data-bind="text: quote5"></p>
+        </div>
+        <div class="quote" id="quote6" data-bind="visible: currentQuote() == 6">
+            <span class="profile">Helen Stark (33), Recruitment Manager <br/>(desk worker):</span>
+            <p data-bind="text: quote6"></p>
+        </div>
+        <div class="quote" id="quote7" data-bind="visible: currentQuote() == 7">
+            <span class="profile">Karine Bordeaux (25), Business Development Director (executive worker):</span>
+            <p data-bind="text: quote7"></p>
+        </div>
+        <div class="quote" id="quote8" data-bind="visible: currentQuote() == 8">
+            <span class="profile">Drake Green (45), Suppliers Manager <br/>(road worker):</span>
+            <p data-bind="text: quote8"></p>
+        </div>
+        <div class="quote" id="quote9" data-bind="visible: currentQuote() == 9">
+            <span class="profile">Hue Matt (41), Project Manager (desk worker):</span>
+            <p data-bind="text: quote9"></p>
         </div>
     </div>
     <!-- MAP end-->
@@ -240,10 +294,11 @@
                         to get an idea of what the culture is like at Global Sparks. (Main map)</li>
                     <li>Design the company security policy, so that you keep both risks and productivity cost low. (Policy)</li>
                     <li>See and analyse a monthly report on employees behaviour to help you to adjust security policy. (Report)</li>
+                    <li>You will start with one employee. The number of employees will increment gradually throughout the game reaching 9 different positions by the 6th month of the game time.</li>
                 </ul>
                 <h5>Controls</h5>
                 <ul>
-                    <li>To navigate through the game, use the menu buttons (Story, Policy, Profile, Report).</li>
+                    <li>To navigate through the game, please use the menu buttons (Story, Policy, Profile, Report).</li>
                     <li>To get more information about the employees, please close this dialogue (by pressing the red cross) and click on one of the stick figures on the main map.</li>
                     <li>You can pause the game or choose between two different speeds of the game flow in the top right corner.</li>
                     <li>You can see the number of employees in the top right corner as well.</li>
@@ -269,7 +324,7 @@
                         from its disparate components. Immediately several issues have come to light, resulting from both the mergers
                         and the fluid hiring situation.</p>
 
-                    <p><h5 style="color:red">To aid you in your work please close the company description and speak to one of the members of staff<br/>
+                    <p><h5>To aid you in your work please close the company description and speak to one of the members of staff<br/>
                     (click on one of the stick figures) on the main map to get an idea of what the culture is like at Global Sparks:</h5></p>
 
                 </div>
@@ -813,8 +868,7 @@
 </footer>
 
 
-<object  data="static/img/map.svg"></object> <!--background map for locations-->
-
+<!--<object  data="static/img/map.svg"></object> <!--background map for locations-->
 <!-- Local scripts loaded here. External libraries loaded in document head -->
 <script src="/static/js/policy_interpretor.js"></script>
 <script src="static/js/timeline.js"></script>

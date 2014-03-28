@@ -31,9 +31,15 @@ class characters:
 
         return json.dumps(
             {
-                'interviewee1': [locations[0], devices[0]], # Susie (executive)
-                'interviewee2': [locations[1], devices[1]], # Kevin (desk)
-                'interviewee3': [locations[2], devices[2]]   # Iza (road)
+                'interviewee1': [locations[0], devices[0]], # Andrew (executive)
+                'interviewee2': [locations[2], devices[2]], # Kevin (road)
+                'interviewee3': [locations[1], devices[1]], # Iza (desk)
+                'interviewee4': [locations[0], devices[0]], # Susie (executive)
+                'interviewee5': [locations[2], devices[2]], # Richard (road)
+                'interviewee6': [locations[1], devices[1]], # Helen (desk)
+                'interviewee7': [locations[0], devices[0]], # Karine (executive)
+                'interviewee8': [locations[2], devices[2]], # Drake (road)
+                'interviewee9': [locations[1], devices[1]]  # Hue (desk)
             }
         )
 

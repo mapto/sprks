@@ -62,12 +62,12 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
             empls = ['som']
         elif empl_num == 3:
             empl_tps = ['executives', 'desk', 'road']
-            empls = ['som', 'cam', 'sm']
+            empls = ['som', 'cam', 'ft']
         elif empl_num == 9:
             empl_tps = ['executives','executives','executives',
                       'desk','desk','desk',
                       'road','road','road']
-            empls = ['padh', 'som', 'bdd',
+            empls = ['som', 'padh', 'bdd',
                   'cam', 'rm', 'pm',
                   'ft', 'sc', 'sm']
         output = numpy.array(["employee","location","pswd_complexity",0,0])
