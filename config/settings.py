@@ -7,8 +7,11 @@ A user-customized version of this file should be placed in the root directory (s
 """
 
 # database credentials
+#dbuser = 'root'
+#dbpw = '1234'
 dbuser = 'root'
-dbpw = '1234'
+dbpw = 'st3er1ngO'
+dbname = 'sprks-zhanelya'
 
 # default values if left unset
 # dbname = 'sprks'

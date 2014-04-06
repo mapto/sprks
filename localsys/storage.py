@@ -17,11 +17,14 @@ try:
 except ImportError, AttributeError:
     # Default DB credentials
     db = web.database(
-        dbn='mysql',
         user='root',
         pw='1234',
         db='sprks',
         host='127.0.0.1',
+        dbn='mysql',
+        #user='seccompman', #for connection to orpheus server
+        #pw='ke:p17loadeD', #for connection to orpheus server
+        #db='sprks-zhanelya', #for connection to orpheus server
         port=3306
     )
     path = ''

@@ -113,7 +113,7 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
         report['total']['risk'] = total_r_modifier*total_possible_empl_num/empl_num
         report['total']['p_cost'] = total_pc_modifier
         output = numpy.vstack([output, ["total","total","total",total_r_modifier,total_pc_modifier]])
-        numpy.savetxt('static/data/gtd_model/tests/test'+str(self.user_id)+'.csv', output, fmt='%s')
+        #numpy.savetxt('static/data/gtd_model/tests/test'+str(self.user_id)+'.csv', output, fmt='%s')
 
         return report
 
