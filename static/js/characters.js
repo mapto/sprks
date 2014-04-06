@@ -106,7 +106,7 @@ function placeAt(div_id, place) {
     var r = coordinates[div_id][place][1];
     var b = coordinates[div_id][place][2];
     placeDiv(div_id, l, r, b);                                        //update character position
-    placeDiv('quote' + div_id.substr(div_id.length - 1), l - 12.5, r + 12.5, b + 18);  //update position of his speech bubble
+    placeDiv('quote' + div_id.substr(div_id.length - 1), l - 12.5, r + 12.5, b + 10);  //update position of his speech bubble
 }
 
 function giveDevice(div_id, device) {
