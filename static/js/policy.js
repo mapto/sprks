@@ -120,6 +120,7 @@ function updatePolicy(policy) {
     pageModel.currentPage('report_page');
     resume();
     updateScoreFrame();
+    getReport(reportModel.employees_number());
 }
 
 //3 different authentication mechanisms
