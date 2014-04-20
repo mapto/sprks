@@ -36,17 +36,25 @@ class goal_task_differentiation: #needs to be called in the end of each term (mo
 
     def __init__(self, p_user_id):
         self.user_id = p_user_id
-        self.behaviours2employees = numpy.genfromtxt('static/data/gtd_model/behaviours2employees.csv', delimiter=',') # columns - behaviours, # rows - employees
-        self.locations2employees = numpy.genfromtxt('static/data/gtd_model/locations2employees.csv', delimiter=',') # columns - locations, # rows - employees
-        self.pc_modifier_complexity2behaviour = numpy.genfromtxt('static/data/gtd_model/pc_modifier_complexity2behaviour.csv', delimiter=',') #columns - complexity, #rows - behaviours
-        self.r_modifier_complexity2behaviour = numpy.genfromtxt('static/data/gtd_model/r_modifier_complexity2behaviour.csv', delimiter=',') #columns - complexity, #rows - behaviours
+        self.behaviours2employees = numpy.genfromtxt('static/data/gtd_model/behaviours2employees.csv', \
+                                                     delimiter=',') # columns - behaviours, # rows - employees
+        self.locations2employees = numpy.genfromtxt('static/data/gtd_model/locations2employees.csv', \
+                                                    delimiter=',') # columns - locations, # rows - employees
+        self.pc_modifier_complexity2behaviour = numpy.genfromtxt \
+                                                    ('static/data/gtd_model/pc_modifier_complexity2behaviour.csv', \
+                                                    delimiter=',') #columns - complexity, #rows - behaviours
+        self.r_modifier_complexity2behaviour = numpy.genfromtxt\
+                                                ('static/data/gtd_model/r_modifier_complexity2behaviour.csv', \
+                                                 delimiter=',') #columns - complexity, #rows - behaviours
         self.policy = policies_model.get_policies_list(self.user_id)
 
     def get_policy_complexity(self, policy):
         complexity = 'none'
-        if int(policy['plen'])>10 or int(policy['psets'])>3 or int(policy['phist'])>2 or int(policy['prenew'])>1:        # see pw_policy.py model for the reference
+        if int(policy['plen'])>10 or int(policy['psets'])>3 or int(policy['phist'])>2 or int(policy['prenew'])>1:
+            # see pw_policy.py model for the reference
             complexity = 'complex'
-        elif int(policy['plen'])>6 or int(policy['psets'])>1 or int(policy['pdict'])==1 or int(policy['phist'])==2 or int(policy['prenew'])==1:
+        elif int(policy['plen'])>6 or int(policy['psets'])>1 or int(policy['pdict'])==1 or int(policy['phist'])==2 \
+        or int(policy['prenew'])==1:
             complexity = 'medium'
         elif int(policy['plen'])>0:
             complexity = 'easy'
