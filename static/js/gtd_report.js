@@ -68,7 +68,7 @@ function get_m_ranges(modifier, vals){
 }
 
 //get appropriate class name for the scale of total risk and cost
-function get_m_ranges_total(modifier, vals){
+function get_m_ranges_total(modifier){
     if(modifier ==0){
         return 0;
     }else if(modifier<=0.1){
@@ -292,9 +292,9 @@ function getReport(employees_number) {
                 //$("#totalrisk").html(reportModel.total()['risk'].toFixed(2));
                 //$("#totalcost").html(reportModel.total()['p_cost'].toFixed(2));
                 $("#totalrisk").addClass("modifiers_total m_risk mr_"
-                        +get_m_ranges_total(reportModel.total()['risk']));
+                    +get_m_ranges_total(reportModel.total()['risk']));
                 $("#totalcost").addClass("modifiers_total m_cost mr_"
-                        +get_m_ranges_total(reportModel.total()['p_cost']));
+                    +get_m_ranges_total(reportModel.total()['p_cost']));
             },
             error: function (response) {
                 clearReport();
