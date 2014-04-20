@@ -159,13 +159,18 @@ function getReport(employees_number) {
                 report = JSON.parse(report);
                 for(i=0;i<report['employees'].length;i=i+1){
                     var employee_type = get_employee_type(report['employees'][i]['employee']);
-                    reportModel.employees.push({employee: '<span class="'+employee_type+'">'+get_full_name(report['employees'][i]['employee'])+'('+employee_type+'</span>)',
+                    reportModel.employees.push({employee: '<span class="'
+                                                +employee_type+'">'
+                                                +get_full_name(report['employees'][i]['employee'])
+                                                +'('+employee_type+'</span>)',
                                                 risk: report['employees'][i]['risk'].toFixed(2),
                                                 p_cost: parseFloat(report['employees'][i]['p_cost'].toFixed(2))});
                     reportModel.e_risks.push(-report['employees'][i]['risk'].toFixed(2))
                     reportModel.e_costs.push(parseFloat(report['employees'][i]['p_cost'].toFixed(2)))
                 }
-                reportModel.total({risk:1+report['total']['risk'],p_cost:0+report['total']['p_cost']}); //Initial risk is very high(1 or 100%) whereas productivity is 0
+                reportModel.total({risk:1+report['total']['risk'],p_cost:0+report['total']['p_cost']});
+                //Initial risk is very high(1 or 100%) whereas productivity is 0
+
                 //policy report
                 for(i=0;i<report['policy'].length;i=i+1){
                     reportModel.policy.push(report['policy'][i]);
@@ -178,8 +183,12 @@ function getReport(employees_number) {
                 row.append($('<td><image style="width:45%" title="location" src="static/img/policy_icons/location.png"></image></td>').addClass('profileTd profileTh'));
                 row.append($('<td><image style="width:45%" title="device" src="static/img/policy_icons/device.png"></image></td>').addClass('profileTd profileTh'));
                 for (var key in reportModel.policy()[0]) {
-                    if (key !== 'location' && key !== 'device' && key !== 'employee' && key !== 'bdata' && key !== 'pdata') { //do not show these fields
-                        var col = $('<td><image style="width:45%" title="'+interpret_policy_label(key)+'" src="static/img/policy_icons/'+key+'.png"></image></td>').addClass('profileTd profileTh');
+                    if (key !== 'location' && key !== 'device'
+                        && key !== 'employee' && key !== 'bdata' && key !== 'pdata') {
+                        //do not show these fields
+                        var col = $('<td><image style="width:45%" title="'
+                            +interpret_policy_label(key)
+                            +'" src="static/img/policy_icons/'+key+'.png"></image></td>').addClass('profileTd profileTh');
                         row.append(col);
                     }
                 }
@@ -196,18 +205,26 @@ function getReport(employees_number) {
                     col[i] = {};
                     row [i] = $('<tr></tr>').addClass('profileTr' + i);
                     var location_img = "static/img/"+obj['location']+".png";
-                    location_r[i] = $('<td><image style="width:45%" title="'+obj['location']+'" src="'+location_img+'"></image></td>').addClass('profileTd location'+i);
+                    location_r[i] = $('<td><image style="width:45%" title="'
+                                    +obj['location']+'" src="'
+                                    +location_img+'"></image></td>').addClass('profileTd location'+i);
                     var device_img = "static/img/"+obj['device']+".png";
-                    device_r[i] = $('<td><image style="width:45%" title="'+obj['device']+'" src="'+device_img+'"></image></td>').addClass('profileTd device'+i);
+                    device_r[i] = $('<td><image style="width:45%" title="'
+                                +obj['device']+'" src="'
+                                +device_img+'"></image></td>').addClass('profileTd device'+i);
                     var employee_img = "static/img/"+obj['employee']+".png";
-                    employee_r[i] = $('<td><image style="width:45%" title="'+obj['employee']+'" src="'+employee_img+'"></image></td>').addClass('profileTd employee'+i);
+                    employee_r[i] = $('<td><image style="width:45%" title="'
+                                    +obj['employee']+'" src="'
+                                    +employee_img+'"></image></td>').addClass('profileTd employee'+i);
                     row[i].append(employee_r[i]);
                     row[i].append(location_r[i]);
                     row[i].append(device_r[i]);
                     for (var k in obj) {
                         var attrName = k; //e.g. pdict
                         var attrValue = obj[k]; //e.g. 1
-                        if (attrName !== 'location' && attrName !== 'device' && attrName !== 'employee' && attrName !== 'bdata' && attrName !== 'pdata') { //do not show these fields
+                        if (attrName !== 'location' && attrName !== 'device'
+                            && attrName !== 'employee' && attrName !== 'bdata'
+                            && attrName !== 'pdata') { //do not show these fields
                             if(attrName=='pdict'){
                                 if(attrValue==1){
                                     col[i][attrName] = $('<td><image style="width:45%" title="set" src="static/img/policy_icons/check.png"></image></td>').addClass('profileTd ' + attrName + i);
@@ -215,7 +232,8 @@ function getReport(employees_number) {
                                     col[i][attrName] = $('<td><image style="width:45%" title="none" src="static/img/policy_icons/cross.png"></image></td>').addClass('profileTd ' + attrName + i);
                                 }
                             }else{
-                                col[i][attrName] = $('<td></td>').addClass('profileTd ' + attrName + i).text(interpret_policy_value(attrName,attrValue));
+                                col[i][attrName] = $('<td></td>').addClass('profileTd '
+                                                    + attrName + i).text(interpret_policy_value(attrName,attrValue));
                             }
                             row [i].append(col[i][attrName]);
                         }
@@ -255,14 +273,17 @@ function getReport(employees_number) {
                 $("#employees_risk").append(scale);
                 $("#employees_cost").append(scale);
                 for (i=0; i<reportModel.employees().length; i=i+1){
-                    $("#employees").append("<div id=\"employees"+i+"\">"+reportModel.employees()[i]['employee']+"</div>");
+                    $("#employees").append("<div id=\"employees"+i+"\">"
+                                +reportModel.employees()[i]['employee']+"</div>");
                     //$("#employees_risk").append("<div id=\"employees_risk"+i+"\">"+reportModel.employees()[i]['risk']+"</div>");
                     $("#employees_risk").append("<div id=\"employees_risk"+i+"\"></div>");
-                    $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"+get_m_ranges(-reportModel.employees()[i]['risk'], reportModel.e_risks()));
+                    $("#employees_risk"+i).addClass("modifiers_range m_risk mr_"
+                                    +get_m_ranges(-reportModel.employees()[i]['risk'], reportModel.e_risks()));
                     //risk value is negated to make it positive for calculation of ranges image, the value remains negative
                     //$("#employees_cost").append("<div id=\"employees_cost"+i+"\">"+reportModel.employees()[i]['p_cost']+"</div>");
                     $("#employees_cost").append("<div id=\"employees_cost"+i+"\"></div>");
-                    $("#employees_cost"+i).addClass("modifiers_range m_cost mr_"+get_m_ranges(reportModel.employees()[i]['p_cost'], reportModel.e_costs()));
+                    $("#employees_cost"+i).addClass("modifiers_range m_cost mr_"
+                                    +get_m_ranges(reportModel.employees()[i]['p_cost'], reportModel.e_costs()));
                 }
                 $("#total_container").append("<div class='scale_container' style='margin-top:12%;'></div>");
                 $("#total_risk_container").append(scale_total+"<div id='totalrisk'></div>");
@@ -270,8 +291,10 @@ function getReport(employees_number) {
 
                 //$("#totalrisk").html(reportModel.total()['risk'].toFixed(2));
                 //$("#totalcost").html(reportModel.total()['p_cost'].toFixed(2));
-                $("#totalrisk").addClass("modifiers_total m_risk mr_"+get_m_ranges_total(reportModel.total()['risk']));
-                $("#totalcost").addClass("modifiers_total m_cost mr_"+get_m_ranges_total(reportModel.total()['p_cost']));
+                $("#totalrisk").addClass("modifiers_total m_risk mr_"
+                        +get_m_ranges_total(reportModel.total()['risk']));
+                $("#totalcost").addClass("modifiers_total m_cost mr_"
+                        +get_m_ranges_total(reportModel.total()['p_cost']));
             },
             error: function (response) {
                 clearReport();
