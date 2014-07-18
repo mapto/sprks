@@ -46,14 +46,15 @@ class forward:
         #     while prev_date < datetime.now():
         #         prev_date = prev_date + timedelta(days=7)
 
-        new_date = prev_date + timedelta(days=7)
+        # new_date = prev_date + timedelta(days=7)
+        new_date = prev_date + 1
 
         for k, value in data.iteritems():
             sim.set_policy(k, value)
 
-        db.insert('scores', userid=usrid, score_type=1, score_value = sim.get_risk(data), date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
-        db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(data), date=prev_date.strftime("%Y/%m/%d %H:%M:%S"), rank=0)
-        db.insert('pw_policy', userid=usrid, date=new_date.strftime("%Y/%m/%d %H:%M:%S"),
+        db.insert('scores', userid=usrid, score_type=1, score_value = sim.get_risk(data), date=prev_date, rank=0)
+        db.insert('scores', userid=usrid, score_type=2, score_value = sim.calc_prod_cost(data), date=prev_date, rank=0)
+        db.insert('pw_policy', userid=usrid, date=new_date,
                   plen=data["plen"], psets=data["psets"], pdict=data["pdict"], phist=data["phist"],
                   prenew=data["prenew"], pattempts=data["pattempts"], precovery=data["precovery"])
-        return json.dumps([{"value": new_date.strftime("%Y/%m/%d %H:%M:%S")}])
+        return json.dumps([{"value": new_date}])

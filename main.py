@@ -24,7 +24,7 @@ import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 
-urls = ('/', controllers.pwpolicy.pwpolicy,
+urls = ('/', controllers.home.home,
         '/home', controllers.home.home,
         '/login', controllers.login.login,
         '/register', controllers.register.register,
@@ -42,7 +42,6 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
-#        '/timeline', controllers.timeline.preview,
         '/incident', controllers.incident.incident,
         '/incident_rest', controllers.incident.incident_rest
         )

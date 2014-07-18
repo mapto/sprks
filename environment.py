@@ -9,6 +9,7 @@ import web
 import session
 from datetime import datetime
 # from controllers.timeline import get_start_time
+import importlib
 
 def get_start_time():
     return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
@@ -28,7 +29,7 @@ render_private = web.template.render('views/', base='index_private', globals=glo
 render_public = web.template.render('views/', base='index_public')
 
 try:
-    settings = __import__('settings')
+    settings = importlib.import_module('settings')
     # Assuming that only MySQL is used
     db = web.database(dbn='mysql',
         user=getattr(settings,'dbuser'),
@@ -36,7 +37,8 @@ try:
         db=getattr(settings,'dbname'))
 except ImportError, AttributeError:
     # Default DB credentials
-    db = web.database(dbn='mysql',
+    db = web.database(host='127.0.0.1',
+        dbn='mysql',
         user='root',
         pw='1234',
         db='sprks')
