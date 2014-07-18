@@ -9,13 +9,15 @@ import math
 from sim.simulation import simulation
 import json
 from models.policies import policies_model as model
+from models.users import users_model
 
 class score:
     def POST(self):
+        session.mysession.session.turn = users_model().end_game(session.mysession.session.user)
         raise web.seeother('/intro')
 
 
-    def check_closest_competitor(self,length, usrid, your_score):
+    def check_closest_competitor(self, length, usrid, your_score):
         print "entered check closest"
         """c = your_score.score_value
         c_when = your_score.date
@@ -212,7 +214,7 @@ class score:
                                     b_risk, b_risk_when,
                                     b_pc, b_pc_when,
                                     avg_risk,
-                                    avg_pc, session.mysession.session.date)
+                                    avg_pc, session.mysession.session.turn)
 
 
             else:

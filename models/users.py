@@ -100,3 +100,8 @@ class users_model:
         new_turn = self.get_turn(username) + 1;
         db.update(tables='users', where="username=$username", vars=locals(), game_turn=new_turn);
         return new_turn
+
+    def end_game(self, username):
+        new_turn = 0;
+        db.update(tables='users', where="username=$username", vars=locals(), game_turn=new_turn);
+        return new_turn

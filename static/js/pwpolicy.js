@@ -92,7 +92,7 @@ send = function() { // need different event handling, to capture any change
     obj.date=strDate;
     console.log(obj);
     var request = jQuery.ajax({
-        url: "/forward",
+        url: "/forward", // TODO make paths relative
         type: "POST",
         async : false,
         data : JSON.stringify(obj),
@@ -129,7 +129,7 @@ function submit_change() { // need different event handling, to capture any chan
     msg.data=JSON.stringify(new_policy);
     console.log(msg);
     var request = $.ajax({
-        url: "/pwpolicy",
+        url: "/pwpolicy", // TODO make paths relative
         type: "POST",
         async : false,
         data : JSON.stringify(msg),
@@ -194,7 +194,7 @@ function submit_change_mul(){
 //    msgs = msgs.concat(get_range(new_policy, msg.id));
     // console.log(msgs.concat(get_range(new_policy, "plen")));
     var request = $.ajax({
-        url: "/score/multiple",
+        url: "/score/multiple", // TODO make paths relative
         type: "POST",
         async : false,
         data : JSON.stringify(msgs),
