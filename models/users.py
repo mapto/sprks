@@ -12,6 +12,8 @@ class users_model:
         Returns ID of user if successfully authenticated, 0 otherwise.
         """
         password = hash_utils.hash_password(password)
+        print username
+        print password
         auth = db.select('users', where="username=$username&&password=$password", vars=locals())
         if len(auth) == 1:
             value = auth[0]
