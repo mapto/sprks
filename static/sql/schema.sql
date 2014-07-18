@@ -1,3 +1,5 @@
+
+
 /*
 
 plen: {0, 6, 8, 10, 12} // value of the shortest permitted password
@@ -14,6 +16,7 @@ CREATE TABLE `users` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(70) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `game_turn` int DEFAULT 0,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
@@ -27,7 +30,7 @@ CREATE TABLE `pw_policy` (
   `pattempts` tinyint(4) NOT NULL,
   `precovery` tinyint(4) NOT NULL,
   `userid` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` int DEFAULT 0,
   PRIMARY KEY (`idpolicy`),
   KEY `userid_idx` (`userid`),
   CONSTRAINT `userid` FOREIGN KEY (`userid`) REFERENCES `users` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -47,7 +50,7 @@ CREATE TABLE `scores` (
   `userid` int(11) NOT NULL,
   `score_type` int(11) NOT NULL,
   `score_value` decimal(5,2) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` int DEFAULT 0,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`idscores`),
   KEY `userid_idx` (`userid`),

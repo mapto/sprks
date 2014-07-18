@@ -24,7 +24,7 @@ import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 
-urls = ('/', controllers.pwpolicy.pwpolicy,
+urls = ('/', controllers.home.home,
         '/home', controllers.home.home,
         '/login', controllers.login.login,
         '/register', controllers.register.register,
@@ -42,14 +42,13 @@ urls = ('/', controllers.pwpolicy.pwpolicy,
         '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
         '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
         '/forward', controllers.timeline.forward,
-#        '/timeline', controllers.timeline.preview,
         '/incident', controllers.incident.incident,
         '/incident_rest', controllers.incident.incident_rest
         )
 
 app = web.application(urls, globals(), autoreload=False)
 if web.config.get('_session') is None:
-    session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0})
+    session.mysession.session = web.session.Session(app, session.mysession.store, initializer={'user': 'anonymous', 'loggedin': False, 'id': 0, 'turn': 0})
     web.config._session = session
 else:
     session.mysession.session = web.config._session

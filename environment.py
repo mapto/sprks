@@ -23,13 +23,14 @@ def get_start_time():
 #
 globals = {
     'datetime': datetime,
-    'get_start_time': get_start_time
+#    'get_start_time': get_start_time
+    'date': 0
 } # Parameters for private render
 render_private = web.template.render('views/', base='index_private', globals=globals)
 render_public = web.template.render('views/', base='index_public')
 
 try:
-    settings = importlib.import_module('config.settings')
+    settings = importlib.import_module('settings')
     # Assuming that only MySQL is used
     db = web.database(dbn='mysql',
         user=getattr(settings,'dbuser'),
@@ -37,7 +38,8 @@ try:
         db=getattr(settings,'dbname'))
 except ImportError, AttributeError:
     # Default DB credentials
-    db = web.database(dbn='mysql',
+    db = web.database(dburl='127.0.0.1',
+        dbn='mysql',
         user='root',
         pw='1234',
         db='sprks')

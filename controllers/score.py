@@ -11,7 +11,11 @@ import json
 from models.policies import policies_model as model
 
 class score:
-    def CHECK_CLOSEST_COMPETITOR(self,length, usrid, your_score):
+    def POST(self):
+        raise web.seeother('/intro')
+
+
+    def check_closest_competitor(self,length, usrid, your_score):
         print "entered check closest"
         """c = your_score.score_value
         c_when = your_score.date
@@ -106,7 +110,7 @@ class score:
 
         return closest_score_risk, closest_ranking_risk, closest_date_risk, closest_score_cost, closest_ranking_cost, closest_date_cost
 
-    def FIND_BEST_USER(self,length, usrid, your_score):
+    def find_best_user(self,length, usrid, your_score):
         print "entered find best user"
         """score_type = your_score.score_type
 
@@ -145,7 +149,7 @@ class score:
         print cost_value, rank_cost, date_cost
         return risk_value, rank_risk, date_risk, cost_value, rank_cost, date_cost
 
-    def FIND_BEST(self, scores):
+    def find_best(self, scores):
         date_risk = "N/A"
         value_risk = 0.0
         date_cost = "N/A"
@@ -163,7 +167,7 @@ class score:
                 break
         return value_risk, date_risk, value_cost, date_cost
 
-    def FIND_AVG(self, your_score):
+    def find_avg(self, your_score):
 #        score_type = your_score.score_type
 
        # average = db.select('scores', where="score_type=$score_type", vars=locals())
@@ -191,12 +195,12 @@ class score:
             if len(all_scores) > 0:
                 #your_risk = your_risk[0]
                 #your_pc = your_pc[0]
-                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.FIND_BEST_USER(length, id_user, scores_1)
-                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.CHECK_CLOSEST_COMPETITOR(length, id_user, scores_2)
+                b_u_risk, b_u_risk_rank, b_u_risk_date, b_u_cost, b_u_cost_rank, b_u_cost_date = self.find_best_user(length, id_user, scores_1)
+                c_risk, c_risk_rank, c_risk_when, c_pc, c_pc_rank, c_pc_when = self.check_closest_competitor(length, id_user, scores_2)
                # , ,  = self.CHECK_CLOSEST_COMPETITOR(your_pc)
-                b_risk, b_risk_when,  b_pc, b_pc_when = self.FIND_BEST(scores_3)
+                b_risk, b_risk_when,  b_pc, b_pc_when = self.find_best(scores_3)
               # ,  = self.FIND_BEST(your_pc)
-                avg_risk, avg_pc = self.FIND_AVG(scores_4)
+                avg_risk, avg_pc = self.find_avg(scores_4)
                 #avg_pc = self.FIND_AVG(your_pc)
                 print b_u_risk_rank
 

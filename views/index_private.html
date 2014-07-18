@@ -20,6 +20,7 @@ $if content.cssfiles:
       <div class="navbar-inner">
         <div class="container-fluid">
         <div class="link"><a href="/pwpolicy">SPRKS</a></div>
+        <div class="link" class="text-middle">Turn: $content.date</div>
         <div class="link logout" class="text-right" id="logout"> <a href="/home"> Logout </a></div>  <div class="link logout usrname" class="text-right" id="logout">$content.username </div>
 		</div>
       </div>
@@ -31,7 +32,7 @@ $if content.cssfiles:
 
             <div class="story"><a href="/intro">Introduction</a></div>
             <div class="policy"><a href="/policy">Simulation</a></div>
-            <div class="incident"><a href="#" onclick="send()">Consequences</a></div>
+            <div class="incident"><a href="#" onclick="send()">Consequences</a></div> <!-- this is where the backend page forward is being called -->
             <div class="score"><a href="/score">Score</a></div>
 
 
@@ -91,17 +92,9 @@ $if content.cssfiles:
 //    document.ready = initFrame(); // register callback to function from external JS file;
 
     function isFirstTurn() {
-        //content_date = $content.date;  // this is not accessible in Story page   ?does seem to give syntax error
-        //start_date = get_start_time();
-
         content_date = "$content.date";  // possible fix
-        start_date ="$get_start_time()";
 
-
-
-
-
-        if (content_date == start_date || content_date == '') {
+        if (content_date == 0) {
             return true;
         } else {
             return false;

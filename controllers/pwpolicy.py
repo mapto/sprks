@@ -29,7 +29,7 @@ class pwpolicy:
                 session.mysession.session.date = result_get.date
                 return render.pwpolicy_form(session.mysession.session.user,result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
-                                result_get.pattempts, result_get.precovery, 0, str(result_get.date))
+                                result_get.pattempts, result_get.precovery, 0, session.mysession.session.turn)
             else:
 #                dt = datetime.now()
 #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday

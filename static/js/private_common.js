@@ -34,7 +34,7 @@ function initFrame() {
         $("#curr_date").text('to be defined by server');
         var obj = {};
         var request = $.ajax({
-            url: "/forward",
+            url: "/forward", // TODO make paths relative
             type: "POST",
             async: false,
             data: JSON.stringify(obj),

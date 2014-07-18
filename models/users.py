@@ -12,8 +12,6 @@ class users_model:
         Returns ID of user if successfully authenticated, 0 otherwise.
         """
         password = hash_utils.hash_password(password)
-        print username
-        print password
         auth = db.select('users', where="username=$username&&password=$password", vars=locals())
         if len(auth) == 1:
             value = auth[0]
@@ -36,7 +34,7 @@ class users_model:
         if len(self.select_users(username)) > 0:
             return 0
         else:
-            db.insert('users', username=username, email=email, password=hash_utils.hash_password(password))
+            db.insert('users', username=username, email=email, password=hash_utils.hash_password(password), game_turn=0)
             user_lookup = self.select_users(username)
             if len(user_lookup) == 1:
                 return user_lookup[0].Id
@@ -87,3 +85,18 @@ class users_model:
             return True
         else:
             return False
+
+    def get_turn(self, username):
+        result = db.select('users', where="username=$username", vars=locals())
+        if len(result) == 1:
+            entry = result[0]
+            turn = entry.game_turn
+            return turn
+        else:
+            raise Exception("Unable to read user's turn")
+            # return 0
+
+    def end_turn(self, username):
+        new_turn = self.get_turn(username) + 1;
+        db.update(tables='users', where="username=$username", vars=locals(), game_turn=new_turn);
+        return new_turn

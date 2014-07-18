@@ -16,6 +16,7 @@ class login:
         session.mysession.session.loggedin = False
         session.mysession.session.user = 'Anonymous'
         session.mysession.session.date = ""
+        session.mysession.session.turn = 0
         return render.login()
 
     def POST(self):
@@ -25,6 +26,7 @@ class login:
             session.mysession.session.loggedin = True
             session.mysession.session.user = request.username
             session.mysession.session.id = user_id
+            session.mysession.session.turn = users_model().get_turn(request.username)
             raise web.seeother('/intro')
         else:
             return render.login()

@@ -1,11 +1,11 @@
-$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, precovery, notfound, date)
+$def with (username, id, plen, psets, pdict, phist, prenew, pattempts, precovery, notfound, turn)
 $var title: Password policy
 $var cssfiles: static/css/bootstrap.css
-$var date: $date
+$var date: $turn
 $var username: $username
 <h1>Password Policy</h1>
 
-<form name="input" method="post" action="/add"> <!-- service specified in action must use relative path -->
+<form name="input" method="post" action="add"> <!-- service specified in action must use relative path -->
 
 <p>
     <input type="hidden" name="date" value="$date">
@@ -233,6 +233,8 @@ $var username: $username
 
 </form>
 
+<form method="POST" action="policy"><input id="confirm" name="pconfirm" type="submit" value="Next"></form>
+
 <script src="/static/js/canvasjs-1.2.1/canvasjs.js"></script>
 <script src="static/js/pwpolicy.js"></script>  <!-- JS extracted here -->
 
@@ -269,7 +271,7 @@ $var username: $username
     }
 
     function policyExists() {
-        console.log("policyExists -> date $:date");
+        console.log("policyExists -> date $date");
 
         $if notfound != 1:
             return true; // This value is set server-side and appears in browser as hardcoded.
