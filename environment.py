@@ -38,9 +38,9 @@ try:
         db=getattr(settings,'dbname'))
 except ImportError, AttributeError:
     # Default DB credentials
-    db = web.database(dburl='127.0.0.1',
+    db = web.database(host='127.0.0.1',
         dbn='mysql',
         user='root',
         pw='1234',
-        db='sprks')
+        db='static-sprks')
 
