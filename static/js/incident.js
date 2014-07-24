@@ -14,13 +14,13 @@ function initIncident(){
 }
 
 function get_filename(incident_name){
-        var filename = '/static/incidents/'+incident_name+'.json'; // TODO make paths relative
+        var filename = 'static/incidents/'+incident_name+'.json'; // TODO make paths relative
         return filename;
     }
 
 function get_incident_name(){
     var request = jQuery.ajax({
-        url: "/incident_rest", //function specified in incident.html // TODO make paths relative
+        url: "incident_rest", //function specified in incident.html // TODO make paths relative
         type: "GET",
         async:false,
         success : get_incident_data,

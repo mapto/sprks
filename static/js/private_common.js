@@ -34,7 +34,7 @@ function initFrame() {
         $("#curr_date").text('to be defined by server');
         var obj = {};
         var request = $.ajax({
-            url: "/forward",
+            url: "forward",
             type: "POST",
             async: false,
             data: JSON.stringify(obj),
@@ -44,7 +44,7 @@ function initFrame() {
                 console.log("success: " + JSON.stringify(curr_date));
                 $("#curr_date").text(curr_date[0].value);
                 manageScoreButton();
-                window.location.href = "/incident";
+                window.location.href = "incident";
             },
             error: function (response) {
                 console.log("fail: " + response.responseText);
@@ -61,7 +61,7 @@ function initFrame() {
         var height = 450;
         var left = (screen.width / 2) - (width / 2);
         var top = (screen.height / 2) - (height / 2);
-        myWindow = window.open('/incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+        myWindow = window.open('incident', 'incident', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
         myWindow.focus();
     });
 

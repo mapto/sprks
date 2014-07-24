@@ -28,13 +28,18 @@ globals = {
 render_private = web.template.render('views/', base='index_private', globals=globals)
 render_public = web.template.render('views/', base='index_public')
 
+# make sure that you define these in your settings.py
+# this file is excluded from Git, so you'll need to define it yourself
+# see https://github.com/mapto/sprks/wiki/Setup#installation for an example
+from settings import dbuser
+from settings import dbpw
+from settings import dbname
+
 try:
-    settings = importlib.import_module('settings')
-    # Assuming that only MySQL is used
     db = web.database(dbn='mysql',
-        user=getattr(settings,'dbuser'),
-        pw=getattr(settings,'dbpw'),
-        db=getattr(settings,'dbname'))
+        user=dbuser,
+        pw=dbpw,
+        db=dbname)
 except ImportError, AttributeError:
     # Default DB credentials
     db = web.database(host='127.0.0.1',
