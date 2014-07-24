@@ -11,7 +11,7 @@
  /* override template bootstrap css */
 body { /*TODO: changed style*/
 	padding-top: 40px;
-	padding-bottom: 10px;
+	padding-bottom: 0px;
 }
 
 .navbar-inner {
@@ -36,7 +36,7 @@ body { /*TODO: changed style*/
 
 .span12{
 	background-color: #F2F2F2;
-	padding: 15px;
+	padding-top: 10px; /*TODO: changed code (top)*/
 	padding-left: 200px; /*if menu is used*/
 	padding-right: 200px;
 }
@@ -249,7 +249,7 @@ label {
 .menu{
   position:fixed;
   left:11px;
-  //top:64px; TODO: removed code
+  /*top:64px; TODO: removed code*/
   width:210px;
 }
 .menu a{
@@ -513,3 +513,67 @@ section{
 }
 
 #timeline{ position:relative; }
+
+/*tutorial switch styles*/
+
+.switch {
+    position: relative;
+    width: 90px;
+    display: block;
+}
+.switch-checkbox { display: none; }
+
+.switch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
+    border-radius: 20px;
+}
+.switch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    -moz-transition:    margin 0.3s ease-in 0s;
+    -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition:      margin 0.3s ease-in 0s;
+    transition:         margin 0.3s ease-in 0s;
+}
+.switch-inner:before, .switch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:         border-box;
+}
+.switch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #C10000; color: #FFFFFF;
+}
+.switch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.switch-toggle {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 56px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+}
+.switch-checkbox:checked + .switch-label .switch-inner {
+    margin-left: 0;
+}
+.switch-checkbox:checked + .switch-label .switch-toggle {
+    right: 0px;
+}
