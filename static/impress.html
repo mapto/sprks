@@ -29,6 +29,14 @@
     </div>
 </div>
 <script src="js/impress.js"></script>
-<script>impress().init();</script>
+<script>
+    var impress = impress();
+    impress.init();
+    document.addEventListener('impress:stepenter', function(e){
+        if (typeof timing !== 'undefined') clearInterval(timing);
+        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 2000); // use the set duration or fallback to 2000ms
+        timing = setInterval(impress.next, duration);
+    });
+</script>
 </body>
 </html>
