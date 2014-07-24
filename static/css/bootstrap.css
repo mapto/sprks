@@ -516,9 +516,18 @@ section{
 
 /*tutorial switch styles*/
 
+.tutorial {
+    //display: inline; // uncomment to show tutorial switch TODO: add logic
+    display: none; // comment out to display tutorial switch
+    position: fixed;
+    top:350px;
+    left: 50px;
+    height: 30px;
+}
+
 .switch {
     position: relative;
-    width: 90px;
+    width: 77px;
     display: block;
 }
 .switch-checkbox { display: none; }
@@ -530,6 +539,7 @@ section{
     border: 2px solid #999999;
     border-radius: 20px;
 }
+
 .switch-inner {
     display: block;
     width: 200%;
@@ -564,12 +574,20 @@ section{
     text-align: right;
 }
 .switch-toggle {
-    display: block; width: 18px; margin: 6px;
+    display: inline;
+    width: 30px;
+    margin: 0px;
     background: #FFFFFF;
-    border: 2px solid #999999; border-radius: 20px;
-    position: absolute; top: 0; bottom: 0; right: 56px;
-    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
-    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    position: absolute;
+    top: 20px;
+    bottom: 0;
+    right: 43px;
+    -moz-transition:    all 0.3s ease-in 0s;
+    -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition:      all 0.3s ease-in 0s;
+    transition:         all 0.3s ease-in 0s;
 }
 .switch-checkbox:checked + .switch-label .switch-inner {
     margin-left: 0;
