@@ -517,8 +517,6 @@ section{
 /*tutorial switch styles*/
 
 .tutorial {
-    //display: inline; // uncomment to show tutorial switch TODO: add logic
-    display: none; // comment out to display tutorial switch
     position: fixed;
     top:350px;
     left: 50px;
