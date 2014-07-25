@@ -72,7 +72,8 @@ body { /*TODO: changed style*/
   color:#fff;
 }
 .loginbox.main_body_container{
-	max-width: 100%; /*central block for main info, use with loginbox class*/
+    max-width: 100%; /*central block for main info, use with loginbox class*/
+    height:535px;
 }
 
 label {
@@ -502,7 +503,7 @@ label {
 /*TODO: added code*/
 
 .contentdiv {
-    height: 400px;
+    height: 515px;
     overflow: scroll;
     overflow-x: hidden;
 }
