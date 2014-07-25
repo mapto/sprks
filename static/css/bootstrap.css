@@ -517,10 +517,10 @@ section{
 /*tutorial switch styles*/
 
 .tutorial {
-    position: fixed;
+    position: absolute;
     top:350px;
     left: 50px;
-    height: 30px;
+    height: 60px;
 }
 
 .switch {

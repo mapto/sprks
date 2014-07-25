@@ -69,7 +69,7 @@ $if content.cssfiles:
 			</div> <!--span-->
 
 
-<div class="tutorial">
+<div class="tutorial" id="tutdiv">
     <div class="switch">
         <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch" onclick="introJs().start();">
         Tutorials
@@ -103,6 +103,20 @@ $if content.cssfiles:
 <script src="static/js/conversation.js"></script>
 <script src="static/js/private_common.js"></script>  <!-- JS extracted here -->
 <script>
+   function pointTutorial() {
+        var intro = introJs();
+        intro.setOptions({
+            steps:[
+                {
+                    element: '#tutdiv',
+                    intro: "Click me if you'd like some help",
+                    position: 'right'
+                }
+                ]
+        });
+        intro.start();
+    }
+    setTimeout(pointTutorial, 1000);
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
