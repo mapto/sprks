@@ -27,7 +27,7 @@ $if content.cssfiles:
     </div>
 </header>
 <section>
-    <img src="static/img/tempotimeline.jpg" width="112px">
+    <img src="static/img/tempotimeline.jpg" data-step="1" data-intro="wow" width="112px">
 </section>
 <section>
             <div  class="menu">
@@ -71,7 +71,7 @@ $if content.cssfiles:
 
 <div class="tutorial" id="tutdiv">
     <div class="switch">
-        <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch" onclick="introStart();">
+        <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch" onclick="introJs().setOptions({showStepNumbers: false}).start()">
         Tutorials
         <label class="switch-label" for="myswitch">
         <span class="switch-inner"></span>
@@ -79,13 +79,13 @@ $if content.cssfiles:
     </label>
 </div>
 </div>
-     <div class="interviewee" id="interview1" data-step="1" data-intro="This is Susie" data-position="left">Susie</div>
+     <div class="interviewee" id="interview1" data-position="left">Susie</div>
         <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main problem I have with my job is that IT support is terrible. It used to be the case that the department was in the same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the latest round of password changes has locked me out of his email account.</div>
 
-        <div class="interviewee" id="interview2" data-step="2" data-intro="This is Kevin" data-position="left">Kevin</div>
+        <div class="interviewee" id="interview2" data-position="left">Kevin</div>
         <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the building fixing computers and stuff and the atmosphere really has changed.</div>
 
-        <div class="interviewee" id="interview3" data-step="3" data-intro="This is Iza" data-position="left">Iza</div>
+        <div class="interviewee" id="interview3" data-position="left">Iza</div>
         <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier.</div>
 
 </section>
@@ -103,13 +103,15 @@ $if content.cssfiles:
 <script src="static/js/conversation.js"></script>
 <script src="static/js/private_common.js"></script>  <!-- JS extracted here -->
 <script>
+   var intro = introJs();
    function pointTutorial() {
-        var intro = introJs();
+        //var intro = introJs();
         intro.setOptions({
             showBullets: false,
             exitOnEsc: true,
             exitOnOverlayClick: true,
             scrollToElement: false,
+            showStepNumbers: false,
             steps:[
                 {
                     element: '#tutdiv',
@@ -119,15 +121,11 @@ $if content.cssfiles:
                 ]
         });
         intro.start();
-        intro.onexit(function() { alert("exit"); });
     }
 
-    setTimeout(pointTutorial, 2000);
-    function introStart() {
-        introJs().start();
-        introJs().onexit(function(){ console.log('intro');alert("exited"); });
+    setTimeout(pointTutorial, 1000);
+    setTimeout(function() { intro.exit(); }, 5000);
 
-    }
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
