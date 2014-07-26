@@ -71,7 +71,7 @@ $if content.cssfiles:
 
 <div class="tutorial" id="tutdiv">
     <div class="switch">
-        <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch" onclick="introJs().setOptions({showStepNumbers: false}).start()">
+        <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch">
         Tutorials
         <label class="switch-label" for="myswitch">
         <span class="switch-inner"></span>
@@ -103,9 +103,22 @@ $if content.cssfiles:
 <script src="static/js/conversation.js"></script>
 <script src="static/js/private_common.js"></script>  <!-- JS extracted here -->
 <script>
-   var intro = introJs();
-   function pointTutorial() {
-        //var intro = introJs();
+    function startTutorial() {
+        tut = introJs();
+        tut.onexit(function(){console.log('wow');});
+        tut.setOptions({
+            exitOnEsc: true,
+            exitOnOverlayClick: true,
+            scrollToElement: false,
+            showStepNumbers: false
+        });
+        tut.start();
+    }
+    var tick = document.getElementById("myswitch");
+    tick.addEventListener("click", startTutorial)
+
+    var intro = introJs();
+    function pointTutorial() {
         intro.setOptions({
             showBullets: false,
             exitOnEsc: true,
@@ -121,10 +134,11 @@ $if content.cssfiles:
                 ]
         });
         intro.start();
+        intro.onexit(function(){console.log('ss');});
     }
 
     setTimeout(pointTutorial, 1000);
-    setTimeout(function() { intro.exit(); }, 5000);
+    setTimeout(function() { intro.exit(); }, 10500);
 
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
