@@ -38,7 +38,7 @@
       skipLabel: 'Skip',
       /* Done button label in tooltip box */
       doneLabel: 'Done',
-      /* Default tooltip box position */
+      /* Default tooltip box /position */
       tooltipPosition: 'bottom',
       /* Next CSS class for tooltip boxes */
       tooltipClass: '',

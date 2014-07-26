@@ -71,7 +71,7 @@ $if content.cssfiles:
 
 <div class="tutorial" id="tutdiv">
     <div class="switch">
-        <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch" onclick="introJs().start();">
+        <input type="checkbox" value="Tutorials" name="switch" class="switch-checkbox" id="myswitch" onclick="introStart();">
         Tutorials
         <label class="switch-label" for="myswitch">
         <span class="switch-inner"></span>
@@ -106,6 +106,10 @@ $if content.cssfiles:
    function pointTutorial() {
         var intro = introJs();
         intro.setOptions({
+            showBullets: false,
+            exitOnEsc: true,
+            exitOnOverlayClick: true,
+            scrollToElement: false,
             steps:[
                 {
                     element: '#tutdiv',
@@ -115,8 +119,15 @@ $if content.cssfiles:
                 ]
         });
         intro.start();
+        intro.onexit(function() { alert("exit"); });
     }
-    setTimeout(pointTutorial, 1000);
+
+    setTimeout(pointTutorial, 2000);
+    function introStart() {
+        introJs().start();
+        introJs().onexit(function(){ console.log('intro');alert("exited"); });
+
+    }
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
     // JS is loaded from the above file.
