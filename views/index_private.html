@@ -27,7 +27,7 @@ $if content.cssfiles:
     </div>
 </header>
 <section>
-    <img src="static/img/tempotimeline.jpg" data-step="1" data-intro="wow" width="112px">
+    <img src="static/img/tempotimeline.jpg" id="timeline" width="112px">
 </section>
 <section>
             <div  class="menu">
@@ -51,7 +51,7 @@ $if content.cssfiles:
 
 <div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span12 loginbox main_body_container">
+			<div id="maindiv" class="span12 loginbox main_body_container">
 
 
 			$:content
@@ -79,15 +79,16 @@ $if content.cssfiles:
     </label>
 </div>
 </div>
-     <div class="interviewee" id="interview1" data-position="left">Susie</div>
-        <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main problem I have with my job is that IT support is terrible. It used to be the case that the department was in the same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the latest round of password changes has locked me out of his email account.</div>
+<div id="employees">
+    <div class="interviewee" id="interview1" data-position="left">Susie</div>
+    <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main problem I have with my job is that IT support is terrible. It used to be the case that the department was in the same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the latest round of password changes has locked me out of his email account.</div>
 
-        <div class="interviewee" id="interview2" data-position="left">Kevin</div>
-        <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the building fixing computers and stuff and the atmosphere really has changed.</div>
+    <div class="interviewee" id="interview2" data-position="left">Kevin</div>
+    <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the building fixing computers and stuff and the atmosphere really has changed.</div>
 
-        <div class="interviewee" id="interview3" data-position="left">Iza</div>
-        <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier.</div>
-
+    <div class="interviewee" id="interview3" data-position="left">Iza</div>
+    <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier.</div>
+</div>
 </section>
 <footer>
       <nav class="risk-menu">
@@ -107,21 +108,68 @@ $if content.cssfiles:
 
     function startTutorial() {
         tut = introJs()
-        tut.onexit(function(){console.log('wow');tick.className === ".switch-inner:after";});
+        tut.onexit(function(){ tick.checked = false; });
         tut.setOptions({
             exitOnEsc: true,
             exitOnOverlayClick: true,
             scrollToElement: false,
-            showStepNumbers: false
+            showStepNumbers: false,
+            steps: [
+                {
+                    intro: "Welcome to UCL's Information Security Simulation, SPRKS"
+                },
+                {
+                    intro: "This is a turn-based game where you are in charge of Information Security Policies for energy company Global Sparks over the course of a year."
+                },
+                {
+                    intro: "Each turn the game should process as such:"
+                },
+                {
+                    element: "#maindiv",
+                    intro: "All relevant content will be displayed here",
+                    position: "right"
+                },
+                {
+                    element: ".story",
+                    intro: "You can check your story at the start of every turn",
+                    position: "right"
+                },
+                {
+                    element: ".policy",
+                    intro: "Change policies as needed",
+                    position: "right"
+                },
+                {
+                    element: ".incident",
+                    intro: "Check the results for the chosen policies",
+                    position: "right"
+                },
+                {
+                    element: ".score",
+                    intro: "end the turn???", //TODO: figure out what it's actually supposed to do...
+                    position: "right"
+                },
+                {
+                    element: "#timeline",
+                    intro: "Your monthly progress is displayed in the timeline",
+                    position: "right"
+                },
+                {
+                    element: "#interview1",
+                    intro: "If you're stuck, you can always talk to your employees for some hints",
+                    position: "left"
+                }
+            ]
         });
         tut.start();
     }
-    //tick.addEventListener("click", function() { startTutorial(); });
+
     tick.addEventListener("click", function () {
         console.log('before if');
         if (tick.checked) {
-            console.log('inside if');
             startTutorial();
+        } else {
+            introJs().exit();
         }
     })
 
@@ -141,12 +189,18 @@ $if content.cssfiles:
                 }
                 ]
         });
-        if (flag === 1) { intro.start(); }
-        if (flag === 2) { intro.exit(); }
+        if (flag === 1) {
+            intro.start();
+            tick.disabled = true;
+        }
+        if (flag === 2) {
+            tick.disabled = false;
+            intro.exit();
+        }
     }
 
-    setTimeout(pointTutorial(1), 3000);
-    setTimeout(function(){ pointTutorial(2) }, 4000);
+    setTimeout(function() { pointTutorial(1) }, 1000);
+    setTimeout(function() { pointTutorial(2) }, 5000);
 
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.

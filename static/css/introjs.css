@@ -56,7 +56,7 @@ tr.introjs-showElement > th {
   position: absolute;
   top: -16px;
   left: -16px;
-  z-index: 9999999999 !important;
+  //z-index: 9999999999 !important;
   padding: 2px;
   font-family: Arial, verdana, tahoma;
   font-size: 9px;
