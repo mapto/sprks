@@ -103,9 +103,11 @@ $if content.cssfiles:
 <script src="static/js/conversation.js"></script>
 <script src="static/js/private_common.js"></script>  <!-- JS extracted here -->
 <script>
+    var tick = document.getElementById("myswitch");
+
     function startTutorial() {
-        tut = introJs();
-        tut.onexit(function(){console.log('wow');});
+        tut = introJs()
+        tut.onexit(function(){console.log('wow');tick.className === ".switch-inner:after";});
         tut.setOptions({
             exitOnEsc: true,
             exitOnOverlayClick: true,
@@ -114,11 +116,17 @@ $if content.cssfiles:
         });
         tut.start();
     }
-    var tick = document.getElementById("myswitch");
-    tick.addEventListener("click", startTutorial)
+    //tick.addEventListener("click", function() { startTutorial(); });
+    tick.addEventListener("click", function () {
+        console.log('before if');
+        if (tick.checked) {
+            console.log('inside if');
+            startTutorial();
+        }
+    })
 
-    var intro = introJs();
-    function pointTutorial() {
+    function pointTutorial(flag) {
+        var intro = introJs();
         intro.setOptions({
             showBullets: false,
             exitOnEsc: true,
@@ -133,12 +141,12 @@ $if content.cssfiles:
                 }
                 ]
         });
-        intro.start();
-        intro.onexit(function(){console.log('ss');});
+        if (flag === 1) { intro.start(); }
+        if (flag === 2) { intro.exit(); }
     }
 
-    setTimeout(pointTutorial, 1000);
-    setTimeout(function() { intro.exit(); }, 10500);
+    setTimeout(pointTutorial(1), 3000);
+    setTimeout(function(){ pointTutorial(2) }, 4000);
 
     // Extracted JS files to allow easier parallel development.
     // This is the common script for all registered user views.
