@@ -2,8 +2,8 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Impress Test</title>
-    <link rel="stylesheet" href="css/impress.css"> <!-- impress.js stylesheet -->
+    <title>Introduction / First Month</title>
+    <link rel="stylesheet" href="../css/impress.css"> <!-- impress.js stylesheet -->
 </head>
 <body>
 <div id="impress">
@@ -27,14 +27,21 @@
             </ul>
         </p>
     </div>
+    <div class="step slide" data-x="0" data-y="2000">
+        <p class="upper">For now, you're in charge of setting Iza's password policies</p>
+        <p class="lower">You can always chat with her if you need a hand</p>
+    </div>
+    <div class="step slide" data-x="1200" data-y="2000">
+        <p class="upper">Best of Luck!</p>
+    </div>
 </div>
-<script src="js/impress.js"></script>
+<script src="../js/impress.js"></script>
 <script>
     var impress = impress();
     impress.init();
     document.addEventListener('impress:stepenter', function(e){
         if (typeof timing !== 'undefined') clearInterval(timing);
-        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 4000); // use the set duration or fallback to 2000ms
+        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 1500); // use the set duration or fallback to 2000ms
         timing = setInterval(impress.next, duration);
     });
 </script>
