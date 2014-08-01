@@ -1,36 +1,19 @@
 var tick = document.getElementById("myswitch");
 var curStep;
-/*var ookie = document.cookie = "tutorials=off";
-
-function checkTutorial() {
-    cookie = getCookie("tutorials");
-    console.log(cookie);
+var cookieName = "tutorials";
+//document.cookie = "tutorials=off";
+checkCookie();
+function checkCookie() {
+    var cookie = getCookie();
     if (cookie === "on") {
-        console.log('if cookie');
         tick.checked = true;
     } else {
-        console.log('else cookie');
         tick.checked = false;
-        cookie = "tutorials=off";
     }
 }
 
-function getCookie(name) {
-    var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-    var result = regexp.exec(ookie);
-    return (result === null) ? null : result[1];
-}
-
-checkTutorial();
-console.log(cookie);*/
-
-function setCookie(name, value) {
-    document.cookie = name + "=" + value + ";";
-    console.log(document.cookie);
-}
-
-function getCookie(name) {
-    var name = cname + "=";
+function getCookie() {
+    var name = cookieName + "=";
     var ca = document.cookie.split(';');
     for(var i=0; i<ca.length; i++) {
         var c = ca[i];
@@ -40,17 +23,31 @@ function getCookie(name) {
     return "";
 }
 
-function checkCookie() {
-    var cookie = getCookie("tutorials");
+function setCookie(value) {
+    document.cookie = cookieName + "=" + value + ";";
+    console.log(document.cookie);
+}
+
+function checkTutorial() {
+    cookie = getCookie(cookieName);
     if (cookie === "on") {
+        console.log('if cookie');
         tick.checked = true;
+        cookie = setCookie("on");
+        console.log(cookie);
     } else {
+        console.log('else cookie');
         tick.checked = false;
+        cookie = setCookie("off");
+        console.log(cookie);
     }
 }
 
+checkTutorial();
+console.log(cookie);
+
 function startTutorial() {
-    setCookie("tutorials", "on");
+    setCookie("on");
     tut = introJs()
     tut.onexit(function(){
         curStep = tut.nextStep()._currentStep;
@@ -118,12 +115,36 @@ function startTutorial() {
     tut.start();
 }
 
+function passTutorial() {
+    setCookie("on");
+    pass = introJs();
+    pass.setOptions({
+        showStepNumbers: false,
+        steps: [
+            {
+                element: "#maindiv",
+                intro: "Page 2!!"
+            }
+        ]
+    });
+    pass.start();
+}
 tick.addEventListener("click", function () {
     console.log('before if');
+    console.log(document.title);
+    title = document.title;
     if (tick.checked) {
-        startTutorial();
+        switch (title) {
+            case "Introduction":
+                startTutorial();
+                break;
+            case "Password policy":
+                passTutorial();
+                break;
+        }
     } else {
-        introJs().exit();;
+        introJs().exit();
+        setCookie("off");
     }
 })
 
