@@ -1,5 +1,5 @@
 var tick = document.getElementById("myswitch"); // store toggle switch to tick variable
-var curStep;
+var curStep = 1; // by default all introductions start at the beginning
 var cookieName = "tutorials";
 
 /*
@@ -116,14 +116,8 @@ window.onload = setTimeout(function() { autoStart();console.log('on load ' + get
 function startTutorial() {
     setCookie("on");
     tut = introJs()
-    tut.onexit(function(){
-        curStep = tut.nextStep()._currentStep;
-        tut.exit(); // needed since last step will move the presentation forward, messing the CSS
-        tick.checked = false;
-    });
-    tut.oncomplete(function() { console.log('intro finished'); });
     tut.setOptions({
-        exitOnOverlayClick: true,
+        exitOnOverlayClick: false,
         scrollToElement: false,
         showStepNumbers: false,
         steps: [
@@ -179,13 +173,23 @@ function startTutorial() {
             }
         ]
     });
-    tut.start();
+    tut.onexit(function(){
+        console.log(tut._currentStep + ' on exit before ' + curStep);
+        curStep = tut.currentStep();
+        console.log(tut._currentStep + ' on exit after ' + curStep);
+        tick.checked = false;
+        setCookie("off");
+    });
+    tut.oncomplete(function() { console.log('intro finished'); });
+    console.log(curStep + 'inside tut');
+    tut.goToStep(curStep).start();
 }
 
 function passTutorial() {
     setCookie("on");
     pass = introJs();
     pass.setOptions({
+        exitOnOverlayClick: false,
         showStepNumbers: false,
         scrollToElement: true,
         steps: [
@@ -210,6 +214,15 @@ function passTutorial() {
             }
         ]
     });
-    pass.start();
+    pass.onexit(function(){
+        console.log(pass._currentStep + ' on exit before ' + curStep);
+        curStep = pass.currentStep();
+        console.log(pass._currentStep + ' on exit after ' + curStep);
+        tick.checked = false;
+        setCookie("off");
+    });
+    pass.oncomplete(function() { console.log('pass finished'); });
+    console.log(curStep + 'inside tut');
+    pass.goToStep(curStep).start();
 }
 tick.addEventListener("click", autoStart);

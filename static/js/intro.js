@@ -1026,6 +1026,9 @@
         throw new Error('Provided callback for onexit was not a function.');
       }
       return this;
+    },
+    currentStep: function() {
+        return this._currentStep + 1;
     }
   };
 
