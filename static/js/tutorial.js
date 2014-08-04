@@ -1,7 +1,44 @@
-var tick = document.getElementById("myswitch");
+var tick = document.getElementById("myswitch"); // store toggle switch to tick variable
 var curStep;
 var cookieName = "tutorials";
 
+/*
+    pointTutorial highlights the tutorials switch at a certain interval and hides it shortly after.
+
+function pointTutorial(flag) {
+    var intro = introJs();
+    intro.setOptions({
+        showBullets: false,
+        exitOnEsc: true,
+        exitOnOverlayClick: true,
+        scrollToElement: false,
+        showStepNumbers: false,
+        showButtons: false,
+        steps:[
+            {
+                element: '#tutdiv',
+                intro: "Click me if you'd like some help",
+                position: 'right'
+            }
+            ]
+    });
+    if (flag === 1) {
+        intro.start();
+        tick.disabled = true;
+    }
+    if (flag === 2) {
+        tick.disabled = false;
+        intro.exit();
+    }
+}
+
+setTimeout(function() { pointTutorial(1) }, 40000);
+setTimeout(function() { pointTutorial(2) }, 45000);
+*/
+
+/*
+    cookie helper functions (checker, getter and setter)
+*/
 checkCookie();
 
 function checkCookie() {
@@ -29,6 +66,11 @@ function setCookie(value) {
     console.log(document.cookie);
 }
 
+/*
+    check cookie for tutorial switch position
+*/
+checkTutorial();
+
 function checkTutorial() {
     cookie = getCookie(cookieName);
     if (cookie === "on") {
@@ -44,9 +86,33 @@ function checkTutorial() {
     }
 }
 
-checkTutorial();
-console.log(cookie);
+/*
+    on load, start tutorials after a short time (2s) if switch in on
 
+*/
+
+function autoStart() {
+    console.log('tick: before autostart');
+    if (tick.checked) {
+        switch (title) {
+            case "Introduction":
+                startTutorial();
+                break;
+            case "Password policy":
+                passTutorial();
+                break;
+        }
+    } else {
+        introJs().exit();
+        setCookie("off");
+    }
+}
+
+window.onload = setTimeout(function() { autoStart();console.log('on load ' + getCookie()); }, 2000);
+
+/*
+    Intro / Jan tutorials
+*/
 function startTutorial() {
     setCookie("on");
     tut = introJs()
@@ -146,50 +212,4 @@ function passTutorial() {
     });
     pass.start();
 }
-tick.addEventListener("click", function () {
-    console.log('tick: before if');
-    if (tick.checked) {
-        switch (title) {
-            case "Introduction":
-                startTutorial();
-                break;
-            case "Password policy":
-                passTutorial();
-                break;
-        }
-    } else {
-        introJs().exit();
-        setCookie("off");
-    }
-})
-
-function pointTutorial(flag) {
-    var intro = introJs();
-    intro.setOptions({
-        showBullets: false,
-        exitOnEsc: true,
-        exitOnOverlayClick: true,
-        scrollToElement: false,
-        showStepNumbers: false,
-        showButtons: false,
-        steps:[
-            {
-                element: '#tutdiv',
-                intro: "Click me if you'd like some help",
-                position: 'right'
-            }
-            ]
-    });
-    if (flag === 1) {
-        intro.start();
-        tick.disabled = true;
-    }
-    if (flag === 2) {
-        tick.disabled = false;
-        intro.exit();
-    }
-}
-
-//setTimeout(function() { pointTutorial(1) }, 1000);
-//setTimeout(function() { pointTutorial(2) }, 5000);
-
+tick.addEventListener("click", autoStart);
