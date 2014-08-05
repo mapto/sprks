@@ -3,6 +3,11 @@ $var title: Password policy
 $var cssfiles: static/css/bootstrap.css
 $var date: $turn
 $var username: $username
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="http://iamdanfox.github.io/anno.js/bower_components/scrollintoview/jquery.scrollintoview.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/anno.css">
+
 <div class="contentdiv">
 <h1>Password Policy</h1>
 
@@ -20,7 +25,7 @@ $var username: $username
 </p>
 
 <p class="qn" id="plen">
-    <label ><b>Password length (value of the shortest permitted password):</b></label>
+    <label ><b>Password length:</b><img class="tools" src="/static/img/tooltip.jpg" id="passlen"></label>
     <br/>
     <input type="radio"
            name="plen"
@@ -62,7 +67,7 @@ $var username: $username
 </p>
 
 <p class="qn" id="psets">
-    <label><b>Number of symbol sets that must be used in password:</b></label>
+    <label><b>Number of symbol sets that must be used in password:</b><img class="tools" src="/static/img/tooltip.jpg" id="passsym"></label>
     <br/>
     <input type="radio"
            name="psets"
@@ -103,12 +108,12 @@ $var username: $username
            id="dic"
            class="target"
            value="1"/>
-    <label for="dic"><b>Passwords are checked whether they match a dictionary</b></label><br/><br/>
+    <label for="dic"><b>Password dictionary check</b></label><img class="tools" src="/static/img/tooltip.jpg" id="passdict"><br/><br/>
     <div class="graph" id="graph_pdict"></div>
 </p>
 
 <p class="qn" id="phist">
-    <label><b>Password history checking mechanism:</b></label>
+    <label><b>Password history check:</b><img class="tools" src="/static/img/tooltip.jpg" id="passhist"></label>
     <br/>
     <input type="radio"
            name="phist"
@@ -145,7 +150,7 @@ $var username: $username
 </p>
 
 <p class="qn" id="prenew">
-    <label><b>When the system asks user to renew passwords:</b></label>
+    <label><b>The system asks user to renew passwords:</b><img class="tools" src="/static/img/tooltip.jpg" id="passrenew"></label>
     <br/>
     <input type="radio"
            name="prenew"
@@ -153,28 +158,28 @@ $var username: $username
            class="target"
            value="0"
            checked="checked"/>
-    <label for="renew1">never renew the password</label>
+    <label for="renew1">Never</label>
     <br/>
     <input type="radio"
            name="prenew"
            id="renew2"
            class="target"
            value="1"/>
-    <label for="renew2">annual renewal</label>
+    <label for="renew2">Annually</label>
     <br/>
     <input type="radio"
            name="prenew"
            id="renew3"
            class="target"
            value="2"/>
-    <label for="renew3">renew quarterly</label>
+    <label for="renew3">Quarterly</label>
     <br/>
     <input type="radio"
            name="prenew"
            id="renew4"
            class="target"
            value="3"/>
-    <label for="renew4">renew monthly</label>
+    <label for="renew4">Monthly</label>
     <br/><br/>
     <div class="graph" id="graph_prenew"></div>
 </p>
@@ -192,7 +197,7 @@ $var username: $username
 
 
 <p class="qn" id="pattempts">
-    <label><b>Number of wrong password attempts:</b></label>
+    <label><b>Password attempts:</b><img class="tools" src="/static/img/tooltip.jpg" id="passatt"></label>
     <br/>
     <input type="radio"
            name="pattempts"
@@ -228,15 +233,17 @@ $var username: $username
            id="autorecover"
            class="target"
            value="1"/>
-    <label for="autorecover"><b>Forgotten passwords are restored automatically (no human support)</b></label><br/><br/>
+    <label for="autorecover"><b>Forgotten passwords are restored automatically</b><img class="tools" src="/static/img/tooltip.jpg" id="passrecovery"></label><br/><br/>
     <div class="graph" id="graph_precovery"></div>
 </p>
 
 </form>
 
-<input id="confirm" name="pconfirm" type="button" value="Next" onclick="send()">
+<input id="confirm" name="pconfirm" type="button" value="End Turn" onclick="send()"><img class="tools" src="/static/img/tooltip.jpg" id="endturn">
 
 <script src="/static/js/canvasjs-1.2.1/canvasjs.js"></script>
+<script src="static/js/anno.js"></script>
+<script src="static/js/tooltips.js"></script>
 <script src="static/js/pwpolicy.js"></script>  <!-- JS extracted here -->
 
 <script>

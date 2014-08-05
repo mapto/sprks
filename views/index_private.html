@@ -131,6 +131,8 @@ $if content.cssfiles:
     function contentTitle() {
         return "$content.title"; // This value is set server-side and appears to client as hardcoded.
     }
+
+    var title = contentTitle(); // store the title dynamically to use in intro switch statement
 </script>
 </body>
 </html>

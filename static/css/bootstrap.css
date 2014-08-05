@@ -12,6 +12,7 @@
 body { /*TODO: changed style*/
 	padding-top: 40px;
 	padding-bottom: 0px;
+	overflow: hidden;
 }
 
 .navbar-inner {
@@ -593,4 +594,9 @@ section{
 }
 .switch-checkbox:checked + .switch-label .switch-toggle {
     right: 0px;
+}
+
+.tools {
+    padding-left: 10px;
+    cursor: pointer;
 }

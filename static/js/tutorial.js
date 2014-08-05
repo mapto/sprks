@@ -1,8 +1,9 @@
 var tick = document.getElementById("myswitch");
 var curStep;
 var cookieName = "tutorials";
-//document.cookie = "tutorials=off";
+
 checkCookie();
+
 function checkCookie() {
     var cookie = getCookie();
     if (cookie === "on") {
@@ -64,7 +65,7 @@ function startTutorial() {
                 intro: "Welcome to UCL's Information Security Simulation, SPRKS"
             },
             {
-                intro: "This is a turn-based game where you are in charge of Information Security Policies for energy company Global Sparks over the course of a year."
+                intro: "This is a turn-based game where you are in charge of Information Security Policies for energy company Global Sparks over the course of a thirteen months."
             },
             {
                 intro: "Each turn the game should process as such:"
@@ -120,19 +121,33 @@ function passTutorial() {
     pass = introJs();
     pass.setOptions({
         showStepNumbers: false,
+        scrollToElement: true,
         steps: [
             {
+                intro: "On this page you can set policies for your employee"
+            },
+            {
                 element: "#maindiv",
-                intro: "Page 2!!"
+                intro: "For now it's best to go with a trial and error strategy",
+                position: "right"
+            },
+            {
+                element: "#plen",
+                intro: "Changing a policy will display a chart of risk compared to cost"
+            },
+            {
+                element: "#passlen",
+                intro: "If you'd like to know more about each item, the tooltips will help you"
+            },
+            {
+                intro: "You can click anywhere outside a tooltip to close it"
             }
         ]
     });
     pass.start();
 }
 tick.addEventListener("click", function () {
-    console.log('before if');
-    console.log(document.title);
-    title = document.title;
+    console.log('tick: before if');
     if (tick.checked) {
         switch (title) {
             case "Introduction":
