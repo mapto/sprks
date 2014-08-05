@@ -1,7 +1,7 @@
 $def with (username)
 
 $var title: Incident
-$var cssfiles: static/css/bootstrap.css
+$var cssfiles: bootstrap.css
 $var username: $username
 $var date:
 
@@ -15,7 +15,7 @@ $var date:
     <p><h4>Productivity Cost: </h4> <div class="incident_box" id="cost"></div></p>
 
 </div>
-<script src="static/js/incident.js"></script>
+<script src="$static_path/js/incident.js"></script>
 <script>
     $$(document).ready(initIncident());
 </script>

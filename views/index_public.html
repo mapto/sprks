@@ -2,24 +2,23 @@ $def with (content)
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<title>$content.title</title>
-<link rel="stylesheet" href="static/css/bootstrap.css" type="text/css" media="screen" charset="utf-8"/>
+    <meta charset="utf-8"/>
+    <title>$content.title</title>
+    <link rel="stylesheet" href="$static_url/css/bootstrap.css" type="text/css" media="screen" charset="utf-8"/>
 $if content.has_key('cssfiles'):
     $for css in content.cssfiles.split():
-        <link rel="stylesheet" href="$css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="stylesheet" href="$static_url/css/$css" type="text/css" media="screen" charset="utf-8"/>
 $if content.has_key('prejs'):
     $for js in content.prejs.split():
-        <script src="$js"></script>
-
-<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>
+        <script src="$static_url/js/$js"></script>
+    <script src="$static_url/js/lib/jquery-2.0.2.min.js"></script>
 </head>
 <body>
 <header>
 <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
-             <div class="link"><a href="home">SPRKS</a></div>
+             <div class="link"><a href="$app_url/home">SPRKS</a></div>
         </div>
       </div>
     </div>
@@ -44,7 +43,7 @@ $:content
 
 $if content.has_key('postjs'):
     $for js in content.postjs.split():
-        <script src="$js"></script>
+        <script src="$static_url/js/$js"></script>
 
 </body>
 </html>

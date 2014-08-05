@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sprks</title>
-    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <title>SPRKS</title>
+    <link href="$static_url/css/bootstrap.css" rel="stylesheet">
     <script> function validateForm(){
         var x = document.forms["loginForm"]
         if(x["username"].value==""||x["username".value==null]||x["password"].value==null||x["password"].value=="")
@@ -16,7 +16,7 @@
 </head>
 <body>
 $var title: Login
-$var cssfiles: static/css/bootstrap.css
+$var cssfiles: bootstrap.css
 $var date:
 <!-- start of main body-->
 <section>
@@ -24,7 +24,7 @@ $var date:
 <div class="loginbox">
 
     <div class="container-fluid">
-        <form name="loginForm" method="post" action="login" onsubmit="return validateForm()">
+        <form name="loginForm" method="post" action="$app_url/login" onsubmit="return validateForm()">
             <fieldset>
                 <legend> Login into system</legend>
             <div class="row-fluid">
@@ -41,8 +41,8 @@ $var date:
                 <div class="span1 ">
                     <input class="login_btn" type="submit" value="Login">
                 </div>
-                <div class="span2 offset2" ><a href="pwrequest">Forgotten password?/ Change password</a></div>
-                <div class="span2 offset2" ><a href="register">REGISTER</a></div>
+                <div class="span2 offset2" ><a href="$app_url/pwrequest">Forgotten password?/ Change password</a></div>
+                <div class="span2 offset2" ><a href="$app_url/register">REGISTER</a></div>
             </div>
             </fieldset>
         </form>
@@ -52,9 +52,9 @@ $var date:
 
 </section>
 <!-- end of main body-->
-
+<!--
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
+-->
 </body>
 </html>

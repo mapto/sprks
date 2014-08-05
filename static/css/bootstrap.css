@@ -390,11 +390,11 @@ label {
 /* Bubble with interview
 ------------------------------------------ */
 .interviewee{
-    position:fixed;
+/*    position:fixed;
     bottom:75px;
     height:100px;
     width:60px;
-    right:30px;
+    right:30px;*/
     padding:5px;
     float right;
     background-image:url(../img/pt1307_stick_figure_standing_normal.png);
@@ -414,14 +414,42 @@ label {
 .interviewee:hover{
     color:#000;
 }
-#interview1{
+.context{
+    position:fixed;
+    bottom:75px;
+    height:100px;
+    width:600px;
     right:30px;
+    padding:5px;
+    float right;
+/*    background-image:url(../img/pt1307_stick_figure_standing_normal.png);*/
+    /*
+    image source:
+    http://www.google.co.uk/imgres?start=239&client=opera&channel=suggest&biw=1091&bih=558&tbm=isch&tbnid=oFnLPBTrCJB2HM:&imgrefurl=http://www.123rf.com/photo_3074816_stick-man-with-arms-up-and-target-head--vector.html&docid=xA5FGUEZcKaxqM&imgurl=http://us.cdn3.123rf.com/168nwm/cole123rf/cole123rf0804/cole123rf080400284/2930913-stick-man-or-figure-standing-on-red-target--vector.jpg&w=150&h=168&ei=zIDJUaiFKKi90QWnsoCICQ&zoom=1&ved=1t:3588,r:51,s:200,i:157&iact=rc&page=18&tbnh=134&tbnw=120&ndsp=15&tx=78&ty=59#imgdii=oFnLPBTrCJB2HM%3A%3BJ9fEF1n39KtPnM%3BoFnLPBTrCJB2HM%3A
+    */
+    background-size: 90%;
+    background-repeat:no-repeat;
+    background-position:bottom;
+
+    color:#505050;
+    cursor:pointer;
 }
-#interview2{
-    right:105px;
+.description {
+    width: 65%;
+    float: left;
 }
-#interview3{
-    right:180px;
+.icon {
+    width: 60px;
+    font-weight:bold;
+    text-align: center;
+    float: right;
+}
+.context-frame {
+    width: 35%;
+    font-weight:bold;
+    text-align: center;
+    float: right;
+    padding-bottom: 50px;
 }
 .quote{
     z-index:3000;

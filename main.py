@@ -12,6 +12,7 @@ os.chdir(abspath)
 import web
 import session
 import controllers.home
+import controllers.go_home
 import controllers.register
 import controllers.login
 import controllers.intro
@@ -24,37 +25,29 @@ import controllers.chronos
 import controllers.policy_history
 import controllers.incident
 
-if __name__ == "__main__":
-    app_path = '' # when run as standalone application
-    static_path = '/static'
-else:
-    app_path = '' # when called from Apache, use WSGI
-#    app_path = '/sprks' # when called from Apache, use WSGI
-    static_path = '/static'
-
-print app_path
-
-urls = (app_path + '', controllers.home.home,
-        app_path + '/', controllers.home.home,
-        app_path + '/home', controllers.home.home,
-        app_path + '/login', controllers.login.login,
-        app_path + '/register', controllers.register.register,
-        app_path + '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
-        app_path + '/pwrecovery', controllers.pwrecovery.pwrecovery,
-        app_path + '/pwrequest', controllers.pwrequest.pwrequest,
-        app_path + '/password', controllers.pwrequest.pwrequest, # default password is request
-        app_path + '/password/request', controllers.pwrequest.pwrequest,
-        app_path + '/password/recovery', controllers.pwrecovery.pwrecovery, # restful URLs
-        app_path + '/password/recovery/(.*)', controllers.pwrecovery.pwrecovery, # restful URLs
-        app_path + '/intro', controllers.intro.intro,
-        app_path + '/score', controllers.score.score,
-        app_path + '/score/multiple', controllers.score.multiple_score,
-        app_path + '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
-        app_path + '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
-        app_path + '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
-        app_path + '/forward', controllers.timeline.forward,
-        app_path + '/incident', controllers.incident.incident,
-        app_path + '/incident_rest', controllers.incident.incident_rest
+# these URLs are absolute to site root, no need to add host and root
+# make sure that the last slash in paths is absent
+urls = ('', controllers.go_home.go_home,
+        '/', controllers.go_home.go_home,
+        '/home', controllers.home.home,
+        '/login', controllers.login.login,
+        '/register', controllers.register.register,
+        '/pwrecovery/(.*)', controllers.pwrecovery.pwrecovery,
+        '/pwrecovery', controllers.pwrecovery.pwrecovery,
+        '/pwrequest', controllers.pwrequest.pwrequest,
+        '/password', controllers.pwrequest.pwrequest, # default password is request
+        '/password/request', controllers.pwrequest.pwrequest,
+        '/password/recovery', controllers.pwrecovery.pwrecovery, # restful URLs
+        '/password/recovery/(.*)', controllers.pwrecovery.pwrecovery, # restful URLs
+        '/intro', controllers.intro.intro,
+        '/score', controllers.score.score,
+        '/score/multiple', controllers.score.multiple_score,
+        '/pwpolicy', controllers.pwpolicy.pwpolicy, # this URL is also being used in views/index.html for AJAX services
+        '/policy', controllers.pwpolicy.pwpolicy, # default policy is password policy
+        '/policy/password', controllers.pwpolicy.pwpolicy, # restful URLs
+        '/forward', controllers.timeline.forward,
+        '/incident', controllers.incident.incident,
+        '/incident_rest', controllers.incident.incident_rest
         )
 
 app = web.application(urls, globals(), autoreload=False)

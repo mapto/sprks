@@ -1,6 +1,6 @@
 $def with (username, date, jsondumps)
 $var title: Profile
-$var cssfiles: static/css/bootstrap.css
+$var cssfiles: bootstrap.css
 $var date: $date
 $var username: $username
 <h1>Profile</h1>
@@ -11,8 +11,8 @@ $var username: $username
             <div id="changed_values"> </div>
         </div>
 
-<script src="static/js/canvasjs-1.2.1/canvasjs.js"></script>
-<script src="static/js/profile.js"></script>
+<script src="$static_url/js/lib/canvasjs.js"></script>
+<script src="$static_url/js/profile.js"></script>
 
 <script>
             json = $:jsondumps; //history values in json format from serverside (policy_history.py)

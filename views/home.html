@@ -1,5 +1,7 @@
-$var title: Sprks
-$var cssfiles: static/css/bootstrap.css
+$def with (error="")
+
+$var title: SPRKS
+$var bootstrap_css: bootstrap.css
 $var date:
 <!-- start of main body-->
 
@@ -22,9 +24,9 @@ $var date:
             <p>To start a game please:</p>.
 
             <div class="span11">
-                <div class="span4 text-center main_btn"><a href="register">Register</a></div>
+                <div class="span4 text-center main_btn"><a href="$app_url/register">Register</a></div>
                 <div class="span2 text-center"><h3>OR</h3></div>
-                <div class="span4 text-center main_btn"><a class="main_btn" href="login">Login</a></div>
+                <div class="span4 text-center main_btn"><a class="main_btn" href="$app_url/login">Login</a></div>
             </div>
 
             <br/><br/><br/><br/>

@@ -1,22 +1,52 @@
 $def with (username)
 
 $var title: Introduction
-$var cssfiles: static/css/bootstrap.css
+$var cssfiles: bootstrap.css
 $var date:
 $var username: $username
 <h1>Your Company</h1>
 
 <div class="description">
     <p>Global Sparks is an international energy company, currently headquartered in London, which has begun to expand its operations internationally. In line with this strategy it started buying local electricity suppliers in the US in the early 2000s, and built up a substantial group of companies, primarily located on the West Coast. This period of rapid expansion has left the company somewhat fragmented internally, and this has begun to cause problems in terms of both business and security. To deal with this issue it has been going through a process of consolidating its acquisitions into a single company. An unfortunate side effect of this process has been a recent wave of redundancies. Almost all IT Support staff have been dismissed, because Global Sparks decided to outsource this function to a company based in India.  A period of growth has followed the consolidation, and the company has started to hire again, but mostly in the form of contractors (staff on limited-term contracts, and without health and pension benefits).  Many of these contractors are former employees of the companies Global Sparks acquired, and who had been made redundant. You have been hired as part of this process as a permanent security manager, with a brief to ensure that the consolidated company has not inherited any security weaknesses from its disparate components. Immediately several issues have come to light, resulting from both the mergers and the fluid hiring situation.</p>
-    <p>To aid you in your work please speak to one of the members of staff in the bottom right corner to get an idea of what the culture is like at Global Sparks:</p>
+    <p>To aid you in your work please speak to one of the members of staff in the bottom right corner to get an idea of what the culture is like at Global Sparks.</p>
 </div>
-        <div class="interviewee" id="interview1">Susie</div>
-        <div class="quote" id="quote1"><span class="profile">Susie Queue (32), PA to Department Head:</span><br> The main problem I have with my job is that IT support is terrible. It used to be the case that the department was in the same building, and you knew you could walk in or call them up and speak to the same people you spoke to last time. A bottle of wine at Christmas kept them happy and I always got things fixed in time. Now it is some random person half the world away that doesn't know me from Adam. Not having that personal relationship makes things more difficult and everything takes twice as long to get fixed. This can be a real problem when the boss is under pressure and the latest round of password changes has locked me out of his email account.</div>
-
-        <div class="interviewee" id="interview2">Kevin</div>
-        <div class="quote" id="quote2"><span class="profile">Kevin Clark (38), Facilities Technician:</span><br> I have been re-hired to do the same job, at the same level of pay, but without benefits. It doesn't make me happy but there are no other decent IT jobs going in this area, so I have to do it. Unfortunately they know this too and so we don’t get treated like we did when I worked here properly. It doesn't help that with all the shuffling around no-one knows each other anymore. We all have to wear badges now, use passwords everywhere, walk through checkpoints like we are at the airport every time we want to go to the toilet. That’s what it seems like to me anyway. I walk all over the building fixing computers and stuff and the atmosphere really has changed.</div>
-
-        <div class="interviewee" id="interview3">Iza</div>
-        <div class="quote" id="quote3"><span class="profile">Iza Henata (26), Client Account Manager:</span><br> My job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Have the mergers affected me? I suppose so. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier.</div>
+        <div>
+            <div class="context-frame">
+                <h2>Locations</h2>
+                <div class="icon">
+                    <img src="static/img/office.png"/>Office
+                </div>
+                <div class="icon">
+                    <img src="static/img/public.png"/>Public
+                </div>
+                <div class="icon">
+                    <img src="static/img/home.png"/>Home
+                </div>
+            </div>
+            <div class="context-frame">
+                <h2>Devices</h2>
+                <div class="icon">
+                    <img src="static/img/desktop.png"/>Desktop
+                </div>
+                <div class="icon">
+                    <img src="static/img/laptop.png"/>Laptop
+                </div>
+                <div class="icon">
+                    <img src="static/img/phone.png"/>Phone
+                </div>
+            </div>
+            <div class="context-frame">
+                <h2>Employees</h2>
+                <div class="icon" id="interview1">
+                    <img src="static/img/susie.png"/>Susie
+                </div>
+                <div class="icon" id="interview2">
+                    <img src="static/img/kevin.png"/>Kevin
+                </div>
+                <div class="icon" id="interview3">
+                    <img src="static/img/iza.png"/>Iza
+                </div>
+            </div>
+        </div>
 
 <script src="static/js/intro.js"></script>

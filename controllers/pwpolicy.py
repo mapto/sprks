@@ -35,7 +35,7 @@ class pwpolicy:
 #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
                 # The default policy (i.e. when not specified by user)
                 dtt = get_start_time()
-                db.insert('pw_policy', userid=id_user, date=dtt.strftime("%Y/%m/%d %H:%M:%S"),
+                db.insert('pw_policy', userid=id_user, date=dtt,
                           plen=pwpolicy.default["plen"],
                           psets=pwpolicy.default["psets"],
                           pdict=pwpolicy.default["pdict"],

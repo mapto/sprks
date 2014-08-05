@@ -7,12 +7,30 @@ __author__ = 'mruskov'
 
 import web
 import session
+
 from datetime import datetime
-# from controllers.timeline import get_start_time
+
+# from main import is_dev
+from settings import host as deployment_host
+from settings import app_path as deployment_path
+from settings import static_path as deployment_static_path
+
+
+host = deployment_host
+app_path = deployment_path
+static_path = deployment_static_path
+
+app_url = host + app_path
+static_url = host + static_path
+
+# print app_url
+# print static_url
+
 import importlib
 
 def get_start_time():
-    return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
+    # return datetime.strptime("2014-1-6 9", "%Y-%m-%d %H") # 9am on 6 January 2014
+    return 0
 
 # Now assuming that views directory is fixed.
 # It is invisible to the code which renderer is used
@@ -23,10 +41,12 @@ def get_start_time():
 #
 globals = {
     'datetime': datetime,
-    'get_start_time': get_start_time
+    'get_start_time': get_start_time,
+    'app_url': app_url,
+    'static_url': static_url
 } # Parameters for private render
 render_private = web.template.render('views/', base='index_private', globals=globals)
-render_public = web.template.render('views/', base='index_public')
+render_public = web.template.render('views/', base='index_public', globals=globals)
 
 # make sure that you define these in your settings.py
 # this file is excluded from Git, so you'll need to define it yourself
