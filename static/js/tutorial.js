@@ -1,4 +1,6 @@
 var tick = document.getElementById("myswitch"); // store toggle switch to tick variable
+var iupper = document.getElementById("impress-upper"); // store upper impress div in iupper variable
+var ilower = document.getElementById("impress-lower"); // store lower impress div in ilower variable
 var curStep = 1; // by default all introductions start at the beginning
 var cookieName = "tutorials";
 var cookieImpressU = "iupper";
@@ -58,7 +60,7 @@ function getCookie(name) {
     for(var i=0; i<ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) != -1) return c.substring((name.length + 1), c.length);
+        if (c.indexOf(name) != -1) return c.substring((name.length + 1), c.length); // the +1 removes "=" from return val
     }
     return "";
 }
@@ -68,6 +70,14 @@ function setCookie(name, value) {
     console.log(document.cookie);
 }
 
+if (document.title === "Incident") {
+    setCookie(cookieImpressU, iupper.innerHTML);
+    setCookie(cookieImpressL, ilower.innerHTML);
+}
+if (document.title === "Impress" ) {
+    document.getElementById("upincident").innerHTML = getCookie(cookieImpressU);
+    document.getElementById("loincident").innerHTML = getCookie(cookieImpressL);
+}
 /*
     check cookie for tutorial switch position
 */

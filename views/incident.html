@@ -14,6 +14,7 @@ $var date: $turn
     <p><h4>Risk Probability: </h4> <div class="incident_box" id="risk"></div>
     <p><h4>Productivity Cost: </h4> <div class="incident_box" id="cost"></div></p>
     <p><h4>Productivity Cost: </h4> <div class="incident_box" id="impress-upper"></div></p>
+    <p><h4>Productivity Cost: </h4> <div class="incident_box" id="impress-lower"></div></p>
 
     <form method="POST" action="incident"><input id="confirm" name="pconfirm" type="submit" value="Next"></form>
 </div>
@@ -23,6 +24,7 @@ $var date: $turn
     $$(document).ready(initIncident());
     setTimeout(function() {
         var iupper = document.getElementById('impress-upper').innerHTML;
+        var ilower = document.getElementById('impress-lower').innerHTML
         console.log(iupper);
     }, 1000);
 </script>
