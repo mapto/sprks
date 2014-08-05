@@ -632,8 +632,8 @@
       }
 
       tooltipLayer.className = 'introjs-tooltip';
-      tooltipLayer.appendChild(tooltipTextLayer);
       tooltipLayer.appendChild(bulletsLayer);
+      tooltipLayer.appendChild(tooltipTextLayer);
 
       //add helper layer number
       if (this._options.showStepNumbers == true) {

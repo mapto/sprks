@@ -76,22 +76,22 @@ function startTutorial() {
                 position: "right"
             },
             {
-                element: ".story",
+                element: "#story",
                 intro: "You can check your story at the start of every turn",
                 position: "right"
             },
             {
-                element: ".policy",
+                element: "#policy",
                 intro: "Change policies as needed",
                 position: "right"
             },
             {
-                element: ".incident",
+                element: "#conseq",
                 intro: "Check the results for the chosen policies",
                 position: "right"
             },
             {
-                element: ".score",
+                element: "#score",
                 intro: "end the turn???", //TODO: figure out what it's actually supposed to do...
                 position: "right"
             },

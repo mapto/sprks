@@ -247,7 +247,7 @@ tr.introjs-showElement > th {
 }
 .introjs-bullets ul {
   clear: both;
-  margin: 15px auto 0;
+  margin: 5px auto 10px;
   padding: 0;
   display: inline-block;
 }
@@ -258,10 +258,10 @@ tr.introjs-showElement > th {
 }
 .introjs-bullets ul li a {
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: #ccc;
-  border-radius: 10px;
+  border-radius: 20px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   text-decoration: none;
@@ -278,4 +278,8 @@ tr.introjs-showElement > th {
   width: 0;
   left: 50%;
   top: 50%;
+}
+
+.introjs-tooltiptext {
+    margin-bottom: 5px;
 }

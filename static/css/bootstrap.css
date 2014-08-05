@@ -249,7 +249,7 @@ label {
  text-decoration:none;
 }
 .menu{
-  position:fixed;
+  position: absolute;
   left:11px;
   /*top:64px; TODO: removed code*/
   width:210px;
