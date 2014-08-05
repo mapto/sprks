@@ -5,10 +5,13 @@
         "prenew": 3,
         "precovery": 1
     },
-    "description": "You demand employees to renew their passwords very frequently. Whenever someone forgets their password, they request the system to generate a new one for them automatically.",
-    "event": "The password recovery page becomes the most visited page on your intranet and this has become a well-known fact.",
+    "description": "You demand employees to renew their passwords very frequently.",
+    "event": "Whenever someone forgets their password, they request the system to generate a new one for them automatically.",
     "consequences": "Attackers can easily get to know that the password recovery page is used so much and start to look for ways to hijack the automated mechanism.",
     "risk": 0.5,
     "cost": 0.1,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "Automatic password recovery coupled with frequent renewals brought too much attention to the password recovery page",
+    "impress-lower": "Relax the policy for either of these for a better balance."
+    }

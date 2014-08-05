@@ -8,9 +8,12 @@
         "pattempts": 0
     },
     "description": "You don't require challenging passwords.",
-    "event": "People use basic standard passwords that are easy to guess.",
-    "consequences": "The system is very easy to attack, because attackers don't even need to guess passwords.",
+    "event": "Staff use standard passwords that are easy to guess.",
+    "consequences": "With passwords that are easy to guess, bruteforce attacks are constant and worrying."
     "risk": 1,
     "cost": 0,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "A lax policy on passwords will invite attacks that will try to guess them.",
+    "impress-lower": "Be more strict on your policies this time around."
+    }

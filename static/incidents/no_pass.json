@@ -4,10 +4,13 @@
         "bdata": 0,
         "plen": 0
     },
-    "description": "You don't require any password at all.",
+    "description": "Your policy doesn't require a password at all.",
     "event": "Some employees use empty passwords. With time such behaviour starts to spread to the point that people start expecting that they can login anywhere without having to type a password.",
-    "consequences": "The system is very easy to attack, because attackers don't even need to guess passwords.",
+    "consequences": "Your division is under constant successful attacks, as intruders don't even need to guess passwords at times.",
     "risk": 1,
     "cost": 0,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "Not having a minimum length for a password defeats the purpose of any other policy you may have set",
+    "impress-lower": "Changing this policy will make a better secured system."
+    }

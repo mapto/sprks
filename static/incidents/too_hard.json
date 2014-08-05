@@ -8,10 +8,13 @@
         "phist": 3,
         "prenew": 1
     },
-    "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.",
+    "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month.",
     "event": "The employees try to comply really hard in the beginning, but every time they have to renew theirs they struggle more and more to come up with something new and different.",
     "consequences": "Because passwords are complicated, many employees forget them and end up requesting new ones.",
     "risk": 0.8,
     "cost": 1,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "Having a manned password recovery facility is far too time consuming and demanding of your staff.",
+    "impress-lower": "Password renewal should not happen so often if the policy is as strict as last month's."
+    }

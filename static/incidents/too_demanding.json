@@ -7,10 +7,13 @@
         "prenew": 3,
         "precovery": 0
     },
-    "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.",
-    "event": "People start using password generators. Worse than that, they need help to memorize them and very frequently write them down on paper.",
-    "consequences": "Employees start to think of passwords very differently. Sharing one's password stops being an issue anymore. The greatest embarassment comes when a friend tells you that when reading a newspaper article about Global Sparks, he saw someone's password in the background of the accompanying photograph.",
+    "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month.",
+    "event": "Your division sees the use of password generators. Some staff have also started to write their passwords on paper.",
+    "consequences": "A newspaper article about Global Sparks shows someone's password in the background of the accompanying photograph.",
     "risk": 0.8,
     "cost": 0.2,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "Your policies should not demand so much of their users as to have them use external software.",
+    "impress-lower": "Relax you policies to see a better performing division."
+    }

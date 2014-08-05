@@ -7,10 +7,13 @@
         "pattempts": 1,
         "precovery": 1
     },
-    "description": "Some reasonable policy",
-    "event": "It's nice sunny weather",
-    "consequences": "You make it difficult for attackers to guess your password, but easy to staff",
+    "description": "Your policy is sound",
+    "event": "A relaxing month overall",
+    "consequences": "You've deployed a policy that is difficult for attackers, but easy on the staff",
     "risk": 0.1,
     "cost": 0.2,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "While last month's policy was sound, it was leaning on the risky side",
+    "impress-lower": "It's up to you whether to further secure it or leave it as is."
+    }

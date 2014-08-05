@@ -7,10 +7,13 @@
         "pattempts": 0,
         "precovery": 1
     },
-    "description": "Your policy sounds reasonable.",
+    "description": "Your policy looks reasonable.",
     "event": "No major incidents happen as a result.",
-    "consequences": "None",
+    "consequences": "Other ISOs have been calling you asking for advice with their policies.",
     "risk": 0.3,
     "cost": 0.3,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "You struck a good balance between risk, cost, and employee satisfaction last month.",
+    "impress-lower": "Keep it up!"
+}

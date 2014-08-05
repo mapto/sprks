@@ -11,9 +11,12 @@
         "precovery": 0
     },
     "description": "You require very complex passwords that are impossible to memorize and you ask people to change them every month. On the other hand password recovery needs to go through a manned helpdesk.",
-    "event": "Jessica, a Business Analyst at a utility company, needs to urgently share a large volume of files with colleagues in her department as part of a high priority task she is undertaking. These files contain “Confidential” company information for “internal use only”. Jessica has made the files available through Microsoft SharePoint, restricting access to certain team members.<br/>Some team members tell her they cannot access the files due to infrequent use and forgotten passwords. Jessica knows from past experience that it may take up to 3 hours for the administrator to approve the pasword resetting procedure. If these files are not made available within the next 30 minutes, this will severely impact delivery and quality. As not all of her colleagues require access to all the files, to manually distribute them would involve her identifying the subset of files for each person - this will be a very time- consuming task, so Jessica creates an archive of all the relevant documents and considers how best to deliver it to the group.",
-    "consequences": "Jessica requests that those that have entered the localsys and accessed the files share their (main log-in) account details and passwords with those without to allow them access to the information.",
+    "event": "Your policy is far too demanding on the staff and an inter-division project suffers delays because of it",
+    "consequences": "All inter-division projects assigned to your staff have been put on hold until the policy allows for better and faster cooperation",
     "risk": 0.8,
     "cost": 0.2,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "Last month's policy was very secure. It was also too burdensome for staff and much too costly.",
+    "impress-lower": "Ultimately, your goal is to find a balance of these traits. Too much weight on any side will make someone unhappy."
+    }
