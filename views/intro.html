@@ -4,11 +4,58 @@ $var title: Introduction
 $var cssfiles: static/css/bootstrap.css
 $var date: $turn
 $var username: $username
+
 <h1>Your Company</h1>
 <div class="description">
-    <iframe id="frame" src="/static/impress/jan.html" height="450px" frameborder=0 width="100%" data-position="right"></iframe>
+    <iframe id="frame" height="450px" frameborder=0 width="100%" data-position="right"></iframe>
     <!--<script>-->
         <!--document.getElementById('frame').contentWindow.focus();-->
     <!--</script>-->
 </div>
 <script src="static/js/intro.js"></script>
+<script>
+    var monthnum = $turn;
+    var month;
+    switch (monthnum){
+        case 0: month = "jan"; break;
+        case 1: month = "feb";
+                story.innerHTML = "Second Month";
+                break;
+        case 2: month = "mar";
+                story.innerHTML = "Third Month";
+                break;
+        case 3: month = "apr";
+                story.innerHTML = "Fourth Month";
+                break;
+        case 4: month = "may";
+                story.innerHTML = "Fifth Month";
+                break;
+        case 5: month = "june";
+                story.innerHTML = "Sixth Month";
+                break;
+        case 6: month = "july";
+                story.innerHTML = "Seventh Month";
+                break;
+        case 7: month = "aug";
+                story.innerHTML = "Eighth Month";
+                break;
+        case 8: month = "sep";
+                story.innerHTML = "Ninth Month";
+                break;
+        case 9: month = "oct";
+                story.innerHTML = "Tenth Month";
+                break;
+        case 10: month = "nov";
+                story.innerHTML = "Eleventh Month";
+                break;;
+        case 11: month = "dec";
+                story.innerHTML = "Twelfth Month";
+                break;;
+        case 12: month = "fin";
+                story.innerHTML = "Thirteenth Month";
+                break;
+    }
+    var frame = document.getElementById("frame");
+    frame.src = "/static/impress/" + month + ".html";
+    console.log(iupper);
+</script>

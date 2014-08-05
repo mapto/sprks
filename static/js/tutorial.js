@@ -1,6 +1,8 @@
 var tick = document.getElementById("myswitch"); // store toggle switch to tick variable
 var curStep = 1; // by default all introductions start at the beginning
 var cookieName = "tutorials";
+var cookieImpressU = "iupper";
+var cookieImpressL = "ilower";
 
 /*
     pointTutorial highlights the tutorials switch at a certain interval and hides it shortly after.
@@ -39,10 +41,10 @@ setTimeout(function() { pointTutorial(2) }, 45000);
 /*
     cookie helper functions (checker, getter and setter)
 */
-checkCookie();
 
-function checkCookie() {
-    var cookie = getCookie();
+function checkCookie(name) {
+    var cookie = getCookie(name);
+    console.log(cookie);
     if (cookie === "on") {
         tick.checked = true;
     } else {
@@ -50,19 +52,19 @@ function checkCookie() {
     }
 }
 
-function getCookie() {
-    var name = cookieName + "=";
+function getCookie(name) {
+    var cookieN = name + "=";
     var ca = document.cookie.split(';');
     for(var i=0; i<ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        if (c.indexOf(name) != -1) return c.substring((name.length + 1), c.length);
     }
     return "";
 }
 
-function setCookie(value) {
-    document.cookie = cookieName + "=" + value + ";";
+function setCookie(name, value) {
+    document.cookie = name + "=" + value + ";";
     console.log(document.cookie);
 }
 
@@ -76,12 +78,12 @@ function checkTutorial() {
     if (cookie === "on") {
         console.log('if cookie');
         tick.checked = true;
-        cookie = setCookie("on");
+        cookie = setCookie(cookieName, "on");
         console.log(cookie);
     } else {
         console.log('else cookie');
         tick.checked = false;
-        cookie = setCookie("off");
+        cookie = setCookie(cookieName, "off");
         console.log(cookie);
     }
 }
@@ -104,7 +106,7 @@ function autoStart() {
         }
     } else {
         introJs().exit();
-        setCookie("off");
+        setCookie(cookieName, "off");
     }
 }
 
@@ -114,7 +116,7 @@ window.onload = setTimeout(function() { autoStart();console.log('on load ' + get
     Intro / Jan tutorials
 */
 function startTutorial() {
-    setCookie("on");
+    setCookie(cookieName, "on");
     tut = introJs()
     tut.setOptions({
         exitOnOverlayClick: false,
@@ -178,7 +180,7 @@ function startTutorial() {
         curStep = tut.currentStep();
         console.log(tut._currentStep + ' on exit after ' + curStep);
         tick.checked = false;
-        setCookie("off");
+        setCookie(cookieName, "off");
     });
     tut.oncomplete(function() { console.log('intro finished'); });
     console.log(curStep + 'inside tut');
@@ -186,7 +188,7 @@ function startTutorial() {
 }
 
 function passTutorial() {
-    setCookie("on");
+    setCookie(cookieName, "on");
     pass = introJs();
     pass.setOptions({
         exitOnOverlayClick: false,
@@ -219,7 +221,7 @@ function passTutorial() {
         curStep = pass.currentStep();
         console.log(pass._currentStep + ' on exit after ' + curStep);
         tick.checked = false;
-        setCookie("off");
+        setCookie(cookieName, "off");
     });
     pass.oncomplete(function() { console.log('pass finished'); });
     console.log(curStep + 'inside tut');

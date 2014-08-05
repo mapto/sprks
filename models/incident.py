@@ -70,3 +70,9 @@ class incident:
 
     def get_risk(self):
         return self.data['risk']
+
+    def get_upper(self):
+        return self.data['impress-upper']
+
+    def get_lower(self):
+        return self.data['impress-lower']

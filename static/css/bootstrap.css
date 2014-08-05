@@ -417,12 +417,14 @@ label {
 }
 #interview1{
     right:30px;
+    display: none;
 }
 #interview2{
     right:105px;
 }
 #interview3{
     right:180px;
+    display: none;
 }
 .quote{
     z-index:3000;
@@ -458,14 +460,14 @@ label {
    border-style:solid;
    border-color:#ccc transparent;
 }
-#quote1:after{
+#quote3:after{
    right:60px;
 }
-#quote2:after{
+#quote1:after{
    right:130px;
 }
-#quote3:after{
-   right:190px;
+#quote2:after{
+   right:115px;
 }
 
 /*PROFILE page*/

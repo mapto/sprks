@@ -20,10 +20,11 @@ class incident:
     def POST(self):
         # TODO: David puts branching logic here
         game_turn = session.mysession.session.turn
-        if game_turn < 3: # this number is the limit of turns the game has
+        if game_turn < 2: # this number is the limit of turns the game has
             # turn increment happens when you call forward
             raise web.seeother('intro')
         else:
+            session.mysession.session.turn = 0
             raise web.seeother('score')
 
 

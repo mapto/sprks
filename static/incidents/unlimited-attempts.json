@@ -5,9 +5,12 @@
         "pattempts": 0
     },
     "description": "You don't set a limit to password entry attempts.",
-    "event": "Eventually someone's does a bruteforce attack and succeeds.",
-    "consequences": "Eventually someone's does a bruteforce attack and succeeds.",
+    "event": "You're the victim of continuous bruteforce attacks, one of them succeeds.",
+    "consequences": "Your division suffered significant data loss this month.",
     "risk": 0.8,
     "cost": 0,
     "risk-modifier": -0.01,
-    "cost-modifier": 0.1}
+    "cost-modifier": 0.1,
+    "impress-upper": "Bruteforce attacks are just constant attempts at guessing a user's credentials",
+    "impress-lower": "Set a limit to password entry attempts to counter these attacks"
+}
