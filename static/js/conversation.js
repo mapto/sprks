@@ -1,93 +1,93 @@
  $(document).ready(function(){
 
-        $("#interview1").on('click', function(e){
-            if( $("#quote1").css("display")=="block"){
-                $("#quote1").css("display", "none");
+        $("#andydiv").on('click', function(e){
+            if( $("#andyquote").css("display")=="block"){
+                $("#andyquote").css("display", "none");
             }else{
-                $("#quote1").css("display", " block");
-                $("#quote2").css("display", " none");
-                $("#quote3").css("display", " none");
-                $("#quote4").css("display", " none");
-                $("#quote5").css("display", " none");
-                $("#quote6").css("display", " none");
+                $("#andyquote").css("display", " block");
+                $("#izaquote").css("display", " none");
+                $("#kevquote").css("display", " none");
+                $("#susquote").css("display", " none");
+                $("#drkquote").css("display", " none");
+                $("#helquote").css("display", " none");
                  e.stopPropagation();
             }
 
         });
-        $("#interview2").on('click', function(e){
-            if( $("#quote2").css("display")=="block"){
-                $("#quote2").css("display", "none");
+        $("#izadiv").on('click', function(e){
+            if( $("#izaquote").css("display")=="block"){
+                $("#izaquote").css("display", "none");
             }else{
-                $("#quote2").css("display", " block");
-                $("#quote1").css("display", " none");
-                $("#quote3").css("display", " none");
-                $("#quote4").css("display", " none");
-                $("#quote5").css("display", " none");
-                $("#quote6").css("display", " none");
+                $("#izaquote").css("display", " block");
+                $("#andyquote").css("display", " none");
+                $("#kevquote").css("display", " none");
+                $("#susquote").css("display", " none");
+                $("#drkquote").css("display", " none");
+                $("#helquote").css("display", " none");
 
                  e.stopPropagation();
             }
         });
-        $("#interview3").on('click', function(e){
-            if( $("#quote3").css("display")=="block"){
-                $("#quote3").css("display", "none");
+        $("#kevdiv").on('click', function(e){
+            if( $("#kevquote").css("display")=="block"){
+                $("#kevquote").css("display", "none");
             }else{
-                $("#quote3").css("display", " block");
-                $("#quote2").css("display", " none");
-                $("#quote1").css("display", " none");
-                $("#quote4").css("display", " none");
-                $("#quote5").css("display", " none");
-                $("#quote6").css("display", " none");
+                $("#kevquote").css("display", " block");
+                $("#izaquote").css("display", " none");
+                $("#andyquote").css("display", " none");
+                $("#susquote").css("display", " none");
+                $("#drkquote").css("display", " none");
+                $("#helquote").css("display", " none");
                 e.stopPropagation();
             }
         });
-        $("#interview4").on('click', function(e){
-            if( $("#quote4").css("display")=="block"){
-                $("#quote4").css("display", "none");
+        $("#susdiv").on('click', function(e){
+            if( $("#susquote").css("display")=="block"){
+                $("#susquote").css("display", "none");
             }else{
-                $("#quote4").css("display", " block");
-                $("#quote1").css("display", " none");
-                $("#quote2").css("display", " none");
-                $("#quote3").css("display", " none");
-                $("#quote5").css("display", " none");
-                $("#quote6").css("display", " none");
+                $("#susquote").css("display", " block");
+                $("#andyquote").css("display", " none");
+                $("#izaquote").css("display", " none");
+                $("#kevquote").css("display", " none");
+                $("#drkquote").css("display", " none");
+                $("#helquote").css("display", " none");
                 e.stopPropagation();
             }
         });
-        $("#interview5").on('click', function(e){
-            if( $("#quote5").css("display")=="block"){
-                $("#quote5").css("display", "none");
+        $("#drkdiv").on('click', function(e){
+            if( $("#drkquote").css("display")=="block"){
+                $("#drkquote").css("display", "none");
             }else{
-                $("#quote5").css("display", " block");
-                $("#quote1").css("display", " none");
-                $("#quote2").css("display", " none");
-                $("#quote4").css("display", " none");
-                $("#quote3").css("display", " none");
-                $("#quote6").css("display", " none");
+                $("#drkquote").css("display", " block");
+                $("#andyquote").css("display", " none");
+                $("#izaquote").css("display", " none");
+                $("#susquote").css("display", " none");
+                $("#kevquote").css("display", " none");
+                $("#helquote").css("display", " none");
                 e.stopPropagation();
             }
         });
-        $("#interview6").on('click', function(e){
-            if( $("#quote6").css("display")=="block"){
-                $("#quote6").css("display", "none");
+        $("#heldiv").on('click', function(e){
+            if( $("#helquote").css("display")=="block"){
+                $("#helquote").css("display", "none");
             }else{
-                $("#quote6").css("display", " block");
-                $("#quote2").css("display", " none");
-                $("#quote1").css("display", " none");
-                $("#quote4").css("display", " none");
-                $("#quote5").css("display", " none");
-                $("#quote3").css("display", " none");
+                $("#helquote").css("display", " block");
+                $("#izaquote").css("display", " none");
+                $("#andyquote").css("display", " none");
+                $("#susquote").css("display", " none");
+                $("#drkquote").css("display", " none");
+                $("#kevquote").css("display", " none");
                 e.stopPropagation();
             }
         });
 
     $(document).click(function(){
-        $("#quote1").css("display", "none");
-        $("#quote2").css("display", "none");
-        $("#quote3").css("display", "none");
-        $("#quote4").css("display", " none");
-        $("#quote5").css("display", " none");
-        $("#quote6").css("display", " none");
+        $("#andyquote").css("display", "none");
+        $("#izaquote").css("display", "none");
+        $("#kevquote").css("display", "none");
+        $("#susquote").css("display", " none");
+        $("#drkquote").css("display", " none");
+        $("#helquote").css("display", " none");
     });
 
     });

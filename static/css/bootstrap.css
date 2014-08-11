@@ -415,24 +415,25 @@ label {
 .interviewee:hover{
     color:#000;
 }
-#interview1, #interview6 {
+#andydiv, #heldiv {
     right:30px;
     display: none;
 }
-#interview2, #interview5 {
+#izadiv, #drkdiv {
     right:105px;
 }
-#interview3, #interview4 {
+
+#drkdiv {
+    display: none;
+}
+
+#kevdiv, #susdiv {
     right:180px;
     display: none;
 }
 
-#interview4, #interview5, #interview6 {
+#susdiv, #drkdiv, #heldiv {
     bottom: 300px;
-}
-
-#interview5 {
-    display: none;
 }
 
 .quote{
@@ -452,7 +453,7 @@ label {
     border: 1px solid #d4d4d4;
     box-shadow: 0px 1px 8px #ccc, inset 0px 2px 3px #fff;
 }
-#quote4, #quote5, #quote6 {
+#susquote, #drkquote, #helquote {
     bottom: +410px;
 }
 .profile{
@@ -491,13 +492,13 @@ label {
    border-style:solid;
    border-color:#ccc transparent;
 }
-#quote3:after{
+#kevquote:after{
    right:60px;
 }
-#quote1:after{
+#andyquote:after{
    right:130px;
 }
-#quote2:after{
+#izaquote:after{
    right:115px;
 }
 */

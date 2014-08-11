@@ -46,7 +46,10 @@ class forward:
         #         prev_date = prev_date + timedelta(days=7)
 
         new_date = users.users_model().end_turn(session.mysession.session.user)
-        session.mysession.session.turn = new_date
+        if new_date > 13:
+            session.mysession.session.turn = users.users_model().end_game(session.mysession.session.user)
+        else:
+            session.mysession.session.turn = new_date
 
         for k, value in data.iteritems():
             sim.set_policy(k, value)

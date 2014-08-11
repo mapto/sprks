@@ -24,4 +24,9 @@ $var date: $turn
 <script src="static/js/tutorial.js"></script>
 <script>
     $$(document).ready(initIncident());
+    window.onbeforeunload = function () {
+        setCookie("iupper", document.getElementById("impress-upper").innerHTML);
+        setCookie("ilower", document.getElementById("impress-lower").innerHTML);
+        }
+
 </script>

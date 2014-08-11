@@ -24,7 +24,7 @@ class incident:
             # turn increment happens when you call forward
             raise web.seeother('intro')
         else:
-            session.mysession.session.turn = 4
+            session.mysession.session.turn = 0
             raise web.seeother('/intro')
 
 
