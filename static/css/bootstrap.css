@@ -415,41 +415,72 @@ label {
 .interviewee:hover{
     color:#000;
 }
-#interview1{
+#interview1, #interview6 {
     right:30px;
     display: none;
 }
-#interview2{
+#interview2, #interview5 {
     right:105px;
 }
-#interview3{
+#interview3, #interview4 {
     right:180px;
     display: none;
 }
+
+#interview4, #interview5, #interview6 {
+    bottom: 300px;
+}
+
+#interview5 {
+    display: none;
+}
+
 .quote{
     z-index:3000;
     display:none;
     border-radius: 10%;
-    width:300px;
+    width:250px;
     padding:15px;
     position:fixed;
     bottom:188px;
     right:10px;
     float left;
+    height: 200px;
 
     color:#0e0e0e#;
     background-color: rgba(250,250,250,0.9);
     border: 1px solid #d4d4d4;
     box-shadow: 0px 1px 8px #ccc, inset 0px 2px 3px #fff;
 }
+#quote4, #quote5, #quote6 {
+    bottom: +410px;
+}
 .profile{
     font-weight:bold;
     font-size:16px;
 }
 
+.talk {
+    height: 165px;
+}
 
+#izaintro, #andyintro, #kevintro,
+#susintro, #helintro, #drkintro {
+    overflow: scroll;
+    overflow-x: hidden;
+}
 
-/* creates triangle */
+#izarisky, #izacstly, #izablnce,
+#andyrisky, #andycstly, #andyblnce,
+#kevrisky, #kevcstly, #kevblnce,
+#susrisky, #suscstly, #susblnce,
+#helrisky, #helcstly, #helblnce,
+#drkrisky, #drkcstly, #drkblnce {
+    display:none;
+    overflow: hidden;
+}
+
+/* creates triangle
 .quote:after {
    content:"";
    display:block; /* reduce the damage in FF3.0 */
@@ -469,7 +500,7 @@ label {
 #quote2:after{
    right:115px;
 }
-
+*/
 /*PROFILE page*/
 /*Graph*******/
 #chartContainer{
