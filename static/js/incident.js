@@ -38,7 +38,7 @@ function get_incident_data(name) {
         success : function(incident) {
             $(".incident_box").each(function(){
                 $(this).text(incident[ ($(this).attr('id')) ]);
-                //console.log($(this).text(incident[ ($(this).attr('id')) ]));
+                console.log($(this).text(incident[ ($(this).attr('id')) ]));
             });
         },
         error: function(response) {

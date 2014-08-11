@@ -25,7 +25,7 @@ class incident:
             raise web.seeother('intro')
         else:
             session.mysession.session.turn = 0
-            raise web.seeother('score')
+            raise web.seeother('intro')
 
 
 class incident_rest:

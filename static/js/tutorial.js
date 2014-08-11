@@ -113,6 +113,9 @@ function autoStart() {
             case "Password policy":
                 passTutorial();
                 break;
+            case "Incident":
+                inciTutorial();
+                break;
         }
     } else {
         introJs().exit();
@@ -197,6 +200,9 @@ function startTutorial() {
     tut.goToStep(curStep).start();
 }
 
+/*
+    Policies tutorial
+*/
 function passTutorial() {
     setCookie(cookieName, "on");
     pass = introJs();
@@ -237,4 +243,54 @@ function passTutorial() {
     console.log(curStep + 'inside tut');
     pass.goToStep(curStep).start();
 }
+
+/*
+    Incident tutorial
+*/
+function inciTutorial() {
+    setCookie(cookieName, "on");
+    inci = introJs();
+    inci.setOptions({
+        exitOnOverlayClick: false,
+        showStepNumbers: false,
+        scrollToElement: true,
+        steps: [
+            {
+                intro: "This page will show the results from you policy settings"
+            },
+            {
+                element: "#description",
+                intro: "The biggest factor of your policy will be shown",
+                position: "right"
+            },
+            {
+                element: "#event",
+                intro: "An event that stemmed from the policy"
+            },
+            {
+                element: "#consequences",
+                intro: "What that event meant for your division"
+            },
+            {
+                element: "#type",
+                intro: "The biggest risk type your policy has"
+            },
+            {
+                element: "#risk",
+                intro: "And the possibility of that risk happening."
+            }
+        ]
+    });
+    inci.onexit(function(){
+        console.log(inci._currentStep + ' on exit before ' + curStep);
+        curStep = inci.currentStep();
+        console.log(inci._currentStep + ' on exit after ' + curStep);
+        tick.checked = false;
+        setCookie(cookieName, "off");
+    });
+    inci.oncomplete(function() { console.log('incident finished'); });
+    console.log(curStep + 'inside tut');
+    inci.goToStep(curStep).start();
+}
+
 tick.addEventListener("click", autoStart);

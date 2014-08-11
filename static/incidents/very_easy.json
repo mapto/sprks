@@ -9,7 +9,7 @@
     },
     "description": "You don't require challenging passwords.",
     "event": "Staff use standard passwords that are easy to guess.",
-    "consequences": "With passwords that are easy to guess, bruteforce attacks are constant and worrying."
+    "consequences": "With passwords that are easy to guess, bruteforce attacks are constant and worrying.",
     "risk": 1,
     "cost": 0,
     "risk-modifier": -0.01,

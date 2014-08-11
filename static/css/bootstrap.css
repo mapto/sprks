@@ -602,3 +602,7 @@ section{
     padding-left: 10px;
     cursor: pointer;
 }
+
+.hide {
+    display: none;
+}
