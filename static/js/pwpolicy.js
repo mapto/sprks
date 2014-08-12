@@ -74,23 +74,24 @@ function verboseScore(score) {
 }
 
 /* handle AJAX (realtime) submission */
-/*
+
 send = function() { // need different event handling, to capture any change
 
     var obj = {};
     var obj1 = {};
 	var strDate = document.forms["input"]["date"].value;
     obj.userid=document.forms["input"]["userid"].value;
-    obj1.plen=$$('input[name="plen"]:checked').val();
-    obj1.psets=$$('input[name="psets"]:checked').val();
-    obj1.pdict=$$('input[name="pdict"]:checked').val();
-    obj1.phist=$$('input[name="phist"]:checked').val();
-    obj1.prenew=$$('input[name="prenew"]:checked').val();
-    obj1.pattempts=$$('input[name="pattempts"]:checked').val();
-    obj1.precovery=$$('input[name="precovery"]:checked').val();
+    obj1.plen=$('input[name="plen"]:checked').val();
+    obj1.psets=$('input[name="psets"]:checked').val();
+    obj1.pdict=$('input[name="pdict"]:checked').val();
+    obj1.phist=$('input[name="phist"]:checked').val();
+    obj1.prenew=$('input[name="prenew"]:checked').val();
+    obj1.pattempts=$('input[name="pattempts"]:checked').val();
+    obj1.precovery=$('input[name="precovery"]:checked').val();
     obj.data=JSON.stringify(obj1);
     obj.date=strDate;
     console.log(obj);
+
     var request = jQuery.ajax({
         url: "/forward", // TODO make paths relative
         type: "POST",
@@ -99,18 +100,20 @@ send = function() { // need different event handling, to capture any change
         contentType : "application/json; charset=utf-8",
         dataType : "json",
         success : function(score) {
-            $$(score).each(function(i) {
+            $(score).each(function(i) {
                 document.forms["input"]["date"].value=score[i].value;
             })
+            window.location.href = "/incident";
         },
         error: function(response) {
             console.log("fail: " + response.responseText);
         }
         });
+
     return false;
 }
 //sends data when users press play button
-*/
+
 function submit_change() { // need different event handling, to capture any change
     var d = new Date();
     var msg = {};

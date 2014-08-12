@@ -26,6 +26,7 @@ class pwpolicy:
             check = db.select('pw_policy', where="userid=$id_user", order="date DESC", vars=locals())
             if len(check) > 0:
                 result_get = check[0]
+                print "policies found in db " + str(result_get.pattempts)
                 session.mysession.session.date = result_get.date
                 return render.pwpolicy_form(session.mysession.session.user,result_get.userid, result_get.plen, result_get.psets,
                                 result_get.pdict, result_get.phist, result_get.prenew,
@@ -35,6 +36,7 @@ class pwpolicy:
 #                dtt = dt - timedelta(days=dt.weekday()) #goes back to last monday
                 # The default policy (i.e. when not specified by user)
                 dtt = get_start_time()
+                print "no policies found in db"
                 db.insert('pw_policy', userid=id_user, date=dtt.strftime("%Y/%m/%d %H:%M:%S"),
                           plen=pwpolicy.default["plen"],
                           psets=pwpolicy.default["psets"],
@@ -57,6 +59,7 @@ class pwpolicy:
         sim = simulation()
         data = json.loads(web.data())
         dat = eval(data["data"])
+        print "form has " + str(dat)
         if "pdict" in dat:
             dict1=1
         else:

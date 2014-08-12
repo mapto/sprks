@@ -25,7 +25,9 @@ class forward:
 
         # get the latest date that the user has submitted a policy and add 7 days to it
         # if the user hasn't submitted anything, take today's date
-        data = pwpolicy.default
+        data = json.loads(web.data())
+        print "our data before " + str(data)
+        # data = pwpolicy.default
         prev_date = session.mysession.session.turn  # needed only if user can press /forward without having seen the policy page
 
         user_policies = db.select('pw_policy', where="userid=$usrid", order="date DESC", vars=locals())
@@ -39,6 +41,8 @@ class forward:
                     "prenew": policy.prenew,
                     "pattempts": policy.pattempts,
                     "precovery": policy.precovery}
+        print "our data " + str(data)
+        print "our policy " + str(policy)
         # If we have a dynamic starting date. Fancy, but client does a check for the starting date
         # else:
         #     # update to next Monday after system day as a starting date

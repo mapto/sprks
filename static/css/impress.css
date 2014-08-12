@@ -121,12 +121,33 @@ body {
     margin-top: 10px;
 }
 
+.calendar {
+    height: 425px;
+}
+
+.middle {
+    margin-top: 30px;
+}
+
+.middle img {
+    display: block;
+    margin: auto;
+}
+
 .lower {
 	display: block;
+	position: relative;
+	top: 15%;
+	transform: translateY(-75%);
 	font-size: 35px;
-	margin-top: 450px;
+	vertical-align: bottom;
 }
-ul{
+
+#bullets {
+    transform: translateY(-235%);
+}
+
+ul {
     list-style: disc;
     padding:10px;
 }

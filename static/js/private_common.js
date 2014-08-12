@@ -30,7 +30,7 @@ function initFrame() {
     manageButtons();
 
 
-    send = function () {
+    /*send = function () {
         $("#curr_date").text('to be defined by server');
         var obj = {};
         var request = $.ajax({
@@ -51,7 +51,7 @@ function initFrame() {
             }
         });
         return false;
-    }
+    }*/
     //function for sending request on play btn press
     $('.score').click(send);
 
