@@ -134,6 +134,12 @@ body {
     margin: auto;
 }
 
+#sign {
+    padding-top: 150px;
+    padding-bottom: 150px;
+    height: 100px;
+}
+
 .lower {
 	display: block;
 	position: relative;

@@ -398,7 +398,6 @@ label {
     right:30px;
     padding:5px;
     float right;
-    background-image:url(../img/pt1307_stick_figure_standing_normal.png);
     /*
     image source:
     http://www.google.co.uk/imgres?start=239&client=opera&channel=suggest&biw=1091&bih=558&tbm=isch&tbnid=oFnLPBTrCJB2HM:&imgrefurl=http://www.123rf.com/photo_3074816_stick-man-with-arms-up-and-target-head--vector.html&docid=xA5FGUEZcKaxqM&imgurl=http://us.cdn3.123rf.com/168nwm/cole123rf/cole123rf0804/cole123rf080400284/2930913-stick-man-or-figure-standing-on-red-target--vector.jpg&w=150&h=168&ei=zIDJUaiFKKi90QWnsoCICQ&zoom=1&ved=1t:3588,r:51,s:200,i:157&iact=rc&page=18&tbnh=134&tbnw=120&ndsp=15&tx=78&ty=59#imgdii=oFnLPBTrCJB2HM%3A%3BJ9fEF1n39KtPnM%3BoFnLPBTrCJB2HM%3A
@@ -411,6 +410,30 @@ label {
     text-align: center;
     color:#505050;
     cursor:pointer;
+}
+
+.iza {
+    background-image:url(../img/iza.png);
+}
+
+.andy {
+    background-image:url(../img/andrew.png);
+}
+
+.kevin {
+    background-image:url(../img/kev.png);
+}
+
+.susie {
+    background-image:url(../img/susie.png);
+}
+
+.helen {
+    background-image:url(../img/helen.png);
+}
+
+.drake {
+    background-image:url(../img/drake.png);
 }
 .interviewee:hover{
     color:#000;
@@ -548,8 +571,6 @@ section{
     display:block;
 }
 
-#timeline{ position:relative; }
-
 /*tutorial switch styles*/
 
 .tutorial {
@@ -638,3 +659,41 @@ section{
 .hide {
     display: none;
 }
+
+#timesec {
+    width: 1240px;
+    margin: auto;
+    padding-bottom: 15px;
+}
+
+center {
+    position: absolute;
+    font-weight: bold;
+}
+
+.timemonth {
+    width: 68px;
+    background: gray;
+}
+.month {
+    display: initial;
+    text-align: center;
+}
+/*
+.time{
+    top:75px;
+    height:100px;
+    width:60px;
+    right:30px;
+    padding:5px;
+    float right;
+    background-image:url(../img/month.png);
+    background-size: 90%;
+    background-repeat:no-repeat;
+    background-position:bottom;
+
+    font-weight:bold;
+    text-align: center;
+    color:#505050;
+    cursor:pointer;
+}*/

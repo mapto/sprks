@@ -2,6 +2,10 @@ var tick = document.getElementById("myswitch"); // store toggle switch to tick v
 var iupper = document.getElementById("impress-upper"); // store upper impress div in iupper variable
 var ilower = document.getElementById("impress-lower"); // store lower impress div in ilower variable
 var curStep = 1; // by default all introductions start at the beginning
+var costly = "#369ead";
+var risky = "#c24642";
+var blue = "blue";
+var gray = "gray";
 var cookieName = "tutorials";
 var cookieImpressU = "iupper";
 var cookieImpressL = "ilower";
@@ -129,6 +133,9 @@ window.onload = setTimeout(function() { autoStart();console.log('on load ' + get
     Intro / Jan tutorials
 */
 function startTutorial() {
+    first.style.background = risky;
+    second.style.background = costly;
+    third.style.background = blue;
     setCookie(cookieName, "on");
     tut = introJs()
     tut.setOptions({
@@ -140,7 +147,7 @@ function startTutorial() {
                 intro: "Welcome to UCL's Information Security Simulation, SPRKS"
             },
             {
-                intro: "This is a turn-based game where you are in charge of Information Security Policies for energy company Global Sparks over the course of a thirteen months."
+                intro: "This is a turn-based game where you are in charge of Information Security Policies for energy company Global Sparks over the course of thirteen months."
             },
             {
                 intro: "Each turn the game should process as such:"
@@ -171,12 +178,26 @@ function startTutorial() {
                 position: "right"
             },
             {
-                element: "#timeline",
-                intro: "Your monthly progress is displayed in the timeline",
-                position: "right"
+                element: "#timesec",
+                intro: "The timeline will keep track of your policies' results",
+                position: "bottom"
             },
             {
-                element: "#interview1",
+                element: "#first",
+                intro: "If your policy was too risky",
+                position: "bottom"
+            },
+            {
+                element: "#second",
+                intro: "Too costly",
+                position: "bottom"
+            },
+            {
+                element: "#third",
+                intro: "Or balanced"
+            },
+            {
+                element: "#izadiv",
                 intro: "If you're stuck, you can always talk to your employees for some hints",
                 position: "left"
             },
@@ -189,13 +210,17 @@ function startTutorial() {
         ]
     });
     tut.onexit(function(){
+        second.style.background = third.style.background = first.style.background = gray;
         console.log(tut._currentStep + ' on exit before ' + curStep);
         curStep = tut.currentStep();
         console.log(tut._currentStep + ' on exit after ' + curStep);
         tick.checked = false;
         setCookie(cookieName, "off");
     });
-    tut.oncomplete(function() { console.log('intro finished'); });
+    tut.oncomplete(function() {
+        second.style.background = third.style.background = first.style.background = gray;
+        console.log('intro finished');
+    });
     console.log(curStep + 'inside tut');
     tut.goToStep(curStep).start();
 }
