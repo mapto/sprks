@@ -22,7 +22,7 @@
         <div class="middle"><img src="../img/impress-intro-3.jpg" height="415px"></div>
         <p class="lower">Many of these <em><b>contractors</b></em> are former employees who had been made redundant during consolidation</p>
     </div>
-    <div class="step slide" data-x="2400" data-y="-1500" >
+    <div class="step slide" data-x="2400" data-y="-1500">
         <p class="upper">As part of these recent signings, you've been hired as an Information Security Officer (ISO) in charge of your own division.</p>
         <div class="middle"><img src="../img/impress-intro-4.png"></div>
         <p class="lower" id="bullets">You task is two-fold:
@@ -52,7 +52,7 @@
     impress.init();
     document.addEventListener('impress:stepenter', function(e){
         if (typeof timing !== 'undefined') clearInterval(timing);
-        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 6000); // use the set duration or fallback to 2000ms
+        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 6500); // use the set duration or fallback to 2000ms
         timing = setInterval(impress.next, duration);
     });
 </script>

@@ -7,17 +7,17 @@
 </head>
 <body>
 <div id="impress">
-    <div class="step slide" data-x="-1200" data-y="-1500">
+    <div class="step slide" data-x="0" data-y="-1500" data-z="2000">
         <p class="upper">Just four months to go. They will go by faster than you think</p>
         <div class="middle"><img src="../img/impress-sep-1.png" class="calendar"></div>
         <p class="lower">Some pointers for this month</p>
     </div>
-    <div class="step slide" data-x="-1200" data-y="-1500" data-z="-2000">
+    <div class="step slide" data-x="0" data-y="-1500" data-z="-2000">
         <p id="upincident" class="upper">Incident slides</p>
         <div class="middle"><img id="midincident"></div>
         <p id="loincident" class="lower"></p>
     </div>
-    <div class="step slide" data-x="0" data-y="-1500">
+    <div class="step slide" data-x="0" data-y="-5500" data-z="5000" a>
         <p class="upper">Global Sparks has been awarded a technological grant.</p>
         <div class="middle"><img src="../img/impress-sep-2.jpg"></div>
         <p class="lower">Information Security is among the departments to receive new tech. The first of these will be ready by the 1st of next month</p>
@@ -30,7 +30,7 @@
     impress.init();
     document.addEventListener('impress:stepenter', function(e){
         if (typeof timing !== 'undefined') clearInterval(timing);
-        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 4000); // use the set duration or fallback to 2000ms
+        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 5500); // use the set duration or fallback to 2000ms
         timing = setInterval(impress.next, duration);
     });
 </script>

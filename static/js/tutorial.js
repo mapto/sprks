@@ -1,5 +1,6 @@
 var tick = document.getElementById("myswitch"); // store toggle switch to tick variable
 var iupper = document.getElementById("impress-upper"); // store upper impress div in iupper variable
+var imiddle = document.getElementById("type"); // store risk type in imiddle variable
 var ilower = document.getElementById("impress-lower"); // store lower impress div in ilower variable
 var curStep = 1; // by default all introductions start at the beginning
 var costly = "#369ead";
@@ -8,8 +9,17 @@ var blue = "blue";
 var gray = "gray";
 var cookieName = "tutorials";
 var cookieImpressU = "iupper";
+var cookieImpressM = "imiddle";
 var cookieImpressL = "ilower";
 
+function handleImpress(impress, value) {
+    impress.init();
+    document.addEventListener('impress:stepenter', function(e){
+        if (typeof timing !== 'undefined') clearInterval(timing);
+        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : value); // use the set duration or fallback to 2000ms
+        timing = setInterval(impress.next, duration);
+    });
+}
 /*
     pointTutorial highlights the tutorials switch at a certain interval and hides it shortly after.
 
@@ -76,10 +86,12 @@ function setCookie(name, value) {
 
 if (document.title === "Incident") {
     setCookie(cookieImpressU, iupper.innerHTML);
+    setCookie(cookieImpressM, imiddle.innerHTML);
     setCookie(cookieImpressL, ilower.innerHTML);
 }
 if (document.title === "Impress" ) {
     document.getElementById("upincident").innerHTML = getCookie(cookieImpressU);
+    document.getElementById("midincident").src = "../img/impress-incident-" + getCookie(cookieImpressM) + ".gif";
     document.getElementById("loincident").innerHTML = getCookie(cookieImpressL);
 }
 /*
@@ -407,7 +419,7 @@ function startTutorial() {
                     },
                     {
                         intro: "A company will consider many factors before acquiring a new technology architecture"
-                    }
+                    },
                     {
                         intro: "Installation and training costs as well as return on investment are only a couple of such factors"
                     }
@@ -514,7 +526,7 @@ function startTutorial() {
                 setCookie(cookieName, "off");
             });
             break;
-        case default:
+        default:
             break;
     }
     console.log(curStep + 'inside tut');
