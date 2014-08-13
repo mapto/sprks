@@ -31,7 +31,7 @@
     impress.init();
     document.addEventListener('impress:stepenter', function(e){
         if (typeof timing !== 'undefined') clearInterval(timing);
-        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 4000); // use the set duration or fallback to 2000ms
+        var duration = (e.target.getAttribute('data-transition-duration') ? e.target.getAttribute('data-transition-duration') : 5500); // use the set duration or fallback to 2000ms
         timing = setInterval(impress.next, duration);
     });
 </script>

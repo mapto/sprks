@@ -194,18 +194,18 @@ $if content.cssfiles:
         document.getElementById(name).style.display = "block";
     }
 
-    if (turn >= 3) { // If on or after 4th month (Apr), display andrew
+    if (turn >= 3 && title != "Incident") { // If on or after 4th month (Apr), display andrew
         console.log('andrew shows up');
         showChar("andydiv");
     }
 
-    if (turn >= 6) { // If on or after 7th month (July), display susie and kevin
+    if (turn >= 6 && title != "Incident") { // If on or after 7th month (July), display susie and kevin
         console.log('susie and kevin show up');
         showChar("susdiv");
         showChar("kevdiv");
     }
 
-    if (turn >= 7) { // If on or after 8th month (Aug), display helen and drake
+    if (turn >= 7 && title != "Incident") { // If on or after 8th month (Aug), display helen and drake
         console.log('helen and drake show up');
         showChar("heldiv");
         showChar("drkdiv");
