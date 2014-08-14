@@ -14,25 +14,32 @@ var cookieImpressM = "imiddle";
 var cookieImpressL = "ilower";
 var monthArray = []
 
-for (i = 0; i < 13; i++) {
-    monthArray[i] = gray;
-}
-console.log(monthArray);
-setCookie("array", monthArray);
 
-/*
-    month color selection
-*/
 function colorMonth(turn, prevMonth) {
-    console.log('colmonth');
+    console.log('month color ' + turn + ' ' + prevMonth);
     selColor = getCookie(cookieChats);
-    if (selColor < 0) {
-        monthArray[turn - 1] = prevMonth.style.background = risky;
+    if (selColor > 0) {
+        setCookie(turn, costly);
+        prevMonth.style.background = costly;
     }
-    console.log('after exit' + monthArray);
-    setCookie("array"[0], risky);
+    else if (selColor < 0) {
+        setCookie(turn, risky);
+        prevMonth.style.background = risky;
+    }
+    else {
+        setCookie(turn, balance);
+        prevMonth.style.background = balance;
+    }
 }
-k
+
+function colorAll(turn) {
+    console.log('colorall');
+    for (i = 0; i < turn; i++) {
+        console.log(turn + ' ' + ' ' + i.toString() + ' ' + getCookie(i.toString()));
+        colorMonth
+    }
+}
+
 function handleImpress(impress, value) {
     impress.init();
     document.addEventListener('impress:stepenter', function(e){
@@ -653,29 +660,3 @@ function inciTutorial() {
 }
 
 tick.addEventListener("click", autoStart);
-
-/*
-function colorMonth(turn, prevMonth) {
-    console.log('month color ' + turn + ' ' + prevMonth);
-    selColor = getCookie(cookieChats);
-    if (selColor > 0) {
-        setCookie(turn, costly);
-        prevMonth.style.background = costly;
-    }
-    else if (selColor < 0) {
-        setCookie(turn, risky);
-        prevMonth.style.background = risky;
-    }
-    else {
-        setCookie(turn, balance);
-        prevMonth.style.background = balance;
-    }
-}
-
-function colorAll(turn) {
-    console.log('colorall');
-    for (i = 1; i < turn; i++) {
-        console.log(turn + ' ' + getCookie(i));
-    }
-}
-*/
