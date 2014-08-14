@@ -235,12 +235,15 @@ $if content.cssfiles:
             case (chatCookie < 0):
                 hideChatDivs();
                 showChatDivs(1); // show risky divs
+                break;
             case (chatCookie > 0):
                 hideChatDivs();
                 showChatDivs(2); // show costly divs
+                break;
             default: // if 0
                 hideChatDivs();
                 showChatDivs(3); // show balance divs
+                break;
         }
     }
 
@@ -249,31 +252,48 @@ $if content.cssfiles:
     */
 
     if (turn >= 3) { // If on or after 4th month (Apr), display andrew
-        if (turn == 3 && title == "Incident") { console.log('dont show up'); } // don't display andrew on incident page at 3rd turn
-        else {
-            console.log('andrew shows up');
+        console.log('turn gt 3');
+        if (turn == 3) {
+            console.log('turn is 3');
+            if (title == "Incident") { hideElement("andydiv"); } // don't display andrew on incident page at "3rd" turn
+            hideChatDivs("andy"); // necessary since the chats are still being selected
             showElement("andydiv");
-            hideChatDivs("andy");
-            showElement("andyintro");
+            showElement("andyintro"); // display andy's intro as a chat (overrides cookie settings)
         }
+        console.log('andrew shows up');
+        showElement("andydiv");
     }
 
+
     if (turn >= 6) { // If on or after 7th month (July), display susie and kevin
-        if (turn == 6 && title == "Incident") { console.log('dont show up'); } // don't display susie or kevin on incident page at 6th turn
-        else {
-            console.log('susie and kevin show up');
-            showElement("susdiv");
+        if (turn == 6) {
+            if (title == "Incident") { hideElement("susdiv"); hideElement("kevdiv"); }
+            hideChatDivs("kev");
+            hideChatDivs("sus");
             showElement("kevdiv");
+            showElement("susdiv");
+            showElement("kevintro");
+            showElement("susintro:);
         }
+        console.log('susie and kevin show up');
+        showElement("susdiv");
+        showElement("kevdiv");
     }
 
     if (turn >= 7) { // If on or after 8th month (Aug), display helen and drake
-        if (turn == 7 && title == "Incident") { console.log('dont show up'); }
-        else {
-            console.log('helen and drake show up');
+        if (turn == 7) {
+            if (title == "Incident") { hideElement("drkdiv"); hideElement("heldiv"); }
+            hideChatDivs("hel");
+            hideChatDivs("drk");
             showElement("heldiv");
             showElement("drkdiv");
+            showElement("helintro");
+            showElement("drkintro");
         }
+        console.log('helen and drake show up');
+        showElement("heldiv");
+        showElement("drkdiv");
+
     }
 
     /*
