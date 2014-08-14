@@ -5,13 +5,34 @@ var ilower = document.getElementById("impress-lower"); // store lower impress di
 var curStep = 1; // by default all introductions start at the beginning
 var costly = "#369ead";
 var risky = "#c24642";
-var blue = "blue";
+var balance = "balance";
 var gray = "gray";
 var cookieName = "tutorials";
+var cookieChats = "chats";
 var cookieImpressU = "iupper";
 var cookieImpressM = "imiddle";
 var cookieImpressL = "ilower";
+var monthArray = []
 
+for (i = 0; i < 13; i++) {
+    monthArray[i] = gray;
+}
+console.log(monthArray);
+setCookie("array", monthArray);
+
+/*
+    month color selection
+*/
+function colorMonth(turn, prevMonth) {
+    console.log('colmonth');
+    selColor = getCookie(cookieChats);
+    if (selColor < 0) {
+        monthArray[turn - 1] = prevMonth.style.background = risky;
+    }
+    console.log('after exit' + monthArray);
+    setCookie("array"[0], risky);
+}
+k
 function handleImpress(impress, value) {
     impress.init();
     document.addEventListener('impress:stepenter', function(e){
@@ -55,7 +76,7 @@ setTimeout(function() { pointTutorial(2) }, 45000);
 */
 
 /*
-    cookie helper functions (checker, getter and setter)
+    cookie helper functions (checker, getter, setter and deleter)
 */
 
 function checkCookie(name) {
@@ -83,6 +104,11 @@ function setCookie(name, value) {
     document.cookie = name + "=" + value + ";";
     console.log(document.cookie);
 }
+
+function deleteCookie(name) {
+    document.cookie = name + '=;expires=Sat, 01 Jan 2000 00:00:01 GMT;';
+    console.log(document.cookie)
+};
 
 if (document.title === "Incident") {
     setCookie(cookieImpressU, iupper.innerHTML);
@@ -151,7 +177,7 @@ function startTutorial() {
         case "0" :
             first.style.background = risky;
             second.style.background = costly;
-            third.style.background = blue;
+            third.style.background = balance;
             tut.setOptions({
                 exitOnOverlayClick: false,
                 scrollToElement: false,
@@ -627,3 +653,29 @@ function inciTutorial() {
 }
 
 tick.addEventListener("click", autoStart);
+
+/*
+function colorMonth(turn, prevMonth) {
+    console.log('month color ' + turn + ' ' + prevMonth);
+    selColor = getCookie(cookieChats);
+    if (selColor > 0) {
+        setCookie(turn, costly);
+        prevMonth.style.background = costly;
+    }
+    else if (selColor < 0) {
+        setCookie(turn, risky);
+        prevMonth.style.background = risky;
+    }
+    else {
+        setCookie(turn, balance);
+        prevMonth.style.background = balance;
+    }
+}
+
+function colorAll(turn) {
+    console.log('colorall');
+    for (i = 1; i < turn; i++) {
+        console.log(turn + ' ' + getCookie(i));
+    }
+}
+*/

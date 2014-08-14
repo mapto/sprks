@@ -28,19 +28,19 @@ $if content.cssfiles:
     </div>
 </header>
 <section id="timesec">
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="first">1st</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="second">2nd</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="third">3rd</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="fourth">4th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="fifth">5th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="sixth">6th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="seventh">7th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="eighth">8th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="ninth">9th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="tenth">10th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="eleventh">11th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="twelfth">12th</img></div>
-    <div class="month"><img src="static/img/month.png" class="timemonth" id="thirteenth">13th</img></div>
+    <div class="month">1st<img src="static/img/month.png" class="timemonth" id="first"></div>
+    <div class="month">2nd<img src="static/img/month.png" class="timemonth" id="second"></div>
+    <div class="month">3rd<img src="static/img/month.png" class="timemonth" id="third"></div>
+    <div class="month">4th<img src="static/img/month.png" class="timemonth" id="fourth"></div>
+    <div class="month">5th<img src="static/img/month.png" class="timemonth" id="fifth"></div>
+    <div class="month">6th<img src="static/img/month.png" class="timemonth" id="sixth"></div>
+    <div class="month">7th<img src="static/img/month.png" class="timemonth" id="seventh"></div>
+    <div class="month">8th<img src="static/img/month.png" class="timemonth" id="eighth"></div>
+    <div class="month">9th<img src="static/img/month.png" class="timemonth" id="ninth"></div>
+    <div class="month">10th<img src="static/img/month.png" class="timemonth" id="tenth"></div>
+    <div class="month">11th<img src="static/img/month.png" class="timemonth" id="eleventh"></div>
+    <div class="month">12th<img src="static/img/month.png" class="timemonth" id="twelfth"></div>
+    <div class="month">13th<img src="static/img/month.png" class="timemonth" id="thirteenth"></div>
 </section>
 <section>
             <div  class="menu">
@@ -273,7 +273,7 @@ $if content.cssfiles:
             showElement("kevdiv");
             showElement("susdiv");
             showElement("kevintro");
-            showElement("susintro:);
+            showElement("susintro");
         }
         console.log('susie and kevin show up');
         showElement("susdiv");
@@ -312,6 +312,26 @@ $if content.cssfiles:
     var eleventh = document.getElementById("eleventh");
     var twelfth = document.getElementById("twelfth");
     var thirteenth = document.getElementById("thirteenth");
+
+    var prevMonth;
+
+    switch(turn) {
+        case "1" : prevMonth = first; break;
+        case "2" : prevMonth = second; break;
+        case "3" : prevMonth = third; break;
+        case "4" : prevMonth = fourth; break;
+        case "5" : prevMonth = fifth; break;
+        case "6" : prevMonth = sixth; break;
+        case "7" : prevMonth = seventh; break;
+        case "8" : prevMonth = eighth; break;
+        case "9" : prevMonth = ninth; break;
+        case "10" : prevMonth = tenth; break;
+        case "11" : prevMonth = eleventh; break;
+        case "12" : prevMonth = twelfth; break;
+        default : prevMonth = thirteenth; break;
+    }
+
+    colorMonth(turn, prevMonth);
 </script>
 </body>
 </html>
