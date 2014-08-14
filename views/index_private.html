@@ -97,7 +97,7 @@ $if content.cssfiles:
     <div class="quote" id="izaquote"><span class="profile">Iza Henata - Desk Worker<br>Client Account Manager<br></span>
         <div class="talk" id="izaintro">Oh hello! You're our new ISO right? I'm Iza, Client Account Manager. Well, my job sounds fancier than it is, I don’t really manage anyone, just look after some clients. Hope you can clear up the mess we've been given. It got pretty confusing for a while, who was working on what and who was allowed to see the info I have on our customers. It seemed to take ages to get any changes made to permissions but we have always had a few tricks to deal with that. The merger didn’t make that side of things worse, but for a while you never know who you would be working with from one week to the next. I am glad it has settled down now, I am starting to get friendly with my new team and that makes work go a little easier.</div>
         <div class="talk" id="izarisky">Thanks for your effort last month. I don't want to tell you how to do your job, but our policies seemed a little risky. We deal with some sensitive information. We'd all get in trouble if something happens.</div>
-        <div class="talk" id="izacstly">Good work last month. I was talking to a friend from Finance, seems like we might have gone a bit over budget. We're secure for now, but may be able to keep it up if we keep the same policies for long.</div>
+        <div class="talk" id="izacstly">Good work last month. I was talking to a friend from Finance, seems like we might have gone a bit over budget. We're secure for now, but may not be able to keep it up if we keep the same policies for long.</div>
         <div class="talk" id="izablnce">Hey, just wanted to thank you. I think you made the right calls for our policies last month. Keep up the good work.</div>
     </div>
 
@@ -190,27 +190,95 @@ $if content.cssfiles:
     function contentTurn() { return "$content.date"; }
     var turn = contentTurn();
 
-    function showChar(name) {
+    /*
+        Cookie character chat behavior
+    */
+    function showElement(name) {
         document.getElementById(name).style.display = "block";
     }
-
-    if (turn >= 3 && title != "Incident") { // If on or after 4th month (Apr), display andrew
-        console.log('andrew shows up');
-        showChar("andydiv");
+    
+    function hideElement(name) {
+        document.getElementById(name).style.display = "none";
     }
 
-    if (turn >= 6 && title != "Incident") { // If on or after 7th month (July), display susie and kevin
-        console.log('susie and kevin show up');
-        showChar("susdiv");
-        showChar("kevdiv");
+    var chars = ["iza","andy","kev","sus","hel","drk"];
+    var divs = ["intro","risky","cstly","blnce"];
+
+    function hideChatDivs(name) {
+        console.log(name);
+        if (typeof name !== 'undefined') {
+            for (i = 0; i < divs.length; i++) {
+                hideElement(name + divs[i]);
+            }
+        } else {
+            for (i = 0; i < chars.length; i++) {
+                for (j = 0; j < divs.length; j++) {
+                    hideElement(chars[i] + divs[j]);
+                }
+            }
+        }
     }
 
-    if (turn >= 7 && title != "Incident") { // If on or after 8th month (Aug), display helen and drake
-        console.log('helen and drake show up');
-        showChar("heldiv");
-        showChar("drkdiv");
+    function showChatDivs(index) {
+        for (i = 0; i < chars.length; i++) {
+            showElement(chars[i] + divs[index]);
+        }
     }
 
+    function currentChatDiv() {
+        var ccd = str.slice(document.getElementById("izadiv"));
+    }
+
+    var chatCookie = parseInt(getCookie("chats"));
+    if (turn != 0){
+        switch (true) {
+            case (chatCookie < 0):
+                hideChatDivs();
+                showChatDivs(1); // show risky divs
+            case (chatCookie > 0):
+                hideChatDivs();
+                showChatDivs(2); // show costly divs
+            default: // if 0
+                hideChatDivs();
+                showChatDivs(3); // show balance divs
+        }
+    }
+
+    /*
+        choose when to display new characters
+    */
+
+    if (turn >= 3) { // If on or after 4th month (Apr), display andrew
+        if (turn == 3 && title == "Incident") { console.log('dont show up'); } // don't display andrew on incident page at 3rd turn
+        else {
+            console.log('andrew shows up');
+            showElement("andydiv");
+            hideChatDivs("andy");
+            showElement("andyintro");
+        }
+    }
+
+    if (turn >= 6) { // If on or after 7th month (July), display susie and kevin
+        if (turn == 6 && title == "Incident") { console.log('dont show up'); } // don't display susie or kevin on incident page at 6th turn
+        else {
+            console.log('susie and kevin show up');
+            showElement("susdiv");
+            showElement("kevdiv");
+        }
+    }
+
+    if (turn >= 7) { // If on or after 8th month (Aug), display helen and drake
+        if (turn == 7 && title == "Incident") { console.log('dont show up'); }
+        else {
+            console.log('helen and drake show up');
+            showElement("heldiv");
+            showElement("drkdiv");
+        }
+    }
+
+    /*
+        select month divs to be filled with cookie? logic
+    */
     var first = document.getElementById("first");
     var second = document.getElementById("second");
     var third = document.getElementById("third");

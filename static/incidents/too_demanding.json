@@ -15,5 +15,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Your policies should not demand so much of their users as to have them use external software.",
-    "impress-lower": "Relax you policies to see a better performing division."
+    "impress-lower": "Relax your policies to see a better performing division.",
+    "chat-modifier": 2
     }

@@ -18,5 +18,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "From a user's point of view, password renewal should not happen so often.",
-    "impress-lower": "Relax this policy for better results this month."
+    "impress-lower": "Relax this policy for better results this month.",
+    "chat-modifier": 2
     }

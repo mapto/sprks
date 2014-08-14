@@ -15,5 +15,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "You struck a good balance between risk, cost, and employee satisfaction last month.",
-    "impress-lower": "Keep it up!"
+    "impress-lower": "Keep it up!",
+    "chat-modifier": 0
 }

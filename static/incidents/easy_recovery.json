@@ -13,5 +13,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Automatic password recovery coupled with frequent renewals brought too much attention to the password recovery page",
-    "impress-lower": "Relax the policy for either of these for a better balance."
+    "impress-lower": "Relax the policy for either of these for a better balance.",
+    "chat-modifier": 2
     }

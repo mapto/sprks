@@ -12,5 +12,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Password renewal prevents an attacker from coming in through the same door twice.",
-    "impress-lower": "It is a must for any policy, and a 'necessary evil' for staff"
+    "impress-lower": "It is a must for any policy, and a 'necessary evil' for staff",
+    "chat-modifier": -2
     }

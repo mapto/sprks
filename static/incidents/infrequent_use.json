@@ -18,5 +18,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Last month's policy was very secure. It was also too burdensome for staff and much too costly.",
-    "impress-lower": "Ultimately, your goal is to find a balance of these traits. Too much weight on any side will make someone unhappy."
+    "impress-lower": "Ultimately, your goal is to find a balance of these traits. Too much weight on any side will make someone unhappy.",
+    "chat-modifier": 2
     }

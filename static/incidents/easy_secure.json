@@ -15,5 +15,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "While last month's policy was sound, it was leaning on the risky side",
-    "impress-lower": "It's up to you whether to further secure it or leave it as is."
+    "impress-lower": "It's up to you whether to further secure it or leave it as is.",
+    "chat-modifier": 0
     }

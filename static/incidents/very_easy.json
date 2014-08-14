@@ -15,5 +15,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "A lax policy on passwords will invite attacks that will try to guess them.",
-    "impress-lower": "Be more strict on your policies this time around."
+    "impress-lower": "Be more strict on your policies this time around.",
+    "chat-modifier": -2
     }

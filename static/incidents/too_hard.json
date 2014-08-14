@@ -16,5 +16,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Having a manned password recovery facility is far too time consuming and demanding of your staff.",
-    "impress-lower": "Password renewal should not happen so often if the policy is as strict as last month's."
+    "impress-lower": "Password renewal should not happen so often if the policy is less strict as last month's.",
+    "chat-modifier": 2
     }

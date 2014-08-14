@@ -12,5 +12,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Bruteforce attacks are just constant attempts at guessing a user's credentials",
-    "impress-lower": "Set a limit to password entry attempts to counter these attacks"
+    "impress-lower": "Set a limit to password entry attempts to counter these attacks",
+    "chat-modifier": -2
 }

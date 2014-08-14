@@ -12,5 +12,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Not having a minimum length for a password defeats the purpose of any other policy you may have set",
-    "impress-lower": "Changing this policy will make a better secured system."
+    "impress-lower": "Changing this policy will make a better secured system.",
+    "chat-modifier": -2
     }

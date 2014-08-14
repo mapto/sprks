@@ -15,5 +15,6 @@
     "risk-modifier": -0.01,
     "cost-modifier": 0.1,
     "impress-upper": "Automated password recovery and frequent renewal may not be the best combination.",
-    "impress-lower": "The password recovery page draws too much attention, relaxing either of these policies should ease this problem"
+    "impress-lower": "The password recovery page draws too much attention, relaxing either of these policies should ease this problem",
+    "chat-modifier": 1
     }
