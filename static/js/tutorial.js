@@ -12,11 +12,10 @@ var cookieChats = "chats";
 var cookieImpressU = "iupper";
 var cookieImpressM = "imiddle";
 var cookieImpressL = "ilower";
-var monthArray = []
-
 
 function colorMonth(turn, prevMonth) {
     console.log('month color ' + turn + ' ' + prevMonth);
+    if (turn == 2) { console.log('maybe');turn = "feb"; }
     selColor = getCookie(cookieChats);
     if (selColor > 0) {
         setCookie(turn, costly);
@@ -31,14 +30,6 @@ function colorMonth(turn, prevMonth) {
         prevMonth.style.background = balance;
     }
 }
-/*
-function colorAll(turn) {
-    console.log('colorall');
-    for (i = 0; i < turn; i++) {
-        console.log(turn + ' ' + ' ' + i.toString() + ' ' + getCookie(i.toString()));
-        colorMonth
-    }
-}*/
 
 function handleImpress(impress, value) {
     impress.init();

@@ -328,16 +328,18 @@ $if content.cssfiles:
             case "10" : prevMonth = tenth; break;
             case "11" : prevMonth = eleventh; break;
             case "12" : prevMonth = twelfth; break;
-            default : prevMonth = thirteenth; break;
+            case "13" : prevMonth = thirteenth; break;
         }
         return prevMonth;
     }
 
     colorMonth(turn, monthSelector(turn));
     function colorAll () {
-        for (i = parseInt(turn) - 1; i >= 0; i--) {
+        for (i = parseInt(turn) - 1; i > 0; i--) {
             console.log(i + ' ' + monthSelector(i.toString()));
-            monthSelector(i.toString()).style.background = risky;
+            console.log(getCookie(i.toString()));
+            if (i == 2) { monthSelector(i.toString()).style.background = getCookie("feb"); } // fixes "2" cookie bug
+            monthSelector(i.toString()).style.background = getCookie(i.toString());
         }
     }
 </script>
