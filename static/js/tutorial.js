@@ -31,14 +31,14 @@ function colorMonth(turn, prevMonth) {
         prevMonth.style.background = balance;
     }
 }
-
+/*
 function colorAll(turn) {
     console.log('colorall');
     for (i = 0; i < turn; i++) {
         console.log(turn + ' ' + ' ' + i.toString() + ' ' + getCookie(i.toString()));
         colorMonth
     }
-}
+}*/
 
 function handleImpress(impress, value) {
     impress.init();

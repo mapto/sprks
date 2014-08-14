@@ -334,8 +334,11 @@ $if content.cssfiles:
     }
 
     colorMonth(turn, monthSelector(turn));
-    for (i = turn; i > 0; i--) {
-        colorAll(turn - 1, prevMonth);
+    function colorAll () {
+        for (i = parseInt(turn) - 1; i >= 0; i--) {
+            console.log(i + ' ' + monthSelector(i.toString()));
+            monthSelector(i.toString()).style.background = risky;
+        }
     }
 </script>
 </body>
