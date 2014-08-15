@@ -213,7 +213,7 @@ function startTutorial() {
                     },
                     {
                         element: "#score",
-                        intro: "end the turn???", //TODO: figure out what it's actually supposed to do...
+                        intro: "End the turn, although you must set some policies first",
                         position: "right"
                     },
                     {
@@ -284,6 +284,11 @@ function startTutorial() {
                     },
                     {
                         intro: "Incidentally, you can also control these tutorials with the arrow keys"
+                    },
+                    {
+                        element: "#nextButton",
+                        intro: "These buttons also work for navigating between pages",
+                        position: "top"
                     },
                     {
                         intro: "Use whichever way suits you best"
