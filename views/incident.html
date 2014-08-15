@@ -26,8 +26,10 @@ $var date: $turn
 <script>
     $$(document).ready(initIncident());
 
+    var tally = parseInt(getCookie("tally"));
     window.onbeforeunload = function () {
         var adjust = parseInt(document.getElementById("chat-modifier").innerHTML);
+        setCookie("tally", tally + parseInt(document.getElementById("chat-modifier").innerHTML));
         setCookie("chats", 1);
         setCookie("iupper", document.getElementById("impress-upper").innerHTML);
         setCookie("ilower", document.getElementById("impress-lower").innerHTML);

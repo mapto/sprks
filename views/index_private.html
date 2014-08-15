@@ -340,8 +340,8 @@ $if content.cssfiles:
     colorMonth(turn, monthSelector(turn));
     function colorAll () {
         for (i = parseInt(turn); i >= 1; i--) {
-            console.log(i + ' ' + monthSelector(turn));
-            console.log(getCookie(i.toString()));
+            //console.log(i + ' ' + monthSelector(turn));
+            //console.log(getCookie(i.toString()));
             switch (i) {
                 case 1 : monthSelector(i.toString())[1].style.background = getCookie("jan"); break;
                 case 2 : monthSelector(i.toString())[1].style.background = getCookie("feb"); break;

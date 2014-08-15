@@ -13,6 +13,7 @@ $var username: $username
     <!--</script>-->
 </div>
 <script src="static/js/intro.js"></script>
+<script src="static/js/tutorial.js"></script>
 <script>
     var monthnum = $turn;
     var month;
@@ -54,6 +55,11 @@ $var username: $username
         case 12: month = "fin";
                 story.innerHTML = "Thirteenth Month";
                 break;
+        case 13:
+                story.innerHTML = "Final";
+                var tal = parseInt(getCookie("tally"));
+                if (tal < 10 && tal > -10) { month = "hired"; }
+                else { month = "fired"; }
     }
     document.title = story.innerHTML;
     var frame = document.getElementById("frame");
