@@ -189,7 +189,7 @@ function startTutorial() {
                         intro: "This is a turn-based game where you are in charge of Information Security Policies for energy company Global Sparks over the course of thirteen months."
                     },
                     {
-                        intro: "Each turn the game should process as such:"
+                        intro: "Each turn the game should proceed as such:"
                     },
                     {
                         element: "#maindiv",

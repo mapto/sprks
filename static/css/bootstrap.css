@@ -714,3 +714,9 @@ center {
     background-color: #d4173d;
     color: #fff8f9;
 }
+
+#nextButton {
+    position: absolute;
+    bottom: 54px;
+    left: 985px;
+}
