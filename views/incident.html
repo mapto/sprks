@@ -28,7 +28,7 @@ $var date: $turn
 
     window.onbeforeunload = function () {
         var adjust = parseInt(document.getElementById("chat-modifier").innerHTML);
-        setCookie("chats", adjust);
+        setCookie("chats", 1);
         setCookie("iupper", document.getElementById("impress-upper").innerHTML);
         setCookie("ilower", document.getElementById("impress-lower").innerHTML);
         setCookie("imiddle", document.getElementById("type").innerHTML);

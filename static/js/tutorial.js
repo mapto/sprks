@@ -5,7 +5,7 @@ var ilower = document.getElementById("impress-lower"); // store lower impress di
 var curStep = 1; // by default all introductions start at the beginning
 var costly = "#369ead";
 var risky = "#c24642";
-var balance = "balance";
+var balance = "blue";
 var gray = "gray";
 var cookieName = "tutorials";
 var cookieChats = "chats";
@@ -15,19 +15,19 @@ var cookieImpressL = "ilower";
 
 function colorMonth(turn, prevMonth) {
     console.log('month color ' + turn + ' ' + prevMonth);
-    if (turn == 2) { console.log('maybe');turn = "feb"; }
+    if (turn == 2) { turn = "feb"; }
     selColor = getCookie(cookieChats);
     if (selColor > 0) {
-        setCookie(turn, costly);
-        prevMonth.style.background = costly;
+        setCookie(prevMonth[0], costly);
+        prevMonth[1].style.background = costly;
     }
     else if (selColor < 0) {
-        setCookie(turn, risky);
-        prevMonth.style.background = risky;
+        setCookie(prevMonth[0], risky);
+        prevMonth[1].style.background = risky;
     }
     else {
-        setCookie(turn, balance);
-        prevMonth.style.background = balance;
+        setCookie(prevMonth[0], balance);
+        prevMonth[1].style.background = balance;
     }
 }
 
@@ -50,7 +50,7 @@ function pointTutorial(flag) {
         exitOnOverlayClick: true,
         scrollToElement: false,
         showStepNumbers: false,
-        showButtons: false,
+        showBullets: false,
         steps:[
             {
                 element: '#tutdiv',
@@ -180,6 +180,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Welcome to UCL's Information Security Simulation, SPRKS"
@@ -240,6 +241,18 @@ function startTutorial() {
                         position: "left"
                     },
                     {
+                        element: "#frame",
+                        intro: "You can click on the story to control it with the keyboard arrow keys <- and ->",
+                        position: "top"
+                    },
+                    {
+                        intro: "And you can skip these tutorials at any time with the Skip button"
+                    },
+                    {
+                        element: "#tutdiv",
+                        intro: "Clicking on tutorials will then pick up right where you left off"
+                    },
+                    {
                         intro: "Aim to set the best policies for the company during your stay"
                     },
                     {
@@ -270,8 +283,14 @@ function startTutorial() {
                         intro: "Nice work getting through your first month"
                     },
                     {
+                        intro: "Incidentally, you can also control these tutorials with the arrow keys"
+                    },
+                    {
+                        intro: "Use whichever way suits you best"
+                    },
+                    {
                         element: "#izadiv",
-                        intro: "Make sure to talk to your employees after every month",
+                        intro: "Oh, and make sure to talk to your employees after every month",
                         position: "left"
                     }
                 ]
@@ -364,7 +383,8 @@ function startTutorial() {
                     },
                     {
                         element: "#izadiv",
-                        intro: "Andrew and Iza will still help, though"
+                        intro: "Andrew and Iza will still help, though",
+                        position: "left"
                     },
                     {
                         intro: "Just go about this month as you normally would"
@@ -617,7 +637,7 @@ function inciTutorial() {
             },
             {
                 element: "#description",
-                intro: "The biggest factor of your policy will be shown",
+                intro: "The biggest factor of your policy results will be shown",
                 position: "right"
             },
             {
@@ -634,7 +654,11 @@ function inciTutorial() {
             },
             {
                 element: "#risk",
-                intro: "And the possibility of that risk happening."
+                intro: "The possibility of that risk happening."
+            },
+            {
+                element: "#cost",
+                intro: "And how it affected productivity costs"
             }
         ]
     });

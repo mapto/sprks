@@ -27,20 +27,22 @@ $if content.cssfiles:
       </div>
     </div>
 </header>
-<section id="timesec">
-    <div class="month">1st<img src="static/img/month.png" class="timemonth" id="first"></div>
-    <div class="month">2nd<img src="static/img/month.png" class="timemonth" id="second"></div>
-    <div class="month">3rd<img src="static/img/month.png" class="timemonth" id="third"></div>
-    <div class="month">4th<img src="static/img/month.png" class="timemonth" id="fourth"></div>
-    <div class="month">5th<img src="static/img/month.png" class="timemonth" id="fifth"></div>
-    <div class="month">6th<img src="static/img/month.png" class="timemonth" id="sixth"></div>
-    <div class="month">7th<img src="static/img/month.png" class="timemonth" id="seventh"></div>
-    <div class="month">8th<img src="static/img/month.png" class="timemonth" id="eighth"></div>
-    <div class="month">9th<img src="static/img/month.png" class="timemonth" id="ninth"></div>
-    <div class="month">10th<img src="static/img/month.png" class="timemonth" id="tenth"></div>
-    <div class="month">11th<img src="static/img/month.png" class="timemonth" id="eleventh"></div>
-    <div class="month">12th<img src="static/img/month.png" class="timemonth" id="twelfth"></div>
-    <div class="month">13th<img src="static/img/month.png" class="timemonth" id="thirteenth"></div>
+<section id="times">
+    <div id="timesec">
+        <div class="month">1st<img src="static/img/month.png" class="timemonth" id="first"></div>
+        <div class="month">2nd<img src="static/img/month.png" class="timemonth" id="second"></div>
+        <div class="month">3rd<img src="static/img/month.png" class="timemonth" id="third"></div>
+        <div class="month">4th<img src="static/img/month.png" class="timemonth" id="fourth"></div>
+        <div class="month">5th<img src="static/img/month.png" class="timemonth" id="fifth"></div>
+        <div class="month">6th<img src="static/img/month.png" class="timemonth" id="sixth"></div>
+        <div class="month">7th<img src="static/img/month.png" class="timemonth" id="seventh"></div>
+        <div class="month">8th<img src="static/img/month.png" class="timemonth" id="eighth"></div>
+        <div class="month">9th<img src="static/img/month.png" class="timemonth" id="ninth"></div>
+        <div class="month">10th<img src="static/img/month.png" class="timemonth" id="tenth"></div>
+        <div class="month">11th<img src="static/img/month.png" class="timemonth" id="eleventh"></div>
+        <div class="month">12th<img src="static/img/month.png" class="timemonth" id="twelfth"></div>
+        <div class="month">13th<img src="static/img/month.png" class="timemonth" id="thirteenth"></div>
+    </div>
 </section>
 <section>
             <div  class="menu">
@@ -315,33 +317,50 @@ $if content.cssfiles:
 
     function monthSelector(m){
         var prevMonth;
+        var litMonth;
         switch(m) {
-            case "1" : prevMonth = first; break;
-            case "2" : prevMonth = second; break;
-            case "3" : prevMonth = third; break;
-            case "4" : prevMonth = fourth; break;
-            case "5" : prevMonth = fifth; break;
-            case "6" : prevMonth = sixth; break;
-            case "7" : prevMonth = seventh; break;
-            case "8" : prevMonth = eighth; break;
-            case "9" : prevMonth = ninth; break;
-            case "10" : prevMonth = tenth; break;
-            case "11" : prevMonth = eleventh; break;
-            case "12" : prevMonth = twelfth; break;
-            case "13" : prevMonth = thirteenth; break;
+            case "1" : litMonth = "jan"; prevMonth = first; break;
+            case "2" : litMonth = "feb"; prevMonth = second; break;
+            case "3" : litMonth = "mar"; prevMonth = third; break;
+            case "4" : litMonth = "apr"; prevMonth = fourth; break;
+            case "5" : litMonth = "may"; prevMonth = fifth; break;
+            case "6" : litMonth = "jun"; prevMonth = sixth; break;
+            case "7" : litMonth = "jul"; prevMonth = seventh; break;
+            case "8" : litMonth = "aug"; prevMonth = eighth; break;
+            case "9" : litMonth = "sep"; prevMonth = ninth; break;
+            case "10" : litMonth = "oct"; prevMonth = tenth; break;
+            case "11" : litMonth = "nov"; prevMonth = eleventh; break;
+            case "12" : litMonth = "dec"; prevMonth = twelfth; break;
+            case "13" : litMonth = "fin"; prevMonth = thirteenth; break;
         }
-        return prevMonth;
+        console.log(litMonth + ' ' + prevMonth);
+        return [litMonth, prevMonth];
     }
 
     colorMonth(turn, monthSelector(turn));
     function colorAll () {
-        for (i = parseInt(turn) - 1; i > 0; i--) {
-            console.log(i + ' ' + monthSelector(i.toString()));
+        for (i = parseInt(turn); i >= 1; i--) {
+            console.log(i + ' ' + monthSelector(turn));
             console.log(getCookie(i.toString()));
-            if (i == 2) { monthSelector(i.toString()).style.background = getCookie("feb"); } // fixes "2" cookie bug
-            monthSelector(i.toString()).style.background = getCookie(i.toString());
+            switch (i) {
+                case 1 : monthSelector(i.toString())[1].style.background = getCookie("jan"); break;
+                case 2 : monthSelector(i.toString())[1].style.background = getCookie("feb"); break;
+                case 3 : monthSelector(i.toString())[1].style.background = getCookie("mar"); break;
+                case 4 : monthSelector(i.toString())[1].style.background = getCookie("apr"); break;
+                case 5 : monthSelector(i.toString())[1].style.background = getCookie("may"); break;
+                case 6 : monthSelector(i.toString())[1].style.background = getCookie("jun"); break;
+                case 7 : monthSelector(i.toString())[1].style.background = getCookie("jul"); break;
+                case 8 : monthSelector(i.toString())[1].style.background = getCookie("aug"); break;
+                case 9 : monthSelector(i.toString())[1].style.background = getCookie("sep"); break;
+                case 10 : monthSelector(i.toString())[1].style.background = getCookie("oct"); break;
+                case 11 : monthSelector(i.toString())[1].style.background = getCookie("nov"); break;
+                case 12 : monthSelector(i.toString())[1].style.background = getCookie("dec"); break;
+                case 13 : monthSelector(i.toString())[1].style.background = getCookie("fin"); break;
+                default : break;
+            }
         }
     }
+    colorAll();
 </script>
 </body>
 </html>
