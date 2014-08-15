@@ -697,3 +697,20 @@ center {
     color:#505050;
     cursor:pointer;
 }*/
+
+.endturn a {
+    pointer-events: none;
+    cursor: default;
+    color: #F2F2F2;
+}
+
+.activeturn a {
+    background-color: #C10000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.activeturn a:hover {
+    background-color: #d4173d;
+    color: #fff8f9;
+}

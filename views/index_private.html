@@ -45,12 +45,12 @@ $if content.cssfiles:
     </div>
 </section>
 <section>
-            <div  class="menu">
+            <div class="menu">
 
             <div class="story"><a href="/intro" id="story">Introduction</a></div>
             <div class="policy"><a href="/policy" id="policy">Policies</a></div>
             <div class="incident"><a href="#" onclick="send()" id="conseq">Consequences</a></div> <!-- this is where the backend page forward is being called -->
-            <div class="score"><a href="/score" id="score">Score</a></div>
+            <div id="turn" class="endturn"><a href="/intro" id="score">End Turn</a></div>
 
 
         </div>
@@ -191,6 +191,10 @@ $if content.cssfiles:
     var title = contentTitle(); // store the title dynamically to use in intro switch statement
     function contentTurn() { return "$content.date"; }
     var turn = contentTurn();
+
+    if (title === "Incident") {
+        document.getElementById("turn").className = "activeturn";
+    }
 
     /*
         Cookie character chat behavior

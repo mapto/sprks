@@ -92,14 +92,14 @@ function manageButtons() {
             break;
         case "Introduction":
             current_class = "story";
-            hidden_class = "score";
+            hidden_class = "incident";
             $(".incident a").css("pointer-events", "none");
             $(".incident a").css("cursor", "default");
             $(".incident a").css("color", "#F2F2F2");
             break;
         case "Incident":
             current_class = "incident";
-            hidden_class = "score";
+            hidden_class = "policy";
             break;
         default:
             current_class = "policy";
