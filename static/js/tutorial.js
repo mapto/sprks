@@ -41,6 +41,7 @@ function handleImpress(impress, value) {
 }
 /*
     pointTutorial highlights the tutorials switch at a certain interval and hides it shortly after.
+*/
 
 function pointTutorial(flag) {
     var intro = introJs();
@@ -69,9 +70,10 @@ function pointTutorial(flag) {
     }
 }
 
-setTimeout(function() { pointTutorial(1) }, 40000);
-setTimeout(function() { pointTutorial(2) }, 45000);
-*/
+if (document.title == "Introduction" && turn == 0) { // tutorial pointer will only show on first turn's introduction
+    setTimeout(function() { pointTutorial(1) }, 2000);
+    setTimeout(function() { pointTutorial(2) }, 4500);
+}
 
 /*
     cookie helper functions (checker, getter, setter and deleter)
@@ -278,6 +280,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Nice work getting through your first month"
@@ -311,6 +314,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Having a different set of policies for those that work from home is a difficult choice for ISOs. One that in this simulation, you won't have to make"
@@ -334,6 +338,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         element: "#andydiv",
@@ -359,6 +364,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Until now, your division has only used desktop terminals",
@@ -382,6 +388,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Quiet indeed",
@@ -407,6 +414,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "So much for a little quiet...",
@@ -435,6 +443,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         element: "#heldiv",
@@ -462,6 +471,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Obviously passwords are not the only way to keep information secure",
@@ -485,6 +495,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Passface security uses pictures instead of alphanumerical characters as a base to create a passcode",
@@ -508,6 +519,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "Biometrics will often involve fingerprint identification",
@@ -531,6 +543,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "There is a major difference between passwords/passfaces and biometrics"
@@ -551,6 +564,7 @@ function startTutorial() {
                 exitOnOverlayClick: false,
                 scrollToElement: false,
                 showStepNumbers: false,
+                showBullets: false,
                 steps: [
                     {
                         intro: "As you have hopefully gathered by now, ISOs strive for balance",
@@ -587,43 +601,50 @@ function startTutorial() {
 */
 function passTutorial() {
     setCookie(cookieName, "on");
-    pass = introJs();
-    pass.setOptions({
-        exitOnOverlayClick: false,
-        showStepNumbers: false,
-        scrollToElement: true,
-        steps: [
-            {
-                intro: "On this page you can set policies for your employee"
-            },
-            {
-                element: "#maindiv",
-                intro: "For now it's best to go with a trial and error strategy",
-                position: "right"
-            },
-            {
-                element: "#plen",
-                intro: "Changing a policy will display a chart of risk compared to cost"
-            },
-            {
-                element: "#passlen",
-                intro: "If you'd like to know more about each item, the tooltips will help you"
-            },
-            {
-                intro: "You can click anywhere outside a tooltip to close it"
-            }
-        ]
-    });
-    pass.onexit(function(){
-        console.log(pass._currentStep + ' on exit before ' + curStep);
-        curStep = pass.currentStep();
-        console.log(pass._currentStep + ' on exit after ' + curStep);
-        tick.checked = false;
-        setCookie(cookieName, "off");
-    });
-    pass.oncomplete(function() { console.log('pass finished'); });
-    console.log(curStep + 'inside tut');
-    pass.goToStep(curStep).start();
+    if (turn == 0) { // show this tutorial only on the very first turn
+        pass = introJs();
+        pass.setOptions({
+            exitOnOverlayClick: false,
+            showStepNumbers: false,
+            scrollToElement: true,
+            showBullets: false,
+            steps: [
+                {
+                    intro: "On this page you can set policies for your employee"
+                },
+                {
+                    element: "#conseq",
+                    intro: "You won't be able to change a month's policies after moving on to Consequences"
+                },
+                {
+                    element: "#maindiv",
+                    intro: "For now it's best to go with a trial and error strategy",
+                    position: "right"
+                },
+                {
+                    element: "#plen",
+                    intro: "Changing a policy will display a chart of risk compared to cost"
+                },
+                {
+                    element: "#passlen",
+                    intro: "If you'd like to know more about each item, the tooltips will help you"
+                },
+                {
+                    intro: "You can click anywhere outside a tooltip to close it"
+                }
+            ]
+        });
+        pass.onexit(function(){
+            console.log(pass._currentStep + ' on exit before ' + curStep);
+            curStep = pass.currentStep();
+            console.log(pass._currentStep + ' on exit after ' + curStep);
+            tick.checked = false;
+            setCookie(cookieName, "off");
+        });
+        pass.oncomplete(function() { console.log('pass finished'); });
+        console.log(curStep + 'inside tut');
+        pass.goToStep(curStep).start();
+    }
 }
 
 /*
@@ -631,52 +652,55 @@ function passTutorial() {
 */
 function inciTutorial() {
     setCookie(cookieName, "on");
-    inci = introJs();
-    inci.setOptions({
-        exitOnOverlayClick: false,
-        showStepNumbers: false,
-        scrollToElement: true,
-        steps: [
-            {
-                intro: "This page will show the results from you policy settings"
-            },
-            {
-                element: "#description",
-                intro: "The biggest factor of your policy results will be shown",
-                position: "right"
-            },
-            {
-                element: "#event",
-                intro: "An event that stemmed from the policy"
-            },
-            {
-                element: "#consequences",
-                intro: "What that event meant for your division"
-            },
-            {
-                element: "#type",
-                intro: "The biggest risk type your policy has"
-            },
-            {
-                element: "#risk",
-                intro: "The possibility of that risk happening."
-            },
-            {
-                element: "#cost",
-                intro: "And how it affected productivity costs"
-            }
-        ]
-    });
-    inci.onexit(function(){
-        console.log(inci._currentStep + ' on exit before ' + curStep);
-        curStep = inci.currentStep();
-        console.log(inci._currentStep + ' on exit after ' + curStep);
-        tick.checked = false;
-        setCookie(cookieName, "off");
-    });
-    inci.oncomplete(function() { console.log('incident finished'); });
-    console.log(curStep + 'inside tut');
-    inci.goToStep(curStep).start();
+    if (turn == 0) { // show this tutorial only on the first turn
+        inci = introJs();
+        inci.setOptions({
+            exitOnOverlayClick: false,
+            showStepNumbers: false,
+            scrollToElement: true,
+            showBullets: false,
+            steps: [
+                {
+                    intro: "This page will show the results from you policy settings"
+                },
+                {
+                    element: "#description",
+                    intro: "The biggest factor of your policy results will be shown",
+                    position: "right"
+                },
+                {
+                    element: "#event",
+                    intro: "An event that stemmed from the policy"
+                },
+                {
+                    element: "#consequences",
+                    intro: "What that event meant for your division"
+                },
+                {
+                    element: "#type",
+                    intro: "The biggest risk type your policy has"
+                },
+                {
+                    element: "#risk",
+                    intro: "The possibility of that risk happening."
+                },
+                {
+                    element: "#cost",
+                    intro: "And how it affected productivity costs"
+                }
+            ]
+        });
+        inci.onexit(function(){
+            console.log(inci._currentStep + ' on exit before ' + curStep);
+            curStep = inci.currentStep();
+            console.log(inci._currentStep + ' on exit after ' + curStep);
+            tick.checked = false;
+            setCookie(cookieName, "off");
+        });
+        inci.oncomplete(function() { console.log('incident finished'); });
+        console.log(curStep + 'inside tut');
+        inci.goToStep(curStep).start();
+    }
 }
 
 tick.addEventListener("click", autoStart);

@@ -5,6 +5,7 @@ phis = document.getElementById("passhist");
 pren = document.getElementById("passrenew");
 patt = document.getElementById("passatt");
 prec = document.getElementById("passrecovery");
+pend = document.getElementById("endturn");
 
 var passAnno = new Anno([
     {
@@ -69,6 +70,15 @@ var recAnno = new Anno([
     }
 ]);
 
+var endAnno = new Anno([
+    {
+        target: pend,
+        content: 'Move on to consequences. You won\'t be able to change your policies afterwards',
+        position: "top",
+        buttons: []
+    }
+]);
+
 plen.addEventListener("click", function() {
     passAnno.show();
 });
@@ -95,4 +105,8 @@ patt.addEventListener("click", function() {
 
 prec.addEventListener("click", function() {
     recAnno.show();
+});
+
+pend.addEventListener("click", function() {
+    endAnno.show();
 });
