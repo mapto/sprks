@@ -17,6 +17,7 @@ $var date: $turn
         <div class="incident_box" id="impress-upper"></div>
         <div class="incident_box" id="impress-lower"></div>
         <div class="incident_box" id="chat-modifier"></div>
+        <div class="incident_box" id="id"></div>
     </div>
 
     <form method="POST" action="incident"><input id="confirm" name="pconfirm" type="submit" value="End Turn"></form>
@@ -33,6 +34,6 @@ $var date: $turn
         setCookie("chats", 1);
         setCookie("iupper", document.getElementById("impress-upper").innerHTML);
         setCookie("ilower", document.getElementById("impress-lower").innerHTML);
-        setCookie("imiddle", document.getElementById("type").innerHTML);
+        setCookie("imiddle", document.getElementById("id").innerHTML);
     }
 </script>
