@@ -48,7 +48,7 @@ $if content.cssfiles:
             <div class="menu">
 
             <div class="story"><a href="/intro" id="story">Introduction</a></div>
-            <div class="policy"><a href="/policy" id="policy">Policies</a></div>
+            <div id="poldiv" class="policy"><a href="/policy" id="policy">Policies</a></div>
             <div class="incident"><a href="#" onclick="send()" id="conseq">Consequences</a></div> <!-- this is where the backend page forward is being called -->
             <div id="turn" class="endturn"><a href="/intro" id="score">End Turn</a></div>
 
@@ -101,6 +101,7 @@ $if content.cssfiles:
         <div class="talk" id="izarisky">Thanks for your effort last month. I don't want to tell you how to do your job, but our policies seemed a little risky. We deal with some sensitive information. We'd all get in trouble if something happens.</div>
         <div class="talk" id="izacstly">Good work last month. I was talking to a friend from Finance, seems like we might have gone a bit over budget. We're secure for now, but may not be able to keep it up if we keep the same policies for long.</div>
         <div class="talk" id="izablnce">Hey, just wanted to thank you. I think you made the right calls for our policies last month. Keep up the good work.</div>
+        <div class="talk" id="izafinal">Well, looks like I'm hanging around for a bit more. How did you do?</div>
     </div>
 
     <div class="interviewee andy" id="andydiv" data-position="left">Andrew</div>
@@ -109,6 +110,7 @@ $if content.cssfiles:
         <div class="talk" id="andyrisky">Well, last month was interesting. I only have my computer, but I could tell the policies were a bit lax. Watercooler talk is always around possible information leaks and worries about attacks. You have to change your policies for the better.</div>
         <div class="talk" id="andycstly">Ok, so what I'm going to say is not my opinion. Watercooler talk, you know what I mean? Some of our team are complaining about policies getting in the way of their actual work, they say they have to do too much to get their passwords sorted out. You didn't hear it from me, cool?</div>
         <div class="talk" id="andyblnce">Dude, if you'd pardon the expression, great work. I suppose if you're not the talk of the watercooler, you must be doing things right, right? Anyway, keep it up!</div>
+        <div class="talk" id="andyfinal">You'll have to put up with me for a bit more, dude. I mean...you ARE still here next month, right?</div>
     </div>
 
     <div class="interviewee kevin" id="kevdiv" data-position="left">Kevin</div>
@@ -117,6 +119,7 @@ $if content.cssfiles:
         <div class="talk" id="kevrisky">I may not know much about information security, but even I can tell your choices were so risky last month. Keeping costs low may turn out to be costly if we have a breach because of your policies.</div>
         <div class="talk" id="kevcstly">Nice work last month. I do have two pence to offer you, though. Your policy was sound, in my opinion, but I've had some experience with IT. I get why you made your choices. Others may not. Employee morale must also factor in your policy.</div>
         <div class="talk" id="kevblnce">Well, I must say I'm pleasantly surprised at how good you are at what you do.</div>
+        <div class="talk" id="kevfinal">I've been transferred. Might as well have said I'm fired. But I won't complain...too much.</div>
     </div>
 
     <div class="interviewee susie" id="susdiv" data-position="left">Susie</div>
@@ -125,6 +128,7 @@ $if content.cssfiles:
         <div class="talk" id="susrisky">I do like how much risks you're taking with our policies. Pretty sure you've heard this before, but don't be too reckless. At least not if you'd like to keep your job.</div>
         <div class="talk" id="suscstly">Whew, password policies here are so...strict. I'm sure you have your reasons and...well as long as we're secure I guess it's alright. Hopefully work isn't being affected badly by all this.</div>
         <div class="talk" id="susblnce">I've never gotten so much work done with so little trouble since before the mergers! I may just apply for a transfer here. Uh...mum's the word, okay?</div>
+        <div class="talk" id="susfinal">My transfer's been aproved! You'll be seeing more of me now</div>
     </div>
 
     <div class="interviewee helen" id="heldiv" data-position="left">Helen</div>
@@ -133,6 +137,7 @@ $if content.cssfiles:
         <div class="talk" id="helrisky">...oh, good there you are. I will tell you that I don't like too much risk taking. We're still fragile as a company, the last thing any of us want is a data security accident. What we want, you must know, is balance...</div>
         <div class="talk" id="helcstly">...need a second with you. Just wanted to call your attention to your spending. I won't tell you what to do with your policies, but I will tell you that we may not have as much financial security as you may think...</div>
         <div class="talk" id="helblnce">Hey, you got a minute? Sorry if I came across as a bit rough. Sometimes work gets the better of me. That being said, I appreciate that your work has not been giving me headaches. Keep it up.</div>
+        <div class="talk" id="helfinal">...goodbye, now. My work for this division's done...</div>
     </div>
 
     <div class="interviewee drake" id="drkdiv" data-position="left">Drake</div>
@@ -141,6 +146,7 @@ $if content.cssfiles:
         <div class="talk" id="drkrisky">Hey, hotshot! Great seeing you again. Hope your policy's up to snuff this month, 'cause last month's...let's say it was a bit of a thrillride. All's I'm sayin' is we need security to go with our passwords</div>
         <div class="talk" id="drkcstly">Hotshot! How you been? Your division's pockets must be lined the way you're spending on security. I did ask for it when we met, but didn't think you'd take it this far.</div>
         <div class="talk" id="drkblnce">Well hotshot, you've done it now. I didn't tell you to do such a good job that you make my division look bad. Might want to tone it down a bit.</div>
+        <div class="talk" id="drkfinal">Hotshot! You're still here next month, right? It'll be far more quieter without you. Don't think I'll quite like that.</div>
     </div>
 
 </div>
@@ -197,6 +203,10 @@ $if content.cssfiles:
         document.getElementById("turn").className = "activeturn";
     }
 
+    if (document.title == "Final") {
+        document.getElementById("poldiv").className = "endturn";
+    }
+
     /*
         Cookie character chat behavior
     */
@@ -209,7 +219,7 @@ $if content.cssfiles:
     }
 
     var chars = ["iza","andy","kev","sus","hel","drk"];
-    var divs = ["intro","risky","cstly","blnce"];
+    var divs = ["intro","risky","cstly","blnce", "final"];
 
     function hideChatDivs(name) {
         console.log(name);
@@ -247,11 +257,16 @@ $if content.cssfiles:
                 hideChatDivs();
                 showChatDivs(2); // show costly divs
                 break;
-            default: // if 0
+            case (chatCookie == 0) : // if 0
                 hideChatDivs();
                 showChatDivs(3); // show balance divs
                 break;
         }
+    }
+
+    if (turn == 13) {
+        hideChatDivs();
+        showChatDivs(4);
     }
 
     /*

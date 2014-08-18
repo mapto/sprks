@@ -28,10 +28,16 @@ $var date: $turn
     $$(document).ready(initIncident());
 
     var tally = parseInt(getCookie("tally"));
+
+    var randScore = Math.floor(Math.random()*3); // this will get a number between 0 and 2;
+    randScore *= Math.floor(Math.random()*2) == 1 ? 1 : -1; // this will turn that number negative 50% of the time
+    console.log('randScore ' + randScore);
+
     window.onbeforeunload = function () {
         var adjust = parseInt(document.getElementById("chat-modifier").innerHTML);
-        setCookie("tally", tally + parseInt(document.getElementById("chat-modifier").innerHTML));
-        setCookie("chats", 1);
+        //setCookie("tally", tally + parseInt(document.getElementById("chat-modifier").innerHTML)); // use when incident bug is fixed
+        setCookie("tally", tally + randScore); // use for testing
+        setCookie("chats", randScore); // use "chat-modifier" value when incident bug is fixed
         setCookie("iupper", document.getElementById("impress-upper").innerHTML);
         setCookie("ilower", document.getElementById("impress-lower").innerHTML);
         setCookie("imiddle", document.getElementById("id").innerHTML);
