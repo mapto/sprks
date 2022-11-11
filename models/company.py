@@ -50,8 +50,8 @@ class company:
 
 if __name__ == "__main__":
     co = company()
-    print str(co.employee_types) + " " + str(co.get_user_distribution())
-    print str(co.location_types) + " " + str(co.get_location_distribution())
-    print str(co.device_types) + " " + str(co.get_device_distribution())
-    print co.get_location_distribution("executives")
-    print co.get_location_distribution("desk")
+    print(str(co.employee_types) + " " + str(co.get_user_distribution()))
+    print(str(co.location_types) + " " + str(co.get_location_distribution()))
+    print(str(co.device_types) + " " + str(co.get_device_distribution()))
+    print(co.get_location_distribution("executives"))
+    print(co.get_location_distribution("desk"))

@@ -144,7 +144,7 @@ class policies_model:
                     if key in skipped:
                         continue
                     env[i][key] = new_policy[key]
-                print env[i]
+                print(env[i])
                 env[i]['employee'] = [new_policy['employee']]
                 env[i]['location'] = [new_policy['location']]
                 env[i]['device'] = [new_policy['device']]
@@ -160,32 +160,32 @@ class policies_model:
         :param policy_update:
         :param date:
         """
-        print "parsing update policy..."
+        print("parsing update policy...")
         updated_policy = policies_model().parse_policy(policy_update)
-        print "done"
-        print "getting latest policy from db..."
+        print("done")
+        print("getting latest policy from db...")
         latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id(), True))
-        print latest_policy
-        print "done"
-        print "merging policies..."
+        print(latest_policy)
+        print("done")
+        print("merging policies...")
         merged_policy = policies_model().merge_policies(updated_policy, latest_policy)
-        print "done"
-        print "inserting into table"
+        print("done")
+        print("inserting into table")
         #print policies_model().nested_obj_to_list_of_dict(merged_policy)
         policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(merged_policy), date)
-        print "done"
+        print("done")
 
     @classmethod
     def commit_same_policy(cls, date):
         """
         Gets the latest policy set from the server and duplicates them for the specified date.
         """
-        print "getting latest policy from db..."
+        print("getting latest policy from db...")
         latest_policy = policies_model().iter_to_nested_obj(policies_model().get_policy_history(context.user_id()))
-        print "done"
-        print "inserting into table"
+        print("done")
+        print("inserting into table")
         policies_model().insert_polices(policies_model().nested_obj_to_list_of_dict(latest_policy), date)
-        print "done"
+        print("done")
 
     def parse_policy(self, policyUpdate):
         """
@@ -316,8 +316,8 @@ class policies_model:
         """
         Inserts set of policies into table
         """
-        print "policy inside insert_into_tables"
-        print policy
+        print("policy inside insert_into_tables")
+        print(policy)
         if self.check_default(policy) == 0:
             id_pwpolicy = 0
         else:
