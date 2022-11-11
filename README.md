@@ -11,3 +11,9 @@ SPRKS is being developed at UCL Information Security Research Group and is suppo
 Check out the [wiki page](https://github.com/mapto/sprks/wiki) for more details.
 
 This project has been suspended due to lack of time.
+
+# Installation
+
+The game was developed in 2014 and uses legacy software. The simplest way to use it now is to use [docker-compose](https://docs.docker.com/compose/). This will install a development version. Once started, run tests with:
+
+    docker exec -it sprks_app_1 /bin/bash -c "pip install pytest && cd app && py.test"

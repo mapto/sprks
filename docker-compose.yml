@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mariadb:10.8.2
+    environment:
+      MARIADB_ROOT_PASSWORD: 1234
+      MARIADB_DATABASE: sprks
+    network_mode: "host"
+    volumes:
+      # - ./db/conf:/etc/mysql/conf.d:ro
+      - ./db-data:/var/lib/mysql
+      - ./config:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+        test: "/usr/bin/mysql -uroot -p$$MARIADB_ROOT_PASSWORD $$MARIADB_DATABASE -e\"SELECT 1;\""
+    restart: always
+    # logging:
+    #   driver: none
+
+  app: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    volumes:
+     - .:/tmp
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+    restart: always
+    # logging:
+    #   driver: none
+    depends_on:
+      db:
+        condition: service_healthy
+
