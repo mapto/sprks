@@ -1,10 +1,6 @@
 # Game overview
 
-When users open the game site, they see the login screen
-
-![Login screen](screenshot-login.png)
-
-Once logged in, they see the game story, introducing into the company that is the game context.
+When users open the game site, they need to authenticate. Once logged in, they see the [game story](../views/index.html#L231), introducing into the company that is the game context.
 
 ![Intro](screenshot-intro1.png)
 ![Intro](screenshot-intro2.png)
@@ -17,12 +13,11 @@ Then the players can explore the game interface. At this point, there are two us
  Through the menu on the left, a company security policy could be set.
  Policies are specified for 27 different context by types:
  
-   1. 3 employee: executive, desk, road
-   2. 3 location: office, public and home
-   3. 3 device: desktop computer, laptop, phone
+   1. employee: executive, desk, road
+   2. location: office, public and home
+   3. device: desktop computer, laptop, phone
 
-![Security policy](screenshot-policy-password1.png)
-![Security policy](screenshot-policy-password2.png)
+![Security policy](screenshot-policy-password.png)
 
 The game map shows three different map domain spaces: office, public and home.
 In the lower left corner an indication of current risks and costs is shown.
