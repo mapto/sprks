@@ -8,7 +8,7 @@ This is the website of the SPRKS project. It is an exploratory game employing ag
 
 SPRKS is being developed at UCL Information Security Research Group and is supported by Intel and IBM.
 
-Check out the [wiki page](https://github.com/mapto/sprks/wiki) for more details.
+A game overview can be seen in the [docs](docs/) directory. Check out the [wiki page](https://github.com/mapto/sprks/wiki) for technical details.
 
 This project has been suspended due to lack of time.
 
