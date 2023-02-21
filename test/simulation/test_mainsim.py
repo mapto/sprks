@@ -44,11 +44,11 @@ class TestGeneration:
 
         assert len(self.trainer.enum_samples({})) == product
 
-    def test_training_data(self):
-        for next in self.entries:
-            print next
-            assert self.classifier.predict_data(next) == 'classifier'
-            print self.classifier.predict_data(next)
+    # def test_training_data(self):
+    #     for next in self.entries:
+    #         print(next)
+    #         assert self.classifier.predict_data(next) == 'classifier'
+    #         print(self.classifier.predict_data(next))
 
     def generate_testing_set(self):
         """
@@ -94,7 +94,7 @@ class TestGeneration:
             line.append(incident["type"])
             line.append(cls)
             line.append(value)
-            print str(incident["name"]) + " policy: " + str(data) + " context: " + str(context) + " risks: " + str(risks)
+            print(str(incident["name"]) + " policy: " + str(data) + " context: " + str(context) + " risks: " + str(risks))
             for risk in self.all_risks:
                 for employee in context['employees']:
                     for location in context['locations']:

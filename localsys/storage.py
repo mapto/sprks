@@ -14,7 +14,7 @@ try:
         port=getattr(settings, 'dbport', 3306)
     )
     path = getattr(settings, 'path', '')
-except ImportError, AttributeError:
+except AttributeError:
     # Default DB credentials
     db = web.database(
         dbn='mysql',
@@ -25,3 +25,14 @@ except ImportError, AttributeError:
         port=3306
     )
     path = ''
+except ImportError:
+    # Default DB credentials
+    db = web.database(
+        dbn='mysql',
+        user='root',
+        pw='1234',
+        db='sprks',
+        host='127.0.0.1',
+        port=3306
+    )
+    path = ''    
