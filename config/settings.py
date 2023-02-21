@@ -9,6 +9,7 @@ A user-customized version of this file should be placed in the root directory (s
 # database credentials
 dbuser = 'root'
 dbpw = '1234'
+dbhost = '172.17.0.2'
 
 # default values if left unset
 # dbname = 'sprks'

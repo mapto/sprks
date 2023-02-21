@@ -10,8 +10,8 @@ try:
         user=getattr(settings, 'dbuser'),
         pw=getattr(settings, 'dbpw'),
         db=getattr(settings, 'dbname', 'sprks'),
-        host=getattr(settings, 'host', '127.0.0.1'),
-        port=getattr(settings, 'port', 3306)
+        host=getattr(settings, 'dbhost', '127.0.0.1'),
+        port=getattr(settings, 'dbport', 3306)
     )
     path = getattr(settings, 'path', '')
 except ImportError, AttributeError:

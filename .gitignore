@@ -2,6 +2,7 @@
 .metadata
 static/data/*.pdf
 static/data/*.pkl
+static/data/*.csv
 
 *.py[cod]
 
