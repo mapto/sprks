@@ -7,9 +7,9 @@ When users open the game site, they need to authenticate. Once logged in, they s
 ![Intro](screenshot-intro1.png)
 ![Intro](screenshot-intro2.png)
 
-Then the players can explore the game interface. At this point, there are two points of interaction:
+Then the players can explore the game interface. In it, there are two points of interaction:
 
-  1. Company security policy - where the players makes their choices 
+  1. Company security policy - where the player makes their choices 
   2. Game map and characters - where they can get feedback about the consequences of their decisions
  
  Through the menu on the left, a company security policy could be set.
